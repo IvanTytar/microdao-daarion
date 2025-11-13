@@ -1,0 +1,201 @@
+# microdao_dependency_matrix.yaml
+version: 1
+stages:
+  - { id: P0, name: Foundation, description: "IAM, Gateway, Data, Policy, Events, Observability, UI shell" }
+  - { id: P1, name: Intelligence, description: "KB Core, Parser, SLM Agent" }
+  - { id: P2, name: Comms, description: "Messenger, Notifications, Meeting Agent" }
+  - { id: P3, name: Org/Econ, description: "Project Manager, DAO Governance, Wallet/Finance" }
+  - { id: P4, name: Extensions, description: "Integration Hub, Marketplace, Training Lab, Security Audit" }
+
+environments:
+  - { id: dev,   url: "https://dev.microdao.local",  require_approvals: false, replicas_factor: 1 }
+  - { id: stage, url: "https://stage.microdao.app",  require_approvals: true,  replicas_factor: 1 }
+  - { id: prod,  url: "https://microdao.app",        require_approvals: true,  replicas_factor: 3 }
+
+globals:
+  readiness_gates:
+    - { name: db-ready,     check: http+json, endpoint: "/readyz", expect: { deps: { db: ok } } }
+    - { name: policy-ready, check: http+json, endpoint: "/readyz", expect: { deps: { policy: ok } } }
+  rollout:
+    strategy: canary
+    canary_traffic_steps: [5, 25, 50, 100]
+    abort_on: ["5xx_rate > 0.5%", "p95_latency_ms > 800"]
+  feature_flags:
+    - { name: rag_in_chat,          default: true }
+    - { name: parser_wasm,          default: false }
+    - { name: dao_quadratic_vote,   default: false }
+
+services:
+  - id: iam
+    stage: P0
+    env_vars: [JWT_PUBLIC_KEYS, OAUTH_CLIENTS]
+    depends_on: []
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: core-platform, oncall: "#oncall-core" }
+    alerts: [{ name: auth-5xx, metric: http_5xx_rate, threshold: 0.5 }]
+
+  - id: gateway
+    stage: P0
+    env_vars: [HMAC_SECRET, RATE_LIMITS]
+    depends_on: [iam, policy]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: edge, oncall: "#oncall-edge" }
+    alerts: [{ name: ratelimit-shed, metric: http_429_rate, threshold: 5.0 }]
+
+  - id: data-plane
+    stage: P0
+    kind: postgres+blob+vector
+    env_vars: [PG_URL, BLOB_BUCKET, VECTOR_INDEX]
+    depends_on: []
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: data, oncall: "#oncall-data" }
+
+  - id: policy
+    stage: P0
+    env_vars: [POLICY_BACKEND, DEFAULT_POLICIES]
+    depends_on: [data-plane]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: security, oncall: "#oncall-security" }
+
+  - id: events
+    stage: P0
+    kind: sse+webhooks
+    env_vars: [WEBHOOK_SECRET, QUEUE_URL]
+    depends_on: [gateway]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: platform, oncall: "#oncall-platform" }
+
+  - id: observability
+    stage: P0
+    kind: metrics+logs+traces
+    env_vars: [OTLP_COLLECTOR, LOG_SINK]
+    depends_on: []
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: sre, oncall: "#oncall-sre" }
+
+  - id: ui-shell
+    stage: P0
+    kind: frontend
+    env_vars: [GATEWAY_URL, FEATURE_FLAGS]
+    depends_on: [gateway]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: frontend, oncall: "#oncall-frontend" }
+
+  - id: kb-core
+    stage: P1
+    kind: rag+kg
+    env_vars: [PG_URL, VECTOR_INDEX, RAG_MODEL]
+    depends_on: [data-plane, policy]
+    healthz: /healthz
+    readyz: /readyz
+    gates: [db-ready, policy-ready]
+    ownership: { team: intelligence, oncall: "#oncall-ml" }
+
+  - id: parser
+    stage: P1
+    kind: ingest/usdo
+    env_vars: [PG_URL, OBJECT_BUCKET, PARSER_MODELS]
+    depends_on: [kb-core, policy, events]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: ingest, oncall: "#oncall-ingest" }
+
+  - id: slm-agent
+    stage: P1
+    kind: inference
+    env_vars: [SLM_MODEL_PATH, WEBNN_ENABLE]
+    depends_on: [kb-core, policy]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: intelligence, oncall: "#oncall-ml" }
+
+  - id: messenger
+    stage: P2
+    env_vars: [PG_URL, WS_BROKER]
+    depends_on: [gateway, events, policy, data-plane]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: messaging, oncall: "#oncall-messaging" }
+
+  - id: meeting-agent
+    stage: P2
+    env_vars: [MEDIA_RECORDER, STT_MODEL]
+    depends_on: [messenger, events]
+    healthz: /healthz
+    readyz: /readyz
+    feature_flags: [meeting_agent_beta]
+    ownership: { team: comms, oncall: "#oncall-comms" }
+
+  - id: project-manager
+    stage: P3
+    env_vars: [PG_URL]
+    depends_on: [slm-agent, messenger, events]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: productivity, oncall: "#oncall-pm" }
+
+  - id: wallet
+    stage: P3
+    env_vars: [WALLET_MNEMONIC, CHAIN_RPC]
+    depends_on: [gateway, policy]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: finance, oncall: "#oncall-finance" }
+
+  - id: dao
+    stage: P3
+    env_vars: [WALLET_RPC, TOKEN_ADDR]
+    depends_on: [policy, wallet, events]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: governance, oncall: "#oncall-governance" }
+
+  - id: integration-hub
+    stage: P4
+    env_vars: [CONNECTOR_KEYS, TELEGRAM_TOKEN, GITHUB_TOKEN]
+    depends_on: [gateway, events, policy]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: platform, oncall: "#oncall-platform" }
+
+  - id: marketplace
+    stage: P4
+    env_vars: [MARKET_FEE_BPS, AMM_POOL_ADDR]
+    depends_on: [wallet, dao, policy]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: economy, oncall: "#oncall-economy" }
+
+  - id: training-lab
+    stage: P4
+    env_vars: [FEEDBACK_BUCKET]
+    depends_on: [slm-agent, kb-core, events]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: mlops, oncall: "#oncall-mlops" }
+
+  - id: security-audit
+    stage: P4
+    env_vars: [AUDIT_SINK]
+    depends_on: [gateway, policy]
+    healthz: /healthz
+    readyz: /readyz
+    ownership: { team: security, oncall: "#oncall-security" }
+
+pipelines:
+  deploy:
+    order: [P0, P1, P2, P3, P4]
+    env_sequence: [dev, stage, prod]
+    gates:
+      - smoke: "http 200 on /healthz for all services in stage"
+      - load: "p95 < 800ms for kb-core, messenger in stage"
+      - error_budget: "< 1% over last 24h before prod"
+    notifications:
+      slack_channels: ["#deployments", "#oncall"]
