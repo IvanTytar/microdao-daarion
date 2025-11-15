@@ -148,7 +148,7 @@ async def telegram_webhook(update: TelegramUpdate):
         
         # Extract response text
         if isinstance(response, dict):
-            answer_text = response.get("response", "Вибач, я зараз не можу відповісти.")
+            answer_text = response.get("data", {}).get("text") or response.get("response", "Вибач, я зараз не можу відповісти.")
         else:
             answer_text = "Вибач, сталася помилка."
         
@@ -220,7 +220,7 @@ async def discord_webhook(message: DiscordMessage):
         
         # Extract response text
         if isinstance(response, dict):
-            answer_text = response.get("response", "Sorry, I can't respond right now.")
+            answer_text = response.get("data", {}).get("text") or response.get("response", "Sorry, I can't respond right now.")
         else:
             answer_text = "Sorry, an error occurred."
         
