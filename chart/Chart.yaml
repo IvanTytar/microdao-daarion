@@ -1,0 +1,5 @@
+apiVersion: v2
+name: dagi-router
+version: 0.1.0
+description: Minimal DAGI Router (MVP) - Agent Gateway Interface
+type: application

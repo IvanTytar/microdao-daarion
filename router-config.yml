@@ -1,0 +1,180 @@
+# DAGI Router Configuration
+# Version: 0.5.0 - With DevTools + CrewAI Integration
+
+node:
+  id: dagi-devtools-node-01
+  role: router
+  env: dev
+  description: "DAGI Router with DevTools Agent and CrewAI Orchestrator support"
+
+# ============================================================================
+# LLM Profiles - доступні моделі
+# ============================================================================
+llm_profiles:
+  # Локальна модель через Ollama (основна для DevTools)
+  local_qwen3_8b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen3:8b
+    max_tokens: 1024
+    temperature: 0.2
+    top_p: 0.9
+    timeout_ms: 30000
+    description: "Локальна qwen3:8b для простих dev-задач"
+
+  # DeepSeek для складних задач (опціонально)
+  cloud_deepseek:
+    provider: deepseek
+    base_url: https://api.deepseek.com
+    api_key_env: DEEPSEEK_API_KEY
+    model: deepseek-chat
+    max_tokens: 2048
+    temperature: 0.2
+    timeout_ms: 40000
+    description: "DeepSeek для складних аналітичних задач"
+
+# ============================================================================
+# Orchestrator Providers - multi-agent workflow orchestration
+# ============================================================================
+orchestrator_providers:
+  crewai:
+    type: orchestrator
+    base_url: http://localhost:9010
+    timeout_ms: 120000
+    description: "CrewAI multi-agent workflow orchestrator"
+
+# ============================================================================
+# Agents Configuration
+# ============================================================================
+agents:
+  devtools:
+    description: "DevTools Agent - помічник з кодом, тестами й інфраструктурою"
+    default_llm: local_qwen3_8b
+    system_prompt: |
+      Ти - DevTools Agent в екосистемі DAARION.city.
+      Ти допомагаєш розробникам з:
+      - аналізом коду та пошуком багів
+      - рефакторингом
+      - написанням тестів
+      - git операціями
+      Відповідай коротко, конкретно, з прикладами коду коли потрібно.
+    
+    tools:
+      - id: fs_read
+        type: builtin
+        description: "Читання файлів"
+      - id: fs_write
+        type: builtin
+        description: "Запис файлів"
+      - id: run_tests
+        type: builtin
+        description: "Запуск тестів"
+      - id: git_diff
+        type: builtin
+        description: "Git diff"
+      - id: git_commit
+        type: builtin
+        description: "Git commit"
+
+  microdao_orchestrator:
+    description: "Multi-agent orchestrator for microDAO workflows"
+    default_llm: local_qwen3_8b
+    system_prompt: |
+      You are a multi-agent orchestrator for DAARION.city microDAO ecosystem.
+      You coordinate complex workflows involving multiple specialized agents.
+
+# ============================================================================
+# Routing Rules - правила маршрутизації
+# ============================================================================
+routing:
+  # microDAO chat mode
+  - id: microdao_chat
+    priority: 10
+    when:
+      mode: chat
+    use_llm: local_qwen3_8b
+    description: "microDAO chat → local LLM with RBAC context"
+
+  # NEW: CrewAI workflow orchestration
+  - id: crew_mode
+    priority: 3
+    when:
+      mode: crew
+    use_provider: orchestrator_crewai
+    description: "CrewAI workflow orchestration → CrewAI backend"
+
+  # DevTools tool execution mode
+  - id: devtools_tool_execution
+    priority: 3
+    when:
+      mode: devtools
+    use_provider: devtools_devtools
+    description: "DevTools tool execution → DevTools backend"
+
+  # Explicit override через metadata.provider
+  - id: explicit_provider_override
+    priority: 5
+    when:
+      metadata_has: provider
+    use_metadata: provider
+    description: "Явний вибір провайдера через metadata.provider"
+
+  # DevTools + складні задачі → DeepSeek (якщо є API key)
+  - id: devtools_complex_cloud
+    priority: 10
+    when:
+      agent: devtools
+      and:
+        - task_type: 
+            - refactor_large
+            - architecture_review
+            - security_audit
+            - performance_analysis
+        - api_key_available: DEEPSEEK_API_KEY
+    use_llm: cloud_deepseek
+    description: "Складні DevTools задачі → DeepSeek"
+
+  # DevTools + всі інші задачі → qwen3:8b (локально)
+  - id: devtools_default_local
+    priority: 20
+    when:
+      agent: devtools
+    use_llm: local_qwen3_8b
+    description: "Стандартні DevTools задачі → локальна qwen3:8b"
+
+  # microDAO orchestrator → CrewAI
+  - id: microdao_orchestrator
+    priority: 15
+    when:
+      agent: microdao_orchestrator
+    use_provider: orchestrator_crewai
+    description: "microDAO workflows → CrewAI orchestrator"
+
+  # Fallback - будь-який інший запит → qwen3:8b
+  - id: fallback_local
+    priority: 100
+    when: {}
+    use_llm: local_qwen3_8b
+    description: "Fallback: всі інші запити → qwen3:8b"
+
+# ============================================================================
+# Telemetry & Logging
+# ============================================================================
+telemetry:
+  enabled: true
+  log_level: INFO
+  metrics:
+    - requests_total
+    - latency_ms
+    - tokens_used
+
+# ============================================================================
+# Policies
+# ============================================================================
+policies:
+  rate_limit:
+    enabled: false
+  cost_tracking:
+    enabled: true
+  audit_mode:
+    enabled: false
