@@ -83,7 +83,7 @@ class DialogSummary(Base):
     topics = Column(JSONB, nullable=True)  # ["project-planning", "bug-fix", ...]
     
     # Метадані
-    metadata = Column(JSONB, nullable=False, server_default="{}")
+    meta = Column(JSONB, nullable=False, server_default="{}")
     
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
 
