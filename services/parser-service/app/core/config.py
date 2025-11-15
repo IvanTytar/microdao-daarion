@@ -3,7 +3,7 @@ Configuration for PARSER Service
 """
 
 import os
-from typing import Literal
+from typing import Literal, Optional
 from pydantic_settings import BaseSettings
 
 
@@ -24,6 +24,17 @@ class Settings(BaseSettings):
     # File handling
     MAX_FILE_SIZE_MB: int = int(os.getenv("MAX_FILE_SIZE_MB", "50"))
     TEMP_DIR: str = os.getenv("TEMP_DIR", "/tmp/parser")
+    
+    # PDF processing
+    PDF_DPI: int = int(os.getenv("PDF_DPI", "200"))
+    PAGE_RANGE: Optional[str] = os.getenv("PAGE_RANGE", None)  # e.g., "1-20" for pages 1-20
+    
+    # Image processing
+    IMAGE_MAX_SIZE: int = int(os.getenv("IMAGE_MAX_SIZE", "2048"))  # Max size for longest side
+    
+    # Parser mode
+    USE_DUMMY_PARSER: bool = os.getenv("USE_DUMMY_PARSER", "false").lower() == "true"
+    ALLOW_DUMMY_FALLBACK: bool = os.getenv("ALLOW_DUMMY_FALLBACK", "true").lower() == "true"
     
     # Runtime
     RUNTIME_TYPE: Literal["local", "remote"] = os.getenv("RUNTIME_TYPE", "local")

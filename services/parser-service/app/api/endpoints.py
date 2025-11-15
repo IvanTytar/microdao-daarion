@@ -14,7 +14,13 @@ from app.schemas import (
     ParseRequest, ParseResponse, ParsedDocument, ParsedChunk, QAPair, ChunksResponse
 )
 from app.core.config import settings
-from app.runtime.inference import parse_document, dummy_parse_document
+from app.runtime.inference import parse_document_from_images
+from app.runtime.preprocessing import (
+    convert_pdf_to_images, load_image, detect_file_type, validate_file_size
+)
+from app.runtime.postprocessing import (
+    build_chunks, build_qa_pairs, build_markdown
+)
 
 logger = logging.getLogger(__name__)
 
@@ -50,31 +56,29 @@ async def parse_document_endpoint(
                 detail="Either 'file' or 'doc_url' must be provided"
             )
         
-        # Determine document type
+        # Process file
         if file:
-            doc_type = "image"  # Will be determined from file extension
-            file_ext = Path(file.filename or "").suffix.lower()
-            if file_ext == ".pdf":
-                doc_type = "pdf"
-            
             # Read file content
             content = await file.read()
             
-            # Check file size
-            max_size = settings.MAX_FILE_SIZE_MB * 1024 * 1024
-            if len(content) > max_size:
-                raise HTTPException(
-                    status_code=413,
-                    detail=f"File size exceeds maximum {settings.MAX_FILE_SIZE_MB}MB"
-                )
+            # Validate file size
+            try:
+                validate_file_size(content)
+            except ValueError as e:
+                raise HTTPException(status_code=413, detail=str(e))
             
-            # Save to temp file
-            temp_dir = Path(settings.TEMP_DIR)
-            temp_dir.mkdir(exist_ok=True, parents=True)
-            temp_file = temp_dir / f"{uuid.uuid4()}{file_ext}"
-            temp_file.write_bytes(content)
+            # Detect file type
+            try:
+                doc_type = detect_file_type(content, file.filename)
+            except ValueError as e:
+                raise HTTPException(status_code=400, detail=str(e))
             
-            input_path = str(temp_file)
+            # Convert to images
+            if doc_type == "pdf":
+                images = convert_pdf_to_images(content)
+            else:
+                image = load_image(content)
+                images = [image]
             
         else:
             # TODO: Download from doc_url
@@ -83,51 +87,31 @@ async def parse_document_endpoint(
                 detail="doc_url download not yet implemented"
             )
         
-        # Parse document
-        logger.info(f"Parsing document: {input_path}, mode: {output_mode}")
+        # Parse document from images
+        logger.info(f"Parsing document: {len(images)} page(s), mode: {output_mode}")
         
-        # TODO: Replace with real parse_document when model is integrated
-        parsed_doc = dummy_parse_document(
-            input_path=input_path,
+        parsed_doc = parse_document_from_images(
+            images=images,
             output_mode=output_mode,
             doc_id=doc_id or str(uuid.uuid4()),
             doc_type=doc_type
         )
         
         # Build response based on output_mode
-        response_data = {"metadata": {}}
+        response_data = {"metadata": {
+            "doc_id": parsed_doc.doc_id,
+            "doc_type": parsed_doc.doc_type,
+            "page_count": len(parsed_doc.pages)
+        }}
         
         if output_mode == "raw_json":
             response_data["document"] = parsed_doc
         elif output_mode == "markdown":
-            # TODO: Convert to markdown
-            response_data["markdown"] = "# Document\n\n" + "\n\n".join(
-                block.text for page in parsed_doc.pages for block in page.blocks
-            )
+            response_data["markdown"] = build_markdown(parsed_doc)
         elif output_mode == "qa_pairs":
-            # TODO: Extract QA pairs
-            response_data["qa_pairs"] = []
+            response_data["qa_pairs"] = build_qa_pairs(parsed_doc)
         elif output_mode == "chunks":
-            # Convert blocks to chunks
-            chunks = []
-            for page in parsed_doc.pages:
-                for block in page.blocks:
-                    chunks.append(ParsedChunk(
-                        text=block.text,
-                        page=page.page_num,
-                        bbox=block.bbox,
-                        section=block.type,
-                        metadata={
-                            "dao_id": dao_id,
-                            "doc_id": parsed_doc.doc_id,
-                            "block_type": block.type
-                        }
-                    ))
-            response_data["chunks"] = chunks
-        
-        # Cleanup temp file
-        if file and temp_file.exists():
-            temp_file.unlink()
+            response_data["chunks"] = build_chunks(parsed_doc, dao_id=dao_id)
         
         return ParseResponse(**response_data)
         
