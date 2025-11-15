@@ -124,7 +124,7 @@ async def telegram_webhook(update: TelegramUpdate):
         
         # Build request to Router with DAARWIZZ context
         router_request = {
-            "prompt": text,
+            "message": text,
             "mode": "chat",
             "agent": "daarwizz",  # DAARWIZZ agent identifier
             "metadata": {
@@ -197,7 +197,7 @@ async def discord_webhook(message: DiscordMessage):
         
         # Build request to Router with DAARWIZZ context
         router_request = {
-            "prompt": text,
+            "message": text,
             "mode": "chat",
             "agent": "daarwizz",
             "metadata": {

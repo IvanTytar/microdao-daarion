@@ -25,7 +25,7 @@ class LLMProvider(Provider):
         base_url: str,
         model: str,
         api_key: Optional[str] = None,
-        timeout_s: int = 30,
+        timeout_s: int = 60,
         max_tokens: int = 1024,
         temperature: float = 0.2,
         provider_type: str = "openai",  # "openai" or "ollama"
