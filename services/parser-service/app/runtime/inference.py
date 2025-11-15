@@ -6,6 +6,7 @@ import logging
 from typing import Literal, Optional, List
 from pathlib import Path
 
+import torch
 from PIL import Image
 
 from app.schemas import ParsedDocument, ParsedPage, ParsedBlock, BBox
@@ -14,6 +15,7 @@ from app.runtime.preprocessing import (
     convert_pdf_to_images, load_image, prepare_images_for_model
 )
 from app.runtime.postprocessing import build_parsed_document
+from app.runtime.model_output_parser import parse_model_output_to_blocks
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -63,35 +65,45 @@ def parse_document_from_images(
     
     for idx, image in enumerate(prepared_images, start=1):
         try:
-            # TODO: Implement actual inference with dots.ocr
-            # Example:
-            # inputs = model["processor"](images=image, return_tensors="pt")
-            # outputs = model["model"].generate(**inputs)
-            # text = model["processor"].decode(outputs[0], skip_special_tokens=True)
-            # 
-            # # Parse model output into blocks
-            # blocks = parse_model_output_to_blocks(text, image.size)
-            # 
-            # pages_data.append({
-            #     "blocks": blocks,
-            #     "width": image.width,
-            #     "height": image.height
-            # })
+            # Prepare inputs for model
+            inputs = model["processor"](images=image, return_tensors="pt")
             
-            # For now, use dummy for each page
-            logger.debug(f"Processing page {idx} with model (placeholder)")
+            # Move inputs to device
+            device = model["device"]
+            if device != "cpu":
+                inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v 
+                         for k, v in inputs.items()}
+            
+            # Generate output
+            with torch.no_grad():
+                outputs = model["model"].generate(
+                    **inputs,
+                    max_new_tokens=2048,  # Adjust based on model capabilities
+                    do_sample=False  # Deterministic output
+                )
+            
+            # Decode output
+            generated_text = model["processor"].decode(
+                outputs[0], 
+                skip_special_tokens=True
+            )
+            
+            logger.debug(f"Model output for page {idx}: {generated_text[:100]}...")
+            
+            # Parse model output into blocks
+            blocks = parse_model_output_to_blocks(
+                generated_text,
+                image.size,
+                page_num=idx
+            )
+            
             pages_data.append({
-                "blocks": [
-                    {
-                        "type": "paragraph",
-                        "text": f"Page {idx} content (model output placeholder)",
-                        "bbox": {"x": 0, "y": 0, "width": image.width, "height": image.height},
-                        "reading_order": 1
-                    }
-                ],
+                "blocks": blocks,
                 "width": image.width,
                 "height": image.height
             })
+            
+            logger.info(f"Processed page {idx}/{len(prepared_images)}")
             
         except Exception as e:
             logger.error(f"Error processing page {idx}: {e}", exc_info=True)
