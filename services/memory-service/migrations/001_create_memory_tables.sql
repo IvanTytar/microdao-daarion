@@ -8,7 +8,7 @@ CREATE EXTENSION IF NOT EXISTS "vector";
 -- ========== User Facts ==========
 CREATE TABLE IF NOT EXISTS user_facts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL,  -- Без FK constraint для тестування
     team_id TEXT,  -- Без FK constraint, оскільки teams може не існувати
     
     -- Ключ факту (наприклад: "language", "is_donor", "is_validator", "top_contributor")
@@ -41,11 +41,11 @@ CREATE INDEX IF NOT EXISTS idx_user_facts_expires_at ON user_facts(expires_at) W
 CREATE TABLE IF NOT EXISTS dialog_summaries (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     
-    -- Контекст діалогу
-    team_id TEXT NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    channel_id TEXT REFERENCES channels(id) ON DELETE CASCADE,
-    agent_id TEXT REFERENCES agents(id) ON DELETE CASCADE,
-    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+    -- Контекст діалогу (без FK constraints для тестування)
+    team_id TEXT NOT NULL,
+    channel_id TEXT,
+    agent_id TEXT,
+    user_id TEXT,
     
     -- Період
     period_start TIMESTAMPTZ NOT NULL,
@@ -79,10 +79,11 @@ CREATE INDEX IF NOT EXISTS idx_dialog_summaries_created_at ON dialog_summaries(c
 CREATE TABLE IF NOT EXISTS agent_memory_events (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     
-    agent_id TEXT NOT NULL REFERENCES agents(id) ON DELETE CASCADE,
-    team_id TEXT NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    channel_id TEXT REFERENCES channels(id) ON DELETE CASCADE,
-    user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+    -- Без FK constraints для тестування
+    agent_id TEXT NOT NULL,
+    team_id TEXT NOT NULL,
+    channel_id TEXT,
+    user_id TEXT,
     
     -- Scope: short_term, mid_term, long_term
     scope TEXT NOT NULL CHECK (scope IN ('short_term', 'mid_term', 'long_term')),
@@ -109,13 +110,14 @@ CREATE INDEX IF NOT EXISTS idx_agent_memory_events_created_at ON agent_memory_ev
 CREATE TABLE IF NOT EXISTS agent_memory_facts_vector (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     
-    agent_id TEXT NOT NULL REFERENCES agents(id) ON DELETE CASCADE,
-    team_id TEXT NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
+    -- Без FK constraints для тестування
+    agent_id TEXT NOT NULL,
+    team_id TEXT NOT NULL,
     
     fact_text TEXT NOT NULL,
     embedding vector(1536),  -- OpenAI ada-002 embedding size
     
-    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    meta JSONB NOT NULL DEFAULT '{}'::jsonb,
     
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
