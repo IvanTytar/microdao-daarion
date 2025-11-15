@@ -1,51 +1,71 @@
-# MicroDAO Frontend - Структура проекту
+# MicroDAO Backend — Source Code Structure
 
-## Структура каталогів
+Цей документ описує структуру коду backend-частини MicroDAO/DAARION.city.
+
+## Структура папок
 
 ```
 src/
-  api/              # API клієнти та типи
-    client.ts       # Базовий API клієнт
-    auth.ts         # Авторизація
-    teams.ts        # Спільноти
-    channels.ts     # Канали
-    agents.ts       # Агенти
-  components/       # React компоненти
-    onboarding/    # Компоненти онбордингу
-      OnboardingStepper.tsx
-      StepWelcome.tsx
-      StepCreateTeam.tsx
-      StepSelectMode.tsx
-      StepCreateChannel.tsx
-      StepAgentSettings.tsx
-      StepInvite.tsx
-  hooks/            # React hooks
-    useOnboarding.ts
-  pages/            # Сторінки
-    OnboardingPage.tsx
-  types/            # TypeScript типи
-    api.ts
+├── domain/          # Чисті доменні типи та логіка (без I/O)
+│   ├── dao/        # DAO domain types & logic
+│   ├── wallet/     # Wallet domain types
+│   ├── pdp/        # PDP policy model
+│   └── user/       # User domain types
+│
+├── services/        # Бізнес-логіка сервісів
+│   ├── wallet/     # Wallet Service
+│   ├── dao-factory/ # DAOFactory Service
+│   ├── registry/   # Registry Service
+│   ├── pdp/        # PDP Service
+│   └── router/     # Router/Agent runtime (майбутнє)
+│
+├── api/            # HTTP API layer
+│   ├── http/       # Express routes
+│   └── middleware/ # Auth, context middleware
+│
+├── infra/          # Інфраструктура
+│   ├── db/         # Database access
+│   ├── logger/     # Logging
+│   └── config/     # Configuration
+│
+└── app.ts          # Application entry point
 ```
 
-## Онбординг
+## Принципи архітектури
 
-Онбординг реалізовано як багатокроковий процес з 6 кроками:
+1. **Domain Layer** (`domain/`) — чисті типи та бізнес-логіка без залежностей від інфраструктури
+2. **Services Layer** (`services/`) — реалізація бізнес-логіки згідно `core-services-mvp.md`
+3. **API Layer** (`api/`) — HTTP-рівень, що викликає сервіси
+4. **Infrastructure Layer** (`infra/`) — БД, логування, конфігурація
 
-1. **Ласкаво просимо** - привітальний екран
-2. **Створити спільноту** - форма з назвою та описом
-3. **Режим приватності** - вибір Public/Confidential
-4. **Перший канал** - створення каналу
-5. **Агент та пам'ять** - налаштування агента
-6. **Запросити команду** - посилання-запрошення
+## Документація
 
-## API Інтеграція
+- `docs/core-services-mvp.md` — специфікація core-сервісів
+- `docs/api-mvp.md` — API специфікація
+- `docs/pdp_access.md` — PDP та система доступів
 
-Всі API виклики типізовані та обробляють помилки. Базовий URL налаштовується через змінну середовища `VITE_API_URL` (за замовчуванням `https://api.microdao.xyz`).
+## Запуск
 
-## Наступні кроки
+```bash
+npm install
+npm run dev
+```
 
-- Додати сторінку налаштувань (Settings)
-- Реалізувати чат інтерфейс
-- Додати публічний канал landing page
-- Інтегрувати WebSocket для real-time оновлень
+## MVP Status
 
+Наразі реалізовано:
+- ✅ Структура проекту
+- ✅ Domain types
+- ✅ Wallet Service (stub)
+- ✅ DAOFactory Service
+- ✅ Registry Service
+- ✅ PDP Service
+- ✅ HTTP Routes
+- ✅ Middleware
+
+TODO:
+- [ ] Інтеграція з реальною БД
+- [ ] JWT авторизація
+- [ ] On-chain інтеграція для Wallet
+- [ ] Agent Runtime
+- [ ] Тести
