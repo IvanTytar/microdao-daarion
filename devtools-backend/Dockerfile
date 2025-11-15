@@ -5,7 +5,7 @@ LABEL maintainer="DAARION.city Team"
 LABEL description="DevTools Backend - Development tools service"
 LABEL version="0.2.0"
 
-WORKDIR /app
+WORKDIR /app/devtools-backend
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,11 +13,13 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements (from parent)
-COPY ../requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    fastapi==0.109.0 \
+    uvicorn==0.27.0 \
+    pydantic==2.5.3
 
-# Copy application code
+# Copy devtools backend code
 COPY . .
 
 EXPOSE 8008
@@ -25,4 +27,4 @@ EXPOSE 8008
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8008/health || exit 1
 
-CMD ["python", "main.py", "--host", "0.0.0.0", "--port", "8008"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8008"]

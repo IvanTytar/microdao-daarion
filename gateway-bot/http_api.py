@@ -11,7 +11,7 @@ from datetime import datetime
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from .router_client import send_to_router
+from router_client import send_to_router
 
 logger = logging.getLogger(__name__)
 

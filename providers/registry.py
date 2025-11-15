@@ -90,9 +90,11 @@ def build_provider_registry(config: RouterConfig) -> Dict[str, Provider]:
             )
             
             registry[provider_id] = provider
-            logger.info(f"  + {provider_id}: Orchestrator @ {orch_config["base_url"]}")
+            base_url = orch_config.get("base_url", "N/A")
+            logger.info(f"  + {provider_id}: Orchestrator @ {base_url}")
         else:
-            logger.warning(f"Unknown orchestrator type: {orch_config.get("type")}")
+            orch_type = orch_config.get("type", "N/A")
+            logger.warning(f"Unknown orchestrator type: {orch_type}")
 
     
     logger.info(f"Provider registry built: {len(registry)} providers")
