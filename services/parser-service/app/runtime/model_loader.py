@@ -88,12 +88,6 @@ def load_model() -> Optional[object]:
         
         logger.info(f"Model loaded successfully on device: {device}")
         
-    except Exception as e:
-        logger.error(f"Failed to load model: {e}", exc_info=True)
-        if not settings.ALLOW_DUMMY_FALLBACK:
-            raise
-        _model = None
-        
     except ImportError as e:
         logger.error(f"Required packages not installed: {e}")
         if not settings.ALLOW_DUMMY_FALLBACK:
