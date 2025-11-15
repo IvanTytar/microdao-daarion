@@ -109,18 +109,10 @@ class AgentMemoryEvent(Base):
     user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), nullable=True, index=True)
     
     # Scope: short_term, mid_term, long_term
-    scope = Column(
-        String,
-        nullable=False,
-        CheckConstraint("scope IN ('short_term', 'mid_term', 'long_term')")
-    )
+    scope = Column(String, nullable=False)
     
     # Kind: message, fact, summary, note
-    kind = Column(
-        String,
-        nullable=False,
-        CheckConstraint("kind IN ('message', 'fact', 'summary', 'note')")
-    )
+    kind = Column(String, nullable=False)
     
     # Тіло події
     body_text = Column(Text, nullable=True)
@@ -129,6 +121,8 @@ class AgentMemoryEvent(Base):
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
 
     __table_args__ = (
+        CheckConstraint("scope IN ('short_term', 'mid_term', 'long_term')", name="ck_agent_memory_scope"),
+        CheckConstraint("kind IN ('message', 'fact', 'summary', 'note')", name="ck_agent_memory_kind"),
         Index("idx_agent_memory_events_agent_team_scope", "agent_id", "team_id", "scope"),
         Index("idx_agent_memory_events_channel", "agent_id", "channel_id"),
         Index("idx_agent_memory_events_created_at", "created_at"),
