@@ -141,6 +141,33 @@ services:
       timeout: 5s
       retries: 5
 
+  # Memory Service (user_facts, dialog_summaries, agent_memory_events)
+  memory-service:
+    build:
+      context: ./services/memory-service
+      dockerfile: Dockerfile
+    container_name: dagi-memory-service
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@city-db:5432/${POSTGRES_DB:-daarion_city}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    volumes:
+      - ./services/memory-service:/app
+      - ./logs:/app/logs
+    depends_on:
+      city-db:
+        condition: service_healthy
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 networks:
   dagi-network:
     driver: bridge
