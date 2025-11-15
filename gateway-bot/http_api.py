@@ -12,6 +12,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from router_client import send_to_router
+from memory_client import memory_client
 
 logger = logging.getLogger(__name__)
 
@@ -122,6 +123,15 @@ async def telegram_webhook(update: TelegramUpdate):
         
         logger.info(f"Telegram message from {username} (tg:{user_id}) in chat {chat_id}: {text[:50]}")
         
+        # Fetch memory context
+        memory_context = await memory_client.get_context(
+            user_id=f"tg:{user_id}",
+            agent_id="daarwizz",
+            team_id=dao_id,
+            channel_id=chat_id,
+            limit=10
+        )
+        
         # Build request to Router with DAARWIZZ context
         router_request = {
             "message": text,
@@ -138,6 +148,7 @@ async def telegram_webhook(update: TelegramUpdate):
             "context": {
                 "agent_name": DAARWIZZ_NAME,
                 "system_prompt": DAARWIZZ_SYSTEM_PROMPT,
+                "memory": memory_context,  # Додаємо пам'ять
                 # RBAC context will be injected by Router
             },
         }
@@ -153,6 +164,17 @@ async def telegram_webhook(update: TelegramUpdate):
             answer_text = "Вибач, сталася помилка."
         
         logger.info(f"Router response: {answer_text[:100]}")
+        
+        # Save chat turn to memory
+        await memory_client.save_chat_turn(
+            agent_id="daarwizz",
+            team_id=dao_id,
+            user_id=f"tg:{user_id}",
+            message=text,
+            response=answer_text,
+            channel_id=chat_id,
+            scope="short_term"
+        )
         
         # Send response back to Telegram
         await send_telegram_message(chat_id, answer_text)
@@ -195,6 +217,15 @@ async def discord_webhook(message: DiscordMessage):
         
         logger.info(f"Discord message from {username} (discord:{user_id}): {text[:50]}")
         
+        # Fetch memory context
+        memory_context = await memory_client.get_context(
+            user_id=f"discord:{user_id}",
+            agent_id="daarwizz",
+            team_id=dao_id,
+            channel_id=channel_id,
+            limit=10
+        )
+        
         # Build request to Router with DAARWIZZ context
         router_request = {
             "message": text,
@@ -212,6 +243,7 @@ async def discord_webhook(message: DiscordMessage):
             "context": {
                 "agent_name": DAARWIZZ_NAME,
                 "system_prompt": DAARWIZZ_SYSTEM_PROMPT,
+                "memory": memory_context,  # Додаємо пам'ять
             },
         }
         
@@ -225,6 +257,17 @@ async def discord_webhook(message: DiscordMessage):
             answer_text = "Sorry, an error occurred."
         
         logger.info(f"Router response: {answer_text[:100]}")
+        
+        # Save chat turn to memory
+        await memory_client.save_chat_turn(
+            agent_id="daarwizz",
+            team_id=dao_id,
+            user_id=f"discord:{user_id}",
+            message=text,
+            response=answer_text,
+            channel_id=channel_id,
+            scope="short_term"
+        )
         
         # TODO: Send response back to Discord
         # await send_discord_message(channel_id, answer_text)
