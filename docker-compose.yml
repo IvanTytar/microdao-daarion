@@ -1,0 +1,143 @@
+version: '3.9'
+
+services:
+  # DAGI Router - Core routing service
+  router:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dagi-router
+    ports:
+      - "9102:9102"
+    environment:
+      - DAGI_ROUTER_CONFIG=/app/router-config.yml
+      - RBAC_BASE_URL=http://rbac:9200
+      - DEVTOOLS_BASE_URL=http://devtools:8008
+      - CREWAI_BASE_URL=http://crewai:9010
+    volumes:
+      - ./router-config.yml:/app/router-config.yml:ro
+      - ./logs:/app/logs
+    depends_on:
+      - devtools
+      - crewai
+      - rbac
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9102/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # DevTools Backend
+  devtools:
+    build:
+      context: ./devtools-backend
+      dockerfile: Dockerfile
+    container_name: dagi-devtools
+    ports:
+      - "8008:8008"
+    volumes:
+      - ./workspace:/workspace
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # CrewAI Orchestrator
+  crewai:
+    build:
+      context: ./orchestrator
+      dockerfile: Dockerfile
+    container_name: dagi-crewai
+    ports:
+      - "9010:9010"
+    environment:
+      - ROUTER_URL=http://router:9102
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9010/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Bot Gateway
+  gateway:
+    build:
+      context: ./gateway-bot
+      dockerfile: Dockerfile
+    container_name: dagi-gateway
+    ports:
+      - "9300:9300"
+    environment:
+      - ROUTER_URL=http://router:9102
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:-}
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - router
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9300/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # microDAO RBAC Service
+  rbac:
+    build:
+      context: ./microdao
+      dockerfile: Dockerfile
+    container_name: dagi-rbac
+    ports:
+      - "9200:9200"
+    environment:
+      - DATABASE_URL=${RBAC_DATABASE_URL:-sqlite:///rbac.db}
+    volumes:
+      - ./data/rbac:/app/data
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Ollama (Local LLM)
+  # Note: This requires ollama to be installed on host or use ollama/ollama image
+  # Uncomment if you want to run Ollama in Docker
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: dagi-ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   networks:
+  #     - dagi-network
+  #   restart: unless-stopped
+
+networks:
+  dagi-network:
+    driver: bridge
+    name: dagi-network
+
+volumes:
+  ollama-data:
+    name: dagi-ollama-data

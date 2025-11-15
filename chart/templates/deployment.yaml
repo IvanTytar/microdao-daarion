@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dagi-router
+  labels:
+    app: dagi-router
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: dagi-router
+  template:
+    metadata:
+      labels:
+        app: dagi-router
+    spec:
+      containers:
+        - name: dagi-router
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 9100
+          env:
+            - name: DEEPSEEK_API_KEY
+              value: "{{ .Values.env.DEEPSEEK_API_KEY }}"
+            - name: DEEPSEEK_BASE_URL
+              value: "{{ .Values.env.DEEPSEEK_BASE_URL }}"
+            - name: DEEPSEEK_MODEL
+              value: "{{ .Values.env.DEEPSEEK_MODEL }}"
+            - name: OLLAMA_BASE_URL
+              value: "{{ .Values.env.OLLAMA_BASE_URL }}"
+            - name: OLLAMA_MODEL
+              value: "{{ .Values.env.OLLAMA_MODEL }}"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

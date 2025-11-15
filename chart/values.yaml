@@ -1,0 +1,29 @@
+image:
+  repository: docker.io/library/dagi-router
+  tag: "0.3.0"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 9100
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+
+env:
+  DEEPSEEK_API_KEY: "sk-230a637d270d4a66b009bab04fdfb233"
+  DEEPSEEK_BASE_URL: "https://api.deepseek.com"
+  DEEPSEEK_MODEL: "deepseek-chat"
+  OLLAMA_BASE_URL: "http://144.76.224.179:11434"
+  OLLAMA_MODEL: "qwen2.5:3b"
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
