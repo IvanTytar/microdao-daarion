@@ -119,6 +119,28 @@ services:
       timeout: 10s
       retries: 3
 
+  # DAARION.city Database (PostgreSQL with pgvector)
+  city-db:
+    image: pgvector/pgvector:pg16
+    container_name: dagi-city-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_DB=${POSTGRES_DB:-daarion_city}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 networks:
   dagi-network:
     driver: bridge
