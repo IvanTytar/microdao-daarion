@@ -54,7 +54,7 @@ class UserFactUpsertRequest(BaseModel):
     fact_value: Optional[str] = None
     fact_value_json: Optional[Dict[str, Any]] = None
     team_id: Optional[str] = None
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    meta: Dict[str, Any] = Field(default_factory=dict)
     token_gated: bool = False
     token_requirements: Optional[Dict[str, Any]] = None
     expires_at: Optional[datetime] = None
@@ -81,7 +81,7 @@ class DialogSummaryBase(BaseModel):
     message_count: int = 0
     participant_count: int = 0
     topics: Optional[List[str]] = None
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    meta: Dict[str, Any] = Field(default_factory=dict)
 
 
 class DialogSummaryCreate(DialogSummaryBase):
