@@ -10,17 +10,30 @@
 
 ### G.1. Runtime моделі PARSER
 
-- [ ] **G.1.1** Обрати runtime для dots.ocr
-  - [ ] Варіант A: HuggingFace Transformers + vLLM/SGLang
-  - [ ] Варіант B: llama.cpp / GGUF (якщо буде GGUF-версія)
-  - [ ] Варіант C: Ollama (якщо підтримується)
-  - **Примітка:** Обрати найпростіший варіант для старту
+- [x] **G.1.1** Обрати runtime для dots.ocr ✅
+  - [x] **Рішення:** Python 3.11 + PyTorch + FastAPI
+  - [x] **Обґрунтування:**
+    - dots.ocr — torch-модель, потребує PyTorch
+    - FastAPI для HTTP-обгортки (інтеграція з G.2)
+    - Python 3.11 для сучасного синтаксису
+  - [x] **Структура модуля:**
+    - `parser_runtime/model_loader.py` — завантаження dots.ocr
+    - `parser_runtime/schemas.py` — ParsedDocument, Page, Chunk
+    - `parser_runtime/inference.py` — функція `run_ocr(...)`
+  - [x] **Формат інтерфейсу:**
+    ```python
+    def parse_document(
+        input: bytes | str,  # bytes або path
+        output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks"]
+    ) -> ParsedDocument
+    ```
+  - [ ] **Реалізація:** Створено каркас, потрібна інтеграція з реальною моделлю
 
-- [ ] **G.1.2** Створити `parser-runtime/` сервіс
-  - [ ] `parser_runtime/__init__.py`
-  - [ ] `parser_runtime/model_loader.py` (lazy init, GPU/CPU fallback)
-  - [ ] `parser_runtime/inference.py` (функції: `parse_image`, `parse_pdf`)
-  - [ ] `parser_runtime/config.py` (конфігурація моделі)
+- [x] **G.1.2** Створити `parser-runtime/` сервіс ✅
+  - [x] `app/runtime/__init__.py`
+  - [x] `app/runtime/model_loader.py` (lazy init, GPU/CPU fallback)
+  - [x] `app/runtime/inference.py` (функції: `parse_document`, `dummy_parse_document`)
+  - [x] Конфігурація в `app/core/config.py`
 
 - [ ] **G.1.3** Додати конфіг
   - [ ] `PARSER_MODEL_NAME=rednote-hilab/dots.ocr`
@@ -33,27 +46,22 @@
 
 ### G.2. HTTP-сервіс `parser-service`
 
-- [ ] **G.2.1** Створити сервіс `services/parser-service/` (FastAPI)
-  - [ ] `main.py` — FastAPI додаток
-  - [ ] `schemas.py` — Pydantic моделі (ParsedDocument, ParsedBlock, ...)
-  - [ ] `config.py` — конфігурація
-  - [ ] `Dockerfile` — Docker образ
-  - [ ] `requirements.txt` — залежності
+- [x] **G.2.1** Створити сервіс `services/parser-service/` (FastAPI) ✅
+  - [x] `app/main.py` — FastAPI додаток
+  - [x] `app/schemas.py` — Pydantic моделі (ParsedDocument, ParsedBlock, ...)
+  - [x] `app/core/config.py` — конфігурація
+  - [x] `Dockerfile` — Docker образ
+  - [x] `requirements.txt` — залежності
+  - [x] `README.md` — документація
 
-- [ ] **G.2.2** Ендпоінти
-  - [ ] `POST /ocr/parse` — повертає raw JSON
-    - Request: `{doc_url, file_bytes, output_mode: "raw_json"}`
-    - Response: `ParsedDocument`
-  - [ ] `POST /ocr/parse_qa` — Q&A-представлення
-    - Request: `{doc_url, file_bytes}`
-    - Response: `{qa_pairs: [...]}`
-  - [ ] `POST /ocr/parse_markdown` — Markdown-версія
-    - Request: `{doc_url, file_bytes}`
-    - Response: `{markdown: "..."}`
-  - [ ] `POST /ocr/parse_chunks` — семантичні фрагменти для RAG
-    - Request: `{doc_url, file_bytes, dao_id, doc_id}`
-    - Response: `{chunks: [...]}`
-  - [ ] `GET /health` — health check
+- [x] **G.2.2** Ендпоінти ✅
+  - [x] `POST /ocr/parse` — повертає raw JSON (з mock-даними)
+    - Request: `multipart/form-data` (file) + `output_mode`
+    - Response: `ParseResponse` з `document`, `markdown`, `qa_pairs`, або `chunks`
+  - [x] `POST /ocr/parse_qa` — Q&A-представлення (поки що mock)
+  - [x] `POST /ocr/parse_markdown` — Markdown-версія (поки що mock)
+  - [x] `POST /ocr/parse_chunks` — семантичні фрагменти для RAG (поки що mock)
+  - [x] `GET /health` — health check
 
 - [ ] **G.2.3** Підтримати типи файлів
   - [ ] PDF (розбиття по сторінках → зображення)
