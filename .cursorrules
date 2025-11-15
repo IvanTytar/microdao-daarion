@@ -1,0 +1,17 @@
+# MicroDAO MVP - Cursor Rules
+
+## Проєкт
+- Шлях: /Users/apple/Desktop/MicroDAO/MicroDAO 3
+- Документація: docs/cursor/
+- Швидкий контекст: PROJECT_CONTEXT.md
+
+## Стандарти
+- Дотримуватися docs/cursor/05_coding_standards.md
+- Використовувати типи з docs/cursor/03_api_core_snapshot.md
+- UI тексти з docs/cursor/04_ui_ux_onboarding_chat.md
+
+## Структура
+- React 18 + TypeScript + Vite
+- Tailwind CSS для стилів
+- React Query для state
+- API: https://api.microdao.xyz/v1
