@@ -156,8 +156,20 @@ class LLMProvider(Provider):
             )
     
     def _get_system_prompt(self, req: RouterRequest) -> Optional[str]:
-        """Get system prompt based on agent"""
-        # This can be enhanced to load from config
+        """Get system prompt based on agent or context"""
+        # 1. Check if context.system_prompt provided (e.g., from Gateway)
+        context = req.payload.get("context") or {}
+        if "system_prompt" in context:
+            return context["system_prompt"]
+        
+        # 2. Agent-specific system prompts
+        if req.agent == "daarwizz":
+            return (
+                "Ти — DAARWIZZ, офіційний AI-агент екосистеми DAARION.city. "
+                "Допомагай учасникам з microDAO, ролями та процесами. "
+                "Відповідай коротко, практично, враховуй RBAC контекст користувача."
+            )
+        
         if req.agent == "devtools":
             return (
                 "Ти - DevTools Agent в екосистемі DAARION.city. "
@@ -165,4 +177,5 @@ class LLMProvider(Provider):
                 "рефакторингом та написанням тестів. "
                 "Відповідай коротко, конкретно, з прикладами коду коли потрібно."
             )
+        
         return None

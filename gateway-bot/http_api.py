@@ -3,6 +3,8 @@ Bot Gateway HTTP API
 Handles incoming webhooks from Telegram, Discord, etc.
 """
 import logging
+import os
+from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
 
@@ -14,6 +16,36 @@ from .router_client import send_to_router
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+
+# ========================================
+# DAARWIZZ Configuration
+# ========================================
+
+DAARWIZZ_NAME = os.getenv("DAARWIZZ_NAME", "DAARWIZZ")
+DAARWIZZ_PROMPT_PATH = os.getenv(
+    "DAARWIZZ_PROMPT_PATH",
+    str(Path(__file__).parent / "daarwizz_prompt.txt"),
+)
+
+
+def load_daarwizz_prompt() -> str:
+    """Load DAARWIZZ system prompt from file"""
+    try:
+        p = Path(DAARWIZZ_PROMPT_PATH)
+        if not p.exists():
+            logger.warning(f"DAARWIZZ prompt file not found: {DAARWIZZ_PROMPT_PATH}")
+            return f"Ти — {DAARWIZZ_NAME}, AI-агент екосистеми DAARION.city. Допомагай учасникам з DAO-процесами."
+        
+        prompt = p.read_text(encoding="utf-8")
+        logger.info(f"DAARWIZZ system prompt loaded ({len(prompt)} chars)")
+        return prompt
+    except Exception as e:
+        logger.error(f"Error loading DAARWIZZ prompt: {e}")
+        return f"Ти — {DAARWIZZ_NAME}, AI-агент екосистеми DAARION.city."
+
+
+DAARWIZZ_SYSTEM_PROMPT = load_daarwizz_prompt()
 
 
 # ========================================
@@ -90,38 +122,45 @@ async def telegram_webhook(update: TelegramUpdate):
         
         logger.info(f"Telegram message from {username} (tg:{user_id}) in chat {chat_id}: {text[:50]}")
         
-        # Build request to Router
+        # Build request to Router with DAARWIZZ context
         router_request = {
+            "prompt": text,
             "mode": "chat",
-            "source": "telegram",
-            "dao_id": dao_id,
-            "user_id": f"tg:{user_id}",
-            "session_id": f"tg:{chat_id}:{dao_id}",
-            "message": text,
-            "payload": {
-                "message": text,
+            "agent": "daarwizz",  # DAARWIZZ agent identifier
+            "metadata": {
+                "source": "telegram",
+                "dao_id": dao_id,
+                "user_id": f"tg:{user_id}",
+                "session_id": f"tg:{chat_id}:{dao_id}",
                 "username": username,
                 "chat_id": chat_id,
-                "timestamp": datetime.now().isoformat()
-            }
+            },
+            "context": {
+                "agent_name": DAARWIZZ_NAME,
+                "system_prompt": DAARWIZZ_SYSTEM_PROMPT,
+                # RBAC context will be injected by Router
+            },
         }
         
         # Send to Router
-        router_response = await send_to_router(router_request)
+        logger.info(f"Sending to Router: agent=daarwizz, dao={dao_id}, user=tg:{user_id}")
+        response = await send_to_router(router_request)
         
-        # TODO: Send response back to Telegram via Bot API
-        # For now, just return the router response
+        # Extract response text
+        if isinstance(response, dict):
+            answer_text = response.get("response", "Вибач, я зараз не можу відповісти.")
+        else:
+            answer_text = "Вибач, сталася помилка."
         
-        return {
-            "status": "ok",
-            "processed": True,
-            "router_response": router_response
-        }
-    
-    except HTTPException:
-        raise
+        logger.info(f"Router response: {answer_text[:100]}")
+        
+        # Send response back to Telegram
+        await send_telegram_message(chat_id, answer_text)
+        
+        return {"ok": True, "agent": "daarwizz"}
+        
     except Exception as e:
-        logger.error(f"Telegram webhook error: {e}")
+        logger.error(f"Error handling Telegram webhook: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -151,44 +190,79 @@ async def discord_webhook(message: DiscordMessage):
         user_id = author.get("id", "unknown")
         username = author.get("username", "")
         
-        # Get DAO ID for this guild/channel
-        dao_id = get_dao_id(guild_id, "discord")
+        # Get DAO ID for this channel
+        dao_id = get_dao_id(channel_id, "discord")
         
-        logger.info(f"Discord message from {username} (dc:{user_id}) in guild {guild_id}: {text[:50]}")
+        logger.info(f"Discord message from {username} (discord:{user_id}): {text[:50]}")
         
-        # Build request to Router
+        # Build request to Router with DAARWIZZ context
         router_request = {
+            "prompt": text,
             "mode": "chat",
-            "source": "discord",
-            "dao_id": dao_id,
-            "user_id": f"dc:{user_id}",
-            "session_id": f"dc:{channel_id}:{dao_id}",
-            "message": text,
-            "payload": {
-                "message": text,
+            "agent": "daarwizz",
+            "metadata": {
+                "source": "discord",
+                "dao_id": dao_id,
+                "user_id": f"discord:{user_id}",
+                "session_id": f"discord:{channel_id}:{dao_id}",
                 "username": username,
                 "channel_id": channel_id,
                 "guild_id": guild_id,
-                "timestamp": datetime.now().isoformat()
-            }
+            },
+            "context": {
+                "agent_name": DAARWIZZ_NAME,
+                "system_prompt": DAARWIZZ_SYSTEM_PROMPT,
+            },
         }
         
         # Send to Router
-        router_response = await send_to_router(router_request)
+        response = await send_to_router(router_request)
         
-        # TODO: Send response back to Discord via Bot API
+        # Extract response text
+        if isinstance(response, dict):
+            answer_text = response.get("response", "Sorry, I can't respond right now.")
+        else:
+            answer_text = "Sorry, an error occurred."
         
-        return {
-            "status": "ok",
-            "processed": True,
-            "router_response": router_response
-        }
-    
-    except HTTPException:
-        raise
+        logger.info(f"Router response: {answer_text[:100]}")
+        
+        # TODO: Send response back to Discord
+        # await send_discord_message(channel_id, answer_text)
+        
+        return {"ok": True, "agent": "daarwizz", "response": answer_text}
+        
     except Exception as e:
-        logger.error(f"Discord webhook error: {e}")
+        logger.error(f"Error handling Discord webhook: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========================================
+# Helper Functions
+# ========================================
+
+async def send_telegram_message(chat_id: str, text: str):
+    """Send message to Telegram chat"""
+    import httpx
+    
+    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    if not telegram_token:
+        logger.error("TELEGRAM_BOT_TOKEN not set")
+        return
+    
+    url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": text,
+        "parse_mode": "Markdown",
+    }
+    
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=payload, timeout=10.0)
+            response.raise_for_status()
+            logger.info(f"Telegram message sent to chat {chat_id}")
+    except Exception as e:
+        logger.error(f"Error sending Telegram message: {e}")
 
 
 @router.get("/health")
@@ -196,5 +270,7 @@ async def health():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "service": "bot-gateway"
+        "agent": DAARWIZZ_NAME,
+        "system_prompt_loaded": len(DAARWIZZ_SYSTEM_PROMPT) > 0,
+        "timestamp": datetime.utcnow().isoformat(),
     }
