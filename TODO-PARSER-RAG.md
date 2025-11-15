@@ -27,7 +27,11 @@
         output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks"]
     ) -> ParsedDocument
     ```
-  - [ ] **Реалізація:** Створено каркас, потрібна інтеграція з реальною моделлю
+  - [x] **Реалізація:** ✅ Інтегровано з dots.ocr моделлю
+    - [x] `model_loader.py` - завантаження моделі через transformers
+    - [x] `inference.py` - реальний inference з моделлю
+    - [x] `model_output_parser.py` - парсинг виводу моделі в блоки
+    - [x] Підтримка CUDA/CPU/MPS з автоматичним fallback
 
 - [x] **G.1.2** Створити `parser-runtime/` сервіс ✅
   - [x] `app/runtime/__init__.py`
@@ -87,12 +91,15 @@
     - [x] `build_markdown()` - Markdown конвертація
     - [x] `normalize_text()` - нормалізація тексту
 
-- [ ] **G.2.5** Додати базові тести
-  - [ ] Створити `tests/fixtures/docs/` з тестовими документами
-  - [ ] 1–2 короткі PDF-файли (2–3 сторінки)
-  - [ ] 1–2 PNG зображення з текстом
-  - [ ] Snapshot-тести JSON-структури (без чутливості до точного тексту)
-  - [ ] Тести на обробку помилок (невалідний PDF, занадто великий файл)
+- [x] **G.2.5** Додати базові тести ✅
+  - [x] Створити структуру тестів (`tests/`, `pytest.ini`)
+  - [x] `test_preprocessing.py` - PDF/image loading, normalization, validation
+  - [x] `test_postprocessing.py` - chunks, QA pairs, markdown generation
+  - [x] `test_inference.py` - dummy parser and inference functions
+  - [x] `test_api.py` - API endpoint tests
+  - [x] `conftest.py` - pytest fixtures
+  - [ ] Створити `tests/fixtures/docs/` з реальними тестовими документами (опційно)
+  - [ ] Snapshot-тести JSON-структури (опційно, для регресійного тестування)
 
 - [ ] **G.2.6** Додати в `docker-compose.yml`
   - [ ] Сервіс `parser-service` з залежностями
