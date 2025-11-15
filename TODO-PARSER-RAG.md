@@ -35,12 +35,14 @@
   - [x] `app/runtime/inference.py` (функції: `parse_document`, `dummy_parse_document`)
   - [x] Конфігурація в `app/core/config.py`
 
-- [ ] **G.1.3** Додати конфіг
-  - [ ] `PARSER_MODEL_NAME=rednote-hilab/dots.ocr`
-  - [ ] `PARSER_DEVICE=cuda` / `cpu`
-  - [ ] `PARSER_MAX_PAGES=100`
-  - [ ] `PARSER_MAX_RESOLUTION=4096x4096`
-  - [ ] `PARSER_BATCH_SIZE=1` (для початку)
+- [x] **G.1.3** Додати конфіг ✅
+  - [x] `PARSER_MODEL_NAME=rednote-hilab/dots.ocr` (вже було)
+  - [x] `PARSER_DEVICE=cuda` / `cpu` / `mps` (вже було)
+  - [x] `PARSER_MAX_PAGES=100` (вже було)
+  - [x] `PARSER_MAX_RESOLUTION=4096x4096` (вже було)
+  - [x] `PARSER_BATCH_SIZE=1` (вже було)
+  - [x] Додано: `PDF_DPI=200`, `IMAGE_MAX_SIZE=2048`, `PAGE_RANGE`
+  - [x] Додано: `USE_DUMMY_PARSER`, `ALLOW_DUMMY_FALLBACK`
 
 ---
 
@@ -63,13 +65,16 @@
   - [x] `POST /ocr/parse_chunks` — семантичні фрагменти для RAG (поки що mock)
   - [x] `GET /health` — health check
 
-- [ ] **G.2.3** Підтримати типи файлів
-  - [ ] PDF (розбиття по сторінках → зображення)
-    - Використати `pdf2image` або `PyMuPDF`
-  - [ ] PNG/JPEG
+- [x] **G.2.3** Підтримати типи файлів ✅
+  - [x] PDF (розбиття по сторінках → зображення)
+    - Використано `pdf2image` з poppler-utils
+    - `convert_pdf_to_images()` в `preprocessing.py`
+  - [x] PNG/JPEG
     - Пряма обробка через `PIL` / `Pillow`
-  - [ ] TIFF (опційно)
-  - [ ] WebP (опційно)
+    - `load_image()` в `preprocessing.py`
+  - [x] TIFF, WebP (підтримка через PIL)
+  - [x] Автоматичне визначення типу файлу (`detect_file_type()`)
+  - [x] Валідація розміру файлу (`validate_file_size()`)
 
 - [ ] **G.2.4** Додати pre-/post-processing
   - [ ] Нормалізація розміру зображень (resize до max resolution)
