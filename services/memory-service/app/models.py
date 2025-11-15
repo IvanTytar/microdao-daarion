@@ -25,7 +25,7 @@ class UserFact(Base):
 
     id = Column(UUID(as_uuid=False), primary_key=True, server_default=func.gen_random_uuid())
     user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    team_id = Column(String, ForeignKey("teams.id", ondelete="CASCADE"), nullable=True, index=True)
+    team_id = Column(String, nullable=True, index=True)  # Без FK constraint, оскільки teams може не існувати
     
     # Ключ факту (наприклад: "language", "is_donor", "is_validator", "top_contributor")
     fact_key = Column(String, nullable=False, index=True)

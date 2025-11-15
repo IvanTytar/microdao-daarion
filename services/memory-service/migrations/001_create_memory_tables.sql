@@ -9,7 +9,7 @@ CREATE EXTENSION IF NOT EXISTS "vector";
 CREATE TABLE IF NOT EXISTS user_facts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    team_id TEXT REFERENCES teams(id) ON DELETE CASCADE,
+    team_id TEXT,  -- Без FK constraint, оскільки teams може не існувати
     
     -- Ключ факту (наприклад: "language", "is_donor", "is_validator", "top_contributor")
     fact_key TEXT NOT NULL,
