@@ -143,7 +143,7 @@ class AgentMemoryFactsVector(Base):
     fact_text = Column(Text, nullable=False)
     embedding = Column(Vector(1536), nullable=True)  # OpenAI ada-002 embedding size
     
-    metadata = Column(JSONB, nullable=False, server_default="{}")
+    meta = Column(JSONB, nullable=False, server_default="{}")
     
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=func.now())
 
