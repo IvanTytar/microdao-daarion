@@ -16,7 +16,7 @@ class UserFactBase(BaseModel):
     fact_value: Optional[str] = Field(None, description="Текстове значення")
     fact_value_json: Optional[Dict[str, Any]] = Field(None, description="JSON значення")
     team_id: Optional[str] = Field(None, description="ID команди (якщо факт командно-специфічний)")
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Метадані")
+    meta: Dict[str, Any] = Field(default_factory=dict, description="Метадані")
     token_gated: bool = Field(False, description="Чи залежить факт від токенів")
     token_requirements: Optional[Dict[str, Any]] = Field(None, description="Вимоги до токенів")
     expires_at: Optional[datetime] = Field(None, description="Термін дії факту")
@@ -31,7 +31,7 @@ class UserFactUpdate(BaseModel):
     """Схема для часткового оновлення факту"""
     fact_value: Optional[str] = None
     fact_value_json: Optional[Dict[str, Any]] = None
-    metadata: Optional[Dict[str, Any]] = None
+    meta: Optional[Dict[str, Any]] = None
     token_gated: Optional[bool] = None
     token_requirements: Optional[Dict[str, Any]] = None
     expires_at: Optional[datetime] = None

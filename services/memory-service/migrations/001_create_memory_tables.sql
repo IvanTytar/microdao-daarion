@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS user_facts (
     fact_value_json JSONB,
     
     -- Метадані
-    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    meta JSONB NOT NULL DEFAULT '{}'::jsonb,
     
     -- Токен-гейт
     token_gated BOOLEAN NOT NULL DEFAULT false,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS dialog_summaries (
     topics JSONB,
     
     -- Метадані
-    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    meta JSONB NOT NULL DEFAULT '{}'::jsonb,
     
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

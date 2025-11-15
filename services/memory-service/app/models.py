@@ -35,7 +35,7 @@ class UserFact(Base):
     fact_value_json = Column(JSONB, nullable=True)
     
     # Метадані: джерело, впевненість, термін дії
-    metadata = Column(JSONB, nullable=False, server_default="{}")
+    meta = Column(JSONB, nullable=False, server_default="{}")
     
     # Токен-гейт: чи залежить факт від токенів/активності
     token_gated = Column(Boolean, nullable=False, server_default="false")
