@@ -3,13 +3,14 @@ DAGI Router Client
 Sends requests to DAGI Router from Bot Gateway
 """
 import logging
+import os
 import httpx
 from typing import Dict, Any
 
 logger = logging.getLogger(__name__)
 
-# Router configuration
-ROUTER_URL = "http://127.0.0.1:9102/route"
+# Router configuration from environment
+ROUTER_URL = os.getenv("ROUTER_URL", "http://127.0.0.1:9102") + "/route"
 ROUTER_TIMEOUT = 30.0
 
 
@@ -26,7 +27,7 @@ async def send_to_router(body: Dict[str, Any]) -> Dict[str, Any]:
     Raises:
         httpx.HTTPError: if router request fails
     """
-    logger.info(f"Sending to Router: mode={body.get('mode')}, dao_id={body.get('dao_id')}")
+    logger.info(f"Sending to Router ({ROUTER_URL}): mode={body.get('mode')}, dao_id={body.get('dao_id')}")
     
     try:
         async with httpx.AsyncClient(timeout=ROUTER_TIMEOUT) as client:

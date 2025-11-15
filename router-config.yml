@@ -14,7 +14,7 @@ llm_profiles:
   # Локальна модель через Ollama (основна для DevTools)
   local_qwen3_8b:
     provider: ollama
-    base_url: http://localhost:11434
+    base_url: http://172.17.0.1:11434
     model: qwen3:8b
     max_tokens: 1024
     temperature: 0.2
