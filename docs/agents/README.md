@@ -16,6 +16,9 @@
 - `crewai-orchestrator.md` — архітектура CrewAI
 - `crewai-integration.md` — інтеграція з системою
 
+### PARSER Agent
+- `parser.md` — Document Ingestion & Structuring Agent (dots.ocr)
+
 ## Посилання
 
 - [MicroDAO документація](../microdao/README.md)
