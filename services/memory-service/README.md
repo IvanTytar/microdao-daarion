@@ -26,11 +26,11 @@ cp .env.example .env
 ## Запуск
 
 ```bash
-# Development
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# Development (з кореня services/memory-service/)
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 # Production
-uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
 ```
 
 ## API Endpoints

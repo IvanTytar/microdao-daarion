@@ -14,14 +14,14 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from models import Base, UserFact, DialogSummary, AgentMemoryEvent
-from schemas import (
+from app.models import Base, UserFact, DialogSummary, AgentMemoryEvent
+from app.schemas import (
     UserFactCreate, UserFactUpdate, UserFactResponse, UserFactUpsertRequest, UserFactUpsertResponse,
     DialogSummaryCreate, DialogSummaryResponse, DialogSummaryListResponse,
     AgentMemoryEventCreate, AgentMemoryEventResponse, AgentMemoryEventListResponse,
     TokenGateCheck, TokenGateCheckResponse
 )
-from crud import (
+from app.crud import (
     get_user_fact, get_user_facts, create_user_fact, update_user_fact,
     upsert_user_fact, delete_user_fact, get_user_facts_by_token_gate,
     create_dialog_summary, get_dialog_summaries, get_dialog_summary, delete_dialog_summary,
@@ -410,5 +410,5 @@ async def check_token_gate_endpoint(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
 

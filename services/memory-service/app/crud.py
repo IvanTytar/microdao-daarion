@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, desc
 from datetime import datetime
 
-from models import UserFact, DialogSummary, AgentMemoryEvent, AgentMemoryFactsVector
-from schemas import (
+from app.models import UserFact, DialogSummary, AgentMemoryEvent, AgentMemoryFactsVector
+from app.schemas import (
     UserFactCreate, UserFactUpdate, UserFactUpsertRequest,
     DialogSummaryCreate, AgentMemoryEventCreate
 )
