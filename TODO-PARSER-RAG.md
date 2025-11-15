@@ -76,11 +76,16 @@
   - [x] Автоматичне визначення типу файлу (`detect_file_type()`)
   - [x] Валідація розміру файлу (`validate_file_size()`)
 
-- [ ] **G.2.4** Додати pre-/post-processing
-  - [ ] Нормалізація розміру зображень (resize до max resolution)
-  - [ ] Конвертація PDF → зображення (по сторінках)
-  - [ ] Mapping вихідного JSON dots.ocr → внутрішню структуру `ParsedBlock`
-  - [ ] Валідація структури (перевірка наявності обов'язкових полів)
+- [x] **G.2.4** Додати pre-/post-processing ✅
+  - [x] Нормалізація розміру зображень (`normalize_image()`, `prepare_images_for_model()`)
+  - [x] Конвертація PDF → зображення (по сторінках) - вже в G.2.3
+  - [x] Mapping вихідного JSON dots.ocr → внутрішню структуру `ParsedBlock` (`build_parsed_document()`)
+  - [x] Валідація структури (перевірка наявності обов'язкових полів)
+  - [x] Post-processing функції:
+    - [x] `build_chunks()` - семантичні фрагменти для RAG
+    - [x] `build_qa_pairs()` - Q&A пари
+    - [x] `build_markdown()` - Markdown конвертація
+    - [x] `normalize_text()` - нормалізація тексту
 
 - [ ] **G.2.5** Додати базові тести
   - [ ] Створити `tests/fixtures/docs/` з тестовими документами
