@@ -80,6 +80,8 @@ services:
       - "9300:9300"
     environment:
       - ROUTER_URL=http://router:9102
+      - MEMORY_SERVICE_URL=http://memory-service:8000
+      - STT_SERVICE_URL=http://stt-service:9000
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:-}
       - DAARWIZZ_NAME=DAARWIZZ
@@ -88,6 +90,8 @@ services:
       - ./logs:/app/logs
     depends_on:
       - router
+      - memory-service
+      - stt-service
     networks:
       - dagi-network
     restart: unless-stopped
@@ -164,6 +168,28 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # STT Service (Speech-to-Text using Whisper)
+  stt-service:
+    build:
+      context: ./services/stt-service
+      dockerfile: Dockerfile
+    container_name: dagi-stt-service
+    ports:
+      - "9000:9000"
+    environment:
+      - WHISPER_MODEL=${WHISPER_MODEL:-base}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
       interval: 30s
       timeout: 10s
       retries: 3

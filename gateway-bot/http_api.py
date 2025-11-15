@@ -4,6 +4,7 @@ Handles incoming webhooks from Telegram, Discord, etc.
 """
 import logging
 import os
+import httpx
 from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
@@ -110,7 +111,6 @@ async def telegram_webhook(update: TelegramUpdate):
             raise HTTPException(status_code=400, detail="No message in update")
         
         # Extract message details
-        text = update.message.get("text", "")
         from_user = update.message.get("from", {})
         chat = update.message.get("chat", {})
         
@@ -120,6 +120,58 @@ async def telegram_webhook(update: TelegramUpdate):
         
         # Get DAO ID for this chat
         dao_id = get_dao_id(chat_id, "telegram")
+        
+        # Check if it's a voice message
+        voice = update.message.get("voice")
+        audio = update.message.get("audio")
+        video_note = update.message.get("video_note")
+        
+        text = ""
+        
+        if voice or audio or video_note:
+            # Голосове повідомлення - розпізнаємо через STT
+            media_obj = voice or audio or video_note
+            file_id = media_obj.get("file_id") if media_obj else None
+            
+            if not file_id:
+                raise HTTPException(status_code=400, detail="No file_id in voice/audio/video_note")
+            
+            logger.info(f"Voice message from {username} (tg:{user_id}), file_id: {file_id}")
+            
+            try:
+                # Отримуємо файл з Telegram
+                file_path = await get_telegram_file_path(file_id)
+                if not file_path:
+                    raise HTTPException(status_code=400, detail="Failed to get file from Telegram")
+                
+                # Завантажуємо файл
+                file_url = f"https://api.telegram.org/file/bot{os.getenv('TELEGRAM_BOT_TOKEN')}/{file_path}"
+                async with httpx.AsyncClient(timeout=30.0) as client:
+                    file_resp = await client.get(file_url)
+                    file_resp.raise_for_status()
+                    audio_bytes = file_resp.content
+                
+                # Відправляємо в STT-сервіс
+                stt_service_url = os.getenv("STT_SERVICE_URL", "http://stt-service:9000")
+                files = {"file": ("voice.ogg", audio_bytes, "audio/ogg")}
+                
+                async with httpx.AsyncClient(timeout=60.0) as client:
+                    stt_resp = await client.post(f"{stt_service_url}/stt", files=files)
+                    stt_resp.raise_for_status()
+                    stt_data = stt_resp.json()
+                    text = stt_data.get("text", "")
+                
+                logger.info(f"STT result: {text[:100]}...")
+                
+            except Exception as e:
+                logger.error(f"STT processing failed: {e}", exc_info=True)
+                await send_telegram_message(chat_id, "Вибач, не вдалося розпізнати голосове повідомлення. Спробуй надіслати текстом.")
+                return {"ok": False, "error": "STT failed"}
+        else:
+            # Текстове повідомлення
+            text = update.message.get("text", "")
+            if not text:
+                raise HTTPException(status_code=400, detail="No text or voice in message")
         
         logger.info(f"Telegram message from {username} (tg:{user_id}) in chat {chat_id}: {text[:50]}")
         
@@ -283,10 +335,30 @@ async def discord_webhook(message: DiscordMessage):
 # Helper Functions
 # ========================================
 
+async def get_telegram_file_path(file_id: str) -> Optional[str]:
+    """Отримати шлях до файлу з Telegram API"""
+    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    if not telegram_token:
+        logger.error("TELEGRAM_BOT_TOKEN not set")
+        return None
+    
+    url = f"https://api.telegram.org/bot{telegram_token}/getFile"
+    params = {"file_id": file_id}
+    
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+            if data.get("ok"):
+                return data.get("result", {}).get("file_path")
+    except Exception as e:
+        logger.error(f"Error getting Telegram file: {e}")
+    return None
+
+
 async def send_telegram_message(chat_id: str, text: str):
     """Send message to Telegram chat"""
-    import httpx
-    
     telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
     if not telegram_token:
         logger.error("TELEGRAM_BOT_TOKEN not set")
