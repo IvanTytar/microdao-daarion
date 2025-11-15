@@ -2,7 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Встановлюємо системні залежності (ffmpeg для конвертації аудіо)
+# Встановлюємо системні залежності
+# qwen3_asr_toolkit може потребувати ffmpeg для обробки деяких форматів
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*

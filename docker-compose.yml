@@ -172,7 +172,7 @@ services:
       timeout: 10s
       retries: 3
 
-  # STT Service (Speech-to-Text using Whisper)
+  # STT Service (Speech-to-Text using Qwen3 ASR Toolkit)
   stt-service:
     build:
       context: ./services/stt-service
@@ -181,8 +181,7 @@ services:
     ports:
       - "9000:9000"
     environment:
-      - WHISPER_MODEL=${WHISPER_MODEL:-base}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY:-}
     volumes:
       - ./logs:/app/logs
     networks:

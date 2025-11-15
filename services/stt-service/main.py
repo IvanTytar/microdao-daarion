@@ -1,11 +1,10 @@
 """
 STT Service (Speech-to-Text) для DAGI Router
-Використовує Whisper для розпізнавання голосу
+Використовує qwen3_asr_toolkit для розпізнавання голосу
 """
 
 import os
 import uuid
-import subprocess
 import logging
 from pathlib import Path
 from typing import Optional
@@ -19,8 +18,8 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="STT Service",
-    description="Speech-to-Text service using Whisper",
-    version="1.0.0"
+    description="Speech-to-Text service using Qwen3 ASR Toolkit",
+    version="2.0.0"
 )
 
 app.add_middleware(
@@ -32,9 +31,18 @@ app.add_middleware(
 )
 
 # Configuration
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")  # base, small, medium
+DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY")
 TEMP_DIR = Path("/tmp/stt")
 TEMP_DIR.mkdir(exist_ok=True)
+
+# Initialize Qwen3 ASR Toolkit
+try:
+    from qwen3_asr_toolkit import transcribe_audio
+    ASR_AVAILABLE = True
+    logger.info("qwen3_asr_toolkit loaded successfully")
+except ImportError:
+    ASR_AVAILABLE = False
+    logger.warning("qwen3_asr_toolkit not available, install with: pip install qwen3-asr-toolkit")
 
 
 class STTResponse(BaseModel):
@@ -43,119 +51,78 @@ class STTResponse(BaseModel):
     duration: Optional[float] = None
 
 
-def convert_audio_to_wav(input_path: str, output_path: str) -> bool:
-    """Конвертувати аудіо в WAV 16kHz mono"""
-    try:
-        cmd = [
-            "ffmpeg", "-y", "-i", input_path,
-            "-ar", "16000",  # Sample rate
-            "-ac", "1",      # Mono
-            "-f", "wav",
-            output_path
-        ]
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-        if result.returncode != 0:
-            logger.error(f"ffmpeg error: {result.stderr}")
-            return False
-        return True
-    except Exception as e:
-        logger.error(f"Audio conversion failed: {e}")
-        return False
-
-
-def transcribe_with_whisper(audio_path: str) -> tuple[str, Optional[str], Optional[float]]:
+def transcribe_with_qwen(audio_path: str) -> tuple[str, Optional[str], Optional[float]]:
     """
-    Розпізнати мову з аудіо файлу
+    Розпізнати мову з аудіо файлу через qwen3_asr_toolkit
     Повертає (text, language, duration)
     """
+    if not ASR_AVAILABLE:
+        raise ImportError("qwen3_asr_toolkit not installed. Install with: pip install qwen3-asr-toolkit")
+    
+    if not DASHSCOPE_API_KEY:
+        raise ValueError("DASHSCOPE_API_KEY environment variable not set")
+    
     try:
-        # Варіант 1: faster-whisper (рекомендовано)
-        try:
-            from faster_whisper import WhisperModel
-            model = WhisperModel(WHISPER_MODEL, device="cpu", compute_type="int8")
-            segments, info = model.transcribe(audio_path, language="uk", beam_size=5)
-            
-            text_parts = []
-            for segment in segments:
-                text_parts.append(segment.text)
-            
-            text = " ".join(text_parts).strip()
-            language = info.language
-            duration = sum(segment.end - segment.start for segment in segments)
-            
-            return text, language, duration
-        except ImportError:
-            logger.warning("faster-whisper not installed, trying whisper CLI")
+        # qwen3_asr_toolkit автоматично обробляє різні формати аудіо
+        # та виконує необхідні конвертації
+        transcript = transcribe_audio(audio_path)
         
-        # Варіант 2: whisper CLI (fallback)
-        try:
-            cmd = ["whisper", audio_path, "--model", WHISPER_MODEL, "--language", "uk", "--output_format", "txt"]
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=60
-            )
-            if result.returncode == 0:
-                # Whisper CLI створює .txt файл з тим самим ім'ям
-                txt_path = audio_path.replace(".wav", ".txt")
-                if Path(txt_path).exists():
-                    text = Path(txt_path).read_text(encoding="utf-8").strip()
-                    return text, "uk", None
-        except FileNotFoundError:
-            logger.warning("whisper CLI not found")
+        # transcribe_audio повертає текст
+        # Можна також отримати додаткову інформацію, якщо API підтримує
+        text = transcript.strip() if isinstance(transcript, str) else str(transcript).strip()
         
-        # Варіант 3: OpenAI Whisper API (якщо є API key)
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        if openai_api_key:
-            try:
-                import openai
-                client = openai.OpenAI(api_key=openai_api_key)
-                with open(audio_path, "rb") as audio_file:
-                    transcript = client.audio.transcriptions.create(
-                        model="whisper-1",
-                        file=audio_file,
-                        language="uk"
-                    )
-                return transcript.text, transcript.language, None
-            except Exception as e:
-                logger.warning(f"OpenAI Whisper API failed: {e}")
+        # Для української мови встановлюємо language="uk"
+        # qwen3_asr_toolkit може автоматично визначати мову
+        language = "uk"  # Можна змінити на автоматичне визначення
         
-        raise Exception("No Whisper implementation available")
+        # Duration можна отримати з аудіо файлу, якщо потрібно
+        # Поки що повертаємо None
+        duration = None
+        
+        return text, language, duration
         
     except Exception as e:
-        logger.error(f"Transcription failed: {e}")
+        logger.error(f"Qwen3 ASR transcription failed: {e}", exc_info=True)
         raise
 
 
 @app.post("/stt", response_model=STTResponse)
 async def stt(file: UploadFile = File(...)):
     """
-    Розпізнати мову з аудіо файлу
+    Розпізнати мову з аудіо файлу через qwen3_asr_toolkit
     
-    Підтримує формати: ogg, mp3, wav, m4a, webm
+    Підтримує формати: ogg, mp3, wav, m4a, webm, flac
+    qwen3_asr_toolkit автоматично обробляє конвертацію
     """
+    if not ASR_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="qwen3_asr_toolkit not available. Install with: pip install qwen3-asr-toolkit"
+        )
+    
+    if not DASHSCOPE_API_KEY:
+        raise HTTPException(
+            status_code=500,
+            detail="DASHSCOPE_API_KEY not configured"
+        )
+    
     tmp_id = str(uuid.uuid4())
-    tmp_input = TEMP_DIR / f"{tmp_id}_input.{file.filename.split('.')[-1] if '.' in file.filename else 'ogg'}"
-    tmp_wav = TEMP_DIR / f"{tmp_id}.wav"
+    # Визначаємо розширення файлу
+    file_ext = "ogg"
+    if file.filename and "." in file.filename:
+        file_ext = file.filename.split(".")[-1].lower()
+    
+    tmp_input = TEMP_DIR / f"{tmp_id}.{file_ext}"
     
     try:
         # Зберігаємо вхідний файл
         content = await file.read()
         tmp_input.write_bytes(content)
-        logger.info(f"Received audio file: {file.filename}, size: {len(content)} bytes")
+        logger.info(f"Received audio file: {file.filename}, size: {len(content)} bytes, format: {file_ext}")
         
-        # Конвертуємо в WAV 16kHz
-        if not convert_audio_to_wav(str(tmp_input), str(tmp_wav)):
-            raise HTTPException(status_code=400, detail="Audio conversion failed")
-        
-        # Розпізнаємо мову
-        text, language, duration = transcribe_with_whisper(str(tmp_wav))
+        # qwen3_asr_toolkit автоматично обробляє різні формати
+        # та виконує необхідні конвертації всередині
+        text, language, duration = transcribe_with_qwen(str(tmp_input))
         
         logger.info(f"Transcribed: {text[:100]}... (lang: {language})")
         
@@ -167,26 +134,33 @@ async def stt(file: UploadFile = File(...)):
         
     except HTTPException:
         raise
+    except ValueError as e:
+        logger.error(f"STT configuration error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    except ImportError as e:
+        logger.error(f"STT import error: {e}")
+        raise HTTPException(status_code=503, detail=str(e))
     except Exception as e:
         logger.error(f"STT error: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"STT failed: {str(e)}")
     finally:
         # Очищаємо тимчасові файли
-        for path in [tmp_input, tmp_wav]:
-            if path.exists():
-                try:
-                    path.unlink()
-                except:
-                    pass
+        if tmp_input.exists():
+            try:
+                tmp_input.unlink()
+            except Exception as e:
+                logger.warning(f"Failed to delete temp file {tmp_input}: {e}")
 
 
 @app.get("/health")
 async def health():
     """Health check"""
     return {
-        "status": "ok",
+        "status": "ok" if ASR_AVAILABLE else "degraded",
         "service": "stt-service",
-        "model": WHISPER_MODEL
+        "engine": "qwen3_asr_toolkit",
+        "asr_available": ASR_AVAILABLE,
+        "api_key_configured": DASHSCOPE_API_KEY is not None
     }
 
 

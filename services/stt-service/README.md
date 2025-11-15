@@ -1,16 +1,14 @@
 # STT Service (Speech-to-Text)
 
-Сервіс для розпізнавання мови з аудіо файлів за допомогою Whisper.
+Сервіс для розпізнавання мови з аудіо файлів за допомогою Qwen3 ASR Toolkit.
 
 ## Можливості
 
 - Розпізнавання мови з голосових повідомлень (Telegram voice, audio, video_note)
-- Підтримка форматів: ogg, mp3, wav, m4a, webm
-- Автоматична конвертація в WAV 16kHz mono через ffmpeg
-- Підтримка кількох Whisper-реалізацій:
-  - `faster-whisper` (рекомендовано, локально)
-  - `whisper` CLI (fallback)
-  - OpenAI Whisper API (якщо є API key)
+- Підтримка форматів: ogg, mp3, wav, m4a, webm, flac
+- Автоматична обробка та конвертація аудіо (всередині qwen3_asr_toolkit)
+- Чистий Python API без subprocess/CLI викликів
+- Висока якість розпізнавання української мови
 
 ## Запуск
 
@@ -60,17 +58,15 @@ Health check endpoint.
 
 ### Environment Variables
 
-- `WHISPER_MODEL`: модель Whisper (`base`, `small`, `medium`, `large`) - за замовчуванням `base`
-- `OPENAI_API_KEY`: API ключ OpenAI (опційно, для використання OpenAI Whisper API)
+- `DASHSCOPE_API_KEY`: **Обов'язково** - API ключ DashScope для доступу до Qwen3 ASR API
+  - Отримати ключ: https://dashscope.console.aliyun.com/
+  - Встановити: `export DASHSCOPE_API_KEY="your-api-key"`
 
-### Моделі Whisper
+### Отримання API ключа DashScope
 
-- `base`: найшвидша, менша точність (~74M параметрів)
-- `small`: баланс швидкості та якості (~244M)
-- `medium`: краща якість (~769M)
-- `large`: найкраща якість (~1550M)
-
-Для української мови рекомендую `small` або `medium`.
+1. Зареєструйтеся на https://dashscope.console.aliyun.com/
+2. Створіть API ключ в розділі "API Keys"
+3. Встановіть змінну середовища `DASHSCOPE_API_KEY`
 
 ## Інтеграція з Gateway
 
@@ -84,21 +80,13 @@ Gateway автоматично використовує STT-сервіс для 
 
 ## Встановлення залежностей
 
-### faster-whisper (рекомендовано)
+### qwen3-asr-toolkit
 
 ```bash
-pip install faster-whisper
+pip install qwen3-asr-toolkit
 ```
 
-Моделі завантажуються автоматично при першому використанні.
-
-### whisper CLI (fallback)
-
-```bash
-pip install openai-whisper
-```
-
-### ffmpeg (обов'язково)
+### ffmpeg (може знадобитися для деяких форматів)
 
 ```bash
 # Ubuntu/Debian
@@ -113,19 +101,27 @@ brew install ffmpeg
 
 ## Troubleshooting
 
-### Помилка: "No Whisper implementation available"
+### Помилка: "qwen3_asr_toolkit not available"
 
-Встановіть одну з реалізацій:
-- `pip install faster-whisper` (рекомендовано)
-- або `pip install openai-whisper`
-- або встановіть `OPENAI_API_KEY`
+Встановіть бібліотеку:
+```bash
+pip install qwen3-asr-toolkit
+```
+
+### Помилка: "DASHSCOPE_API_KEY not configured"
+
+Встановіть змінну середовища:
+```bash
+export DASHSCOPE_API_KEY="your-api-key"
+```
+
+Або додайте в `docker-compose.yml`:
+```yaml
+environment:
+  - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+```
 
 ### Помилка: "ffmpeg not found"
 
-Встановіть ffmpeg (див. вище).
-
-### Повільна обробка
-
-- Використовуйте меншу модель (`base` замість `medium`)
-- Або використовуйте GPU (додайте `device="cuda"` в коді)
+Встановіть ffmpeg (див. вище). Більшість форматів обробляються без ffmpeg, але деякі можуть його потребувати.
 
