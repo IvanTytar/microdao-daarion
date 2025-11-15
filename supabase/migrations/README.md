@@ -17,7 +17,8 @@ SQL-міграції для схеми бази даних microDAO/DAARION.city
 7. `000007_embassy.sql` - Embassy Module (identities, webhooks, oracles)
 8. `000008_access_keys_capabilities.sql` - Access Keys, Capabilities, Bundles
 9. `000009_audit_outbox.sql` - Audit Log, Outbox Events
-10. `seeds.sql` - Seed data для bundles, capabilities та bundle mappings (запускати після всіх міграцій)
+10. `000010_teams_type_and_city_links.sql` - Teams type field, city_links, DAARION.city seed
+11. `seeds.sql` - Seed data для bundles, capabilities та bundle mappings (запускати після всіх міграцій)
 
 ---
 

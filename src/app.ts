@@ -14,6 +14,7 @@ import { pdpRoutes } from './api/http/pdp.routes';
 import { vendorRoutes } from './api/http/vendor.routes';
 import { platformsRoutes } from './api/http/platforms.routes';
 import { agentsRoutes } from './api/http/agents.routes';
+import { teamsRoutes } from './api/http/teams.routes';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(contextMiddleware);
 
 // Routes
 app.use('/api/v1/dao', daoRoutes);
+app.use('/api/v1/teams', teamsRoutes);
 app.use('/api/v1/wallet', walletRoutes);
 app.use('/api/v1/pdp', pdpRoutes);
 app.use('/api/v1/platforms', platformsRoutes);

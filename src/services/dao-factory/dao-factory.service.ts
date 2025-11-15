@@ -18,12 +18,13 @@ import { registryService } from '../registry/registry.service';
 export class DaoFactoryService {
   /**
    * Create a new MicroDAO (A3 or A4)
+   * Requires: 1 DAARION on balance (not staked)
    */
   async createDao(userId: string, input: CreateDaoInput): Promise<{ daoId: string }> {
-    // 1. Check wallet balance
-    const hasEnough = await walletService.hasEnoughForDaoCreate(userId);
+    // 1. Check wallet balance - need 1 DAARION on balance
+    const hasEnough = await walletService.hasEnoughForMicroDaoCreate(userId);
     if (!hasEnough) {
-      throw new Error('INSUFFICIENT_BALANCE: Need 1 DAAR or 0.01 DAARION');
+      throw new Error('INSUFFICIENT_BALANCE: Need 1 DAARION on balance to create MicroDAO');
     }
 
     // 2. Check PDP policy

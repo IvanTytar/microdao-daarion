@@ -20,38 +20,62 @@ export class WalletService implements IWalletService {
   }
 
   /**
-   * Check if user has enough tokens to create a DAO
-   * Requires: 1 DAAR OR 0.01 DAARION
+   * Check if user has enough DAARION to create a MicroDAO
+   * Requires: 1 DAARION on balance (not staked)
+   */
+  async hasEnoughForMicroDaoCreate(userId: string): Promise<boolean> {
+    const balances = await this.getBalances(userId);
+    const daarion = balances.find(b => b.symbol === 'DAARION');
+    return daarion ? parseFloat(daarion.amount) >= 1.0 : false;
+  }
+
+  /**
+   * Check if user has enough DAARION to be Admin
+   * Requires: 1 DAARION on balance (not staked)
+   */
+  async hasEnoughForAdminRole(userId: string): Promise<boolean> {
+    return this.hasEnoughForMicroDaoCreate(userId);
+  }
+
+  /**
+   * Check if user has enough DAARION to use MicroDAO service
+   * Requires: 0.01 DAARION on balance (not staked)
+   */
+  async hasEnoughForMicroDaoUsage(userId: string): Promise<boolean> {
+    const balances = await this.getBalances(userId);
+    const daarion = balances.find(b => b.symbol === 'DAARION');
+    return daarion ? parseFloat(daarion.amount) >= 0.01 : false;
+  }
+
+  /**
+   * Get DAARION balance for user
+   */
+  async getDaarionBalance(userId: string): Promise<number> {
+    const balances = await this.getBalances(userId);
+    const daarion = balances.find(b => b.symbol === 'DAARION');
+    return daarion ? parseFloat(daarion.amount) : 0;
+  }
+
+  // Legacy methods (deprecated, kept for backward compatibility)
+  /**
+   * @deprecated Use hasEnoughForMicroDaoCreate instead
    */
   async hasEnoughForDaoCreate(userId: string): Promise<boolean> {
-    const balances = await this.getBalances(userId);
-    
-    const daar = balances.find(b => b.symbol === 'DAAR');
-    const daarion = balances.find(b => b.symbol === 'DAARION');
-    
-    // Check: 1 DAAR OR 0.01 DAARION
-    const hasEnoughDaar = daar && parseFloat(daar.amount) >= 1.0;
-    const hasEnoughDaarion = daarion && parseFloat(daarion.amount) >= 0.01;
-    
-    return hasEnoughDaar || hasEnoughDaarion;
+    return this.hasEnoughForMicroDaoCreate(userId);
   }
 
   /**
-   * Check if user has enough staked DAARION for vendor registration
-   * Requires: 0.01 DAARION staked
+   * @deprecated Not used in current implementation
    */
   async hasEnoughForVendorRegister(userId: string): Promise<boolean> {
-    const staked = await walletAdapter.getStakedDaarion(userId);
-    return staked >= 0.01;
+    return this.hasEnoughForMicroDaoUsage(userId);
   }
 
   /**
-   * Check if user has enough staked DAARION for platform creation
-   * Requires: 1 DAARION staked
+   * @deprecated Not used in current implementation
    */
   async hasEnoughForPlatformCreate(userId: string): Promise<boolean> {
-    const staked = await walletAdapter.getStakedDaarion(userId);
-    return staked >= 1.0;
+    return this.hasEnoughForMicroDaoCreate(userId);
   }
 }
 

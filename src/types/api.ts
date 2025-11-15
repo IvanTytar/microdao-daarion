@@ -12,15 +12,21 @@ export interface User {
 export interface Team {
   id: string;
   name: string;
+  slug: string;
   description: string | null;
   mode: 'public' | 'confidential';
+  type?: 'city' | 'platform' | 'community' | 'guild' | 'lab' | 'personal';
+  parent_team_id?: string | null;
   created_at: string;
   updated_at: string;
 }
 
 export interface CreateTeamRequest {
   name: string;
+  slug?: string;
   description?: string;
+  type?: 'community' | 'guild' | 'lab' | 'personal';
+  mode?: 'public' | 'confidential';
 }
 
 export interface UpdateTeamRequest {
