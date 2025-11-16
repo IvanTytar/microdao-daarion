@@ -84,8 +84,12 @@ services:
       - ROUTER_URL=http://router:9102
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:-}
-      - DAARWIZZ_NAME=DAARWIZZ
+      - DAARWIZZ_NAME=${DAARWIZZ_NAME:-DAARWIZZ}
       - DAARWIZZ_PROMPT_PATH=/app/gateway-bot/daarwizz_prompt.txt
+      - HELION_TELEGRAM_BOT_TOKEN=${HELION_TELEGRAM_BOT_TOKEN:-}
+      - HELION_NAME=${HELION_NAME:-Helion}
+      - HELION_PROMPT_PATH=/app/gateway-bot/helion_prompt.txt
+      - MEMORY_SERVICE_URL=http://memory-service:8000
     volumes:
       - ./logs:/app/logs
     depends_on:

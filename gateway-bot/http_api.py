@@ -51,6 +51,36 @@ DAARWIZZ_SYSTEM_PROMPT = load_daarwizz_prompt()
 
 
 # ========================================
+# HELION Configuration
+# ========================================
+
+HELION_NAME = os.getenv("HELION_NAME", "Helion")
+HELION_PROMPT_PATH = os.getenv(
+    "HELION_PROMPT_PATH",
+    str(Path(__file__).parent / "helion_prompt.txt"),
+)
+
+
+def load_helion_prompt() -> str:
+    """Load Helion system prompt from file"""
+    try:
+        p = Path(HELION_PROMPT_PATH)
+        if not p.exists():
+            logger.warning(f"Helion prompt file not found: {HELION_PROMPT_PATH}")
+            return f"Ти — {HELION_NAME}, AI-агент платформи Energy Union. Допомагай учасникам з технологіями та токеномікою."
+        
+        prompt = p.read_text(encoding="utf-8")
+        logger.info(f"Helion system prompt loaded ({len(prompt)} chars)")
+        return prompt
+    except Exception as e:
+        logger.error(f"Error loading Helion prompt: {e}")
+        return f"Ти — {HELION_NAME}, AI-агент платформи Energy Union."
+
+
+HELION_SYSTEM_PROMPT = load_helion_prompt()
+
+
+# ========================================
 # Request Models
 # ========================================
 
@@ -380,12 +410,113 @@ async def send_telegram_message(chat_id: str, text: str):
         logger.error(f"Error sending Telegram message: {e}")
 
 
+# ========================================
+# Helion Telegram Webhook
+# ========================================
+
+@router.post("/helion/telegram/webhook")
+async def helion_telegram_webhook(update: TelegramUpdate):
+    """
+    Handle Telegram webhook for Helion agent.
+    """
+    try:
+        if not update.message:
+            raise HTTPException(status_code=400, detail="No message in update")
+        
+        # Extract message details
+        from_user = update.message.get("from", {})
+        chat = update.message.get("chat", {})
+        
+        user_id = str(from_user.get("id", "unknown"))
+        chat_id = str(chat.get("id", "unknown"))
+        username = from_user.get("username", "")
+        
+        # Get DAO ID for this chat (Energy Union specific)
+        dao_id = get_dao_id(chat_id, "telegram")
+        
+        # Get message text
+        text = update.message.get("text", "")
+        if not text:
+            raise HTTPException(status_code=400, detail="No text in message")
+        
+        logger.info(f"Helion Telegram message from {username} (tg:{user_id}) in chat {chat_id}: {text[:50]}")
+        
+        # Fetch memory context
+        memory_context = await memory_client.get_context(
+            user_id=f"tg:{user_id}",
+            agent_id="helion",
+            team_id=dao_id,
+            channel_id=chat_id,
+            limit=10
+        )
+        
+        # Build request to Router with Helion context
+        router_request = {
+            "message": text,
+            "mode": "chat",
+            "agent": "helion",  # Helion agent identifier
+            "metadata": {
+                "source": "telegram",
+                "dao_id": dao_id,
+                "user_id": f"tg:{user_id}",
+                "session_id": f"tg:{chat_id}:{dao_id}",
+                "username": username,
+                "chat_id": chat_id,
+            },
+            "context": {
+                "agent_name": HELION_NAME,
+                "system_prompt": HELION_SYSTEM_PROMPT,
+                "memory": memory_context,
+            },
+        }
+        
+        # Send to Router
+        logger.info(f"Sending to Router: agent=helion, dao={dao_id}, user=tg:{user_id}")
+        response = await send_to_router(router_request)
+        
+        # Extract response text
+        if isinstance(response, dict):
+            answer_text = response.get("data", {}).get("text") or response.get("response", "Вибач, я зараз не можу відповісти.")
+        else:
+            answer_text = "Вибач, сталася помилка."
+        
+        logger.info(f"Router response: {answer_text[:100]}")
+        
+        # Save chat turn to memory
+        await memory_client.save_chat_turn(
+            agent_id="helion",
+            team_id=dao_id,
+            user_id=f"tg:{user_id}",
+            message=text,
+            response=answer_text,
+            channel_id=chat_id,
+            scope="short_term"
+        )
+        
+        # Send response back to Telegram
+        await send_telegram_message(chat_id, answer_text)
+        
+        return {"ok": True, "agent": "helion"}
+        
+    except Exception as e:
+        logger.error(f"Error handling Helion Telegram webhook: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/health")
 async def health():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "agent": DAARWIZZ_NAME,
-        "system_prompt_loaded": len(DAARWIZZ_SYSTEM_PROMPT) > 0,
+        "agents": {
+            "daarwizz": {
+                "name": DAARWIZZ_NAME,
+                "prompt_loaded": len(DAARWIZZ_SYSTEM_PROMPT) > 0
+            },
+            "helion": {
+                "name": HELION_NAME,
+                "prompt_loaded": len(HELION_SYSTEM_PROMPT) > 0
+            }
+        },
         "timestamp": datetime.utcnow().isoformat(),
     }
