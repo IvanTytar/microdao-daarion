@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  parser-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: cpu  # Use 'cuda' for GPU support
+    container_name: dagi-parser-service
+    ports:
+      - "9400:9400"
+    environment:
+      # Model configuration
+      - PARSER_MODEL_NAME=${PARSER_MODEL_NAME:-rednote-hilab/dots.ocr}
+      - DOTS_OCR_MODEL_ID=${DOTS_OCR_MODEL_ID:-rednote-hilab/dots.ocr}
+      - PARSER_DEVICE=${PARSER_DEVICE:-cpu}
+      - DEVICE=${DEVICE:-cpu}
+      
+      # Runtime configuration
+      - RUNTIME_TYPE=${RUNTIME_TYPE:-local}
+      - USE_DUMMY_PARSER=${USE_DUMMY_PARSER:-false}
+      - ALLOW_DUMMY_FALLBACK=${ALLOW_DUMMY_FALLBACK:-true}
+      
+      # Ollama (if RUNTIME_TYPE=ollama)
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+      
+      # Processing limits
+      - PARSER_MAX_PAGES=${PARSER_MAX_PAGES:-100}
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-50}
+      - PDF_DPI=${PDF_DPI:-200}
+      - IMAGE_MAX_SIZE=${IMAGE_MAX_SIZE:-2048}
+      
+      # Service
+      - API_HOST=0.0.0.0
+      - API_PORT=9400
+      - TEMP_DIR=/tmp/parser
+    volumes:
+      # Model cache (persist between restarts)
+      - parser-model-cache:/root/.cache/huggingface
+      # Temp files
+      - parser-temp:/tmp/parser
+      # Logs
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9400/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    # Uncomment for GPU support
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Optional: Ollama service (if using Ollama runtime)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: dagi-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    # Uncomment for GPU support
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  parser-model-cache:
+    driver: local
+  parser-temp:
+    driver: local
+  ollama-data:
+    driver: local
+
+networks:
+  dagi-network:
+    external: true
+    name: dagi-network
+

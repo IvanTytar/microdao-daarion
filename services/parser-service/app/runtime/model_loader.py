@@ -37,56 +37,94 @@ def load_model() -> Optional[object]:
     
     try:
         # Load dots.ocr model
-        # Note: Adjust imports and model class based on actual dots.ocr implementation
-        # This is a template that should work with most Vision-Language models
+        # dots.ocr is a Vision-Language Model for document OCR and layout parsing
         
         try:
             from transformers import AutoModelForVision2Seq, AutoProcessor
             import torch
-        except ImportError:
-            logger.error("transformers or torch not installed. Install with: pip install transformers torch")
+        except ImportError as e:
+            logger.error(f"transformers or torch not installed: {e}")
+            logger.error("Install with: pip install transformers torch")
             if not settings.ALLOW_DUMMY_FALLBACK:
                 raise
             return None
         
-        logger.info(f"Loading model from: {settings.PARSER_MODEL_NAME}")
+        model_name = settings.PARSER_MODEL_NAME
+        logger.info(f"Loading dots.ocr model from: {model_name}")
+        logger.info(f"Target device: {settings.PARSER_DEVICE}")
         
-        # Load processor
-        processor = AutoProcessor.from_pretrained(
-            settings.PARSER_MODEL_NAME,
-            trust_remote_code=True  # If model has custom code
-        )
+        # Load processor (handles image preprocessing and text tokenization)
+        try:
+            processor = AutoProcessor.from_pretrained(
+                model_name,
+                trust_remote_code=True  # dots.ocr may have custom code
+            )
+            logger.info("Processor loaded successfully")
+        except Exception as e:
+            logger.error(f"Failed to load processor: {e}")
+            if not settings.ALLOW_DUMMY_FALLBACK:
+                raise
+            return None
         
         # Determine device and dtype
         device = settings.PARSER_DEVICE
-        if device == "cuda" and not torch.cuda.is_available():
-            logger.warning("CUDA not available, falling back to CPU")
-            device = "cpu"
-        elif device == "mps" and not hasattr(torch.backends, "mps") or not torch.backends.mps.is_available():
-            logger.warning("MPS not available, falling back to CPU")
-            device = "cpu"
         
-        dtype = torch.float16 if device != "cpu" else torch.float32
+        # Check CUDA availability
+        if device == "cuda":
+            if not torch.cuda.is_available():
+                logger.warning("CUDA requested but not available, falling back to CPU")
+                device = "cpu"
+            else:
+                logger.info(f"Using CUDA device: {torch.cuda.get_device_name(0)}")
+        
+        # Check MPS availability (Apple Silicon)
+        elif device == "mps":
+            if not hasattr(torch.backends, "mps") or not torch.backends.mps.is_available():
+                logger.warning("MPS requested but not available, falling back to CPU")
+                device = "cpu"
+            else:
+                logger.info("Using MPS (Apple Silicon)")
+        
+        # Determine dtype based on device
+        if device == "cpu":
+            dtype = torch.float32
+        else:
+            dtype = torch.float16  # Use half precision for GPU to save memory
+        
+        logger.info(f"Loading model with dtype: {dtype}")
         
         # Load model
-        model = AutoModelForVision2Seq.from_pretrained(
-            settings.PARSER_MODEL_NAME,
-            device_map=device if device != "cpu" else None,
-            torch_dtype=dtype,
-            trust_remote_code=True
-        )
-        
-        if device == "cpu":
-            model = model.to("cpu")
+        try:
+            model = AutoModelForVision2Seq.from_pretrained(
+                model_name,
+                device_map=device if device != "cpu" else None,
+                torch_dtype=dtype,
+                trust_remote_code=True,
+                low_cpu_mem_usage=True  # Optimize memory usage
+            )
+            
+            # Explicitly move to device if CPU
+            if device == "cpu":
+                model = model.to("cpu")
+                model.eval()  # Set to evaluation mode
+            
+            logger.info(f"Model loaded successfully on device: {device}")
+            
+        except Exception as e:
+            logger.error(f"Failed to load model: {e}", exc_info=True)
+            if not settings.ALLOW_DUMMY_FALLBACK:
+                raise
+            return None
         
         # Store model and processor
         _model = {
             "model": model,
             "processor": processor,
-            "device": device
+            "device": device,
+            "dtype": dtype
         }
         
-        logger.info(f"Model loaded successfully on device: {device}")
+        logger.info(f"dots.ocr model ready on {device}")
         
     except ImportError as e:
         logger.error(f"Required packages not installed: {e}")

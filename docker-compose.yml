@@ -193,6 +193,44 @@ services:
       timeout: 10s
       retries: 3
 
+  # PARSER Service (Document OCR using dots.ocr)
+  parser-service:
+    build:
+      context: ./services/parser-service
+      dockerfile: Dockerfile
+      target: cpu
+    container_name: dagi-parser-service
+    ports:
+      - "9400:9400"
+    environment:
+      - PARSER_MODEL_NAME=${PARSER_MODEL_NAME:-rednote-hilab/dots.ocr}
+      - DOTS_OCR_MODEL_ID=${DOTS_OCR_MODEL_ID:-rednote-hilab/dots.ocr}
+      - PARSER_DEVICE=${PARSER_DEVICE:-cpu}
+      - DEVICE=${DEVICE:-cpu}
+      - RUNTIME_TYPE=${RUNTIME_TYPE:-local}
+      - USE_DUMMY_PARSER=${USE_DUMMY_PARSER:-false}
+      - ALLOW_DUMMY_FALLBACK=${ALLOW_DUMMY_FALLBACK:-true}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+      - PARSER_MAX_PAGES=${PARSER_MAX_PAGES:-100}
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-50}
+      - PDF_DPI=${PDF_DPI:-200}
+      - IMAGE_MAX_SIZE=${IMAGE_MAX_SIZE:-2048}
+    volumes:
+      - parser-model-cache:/root/.cache/huggingface
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9400/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  parser-model-cache:
+    driver: local
+
 networks:
   dagi-network:
     driver: bridge

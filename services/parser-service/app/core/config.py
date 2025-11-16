@@ -15,8 +15,8 @@ class Settings(BaseSettings):
     API_PORT: int = 9400
     
     # PARSER Model
-    PARSER_MODEL_NAME: str = os.getenv("PARSER_MODEL_NAME", "rednote-hilab/dots.ocr")
-    PARSER_DEVICE: Literal["cuda", "cpu", "mps"] = os.getenv("PARSER_DEVICE", "cpu")
+    PARSER_MODEL_NAME: str = os.getenv("PARSER_MODEL_NAME", os.getenv("DOTS_OCR_MODEL_ID", "rednote-hilab/dots.ocr"))
+    PARSER_DEVICE: Literal["cuda", "cpu", "mps"] = os.getenv("PARSER_DEVICE", os.getenv("DEVICE", "cpu"))
     PARSER_MAX_PAGES: int = int(os.getenv("PARSER_MAX_PAGES", "100"))
     PARSER_MAX_RESOLUTION: str = os.getenv("PARSER_MAX_RESOLUTION", "4096x4096")
     PARSER_BATCH_SIZE: int = int(os.getenv("PARSER_BATCH_SIZE", "1"))
