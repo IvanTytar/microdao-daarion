@@ -34,7 +34,12 @@ async def parse_document_endpoint(
     doc_url: Optional[str] = Form(None),
     output_mode: str = Form("raw_json"),
     dao_id: Optional[str] = Form(None),
-    doc_id: Optional[str] = Form(None)
+    doc_id: Optional[str] = Form(None),
+    region_bbox_x: Optional[float] = Form(None),
+    region_bbox_y: Optional[float] = Form(None),
+    region_bbox_width: Optional[float] = Form(None),
+    region_bbox_height: Optional[float] = Form(None),
+    region_page: Optional[int] = Form(None)
 ):
     """
     Parse document (PDF or image) using dots.ocr
@@ -81,6 +86,30 @@ async def parse_document_endpoint(
                 image = load_image(content)
                 images = [image]
             
+            # For region mode, validate and prepare region bbox
+            region_bbox = None
+            if output_mode == "region":
+                if not all([region_bbox_x is not None, region_bbox_y is not None, 
+                           region_bbox_width is not None, region_bbox_height is not None]):
+                    raise HTTPException(
+                        status_code=400,
+                        detail="region mode requires region_bbox_x, region_bbox_y, region_bbox_width, region_bbox_height"
+                    )
+                region_bbox = {
+                    "x": float(region_bbox_x),
+                    "y": float(region_bbox_y),
+                    "width": float(region_bbox_width),
+                    "height": float(region_bbox_height)
+                }
+                # If region_page specified, only process that page
+                if region_page is not None:
+                    if region_page < 1 or region_page > len(images):
+                        raise HTTPException(
+                            status_code=400,
+                            detail=f"region_page {region_page} out of range (1-{len(images)})"
+                        )
+                    images = [images[region_page - 1]]
+            
         else:
             # TODO: Download from doc_url
             raise HTTPException(
@@ -99,14 +128,16 @@ async def parse_document_endpoint(
                 images=images,
                 output_mode=output_mode,
                 doc_id=doc_id or str(uuid.uuid4()),
-                doc_type=doc_type
+                doc_type=doc_type,
+                region_bbox=region_bbox
             )
         else:
             parsed_doc = parse_document_from_images(
                 images=images,
                 output_mode=output_mode,
                 doc_id=doc_id or str(uuid.uuid4()),
-                doc_type=doc_type
+                doc_type=doc_type,
+                region_bbox=region_bbox
             )
         
         # Build response based on output_mode

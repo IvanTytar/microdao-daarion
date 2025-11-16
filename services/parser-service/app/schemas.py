@@ -120,6 +120,9 @@ class ParseRequest(BaseModel):
     )
     dao_id: Optional[str] = Field(None, description="DAO ID")
     doc_id: Optional[str] = Field(None, description="Document ID")
+    # Region mode parameters (for grounding OCR)
+    region_bbox: Optional[BBox] = Field(None, description="Bounding box for region mode (x, y, width, height)")
+    region_page: Optional[int] = Field(None, description="Page number for region mode")
 
 
 class ParseResponse(BaseModel):

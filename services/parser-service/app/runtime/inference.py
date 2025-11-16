@@ -29,7 +29,8 @@ async def parse_document_with_ollama(
     images: List[Image.Image],
     output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks", "layout_only", "region"] = "raw_json",
     doc_id: Optional[str] = None,
-    doc_type: Literal["pdf", "image"] = "image"
+    doc_type: Literal["pdf", "image"] = "image",
+    region_bbox: Optional[dict] = None
 ) -> ParsedDocument:
     """
     Parse document using Ollama API
@@ -109,7 +110,8 @@ def parse_document_from_images(
     images: List[Image.Image],
     output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks", "layout_only", "region"] = "raw_json",
     doc_id: Optional[str] = None,
-    doc_type: Literal["pdf", "image"] = "image"
+    doc_type: Literal["pdf", "image"] = "image",
+    region_bbox: Optional[dict] = None
 ) -> ParsedDocument:
     """
     Parse document from list of images using dots.ocr model
@@ -159,7 +161,7 @@ def parse_document_from_images(
             image_bytes = buf.getvalue()
             
             # Use local_runtime with native prompt modes
-            generated_text = parse_document_with_local(image_bytes, output_mode)
+            generated_text = parse_document_with_local(image_bytes, output_mode, region_bbox)
             
             logger.debug(f"Model output for page {idx}: {generated_text[:100]}...")
             

@@ -95,6 +95,14 @@ routing:
     use_llm: local_qwen3_8b
     description: "microDAO chat → local LLM with RBAC context"
 
+  # Q&A Builder mode (for parser-service 2-stage pipeline)
+  - id: qa_build_mode
+    priority: 8
+    when:
+      mode: qa_build
+    use_llm: local_qwen3_8b
+    description: "Q&A generation from parsed documents → local LLM"
+
   # NEW: CrewAI workflow orchestration
   - id: crew_mode
     priority: 3
