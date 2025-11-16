@@ -174,6 +174,23 @@ async def route(request: RouterRequest):
 
 ### 1. Конвертація ParsedDocument → Haystack Documents
 
+**Готова функція:** `app/utils/rag_converter.py`
+
+```python
+from app.utils.rag_converter import parsed_doc_to_haystack_docs, validate_parsed_doc_for_rag
+
+# Валідація перед конвертацією
+is_valid, errors = validate_parsed_doc_for_rag(parsed_doc)
+if not is_valid:
+    logger.error(f"Document validation failed: {errors}")
+    return
+
+# Конвертація
+haystack_docs = parsed_doc_to_haystack_docs(parsed_doc)
+```
+
+**Або вручну:**
+
 ```python
 from haystack.schema import Document
 
