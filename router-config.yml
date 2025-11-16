@@ -135,6 +135,15 @@ routing:
     use_metadata: provider
     description: "Явний вибір провайдера через metadata.provider"
 
+
+  # Helion Energy Union Agent
+  - id: helion_agent
+    priority: 5
+    when:
+      agent: helion
+    use_llm: local_qwen3_8b
+    use_context_prompt: true
+    description: "Helion agent for Energy Union → uses context.system_prompt"
   # DevTools + складні задачі → DeepSeek (якщо є API key)
   - id: devtools_complex_cloud
     priority: 10
@@ -194,3 +203,13 @@ policies:
     enabled: true
   audit_mode:
     enabled: false
+
+  helion:
+    description: "Helion - AI agent for Energy Union platform"
+    default_llm: local_qwen3_8b
+    use_context_prompt: true
+    system_prompt: |
+      # System prompt буде підставлено з context.system_prompt від gateway
+      # Якщо не передано - використовується цей fallback
+      Ти - Helion, AI-агент платформи Energy Union.
+      Допомагай користувачам з технологіями EcoMiner/BioMiner, токеномікою та DAO governance.
