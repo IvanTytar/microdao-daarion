@@ -53,12 +53,28 @@ class ParsedPage(BaseModel):
 
 
 class ParsedChunk(BaseModel):
-    """Semantic chunk for RAG"""
-    text: str = Field(..., description="Chunk text")
-    page: int = Field(..., description="Page number")
-    bbox: Optional[BBox] = Field(None, description="Bounding box")
-    section: Optional[str] = Field(None, description="Section name")
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
+    """
+    Semantic chunk for RAG
+    
+    Must-have fields for RAG indexing:
+    - text: Chunk text content (required)
+    - metadata.dao_id: DAO identifier (required for filtering)
+    - metadata.doc_id: Document identifier (required for citation)
+    
+    Recommended fields:
+    - page: Page number (for citation)
+    - section: Section name (for context)
+    - metadata.block_type: Type of block (heading, paragraph, etc.)
+    - metadata.reading_order: Reading order (for sorting)
+    """
+    text: str = Field(..., description="Chunk text (required for RAG)")
+    page: int = Field(..., description="Page number (for citation)")
+    bbox: Optional[BBox] = Field(None, description="Bounding box (for highlighting)")
+    section: Optional[str] = Field(None, description="Section name (for context)")
+    metadata: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Metadata (must include dao_id, doc_id for RAG)"
+    )
 
 
 class QAPair(BaseModel):
@@ -71,12 +87,28 @@ class QAPair(BaseModel):
 
 
 class ParsedDocument(BaseModel):
-    """Complete parsed document"""
-    doc_id: Optional[str] = Field(None, description="Document ID")
+    """
+    Complete parsed document
+    
+    Must-have fields for RAG integration:
+    - doc_id: Unique document identifier (required for RAG indexing)
+    - pages: List of parsed pages with blocks (required for content)
+    - doc_type: Document type (required for processing)
+    
+    Recommended fields for RAG:
+    - metadata.dao_id: DAO identifier (for filtering)
+    - metadata.user_id: User who uploaded (for access control)
+    - metadata.title: Document title (for display)
+    - metadata.created_at: Upload timestamp (for sorting)
+    """
+    doc_id: str = Field(..., description="Document ID (required for RAG)")
     doc_url: Optional[str] = Field(None, description="Document URL")
     doc_type: Literal["pdf", "image"] = Field(..., description="Document type")
-    pages: List[ParsedPage] = Field(..., description="Parsed pages")
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Document metadata")
+    pages: List[ParsedPage] = Field(..., description="Parsed pages (required for RAG)")
+    metadata: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Document metadata (should include dao_id, user_id for RAG)"
+    )
     created_at: datetime = Field(default_factory=datetime.utcnow, description="Creation timestamp")
 
 
