@@ -47,6 +47,10 @@ class Settings(BaseSettings):
     ROUTER_BASE_URL: str = os.getenv("ROUTER_BASE_URL", "http://router:9102")
     ROUTER_TIMEOUT: int = int(os.getenv("ROUTER_TIMEOUT", "60"))
     
+    # RAG Service configuration (for ingest pipeline)
+    RAG_BASE_URL: str = os.getenv("RAG_BASE_URL", "http://rag-service:9500")
+    RAG_TIMEOUT: int = int(os.getenv("RAG_TIMEOUT", "120"))
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

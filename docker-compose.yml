@@ -12,6 +12,8 @@ services:
       - RBAC_BASE_URL=http://rbac:9200
       - DEVTOOLS_BASE_URL=http://devtools:8008
       - CREWAI_BASE_URL=http://crewai:9010
+      - RAG_SERVICE_URL=http://rag-service:9500
+      - MEMORY_SERVICE_URL=http://memory-service:8000
     volumes:
       - ./router-config.yml:/app/router-config.yml:ro
       - ./logs:/app/logs

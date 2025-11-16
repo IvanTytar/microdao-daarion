@@ -141,3 +141,12 @@ class ChunksResponse(BaseModel):
     doc_id: str = Field(..., description="Document ID")
     dao_id: str = Field(..., description="DAO ID")
 
+
+class OcrIngestResponse(BaseModel):
+    """Response from /ocr/ingest endpoint"""
+    dao_id: str = Field(..., description="DAO identifier")
+    doc_id: str = Field(..., description="Document identifier")
+    pages_processed: int = Field(..., description="Number of pages processed")
+    rag_ingested: bool = Field(..., description="Whether document was ingested into RAG")
+    raw_json: Dict[str, Any] = Field(..., description="Parsed document JSON")
+

@@ -4,14 +4,17 @@ API endpoints for PARSER Service
 
 import logging
 import uuid
+import json
 from pathlib import Path
 from typing import Optional
 
 from fastapi import APIRouter, UploadFile, File, HTTPException, Form
 from fastapi.responses import JSONResponse
+import httpx
 
 from app.schemas import (
-    ParseRequest, ParseResponse, ParsedDocument, ParsedChunk, QAPair, ChunksResponse
+    ParseRequest, ParseResponse, ParsedDocument, ParsedChunk, QAPair, ChunksResponse,
+    OcrIngestResponse
 )
 from app.core.config import settings
 from app.runtime.inference import parse_document_from_images
@@ -22,6 +25,7 @@ from app.runtime.postprocessing import (
     build_chunks, build_qa_pairs, build_markdown
 )
 from app.runtime.qa_builder import build_qa_pairs_via_router
+from app.utils.file_converter import pdf_or_image_to_png_bytes
 
 logger = logging.getLogger(__name__)
 
@@ -241,4 +245,102 @@ async def parse_chunks_endpoint(
         doc_id=response.chunks[0].metadata.get("doc_id", doc_id or "unknown"),
         dao_id=dao_id
     )
+
+
+@router.post("/ocr/ingest", response_model=OcrIngestResponse)
+async def ocr_ingest_endpoint(
+    file: UploadFile = File(...),
+    dao_id: str = Form(...),
+    doc_id: Optional[str] = Form(None),
+    user_id: Optional[str] = Form(None)
+):
+    """
+    Parse document and ingest into RAG in one call
+    
+    Flow:
+    1. Accept PDF/image file
+    2. Parse with dots.ocr (raw_json mode)
+    3. Send parsed_json to RAG Service /ingest
+    4. Return doc_id + raw_json
+    
+    Args:
+        file: PDF or image file
+        dao_id: DAO identifier (required)
+        doc_id: Document identifier (optional, defaults to filename)
+        user_id: User identifier (optional)
+    """
+    try:
+        # Generate doc_id if not provided
+        if not doc_id:
+            doc_id = file.filename or f"doc-{uuid.uuid4().hex[:8]}"
+        
+        # Read and validate file
+        content = await file.read()
+        validate_file_size(content)
+        
+        # Detect file type
+        doc_type = detect_file_type(content, file.filename)
+        
+        # Convert to images
+        if doc_type == "pdf":
+            images = convert_pdf_to_images(content)
+        else:
+            image = load_image(content)
+            images = [image]
+        
+        pages_count = len(images)
+        logger.info(f"Ingesting document: dao_id={dao_id}, doc_id={doc_id}, pages={pages_count}")
+        
+        # Parse document (raw_json mode)
+        parsed_doc = parse_document_from_images(
+            images=images,
+            output_mode="raw_json",
+            doc_id=doc_id,
+            doc_type=doc_type
+        )
+        
+        # Convert to JSON
+        parsed_json = parsed_doc.model_dump(mode="json")
+        
+        # Send to RAG Service
+        ingest_payload = {
+            "dao_id": dao_id,
+            "doc_id": doc_id,
+            "parsed_json": parsed_json,
+        }
+        
+        if user_id:
+            ingest_payload["user_id"] = user_id
+        
+        rag_url = f"{settings.RAG_BASE_URL.rstrip('/')}/ingest"
+        logger.info(f"Sending to RAG Service: {rag_url}")
+        
+        try:
+            async with httpx.AsyncClient(timeout=settings.RAG_TIMEOUT) as client:
+                resp = await client.post(rag_url, json=ingest_payload)
+                resp.raise_for_status()
+                rag_result = resp.json()
+                
+                logger.info(f"RAG ingest successful: {rag_result.get('doc_count', 0)} documents indexed")
+                
+        except httpx.HTTPError as e:
+            logger.error(f"RAG ingest failed: {e}")
+            raise HTTPException(
+                status_code=502,
+                detail=f"RAG Service ingest failed: {str(e)}"
+            )
+        
+        return OcrIngestResponse(
+            dao_id=dao_id,
+            doc_id=doc_id,
+            pages_processed=pages_count,
+            rag_ingested=True,
+            raw_json=parsed_json
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error in ocr_ingest: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Ingest failed: {str(e)}")
 
