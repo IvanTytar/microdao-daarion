@@ -159,8 +159,12 @@ class LLMProvider(Provider):
         """Get system prompt based on agent or context"""
         # 1. Check if context.system_prompt provided (e.g., from Gateway)
         context = req.payload.get("context") or {}
+        logger.info(f"[DEBUG] payload keys: {list(req.payload.keys())}")
+        logger.info(f"[DEBUG] context keys: {list(context.keys())}")
         if "system_prompt" in context:
-            return context["system_prompt"]
+            prompt = context["system_prompt"]
+            logger.info(f"[DEBUG] Using context.system_prompt: {len(prompt)} chars, agent={req.agent}")
+            return prompt
         
         # 2. Agent-specific system prompts
         if req.agent == "daarwizz":
