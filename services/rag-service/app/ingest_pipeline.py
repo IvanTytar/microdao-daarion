@@ -34,8 +34,11 @@ def ingest_parsed_document(
         user_id: Optional user identifier
     
     Returns:
-        Dictionary with ingest results (doc_count, status)
+        Dictionary with ingest results (doc_count, status, metrics)
     """
+    import time
+    ingest_start = time.time()
+    
     logger.info(f"Ingesting document: dao_id={dao_id}, doc_id={doc_id}")
     
     try:
@@ -56,26 +59,53 @@ def ingest_parsed_document(
         pipeline = _create_ingest_pipeline()
         
         # Run pipeline
+        pipeline_start = time.time()
         result = pipeline.run({"documents": documents})
+        pipeline_time = time.time() - pipeline_start
         
         # Extract results
         written_docs = result.get("documents_writer", {}).get("documents_written", 0)
         
-        logger.info(f"Ingested {written_docs} documents for doc_id={doc_id}")
+        # Calculate metrics
+        total_time = time.time() - ingest_start
+        pages_count = len(parsed_json.get("pages", []))
+        blocks_count = sum(
+            len(page.get("blocks", []))
+            for page in parsed_json.get("pages", [])
+        )
+        
+        logger.info(
+            f"Ingested {written_docs} documents for doc_id={doc_id}: "
+            f"pages={pages_count}, blocks={blocks_count}, "
+            f"pipeline_time={pipeline_time:.2f}s, total_time={total_time:.2f}s"
+        )
         
         return {
             "status": "success",
             "doc_count": written_docs,
             "dao_id": dao_id,
-            "doc_id": doc_id
+            "doc_id": doc_id,
+            "metrics": {
+                "pages_processed": pages_count,
+                "blocks_processed": blocks_count,
+                "documents_indexed": written_docs,
+                "pipeline_time_seconds": round(pipeline_time, 2),
+                "total_time_seconds": round(total_time, 2)
+            }
         }
         
     except Exception as e:
         logger.error(f"Failed to ingest document: {e}", exc_info=True)
+        total_time = time.time() - ingest_start
+        logger.error(f"Ingest failed after {total_time:.2f}s: {e}")
         return {
             "status": "error",
             "message": str(e),
-            "doc_count": 0
+            "doc_count": 0,
+            "metrics": {
+                "total_time_seconds": round(total_time, 2),
+                "error": str(e)
+            }
         }
 
 

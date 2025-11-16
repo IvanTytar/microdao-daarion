@@ -189,48 +189,33 @@ class RouterApp:
             
             logger.info(f"RAG retrieved {len(rag_docs)} documents, {len(rag_citations)} citations")
             
-            # 3. Build final prompt with Memory + RAG
-            system_prompt = (
-                "Ти асистент microDAO. Використовуй і особисту пам'ять, і документи DAO.\n"
-                "Формуй чітку, структуровану відповідь українською, посилаючись на документи "
-                "через індекси [1], [2] тощо, де це доречно.\n\n"
-            )
+            # 3. Build final prompt with Memory + RAG (using optimized prompt builder)
+            from utils.rag_prompt_builder import build_rag_prompt_with_citations, estimate_token_count
             
-            # Add Memory context
-            memory_text = ""
-            if memory_ctx.get("facts"):
-                facts_summary = ", ".join([
-                    f"{f.get('fact_key', '')}={f.get('fact_value', '')}"
-                    for f in memory_ctx["facts"][:5]
-                ])
-                if facts_summary:
-                    memory_text += f"Особисті факти: {facts_summary}\n"
+            # Only include RAG if available
+            if rag_used and rag_citations:
+                final_prompt = build_rag_prompt_with_citations(
+                    question=question,
+                    memory_context=memory_ctx,
+                    rag_citations=rag_citations,
+                    rag_documents=rag_docs
+                )
+            else:
+                # Fallback: Memory only prompt
+                from utils.rag_prompt_builder import _build_memory_section
+                memory_section = _build_memory_section(memory_ctx)
+                
+                final_prompt = (
+                    "Ти — експерт-консультант з токеноміки та архітектури DAO в екосистемі DAARION.city.\n"
+                    "Відповідай на основі особистої пам'яті та контексту.\n\n"
+                )
+                if memory_section:
+                    final_prompt += f"**Особиста пам'ять та контекст:**\n{memory_section}\n\n"
+                final_prompt += f"**Питання користувача:**\n{question}\n\n**Відповідь:**"
             
-            if memory_ctx.get("recent_events"):
-                recent = memory_ctx["recent_events"][:3]
-                events_summary = "\n".join([
-                    f"- {e.get('body_text', '')[:100]}"
-                    for e in recent
-                ])
-                if events_summary:
-                    memory_text += f"Останні події:\n{events_summary}\n"
-            
-            # Add RAG documents
-            docs_text = ""
-            for i, citation in enumerate(rag_citations[:5], start=1):
-                doc_id = citation.get("doc_id", "unknown")
-                page = citation.get("page", 0)
-                excerpt = citation.get("excerpt", "")
-                docs_text += f"[{i}] (doc_id={doc_id}, page={page}): {excerpt}\n"
-            
-            # Build final prompt
-            final_prompt = (
-                f"{system_prompt}"
-                f"{'1) Пам\'ять (короткий summary):\n' + memory_text + '\n' if memory_text else ''}"
-                f"2) Релевантні документи (витяги):\n{docs_text}\n\n"
-                f"Питання користувача:\n{question}\n\n"
-                "Відповідь:"
-            )
+            # Estimate token count for logging
+            estimated_tokens = estimate_token_count(final_prompt)
+            logger.info(f"Final prompt length: ~{estimated_tokens} tokens, RAG used: {rag_used}")
             
             # 4. Call LLM provider
             provider = self.routing_table.resolve_provider(req)
@@ -263,13 +248,15 @@ class RouterApp:
                 provider_id=llm_response.provider_id,
                 data={
                     "text": llm_response.data.get("text", ""),
-                    "citations": rag_citations
+                    "citations": rag_citations if rag_used else []
                 },
                 metadata={
-                    "memory_used": bool(memory_text),
-                    "rag_used": True,
-                    "documents_retrieved": len(rag_docs),
-                    "citations_count": len(rag_citations)
+                    "memory_used": bool(memory_ctx.get("facts") or memory_ctx.get("recent_events")),
+                    "rag_used": rag_used,
+                    "documents_retrieved": len(rag_docs) if rag_used else 0,
+                    "citations_count": len(rag_citations) if rag_used else 0,
+                    "prompt_tokens_estimated": estimated_tokens,
+                    "rag_metrics": rag_resp.get("metrics") if rag_resp else None
                 },
                 error=None
             )
