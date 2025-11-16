@@ -127,10 +127,8 @@ def parse_document_from_images(
         logger.info("Using dummy parser (USE_DUMMY_PARSER=true)")
         return dummy_parse_document_from_images(images, doc_id, doc_type)
     
-    # Check if using Ollama runtime
-    if settings.RUNTIME_TYPE == "ollama":
-        logger.info("Using Ollama runtime")
-        return await parse_document_with_ollama(images, output_mode, doc_id, doc_type)
+    # Note: Ollama runtime is handled in endpoints.py (async)
+    # This function is for local/remote transformers models
     
     # Try to get local model
     model = get_model()
