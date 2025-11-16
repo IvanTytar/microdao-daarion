@@ -202,8 +202,8 @@ class RouterApp:
                 )
             else:
                 # Fallback: Memory only prompt
-                from utils.rag_prompt_builder import _build_memory_section
-                memory_section = _build_memory_section(memory_ctx)
+                from utils.rag_prompt_builder import build_memory_section
+                memory_section = build_memory_section(memory_ctx)
                 
                 final_prompt = (
                     "Ти — експерт-консультант з токеноміки та архітектури DAO в екосистемі DAARION.city.\n"

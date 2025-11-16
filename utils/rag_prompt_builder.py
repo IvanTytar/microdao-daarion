@@ -41,7 +41,7 @@ def build_rag_prompt_with_citations(
     )
     
     # Build Memory section
-    memory_section = _build_memory_section(memory_context)
+    memory_section = build_memory_section(memory_context)
     
     # Build Documents section with citations
     documents_section = _build_documents_section(rag_citations, rag_documents)
@@ -65,7 +65,7 @@ def build_rag_prompt_with_citations(
     return "\n".join(prompt_parts)
 
 
-def _build_memory_section(memory_context: Dict[str, Any]) -> str:
+def build_memory_section(memory_context: Dict[str, Any]) -> str:
     """Build memory context section"""
     parts = []
     
