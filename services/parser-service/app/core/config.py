@@ -37,8 +37,11 @@ class Settings(BaseSettings):
     ALLOW_DUMMY_FALLBACK: bool = os.getenv("ALLOW_DUMMY_FALLBACK", "true").lower() == "true"
     
     # Runtime
-    RUNTIME_TYPE: Literal["local", "remote"] = os.getenv("RUNTIME_TYPE", "local")
+    RUNTIME_TYPE: Literal["local", "remote", "ollama"] = os.getenv("RUNTIME_TYPE", "local")
     RUNTIME_URL: str = os.getenv("RUNTIME_URL", "http://parser-runtime:11435")
+    
+    # Ollama configuration (if RUNTIME_TYPE=ollama)
+    OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     
     class Config:
         env_file = ".env"

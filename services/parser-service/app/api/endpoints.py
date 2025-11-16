@@ -90,12 +90,23 @@ async def parse_document_endpoint(
         # Parse document from images
         logger.info(f"Parsing document: {len(images)} page(s), mode: {output_mode}")
         
-        parsed_doc = parse_document_from_images(
-            images=images,
-            output_mode=output_mode,
-            doc_id=doc_id or str(uuid.uuid4()),
-            doc_type=doc_type
-        )
+        # Check if using Ollama (async) or local model (sync)
+        from app.core.config import settings
+        if settings.RUNTIME_TYPE == "ollama":
+            from app.runtime.inference import parse_document_with_ollama
+            parsed_doc = await parse_document_with_ollama(
+                images=images,
+                output_mode=output_mode,
+                doc_id=doc_id or str(uuid.uuid4()),
+                doc_type=doc_type
+            )
+        else:
+            parsed_doc = parse_document_from_images(
+                images=images,
+                output_mode=output_mode,
+                doc_id=doc_id or str(uuid.uuid4()),
+                doc_type=doc_type
+            )
         
         # Build response based on output_mode
         response_data = {"metadata": {
