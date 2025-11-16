@@ -195,7 +195,7 @@ async def telegram_webhook(update: TelegramUpdate):
                 
             except Exception as e:
                 logger.error(f"STT processing failed: {e}", exc_info=True)
-                await send_telegram_message(chat_id, "Вибач, не вдалося розпізнати голосове повідомлення. Спробуй надіслати текстом.")
+                await send_telegram_message(chat_id, "Вибач, не вдалося розпізнати голосове повідомлення. Спробуй надіслати текстом.", os.getenv("DAARWIZZ_TELEGRAM_BOT_TOKEN"))
                 return {"ok": False, "error": "STT failed"}
         else:
             # Текстове повідомлення
@@ -259,7 +259,7 @@ async def telegram_webhook(update: TelegramUpdate):
         )
         
         # Send response back to Telegram
-        await send_telegram_message(chat_id, answer_text)
+        await send_telegram_message(chat_id, answer_text, os.getenv("DAARWIZZ_TELEGRAM_BOT_TOKEN"))
         
         return {"ok": True, "agent": "daarwizz"}
         
@@ -387,9 +387,9 @@ async def get_telegram_file_path(file_id: str) -> Optional[str]:
     return None
 
 
-async def send_telegram_message(chat_id: str, text: str):
+async def send_telegram_message(chat_id: str, text: str, bot_token: str = None):
     """Send message to Telegram chat"""
-    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    telegram_token = bot_token or os.getenv("TELEGRAM_BOT_TOKEN")
     if not telegram_token:
         logger.error("TELEGRAM_BOT_TOKEN not set")
         return
@@ -495,7 +495,7 @@ async def helion_telegram_webhook(update: TelegramUpdate):
         )
         
         # Send response back to Telegram
-        await send_telegram_message(chat_id, answer_text)
+        await send_telegram_message(chat_id, answer_text, os.getenv("HELION_TELEGRAM_BOT_TOKEN"))
         
         return {"ok": True, "agent": "helion"}
         
