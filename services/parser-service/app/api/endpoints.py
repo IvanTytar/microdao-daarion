@@ -21,6 +21,7 @@ from app.runtime.preprocessing import (
 from app.runtime.postprocessing import (
     build_chunks, build_qa_pairs, build_markdown
 )
+from app.runtime.qa_builder import build_qa_pairs_via_router
 
 logger = logging.getLogger(__name__)
 
@@ -120,9 +121,27 @@ async def parse_document_endpoint(
         elif output_mode == "markdown":
             response_data["markdown"] = build_markdown(parsed_doc)
         elif output_mode == "qa_pairs":
-            response_data["qa_pairs"] = build_qa_pairs(parsed_doc)
+            # 2-stage pipeline: PARSER → LLM (DAGI Router)
+            logger.info("Starting 2-stage Q&A pipeline: PARSER → LLM")
+            try:
+                qa_pairs = await build_qa_pairs_via_router(
+                    parsed_doc=parsed_doc,
+                    dao_id=dao_id or "daarion"
+                )
+                response_data["qa_pairs"] = qa_pairs
+                logger.info(f"Generated {len(qa_pairs)} Q&A pairs via DAGI Router")
+            except Exception as e:
+                logger.error(f"Q&A generation failed, falling back to simple extraction: {e}")
+                # Fallback to simple Q&A extraction
+                response_data["qa_pairs"] = build_qa_pairs(parsed_doc)
         elif output_mode == "chunks":
             response_data["chunks"] = build_chunks(parsed_doc, dao_id=dao_id)
+        elif output_mode == "layout_only":
+            # Return document with layout info only
+            response_data["document"] = parsed_doc
+        elif output_mode == "region":
+            # Region parsing (for future use)
+            response_data["document"] = parsed_doc
         
         return ParseResponse(**response_data)
         
@@ -136,13 +155,20 @@ async def parse_document_endpoint(
 @router.post("/parse_qa", response_model=ParseResponse)
 async def parse_qa_endpoint(
     file: Optional[UploadFile] = File(None),
-    doc_url: Optional[str] = Form(None)
+    doc_url: Optional[str] = Form(None),
+    dao_id: Optional[str] = Form(None)
 ):
-    """Parse document and return Q&A pairs"""
+    """
+    Parse document and return Q&A pairs (2-stage pipeline)
+    
+    Stage 1: PARSER (dots.ocr) → raw JSON
+    Stage 2: LLM (DAGI Router) → Q&A pairs
+    """
     return await parse_document_endpoint(
         file=file,
         doc_url=doc_url,
-        output_mode="qa_pairs"
+        output_mode="qa_pairs",
+        dao_id=dao_id
     )
 
 

@@ -43,6 +43,10 @@ class Settings(BaseSettings):
     # Ollama configuration (if RUNTIME_TYPE=ollama)
     OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     
+    # DAGI Router configuration (for qa_pairs 2-stage pipeline)
+    ROUTER_BASE_URL: str = os.getenv("ROUTER_BASE_URL", "http://router:9102")
+    ROUTER_TIMEOUT: int = int(os.getenv("ROUTER_TIMEOUT", "60"))
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

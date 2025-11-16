@@ -115,7 +115,7 @@ class ParsedDocument(BaseModel):
 class ParseRequest(BaseModel):
     """Parse request"""
     doc_url: Optional[str] = Field(None, description="Document URL")
-    output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks"] = Field(
+    output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks", "layout_only", "region"] = Field(
         "raw_json", description="Output mode"
     )
     dao_id: Optional[str] = Field(None, description="DAO ID")

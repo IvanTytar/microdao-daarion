@@ -20,32 +20,56 @@ class OutputMode(str, Enum):
     raw_json = "raw_json"
     markdown = "markdown"
     qa_pairs = "qa_pairs"
+    chunks = "chunks"
+    layout_only = "layout_only"
+    region = "region"
 
 
 def build_prompt(mode: OutputMode) -> str:
-    """Build prompt for Ollama based on output mode"""
-    if mode == OutputMode.raw_json:
-        return (
+    """
+    Build prompt for Ollama based on output mode
+    Maps to dots.ocr native prompt modes
+    """
+    # Map to dots.ocr prompt modes (same as local_runtime)
+    prompt_map = {
+        OutputMode.raw_json: "prompt_layout_all_en",
+        OutputMode.markdown: "prompt_ocr",
+        OutputMode.qa_pairs: "prompt_layout_all_en",  # Full JSON, then 2nd step LLM
+        OutputMode.chunks: "prompt_layout_all_en",
+        OutputMode.layout_only: "prompt_layout_only_en",
+        OutputMode.region: "prompt_grounding_ocr",
+    }
+    
+    prompt_key = prompt_map.get(mode, "prompt_layout_all_en")
+    
+    # Fallback prompts (same as local_runtime)
+    fallback_prompts = {
+        "prompt_layout_all_en": (
             "You are a document OCR and layout parser. "
             "Extract all text, tables, formulas, and layout into a clean JSON structure with fields like "
             "`blocks`, `tables`, `reading_order`, including bounding boxes and page numbers. "
             "Respond with JSON only, no explanations."
-        )
-    elif mode == OutputMode.markdown:
-        return (
+        ),
+        "prompt_ocr": (
             "You are a document OCR and layout parser. "
             "Extract the document as Markdown, preserving headings, paragraphs, and tables. "
             "Tables should be proper GitHub-flavored Markdown tables. "
             "Respond with Markdown as plain text."
-        )
-    elif mode == OutputMode.qa_pairs:
-        return (
-            "You are a document OCR and knowledge extraction assistant. "
-            "Read the document and output a JSON array of Q&A pairs covering the key information. "
-            "Each item should be {\"question\": ..., \"answer\": ..., \"page\": ..., \"section\": ...}. "
-            "Respond with JSON only, no explanations."
-        )
-    return "You are a document OCR assistant. Extract text."
+        ),
+        "prompt_layout_only_en": (
+            "You are a document layout parser. "
+            "Extract only the layout structure (bounding boxes, block types, reading order) "
+            "without the text content. "
+            "Respond with JSON containing only layout information (bbox, type, reading_order)."
+        ),
+        "prompt_grounding_ocr": (
+            "You are a document OCR assistant for targeted region parsing. "
+            "Extract text and layout for the specified region of the document. "
+            "Respond with JSON containing the parsed content for the region."
+        ),
+    }
+    
+    return fallback_prompts.get(prompt_key, fallback_prompts["prompt_layout_all_en"])
 
 
 async def call_ollama_vision(

@@ -11,6 +11,7 @@ from PIL import Image
 
 from app.schemas import ParsedDocument, ParsedPage, ParsedBlock, BBox
 from app.runtime.model_loader import get_model
+from app.runtime.local_runtime import parse_document_with_local
 from app.runtime.preprocessing import (
     convert_pdf_to_images, load_image, prepare_images_for_model
 )
@@ -26,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 async def parse_document_with_ollama(
     images: List[Image.Image],
-    output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks"] = "raw_json",
+    output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks", "layout_only", "region"] = "raw_json",
     doc_id: Optional[str] = None,
     doc_type: Literal["pdf", "image"] = "image"
 ) -> ParsedDocument:
@@ -106,7 +107,7 @@ async def parse_document_with_ollama(
 
 def parse_document_from_images(
     images: List[Image.Image],
-    output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks"] = "raw_json",
+    output_mode: Literal["raw_json", "markdown", "qa_pairs", "chunks", "layout_only", "region"] = "raw_json",
     doc_id: Optional[str] = None,
     doc_type: Literal["pdf", "image"] = "image"
 ) -> ParsedDocument:
@@ -146,33 +147,19 @@ def parse_document_from_images(
     if not prepared_images:
         raise ValueError("No valid images to process")
     
-    # Process with model
+    # Process with model using local_runtime (with native dots.ocr prompts)
     pages_data = []
     
     for idx, image in enumerate(prepared_images, start=1):
         try:
-            # Prepare inputs for model
-            inputs = model["processor"](images=image, return_tensors="pt")
+            # Convert image to bytes for local_runtime
+            import io
+            buf = io.BytesIO()
+            image.convert("RGB").save(buf, format="PNG")
+            image_bytes = buf.getvalue()
             
-            # Move inputs to device
-            device = model["device"]
-            if device != "cpu":
-                inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v 
-                         for k, v in inputs.items()}
-            
-            # Generate output
-            with torch.no_grad():
-                outputs = model["model"].generate(
-                    **inputs,
-                    max_new_tokens=2048,  # Adjust based on model capabilities
-                    do_sample=False  # Deterministic output
-                )
-            
-            # Decode output
-            generated_text = model["processor"].decode(
-                outputs[0], 
-                skip_special_tokens=True
-            )
+            # Use local_runtime with native prompt modes
+            generated_text = parse_document_with_local(image_bytes, output_mode)
             
             logger.debug(f"Model output for page {idx}: {generated_text[:100]}...")
             
