@@ -80,8 +80,6 @@ services:
       - "9300:9300"
     environment:
       - ROUTER_URL=http://router:9102
-      - MEMORY_SERVICE_URL=http://memory-service:8000
-      - STT_SERVICE_URL=http://stt-service:9000
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:-}
       - DAARWIZZ_NAME=DAARWIZZ
@@ -90,8 +88,6 @@ services:
       - ./logs:/app/logs
     depends_on:
       - router
-      - memory-service
-      - stt-service
     networks:
       - dagi-network
     restart: unless-stopped
@@ -123,113 +119,32 @@ services:
       timeout: 10s
       retries: 3
 
-  # DAARION.city Database (PostgreSQL with pgvector)
-  city-db:
-    image: pgvector/pgvector:pg16
-    container_name: dagi-city-db
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
-      - POSTGRES_DB=${POSTGRES_DB:-daarion_city}
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-      - ./supabase/migrations:/docker-entrypoint-initdb.d
-    networks:
-      - dagi-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Memory Service (user_facts, dialog_summaries, agent_memory_events)
-  memory-service:
+  # RAG Service
+  rag-service:
     build:
-      context: ./services/memory-service
+      context: ./services/rag-service
       dockerfile: Dockerfile
-    container_name: dagi-memory-service
+    container_name: dagi-rag-service
     ports:
-      - "8000:8000"
+      - "9500:9500"
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@city-db:5432/${POSTGRES_DB:-daarion_city}
-      - API_HOST=0.0.0.0
-      - API_PORT=8000
+      - PG_DSN=${PG_DSN:-postgresql+psycopg2://postgres:postgres@city-db:5432/daarion_city}
+      - EMBED_MODEL_NAME=${EMBED_MODEL_NAME:-BAAI/bge-m3}
+      - EMBED_DEVICE=${EMBED_DEVICE:-cpu}
+      - ROUTER_BASE_URL=http://router:9102
     volumes:
-      - ./services/memory-service:/app
       - ./logs:/app/logs
+      - rag-model-cache:/root/.cache/huggingface
     depends_on:
-      city-db:
-        condition: service_healthy
+      - router
     networks:
       - dagi-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9500/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-
-  # STT Service (Speech-to-Text using Qwen3 ASR Toolkit)
-  stt-service:
-    build:
-      context: ./services/stt-service
-      dockerfile: Dockerfile
-    container_name: dagi-stt-service
-    ports:
-      - "9000:9000"
-    environment:
-      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY:-}
-    volumes:
-      - ./logs:/app/logs
-    networks:
-      - dagi-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  # PARSER Service (Document OCR using dots.ocr)
-  parser-service:
-    build:
-      context: ./services/parser-service
-      dockerfile: Dockerfile
-      target: cpu
-    container_name: dagi-parser-service
-    ports:
-      - "9400:9400"
-    environment:
-      - PARSER_MODEL_NAME=${PARSER_MODEL_NAME:-rednote-hilab/dots.ocr}
-      - DOTS_OCR_MODEL_ID=${DOTS_OCR_MODEL_ID:-rednote-hilab/dots.ocr}
-      - PARSER_DEVICE=${PARSER_DEVICE:-cpu}
-      - DEVICE=${DEVICE:-cpu}
-      - RUNTIME_TYPE=${RUNTIME_TYPE:-local}
-      - USE_DUMMY_PARSER=${USE_DUMMY_PARSER:-false}
-      - ALLOW_DUMMY_FALLBACK=${ALLOW_DUMMY_FALLBACK:-true}
-      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
-      - PARSER_MAX_PAGES=${PARSER_MAX_PAGES:-100}
-      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-50}
-      - PDF_DPI=${PDF_DPI:-200}
-      - IMAGE_MAX_SIZE=${IMAGE_MAX_SIZE:-2048}
-    volumes:
-      - parser-model-cache:/root/.cache/huggingface
-      - ./logs:/app/logs
-    networks:
-      - dagi-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9400/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-volumes:
-  parser-model-cache:
-    driver: local
 
 networks:
   dagi-network:

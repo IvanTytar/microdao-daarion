@@ -103,6 +103,14 @@ routing:
     use_llm: local_qwen3_8b
     description: "Q&A generation from parsed documents → local LLM"
 
+  # RAG Query mode (RAG + Memory → LLM)
+  - id: rag_query_mode
+    priority: 7
+    when:
+      mode: rag_query
+    use_llm: local_qwen3_8b
+    description: "RAG query with Memory context → local LLM"
+
   # NEW: CrewAI workflow orchestration
   - id: crew_mode
     priority: 3

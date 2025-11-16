@@ -1,0 +1,56 @@
+{
+  "doc_id": "microdao-tokenomics-2025-11",
+  "doc_type": "pdf",
+  "pages": [
+    {
+      "page_num": 1,
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Токеноміка MicroDAO",
+          "bbox": {"x": 0, "y": 0, "width": 800, "height": 50},
+          "reading_order": 1
+        },
+        {
+          "type": "paragraph",
+          "text": "MicroDAO використовує токен μGOV як ключ доступу до приватних спільнот. Стейкінг μGOV дозволяє отримувати дохід та участь у управлінні.",
+          "bbox": {"x": 0, "y": 60, "width": 800, "height": 100},
+          "reading_order": 2
+        },
+        {
+          "type": "paragraph",
+          "text": "Стейкінг є основним механізмом отримання доходу в MicroDAO. Користувачі можуть стейкати токени та отримувати винагороди за участь у спільноті.",
+          "bbox": {"x": 0, "y": 170, "width": 800, "height": 100},
+          "reading_order": 3
+        }
+      ],
+      "width": 800,
+      "height": 600
+    },
+    {
+      "page_num": 2,
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "Роль стейкінгу",
+          "bbox": {"x": 0, "y": 0, "width": 800, "height": 50},
+          "reading_order": 1
+        },
+        {
+          "type": "paragraph",
+          "text": "Стейкінг μGOV токенів дає користувачам право голосу та доступ до приватних каналів спільноти. Мінімальна сума стейкінгу визначається кожною спільнотою окремо.",
+          "bbox": {"x": 0, "y": 60, "width": 800, "height": 100},
+          "reading_order": 2
+        }
+      ],
+      "width": 800,
+      "height": 600
+    }
+  ],
+  "metadata": {
+    "dao_id": "daarion",
+    "title": "Токеноміка MicroDAO",
+    "created_at": "2025-01-15T10:00:00Z"
+  }
+}
+
