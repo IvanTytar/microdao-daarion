@@ -15,15 +15,16 @@
 
 #### GPU Configuration
 
-**GPU Model:** NVIDIA GeForce RTX 3090 (estimated based on typical setup)  
-**VRAM:** 24 GB GDDR6X  
-**CUDA Cores:** 10,496  
-**Tensor Cores:** 328 (3rd Gen)  
-**Architecture:** Ampere  
-**CUDA Version:** 12.1+  
-**Driver Version:** 535.104.05+
+**GPU Model:** NVIDIA RTX 4000 SFF Ada Generation  
+**VRAM:** 20 GB GDDR6  
+**Architecture:** Ada Lovelace  
+**CUDA Version:** 12.2  
+**Driver Version:** 535.274.02
 
-**Note:** Actual GPU model to be confirmed with `nvidia-smi` on server.
+**Current VRAM Usage:**
+- Ollama (qwen3:8b): ~5.6 GB
+- Vision Encoder (ViT-L/14): ~1.9 GB
+- **Total:** ~7.5 GB / 20 GB (37.5% usage)
 
 #### CPU & RAM (Typical GEX44)
 - **CPU:** AMD Ryzen 9 5950X (16 cores, 32 threads) or similar
@@ -80,12 +81,13 @@ curl http://localhost:11434/api/generate -d '{
 | **OpenAI CLIP** | CLIP (Contrastive Language-Image Pre-training) | - | 768 | - | Pretrained weights |
 
 **Capabilities:**
-- ✅ Text → 768-dim embedding (10-20ms on GPU)
-- ✅ Image → 768-dim embedding (30-50ms on GPU)
-- ✅ Text-to-image search
-- ✅ Image-to-image similarity search
-- ✅ Zero-shot image classification (planned)
-- ✅ CLIP score calculation (planned)
+- ✅ Text → 768-dim embedding (0.1-0.5s on GPU, ~10-15s on CPU)
+- ✅ Image → 768-dim embedding (0.3-1s on GPU, ~15-20s on CPU)
+- ✅ Text-to-image search (via Qdrant)
+- ✅ Image-to-image similarity search (via Qdrant)
+- ✅ GPU acceleration: **~20-30x speedup** vs CPU
+- ⏳ Zero-shot image classification (planned)
+- ⏳ CLIP score calculation (planned)
 
 **API Endpoints:**
 ```bash
