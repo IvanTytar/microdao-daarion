@@ -116,10 +116,10 @@ ROUTER_RESPONSE=$(curl -s -X POST "$ROUTER_URL/route" \
         }
     }')
 
-echo "$ROUTER_RESPONSE" | jq '{ok, provider_id, data: {dimension: .data.dimension, normalized: .data.normalized}}'
+echo "$ROUTER_RESPONSE" | jq '{ok, provider, data: {dimension: .data.dimension, normalized: .data.normalized}}'
 
 ROUTER_OK=$(echo "$ROUTER_RESPONSE" | jq -r '.ok')
-ROUTER_PROVIDER=$(echo "$ROUTER_RESPONSE" | jq -r '.provider_id')
+ROUTER_PROVIDER=$(echo "$ROUTER_RESPONSE" | jq -r '.provider')
 
 if [ "$ROUTER_OK" != "true" ]; then
     echo "❌ FAIL: Router integration failed"
