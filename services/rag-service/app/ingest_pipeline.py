@@ -14,6 +14,7 @@ from haystack.schema import Document
 from app.document_store import get_document_store
 from app.embedding import get_text_embedder
 from app.core.config import settings
+from app.events import publish_document_ingested, publish_document_indexed
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,48 @@ def ingest_parsed_document(
             f"pages={pages_count}, blocks={blocks_count}, "
             f"pipeline_time={pipeline_time:.2f}s, total_time={total_time:.2f}s"
         )
+        
+        # Publish events
+        try:
+            # First publish rag.document.ingested event
+            await publish_document_ingested(
+                doc_id=doc_id,
+                team_id=dao_id,
+                dao_id=dao_id,
+                chunk_count=written_docs,
+                indexed=True,
+                visibility="public",
+                metadata={
+                    "ingestion_time_ms": round(pipeline_time * 1000),
+                    "embed_model": settings.EMBEDDING_MODEL or "bge-m3@v1",
+                    "pages_processed": pages_count,
+                    "blocks_processed": blocks_count
+                }
+            )
+            logger.info(f"Published rag.document.ingested event for doc_id={doc_id}")
+            
+            # Then publish rag.document.indexed event
+            chunk_ids = []
+            for i in range(written_docs):
+                chunk_ids.append(f"{doc_id}_chunk_{i+1}")
+                
+            await publish_document_indexed(
+                doc_id=doc_id,
+                team_id=dao_id,
+                dao_id=dao_id,
+                chunk_ids=chunk_ids,
+                indexed=True,
+                visibility="public",
+                metadata={
+                    "indexing_time_ms": 0,  # TODO: track actual indexing time
+                    "milvus_collection": "documents_v1",
+                    "neo4j_nodes_created": len(chunk_ids),
+                    "embed_model": settings.EMBEDDING_MODEL or "bge-m3@v1"
+                }
+            )
+            logger.info(f"Published rag.document.indexed event for doc_id={doc_id}")
+        except Exception as e:
+            logger.error(f"Failed to publish RAG events for doc_id={doc_id}: {e}")
         
         return {
             "status": "success",

@@ -1,0 +1,21 @@
+# Vision Encoder Service Dependencies
+
+# FastAPI and server
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.0
+python-multipart==0.0.6
+
+# OpenCLIP and PyTorch
+open_clip_torch==2.24.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Image processing
+Pillow==10.2.0
+
+# HTTP client
+httpx==0.26.0
+
+# Utilities
+numpy==1.26.3

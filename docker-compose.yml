@@ -201,12 +201,73 @@ services:
       retries: 3
       start_period: 10s
 
+  # Vision Encoder Service - OpenCLIP for text/image embeddings
+  vision-encoder:
+    build:
+      context: ./services/vision-encoder
+      dockerfile: Dockerfile
+    container_name: dagi-vision-encoder
+    ports:
+      - "8001:8001"
+    environment:
+      - DEVICE=${VISION_DEVICE:-cuda}
+      - MODEL_NAME=${VISION_MODEL_NAME:-ViT-L-14}
+      - MODEL_PRETRAINED=${VISION_MODEL_PRETRAINED:-openai}
+      - NORMALIZE_EMBEDDINGS=true
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - QDRANT_ENABLED=true
+    volumes:
+      - ./logs:/app/logs
+      - vision-model-cache:/root/.cache/clip
+    depends_on:
+      - qdrant
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    # GPU support - requires nvidia-docker runtime
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Qdrant Vector Database - for image/text embeddings
+  qdrant:
+    image: qdrant/qdrant:v1.7.4
+    container_name: dagi-qdrant
+    ports:
+      - "6333:6333"  # HTTP API
+      - "6334:6334"  # gRPC API
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 volumes:
   rag-model-cache:
     driver: local
   memory-data:
     driver: local
   postgres-data:
+    driver: local
+  vision-model-cache:
+    driver: local
+  qdrant-data:
     driver: local
 
 networks:

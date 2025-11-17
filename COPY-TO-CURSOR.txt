@@ -1,0 +1,215 @@
+================================================================================
+ЗАВДАННЯ ДЛЯ CURSOR AI: Додати Memory Service для агента Helion
+================================================================================
+
+Репозиторій: microdao-daarion (поточний)
+
+КОНТЕКСТ:
+Агент Helion (Telegram бот) готовий, але не може запуститися через відсутність 
+Memory Service в docker-compose.yml. Потрібно додати PostgreSQL + Memory Service.
+
+================================================================================
+ЗАВДАННЯ 1: Додати сервіси в docker-compose.yml
+================================================================================
+
+Файл: docker-compose.yml
+
+Після секції "rag-service:" (рядок ~154) додати ДВА нові сервіси:
+
+1. PostgreSQL (для бази даних Memory Service):
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: dagi-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=daarion_memory
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./services/memory-service/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+2. Memory Service:
+
+  # Memory Service
+  memory-service:
+    build:
+      context: ./services/memory-service
+      dockerfile: Dockerfile
+    container_name: dagi-memory-service
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${MEMORY_DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/daarion_memory}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./logs:/app/logs
+      - memory-data:/app/data
+    depends_on:
+      - postgres
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+3. Оновити секцію "volumes:" (рядок ~155) - додати два нові volumes:
+
+volumes:
+  rag-model-cache:
+    driver: local
+  memory-data:
+    driver: local
+  postgres-data:
+    driver: local
+
+================================================================================
+ЗАВДАННЯ 2: Оновити .env файл
+================================================================================
+
+Файл: .env
+
+Додати в кінець файлу (після рядка ~52):
+
+# -----------------------------------------------------------------------------
+# Memory Service Configuration
+# -----------------------------------------------------------------------------
+MEMORY_DATABASE_URL=postgresql://postgres:postgres@postgres:5432/daarion_memory
+MEMORY_SERVICE_URL=http://memory-service:8000
+
+# -----------------------------------------------------------------------------
+# PostgreSQL Configuration
+# -----------------------------------------------------------------------------
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=daarion_memory
+
+================================================================================
+ЗАВДАННЯ 3: Створити init.sql для PostgreSQL
+================================================================================
+
+Створити новий файл: services/memory-service/init.sql
+
+Вміст файлу:
+
+-- Memory Service Database Schema
+-- Created: 2025-01-16
+
+CREATE TABLE IF NOT EXISTS user_facts (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    team_id VARCHAR(255),
+    fact_key VARCHAR(255) NOT NULL,
+    fact_value TEXT,
+    fact_value_json JSONB,
+    token_gated BOOLEAN DEFAULT FALSE,
+    token_requirements JSONB,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, team_id, fact_key)
+);
+
+CREATE TABLE IF NOT EXISTS dialog_summaries (
+    id SERIAL PRIMARY KEY,
+    team_id VARCHAR(255) NOT NULL,
+    channel_id VARCHAR(255),
+    agent_id VARCHAR(255),
+    user_id VARCHAR(255),
+    period_start TIMESTAMP NOT NULL,
+    period_end TIMESTAMP NOT NULL,
+    summary_text TEXT,
+    summary_json JSONB,
+    message_count INTEGER DEFAULT 0,
+    participant_count INTEGER DEFAULT 0,
+    topics TEXT[],
+    meta JSONB DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS agent_memory_events (
+    id SERIAL PRIMARY KEY,
+    agent_id VARCHAR(255) NOT NULL,
+    team_id VARCHAR(255) NOT NULL,
+    channel_id VARCHAR(255),
+    user_id VARCHAR(255),
+    scope VARCHAR(50) DEFAULT 'short_term',
+    kind VARCHAR(50) NOT NULL,
+    body_text TEXT,
+    body_json JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_facts_user_team ON user_facts(user_id, team_id);
+CREATE INDEX IF NOT EXISTS idx_dialog_summaries_team_channel ON dialog_summaries(team_id, channel_id);
+CREATE INDEX IF NOT EXISTS idx_agent_memory_events_agent_team ON agent_memory_events(agent_id, team_id);
+CREATE INDEX IF NOT EXISTS idx_agent_memory_events_created ON agent_memory_events(created_at DESC);
+
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_user_facts_updated_at BEFORE UPDATE ON user_facts
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+================================================================================
+ЗАВДАННЯ 4: Перевірити health endpoint в Memory Service
+================================================================================
+
+Файл: services/memory-service/app/main.py
+
+Перевірити чи є такий endpoint (біля рядка 50-100):
+
+@app.get("/health")
+async def health():
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "service": "memory-service",
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+Якщо НЕМАЄ - додати його і імпортувати datetime:
+from datetime import datetime
+
+================================================================================
+ПЕРЕВІРКА ПІСЛЯ ВИКОНАННЯ
+================================================================================
+
+1. Переконатися що всі зміни зроблені
+2. Зберегти всі файли
+3. Показати які файли були змінені/створені
+
+Очікувані зміни:
+- docker-compose.yml (додано postgres + memory-service + volumes)
+- .env (додано змінні для memory service)
+- services/memory-service/init.sql (новий файл)
+- services/memory-service/app/main.py (перевірено health endpoint)
+
+================================================================================
+КІНець ЗАВДАННЯ
+================================================================================
+
+Після виконання цих завдань, користувач зможе запустити:
+docker-compose up -d
+
+І всі сервіси (включаючи Memory Service) запрацюють.

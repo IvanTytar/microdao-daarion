@@ -26,6 +26,7 @@ from app.runtime.postprocessing import (
 )
 from app.runtime.qa_builder import build_qa_pairs_via_router
 from app.utils.file_converter import pdf_or_image_to_png_bytes
+from app.events import publish_document_parsed
 
 logger = logging.getLogger(__name__)
 
@@ -150,6 +151,28 @@ async def parse_document_endpoint(
             "doc_type": parsed_doc.doc_type,
             "page_count": len(parsed_doc.pages)
         }}
+        
+        # Publish event if team_id/dao_id is provided
+        if dao_id:
+            try:
+                await publish_document_parsed(
+                    doc_id=parsed_doc.doc_id,
+                    team_id=dao_id,
+                    dao_id=dao_id,
+                    doc_type=doc_type,
+                    pages_count=len(parsed_doc.pages),
+                    parsed_successful=True,
+                    indexed=True,
+                    visibility="public",
+                    metadata={
+                        "title": parsed_doc.doc_id,
+                        "size_bytes": len(str(parsed_doc.dict())),
+                        "parsing_time_ms": 0  # TODO: track actual parsing time
+                    }
+                )
+                logger.info(f"Published parser.document.parsed event for doc_id={parsed_doc.doc_id}")
+            except Exception as e:
+                logger.error(f"Failed to publish parser.document.parsed event: {e}")
         
         if output_mode == "raw_json":
             response_data["document"] = parsed_doc
@@ -329,6 +352,27 @@ async def ocr_ingest_endpoint(
                 status_code=502,
                 detail=f"RAG Service ingest failed: {str(e)}"
             )
+        
+        # Publish event if successful
+        try:
+            await publish_document_parsed(
+                doc_id=doc_id,
+                team_id=dao_id,
+                dao_id=dao_id,
+                doc_type=doc_type,
+                pages_count=pages_count,
+                parsed_successful=True,
+                indexed=True,
+                visibility="public",
+                metadata={
+                    "title": doc_id,
+                    "size_bytes": len(str(parsed_json)),
+                    "parsing_time_ms": 0  # TODO: track actual parsing time
+                }
+            )
+            logger.info(f"Published parser.document.parsed event for doc_id={doc_id}")
+        except Exception as e:
+            logger.error(f"Failed to publish parser.document.parsed event: {e}")
         
         return OcrIngestResponse(
             dao_id=dao_id,

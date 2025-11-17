@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
     
+    # NATS JetStream configuration
+    NATS_URL: str = os.getenv("NATS_URL", "nats://localhost:4222")
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

@@ -119,6 +119,14 @@ routing:
     use_provider: orchestrator_crewai
     description: "CrewAI workflow orchestration → CrewAI backend"
 
+  # Vision Encoder - text/image embeddings
+  - id: vision_encoder_embed
+    priority: 3
+    when:
+      mode: vision_embed
+    use_provider: vision_encoder
+    description: "Text/Image embeddings → Vision Encoder (OpenCLIP ViT-L/14)"
+
   # DevTools tool execution mode
   - id: devtools_tool_execution
     priority: 3

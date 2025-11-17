@@ -14,8 +14,18 @@ from pydantic import BaseModel
 
 from router_client import send_to_router
 from memory_client import memory_client
+from services.doc_service import (
+    parse_document,
+    ingest_document,
+    ask_about_document,
+    get_doc_context
+)
 
 logger = logging.getLogger(__name__)
+
+# Telegram message length limits
+TELEGRAM_MAX_MESSAGE_LENGTH = 4096
+TELEGRAM_SAFE_LENGTH = 3500  # Leave room for formatting
 
 router = APIRouter()
 
@@ -151,6 +161,155 @@ async def telegram_webhook(update: TelegramUpdate):
         # Get DAO ID for this chat
         dao_id = get_dao_id(chat_id, "telegram")
         
+        # Check for /ingest command
+        text = update.message.get("text", "")
+        if text and text.strip().startswith("/ingest"):
+            session_id = f"telegram:{chat_id}"
+            
+            # Check if there's a document in the message
+            document = update.message.get("document")
+            if document:
+                mime_type = document.get("mime_type", "")
+                file_name = document.get("file_name", "")
+                file_id = document.get("file_id")
+                
+                is_pdf = (
+                    mime_type == "application/pdf" or
+                    (mime_type.startswith("application/") and file_name.lower().endswith(".pdf"))
+                )
+                
+                if is_pdf and file_id:
+                    try:
+                        telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+                        file_path = await get_telegram_file_path(file_id)
+                        if file_path:
+                            file_url = f"https://api.telegram.org/file/bot{telegram_token}/{file_path}"
+                            await send_telegram_message(chat_id, "📥 Імпортую документ у RAG...")
+                            
+                            result = await ingest_document(
+                                session_id=session_id,
+                                doc_url=file_url,
+                                file_name=file_name,
+                                dao_id=dao_id,
+                                user_id=f"tg:{user_id}"
+                            )
+                            
+                            if result.success:
+                                await send_telegram_message(
+                                    chat_id,
+                                    f"✅ **Документ імпортовано у RAG**\n\n"
+                                    f"📊 Фрагментів: {result.ingested_chunks}\n"
+                                    f"📁 DAO: {dao_id}\n\n"
+                                    f"Тепер ти можеш задавати питання по цьому документу!"
+                                )
+                                return {"ok": True, "chunks_count": result.ingested_chunks}
+                            else:
+                                await send_telegram_message(chat_id, f"Вибач, не вдалося імпортувати: {result.error}")
+                                return {"ok": False, "error": result.error}
+                    except Exception as e:
+                        logger.error(f"Ingest failed: {e}", exc_info=True)
+                        await send_telegram_message(chat_id, "Вибач, не вдалося імпортувати документ.")
+                        return {"ok": False, "error": "Ingest failed"}
+            
+            # Try to get last parsed doc_id from session context
+            result = await ingest_document(
+                session_id=session_id,
+                dao_id=dao_id,
+                user_id=f"tg:{user_id}"
+            )
+            
+            if result.success:
+                await send_telegram_message(
+                    chat_id,
+                    f"✅ **Документ імпортовано у RAG**\n\n"
+                    f"📊 Фрагментів: {result.ingested_chunks}\n"
+                    f"📁 DAO: {dao_id}\n\n"
+                    f"Тепер ти можеш задавати питання по цьому документу!"
+                )
+                return {"ok": True, "chunks_count": result.ingested_chunks}
+            else:
+                await send_telegram_message(chat_id, "Спочатку надішли PDF-документ, а потім використай /ingest")
+                return {"ok": False, "error": result.error}
+        
+        # Check if it's a document (PDF)
+        document = update.message.get("document")
+        if document:
+            mime_type = document.get("mime_type", "")
+            file_name = document.get("file_name", "")
+            file_id = document.get("file_id")
+            
+            # Check if it's a PDF
+            is_pdf = (
+                mime_type == "application/pdf" or
+                (mime_type.startswith("application/") and file_name.lower().endswith(".pdf"))
+            )
+            
+            if is_pdf and file_id:
+                logger.info(f"PDF document from {username} (tg:{user_id}), file_id: {file_id}, file_name: {file_name}")
+                
+                try:
+                    # Get file path from Telegram
+                    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+                    file_path = await get_telegram_file_path(file_id)
+                    if not file_path:
+                        raise HTTPException(status_code=400, detail="Failed to get file from Telegram")
+                    
+                    # Build file URL
+                    file_url = f"https://api.telegram.org/file/bot{telegram_token}/{file_path}"
+                    
+                    # Send "Processing..." message
+                    await send_telegram_message(chat_id, "📄 Обробляю PDF-документ... Це може зайняти кілька секунд.")
+                    
+                    # Use doc_service for parsing
+                    session_id = f"telegram:{chat_id}"
+                    result = await parse_document(
+                        session_id=session_id,
+                        doc_url=file_url,
+                        file_name=file_name,
+                        dao_id=dao_id,
+                        user_id=f"tg:{user_id}",
+                        output_mode="qa_pairs",
+                        metadata={"username": username, "chat_id": chat_id}
+                    )
+                    
+                    if not result.success:
+                        await send_telegram_message(chat_id, f"Вибач, не вдалося обробити документ: {result.error}")
+                        return {"ok": False, "error": result.error}
+                    
+                    # Format response for Telegram
+                    answer_text = ""
+                    if result.qa_pairs:
+                        # Convert QAItem to dict for formatting
+                        qa_list = [{"question": qa.question, "answer": qa.answer} for qa in result.qa_pairs]
+                        answer_text = format_qa_response(qa_list)
+                    elif result.markdown:
+                        answer_text = format_markdown_response(result.markdown)
+                    elif result.chunks_meta and result.chunks_meta.get("chunks"):
+                        chunks = result.chunks_meta.get("chunks", [])
+                        answer_text = format_chunks_response(chunks)
+                    else:
+                        answer_text = "✅ Документ успішно оброблено, але формат відповіді не розпізнано."
+                    
+                    # Add hint about /ingest command
+                    if not answer_text.endswith("_"):
+                        answer_text += "\n\n💡 _Використай /ingest для імпорту документа у RAG_"
+                    
+                    logger.info(f"PDF parsing result: {len(answer_text)} chars, doc_id={result.doc_id}")
+                    
+                    # Send response back to Telegram
+                    await send_telegram_message(chat_id, answer_text)
+                    
+                    return {"ok": True, "agent": "parser", "mode": "doc_parse", "doc_id": result.doc_id}
+                    
+                except Exception as e:
+                    logger.error(f"PDF processing failed: {e}", exc_info=True)
+                    await send_telegram_message(chat_id, "Вибач, не вдалося обробити PDF-документ. Переконайся, що файл не пошкоджений.")
+                    return {"ok": False, "error": "PDF processing failed"}
+            elif document and not is_pdf:
+                # Non-PDF document
+                await send_telegram_message(chat_id, "Наразі підтримуються тільки PDF-документи. Інші формати (docx, zip, тощо) будуть додані пізніше.")
+                return {"ok": False, "error": "Unsupported document type"}
+        
         # Check if it's a voice message
         voice = update.message.get("voice")
         audio = update.message.get("audio")
@@ -205,6 +364,40 @@ async def telegram_webhook(update: TelegramUpdate):
         
         logger.info(f"Telegram message from {username} (tg:{user_id}) in chat {chat_id}: {text[:50]}")
         
+        # Check if there's a document context for follow-up questions
+        session_id = f"telegram:{chat_id}"
+        doc_context = await get_doc_context(session_id)
+        
+        # If there's a doc_id and the message looks like a question about the document
+        if doc_context and doc_context.doc_id:
+            # Check if it's a question (simple heuristic: contains question words or ends with ?)
+            is_question = (
+                "?" in text or
+                any(word in text.lower() for word in ["що", "як", "чому", "коли", "де", "хто", "чи"])
+            )
+            
+            if is_question:
+                logger.info(f"Follow-up question detected for doc_id={doc_context.doc_id}")
+                # Try RAG query first
+                rag_result = await ask_about_document(
+                    session_id=session_id,
+                    question=text,
+                    doc_id=doc_context.doc_id,
+                    dao_id=dao_id or doc_context.dao_id,
+                    user_id=f"tg:{user_id}"
+                )
+                
+                if rag_result.success and rag_result.answer:
+                    # Truncate if too long for Telegram
+                    answer = rag_result.answer
+                    if len(answer) > TELEGRAM_SAFE_LENGTH:
+                        answer = answer[:TELEGRAM_SAFE_LENGTH] + "\n\n_... (відповідь обрізано)_"
+                    
+                    await send_telegram_message(chat_id, answer)
+                    return {"ok": True, "agent": "parser", "mode": "rag_query"}
+                # Fall through to regular chat if RAG query fails
+        
+        # Regular chat mode
         # Fetch memory context
         memory_context = await memory_client.get_context(
             user_id=f"tg:{user_id}",
@@ -387,6 +580,66 @@ async def get_telegram_file_path(file_id: str) -> Optional[str]:
     return None
 
 
+def format_qa_response(qa_pairs: list, max_pairs: int = 5) -> str:
+    """Format Q&A pairs for Telegram with length limits"""
+    if not qa_pairs:
+        return "📋 Документ оброблено, але Q&A пари не знайдено."
+    
+    qa_text = "📋 **Зміст документа:**\n\n"
+    displayed = 0
+    
+    for i, qa in enumerate(qa_pairs[:max_pairs], 1):
+        question = qa.get('question', 'Питання')
+        answer = qa.get('answer', 'Відповідь')
+        
+        # Truncate answer if too long
+        if len(answer) > 500:
+            answer = answer[:500] + "..."
+        
+        pair_text = f"**{i}. {question}**\n{answer}\n\n"
+        
+        # Check if adding this pair would exceed limit
+        if len(qa_text) + len(pair_text) > TELEGRAM_SAFE_LENGTH:
+            break
+        
+        qa_text += pair_text
+        displayed += 1
+    
+    if len(qa_pairs) > displayed:
+        remaining = len(qa_pairs) - displayed
+        qa_text += f"_... та ще {remaining} {'питань' if remaining > 1 else 'питання'}_"
+    
+    return qa_text
+
+
+def format_markdown_response(markdown: str) -> str:
+    """Format markdown response with length limits"""
+    if len(markdown) <= TELEGRAM_SAFE_LENGTH:
+        return f"📄 **Розпарсений документ:**\n\n{markdown}"
+    
+    # Truncate and add summary
+    truncated = markdown[:TELEGRAM_SAFE_LENGTH]
+    return f"📄 **Розпарсений документ:**\n\n{truncated}\n\n_... (текст обрізано, використай /ingest для повного імпорту)_"
+
+
+def format_chunks_response(chunks: list) -> str:
+    """Format chunks summary for Telegram"""
+    if not chunks:
+        return "📄 Документ розпарсено, але фрагменти не знайдено."
+    
+    answer_text = f"📄 **Документ розпарсено** ({len(chunks)} фрагментів)\n\n"
+    answer_text += "**Перші фрагменти:**\n\n"
+    
+    for i, chunk in enumerate(chunks[:3], 1):
+        text = chunk.get('text', '')[:200]
+        answer_text += f"{i}. {text}...\n\n"
+    
+    if len(chunks) > 3:
+        answer_text += f"_... та ще {len(chunks) - 3} фрагментів_"
+    
+    return answer_text
+
+
 async def send_telegram_message(chat_id: str, text: str, bot_token: str = None):
     """Send message to Telegram chat"""
     telegram_token = bot_token or os.getenv("TELEGRAM_BOT_TOKEN")
@@ -434,6 +687,147 @@ async def helion_telegram_webhook(update: TelegramUpdate):
         # Get DAO ID for this chat (Energy Union specific)
         dao_id = get_dao_id(chat_id, "telegram")
         
+        # Check for /ingest command
+        text = update.message.get("text", "")
+        if text and text.strip().startswith("/ingest"):
+            session_id = f"telegram:{chat_id}"
+            
+            # Check if there's a document in the message
+            document = update.message.get("document")
+            if document:
+                mime_type = document.get("mime_type", "")
+                file_name = document.get("file_name", "")
+                file_id = document.get("file_id")
+                
+                is_pdf = (
+                    mime_type == "application/pdf" or
+                    (mime_type.startswith("application/") and file_name.lower().endswith(".pdf"))
+                )
+                
+                if is_pdf and file_id:
+                    try:
+                        helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+                        file_path = await get_telegram_file_path(file_id)
+                        if file_path:
+                            file_url = f"https://api.telegram.org/file/bot{helion_token}/{file_path}"
+                            await send_telegram_message(chat_id, "📥 Імпортую документ у RAG...", helion_token)
+                            
+                            result = await ingest_document(
+                                session_id=session_id,
+                                doc_url=file_url,
+                                file_name=file_name,
+                                dao_id=dao_id,
+                                user_id=f"tg:{user_id}"
+                            )
+                            
+                            if result.success:
+                                await send_telegram_message(
+                                    chat_id,
+                                    f"✅ **Документ імпортовано у RAG**\n\n"
+                                    f"📊 Фрагментів: {result.ingested_chunks}\n"
+                                    f"📁 DAO: {dao_id}\n\n"
+                                    f"Тепер ти можеш задавати питання по цьому документу!",
+                                    helion_token
+                                )
+                                return {"ok": True, "chunks_count": result.ingested_chunks}
+                            else:
+                                await send_telegram_message(chat_id, f"Вибач, не вдалося імпортувати: {result.error}", helion_token)
+                                return {"ok": False, "error": result.error}
+                    except Exception as e:
+                        logger.error(f"Helion: Ingest failed: {e}", exc_info=True)
+                        await send_telegram_message(chat_id, "Вибач, не вдалося імпортувати документ.", helion_token)
+                        return {"ok": False, "error": "Ingest failed"}
+            
+            # Try to get last parsed doc_id from session context
+            helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+            result = await ingest_document(
+                session_id=session_id,
+                dao_id=dao_id,
+                user_id=f"tg:{user_id}"
+            )
+            
+            if result.success:
+                await send_telegram_message(
+                    chat_id,
+                    f"✅ **Документ імпортовано у RAG**\n\n"
+                    f"📊 Фрагментів: {result.ingested_chunks}\n"
+                    f"📁 DAO: {dao_id}\n\n"
+                    f"Тепер ти можеш задавати питання по цьому документу!",
+                    helion_token
+                )
+                return {"ok": True, "chunks_count": result.ingested_chunks}
+            else:
+                await send_telegram_message(chat_id, "Спочатку надішли PDF-документ, а потім використай /ingest", helion_token)
+                return {"ok": False, "error": result.error}
+        
+        # Check if it's a document (PDF)
+        document = update.message.get("document")
+        if document:
+            mime_type = document.get("mime_type", "")
+            file_name = document.get("file_name", "")
+            file_id = document.get("file_id")
+            
+            is_pdf = (
+                mime_type == "application/pdf" or
+                (mime_type.startswith("application/") and file_name.lower().endswith(".pdf"))
+            )
+            
+            if is_pdf and file_id:
+                logger.info(f"Helion: PDF document from {username} (tg:{user_id}), file_id: {file_id}, file_name: {file_name}")
+                
+                try:
+                    helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+                    file_path = await get_telegram_file_path(file_id)
+                    if not file_path:
+                        raise HTTPException(status_code=400, detail="Failed to get file from Telegram")
+                    
+                    file_url = f"https://api.telegram.org/file/bot{helion_token}/{file_path}"
+                    await send_telegram_message(chat_id, "📄 Обробляю PDF-документ... Це може зайняти кілька секунд.", helion_token)
+                    
+                    session_id = f"telegram:{chat_id}"
+                    result = await parse_document(
+                        session_id=session_id,
+                        doc_url=file_url,
+                        file_name=file_name,
+                        dao_id=dao_id,
+                        user_id=f"tg:{user_id}",
+                        output_mode="qa_pairs",
+                        metadata={"username": username, "chat_id": chat_id}
+                    )
+                    
+                    if not result.success:
+                        await send_telegram_message(chat_id, f"Вибач, не вдалося обробити документ: {result.error}", helion_token)
+                        return {"ok": False, "error": result.error}
+                    
+                    # Format response for Telegram
+                    answer_text = ""
+                    if result.qa_pairs:
+                        qa_list = [{"question": qa.question, "answer": qa.answer} for qa in result.qa_pairs]
+                        answer_text = format_qa_response(qa_list)
+                    elif result.markdown:
+                        answer_text = format_markdown_response(result.markdown)
+                    elif result.chunks_meta and result.chunks_meta.get("chunks"):
+                        chunks = result.chunks_meta.get("chunks", [])
+                        answer_text = format_chunks_response(chunks)
+                    else:
+                        answer_text = "✅ Документ успішно оброблено, але формат відповіді не розпізнано."
+                    
+                    if not answer_text.endswith("_"):
+                        answer_text += "\n\n💡 _Використай /ingest для імпорту документа у RAG_"
+                    
+                    logger.info(f"Helion: PDF parsing result: {len(answer_text)} chars, doc_id={result.doc_id}")
+                    await send_telegram_message(chat_id, answer_text, helion_token)
+                    return {"ok": True, "agent": "parser", "mode": "doc_parse", "doc_id": result.doc_id}
+                    
+                except Exception as e:
+                    logger.error(f"Helion: PDF processing failed: {e}", exc_info=True)
+                    await send_telegram_message(chat_id, "Вибач, не вдалося обробити PDF-документ. Переконайся, що файл не пошкоджений.", helion_token)
+                    return {"ok": False, "error": "PDF processing failed"}
+            elif document and not is_pdf:
+                helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+                await send_telegram_message(chat_id, "Наразі підтримуються тільки PDF-документи. Інші формати (docx, zip, тощо) будуть додані пізніше.", helion_token)
+                return {"ok": False, "error": "Unsupported document type"}
+        
         # Get message text
         text = update.message.get("text", "")
         if not text:
@@ -441,6 +835,41 @@ async def helion_telegram_webhook(update: TelegramUpdate):
         
         logger.info(f"Helion Telegram message from {username} (tg:{user_id}) in chat {chat_id}: {text[:50]}")
         
+        # Check if there's a document context for follow-up questions
+        session_id = f"telegram:{chat_id}"
+        doc_context = await get_doc_context(session_id)
+        
+        # If there's a doc_id and the message looks like a question about the document
+        if doc_context and doc_context.doc_id:
+            # Check if it's a question (simple heuristic: contains question words or ends with ?)
+            is_question = (
+                "?" in text or
+                any(word in text.lower() for word in ["що", "як", "чому", "коли", "де", "хто", "чи"])
+            )
+            
+            if is_question:
+                logger.info(f"Helion: Follow-up question detected for doc_id={doc_context.doc_id}")
+                # Try RAG query first
+                rag_result = await ask_about_document(
+                    session_id=session_id,
+                    question=text,
+                    doc_id=doc_context.doc_id,
+                    dao_id=dao_id or doc_context.dao_id,
+                    user_id=f"tg:{user_id}"
+                )
+                
+                if rag_result.success and rag_result.answer:
+                    # Truncate if too long for Telegram
+                    answer = rag_result.answer
+                    if len(answer) > TELEGRAM_SAFE_LENGTH:
+                        answer = answer[:TELEGRAM_SAFE_LENGTH] + "\n\n_... (відповідь обрізано)_"
+                    
+                    helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+                    await send_telegram_message(chat_id, answer, helion_token)
+                    return {"ok": True, "agent": "parser", "mode": "rag_query"}
+                # Fall through to regular chat if RAG query fails
+        
+        # Regular chat mode
         # Fetch memory context
         memory_context = await memory_client.get_context(
             user_id=f"tg:{user_id}",

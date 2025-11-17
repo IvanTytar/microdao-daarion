@@ -51,6 +51,9 @@ class Settings(BaseSettings):
     RAG_BASE_URL: str = os.getenv("RAG_BASE_URL", "http://rag-service:9500")
     RAG_TIMEOUT: int = int(os.getenv("RAG_TIMEOUT", "120"))
     
+    # NATS JetStream configuration
+    NATS_URL: str = os.getenv("NATS_URL", "nats://localhost:4222")
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

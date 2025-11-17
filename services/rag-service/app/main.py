@@ -4,20 +4,55 @@ Retrieval-Augmented Generation for MicroDAO
 """
 
 import logging
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.models import IngestRequest, IngestResponse, QueryRequest, QueryResponse
 from app.ingest_pipeline import ingest_parsed_document
 from app.query_pipeline import answer_query
+from app.event_worker import event_worker
 
 logger = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan events: startup and shutdown"""
+    import threading
+    
+    # Startup
+    logger.info("Starting RAG Service...")
+    
+    # Start event worker in a background thread
+    def run_event_worker():
+        import asyncio
+        asyncio.run(event_worker())
+        
+    event_worker_thread = threading.Thread(target=run_event_worker, daemon=True)
+    event_worker_thread.start()
+    logger.info("RAG Event Worker started in background thread")
+    
+    app.state.event_worker_thread = event_worker_thread
+    
+    yield
+    
+    # Shutdown
+    logger.info("Shutting down RAG Service...")
+    
+    import asyncio
+    from app.event_worker import close_subscriptions
+    await close_subscriptions()
+    if event_worker_thread.is_alive():
+        logger.info("Event Worker is still running, will shut down automatically")
+
 
 # FastAPI app
 app = FastAPI(
     title="RAG Service",
     description="Retrieval-Augmented Generation service for MicroDAO",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # CORS middleware

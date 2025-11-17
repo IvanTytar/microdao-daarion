@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from http_api import router as gateway_router
+from http_api_doc import router as doc_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,6 +30,7 @@ app.add_middleware(
 
 # Include gateway routes
 app.include_router(gateway_router, prefix="", tags=["gateway"])
+app.include_router(doc_router, prefix="", tags=["docs"])
 
 @app.get("/")
 async def root():
@@ -39,6 +41,10 @@ async def root():
         "endpoints": [
             "POST /telegram/webhook",
             "POST /discord/webhook",
+            "POST /api/doc/parse",
+            "POST /api/doc/ingest",
+            "POST /api/doc/ask",
+            "GET /api/doc/context/{session_id}",
             "GET /health"
         ]
     }

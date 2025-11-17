@@ -214,6 +214,35 @@ class MemoryClient:
         except Exception as e:
             logger.warning(f"Failed to upsert fact: {e}")
             return False
+    
+    async def get_fact(
+        self,
+        user_id: str,
+        fact_key: str,
+        team_id: Optional[str] = None
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Отримати факт користувача
+        
+        Returns:
+            Fact dict with fact_value and fact_value_json, or None if not found
+        """
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(
+                    f"{self.base_url}/facts/{fact_key}",
+                    params={
+                        "user_id": user_id,
+                        "team_id": team_id
+                    },
+                    headers={"Authorization": f"Bearer {user_id}"}
+                )
+                if response.status_code == 200:
+                    return response.json()
+                return None
+        except Exception as e:
+            logger.warning(f"Failed to get fact: {e}")
+            return None
 
 
 # Глобальний екземпляр клієнта

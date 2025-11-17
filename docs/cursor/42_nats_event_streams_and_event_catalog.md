@@ -43,7 +43,7 @@ DAARION використовує **3-5 вузлів JetStream кластеру**
 
 ## 3. Event Categories Overview
 
-Уся система складається з 13 груп подій:
+Уся система складається з 14 груп подій:
 
 1. **agent.run.***
 2. **chat.message.***
@@ -58,6 +58,7 @@ DAARION використовує **3-5 вузлів JetStream кластеру**
 11. **governance.***
 12. **usage.***
 13. **telemetry.***
+14. **rag.***
 
 Кожна категорія має окремий JetStream "stream".
 
@@ -436,6 +437,121 @@ Payload:
 
 ---
 
+### 8.14 STREAM_RAG
+
+#### Subjects:
+
+- `parser.document.parsed`
+- `rag.document.ingested`
+- `rag.document.indexed`
+
+#### Payloads
+
+**parser.document.parsed**
+
+```json
+{
+  "event_id": "evt_abc",
+  "ts": "2025-11-17T10:45:00Z",
+  "domain": "parser",
+  "type": "parser.document.parsed",
+  "version": 1,
+  "actor": {
+    "id": "parser-service",
+    "kind": "service"
+  },
+  "payload": {
+    "doc_id": "doc_123",
+    "team_id": "t_555",
+    "dao_id": "dao_greenfood",
+    "doc_type": "pdf|image",
+    "pages_count": 5,
+    "parsed_jpumped": true,
+    "indexed": true,
+    "visibility": "public",
+    "metadata": {
+      "title": "Sample Document",
+      "size_bytes": 12345,
+      "parsing_time_ms": 2340
+    }
+  },
+  "meta": {
+    "team_id": "t_555",
+    "trace_id": "trace_abc",
+    "span_id": "span_def"
+  }
+}
+```
+
+**rag.document.ingested**
+
+```json
+{
+  "event_id": "evt_def",
+  "ts": "2025-11-17T10:46:00Z",
+  "domain": "rag",
+  "type": "rag.document.ingested",
+  "version": 1,
+  "actor": {
+    "id": "rag-service",
+    "kind": "service"
+  },
+  "payload": {
+    "doc_id": "doc_123",
+    "team_id": "t_555",
+    "dao_id": "dao_greenfood",
+    "chunk_count": 12,
+    "indexed": true,
+    "visibility": "public",
+    "metadata": {
+      "ingestion_time_ms": 3134,
+      "embed_model": "bge-m3@v1"
+    }
+  },
+  "meta": {
+    "team_id": "t_555",
+    "trace_id": "trace_def",
+    "span_id": "span_ghi"
+  }
+}
+```
+
+**rag.document.indexed**
+
+```json
+{
+  "event_id": "evt_ghi",
+  "ts": "2025-11-17T10:47:00Z",
+  "domain": "rag",
+  "type": "rag.document.indexed",
+  "version": 1,
+  "actor": {
+    "id": "rag-ingest-worker",
+    "kind": "service"
+  },
+  "payload": {
+    "doc_id": "doc_123",
+    "team_id": "t_555",
+    "dao_id": "dao_greenfood",
+    "chunk_ids": ["c_001", "c_002", "c_003"],
+    "indexed": true,
+    "visibility": "public",
+    "metadata": {
+      "indexing_time_ms": 127,
+      "milvus_collection": "documents_v1",
+      "neo4j_nodes_created": 12
+    }
+  },
+  "meta": {
+    "team_id": "t_555",
+    "trace_id": "trace_ghi",
+    "span_id": "span_jkl"
+  }
+}
+```
+
+---
+
 ## 9. Retention Policies
 
 ### Agent, Chat, Project, Task
@@ -481,6 +597,7 @@ storage: file
 | STREAM_GOVERNANCE | PDP, audit            |
 | STREAM_USAGE      | quota service         |
 | STREAM_CHAT       | search-indexer        |
+| STREAM_RAG         | rag-service, parser-service, search-indexer |
 
 ---
 

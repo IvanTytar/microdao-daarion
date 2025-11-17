@@ -11,6 +11,7 @@ from .base import Provider
 from .llm_provider import LLMProvider
 from .devtools_provider import DevToolsProvider
 from .crewai_provider import CrewAIProvider
+from .vision_encoder_provider import VisionEncoderProvider
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +96,18 @@ def build_provider_registry(config: RouterConfig) -> Dict[str, Provider]:
         else:
             orch_type = orch_config.get("type", "N/A")
             logger.warning(f"Unknown orchestrator type: {orch_type}")
-
+    
+    # Build Vision Encoder provider
+    vision_encoder_url = os.getenv("VISION_ENCODER_URL", "http://vision-encoder:8001")
+    if vision_encoder_url:
+        provider_id = "vision_encoder"
+        provider = VisionEncoderProvider(
+            provider_id=provider_id,
+            base_url=vision_encoder_url,
+            timeout=60
+        )
+        registry[provider_id] = provider
+        logger.info(f"  + {provider_id}: VisionEncoder @ {vision_encoder_url}")
     
     logger.info(f"Provider registry built: {len(registry)} providers")
     
