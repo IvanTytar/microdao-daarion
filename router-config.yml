@@ -42,6 +42,12 @@ orchestrator_providers:
     base_url: http://localhost:9010
     timeout_ms: 120000
     description: "CrewAI multi-agent workflow orchestrator"
+  
+  vision_encoder:
+    type: vision
+    base_url: http://vision-encoder:8001
+    timeout_ms: 30000
+    description: "Vision Encoder (OpenCLIP ViT-L/14) for text/image embeddings"
 
 # ============================================================================
 # Agents Configuration
