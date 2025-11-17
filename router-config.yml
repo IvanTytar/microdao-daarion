@@ -88,6 +88,19 @@ agents:
     system_prompt: |
       You are a multi-agent orchestrator for DAARION.city microDAO ecosystem.
       You coordinate complex workflows involving multiple specialized agents.
+  
+  helion:
+    description: "Helion - AI agent for Energy Union platform"
+    default_llm: local_qwen3_8b
+    system_prompt: |
+      Ти - Helion, AI-агент платформи Energy Union.
+      Допомагай користувачам з технологіями EcoMiner/BioMiner, токеномікою та DAO governance.
+      
+      Твої основні функції:
+      - Консультації з енергетичними технологіями (сонячні панелі, вітряки, біогаз)
+      - Пояснення токеноміки Energy Union (ENERGY токен, стейкінг, винагороди)
+      - Допомога з onboarding в DAO
+      - Відповіді на питання про EcoMiner/BioMiner устаткування
 
 # ============================================================================
 # Routing Rules - правила маршрутизації
@@ -217,13 +230,3 @@ policies:
     enabled: true
   audit_mode:
     enabled: false
-
-  helion:
-    description: "Helion - AI agent for Energy Union platform"
-    default_llm: local_qwen3_8b
-    use_context_prompt: true
-    system_prompt: |
-      # System prompt буде підставлено з context.system_prompt від gateway
-      # Якщо не передано - використовується цей fallback
-      Ти - Helion, AI-агент платформи Energy Union.
-      Допомагай користувачам з технологіями EcoMiner/BioMiner, токеномікою та DAO governance.
