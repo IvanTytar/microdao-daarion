@@ -81,9 +81,9 @@ def build_provider_registry(config: RouterConfig) -> Dict[str, Provider]:
     
     # Build Orchestrator providers
     for orch_id, orch_config in config.orchestrator_providers.items():
-        provider_id = f"orchestrator_{orch_id}"
         
         if orch_config.get("type") == "orchestrator":
+            provider_id = f"orchestrator_{orch_id}"
             provider = CrewAIProvider(
                 provider_id=provider_id,
                 base_url=orch_config["base_url"],
@@ -93,21 +93,22 @@ def build_provider_registry(config: RouterConfig) -> Dict[str, Provider]:
             registry[provider_id] = provider
             base_url = orch_config.get("base_url", "N/A")
             logger.info(f"  + {provider_id}: Orchestrator @ {base_url}")
+        
+        elif orch_config.get("type") == "vision":
+            provider_id = orch_id  # Use orch_id directly (e.g. "vision_encoder")
+            provider = VisionEncoderProvider(
+                provider_id=provider_id,
+                base_url=orch_config["base_url"],
+                timeout=orch_config.get("timeout_ms", 30000) // 1000
+            )
+            
+            registry[provider_id] = provider
+            base_url = orch_config.get("base_url", "N/A")
+            logger.info(f"  + {provider_id}: VisionEncoder @ {base_url}")
+        
         else:
             orch_type = orch_config.get("type", "N/A")
             logger.warning(f"Unknown orchestrator type: {orch_type}")
-    
-    # Build Vision Encoder provider
-    vision_encoder_url = os.getenv("VISION_ENCODER_URL", "http://vision-encoder:8001")
-    if vision_encoder_url:
-        provider_id = "vision_encoder"
-        provider = VisionEncoderProvider(
-            provider_id=provider_id,
-            base_url=vision_encoder_url,
-            timeout=60
-        )
-        registry[provider_id] = provider
-        logger.info(f"  + {provider_id}: VisionEncoder @ {vision_encoder_url}")
     
     logger.info(f"Provider registry built: {len(registry)} providers")
     
