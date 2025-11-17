@@ -892,12 +892,11 @@ async def helion_telegram_webhook(update: TelegramUpdate):
                 "username": username,
                 "chat_id": chat_id,
             },
-            "payload": {
-                "context": {
-                    "agent_name": HELION_NAME,
-                    "system_prompt": HELION_SYSTEM_PROMPT,
-                    "memory": memory_context,
-                }
+            "context": {
+                "agent_name": HELION_NAME,
+                "system_prompt": HELION_SYSTEM_PROMPT,
+                "memory": memory_context,
+                # RBAC context will be injected by Router
             },
         }
         
