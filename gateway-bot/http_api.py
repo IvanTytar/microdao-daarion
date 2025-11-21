@@ -647,9 +647,9 @@ async def discord_webhook(message: DiscordMessage):
 # Helper Functions
 # ========================================
 
-async def get_telegram_file_path(file_id: str) -> Optional[str]:
+async def get_telegram_file_path(file_id: str, bot_token: str = None) -> Optional[str]:
     """Отримати шлях до файлу з Telegram API"""
-    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    telegram_token = bot_token or os.getenv("TELEGRAM_BOT_TOKEN")
     if not telegram_token:
         logger.error("TELEGRAM_BOT_TOKEN not set")
         return None
@@ -930,7 +930,7 @@ async def helion_telegram_webhook(update: TelegramUpdate):
                 try:
                     # Get file path from Telegram
                     helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
-                    file_path = await get_telegram_file_path(file_id)
+                    file_path = await get_telegram_file_path(file_id, helion_token)
                     if not file_path:
                         raise HTTPException(status_code=400, detail="Failed to get file from Telegram")
                     
