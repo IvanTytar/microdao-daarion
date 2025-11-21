@@ -204,7 +204,7 @@ class RouterHandler:
             logger.error(f"❌ Error handling Telegram event: {e}", exc_info=True)
     
     async def _handle_photo(self, event: TelegramUpdateEvent):
-        """Обробити фото через Vision Encoder"""
+        """Обробити фото через Swapper vision-8b модель"""
         try:
             photo_info = event.metadata.get("photo", {})
             file_url = photo_info.get("file_url", "")
@@ -212,21 +212,54 @@ class RouterHandler:
             
             logger.info(f"🖼️ Processing photo: agent={event.agent_id}, url={file_url[:50]}...")
             
-            # TODO: Інтегрувати з multimodal LLM (GPT-4V, Claude Vision, LLaVA)
-            # Поки що Vision Encoder робить тільки embeddings, не опис
+            # Відправити до Router з specialist_vision_8b через Swapper
+            router_url = os.getenv("ROUTER_URL", "http://router:9102")
+            router_request = {
+                "message": f"Опиши це зображення детально: {file_url}",
+                "mode": "chat",
+                "agent": event.agent_id,
+                "metadata": {
+                    "source": "telegram",
+                    "chat_id": event.chat_id,
+                    "file_url": file_url,
+                    "has_image": True,
+                },
+            }
             
-            # Заглушка для demonstration
-            response_text = f"🖼️ Отримав зображення"
-            if caption:
-                response_text += f" з підписом: \"{caption}\""
-            response_text += "\n\n⚠️ Аналіз зображень буде доступний після інтеграції multimodal LLM (GPT-4V/Claude Vision)."
+            # Override LLM to use specialist_vision_8b for image understanding
+            router_request["metadata"]["use_llm"] = "specialist_vision_8b"
             
-            # Відправити відповідь
-            await telegram_listener.send_message(
-                agent_id=event.agent_id,
-                chat_id=event.chat_id,
-                text=response_text
-            )
+            try:
+                async with httpx.AsyncClient(timeout=90.0) as client:
+                    response = await client.post(f"{router_url}/route", json=router_request)
+                    response.raise_for_status()
+                    result = response.json()
+                    
+                    if result.get("ok"):
+                        answer_text = result.get("data", {}).get("text") or result.get("response", "")
+                        if answer_text:
+                            await telegram_listener.send_message(
+                                agent_id=event.agent_id,
+                                chat_id=event.chat_id,
+                                text=f"✅ **Фото оброблено**\n\n{answer_text}"
+                            )
+                            return
+                    
+                    # Якщо помилка
+                    error_msg = result.get("error", "Unknown error")
+                    logger.error(f"Router error: {error_msg}")
+                    await telegram_listener.send_message(
+                        agent_id=event.agent_id,
+                        chat_id=event.chat_id,
+                        text=f"Вибач, не вдалося обробити фото: {error_msg}"
+                    )
+            except Exception as e:
+                logger.error(f"Error calling Router: {e}", exc_info=True)
+                await telegram_listener.send_message(
+                    agent_id=event.agent_id,
+                    chat_id=event.chat_id,
+                    text="Вибач, не вдалося обробити фото. Переконайся, що Swapper Service з vision-8b моделлю запущений."
+                )
             
             logger.info(f"✅ Photo response sent: agent={event.agent_id}, chat={event.chat_id}")
             

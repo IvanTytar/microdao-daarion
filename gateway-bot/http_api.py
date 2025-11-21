@@ -330,9 +330,6 @@ async def telegram_webhook(update: TelegramUpdate):
                     # Build file URL
                     file_url = f"https://api.telegram.org/file/bot{telegram_token}/{file_path}"
                     
-                    # Send "Processing..." message
-                    await send_telegram_message(chat_id, "📸 Обробляю фото через Vision-8b модель...")
-                    
                     # Send to Router with specialist_vision_8b model (Swapper)
                     router_request = {
                         "message": f"Опиши це зображення детально: {file_url}",
@@ -936,9 +933,6 @@ async def helion_telegram_webhook(update: TelegramUpdate):
                     
                     # Build file URL
                     file_url = f"https://api.telegram.org/file/bot{helion_token}/{file_path}"
-                    
-                    # Send "Processing..." message
-                    await send_telegram_message(chat_id, "📸 Обробляю фото через Vision-8b модель...", helion_token)
                     
                     # Send to Router with specialist_vision_8b model (Swapper)
                     router_request = {
