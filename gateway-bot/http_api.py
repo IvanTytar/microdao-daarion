@@ -917,6 +917,97 @@ async def helion_telegram_webhook(update: TelegramUpdate):
                 await send_telegram_message(chat_id, "Наразі підтримуються тільки PDF-документи. Інші формати (docx, zip, тощо) будуть додані пізніше.", helion_token)
                 return {"ok": False, "error": "Unsupported document type"}
         
+        # Check if it's a photo
+        photo = update.message.get("photo")
+        if photo:
+            # Telegram sends multiple sizes, get the largest one (last in array)
+            photo_obj = photo[-1] if isinstance(photo, list) else photo
+            file_id = photo_obj.get("file_id") if isinstance(photo_obj, dict) else None
+            
+            if file_id:
+                logger.info(f"Helion: Photo from {username} (tg:{user_id}), file_id: {file_id}")
+                
+                try:
+                    # Get file path from Telegram
+                    helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+                    file_path = await get_telegram_file_path(file_id)
+                    if not file_path:
+                        raise HTTPException(status_code=400, detail="Failed to get file from Telegram")
+                    
+                    # Build file URL
+                    file_url = f"https://api.telegram.org/file/bot{helion_token}/{file_path}"
+                    
+                    # Send "Processing..." message
+                    await send_telegram_message(chat_id, "📸 Обробляю фото через Vision-8b модель...", helion_token)
+                    
+                    # Send to Router with specialist_vision_8b model (Swapper)
+                    router_request = {
+                        "message": f"Опиши це зображення детально, зосередься на технічних деталях EcoMiner/BioMiner якщо вони є: {file_url}",
+                        "mode": "chat",
+                        "agent": "helion",
+                        "metadata": {
+                            "source": "telegram",
+                            "dao_id": dao_id,
+                            "user_id": f"tg:{user_id}",
+                            "session_id": f"tg:{chat_id}:{dao_id}",
+                            "username": username,
+                            "chat_id": chat_id,
+                            "file_id": file_id,
+                            "file_url": file_url,
+                            "has_image": True,
+                        },
+                        "context": {
+                            "agent_name": HELION_NAME,
+                            "system_prompt": HELION_SYSTEM_PROMPT,
+                        },
+                    }
+                    
+                    # Override LLM to use specialist_vision_8b for image understanding
+                    router_request["metadata"]["use_llm"] = "specialist_vision_8b"
+                    
+                    # Send to Router
+                    logger.info(f"Helion: Sending photo to Router with vision-8b: file_url={file_url[:50]}...")
+                    response = await send_to_router(router_request)
+                    
+                    # Extract response
+                    if isinstance(response, dict) and response.get("ok"):
+                        answer_text = response.get("data", {}).get("text") or response.get("response", "")
+                        
+                        if answer_text:
+                            # Photo processed successfully
+                            await send_telegram_message(
+                                chat_id,
+                                f"✅ **Фото оброблено**\n\n{answer_text}",
+                                helion_token
+                            )
+                            
+                            # Save to memory for context
+                            await memory_client.save_chat_turn(
+                                agent_id="helion",
+                                team_id=dao_id,
+                                user_id=f"tg:{user_id}",
+                                message=f"[Photo: {file_id}]",
+                                response=answer_text,
+                                channel_id=chat_id,
+                                scope="short_term"
+                            )
+                            
+                            return {"ok": True, "agent": "helion", "model": "specialist_vision_8b"}
+                        else:
+                            await send_telegram_message(chat_id, "Фото оброблено, але не вдалося отримати опис.", helion_token)
+                            return {"ok": False, "error": "No description in response"}
+                    else:
+                        error_msg = response.get("error", "Unknown error") if isinstance(response, dict) else "Router error"
+                        logger.error(f"Helion: Vision-8b error: {error_msg}")
+                        await send_telegram_message(chat_id, f"Вибач, не вдалося обробити фото: {error_msg}", helion_token)
+                        return {"ok": False, "error": error_msg}
+                    
+                except Exception as e:
+                    logger.error(f"Helion: Photo processing failed: {e}", exc_info=True)
+                    helion_token = os.getenv("HELION_TELEGRAM_BOT_TOKEN")
+                    await send_telegram_message(chat_id, "Вибач, не вдалося обробити фото. Переконайся, що Swapper Service з vision-8b моделлю запущений.", helion_token)
+                    return {"ok": False, "error": "Photo processing failed"}
+        
         # Get message text
         text = update.message.get("text", "")
         if not text:
