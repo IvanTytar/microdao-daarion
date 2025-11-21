@@ -331,12 +331,12 @@ async def telegram_webhook(update: TelegramUpdate):
                     file_url = f"https://api.telegram.org/file/bot{telegram_token}/{file_path}"
                     
                     # Send "Processing..." message
-                    await send_telegram_message(chat_id, "📸 Обробляю фото через Vision Encoder...")
+                    await send_telegram_message(chat_id, "📸 Обробляю фото через Vision-8b модель...")
                     
-                    # Send to Router with vision_embed mode
+                    # Send to Router with specialist_vision_8b model (Swapper)
                     router_request = {
-                        "message": "Оброби фото",
-                        "mode": "vision_embed",
+                        "message": f"Опиши це зображення детально: {file_url}",
+                        "mode": "chat",
                         "agent": "daarwizz",
                         "metadata": {
                             "source": "telegram",
@@ -347,32 +347,30 @@ async def telegram_webhook(update: TelegramUpdate):
                             "chat_id": chat_id,
                             "file_id": file_id,
                             "file_url": file_url,
+                            "has_image": True,
                         },
-                        "payload": {
-                            "operation": "embed_image",
-                            "image_url": file_url,
-                            "normalize": True,
+                        "context": {
+                            "agent_name": DAARWIZZ_NAME,
+                            "system_prompt": DAARWIZZ_SYSTEM_PROMPT,
                         },
                     }
                     
+                    # Override LLM to use specialist_vision_8b for image understanding
+                    router_request["metadata"]["use_llm"] = "specialist_vision_8b"
+                    
                     # Send to Router
-                    logger.info(f"Sending photo to Router: file_url={file_url[:50]}...")
+                    logger.info(f"Sending photo to Router with vision-8b: file_url={file_url[:50]}...")
                     response = await send_to_router(router_request)
                     
                     # Extract response
                     if isinstance(response, dict) and response.get("ok"):
-                        embedding_data = response.get("data", {})
-                        embedding = embedding_data.get("embedding")
+                        answer_text = response.get("data", {}).get("text") or response.get("response", "")
                         
-                        if embedding:
+                        if answer_text:
                             # Photo processed successfully
-                            dimension = embedding_data.get("dimension", 768)
                             await send_telegram_message(
                                 chat_id,
-                                f"✅ **Фото оброблено**\n\n"
-                                f"📊 Embedding dimension: {dimension}\n"
-                                f"🔍 Фото закодовано для пошуку та аналізу.\n\n"
-                                f"💡 Можна використати текстовий опис для пошуку схожих фото."
+                                f"✅ **Фото оброблено**\n\n{answer_text}"
                             )
                             
                             # Save to memory for context
@@ -381,18 +379,18 @@ async def telegram_webhook(update: TelegramUpdate):
                                 team_id=dao_id,
                                 user_id=f"tg:{user_id}",
                                 message=f"[Photo: {file_id}]",
-                                response=f"Photo processed with Vision Encoder (dim={dimension})",
+                                response=answer_text,
                                 channel_id=chat_id,
                                 scope="short_term"
                             )
                             
-                            return {"ok": True, "agent": "daarwizz", "mode": "vision_embed", "dimension": dimension}
+                            return {"ok": True, "agent": "daarwizz", "model": "specialist_vision_8b"}
                         else:
-                            await send_telegram_message(chat_id, "Фото оброблено, але embedding не отримано.")
-                            return {"ok": False, "error": "No embedding in response"}
+                            await send_telegram_message(chat_id, "Фото оброблено, але не вдалося отримати опис.")
+                            return {"ok": False, "error": "No description in response"}
                     else:
                         error_msg = response.get("error", "Unknown error") if isinstance(response, dict) else "Router error"
-                        logger.error(f"Vision Encoder error: {error_msg}")
+                        logger.error(f"Vision-8b error: {error_msg}")
                         await send_telegram_message(chat_id, f"Вибач, не вдалося обробити фото: {error_msg}")
                         return {"ok": False, "error": error_msg}
                     
