@@ -6,19 +6,35 @@
 
 ---
 
-## 📍 Production Servers
+## 📍 Network Nodes
 
-### GEX44 Server #2844465 (Hetzner)
+### Node #1: Production Server (Hetzner GEX44 #2844465)
+- **Node ID:** `node-1-hetzner-gex44`
 - **IP Address:** `144.76.224.179`
 - **SSH Access:** `ssh root@144.76.224.179`
-- **Location:** Hetzner Cloud
-- **Project Root:** `/opt/microdao-daarion` (or `/opt/dagi-router`)
+- **Location:** Hetzner Cloud (Germany)
+- **Project Root:** `/opt/microdao-daarion`
 - **Docker Network:** `dagi-network`
+- **Role:** Production Router + Gateway + All Services
+- **Uptime:** 24/7
 
 **Domains:**
 - `gateway.daarion.city` → `144.76.224.179` (Gateway + Nginx)
 - `api.daarion.city` → TBD (API Gateway)
 - `daarion.city` → TBD (Main website)
+
+### Node #2: Development Node (MacBook Pro M4 Max)
+- **Node ID:** `node-2-macbook-m4max`
+- **Local IP:** `192.168.1.244`
+- **SSH Access:** `ssh apple@192.168.1.244` (if enabled)
+- **Location:** Local Network (Ivan's Office)
+- **Project Root:** `/Users/apple/github-projects/microdao-daarion`
+- **Role:** Development + Testing + Backup Router
+- **Specs:** M4 Max (16 cores), 64GB RAM, 2TB SSD, 40-core GPU
+- **Uptime:** On-demand (battery-powered)
+
+**See full specs:** [NODE-2-MACBOOK-SPECS.md](./NODE-2-MACBOOK-SPECS.md)  
+**Current state:** [NODE-2-CURRENT-STATE.md](./NODE-2-CURRENT-STATE.md) — What's running now
 
 ---
 

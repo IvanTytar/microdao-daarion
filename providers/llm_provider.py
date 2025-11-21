@@ -158,15 +158,34 @@ class LLMProvider(Provider):
     def _get_system_prompt(self, req: RouterRequest) -> Optional[str]:
         """Get system prompt based on agent or context"""
         # 1. Check if context.system_prompt provided (e.g., from Gateway)
+        logger.info(f"[DEBUG] _get_system_prompt called for agent={req.agent}")
+        logger.info(f"[DEBUG] req.payload type: {type(req.payload)}, keys: {list(req.payload.keys()) if req.payload else []}")
         context = req.payload.get("context") or {}
-        logger.info(f"[DEBUG] payload keys: {list(req.payload.keys())}")
-        logger.info(f"[DEBUG] context keys: {list(context.keys())}")
-        if "system_prompt" in context:
+        logger.info(f"[DEBUG] context type: {type(context)}, keys: {list(context.keys()) if isinstance(context, dict) else 'not a dict'}")
+        if isinstance(context, dict) and "system_prompt" in context:
             prompt = context["system_prompt"]
-            logger.info(f"[DEBUG] Using context.system_prompt: {len(prompt)} chars, agent={req.agent}")
+            logger.info(f"[DEBUG] ✅ Using context.system_prompt: {len(prompt)} chars, agent={req.agent}")
+            logger.info(f"[DEBUG] System prompt type: {type(prompt)}")
+            logger.info(f"[DEBUG] System prompt preview (first 200): {str(prompt)[:200]}...")
+            logger.info(f"[DEBUG] System prompt full length check: {len(str(prompt))} chars")
+            # Переконаємось, що це рядок
+            if not isinstance(prompt, str):
+                logger.warning(f"[DEBUG] ⚠️ System prompt is not a string! Type: {type(prompt)}, value: {prompt}")
+                prompt = str(prompt) if prompt else None
             return prompt
+        else:
+            logger.info(f"[DEBUG] ⚠️ No system_prompt in context for agent={req.agent}")
         
-        # 2. Agent-specific system prompts
+        # 2. Agent-specific system prompts (fallback, якщо не передано в context)
+        if req.agent == "helion":
+            return (
+                "Ти - Helion, AI-агент платформи Energy Union екосистеми DAARION.city. "
+                "Допомагай користувачам з технологіями EcoMiner/BioMiner, токеномікою та DAO governance. "
+                "Твої основні функції: консультації з енергетичними технологіями, пояснення токеноміки Energy Union, "
+                "допомога з onboarding в DAO, відповіді на питання про EcoMiner/BioMiner устаткування. "
+                "Стиль спілкування: професійний, технічний, але зрозумілий, точний у цифрах та даних."
+            )
+        
         if req.agent == "daarwizz":
             return (
                 "Ти — DAARWIZZ, офіційний AI-агент екосистеми DAARION.city. "

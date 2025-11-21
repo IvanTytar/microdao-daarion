@@ -5,7 +5,7 @@ Provides HTTP endpoints for routing requests
 """
 
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, Dict, Any
 import logging
 
@@ -21,6 +21,8 @@ logger = logging.getLogger(__name__)
 
 class IncomingRequest(BaseModel):
     """HTTP request format"""
+    model_config = ConfigDict(extra='allow')  # Дозволити додаткові поля для сумісності
+    
     mode: Optional[str] = Field(None, description="Request mode (e.g., 'chat', 'crew')")
     agent: Optional[str] = Field(None, description="Agent ID (e.g., 'devtools')")
     message: Optional[str] = Field(None, description="User message")
@@ -29,6 +31,7 @@ class IncomingRequest(BaseModel):
     session_id: Optional[str] = Field(None, description="Session identifier")
     user_id: Optional[str] = Field(None, description="User identifier")
     payload: Dict[str, Any] = Field(default_factory=dict, description="Additional payload data")
+    context: Optional[Dict[str, Any]] = Field(None, description="Legacy: context on top level (will be migrated to payload.context)")
 
 
 class RouterAPIResponse(BaseModel):
@@ -74,6 +77,32 @@ def build_router_http(app_core: RouterApp) -> APIRouter:
         - Other metadata
         """
         logger.info(f"Incoming request: agent={req.agent}, mode={req.mode}")
+        logger.info(f"Raw payload type: {type(req.payload)}, keys: {list(req.payload.keys()) if req.payload else []}")
+        logger.info(f"Raw context: {req.context}")
+        
+        # Нормалізувати payload: якщо є "context" на верхньому рівні (старий формат),
+        # перемістити його в payload.context для уніфікованої обробки
+        normalized_payload = req.payload.copy() if req.payload else {}
+        
+        # Перевірити, чи є context на верхньому рівні (legacy формат від gateway-bot)
+        # Це потрібно для сумісності з DAARWIZZ
+        if req.context:
+            # Якщо context на верхньому рівні, перемістити в payload.context
+            if "context" not in normalized_payload:
+                normalized_payload["context"] = {}
+            # Мержити context з верхнього рівня в payload.context
+            if isinstance(req.context, dict):
+                normalized_payload["context"].update(req.context)
+                logger.info(f"✅ Migrated top-level context to payload.context for agent={req.agent}, keys={list(req.context.keys())}")
+        
+        logger.info(f"✅ Normalized payload keys: {list(normalized_payload.keys())}")
+        if normalized_payload and "context" in normalized_payload:
+            logger.info(f"✅ Context keys: {list(normalized_payload['context'].keys()) if isinstance(normalized_payload.get('context'), dict) else []}")
+            if isinstance(normalized_payload.get('context'), dict) and "system_prompt" in normalized_payload['context']:
+                sp = normalized_payload['context']['system_prompt']
+                sp_len = len(sp) if sp else 0
+                logger.info(f"✅ System prompt found in context: {sp_len} chars")
+                logger.info(f"✅ System prompt preview: {sp[:100] if sp else 'None'}...")
         
         # Convert to internal RouterRequest
         rreq = RouterRequest(
@@ -84,7 +113,7 @@ def build_router_http(app_core: RouterApp) -> APIRouter:
             session_id=req.session_id,
             user_id=req.user_id,
             message=req.message,
-            payload=req.payload,
+            payload=normalized_payload,
         )
         
         # Handle request
