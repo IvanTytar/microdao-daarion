@@ -310,6 +310,97 @@ async def telegram_webhook(update: TelegramUpdate):
                 await send_telegram_message(chat_id, "Наразі підтримуються тільки PDF-документи. Інші формати (docx, zip, тощо) будуть додані пізніше.")
                 return {"ok": False, "error": "Unsupported document type"}
         
+        # Check if it's a photo
+        photo = update.message.get("photo")
+        if photo:
+            # Telegram sends multiple sizes, get the largest one (last in array)
+            photo_obj = photo[-1] if isinstance(photo, list) else photo
+            file_id = photo_obj.get("file_id") if isinstance(photo_obj, dict) else None
+            
+            if file_id:
+                logger.info(f"Photo from {username} (tg:{user_id}), file_id: {file_id}")
+                
+                try:
+                    # Get file path from Telegram
+                    telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
+                    file_path = await get_telegram_file_path(file_id)
+                    if not file_path:
+                        raise HTTPException(status_code=400, detail="Failed to get file from Telegram")
+                    
+                    # Build file URL
+                    file_url = f"https://api.telegram.org/file/bot{telegram_token}/{file_path}"
+                    
+                    # Send "Processing..." message
+                    await send_telegram_message(chat_id, "📸 Обробляю фото через Vision Encoder...")
+                    
+                    # Send to Router with vision_embed mode
+                    router_request = {
+                        "message": "Оброби фото",
+                        "mode": "vision_embed",
+                        "agent": "daarwizz",
+                        "metadata": {
+                            "source": "telegram",
+                            "dao_id": dao_id,
+                            "user_id": f"tg:{user_id}",
+                            "session_id": f"tg:{chat_id}:{dao_id}",
+                            "username": username,
+                            "chat_id": chat_id,
+                            "file_id": file_id,
+                            "file_url": file_url,
+                        },
+                        "payload": {
+                            "operation": "embed_image",
+                            "image_url": file_url,
+                            "normalize": True,
+                        },
+                    }
+                    
+                    # Send to Router
+                    logger.info(f"Sending photo to Router: file_url={file_url[:50]}...")
+                    response = await send_to_router(router_request)
+                    
+                    # Extract response
+                    if isinstance(response, dict) and response.get("ok"):
+                        embedding_data = response.get("data", {})
+                        embedding = embedding_data.get("embedding")
+                        
+                        if embedding:
+                            # Photo processed successfully
+                            dimension = embedding_data.get("dimension", 768)
+                            await send_telegram_message(
+                                chat_id,
+                                f"✅ **Фото оброблено**\n\n"
+                                f"📊 Embedding dimension: {dimension}\n"
+                                f"🔍 Фото закодовано для пошуку та аналізу.\n\n"
+                                f"💡 Можна використати текстовий опис для пошуку схожих фото."
+                            )
+                            
+                            # Save to memory for context
+                            await memory_client.save_chat_turn(
+                                agent_id="daarwizz",
+                                team_id=dao_id,
+                                user_id=f"tg:{user_id}",
+                                message=f"[Photo: {file_id}]",
+                                response=f"Photo processed with Vision Encoder (dim={dimension})",
+                                channel_id=chat_id,
+                                scope="short_term"
+                            )
+                            
+                            return {"ok": True, "agent": "daarwizz", "mode": "vision_embed", "dimension": dimension}
+                        else:
+                            await send_telegram_message(chat_id, "Фото оброблено, але embedding не отримано.")
+                            return {"ok": False, "error": "No embedding in response"}
+                    else:
+                        error_msg = response.get("error", "Unknown error") if isinstance(response, dict) else "Router error"
+                        logger.error(f"Vision Encoder error: {error_msg}")
+                        await send_telegram_message(chat_id, f"Вибач, не вдалося обробити фото: {error_msg}")
+                        return {"ok": False, "error": error_msg}
+                    
+                except Exception as e:
+                    logger.error(f"Photo processing failed: {e}", exc_info=True)
+                    await send_telegram_message(chat_id, "Вибач, не вдалося обробити фото. Переконайся, що Vision Encoder сервіс запущений.")
+                    return {"ok": False, "error": "Photo processing failed"}
+        
         # Check if it's a voice message
         voice = update.message.get("voice")
         audio = update.message.get("audio")
