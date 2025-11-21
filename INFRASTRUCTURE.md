@@ -89,7 +89,7 @@ git fetch daarion-city
 | **RAG Service** | 9500 | `dagi-rag-service` | `http://localhost:9500/health` |
 | **Memory Service** | 8000 | `dagi-memory-service` | `http://localhost:8000/health` |
 | **Parser Service** | 9400 | `dagi-parser-service` | `http://localhost:9400/health` |
-| **Vision Encoder** | 8001 | `dagi-vision-encoder` | `http://localhost:8001/health` |
+| **Swapper Service** | 8890-8891 | `swapper-service` | `http://localhost:8890/health` |
 | **PostgreSQL** | 5432 | `dagi-postgres` | - |
 | **Redis** | 6379 | `redis` | `redis-cli PING` |
 | **Neo4j** | 7687 (bolt), 7474 (http) | `neo4j` | `http://localhost:7474` |
@@ -98,6 +98,8 @@ git fetch daarion-city
 | **Prometheus** | 9090 | `prometheus` | `http://localhost:9090` |
 | **Neo4j Exporter** | 9091 | `neo4j-exporter` | `http://localhost:9091/metrics` |
 | **Ollama** | 11434 | `ollama` (external) | `http://localhost:11434/api/tags` |
+
+**Note:** Vision Encoder (port 8001) не запущений на Node #1. Замість нього використовується **Swapper Service** з **vision-8b** моделлю (Qwen3-VL 8B) для обробки зображень через динамічне завантаження моделей.
 
 ### HTTPS Gateway (Nginx)
 - **Port:** 443 (HTTPS), 80 (HTTP redirect)
