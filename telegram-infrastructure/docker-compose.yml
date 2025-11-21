@@ -1,0 +1,54 @@
+services:
+  telegram-bot-api:
+    image: ghcr.io/tdlib/telegram-bot-api:latest
+    container_name: telegram-bot-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    command:
+      - --local
+      - --http-port=8081
+      - --dir=/var/lib/telegram-bot-api
+    volumes:
+      - ./data/telegram-bot-api:/var/lib/telegram-bot-api
+    ports:
+      - "127.0.0.1:8081:8081"
+    networks:
+      - telegram-net
+
+  nats:
+    image: nats:2
+    container_name: nats
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4222:4222"
+    networks:
+      - telegram-net
+
+  telegram-gateway:
+    build: ./telegram-gateway
+    container_name: telegram-gateway
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TELEGRAM_API_BASE=http://telegram-bot-api:8081
+      - NATS_URL=nats://nats:4222
+      - ROUTER_BASE_URL=http://dagi-router:9102
+      - DEBUG=true
+    depends_on:
+      - telegram-bot-api
+      - nats
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./telegram-gateway/bots.yaml:/app/bots.yaml:ro
+    networks:
+      - telegram-net
+      - dagi-network
+
+networks:
+  telegram-net:
+    driver: bridge
+  dagi-network:
+    external: true

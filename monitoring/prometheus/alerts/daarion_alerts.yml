@@ -1,0 +1,129 @@
+groups:
+  - name: DAARION Platform
+    interval: 30s
+    rules:
+      # Service Health Alerts
+      - alert: ServiceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "{{ $labels.job }} has been down for more than 2 minutes"
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate on {{ $labels.job }}"
+          description: "Error rate is {{ $value }} errors/sec"
+
+      # Router Alerts
+      - alert: RouterHighLatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="dagi-router"}[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "DAGI Router high latency"
+          description: "95th percentile latency is {{ $value }}s"
+
+      - alert: RouterHighLoad
+        expr: rate(http_requests_total{job="dagi-router"}[1m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "DAGI Router high load"
+          description: "Request rate is {{ $value }} req/sec"
+
+      # Telegram Gateway Alerts
+      - alert: TelegramGatewayDown
+        expr: up{job="telegram-gateway"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Telegram Gateway is down"
+          description: "Telegram bots will not respond"
+
+      - alert: TelegramMessageBacklog
+        expr: telegram_message_queue_size > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Telegram message backlog"
+          description: "{{ $value }} messages in queue"
+
+      # LLM Performance
+      - alert: LLMHighLatency
+        expr: histogram_quantile(0.95, rate(llm_request_duration_seconds_bucket[5m])) > 30
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LLM high latency"
+          description: "95th percentile LLM latency is {{ $value }}s"
+
+      - alert: LLMErrorRate
+        expr: rate(llm_errors_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High LLM error rate"
+          description: "LLM error rate is {{ $value }} errors/sec"
+
+      # Database Alerts
+      - alert: PostgreSQLDown
+        expr: up{job="postgres"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "Database is unavailable"
+
+      # NATS Alerts
+      - alert: NATSDown
+        expr: up{job="nats"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "NATS is down"
+          description: "Message broker is unavailable"
+
+      # Vector DB Alerts
+      - alert: QdrantHighMemory
+        expr: qdrant_memory_used_bytes / qdrant_memory_total_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Qdrant high memory usage"
+          description: "Memory usage is {{ $value | humanizePercentage }}"
+
+      # Disk Space Alerts
+      - alert: DiskSpaceWarning
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low disk space"
+          description: "Only {{ $value | humanizePercentage }} disk space left"
+
+      - alert: DiskSpaceCritical
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical disk space"
+          description: "Only {{ $value | humanizePercentage }} disk space left"
+

@@ -1,0 +1,124 @@
+# Prometheus Configuration for DAARION Platform
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'daarion-prod'
+    environment: 'production'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them
+rule_files:
+  - "/etc/prometheus/alerts/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # DAGI Router
+  - job_name: 'dagi-router'
+    static_configs:
+      - targets: ['dagi-router:9102']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Telegram Gateway
+  - job_name: 'telegram-gateway'
+    static_configs:
+      - targets: ['telegram-gateway:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # DAGI Gateway
+  - job_name: 'dagi-gateway'
+    static_configs:
+      - targets: ['dagi-gateway:9300']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # RBAC Service
+  - job_name: 'dagi-rbac'
+    static_configs:
+      - targets: ['dagi-rbac:9200']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # CrewAI Service
+  - job_name: 'dagi-crewai'
+    static_configs:
+      - targets: ['dagi-crewai:9010']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # Parser Service
+  - job_name: 'dagi-parser'
+    static_configs:
+      - targets: ['dagi-parser:9400']
+    metrics_path: '/metrics'
+    scrape_interval: 20s
+
+  # Vision Encoder
+  - job_name: 'dagi-vision-encoder'
+    static_configs:
+      - targets: ['dagi-vision-encoder:8001']
+    metrics_path: '/metrics'
+    scrape_interval: 20s
+
+  # DevTools
+  - job_name: 'dagi-devtools'
+    static_configs:
+      - targets: ['dagi-devtools:8008']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # STT Service
+  - job_name: 'dagi-stt'
+    static_configs:
+      - targets: ['dagi-stt:9000']
+    metrics_path: '/metrics'
+    scrape_interval: 20s
+
+  # TTS Service
+  - job_name: 'dagi-tts'
+    static_configs:
+      - targets: ['dagi-tts:9101']
+    metrics_path: '/metrics'
+    scrape_interval: 20s
+
+  # Qdrant Vector DB
+  - job_name: 'dagi-qdrant'
+    static_configs:
+      - targets: ['dagi-qdrant:6333']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # NATS
+  - job_name: 'nats'
+    static_configs:
+      - targets: ['nats:8222']
+    metrics_path: '/varz'
+    scrape_interval: 15s
+
+  # PostgreSQL (if exporter is installed)
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['dagi-postgres:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Docker containers (if node_exporter is installed)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['host.docker.internal:9100']
+    scrape_interval: 30s
+

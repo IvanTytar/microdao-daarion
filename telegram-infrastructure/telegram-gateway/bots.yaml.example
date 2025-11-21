@@ -1,0 +1,19 @@
+# Приклад конфігурації ботів для telegram-gateway
+# Скопіюй цей файл як bots.yaml і заповни реальні токени
+
+bots:
+  - agent_id: "daarwizz"
+    bot_token: "YOUR_DAARWIZZ_BOT_TOKEN"
+    enabled: true
+    description: "DAARWIZZ agent bot"
+
+  - agent_id: "helion"
+    bot_token: "YOUR_HELION_BOT_TOKEN"
+    enabled: true
+    description: "Helion agent bot"
+
+# Додаткові боти можна додати тут
+# - agent_id: "another_agent"
+#   bot_token: "ANOTHER_BOT_TOKEN"
+#   enabled: true
+
