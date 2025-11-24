@@ -1,16 +1,15 @@
-"""
-Memory Service Client для Gateway
-Використовується для отримання та збереження пам'яті діалогів
-"""
+import asyncio
 import os
 import logging
-from typing import Optional, Dict, Any, List
+import time
+from typing import Optional, Dict, Any, List, Tuple
 from datetime import datetime
 import httpx
 
 logger = logging.getLogger(__name__)
 
 MEMORY_SERVICE_URL = os.getenv("MEMORY_SERVICE_URL", "http://memory-service:8000")
+CONTEXT_CACHE_TTL = float(os.getenv("MEMORY_CONTEXT_CACHE_TTL", "5"))
 
 
 class MemoryClient:
@@ -19,6 +18,17 @@ class MemoryClient:
     def __init__(self, base_url: str = MEMORY_SERVICE_URL):
         self.base_url = base_url.rstrip("/")
         self.timeout = 10.0
+        self._context_cache: Dict[str, Tuple[float, Dict[str, Any]]] = {}
+    
+    def _cache_key(
+        self,
+        user_id: str,
+        agent_id: str,
+        team_id: str,
+        channel_id: Optional[str],
+        limit: int
+    ) -> str:
+        return f"{user_id}:{agent_id}:{team_id}:{channel_id}:{limit}"
     
     async def get_context(
         self,
@@ -30,26 +40,21 @@ class MemoryClient:
     ) -> Dict[str, Any]:
         """
         Отримати контекст пам'яті для діалогу
-        
-        Повертає:
-        {
-            "facts": [...],  # user_facts
-            "recent_events": [...],  # останні agent_memory_events
-            "dialog_summaries": [...]  # підсумки діалогів
-        }
         """
+        cache_key = self._cache_key(user_id, agent_id, team_id, channel_id, limit)
+        cached = self._context_cache.get(cache_key)
+        now = time.monotonic()
+        if cached and now - cached[0] < CONTEXT_CACHE_TTL:
+            return cached[1]
+        
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
-                # Отримуємо user facts
-                facts_response = await client.get(
+                facts_request = client.get(
                     f"{self.base_url}/facts",
                     params={"user_id": user_id, "team_id": team_id, "limit": limit},
-                    headers={"Authorization": f"Bearer {user_id}"}  # Заглушка
+                    headers={"Authorization": f"Bearer {user_id}"}
                 )
-                facts = facts_response.json() if facts_response.status_code == 200 else []
-                
-                # Отримуємо останні memory events
-                events_response = await client.get(
+                events_request = client.get(
                     f"{self.base_url}/agents/{agent_id}/memory",
                     params={
                         "team_id": team_id,
@@ -60,10 +65,7 @@ class MemoryClient:
                     },
                     headers={"Authorization": f"Bearer {user_id}"}
                 )
-                events = events_response.json().get("items", []) if events_response.status_code == 200 else []
-                
-                # Отримуємо dialog summaries
-                summaries_response = await client.get(
+                summaries_request = client.get(
                     f"{self.base_url}/summaries",
                     params={
                         "team_id": team_id,
@@ -73,13 +75,30 @@ class MemoryClient:
                     },
                     headers={"Authorization": f"Bearer {user_id}"}
                 )
-                summaries = summaries_response.json().get("items", []) if summaries_response.status_code == 200 else []
                 
-                return {
+                facts_response, events_response, summaries_response = await asyncio.gather(
+                    facts_request, events_request, summaries_request, return_exceptions=True
+                )
+                
+                facts = facts_response.json() if isinstance(facts_response, httpx.Response) and facts_response.status_code == 200 else []
+                events = (
+                    events_response.json().get("items", [])
+                    if isinstance(events_response, httpx.Response) and events_response.status_code == 200
+                    else []
+                )
+                summaries = (
+                    summaries_response.json().get("items", [])
+                    if isinstance(summaries_response, httpx.Response) and summaries_response.status_code == 200
+                    else []
+                )
+                
+                result = {
                     "facts": facts,
                     "recent_events": events,
                     "dialog_summaries": summaries
                 }
+                self._context_cache[cache_key] = (now, result)
+                return result
         except Exception as e:
             logger.warning(f"Memory context fetch failed: {e}")
             return {
@@ -96,7 +115,9 @@ class MemoryClient:
         message: str,
         response: str,
         channel_id: Optional[str] = None,
-        scope: str = "short_term"
+        scope: str = "short_term",
+        save_agent_response: bool = True,
+        agent_metadata: Optional[Dict[str, Any]] = None
     ) -> bool:
         """
         Зберегти один turn діалогу (повідомлення + відповідь)
@@ -122,22 +143,27 @@ class MemoryClient:
                 )
                 
                 # Зберігаємо відповідь агента
-                agent_event = {
-                    "agent_id": agent_id,
-                    "team_id": team_id,
-                    "channel_id": channel_id,
-                    "user_id": user_id,
-                    "scope": scope,
-                    "kind": "message",
-                    "body_text": response,
-                    "body_json": {"type": "agent_response", "source": "telegram"}
-                }
-                
-                await client.post(
-                    f"{self.base_url}/agents/{agent_id}/memory",
-                    json=agent_event,
-                    headers={"Authorization": f"Bearer {user_id}"}
-                )
+                if save_agent_response and response:
+                    agent_event = {
+                        "agent_id": agent_id,
+                        "team_id": team_id,
+                        "channel_id": channel_id,
+                        "user_id": user_id,
+                        "scope": scope,
+                        "kind": "message",
+                        "body_text": response,
+                        "body_json": {
+                            "type": "agent_response",
+                            "source": "telegram",
+                            **(agent_metadata or {})
+                        }
+                    }
+                    
+                    await client.post(
+                        f"{self.base_url}/agents/{agent_id}/memory",
+                        json=agent_event,
+                        headers={"Authorization": f"Bearer {user_id}"}
+                    )
                 
                 return True
         except Exception as e:
