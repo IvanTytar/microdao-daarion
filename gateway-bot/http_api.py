@@ -720,8 +720,10 @@ async def handle_telegram_webhook(
     Returns:
         Dict з результатом обробки
     """
-    if not update.message:
-        raise HTTPException(status_code=400, detail="No message in update")
+    # Allow updates without message if they contain photo/voice
+    # The actual message validation happens after multimodal checks
+    # if not update.message:
+    #     raise HTTPException(status_code=400, detail="No message in update")
     
     # Extract message details
     from_user = update.message.get("from", {})
