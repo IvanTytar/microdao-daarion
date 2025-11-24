@@ -1640,7 +1640,7 @@ async def send_telegram_message(chat_id: str, text: str, bot_token: str = None):
     payload = {
         "chat_id": chat_id,
         "text": text,
-        "parse_mode": "Markdown",
+        # "parse_mode": "Markdown",  # Removed to prevent 400 errors
     }
     
     try:
