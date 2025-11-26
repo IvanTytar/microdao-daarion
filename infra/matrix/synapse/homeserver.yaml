@@ -48,6 +48,9 @@ signing_key_path: /data/signing.key
 # Logging
 log_config: /data/log.config
 
+# Statistics reporting
+report_stats: false
+
 # Rate limiting
 rc_messages_per_second: 0.2
 rc_message_burst_count: 10
