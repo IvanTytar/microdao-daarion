@@ -8,13 +8,13 @@ import hashlib
 import hmac
 import httpx
 import logging
+import os
 from typing import Optional
-from config import settings
 
 logger = logging.getLogger(__name__)
 
-SYNAPSE_ADMIN_URL = "http://127.0.0.1:8018"
-REGISTRATION_SECRET = "daarion_reg_secret_2024"
+SYNAPSE_ADMIN_URL = os.getenv("SYNAPSE_ADMIN_URL", "http://daarion-synapse:8008")
+REGISTRATION_SECRET = os.getenv("SYNAPSE_REGISTRATION_SECRET", "daarion_reg_secret_2024")
 
 
 async def generate_matrix_mac(
