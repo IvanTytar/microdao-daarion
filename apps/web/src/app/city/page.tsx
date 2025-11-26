@@ -1,22 +1,45 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Building2, Users, Star, MessageSquare, ArrowRight } from 'lucide-react'
+import { Building2, Users, Star, MessageSquare, ArrowRight, Loader2 } from 'lucide-react'
 import { api, CityRoom } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { useGlobalPresence } from '@/hooks/useGlobalPresence'
 
-// Force dynamic rendering - don't prerender at build time
-export const dynamic = 'force-dynamic'
+export default function CityPage() {
+  const [rooms, setRooms] = useState<CityRoom[]>([])
+  const [loading, setLoading] = useState(true)
+  const presence = useGlobalPresence()
 
-async function getCityRooms(): Promise<CityRoom[]> {
-  try {
-    return await api.getCityRooms()
-  } catch (error) {
-    console.error('Failed to fetch city rooms:', error)
-    return []
+  useEffect(() => {
+    async function fetchRooms() {
+      try {
+        const data = await api.getCityRooms()
+        setRooms(data)
+      } catch (error) {
+        console.error('Failed to fetch city rooms:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchRooms()
+  }, [])
+
+  // Calculate total online from presence or fallback to API data
+  const totalOnline = Object.values(presence).reduce((sum, p) => sum + p.online_count, 0) ||
+    rooms.reduce((sum, r) => sum + r.members_online, 0)
+  
+  const activeRooms = Object.values(presence).filter(p => p.online_count > 0).length ||
+    rooms.filter(r => r.members_online > 0).length
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+      </div>
+    )
   }
-}
-
-export default async function CityPage() {
-  const rooms = await getCityRooms()
 
   return (
     <div className="min-h-screen px-4 py-8">
@@ -32,6 +55,16 @@ export default async function CityPage() {
               <p className="text-slate-400">Оберіть кімнату для спілкування</p>
             </div>
           </div>
+          
+          {/* Live indicator */}
+          {totalOnline > 0 && (
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-sm text-emerald-400 font-medium">
+                {totalOnline} у місті зараз
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Rooms Grid */}
@@ -48,7 +81,11 @@ export default async function CityPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {rooms.map((room) => (
-              <RoomCard key={room.id} room={room} />
+              <RoomCard 
+                key={room.id} 
+                room={room} 
+                livePresence={presence[room.slug]}
+              />
             ))}
           </div>
         )}
@@ -63,8 +100,9 @@ export default async function CityPage() {
             />
             <StatCard
               label="Онлайн"
-              value={rooms.reduce((sum, r) => sum + r.members_online, 0)}
+              value={totalOnline}
               icon={Users}
+              highlight={totalOnline > 0}
             />
             <StatCard
               label="За замовч."
@@ -73,8 +111,9 @@ export default async function CityPage() {
             />
             <StatCard
               label="Активних"
-              value={rooms.filter(r => r.members_online > 0).length}
+              value={activeRooms}
               icon={MessageSquare}
+              highlight={activeRooms > 0}
             />
           </div>
         )}
@@ -83,13 +122,24 @@ export default async function CityPage() {
   )
 }
 
-function RoomCard({ room }: { room: CityRoom }) {
-  const isActive = room.members_online > 0
+interface RoomCardProps {
+  room: CityRoom
+  livePresence?: { online_count: number; typing_count: number }
+}
+
+function RoomCard({ room, livePresence }: RoomCardProps) {
+  // Use live presence if available, otherwise fallback to API data
+  const onlineCount = livePresence?.online_count ?? room.members_online
+  const typingCount = livePresence?.typing_count ?? 0
+  const isActive = onlineCount > 0
 
   return (
     <Link
       href={`/city/${room.slug}`}
-      className="glass-panel-hover p-5 group block"
+      className={cn(
+        "glass-panel-hover p-5 group block transition-all",
+        isActive && "ring-1 ring-emerald-500/30"
+      )}
     >
       <div className="flex items-start justify-between mb-3">
         <h3 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">
@@ -118,8 +168,19 @@ function RoomCard({ room }: { room: CityRoom }) {
               'w-2 h-2 rounded-full',
               isActive ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'
             )} />
-            {room.members_online} онлайн
+            {onlineCount} онлайн
           </span>
+          
+          {typingCount > 0 && (
+            <span className="flex items-center gap-1.5 text-cyan-400">
+              <span className="flex gap-0.5">
+                <span className="w-1 h-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-1 h-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-1 h-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+              </span>
+              друкує
+            </span>
+          )}
         </div>
 
         <ArrowRight className="w-5 h-5 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
@@ -131,16 +192,29 @@ function RoomCard({ room }: { room: CityRoom }) {
 function StatCard({ 
   label, 
   value, 
-  icon: Icon 
+  icon: Icon,
+  highlight = false
 }: { 
   label: string
   value: number
   icon: React.ComponentType<{ className?: string }>
+  highlight?: boolean
 }) {
   return (
-    <div className="glass-panel p-4 text-center">
-      <Icon className="w-5 h-5 text-cyan-400 mx-auto mb-2" />
-      <div className="text-2xl font-bold text-white">{value}</div>
+    <div className={cn(
+      "glass-panel p-4 text-center transition-all",
+      highlight && "ring-1 ring-emerald-500/30"
+    )}>
+      <Icon className={cn(
+        "w-5 h-5 mx-auto mb-2",
+        highlight ? "text-emerald-400" : "text-cyan-400"
+      )} />
+      <div className={cn(
+        "text-2xl font-bold",
+        highlight ? "text-emerald-400" : "text-white"
+      )}>
+        {value}
+      </div>
       <div className="text-xs text-slate-400">{label}</div>
     </div>
   )

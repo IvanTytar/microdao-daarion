@@ -16,6 +16,11 @@ import routes_city
 import ws_city
 import repo_city
 from common.redis_client import get_redis, close_redis
+from presence_gateway import (
+    websocket_global_presence,
+    start_presence_gateway,
+    stop_presence_gateway
+)
 
 # Logging
 logging.basicConfig(level=logging.INFO)
@@ -311,8 +316,14 @@ async def websocket_room_endpoint(websocket: WebSocket, room_id: str):
 
 @app.websocket("/ws/city/presence")
 async def websocket_presence_endpoint(websocket: WebSocket):
-    """WebSocket для Presence System"""
+    """WebSocket для Presence System (user heartbeats)"""
     await ws_city.websocket_city_presence(websocket)
+
+
+@app.websocket("/ws/city/global-presence")
+async def websocket_global_presence_endpoint(websocket: WebSocket):
+    """WebSocket для Global Room Presence (aggregated from Matrix)"""
+    await websocket_global_presence(websocket)
 
 
 @app.on_event("startup")
@@ -334,6 +345,13 @@ async def startup_event():
     asyncio.create_task(agents_presence_generator())
     asyncio.create_task(ws_city.presence_cleanup_task())
     
+    # Start global presence gateway (NATS subscriber)
+    try:
+        await start_presence_gateway()
+        logger.info("✅ Global presence gateway started")
+    except Exception as e:
+        logger.warning(f"⚠️ Global presence gateway failed to start: {e}")
+    
     logger.info("✅ WebSocket background tasks started")
 
 
@@ -341,6 +359,7 @@ async def startup_event():
 async def shutdown_event():
     """Cleanup при зупинці"""
     logger.info("🛑 City Service shutting down...")
+    await stop_presence_gateway()
     await repo_city.close_pool()
     await close_redis()
 
