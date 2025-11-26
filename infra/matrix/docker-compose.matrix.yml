@@ -1,0 +1,75 @@
+version: '3.8'
+
+# Matrix Stack for DAARION.city
+# Includes: Synapse homeserver + Element Web
+
+services:
+  synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: daarion-synapse
+    restart: unless-stopped
+    environment:
+      - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
+      - SYNAPSE_DB_PASSWORD=${SYNAPSE_DB_PASSWORD:-synapse_password}
+      - SYNAPSE_REGISTRATION_SECRET=${SYNAPSE_REGISTRATION_SECRET:-registration_secret_change_me}
+      - TURN_SHARED_SECRET=${TURN_SHARED_SECRET:-turn_secret_change_me}
+    volumes:
+      - ./synapse/homeserver.yaml:/data/homeserver.yaml:ro
+      - ./synapse/log.config:/data/log.config:ro
+      - synapse_data:/data
+    ports:
+      - "8008:8008"
+      - "9000:9000"  # Metrics
+    networks:
+      - dagi-network
+    depends_on:
+      - synapse-init
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  synapse-init:
+    image: matrixdotorg/synapse:latest
+    container_name: daarion-synapse-init
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      if [ ! -f /data/signing.key ]; then
+        echo 'Generating signing key...'
+        python -m synapse.app.homeserver --config-path /data/homeserver.yaml --generate-keys
+      fi
+      echo 'Synapse initialized'
+      "
+    environment:
+      - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
+    volumes:
+      - ./synapse/homeserver.yaml:/data/homeserver.yaml:ro
+      - synapse_data:/data
+    networks:
+      - dagi-network
+
+  element-web:
+    image: vectorim/element-web:latest
+    container_name: daarion-element
+    restart: unless-stopped
+    volumes:
+      - ./element-web/config.json:/app/config.json:ro
+    ports:
+      - "8088:80"
+    networks:
+      - dagi-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  synapse_data:
+
+networks:
+  dagi-network:
+    external: true
+

@@ -1,0 +1,93 @@
+# Synapse Homeserver Configuration for DAARION.city
+# Version: 1.0.0
+# 
+# ВАЖЛИВО: Замініть всі <PLACEHOLDER> значення перед запуском!
+
+server_name: "daarion.space"
+public_baseurl: "https://matrix.daarion.space/"
+pid_file: /data/homeserver.pid
+
+# Database configuration
+database:
+  name: psycopg2
+  args:
+    user: synapse
+    password: "${SYNAPSE_DB_PASSWORD}"
+    database: synapse
+    host: dagi-postgres
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+
+# Listeners
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ['0.0.0.0']
+    resources:
+      - names: [client, federation]
+        compress: false
+
+# Registration
+enable_registration: false
+registration_shared_secret: "${SYNAPSE_REGISTRATION_SECRET}"
+
+# Allow registration via DAARION Auth
+enable_registration_without_verification: false
+
+# Media storage
+media_store_path: /data/media_store
+max_upload_size: 50M
+url_preview_enabled: true
+
+# Signing keys
+signing_key_path: /data/signing.key
+
+# Logging
+log_config: /data/log.config
+
+# Rate limiting
+rc_messages_per_second: 0.2
+rc_message_burst_count: 10
+rc_registration:
+  per_second: 0.17
+  burst_count: 3
+
+# Federation (disabled for MVP, enable in Phase 7)
+# federation_domain_whitelist:
+#   - daarion.space
+
+# Trusted key servers
+trusted_key_servers:
+  - server_name: "matrix.org"
+
+# Metrics (optional, for monitoring)
+enable_metrics: true
+metrics_port: 9000
+
+# TURN server (for voice/video calls)
+turn_uris:
+  - "turn:turn.daarion.space:3478?transport=udp"
+  - "turn:turn.daarion.space:3478?transport=tcp"
+turn_shared_secret: "${TURN_SHARED_SECRET}"
+turn_user_lifetime: 86400000
+turn_allow_guests: false
+
+# Room settings
+default_room_version: "10"
+
+# Presence
+presence:
+  enabled: true
+
+# Application services (for future DAARION Bridge)
+# app_service_config_files:
+#   - /data/appservices/daarion-bridge.yaml
+
+# Experimental features
+experimental_features:
+  msc2716_enabled: false  # Message history import
+  msc3202_device_masquerading: false
+
