@@ -22,16 +22,42 @@ export default function LoginPage() {
     return null
   }
 
+  const validateForm = (): string | null => {
+    if (!email.trim()) {
+      return 'Введіть email адресу'
+    }
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return 'Введіть коректну email адресу'
+    }
+    if (!password) {
+      return 'Введіть пароль'
+    }
+    if (password.length < 8) {
+      return 'Пароль повинен містити мінімум 8 символів'
+    }
+    return null
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    
+    // Client-side validation
+    const validationError = validateForm()
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+    
     setLoading(true)
 
     try {
       await login(email, password)
       router.push('/')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed')
+      setError(err instanceof Error ? err.message : 'Помилка входу. Перевірте дані та спробуйте ще раз.')
     } finally {
       setLoading(false)
     }
@@ -56,7 +82,7 @@ export default function LoginPage() {
 
         {/* Form */}
         <div className="glass-panel p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6">
             {/* Error */}
             {error && (
               <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
@@ -78,7 +104,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  required
+                  autoComplete="email"
                   className={cn(
                     'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl',
                     'text-white placeholder-slate-500',
@@ -102,8 +128,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  required
-                  minLength={8}
+                  autoComplete="current-password"
                   className={cn(
                     'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl',
                     'text-white placeholder-slate-500',

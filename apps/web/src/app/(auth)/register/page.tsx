@@ -34,17 +34,30 @@ export default function RegisterPage() {
   const isPasswordValid = passwordRequirements.every(r => r.met)
   const doPasswordsMatch = password === confirmPassword && password.length > 0
 
+  const validateForm = (): string | null => {
+    if (!email.trim()) {
+      return 'Введіть email адресу'
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return 'Введіть коректну email адресу'
+    }
+    if (!isPasswordValid) {
+      return 'Пароль не відповідає вимогам'
+    }
+    if (!doPasswordsMatch) {
+      return 'Паролі не співпадають'
+    }
+    return null
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
 
-    if (!isPasswordValid) {
-      setError('Пароль не відповідає вимогам')
-      return
-    }
-
-    if (!doPasswordsMatch) {
-      setError('Паролі не співпадають')
+    const validationError = validateForm()
+    if (validationError) {
+      setError(validationError)
       return
     }
 
@@ -54,7 +67,7 @@ export default function RegisterPage() {
       await register(email, password, displayName || undefined)
       router.push('/')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed')
+      setError(err instanceof Error ? err.message : 'Помилка реєстрації. Спробуйте ще раз.')
     } finally {
       setLoading(false)
     }
@@ -79,7 +92,7 @@ export default function RegisterPage() {
 
         {/* Form */}
         <div className="glass-panel p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} noValidate className="space-y-5">
             {/* Error */}
             {error && (
               <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
@@ -101,7 +114,7 @@ export default function RegisterPage() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   placeholder="Ваше ім'я"
-                  maxLength={100}
+                  autoComplete="name"
                   className={cn(
                     'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl',
                     'text-white placeholder-slate-500',
@@ -125,7 +138,7 @@ export default function RegisterPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  required
+                  autoComplete="email"
                   className={cn(
                     'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl',
                     'text-white placeholder-slate-500',
@@ -149,7 +162,7 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  required
+                  autoComplete="new-password"
                   className={cn(
                     'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl',
                     'text-white placeholder-slate-500',
@@ -188,7 +201,7 @@ export default function RegisterPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  required
+                  autoComplete="new-password"
                   className={cn(
                     'w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl',
                     'text-white placeholder-slate-500',
