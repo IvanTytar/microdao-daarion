@@ -312,12 +312,14 @@ async def validate_jwt_token(authorization: str) -> Optional[dict]:
     
     async with httpx.AsyncClient(timeout=10.0) as client:
         try:
-            resp = await client.get(
+            resp = await client.post(
                 f"{AUTH_SERVICE_URL}/api/auth/introspect",
-                headers={"Authorization": f"Bearer {token}"}
+                json={"token": token}
             )
             if resp.status_code == 200:
-                return resp.json()
+                data = resp.json()
+                if data.get("active"):
+                    return {"user_id": data.get("sub"), "email": data.get("email"), "roles": data.get("roles", [])}
             return None
         except Exception as e:
             logger.error(f"JWT validation error: {e}")
