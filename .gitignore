@@ -68,3 +68,5 @@ htmlcov/
 # OS specific
 Thumbs.db
 .directory
+apps/web/node_modules/
+apps/web/.next/

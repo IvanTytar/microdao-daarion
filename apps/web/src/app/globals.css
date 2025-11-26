@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 8, 47, 73;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    135deg,
+    rgb(var(--background-start-rgb)) 0%,
+    rgb(var(--background-end-rgb)) 50%,
+    rgb(15, 23, 42) 100%
+  );
+  min-height: 100vh;
+}
+
+/* Glassmorphism utilities */
+@layer components {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+  
+  .glass-panel-hover {
+    @apply glass-panel transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-[1.02];
+  }
+  
+  .glass-card {
+    @apply bg-slate-900/50 backdrop-blur-lg border border-slate-700/50 rounded-xl shadow-xl;
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 bg-clip-text text-transparent;
+  }
+}
+
+/* Ambient background effects */
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(14, 165, 233, 0.15) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at 70% 80%,
+    rgba(6, 182, 212, 0.1) 0%,
+    transparent 50%
+  );
+  animation: ambient-drift 20s ease-in-out infinite;
+}
+
+@keyframes ambient-drift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(2%, 2%) rotate(1deg);
+  }
+  66% {
+    transform: translate(-1%, 1%) rotate(-1deg);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .glass-panel, .glass-card {
+    @apply rounded-xl;
+  }
+}
+
