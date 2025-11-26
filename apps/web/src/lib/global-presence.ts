@@ -1,84 +1,96 @@
 /**
- * Global Presence WebSocket Client
+ * Global Presence SSE Client
  * 
- * Connects to /ws/city/global-presence for real-time room presence updates
+ * Connects to /api/presence/stream for real-time room presence updates via SSE
  */
 
 export interface RoomPresence {
-  room_slug: string;
-  online_count: number;
-  typing_count: number;
+  room_id: string;
+  matrix_room_id?: string;
+  online: number;
+  typing: number;
 }
 
-export type PresenceCallback = (presence: Record<string, RoomPresence>) => void;
+export interface CityPresence {
+  online_total: number;
+  rooms_online: number;
+}
+
+export interface PresenceEvent {
+  type: "presence_update";
+  timestamp: string;
+  city: CityPresence;
+  rooms: RoomPresence[];
+}
+
+export type PresenceCallback = (
+  cityOnline: number,
+  roomsPresence: Record<string, RoomPresence>
+) => void;
 
 class GlobalPresenceClient {
-  private ws: WebSocket | null = null;
-  private presence: Record<string, RoomPresence> = {};
+  private eventSource: EventSource | null = null;
+  private cityOnline: number = 0;
+  private roomsPresence: Record<string, RoomPresence> = {};
   private listeners: Set<PresenceCallback> = new Set();
   private reconnectTimeout: NodeJS.Timeout | null = null;
-  private pingInterval: NodeJS.Timeout | null = null;
   private isConnecting = false;
 
   connect(): void {
-    if (this.ws?.readyState === WebSocket.OPEN || this.isConnecting) {
+    if (this.eventSource || this.isConnecting) {
       return;
+    }
+
+    if (typeof window === 'undefined') {
+      return; // SSR - don't connect
     }
 
     this.isConnecting = true;
 
-    // Determine WebSocket URL
-    const protocol = typeof window !== 'undefined' && window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = typeof window !== 'undefined' ? window.location.host : 'localhost:7001';
-    const wsUrl = `${protocol}//${host}/ws/city/global-presence`;
-
-    console.log('[GlobalPresence] Connecting to', wsUrl);
+    const sseUrl = "/api/presence/stream";
+    console.log('[GlobalPresence] Connecting to SSE:', sseUrl);
 
     try {
-      this.ws = new WebSocket(wsUrl);
+      this.eventSource = new EventSource(sseUrl);
 
-      this.ws.onopen = () => {
-        console.log('[GlobalPresence] Connected');
+      this.eventSource.onopen = () => {
+        console.log('[GlobalPresence] SSE Connected');
         this.isConnecting = false;
-        this.startPing();
       };
 
-      this.ws.onmessage = (event) => {
+      this.eventSource.onmessage = (event) => {
         try {
-          const data = JSON.parse(event.data);
+          const data: PresenceEvent = JSON.parse(event.data);
           this.handleMessage(data);
         } catch (e) {
-          console.error('[GlobalPresence] Failed to parse message:', e);
+          // Ignore keep-alive comments
+          if (!event.data.startsWith(':')) {
+            console.error('[GlobalPresence] Failed to parse message:', e);
+          }
         }
       };
 
-      this.ws.onclose = () => {
-        console.log('[GlobalPresence] Disconnected');
+      this.eventSource.onerror = (error) => {
+        console.error('[GlobalPresence] SSE error:', error);
         this.isConnecting = false;
-        this.stopPing();
+        this.disconnect();
         this.scheduleReconnect();
       };
-
-      this.ws.onerror = (error) => {
-        console.error('[GlobalPresence] WebSocket error:', error);
-        this.isConnecting = false;
-      };
     } catch (e) {
-      console.error('[GlobalPresence] Failed to create WebSocket:', e);
+      console.error('[GlobalPresence] Failed to create EventSource:', e);
       this.isConnecting = false;
       this.scheduleReconnect();
     }
   }
 
   disconnect(): void {
-    this.stopPing();
     if (this.reconnectTimeout) {
       clearTimeout(this.reconnectTimeout);
       this.reconnectTimeout = null;
     }
-    if (this.ws) {
-      this.ws.close();
-      this.ws = null;
+    if (this.eventSource) {
+      this.eventSource.close();
+      this.eventSource = null;
     }
   }
 
@@ -86,8 +98,8 @@ class GlobalPresenceClient {
     this.listeners.add(callback);
     
     // Send current state immediately
-    if (Object.keys(this.presence).length > 0) {
-      callback(this.presence);
+    if (this.cityOnline > 0 || Object.keys(this.roomsPresence).length > 0) {
+      callback(this.cityOnline, this.roomsPresence);
     }
     
     // Connect if not connected
@@ -103,59 +115,41 @@ class GlobalPresenceClient {
     };
   }
 
-  getPresence(slug: string): RoomPresence | null {
-    return this.presence[slug] || null;
+  getCityOnline(): number {
+    return this.cityOnline;
   }
 
-  getAllPresence(): Record<string, RoomPresence> {
-    return { ...this.presence };
+  getRoomPresence(roomId: string): RoomPresence | null {
+    return this.roomsPresence[roomId] || null;
   }
 
-  private handleMessage(data: any): void {
-    if (data.type === 'snapshot') {
-      // Initial snapshot
-      this.presence = {};
-      for (const room of data.rooms || []) {
-        this.presence[room.room_slug] = {
-          room_slug: room.room_slug,
-          online_count: room.online_count || 0,
-          typing_count: room.typing_count || 0
-        };
-      }
-      this.notifyListeners();
-    } else if (data.type === 'room.presence') {
-      // Incremental update
-      this.presence[data.room_slug] = {
-        room_slug: data.room_slug,
-        online_count: data.online_count || 0,
-        typing_count: data.typing_count || 0
-      };
-      this.notifyListeners();
+  getAllRoomsPresence(): Record<string, RoomPresence> {
+    return { ...this.roomsPresence };
+  }
+
+  private handleMessage(data: PresenceEvent): void {
+    if (data.type !== 'presence_update') return;
+
+    // Update city stats
+    this.cityOnline = data.city?.online_total || 0;
+
+    // Update rooms
+    const newRoomsPresence: Record<string, RoomPresence> = {};
+    for (const room of data.rooms || []) {
+      newRoomsPresence[room.room_id] = room;
     }
+    this.roomsPresence = newRoomsPresence;
+
+    this.notifyListeners();
   }
 
   private notifyListeners(): void {
     for (const callback of this.listeners) {
       try {
-        callback(this.presence);
+        callback(this.cityOnline, this.roomsPresence);
       } catch (e) {
         console.error('[GlobalPresence] Listener error:', e);
       }
-    }
-  }
-
-  private startPing(): void {
-    this.pingInterval = setInterval(() => {
-      if (this.ws?.readyState === WebSocket.OPEN) {
-        this.ws.send('ping');
-      }
-    }, 30000);
-  }
-
-  private stopPing(): void {
-    if (this.pingInterval) {
-      clearInterval(this.pingInterval);
-      this.pingInterval = null;
     }
   }
 

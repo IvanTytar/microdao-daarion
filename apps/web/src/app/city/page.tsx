@@ -10,7 +10,7 @@ import { useGlobalPresence } from '@/hooks/useGlobalPresence'
 export default function CityPage() {
   const [rooms, setRooms] = useState<CityRoom[]>([])
   const [loading, setLoading] = useState(true)
-  const presence = useGlobalPresence()
+  const { cityOnline, roomsPresence } = useGlobalPresence()
 
   useEffect(() => {
     async function fetchRooms() {
@@ -26,11 +26,12 @@ export default function CityPage() {
     fetchRooms()
   }, [])
 
-  // Calculate total online from presence or fallback to API data
-  const totalOnline = Object.values(presence).reduce((sum, p) => sum + p.online_count, 0) ||
-    rooms.reduce((sum, r) => sum + r.members_online, 0)
+  // Use SSE presence data if available, otherwise fallback to API data
+  const totalOnline = cityOnline > 0 
+    ? cityOnline 
+    : rooms.reduce((sum, r) => sum + r.members_online, 0)
   
-  const activeRooms = Object.values(presence).filter(p => p.online_count > 0).length ||
+  const activeRooms = Object.values(roomsPresence).filter(p => p.online > 0).length ||
     rooms.filter(r => r.members_online > 0).length
 
   if (loading) {
@@ -84,7 +85,7 @@ export default function CityPage() {
               <RoomCard 
                 key={room.id} 
                 room={room} 
-                livePresence={presence[room.slug]}
+                livePresence={roomsPresence[room.id]}
               />
             ))}
           </div>
@@ -124,13 +125,13 @@ export default function CityPage() {
 
 interface RoomCardProps {
   room: CityRoom
-  livePresence?: { online_count: number; typing_count: number }
+  livePresence?: { online: number; typing: number }
 }
 
 function RoomCard({ room, livePresence }: RoomCardProps) {
   // Use live presence if available, otherwise fallback to API data
-  const onlineCount = livePresence?.online_count ?? room.members_online
-  const typingCount = livePresence?.typing_count ?? 0
+  const onlineCount = livePresence?.online ?? room.members_online
+  const typingCount = livePresence?.typing ?? 0
   const isActive = onlineCount > 0
 
   return (
