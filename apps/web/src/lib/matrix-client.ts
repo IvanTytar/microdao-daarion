@@ -32,6 +32,9 @@ export interface MatrixMessagesResponse {
 
 export interface MatrixSyncResponse {
   next_batch: string;
+  presence?: {
+    events: PresenceEvent[];
+  };
   rooms?: {
     join?: {
       [roomId: string]: {
@@ -42,9 +45,32 @@ export interface MatrixSyncResponse {
         state?: {
           events: any[];
         };
+        ephemeral?: {
+          events: EphemeralEvent[];
+        };
       };
     };
   };
+}
+
+export interface PresenceEvent {
+  type: 'm.presence';
+  sender: string;
+  content: {
+    presence: 'online' | 'offline' | 'unavailable';
+    last_active_ago?: number;
+    currently_active?: boolean;
+    status_msg?: string;
+  };
+}
+
+export interface EphemeralEvent {
+  type: string;
+  content: any;
+}
+
+export interface TypingContent {
+  user_ids: string[];
 }
 
 export interface ChatMessage {
@@ -65,6 +91,10 @@ export class MatrixRestClient {
   private syncAbortController: AbortController | null = null;
   private onMessageCallback: ((message: ChatMessage) => void) | null = null;
   private isSyncing: boolean = false;
+  
+  // Presence & Typing callbacks
+  onPresence?: (event: PresenceEvent) => void;
+  onTyping?: (roomId: string, userIds: string[]) => void;
 
   constructor(config: MatrixClientConfig) {
     this.baseUrl = config.baseUrl;
@@ -214,9 +244,15 @@ export class MatrixRestClient {
         const params = new URLSearchParams({
           timeout: '30000',
           filter: JSON.stringify({
+            presence: {
+              types: ['m.presence']
+            },
             room: {
               timeline: { limit: 50 },
-              state: { lazy_load_members: true }
+              state: { lazy_load_members: true },
+              ephemeral: {
+                types: ['m.typing', 'm.receipt']
+              }
             }
           })
         });
@@ -243,14 +279,35 @@ export class MatrixRestClient {
         const data: MatrixSyncResponse = await res.json();
         this.syncToken = data.next_batch;
 
-        // Process new messages
+        // Process presence events
+        if (data.presence?.events && this.onPresence) {
+          for (const event of data.presence.events) {
+            if (event.type === 'm.presence') {
+              this.onPresence(event);
+            }
+          }
+        }
+
+        // Process room events
         if (data.rooms?.join && this.roomId) {
           const roomData = data.rooms.join[this.roomId];
+          
+          // Process new messages
           if (roomData?.timeline?.events) {
             for (const event of roomData.timeline.events) {
               if (event.type === 'm.room.message' && event.content?.body) {
                 const chatMessage = this.mapToChatMessage(event);
                 this.onMessageCallback?.(chatMessage);
+              }
+            }
+          }
+          
+          // Process typing events
+          if (roomData?.ephemeral?.events && this.onTyping) {
+            for (const event of roomData.ephemeral.events) {
+              if (event.type === 'm.typing') {
+                const typingContent = event.content as TypingContent;
+                this.onTyping(this.roomId, typingContent.user_ids || []);
               }
             }
           }
@@ -264,6 +321,27 @@ export class MatrixRestClient {
         // Wait before retry
         await new Promise(r => setTimeout(r, 5000));
       }
+    }
+  }
+  
+  /**
+   * Send typing notification
+   */
+  async sendTyping(roomId: string, typing: boolean, timeout: number = 30000): Promise<void> {
+    try {
+      await fetch(
+        `${this.baseUrl}/_matrix/client/v3/rooms/${encodeURIComponent(roomId)}/typing/${encodeURIComponent(this.userId)}`,
+        {
+          method: 'PUT',
+          headers: this.authHeaders(),
+          body: JSON.stringify({
+            typing,
+            timeout
+          })
+        }
+      );
+    } catch (error) {
+      console.error('Failed to send typing notification:', error);
     }
   }
 

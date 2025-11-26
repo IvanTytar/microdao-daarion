@@ -6,11 +6,12 @@ import { cn } from '@/lib/utils'
 
 interface ChatInputProps {
   onSend: (message: string) => void
+  onTyping?: () => void
   disabled?: boolean
   placeholder?: string
 }
 
-export function ChatInput({ onSend, disabled = false, placeholder = 'Напишіть повідомлення...' }: ChatInputProps) {
+export function ChatInput({ onSend, onTyping, disabled = false, placeholder = 'Напишіть повідомлення...' }: ChatInputProps) {
   const [message, setMessage] = useState('')
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -26,6 +27,14 @@ export function ChatInput({ onSend, disabled = false, placeholder = 'Напиш�
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSubmit(e)
+    }
+  }
+  
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value)
+    // Notify about typing
+    if (e.target.value && onTyping) {
+      onTyping()
     }
   }
 
@@ -54,7 +63,7 @@ export function ChatInput({ onSend, disabled = false, placeholder = 'Напиш�
           <textarea
             ref={inputRef}
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}

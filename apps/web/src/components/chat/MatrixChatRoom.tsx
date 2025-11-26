@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { MessageSquare, Wifi, WifiOff, Loader2, RefreshCw, AlertCircle } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { MessageSquare, Wifi, WifiOff, Loader2, RefreshCw, AlertCircle, Users } from 'lucide-react'
 import { ChatMessage } from './ChatMessage'
 import { ChatInput } from './ChatInput'
-import { MatrixRestClient, createMatrixClient, ChatMessage as MatrixChatMessage } from '@/lib/matrix-client'
+import { MatrixRestClient, createMatrixClient, ChatMessage as MatrixChatMessage, PresenceEvent } from '@/lib/matrix-client'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
 import { getAccessToken } from '@/lib/auth'
@@ -30,6 +30,14 @@ interface BootstrapData {
   }
 }
 
+// Helper to format user name from Matrix ID
+function formatUserName(userId: string): string {
+  return userId
+    .split(':')[0]
+    .replace('@daarion_', 'User ')
+    .replace('@', '');
+}
+
 export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
   const { user } = useAuth()
   const token = getAccessToken()
@@ -39,6 +47,11 @@ export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
   const [bootstrap, setBootstrap] = useState<BootstrapData | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const matrixClient = useRef<MatrixRestClient | null>(null)
+  
+  // Presence & Typing state
+  const [onlineUsers, setOnlineUsers] = useState<Map<string, 'online' | 'offline' | 'unavailable'>>(new Map())
+  const [typingUsers, setTypingUsers] = useState<Set<string>>(new Set())
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Scroll to bottom when new messages arrive
   const scrollToBottom = useCallback(() => {
@@ -97,7 +110,26 @@ export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
 
       setMessages(initialMessages)
 
-      // 5. Start sync for real-time updates
+      // 5. Set up presence and typing handlers
+      client.onPresence = (event: PresenceEvent) => {
+        if (!event.sender || !event.content?.presence) return;
+        
+        setOnlineUsers(prev => {
+          const next = new Map(prev);
+          next.set(event.sender, event.content.presence);
+          return next;
+        });
+      };
+      
+      client.onTyping = (roomId: string, userIds: string[]) => {
+        if (roomId !== data.matrix_room_id) return;
+        
+        // Filter out current user
+        const others = userIds.filter(id => id !== data.matrix_user_id);
+        setTypingUsers(new Set(others));
+      };
+
+      // 6. Start sync for real-time updates
       await client.initialSync()
       client.startSync((newMessage) => {
         setMessages(prev => {
@@ -121,14 +153,61 @@ export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
     initializeMatrix()
 
     return () => {
-      matrixClient.current?.stopSync()
+      if (matrixClient.current) {
+        matrixClient.current.onPresence = undefined;
+        matrixClient.current.onTyping = undefined;
+        matrixClient.current.stopSync();
+      }
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
     }
   }, [initializeMatrix])
+  
+  // Calculate online count
+  const onlineCount = useMemo(() => {
+    let count = 0;
+    onlineUsers.forEach((status, userId) => {
+      if (status === 'online' || status === 'unavailable') {
+        // Don't count current user
+        if (userId !== bootstrap?.matrix_user_id) {
+          count++;
+        }
+      }
+    });
+    return count;
+  }, [onlineUsers, bootstrap]);
+  
+  // Handle typing notification
+  const handleTyping = useCallback(() => {
+    if (!matrixClient.current || !bootstrap) return;
+    
+    // Send typing notification
+    matrixClient.current.sendTyping(bootstrap.matrix_room_id, true);
+    
+    // Clear previous timeout
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    
+    // Stop typing after 3 seconds of inactivity
+    typingTimeoutRef.current = setTimeout(() => {
+      if (matrixClient.current && bootstrap) {
+        matrixClient.current.sendTyping(bootstrap.matrix_room_id, false);
+      }
+    }, 3000);
+  }, [bootstrap]);
 
   const handleSendMessage = async (body: string) => {
     if (!matrixClient.current || !bootstrap) return
 
     try {
+      // Stop typing indicator
+      matrixClient.current.sendTyping(bootstrap.matrix_room_id, false);
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+      
       // Optimistically add message
       const tempId = `temp_${Date.now()}`
       const tempMessage: MatrixChatMessage = {
@@ -176,11 +255,17 @@ export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
       <div className="px-4 py-2 border-b border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <MessageSquare className="w-4 h-4 text-cyan-400" />
-          <span className="text-sm font-medium text-white">Matrix Chat</span>
-          {bootstrap?.matrix_room_alias && (
-            <span className="text-xs text-slate-500 font-mono">
-              {bootstrap.matrix_room_alias}
-            </span>
+          <span className="text-sm font-medium text-white">
+            {bootstrap?.room.name || 'Matrix Chat'}
+          </span>
+          {status === 'online' && (
+            <>
+              <span className="text-slate-500">·</span>
+              <div className="flex items-center gap-1 text-emerald-400 text-xs">
+                <Users className="w-3 h-3" />
+                <span>{onlineCount} online</span>
+              </div>
+            </>
           )}
         </div>
         
@@ -289,9 +374,26 @@ export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
         )}
       </div>
 
+      {/* Typing indicator */}
+      {typingUsers.size > 0 && (
+        <div className="px-4 py-1.5 text-sm text-cyan-400/80 animate-pulse flex items-center gap-2">
+          <div className="flex gap-1">
+            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+            <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+          </div>
+          <span>
+            {typingUsers.size === 1 
+              ? `${formatUserName(Array.from(typingUsers)[0])} друкує...`
+              : 'Декілька учасників друкують...'}
+          </span>
+        </div>
+      )}
+
       {/* Input area */}
       <ChatInput
         onSend={handleSendMessage}
+        onTyping={handleTyping}
         disabled={status !== 'online'}
         placeholder={
           status === 'online' 
