@@ -3,7 +3,18 @@
  * Handles all API calls to the backend
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || ''
+// For SSR, we need an absolute URL to the API
+// In production, the API is on the same domain
+const getApiBase = () => {
+  // Server-side: use internal Docker network URL
+  if (typeof window === 'undefined') {
+    return process.env.INTERNAL_API_URL || 'http://127.0.0.1'
+  }
+  // Client-side: use relative URLs (same origin)
+  return process.env.NEXT_PUBLIC_API_BASE_URL || ''
+}
+
+const API_BASE = getApiBase()
 
 export interface CityRoom {
   id: string
