@@ -3,12 +3,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Home, Building2, User, Sparkles } from 'lucide-react'
+import { Menu, X, Home, Building2, User, Sparkles, Bot, Wallet } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navItems = [
   { href: '/', label: 'Головна', icon: Home },
   { href: '/city', label: 'Місто', icon: Building2 },
+  { href: '/agents', label: 'Агенти', icon: Bot },
+  { href: '/governance', label: 'DAO', icon: Wallet },
   { href: '/secondme', label: 'Second Me', icon: User },
 ]
 

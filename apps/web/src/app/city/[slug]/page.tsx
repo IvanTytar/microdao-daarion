@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { ArrowLeft, Users, MessageSquare, FileText, Clock, Send } from 'lucide-react'
+import { ArrowLeft, Users, FileText, Clock } from 'lucide-react'
 import { api, CityRoom } from '@/lib/api'
 import { formatDate } from '@/lib/utils'
 import { notFound } from 'next/navigation'
+import { ChatRoom } from '@/components/chat/ChatRoom'
 
 // Force dynamic rendering - don't prerender at build time
 export const dynamic = 'force-dynamic'
@@ -71,48 +72,12 @@ export default async function RoomPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chat Area */}
           <div className="lg:col-span-2">
-            <div className="glass-panel h-[500px] sm:h-[600px] flex flex-col">
-              {/* Chat Header */}
-              <div className="px-6 py-4 border-b border-white/10">
-                <div className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-cyan-400" />
-                  <span className="font-medium text-white">Чат кімнати</span>
-                </div>
-              </div>
-
-              {/* Messages Placeholder */}
-              <div className="flex-1 flex items-center justify-center p-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
-                    <MessageSquare className="w-8 h-8 text-slate-600" />
-                  </div>
-                  <h3 className="text-lg font-medium text-white mb-2">
-                    Чат скоро буде доступний
-                  </h3>
-                  <p className="text-sm text-slate-400 max-w-sm">
-                    Matrix/WebSocket інтеграція буде додана в наступному оновленні. 
-                    Поки що ви можете переглядати інформацію про кімнату.
-                  </p>
-                </div>
-              </div>
-
-              {/* Input Placeholder */}
-              <div className="px-4 py-4 border-t border-white/10">
-                <div className="flex gap-3">
-                  <input
-                    type="text"
-                    placeholder="Напишіть повідомлення..."
-                    disabled
-                    className="flex-1 px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  />
-                  <button
-                    disabled
-                    className="px-4 py-3 bg-cyan-500/20 text-cyan-400 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Send className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
+            <div className="glass-panel h-[500px] sm:h-[600px] flex flex-col overflow-hidden">
+              <ChatRoom 
+                roomId={room.id} 
+                roomSlug={room.slug}
+                initialMessages={[]}
+              />
             </div>
           </div>
 
@@ -202,4 +167,3 @@ function InfoRow({ label, value }: { label: string; value: string }) {
     </div>
   )
 }
-
