@@ -7,6 +7,7 @@ import { ChatInput } from './ChatInput'
 import { MatrixRestClient, createMatrixClient, ChatMessage as MatrixChatMessage } from '@/lib/matrix-client'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
+import { getAccessToken } from '@/lib/auth'
 
 interface MatrixChatRoomProps {
   roomSlug: string
@@ -30,7 +31,8 @@ interface BootstrapData {
 }
 
 export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
-  const { user, token } = useAuth()
+  const { user } = useAuth()
+  const token = getAccessToken()
   const [messages, setMessages] = useState<MatrixChatMessage[]>([])
   const [status, setStatus] = useState<ConnectionStatus>('loading')
   const [error, setError] = useState<string | null>(null)
