@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Menu, X, Home, Building2, User, Sparkles, Bot, Wallet } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Menu, X, Home, Building2, User, Sparkles, Bot, Wallet, LogOut, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/context/AuthContext'
 
 const navItems = [
   { href: '/', label: 'Головна', icon: Home },
@@ -17,6 +18,19 @@ const navItems = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+  const { user, isAuthenticated, isLoading, logout } = useAuth()
+
+  const handleLogout = async () => {
+    await logout()
+    router.push('/')
+    setIsOpen(false)
+  }
+
+  // Don't show navigation on auth pages
+  if (pathname.startsWith('/login') || pathname.startsWith('/register')) {
+    return null
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
@@ -64,12 +78,44 @@ export function Navigation() {
 
           {/* Auth buttons (desktop) */}
           <div className="hidden md:flex items-center gap-3">
-            <button className="px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors">
-              Увійти
-            </button>
-            <button className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-200 shadow-lg shadow-cyan-500/20">
-              Приєднатися
-            </button>
+            {isLoading ? (
+              <Loader2 className="w-5 h-5 text-slate-400 animate-spin" />
+            ) : isAuthenticated && user ? (
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-600/30 flex items-center justify-center">
+                    <span className="text-sm font-medium text-cyan-400">
+                      {user.display_name?.[0]?.toUpperCase() || user.email[0].toUpperCase()}
+                    </span>
+                  </div>
+                  <span className="text-sm text-slate-300 max-w-[120px] truncate">
+                    {user.display_name || user.email}
+                  </span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="p-2 text-slate-400 hover:text-white transition-colors"
+                  title="Вийти"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link 
+                  href="/login"
+                  className="px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors"
+                >
+                  Увійти
+                </Link>
+                <Link 
+                  href="/register"
+                  className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all duration-200 shadow-lg shadow-cyan-500/20"
+                >
+                  Приєднатися
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -108,13 +154,48 @@ export function Navigation() {
                 )
               })}
               
-              <div className="flex gap-3 mt-4 pt-4 border-t border-white/10">
-                <button className="flex-1 py-3 text-sm text-slate-300 hover:text-white transition-colors rounded-xl hover:bg-white/5">
-                  Увійти
-                </button>
-                <button className="flex-1 py-3 text-sm font-medium bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl">
-                  Приєднатися
-                </button>
+              <div className="mt-4 pt-4 border-t border-white/10">
+                {isAuthenticated && user ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 px-4">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-600/30 flex items-center justify-center">
+                        <span className="font-medium text-cyan-400">
+                          {user.display_name?.[0]?.toUpperCase() || user.email[0].toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-white truncate">
+                          {user.display_name || 'User'}
+                        </p>
+                        <p className="text-xs text-slate-400 truncate">{user.email}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center justify-center gap-2 py-3 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Вийти
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-3">
+                    <Link 
+                      href="/login"
+                      onClick={() => setIsOpen(false)}
+                      className="flex-1 py-3 text-sm text-center text-slate-300 hover:text-white transition-colors rounded-xl hover:bg-white/5"
+                    >
+                      Увійти
+                    </Link>
+                    <Link 
+                      href="/register"
+                      onClick={() => setIsOpen(false)}
+                      className="flex-1 py-3 text-sm text-center font-medium bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl"
+                    >
+                      Приєднатися
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -123,4 +204,3 @@ export function Navigation() {
     </nav>
   )
 }
-

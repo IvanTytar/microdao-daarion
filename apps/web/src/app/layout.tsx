@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
+import { AuthProvider } from '@/context/AuthContext'
 
 const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
@@ -31,16 +32,18 @@ export default function RootLayout({
   return (
     <html lang="uk" className={inter.variable}>
       <body className={`${inter.className} antialiased`}>
-        {/* Ambient background effect */}
-        <div className="ambient-bg" />
-        
-        {/* Navigation */}
-        <Navigation />
-        
-        {/* Main content */}
-        <main className="min-h-screen pt-16">
-          {children}
-        </main>
+        <AuthProvider>
+          {/* Ambient background effect */}
+          <div className="ambient-bg" />
+          
+          {/* Navigation */}
+          <Navigation />
+          
+          {/* Main content */}
+          <main className="min-h-screen pt-16">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   )
