@@ -18,8 +18,8 @@ services:
       - ./synapse/log.config:/data/log.config:ro
       - synapse_data:/data
     ports:
-      - "8008:8008"
-      - "9000:9000"  # Metrics
+      - "8018:8008"
+      - "9018:9000"  # Metrics
     networks:
       - dagi-network
     depends_on:
