@@ -28,6 +28,7 @@ from security import (
     create_access_token, create_refresh_token,
     decode_access_token, decode_refresh_token
 )
+from matrix_provisioning import provision_matrix_user
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -117,11 +118,24 @@ async def register(request: RegisterRequest):
     
     logger.info(f"User registered: {request.email}")
     
+    # Provision Matrix user (async, don't block registration)
+    matrix_info = None
+    try:
+        matrix_info = await provision_matrix_user(
+            user_id=str(user['id']),
+            email=user['email'],
+            display_name=user['display_name']
+        )
+        logger.info(f"Matrix user provisioned: {matrix_info.get('matrix_user_id')}")
+    except Exception as e:
+        logger.warning(f"Matrix provisioning failed (non-blocking): {e}")
+    
     return RegisterResponse(
         user_id=user['id'],
         email=user['email'],
         display_name=user['display_name'],
-        roles=["user"]
+        roles=["user"],
+        matrix_user_id=matrix_info.get('matrix_user_id') if matrix_info else None
     )
 
 

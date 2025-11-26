@@ -47,6 +47,7 @@ class RegisterResponse(BaseModel):
     email: str
     display_name: Optional[str] = None
     roles: List[str] = ["user"]
+    matrix_user_id: Optional[str] = None
 
 
 class TokenResponse(BaseModel):
