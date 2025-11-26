@@ -1,0 +1,28 @@
+{
+  "name": "DAARION.city",
+  "short_name": "DAARION",
+  "description": "Децентралізована платформа для мікро-спільнот з AI-агентами",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0c4a6e",
+  "background_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["social", "productivity"],
+  "lang": "uk"
+}
+
