@@ -12,7 +12,7 @@ database:
   name: psycopg2
   args:
     user: synapse
-    password: "${SYNAPSE_DB_PASSWORD}"
+    password: "synapse_daarion_2024"
     database: synapse
     host: dagi-postgres
     port: 5432
@@ -32,7 +32,7 @@ listeners:
 
 # Registration
 enable_registration: false
-registration_shared_secret: "${SYNAPSE_REGISTRATION_SECRET}"
+registration_shared_secret: "daarion_reg_secret_2024"
 
 # Allow registration via DAARION Auth
 enable_registration_without_verification: false
@@ -90,7 +90,7 @@ enable_metrics: true
 turn_uris:
   - "turn:turn.daarion.space:3478?transport=udp"
   - "turn:turn.daarion.space:3478?transport=tcp"
-turn_shared_secret: "${TURN_SHARED_SECRET}"
+turn_shared_secret: "daarion_turn_2024"
 turn_user_lifetime: 86400000
 turn_allow_guests: false
 
