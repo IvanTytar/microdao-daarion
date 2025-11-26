@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { ArrowLeft, Users, FileText, Clock } from 'lucide-react'
+import { ArrowLeft, Users, FileText, Clock, MessageCircle } from 'lucide-react'
 import { api, CityRoom } from '@/lib/api'
 import { formatDate } from '@/lib/utils'
 import { notFound } from 'next/navigation'
-import { ChatRoom } from '@/components/chat/ChatRoom'
+import { MatrixChatRoom } from '@/components/chat/MatrixChatRoom'
 
 // Force dynamic rendering - don't prerender at build time
 export const dynamic = 'force-dynamic'
@@ -73,12 +73,21 @@ export default async function RoomPage({ params }: PageProps) {
           {/* Chat Area */}
           <div className="lg:col-span-2">
             <div className="glass-panel h-[500px] sm:h-[600px] flex flex-col overflow-hidden">
-              <ChatRoom 
-                roomId={room.id} 
-                roomSlug={room.slug}
-                initialMessages={[]}
-              />
+              <MatrixChatRoom roomSlug={room.slug} />
             </div>
+            
+            {/* Matrix Room Info */}
+            {room.matrix_room_id && (
+              <div className="mt-4 glass-panel p-4">
+                <div className="flex items-center gap-2 text-sm">
+                  <MessageCircle className="w-4 h-4 text-cyan-400" />
+                  <span className="text-slate-400">Matrix Room:</span>
+                  <code className="text-xs font-mono text-cyan-400 bg-slate-800/50 px-2 py-0.5 rounded">
+                    {room.matrix_room_alias || room.matrix_room_id}
+                  </code>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}

@@ -26,6 +26,9 @@ export interface CityRoom {
   created_by: string | null
   members_online: number
   last_event: string | null
+  // Matrix integration
+  matrix_room_id: string | null
+  matrix_room_alias: string | null
 }
 
 export interface SecondMeProfile {

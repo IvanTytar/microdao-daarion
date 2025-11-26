@@ -67,6 +67,17 @@ class HealthResponse(BaseModel):
     server_name: str
 
 
+class UserTokenRequest(BaseModel):
+    user_id: str  # DAARION user_id (UUID)
+
+
+class UserTokenResponse(BaseModel):
+    matrix_user_id: str
+    access_token: str
+    device_id: str
+    home_server: str
+
+
 async def get_admin_token() -> str:
     """Get or create admin access token for Matrix operations."""
     global _admin_token
@@ -312,6 +323,105 @@ async def get_room_info(room_id: str):
                 }
             else:
                 raise HTTPException(status_code=resp.status_code, detail="Failed to get room info")
+                
+        except httpx.RequestError as e:
+            logger.error(f"Matrix request error: {e}")
+            raise HTTPException(status_code=503, detail="Matrix unavailable")
+
+
+@app.post("/internal/matrix/users/token", response_model=UserTokenResponse)
+async def get_user_token(request: UserTokenRequest):
+    """
+    Get or create Matrix access token for a DAARION user.
+    
+    This is used for chat bootstrap - allows frontend to connect to Matrix
+    on behalf of the user.
+    """
+    # Generate Matrix username from DAARION user_id
+    user_id_short = request.user_id[:8].replace('-', '')
+    matrix_username = f"daarion_{user_id_short}"
+    matrix_user_id = f"@{matrix_username}:{settings.matrix_server_name}"
+    
+    # Generate password (deterministic, based on user_id + secret)
+    matrix_password = hashlib.sha256(
+        f"{request.user_id}:{settings.synapse_registration_secret}".encode()
+    ).hexdigest()[:32]
+    
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        try:
+            # Try to login first
+            login_resp = await client.post(
+                f"{settings.synapse_url}/_matrix/client/v3/login",
+                json={
+                    "type": "m.login.password",
+                    "identifier": {
+                        "type": "m.id.user",
+                        "user": matrix_username
+                    },
+                    "password": matrix_password,
+                    "device_id": f"DAARION_{user_id_short}",
+                    "initial_device_display_name": "DAARION Web"
+                }
+            )
+            
+            if login_resp.status_code == 200:
+                result = login_resp.json()
+                logger.info(f"Matrix user logged in: {matrix_user_id}")
+                return UserTokenResponse(
+                    matrix_user_id=result["user_id"],
+                    access_token=result["access_token"],
+                    device_id=result.get("device_id", f"DAARION_{user_id_short}"),
+                    home_server=settings.matrix_server_name
+                )
+            
+            # User doesn't exist, create via admin API
+            logger.info(f"Creating Matrix user: {matrix_username}")
+            
+            # Get nonce
+            nonce_resp = await client.get(
+                f"{settings.synapse_url}/_synapse/admin/v1/register"
+            )
+            nonce_resp.raise_for_status()
+            nonce = nonce_resp.json()["nonce"]
+            
+            # Generate MAC
+            mac = hmac.new(
+                key=settings.synapse_registration_secret.encode('utf-8'),
+                digestmod=hashlib.sha1
+            )
+            mac.update(nonce.encode('utf-8'))
+            mac.update(b"\x00")
+            mac.update(matrix_username.encode('utf-8'))
+            mac.update(b"\x00")
+            mac.update(matrix_password.encode('utf-8'))
+            mac.update(b"\x00")
+            mac.update(b"notadmin")
+            
+            # Register user
+            register_resp = await client.post(
+                f"{settings.synapse_url}/_synapse/admin/v1/register",
+                json={
+                    "nonce": nonce,
+                    "username": matrix_username,
+                    "password": matrix_password,
+                    "admin": False,
+                    "mac": mac.hexdigest()
+                }
+            )
+            
+            if register_resp.status_code == 200:
+                result = register_resp.json()
+                logger.info(f"Matrix user created: {result['user_id']}")
+                return UserTokenResponse(
+                    matrix_user_id=result["user_id"],
+                    access_token=result["access_token"],
+                    device_id=result.get("device_id", f"DAARION_{user_id_short}"),
+                    home_server=settings.matrix_server_name
+                )
+            else:
+                error = register_resp.json()
+                logger.error(f"Failed to create Matrix user: {error}")
+                raise HTTPException(status_code=500, detail=f"Failed to create Matrix user: {error.get('error', 'Unknown')}")
                 
         except httpx.RequestError as e:
             logger.error(f"Matrix request error: {e}")

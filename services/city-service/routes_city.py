@@ -2,9 +2,11 @@
 City Backend API Routes
 """
 
-from fastapi import APIRouter, HTTPException, Depends, Body
+from fastapi import APIRouter, HTTPException, Depends, Body, Header, Query
 from typing import List, Optional
 import logging
+import httpx
+import os
 
 from models_city import (
     CityRoomRead,
@@ -19,6 +21,10 @@ from common.redis_client import PresenceRedis, get_redis
 from matrix_client import create_matrix_room, find_matrix_room_by_alias
 
 logger = logging.getLogger(__name__)
+
+# JWT validation (simplified for MVP)
+AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://daarion-auth:7020")
+MATRIX_GATEWAY_URL = os.getenv("MATRIX_GATEWAY_URL", "http://daarion-matrix-gateway:7025")
 
 router = APIRouter(prefix="/city", tags=["city"])
 
@@ -291,6 +297,101 @@ async def backfill_matrix_rooms():
     except Exception as e:
         logger.error(f"Matrix backfill failed: {e}")
         raise HTTPException(status_code=500, detail=f"Backfill failed: {str(e)}")
+
+
+# =============================================================================
+# Chat Bootstrap API (Matrix Integration)
+# =============================================================================
+
+async def validate_jwt_token(authorization: str) -> Optional[dict]:
+    """Validate JWT token via auth-service introspect endpoint."""
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+    
+    token = authorization.replace("Bearer ", "")
+    
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        try:
+            resp = await client.get(
+                f"{AUTH_SERVICE_URL}/api/auth/introspect",
+                headers={"Authorization": f"Bearer {token}"}
+            )
+            if resp.status_code == 200:
+                return resp.json()
+            return None
+        except Exception as e:
+            logger.error(f"JWT validation error: {e}")
+            return None
+
+
+@router.get("/chat/bootstrap")
+async def chat_bootstrap(
+    room_slug: str = Query(..., description="City room slug"),
+    authorization: Optional[str] = Header(None)
+):
+    """
+    Bootstrap Matrix chat for a city room.
+    
+    Returns Matrix credentials and room info for the authenticated user.
+    """
+    # Validate JWT
+    user_info = await validate_jwt_token(authorization)
+    if not user_info:
+        raise HTTPException(status_code=401, detail="Invalid or missing authorization token")
+    
+    user_id = user_info.get("user_id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Invalid token: missing user_id")
+    
+    # Get room by slug
+    room = await repo_city.get_room_by_slug(room_slug)
+    if not room:
+        raise HTTPException(status_code=404, detail=f"Room '{room_slug}' not found")
+    
+    # Check if room has Matrix integration
+    matrix_room_id = room.get("matrix_room_id")
+    matrix_room_alias = room.get("matrix_room_alias")
+    
+    if not matrix_room_id:
+        raise HTTPException(
+            status_code=400, 
+            detail="Room does not have Matrix integration. Run /city/matrix/backfill first."
+        )
+    
+    # Get Matrix user token from matrix-gateway
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        try:
+            token_resp = await client.post(
+                f"{MATRIX_GATEWAY_URL}/internal/matrix/users/token",
+                json={"user_id": user_id}
+            )
+            
+            if token_resp.status_code != 200:
+                error = token_resp.json()
+                logger.error(f"Failed to get Matrix token: {error}")
+                raise HTTPException(status_code=500, detail="Failed to get Matrix credentials")
+            
+            matrix_creds = token_resp.json()
+            
+        except httpx.RequestError as e:
+            logger.error(f"Matrix gateway request error: {e}")
+            raise HTTPException(status_code=503, detail="Matrix service unavailable")
+    
+    # Return bootstrap data
+    return {
+        "matrix_hs_url": f"https://app.daarion.space",  # Through nginx proxy
+        "matrix_user_id": matrix_creds["matrix_user_id"],
+        "matrix_access_token": matrix_creds["access_token"],
+        "matrix_device_id": matrix_creds["device_id"],
+        "matrix_room_id": matrix_room_id,
+        "matrix_room_alias": matrix_room_alias,
+        "room": {
+            "id": room["id"],
+            "slug": room["slug"],
+            "name": room["name"],
+            "description": room.get("description")
+        }
+    }
 
 
 # =============================================================================
