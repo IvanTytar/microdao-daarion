@@ -4,16 +4,27 @@
  * Connects to /api/presence/stream for real-time room presence updates via SSE
  */
 
+export interface AgentPresence {
+  agent_id: string;
+  display_name: string;
+  kind: string;
+  status: string;
+  room_id?: string;
+  color?: string;
+}
+
 export interface RoomPresence {
   room_id: string;
   matrix_room_id?: string;
   online: number;
   typing: number;
+  agents?: AgentPresence[];
 }
 
 export interface CityPresence {
   online_total: number;
   rooms_online: number;
+  agents_online?: number;
 }
 
 export interface PresenceEvent {
@@ -21,17 +32,21 @@ export interface PresenceEvent {
   timestamp: string;
   city: CityPresence;
   rooms: RoomPresence[];
+  agents?: AgentPresence[];
 }
 
 export type PresenceCallback = (
   cityOnline: number,
-  roomsPresence: Record<string, RoomPresence>
+  roomsPresence: Record<string, RoomPresence>,
+  agents: AgentPresence[]
 ) => void;
 
 class GlobalPresenceClient {
   private eventSource: EventSource | null = null;
   private cityOnline: number = 0;
+  private agentsOnline: number = 0;
   private roomsPresence: Record<string, RoomPresence> = {};
+  private agents: AgentPresence[] = [];
   private listeners: Set<PresenceCallback> = new Set();
   private reconnectTimeout: NodeJS.Timeout | null = null;
   private isConnecting = false;
@@ -99,7 +114,7 @@ class GlobalPresenceClient {
     
     // Send current state immediately
     if (this.cityOnline > 0 || Object.keys(this.roomsPresence).length > 0) {
-      callback(this.cityOnline, this.roomsPresence);
+      callback(this.cityOnline, this.roomsPresence, this.agents);
     }
     
     // Connect if not connected
@@ -113,6 +128,18 @@ class GlobalPresenceClient {
         this.disconnect();
       }
     };
+  }
+
+  getAgentsOnline(): number {
+    return this.agentsOnline;
+  }
+
+  getAllAgents(): AgentPresence[] {
+    return [...this.agents];
+  }
+
+  getAgentsInRoom(roomId: string): AgentPresence[] {
+    return this.agents.filter(a => a.room_id === roomId);
   }
 
   getCityOnline(): number {
@@ -132,6 +159,7 @@ class GlobalPresenceClient {
 
     // Update city stats
     this.cityOnline = data.city?.online_total || 0;
+    this.agentsOnline = data.city?.agents_online || 0;
 
     // Update rooms
     const newRoomsPresence: Record<string, RoomPresence> = {};
@@ -140,13 +168,16 @@ class GlobalPresenceClient {
     }
     this.roomsPresence = newRoomsPresence;
 
+    // Update agents
+    this.agents = data.agents || [];
+
     this.notifyListeners();
   }
 
   private notifyListeners(): void {
     for (const callback of this.listeners) {
       try {
-        callback(this.cityOnline, this.roomsPresence);
+        callback(this.cityOnline, this.roomsPresence, this.agents);
       } catch (e) {
         console.error('[GlobalPresence] Listener error:', e);
       }

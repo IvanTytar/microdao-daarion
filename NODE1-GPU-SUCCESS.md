@@ -107,3 +107,4 @@ time ollama run qwen3:8b "test"
 
 
 
+

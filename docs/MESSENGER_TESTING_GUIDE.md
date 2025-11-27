@@ -406,3 +406,4 @@ VALUES (gen_random_uuid(), '<channel-id>', 'agent:sofia', 'agent', '@sofia-agent
 
 
 
+

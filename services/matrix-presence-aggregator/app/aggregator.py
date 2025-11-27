@@ -4,9 +4,10 @@ from datetime import datetime, timezone
 from typing import List, Optional
 import logging
 
-from .models import PresenceSnapshot, RoomPresence, CityPresence
+from .models import PresenceSnapshot, RoomPresence, CityPresence, AgentPresence
 from .matrix_client import MatrixClient
 from .rooms_source import RoomsSource
+from .agents_source import AgentsSource
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +17,7 @@ class PresenceAggregator:
     Aggregates presence data from Matrix and broadcasts to subscribers.
     
     - Periodically polls Matrix for room members and presence
+    - Fetches agent status from database
     - Caches the latest snapshot
     - Broadcasts updates to SSE subscribers
     """
@@ -24,10 +26,12 @@ class PresenceAggregator:
         self,
         matrix_client: MatrixClient,
         rooms_source: RoomsSource,
+        agents_source: Optional[AgentsSource] = None,
         poll_interval_seconds: int = 5,
     ):
         self.matrix_client = matrix_client
         self.rooms_source = rooms_source
+        self.agents_source = agents_source
         self.poll_interval_seconds = poll_interval_seconds
 
         self._snapshot: Optional[PresenceSnapshot] = None
@@ -62,11 +66,39 @@ class PresenceAggregator:
                 pass
 
     async def _compute_snapshot(self) -> PresenceSnapshot:
-        """Compute a new presence snapshot from Matrix"""
+        """Compute a new presence snapshot from Matrix and agents DB"""
         rooms = self.rooms_source.get_rooms()
         
         if not rooms:
             logger.warning("No rooms with matrix_room_id found")
+
+        # Fetch agents from database
+        all_agents: List[AgentPresence] = []
+        agents_by_room: dict = {}
+        
+        if self.agents_source:
+            try:
+                online_agents = self.agents_source.get_online_agents()
+                for agent in online_agents:
+                    ap = AgentPresence(
+                        agent_id=agent["agent_id"],
+                        display_name=agent["display_name"],
+                        kind=agent.get("kind", "assistant"),
+                        status=agent.get("status", "online"),
+                        room_id=agent.get("room_id"),
+                        color=agent.get("color", "cyan")
+                    )
+                    all_agents.append(ap)
+                    
+                    # Group by room
+                    room_id = agent.get("room_id")
+                    if room_id:
+                        if room_id not in agents_by_room:
+                            agents_by_room[room_id] = []
+                        agents_by_room[room_id].append(ap)
+                        
+            except Exception as e:
+                logger.error(f"Error fetching agents: {e}")
 
         room_presences: List[RoomPresence] = []
         city_online_total = 0
@@ -74,6 +106,7 @@ class PresenceAggregator:
 
         for r in rooms:
             matrix_room_id = r["matrix_room_id"]
+            room_id = r["room_id"]
             
             try:
                 # Get room members
@@ -99,24 +132,30 @@ class PresenceAggregator:
 
                 city_online_total += online_count
 
+                # Get agents for this room
+                room_agents = agents_by_room.get(room_id, [])
+
                 room_presences.append(
                     RoomPresence(
-                        room_id=r["room_id"],
+                        room_id=room_id,
                         matrix_room_id=matrix_room_id,
                         online=online_count,
                         typing=typing_count,
+                        agents=room_agents,
                     )
                 )
                 
             except Exception as e:
-                logger.error(f"Error processing room {r['room_id']}: {e}")
-                # Add room with 0 online
+                logger.error(f"Error processing room {room_id}: {e}")
+                # Add room with 0 online but include agents
+                room_agents = agents_by_room.get(room_id, [])
                 room_presences.append(
                     RoomPresence(
-                        room_id=r["room_id"],
+                        room_id=room_id,
                         matrix_room_id=matrix_room_id,
                         online=0,
                         typing=0,
+                        agents=room_agents,
                     )
                 )
 
@@ -125,11 +164,13 @@ class PresenceAggregator:
             city=CityPresence(
                 online_total=city_online_total,
                 rooms_online=rooms_online,
+                agents_online=len(all_agents),
             ),
             rooms=room_presences,
+            agents=all_agents,
         )
         
-        logger.info(f"Computed snapshot: {city_online_total} online in {rooms_online} rooms")
+        logger.info(f"Computed snapshot: {city_online_total} online, {len(all_agents)} agents in {rooms_online} rooms")
         return snapshot
 
     async def run_forever(self):
@@ -151,4 +192,5 @@ class PresenceAggregator:
         """Stop the aggregator loop"""
         self._running = False
         logger.info("Stopping presence aggregator")
+
 

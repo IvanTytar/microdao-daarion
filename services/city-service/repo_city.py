@@ -226,3 +226,124 @@ async def create_feed_event(
     row = await pool.fetchrow(query, event_id, kind, room_id, user_id, agent_id, payload_json)
     return dict(row)
 
+
+# =============================================================================
+# City Map Repository
+# =============================================================================
+
+async def get_map_config() -> dict:
+    """Отримати конфігурацію мапи міста"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT id, grid_width, grid_height, cell_size, background_url, updated_at
+        FROM city_map_config
+        WHERE id = 'default'
+    """
+    
+    row = await pool.fetchrow(query)
+    if row:
+        return dict(row)
+    
+    # Повернути дефолтні значення якщо немає запису
+    return {
+        "id": "default",
+        "grid_width": 6,
+        "grid_height": 3,
+        "cell_size": 100,
+        "background_url": None
+    }
+
+
+async def get_rooms_for_map() -> List[dict]:
+    """Отримати кімнати з координатами для 2D мапи"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT 
+            id, slug, name, description,
+            room_type, zone, icon, color,
+            map_x, map_y, map_w, map_h,
+            matrix_room_id
+        FROM city_rooms
+        ORDER BY map_y, map_x
+    """
+    
+    rows = await pool.fetch(query)
+    return [dict(row) for row in rows]
+
+
+# =============================================================================
+# Agents Repository
+# =============================================================================
+
+async def get_all_agents() -> List[dict]:
+    """Отримати всіх агентів"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT id, display_name, kind, avatar_url, color, status, 
+               current_room_id, capabilities, created_at, updated_at
+        FROM agents
+        ORDER BY display_name
+    """
+    
+    rows = await pool.fetch(query)
+    return [dict(row) for row in rows]
+
+
+async def get_agents_by_room(room_id: str) -> List[dict]:
+    """Отримати агентів у конкретній кімнаті"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT id, display_name, kind, avatar_url, color, status, 
+               current_room_id, capabilities
+        FROM agents
+        WHERE current_room_id = $1 AND status != 'offline'
+        ORDER BY display_name
+    """
+    
+    rows = await pool.fetch(query, room_id)
+    return [dict(row) for row in rows]
+
+
+async def get_online_agents() -> List[dict]:
+    """Отримати всіх онлайн агентів"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT id, display_name, kind, avatar_url, color, status, 
+               current_room_id, capabilities
+        FROM agents
+        WHERE status IN ('online', 'busy')
+        ORDER BY display_name
+    """
+    
+    rows = await pool.fetch(query)
+    return [dict(row) for row in rows]
+
+
+async def update_agent_status(agent_id: str, status: str, room_id: Optional[str] = None) -> Optional[dict]:
+    """Оновити статус агента"""
+    pool = await get_pool()
+    
+    if room_id:
+        query = """
+            UPDATE agents
+            SET status = $2, current_room_id = $3, updated_at = NOW()
+            WHERE id = $1
+            RETURNING id, display_name, kind, status, current_room_id
+        """
+        row = await pool.fetchrow(query, agent_id, status, room_id)
+    else:
+        query = """
+            UPDATE agents
+            SET status = $2, updated_at = NOW()
+            WHERE id = $1
+            RETURNING id, display_name, kind, status, current_room_id
+        """
+        row = await pool.fetchrow(query, agent_id, status)
+    
+    return dict(row) if row else None
+

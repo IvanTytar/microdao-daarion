@@ -221,3 +221,4 @@ docker exec ollama ollama ps
 
 
 
+

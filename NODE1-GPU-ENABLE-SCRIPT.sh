@@ -72,3 +72,4 @@ echo "   4. Протестувати Ollama з GPU: ollama run qwen3:8b 'test'"
 
 
 
+

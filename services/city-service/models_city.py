@@ -107,3 +107,66 @@ class WSPresenceMessage(BaseModel):
     user_id: str
     status: Optional[str] = None
 
+
+# =============================================================================
+# City Map (2D Map)
+# =============================================================================
+
+class CityMapRoom(BaseModel):
+    """Room representation on 2D city map"""
+    id: str
+    slug: str
+    name: str
+    description: Optional[str] = None
+    room_type: str = "public"
+    zone: str = "central"
+    icon: Optional[str] = None
+    color: Optional[str] = None
+    # Map coordinates
+    x: int = 0
+    y: int = 0
+    w: int = 1
+    h: int = 1
+    # Matrix integration
+    matrix_room_id: Optional[str] = None
+
+
+class CityMapConfig(BaseModel):
+    """Global city map configuration"""
+    grid_width: int = 6
+    grid_height: int = 3
+    cell_size: int = 100
+    background_url: Optional[str] = None
+
+
+class CityMapResponse(BaseModel):
+    """Full city map response"""
+    config: CityMapConfig
+    rooms: List[CityMapRoom]
+
+
+# =============================================================================
+# Agents (for Agent Presence)
+# =============================================================================
+
+class AgentRead(BaseModel):
+    """Agent representation"""
+    id: str
+    display_name: str
+    kind: str = "assistant"  # assistant, civic, oracle, builder
+    avatar_url: Optional[str] = None
+    color: str = "cyan"
+    status: str = "offline"  # online, offline, busy
+    current_room_id: Optional[str] = None
+    capabilities: List[str] = []
+
+
+class AgentPresence(BaseModel):
+    """Agent presence in a room"""
+    agent_id: str
+    display_name: str
+    kind: str
+    status: str
+    room_id: Optional[str] = None
+    color: Optional[str] = None
+

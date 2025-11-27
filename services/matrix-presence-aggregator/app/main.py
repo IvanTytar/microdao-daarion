@@ -13,6 +13,7 @@ import logging
 from .config import load_settings
 from .matrix_client import MatrixClient
 from .rooms_source import RoomsSource, StaticRoomsSource
+from .agents_source import AgentsSource
 from .aggregator import PresenceAggregator
 
 # Configure logging
@@ -58,9 +59,19 @@ else:
     rooms_source = RoomsSource(db_dsn=settings.db_dsn or "postgresql://postgres:postgres@localhost:5432/postgres")
     logger.warning("No rooms source configured, using default database")
 
+# Initialize agents source (uses same DB as rooms)
+agents_source = None
+if settings.db_dsn:
+    try:
+        agents_source = AgentsSource(db_dsn=settings.db_dsn)
+        logger.info("Agents source initialized")
+    except Exception as e:
+        logger.warning(f"Failed to initialize agents source: {e}")
+
 aggregator = PresenceAggregator(
     matrix_client=matrix_client,
     rooms_source=rooms_source,
+    agents_source=agents_source,
     poll_interval_seconds=settings.poll_interval_seconds,
 )
 
@@ -156,4 +167,5 @@ if __name__ == "__main__":
         port=settings.http_port,
         reload=True,
     )
+
 

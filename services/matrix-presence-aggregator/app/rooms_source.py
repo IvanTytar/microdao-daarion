@@ -67,3 +67,4 @@ class StaticRoomsSource:
     def get_rooms(self) -> List[Dict]:
         return self._rooms
 
+

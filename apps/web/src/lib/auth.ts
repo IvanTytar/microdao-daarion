@@ -106,8 +106,15 @@ export async function login(email: string, password: string): Promise<LoginRespo
   })
 
   if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.detail || 'Login failed')
+    let errorDetail = 'Login failed'
+    try {
+      const error = await response.json()
+      errorDetail = error.detail || error.message || errorDetail
+    } catch {
+      // ignore JSON parse errors
+    }
+
+    throw new Error(errorDetail)
   }
 
   const data: LoginResponse = await response.json()

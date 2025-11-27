@@ -148,3 +148,4 @@ export function usePresenceHeartbeat({
   }, [enabled, matrixUserId, accessToken, sendPresence])
 }
 
+

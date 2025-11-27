@@ -14,7 +14,12 @@ from models_city import (
     CityRoomDetail,
     CityRoomMessageRead,
     CityRoomMessageCreate,
-    CityFeedEventRead
+    CityFeedEventRead,
+    CityMapRoom,
+    CityMapConfig,
+    CityMapResponse,
+    AgentRead,
+    AgentPresence
 )
 import repo_city
 from common.redis_client import PresenceRedis, get_redis
@@ -411,4 +416,144 @@ async def get_city_feed(limit: int = 20, offset: int = 0):
     except Exception as e:
         logger.error(f"Failed to get city feed: {e}")
         raise HTTPException(status_code=500, detail="Failed to get city feed")
+
+
+# =============================================================================
+# City Map API (2D Map)
+# =============================================================================
+
+@router.get("/map", response_model=CityMapResponse)
+async def get_city_map():
+    """
+    Отримати дані для 2D мапи міста.
+    
+    Повертає:
+    - config: розміри сітки та налаштування
+    - rooms: список кімнат з координатами
+    """
+    try:
+        # Отримати конфігурацію
+        config_data = await repo_city.get_map_config()
+        config = CityMapConfig(
+            grid_width=config_data.get("grid_width", 6),
+            grid_height=config_data.get("grid_height", 3),
+            cell_size=config_data.get("cell_size", 100),
+            background_url=config_data.get("background_url")
+        )
+        
+        # Отримати кімнати з координатами
+        rooms_data = await repo_city.get_rooms_for_map()
+        rooms = []
+        
+        for room in rooms_data:
+            rooms.append(CityMapRoom(
+                id=room["id"],
+                slug=room["slug"],
+                name=room["name"],
+                description=room.get("description"),
+                room_type=room.get("room_type", "public"),
+                zone=room.get("zone", "central"),
+                icon=room.get("icon"),
+                color=room.get("color"),
+                x=room.get("map_x", 0),
+                y=room.get("map_y", 0),
+                w=room.get("map_w", 1),
+                h=room.get("map_h", 1),
+                matrix_room_id=room.get("matrix_room_id")
+            ))
+        
+        return CityMapResponse(config=config, rooms=rooms)
+    
+    except Exception as e:
+        logger.error(f"Failed to get city map: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get city map")
+
+
+# =============================================================================
+# Agents API
+# =============================================================================
+
+@router.get("/agents", response_model=List[AgentRead])
+async def get_agents():
+    """
+    Отримати список всіх агентів
+    """
+    try:
+        agents = await repo_city.get_all_agents()
+        result = []
+        
+        for agent in agents:
+            capabilities = agent.get("capabilities", [])
+            if isinstance(capabilities, str):
+                import json
+                capabilities = json.loads(capabilities)
+            
+            result.append(AgentRead(
+                id=agent["id"],
+                display_name=agent["display_name"],
+                kind=agent.get("kind", "assistant"),
+                avatar_url=agent.get("avatar_url"),
+                color=agent.get("color", "cyan"),
+                status=agent.get("status", "offline"),
+                current_room_id=agent.get("current_room_id"),
+                capabilities=capabilities
+            ))
+        
+        return result
+    
+    except Exception as e:
+        logger.error(f"Failed to get agents: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get agents")
+
+
+@router.get("/agents/online", response_model=List[AgentPresence])
+async def get_online_agents():
+    """
+    Отримати список онлайн агентів (для presence)
+    """
+    try:
+        agents = await repo_city.get_online_agents()
+        result = []
+        
+        for agent in agents:
+            result.append(AgentPresence(
+                agent_id=agent["id"],
+                display_name=agent["display_name"],
+                kind=agent.get("kind", "assistant"),
+                status=agent.get("status", "offline"),
+                room_id=agent.get("current_room_id"),
+                color=agent.get("color", "cyan")
+            ))
+        
+        return result
+    
+    except Exception as e:
+        logger.error(f"Failed to get online agents: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get online agents")
+
+
+@router.get("/rooms/{room_id}/agents", response_model=List[AgentPresence])
+async def get_room_agents(room_id: str):
+    """
+    Отримати агентів у конкретній кімнаті
+    """
+    try:
+        agents = await repo_city.get_agents_by_room(room_id)
+        result = []
+        
+        for agent in agents:
+            result.append(AgentPresence(
+                agent_id=agent["id"],
+                display_name=agent["display_name"],
+                kind=agent.get("kind", "assistant"),
+                status=agent.get("status", "offline"),
+                room_id=room_id,
+                color=agent.get("color", "cyan")
+            ))
+        
+        return result
+    
+    except Exception as e:
+        logger.error(f"Failed to get room agents: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get room agents")
 

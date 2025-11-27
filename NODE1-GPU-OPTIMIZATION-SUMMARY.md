@@ -110,3 +110,4 @@ time ollama run qwen3:8b "Привіт, тест GPU"
 
 
 
+

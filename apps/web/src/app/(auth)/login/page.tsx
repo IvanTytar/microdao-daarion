@@ -1,60 +1,74 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, Loader2, Sparkles, AlertCircle } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
+import { login as authLogin } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 
 export default function LoginPage() {
   const router = useRouter()
-  const { login, isAuthenticated } = useAuth()
+  const { refreshUser, isAuthenticated } = useAuth()
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Redirect if already authenticated
+  // Redirect if already authenticated (client-side effect to avoid rendering push)
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/')
+    }
+  }, [isAuthenticated, router])
+
   if (isAuthenticated) {
-    router.push('/')
     return null
   }
 
-  const validateForm = (): string | null => {
-    if (!email.trim()) {
+  const validateForm = (currentEmail: string, currentPassword: string): string | null => {
+    if (!currentEmail.trim()) {
       return 'Введіть email адресу'
     }
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(currentEmail)) {
       return 'Введіть коректну email адресу'
     }
-    if (!password) {
+    if (!currentPassword) {
       return 'Введіть пароль'
     }
-    if (password.length < 8) {
+    if (currentPassword.length < 8) {
       return 'Пароль повинен містити мінімум 8 символів'
     }
     return null
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
-    
-    // Client-side validation
-    const validationError = validateForm()
+
+    const formData = new FormData(e.currentTarget)
+    const fallbackEmail = (formData.get('email')?.toString() ?? '').trim()
+    const fallbackPassword = formData.get('password')?.toString() ?? ''
+    const currentEmail = email.trim() || fallbackEmail
+    const currentPassword = password || fallbackPassword
+
+    if (!email && currentEmail) setEmail(currentEmail)
+    if (!password && currentPassword) setPassword(currentPassword)
+
+    const validationError = validateForm(currentEmail, currentPassword)
     if (validationError) {
       setError(validationError)
       return
     }
     
     setLoading(true)
-
     try {
-      await login(email, password)
+      await authLogin(currentEmail, currentPassword)
+      await refreshUser()
       router.push('/')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Помилка входу. Перевірте дані та спробуйте ще раз.')
@@ -100,6 +114,7 @@ export default function LoginPage() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -124,6 +139,7 @@ export default function LoginPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -157,6 +173,7 @@ export default function LoginPage() {
                 'Увійти'
               )}
             </button>
+
           </form>
 
           {/* Divider */}

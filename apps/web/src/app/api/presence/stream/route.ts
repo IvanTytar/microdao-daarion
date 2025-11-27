@@ -3,11 +3,11 @@ import { NextRequest } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const PRESENCE_AGGREGATOR_URL = process.env.PRESENCE_AGGREGATOR_URL || "http://localhost:8085/presence/stream";
+const PRESENCE_AGGREGATOR_URL = process.env.PRESENCE_AGGREGATOR_URL || "http://localhost:8085";
 
 export async function GET(req: NextRequest) {
   try {
-    const upstream = await fetch(PRESENCE_AGGREGATOR_URL, {
+    const upstream = await fetch(`${PRESENCE_AGGREGATOR_URL}/presence/stream`, {
       headers: {
         accept: "text/event-stream",
       },
@@ -61,4 +61,5 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
 

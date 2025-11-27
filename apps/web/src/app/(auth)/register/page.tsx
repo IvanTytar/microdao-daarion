@@ -5,11 +5,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, User, Loader2, Sparkles, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
+import { register as authRegister, login as authLogin } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 
 export default function RegisterPage() {
   const router = useRouter()
-  const { register, isAuthenticated } = useAuth()
+  const { refreshUser, isAuthenticated } = useAuth()
   
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -34,18 +35,22 @@ export default function RegisterPage() {
   const isPasswordValid = passwordRequirements.every(r => r.met)
   const doPasswordsMatch = password === confirmPassword && password.length > 0
 
-  const validateForm = (): string | null => {
-    if (!email.trim()) {
+  const validateForm = (
+    currentEmail: string,
+    currentPassword: string,
+    confirm: string
+  ): string | null => {
+    if (!currentEmail.trim()) {
       return 'Введіть email адресу'
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(currentEmail)) {
       return 'Введіть коректну email адресу'
     }
     if (!isPasswordValid) {
       return 'Пароль не відповідає вимогам'
     }
-    if (!doPasswordsMatch) {
+    if (currentPassword !== confirm || currentPassword.length === 0) {
       return 'Паролі не співпадають'
     }
     return null
@@ -55,7 +60,23 @@ export default function RegisterPage() {
     e.preventDefault()
     setError('')
 
-    const validationError = validateForm()
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    const fallbackEmail = (formData.get('email')?.toString() ?? '').trim()
+    const fallbackPassword = formData.get('password')?.toString() ?? ''
+    const fallbackConfirm = formData.get('confirmPassword')?.toString() ?? ''
+    const fallbackDisplayName = formData.get('displayName')?.toString() ?? ''
+
+    const currentEmail = email.trim() || fallbackEmail
+    const currentPassword = password || fallbackPassword
+    const currentConfirm = confirmPassword || fallbackConfirm
+    const currentDisplayName = displayName || fallbackDisplayName
+
+    if (!email && currentEmail) setEmail(currentEmail)
+    if (!password && currentPassword) setPassword(currentPassword)
+    if (!confirmPassword && currentConfirm) setConfirmPassword(currentConfirm)
+    if (!displayName && currentDisplayName) setDisplayName(currentDisplayName)
+
+    const validationError = validateForm(currentEmail, currentPassword, currentConfirm)
     if (validationError) {
       setError(validationError)
       return
@@ -64,7 +85,9 @@ export default function RegisterPage() {
     setLoading(true)
 
     try {
-      await register(email, password, displayName || undefined)
+      await authRegister(currentEmail, currentPassword, currentDisplayName || undefined)
+      await authLogin(currentEmail, currentPassword)
+      await refreshUser()
       router.push('/')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Помилка реєстрації. Спробуйте ще раз.')
@@ -110,6 +133,7 @@ export default function RegisterPage() {
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="displayName"
+                  name="displayName"
                   type="text"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
@@ -134,6 +158,7 @@ export default function RegisterPage() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -158,6 +183,7 @@ export default function RegisterPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -197,6 +223,7 @@ export default function RegisterPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                 <input
                   id="confirmPassword"
+                  name="confirmPassword"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}

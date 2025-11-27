@@ -34,3 +34,4 @@ def load_settings() -> Settings:
         presence_daemon_user=os.getenv("PRESENCE_DAEMON_USER", "@presence_daemon:daarion.space"),
     )
 
+

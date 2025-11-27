@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Building2, Users, Star, MessageSquare, ArrowRight, Loader2 } from 'lucide-react'
+import { Building2, Users, Star, MessageSquare, ArrowRight, Loader2, Bot, Map } from 'lucide-react'
 import { api, CityRoom } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { useGlobalPresence } from '@/hooks/useGlobalPresence'
+import { CityMap } from '@/components/city/CityMap'
 
 export default function CityPage() {
   const [rooms, setRooms] = useState<CityRoom[]>([])
   const [loading, setLoading] = useState(true)
-  const { cityOnline, roomsPresence } = useGlobalPresence()
+  const [showMap, setShowMap] = useState(true)
+  const { cityOnline, roomsPresence, agents } = useGlobalPresence()
 
   useEffect(() => {
     async function fetchRooms() {
@@ -68,27 +70,65 @@ export default function CityPage() {
           )}
         </div>
 
+        {/* View Toggle */}
+        <div className="flex items-center gap-2 mb-6">
+          <button
+            onClick={() => setShowMap(true)}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all",
+              showMap 
+                ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+                : "text-slate-400 hover:text-white hover:bg-white/5"
+            )}
+          >
+            <Map className="w-4 h-4" />
+            Мапа
+          </button>
+          <button
+            onClick={() => setShowMap(false)}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all",
+              !showMap 
+                ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+                : "text-slate-400 hover:text-white hover:bg-white/5"
+            )}
+          >
+            <Building2 className="w-4 h-4" />
+            Список
+          </button>
+        </div>
+
+        {/* City Map View */}
+        {showMap && (
+          <div className="mb-8">
+            <CityMap />
+          </div>
+        )}
+
         {/* Rooms Grid */}
-        {rooms.length === 0 ? (
-          <div className="glass-panel p-12 text-center">
-            <Building2 className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
-              Кімнати не знайдено
-            </h2>
-            <p className="text-slate-400">
-              API недоступний або кімнати ще не створені
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {rooms.map((room) => (
-              <RoomCard 
-                key={room.id} 
-                room={room} 
-                livePresence={roomsPresence[room.id]}
-              />
-            ))}
-          </div>
+        {!showMap && (
+          rooms.length === 0 ? (
+            <div className="glass-panel p-12 text-center">
+              <Building2 className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-white mb-2">
+                Кімнати не знайдено
+              </h2>
+              <p className="text-slate-400">
+                API недоступний або кімнати ще не створені
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {rooms.map((room) => (
+                <RoomCard 
+                  key={room.id} 
+                  room={room} 
+                  livePresence={roomsPresence[room.id]}
+                  roomAgents={agents.filter(a => a.room_id === room.id)}
+                />
+              ))}
+            </div>
+          )
         )}
 
         {/* Stats Section */}
@@ -126,9 +166,10 @@ export default function CityPage() {
 interface RoomCardProps {
   room: CityRoom
   livePresence?: { online: number; typing: number }
+  roomAgents?: Array<{ agent_id: string; display_name: string; status: string; color?: string }>
 }
 
-function RoomCard({ room, livePresence }: RoomCardProps) {
+function RoomCard({ room, livePresence, roomAgents = [] }: RoomCardProps) {
   // Use live presence if available, otherwise fallback to API data
   const onlineCount = livePresence?.online ?? room.members_online
   const typingCount = livePresence?.typing ?? 0
@@ -186,6 +227,34 @@ function RoomCard({ room, livePresence }: RoomCardProps) {
 
         <ArrowRight className="w-5 h-5 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
       </div>
+
+      {/* Agents in room */}
+      {roomAgents.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-white/10">
+          <div className="flex items-center gap-2">
+            <Bot className="w-4 h-4 text-cyan-400" />
+            <span className="text-xs text-slate-400">Агенти:</span>
+            <div className="flex items-center gap-1">
+              {roomAgents.slice(0, 3).map((agent) => (
+                <span
+                  key={agent.agent_id}
+                  className={cn(
+                    "px-2 py-0.5 text-xs rounded-full",
+                    agent.status === 'online' 
+                      ? "bg-green-500/20 text-green-400"
+                      : "bg-orange-500/20 text-orange-400"
+                  )}
+                >
+                  {agent.display_name}
+                </span>
+              ))}
+              {roomAgents.length > 3 && (
+                <span className="text-xs text-slate-500">+{roomAgents.length - 3}</span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </Link>
   )
 }
