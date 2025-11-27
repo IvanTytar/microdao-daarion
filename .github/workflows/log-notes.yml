@@ -1,0 +1,30 @@
+name: Push Lab Notes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  push-lab-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git user
+        run: |
+          git config user.name "DAARION Bot"
+          git config user.email "bot@daarion.city"
+
+      - name: Commit lab-notes
+        run: |
+          git add lab-notes/
+          if git diff --cached --quiet; then
+            echo "No lab-notes changes"
+            exit 0
+          fi
+          git commit -m "chore: update lab-notes"
+          git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

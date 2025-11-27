@@ -1,0 +1,32 @@
+site_name: DAARION Documentation
+site_url: https://IvanTytar.github.io/microdao-daarion/
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.instant
+    - content.code.copy
+nav:
+  - Home: public/index.md
+  - Getting Started: public/getting-started.md
+  - Architecture: public/architecture-overview.md
+  - DAIS & DAOS: public/daiS_daos_overview.md
+  - Internal:
+      - Infra:
+          - Infra Automation Pack v1: internal/infra/INFRA_AUTOMATION_PACK_V1.md
+          - Monitoring Overview: internal/infra/monitoring_overview.md
+          - Nodes Registry v0: internal/infra/nodes_registry_v0.md
+      - Specs:
+          - Matrix Presence Aggregator: internal/specs/matrix_presence_aggregator.md
+          - City Map Spec: internal/specs/city_map_spec.md
+          - Node Join Protocol (Draft): internal/specs/node_join_protocol_draft.md
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - footnotes
+  - attr_list
+docs_dir: docs
+site_dir: site
