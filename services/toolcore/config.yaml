@@ -1,0 +1,80 @@
+tools:
+  - id: "projects.list"
+    name: "List Projects"
+    description: "Returns a list of projects for a microDAO"
+    input_schema:
+      type: "object"
+      properties:
+        microdao_id:
+          type: "string"
+          description: "MicroDAO ID"
+      required: ["microdao_id"]
+    output_schema:
+      type: "array"
+      items:
+        type: "object"
+        properties:
+          id: { type: "string" }
+          name: { type: "string" }
+          status: { type: "string" }
+    executor: "http"
+    target: "http://projects-service:8000/internal/tools/projects.list"
+    allowed_agents: ["agent:sofia", "agent:pm", "agent:cto"]
+    timeout: 10
+    enabled: true
+  
+  - id: "task.create"
+    name: "Create Task"
+    description: "Creates a new task in a project"
+    input_schema:
+      type: "object"
+      properties:
+        project_id:
+          type: "string"
+        title:
+          type: "string"
+        description:
+          type: "string"
+      required: ["project_id", "title"]
+    output_schema:
+      type: "object"
+      properties:
+        id: { type: "string" }
+        status: { type: "string" }
+    executor: "http"
+    target: "http://projects-service:8000/internal/tools/task.create"
+    allowed_agents: ["agent:sofia", "agent:pm"]
+    timeout: 15
+    enabled: true
+  
+  - id: "followup.create"
+    name: "Create Follow-up"
+    description: "Schedules a follow-up reminder for the agent"
+    input_schema:
+      type: "object"
+      properties:
+        channel_id:
+          type: "string"
+        message:
+          type: "string"
+        delay_hours:
+          type: "integer"
+      required: ["channel_id", "message", "delay_hours"]
+    output_schema:
+      type: "object"
+      properties:
+        id: { type: "string" }
+        scheduled_at: { type: "string" }
+    executor: "http"
+    target: "http://agent-runtime:7006/internal/tools/followup.create"
+    allowed_agents: null  # All agents
+    timeout: 5
+    enabled: true
+
+logging:
+  log_calls: true
+  log_results: false  # Don't log full results for privacy
+
+
+
+

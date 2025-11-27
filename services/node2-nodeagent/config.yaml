@@ -1,0 +1,76 @@
+# NodeAgent Configuration for microDAO Node-2
+
+microdao_id: "microdao-node2"
+name: "microdao-node2-agents"
+
+# Swoper configuration
+swoper:
+  url: "http://localhost:8890"
+  config_path: "~/node2/swoper/config_node2.yaml"
+  mode: "single-active"
+  max_concurrent_models: 1
+
+# Memory services
+memory:
+  qdrant:
+    url: "http://localhost:6333"
+    path: "~/node2/qdrant/"
+    use_case: "Fast RAG for local agents"
+  
+  milvus:
+    url: "http://localhost:19530"
+    path: "~/node2/milvus/"
+    use_case: "Heavy vector indexing for large memory"
+  
+  neo4j:
+    url: "http://localhost:7474"
+    bolt_url: "bolt://localhost:7687"
+    path: "~/node2/neo4j/"
+    credentials:
+      user: "neo4j"
+      password: "microdao-node2"
+    use_case: "Relations between agents, tasks, data, tokens"
+
+# RAG Router
+rag_router:
+  url: "http://localhost:9401"
+  enabled: true
+  routing_rules:
+    - condition: "query_type == 'graph_query'"
+      target: "local.graph.neo4j"
+    - condition: "limit <= 50 && !filters"
+      target: "local.memory.qdrant"
+    - condition: "limit > 50 || filters"
+      target: "local.memory.milvus"
+
+# Event Store
+event_store:
+  type: "jetstream"
+  url: "nats://localhost:4222"
+  path: "~/node2/events/"
+  use_case: "Event history and audit trail"
+
+# Health monitoring
+health_check_interval: 30  # seconds
+
+# Self-healing
+self_healing:
+  enabled: true
+  max_restarts: 3
+  restart_delay: 10  # seconds
+
+# Resource management
+resources:
+  max_memory_gb: 60  # Leave 4 GB for system
+  max_disk_gb: 1000  # Reserve space
+  model_swap_timeout: 30  # seconds
+
+# Logging
+logging:
+  level: "INFO"
+  file: "~/node2/nodeagent/logs/nodeagent.log"
+  max_size_mb: 100
+  backup_count: 5
+
+
+

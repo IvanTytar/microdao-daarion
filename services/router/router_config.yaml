@@ -1,0 +1,11 @@
+messaging_inbound:
+  enabled: true
+  source_subject: "agent.filter.decision"
+  target_subject: "router.invoke.agent"
+
+# Future routing rules can be added here
+# e.g., direct invocations, cron jobs, webhooks
+
+
+
+

@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  vector-db-service:
+    build: .
+    container_name: dagi-vector-db-service
+    ports:
+      - "8898:8898"
+    environment:
+      - CHROMA_PERSIST_DIR=/app/chroma_data
+      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+    volumes:
+      - ./app:/app/app
+      - ./chroma_data:/app/chroma_data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8898/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+

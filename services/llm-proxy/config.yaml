@@ -1,0 +1,60 @@
+providers:
+  openai:
+    base_url: "https://api.openai.com/v1"
+    api_key_env: "OPENAI_API_KEY"
+    timeout: 30
+    max_retries: 2
+  
+  deepseek:
+    base_url: "https://api.deepseek.com/v1"
+    api_key_env: "DEEPSEEK_API_KEY"
+    timeout: 30
+    max_retries: 2
+  
+  local:
+    base_url: "http://localhost:11434"  # Ollama default
+    api_key_env: null
+    timeout: 60
+    max_retries: 1
+
+models:
+  gpt-4.1-mini:
+    provider: "openai"
+    physical_name: "gpt-4-1106-preview"
+    max_tokens: 4096
+    cost_per_1k_prompt: 0.01
+    cost_per_1k_completion: 0.03
+  
+  gpt-4:
+    provider: "openai"
+    physical_name: "gpt-4"
+    max_tokens: 8192
+    cost_per_1k_prompt: 0.03
+    cost_per_1k_completion: 0.06
+  
+  deepseek-r1:
+    provider: "deepseek"
+    physical_name: "deepseek-chat"
+    max_tokens: 4096
+    cost_per_1k_prompt: 0.0014
+    cost_per_1k_completion: 0.0028
+  
+  dagi-local-8b:
+    provider: "local"
+    physical_name: "qwen2.5:8b"
+    max_tokens: 4096
+    cost_per_1k_prompt: 0.0
+    cost_per_1k_completion: 0.0
+
+rate_limits:
+  default_per_agent_per_minute: 10
+  default_per_microdao_per_hour: 100
+
+logging:
+  log_requests: true
+  log_responses: false  # Don't log full responses for privacy
+  log_usage: true
+
+
+
+

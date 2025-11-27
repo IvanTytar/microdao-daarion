@@ -1,12 +1,12 @@
 import { apiGet, apiPost } from './client';
-import type { Channel, CreateChannelRequest, Message } from '../types/api';
+import type { Channel, CreateChannelRequest, Message, CreateMessageRequest } from '../types/api';
 
 export async function createChannel(data: CreateChannelRequest): Promise<Channel> {
-  return apiPost<Channel>('/channels', data);
+  return apiPost<Channel>('/api/v1/channels', data);
 }
 
 export async function getChannels(teamId: string): Promise<{ channels: Channel[] }> {
-  return apiGet<{ channels: Channel[] }>(`/channels?team_id=${teamId}`);
+  return apiGet<{ channels: Channel[] }>(`/api/v1/channels?team_id=${teamId}`);
 }
 
 export async function getChannelMessages(
@@ -18,11 +18,18 @@ export async function getChannelMessages(
   if (cursor) params.set('cursor', cursor);
   params.set('limit', limit.toString());
   return apiGet<{ messages: Message[]; next_cursor?: string }>(
-    `/channels/${channelId}/messages?${params.toString()}`
+    `/api/v1/channels/${channelId}/messages?${params.toString()}`
   );
 }
 
+export async function createMessage(
+  channelId: string,
+  data: CreateMessageRequest
+): Promise<Message> {
+  return apiPost<Message>(`/api/v1/channels/${channelId}/messages`, data);
+}
+
 export async function getPublicChannel(slug: string): Promise<Channel> {
-  return apiGet<Channel>(`/channels/public/${slug}`);
+  return apiGet<Channel>(`/api/v1/channels/public/${slug}`);
 }
 

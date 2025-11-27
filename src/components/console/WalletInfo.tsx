@@ -35,8 +35,14 @@ export function WalletInfo() {
     <div className="bg-white rounded-lg shadow p-6">
       <h2 className="text-xl font-semibold mb-4">Wallet</h2>
 
-      {loading && <div className="text-gray-500">Завантаження...</div>}
-      {error && <div className="text-red-500 mb-4">{error}</div>}
+      {loading && <div className="text-gray-500 text-sm">Завантаження...</div>}
+      {error && (
+        <div className="text-amber-600 mb-4 text-sm bg-amber-50 p-3 rounded border border-amber-200">
+          <p className="font-medium">⚠️ API недоступний</p>
+          <p className="text-xs mt-1">{error}</p>
+          <p className="text-xs mt-1 text-gray-600">Перевірте підключення до API сервера</p>
+        </div>
+      )}
 
       {!loading && !error && (
         <div className="space-y-4">

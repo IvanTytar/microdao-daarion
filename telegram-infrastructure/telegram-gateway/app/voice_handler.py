@@ -4,6 +4,7 @@ Handles STT (Speech-to-Text) and document processing
 """
 import logging
 import httpx
+from aiogram import Bot
 from aiogram.types import Message
 
 logger = logging.getLogger(__name__)
@@ -12,7 +13,7 @@ STT_SERVICE_URL = "http://dagi-stt:9000/stt"
 PARSER_SERVICE_URL = "http://dagi-parser:9400"
 
 
-async def handle_voice_message(message: Message, bot_token: str) -> str:
+async def handle_voice_message(message: Message, bot: Bot) -> str:
     """
     Process voice/audio message through STT
     
@@ -43,13 +44,11 @@ async def handle_voice_message(message: Message, bot_token: str) -> str:
     
     try:
         # Get file path from Telegram
-        from aiogram import Bot
-        bot = Bot(token=bot_token)
         file = await bot.get_file(file_id)
         file_path = file.file_path
         
         # Download file URL (через офіційний Telegram API для файлів)
-        file_url = f"https://api.telegram.org/file/bot{bot_token}/{file_path}"
+        file_url = f"https://api.telegram.org/file/bot{bot.token}/{file_path}"
         
         logger.info(f"📥 Downloading audio: {file_url}")
         
@@ -83,7 +82,7 @@ async def handle_voice_message(message: Message, bot_token: str) -> str:
         return ""
 
 
-async def handle_document_message(message: Message, bot_token: str) -> dict:
+async def handle_document_message(message: Message, bot: Bot) -> dict:
     """
     Process document (PDF) message through Parser
     
@@ -113,13 +112,11 @@ async def handle_document_message(message: Message, bot_token: str) -> dict:
     
     try:
         # Get file path from Telegram
-        from aiogram import Bot
-        bot = Bot(token=bot_token)
         file = await bot.get_file(file_id)
         file_path = file.file_path
         
         # Download file URL (через офіційний Telegram API для файлів)
-        file_url = f"https://api.telegram.org/file/bot{bot_token}/{file_path}"
+        file_url = f"https://api.telegram.org/file/bot{bot.token}/{file_path}"
         
         logger.info(f"📥 PDF URL: {file_url}")
         

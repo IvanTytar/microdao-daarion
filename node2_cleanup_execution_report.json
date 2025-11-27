@@ -1,0 +1,37 @@
+{
+  "executed_actions": [
+    {
+      "type": "create_directory",
+      "path": "/Users/apple/node2/legacy",
+      "status": "success"
+    },
+    {
+      "type": "delete",
+      "item": "ollama-ai",
+      "status": "success"
+    },
+    {
+      "type": "delete",
+      "item": "nats-jetstream",
+      "status": "success"
+    },
+    {
+      "type": "delete",
+      "item": "lobe-chat",
+      "status": "success"
+    },
+    {
+      "type": "fix_health",
+      "container": "qdrant-vector-db",
+      "status": "success"
+    }
+  ],
+  "errors": [
+    {
+      "type": "create_directory",
+      "path": "/node2/legacy",
+      "error": "[Errno 30] Read-only file system: '/node2'"
+    }
+  ],
+  "timestamp": "2025-11-21T12:08:57Z"
+}

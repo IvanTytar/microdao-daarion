@@ -78,6 +78,19 @@ class UserTokenResponse(BaseModel):
     home_server: str
 
 
+class SetPresenceRequest(BaseModel):
+    matrix_user_id: str  # "@user:daarion.space"
+    access_token: str    # User's Matrix access token
+    status: str = "online"  # "online" | "unavailable" | "offline"
+    status_msg: Optional[str] = None
+
+
+class SetPresenceResponse(BaseModel):
+    ok: bool
+    matrix_user_id: str
+    status: str
+
+
 async def get_admin_token() -> str:
     """Get or create admin access token for Matrix operations."""
     global _admin_token
@@ -422,6 +435,55 @@ async def get_user_token(request: UserTokenRequest):
                 error = register_resp.json()
                 logger.error(f"Failed to create Matrix user: {error}")
                 raise HTTPException(status_code=500, detail=f"Failed to create Matrix user: {error.get('error', 'Unknown')}")
+                
+        except httpx.RequestError as e:
+            logger.error(f"Matrix request error: {e}")
+            raise HTTPException(status_code=503, detail="Matrix unavailable")
+
+
+@app.post("/internal/matrix/presence/online", response_model=SetPresenceResponse)
+async def set_presence_online(request: SetPresenceRequest):
+    """
+    Set Matrix presence status for a user.
+    
+    This endpoint is called by the frontend heartbeat to keep users "online".
+    The user's own access token is used to set their presence.
+    """
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        try:
+            # URL encode the user_id for the path
+            encoded_user_id = request.matrix_user_id.replace("@", "%40").replace(":", "%3A")
+            
+            payload = {
+                "presence": request.status,
+            }
+            if request.status_msg:
+                payload["status_msg"] = request.status_msg
+            
+            resp = await client.put(
+                f"{settings.synapse_url}/_matrix/client/v3/presence/{encoded_user_id}/status",
+                headers={"Authorization": f"Bearer {request.access_token}"},
+                json=payload
+            )
+            
+            if resp.status_code in (200, 204):
+                logger.info(f"Set presence for {request.matrix_user_id}: {request.status}")
+                return SetPresenceResponse(
+                    ok=True,
+                    matrix_user_id=request.matrix_user_id,
+                    status=request.status
+                )
+            else:
+                error_text = resp.text
+                logger.error(f"Failed to set presence: {resp.status_code} - {error_text}")
+                raise HTTPException(
+                    status_code=500,
+                    detail={
+                        "message": "Failed to set presence",
+                        "matrix_status": resp.status_code,
+                        "matrix_body": error_text
+                    }
+                )
                 
         except httpx.RequestError as e:
             logger.error(f"Matrix request error: {e}")

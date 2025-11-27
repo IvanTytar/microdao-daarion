@@ -9,6 +9,7 @@ class TelegramUpdateEvent(BaseModel):
     chat_id: int
     user_id: int
     text: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
     raw_update: Dict[str, Any]
 
 

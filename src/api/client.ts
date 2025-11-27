@@ -35,21 +35,49 @@ async function fetchApi(
 
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-  });
+  // Add timeout to prevent hanging requests
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new ApiError(
-      errorData.message || `HTTP ${response.status}: ${response.statusText}`,
-      response.status,
-      errorData
-    );
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers,
+      credentials: 'include', // Підтримка httpOnly cookies
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new ApiError(
+        errorData.message || `HTTP ${response.status}: ${response.statusText}`,
+        response.status,
+        errorData
+      );
+    }
+
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new ApiError('Запит перевищив час очікування', 408);
+    }
+    // Для помилок підключення (ERR_NAME_NOT_RESOLVED, ERR_CONNECTION_REFUSED)
+    // не логуємо детально, оскільки це очікувана поведінка при недоступному API
+    const errorMessage = error instanceof Error ? error.message : 'Помилка підключення до API';
+    if (errorMessage.includes('ERR_NAME_NOT_RESOLVED') || 
+        errorMessage.includes('ERR_CONNECTION_REFUSED') ||
+        errorMessage.includes('Failed to fetch')) {
+      // Це очікувана помилка - API недоступний, буде використано fallback
+      throw new ApiError('API недоступний', 0);
+    }
+    throw new ApiError(errorMessage, 0);
   }
-
-  return response;
 }
 
 export async function apiGet<T>(endpoint: string): Promise<T> {

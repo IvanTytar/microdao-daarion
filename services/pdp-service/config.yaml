@@ -1,0 +1,60 @@
+# PDP Service Configuration
+# Phase 4: Static config-based policies
+# Phase 5: Dynamic DB-backed policies
+
+microdao_policies:
+  - microdao_id: "microdao:daarion"
+    owners: ["user:1"]
+    admins: ["user:1", "user:93"]
+    members: []  # Empty = all members of microDAO
+  
+  - microdao_id: "microdao:7"
+    owners: ["user:93"]
+    admins: ["user:93"]
+    members: []
+
+channel_policies:
+  - channel_id: "channel-general-daarion"
+    microdao_id: "microdao:daarion"
+    allowed_roles: ["member", "admin", "owner"]
+    blocked_users: []
+  
+  - channel_id: "channel-dev-updates"
+    microdao_id: "microdao:daarion"
+    allowed_roles: ["admin", "owner"]
+    blocked_users: []
+
+tool_policies:
+  - tool_id: "projects.list"
+    enabled: true
+    allowed_agents: ["agent:sofia", "agent:pm", "agent:cto"]
+    allowed_user_roles: ["admin", "owner"]
+  
+  - tool_id: "task.create"
+    enabled: true
+    allowed_agents: ["agent:sofia", "agent:pm"]
+    allowed_user_roles: ["admin", "owner", "member"]
+  
+  - tool_id: "followup.create"
+    enabled: true
+    allowed_agents: null  # All agents
+    allowed_user_roles: ["member"]
+
+agent_policies:
+  - agent_id: "agent:sofia"
+    owner_id: "user:1"
+    microdao_id: "microdao:daarion"
+  
+  - agent_id: "agent:alex"
+    owner_id: "user:93"
+    microdao_id: "microdao:7"
+
+# Default policies
+defaults:
+  deny_by_default: true
+  log_all_decisions: true
+  cache_decisions: false  # Phase 5: Redis cache
+
+
+
+

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getTeams } from '../../api/teams';
 import type { Team } from '../../types/api';
 
@@ -7,6 +8,7 @@ interface MicroDaoListProps {
 }
 
 export function MicroDaoList({ onSelectTeam }: MicroDaoListProps) {
+  const navigate = useNavigate();
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -56,8 +58,13 @@ export function MicroDaoList({ onSelectTeam }: MicroDaoListProps) {
         </button>
       </div>
 
-      {loading && <div className="text-gray-500">Завантаження...</div>}
-      {error && <div className="text-red-500 mb-4">{error}</div>}
+      {loading && <div className="text-gray-500 text-sm">Завантаження...</div>}
+      {error && (
+        <div className="text-amber-600 mb-4 text-sm bg-amber-50 p-3 rounded border border-amber-200">
+          <p className="font-medium">⚠️ Помилка завантаження</p>
+          <p className="text-xs mt-1">{error}</p>
+        </div>
+      )}
 
       {!loading && !error && (
         <>
@@ -100,6 +107,28 @@ export function MicroDaoList({ onSelectTeam }: MicroDaoListProps) {
                       <span className="ml-4 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
                         DAARION.city
                       </span>
+                    )}
+                  </div>
+                  <div className="mt-3 flex gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/microdao/${team.id}`);
+                      }}
+                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                    >
+                      Відкрити кабінет
+                    </button>
+                    {onSelectTeam && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectTeam(team);
+                        }}
+                        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+                      >
+                        Запросити учасника
+                      </button>
                     )}
                   </div>
                 </div>

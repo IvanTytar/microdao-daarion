@@ -1,10 +1,10 @@
 services:
-  # DAGI Router - Core routing service
-  router:
+  # DAGI Router Node-2 - Core routing service for Node-2
+  router-node2:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dagi-router
+    container_name: dagi-router-node2
     ports:
       - "9102:9102"
     environment:
@@ -21,6 +21,9 @@ services:
       - devtools
       - crewai
       - rbac
+    labels:
+      - "node=node-2"
+      - "service=dagi-router"
     networks:
       - dagi-network
     restart: unless-stopped
@@ -284,6 +287,53 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9205/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Swapper Service - Dynamic model loading service (Node #2)
+  swapper-service:
+    build:
+      context: ./services/swapper-service
+      dockerfile: Dockerfile
+    container_name: swapper-service
+    ports:
+      - "8890:8890"
+    environment:
+      - OLLAMA_BASE_URL=http://172.17.0.1:11434  # Access host Ollama from Docker
+      - SWAPPER_CONFIG_PATH=/app/config/swapper_config.yaml
+      - SWAPPER_MODE=single-active
+      - MAX_CONCURRENT_MODELS=1
+      - MODEL_SWAP_TIMEOUT=30
+    volumes:
+      - ./services/swapper-service/config:/app/config:ro
+      - ./logs:/app/logs
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8890/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Agent Cabinet Service
+  agent-cabinet:
+    build:
+      context: ./services/agent-cabinet-service
+      dockerfile: Dockerfile
+    container_name: dagi-agent-cabinet
+    ports:
+      - "8898:8898"
+    environment:
+      - ROUTER_URL=http://router:9102
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8898/health"]
       interval: 30s
       timeout: 10s
       retries: 3

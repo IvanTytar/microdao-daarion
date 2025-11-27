@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  stt-service:
+    build: .
+    container_name: dagi-stt-service
+    ports:
+      - "8895:8895"
+    environment:
+      - WHISPER_MODEL=base
+      - WHISPER_LANGUAGE=uk
+    volumes:
+      - ./app:/app/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8895/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+

@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  agent-filter:
+    build:
+      context: ./services/agent-filter
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: agent-filter
+    environment:
+      MESSAGING_SERVICE_URL: http://messaging-service:7004
+      NATS_URL: nats://nats:4222
+    ports:
+      - "7005:7005"
+    depends_on:
+      - nats
+      - messaging-service
+    networks:
+      - daarion
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:7005/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  router:
+    build:
+      context: ./services/router
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: router
+    environment:
+      NATS_URL: nats://nats:4222
+    ports:
+      - "8000:8000"
+    depends_on:
+      - nats
+    networks:
+      - daarion
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  agent-runtime:
+    build:
+      context: ./services/agent-runtime
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: agent-runtime
+    environment:
+      MESSAGING_SERVICE_URL: http://messaging-service:7004
+      AGENT_MEMORY_URL: http://agent-memory:7008
+      LLM_PROXY_URL: http://llm-proxy:7007
+      NATS_URL: nats://nats:4222
+    ports:
+      - "7006:7006"
+    depends_on:
+      - nats
+      - messaging-service
+    networks:
+      - daarion
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:7006/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  daarion:
+    external: true
+
+
+
+

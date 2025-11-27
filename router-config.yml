@@ -1,17 +1,16 @@
 # DAGI Router Configuration
-# Version: 0.5.0 - With DevTools + CrewAI Integration
+# Version: 0.6.0 - Telegram agents + differentiated qwen3 profiles
 
 node:
   id: dagi-devtools-node-01
   role: router
-  env: dev
-  description: "DAGI Router with DevTools Agent and CrewAI Orchestrator support"
+  env: prod
+  description: "DAGI Router with CrewAI, Telegram Gateway and science-ready tooling"
 
 # ============================================================================
-# LLM Profiles - доступні моделі
+# LLM Profiles (використовуємо лише доступні qwen3 моделі)
 # ============================================================================
 llm_profiles:
-  # Локальна модель через Ollama (основна для DevTools)
   local_qwen3_8b:
     provider: ollama
     base_url: http://172.17.0.1:11434
@@ -20,9 +19,78 @@ llm_profiles:
     temperature: 0.2
     top_p: 0.9
     timeout_ms: 30000
-    description: "Локальна qwen3:8b для простих dev-задач"
+    description: "Базова qwen3:8b для інфраструктурних задач"
 
-  # DeepSeek для складних задач (опціонально)
+  qwen3_strategist_8b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen3:8b
+    max_tokens: 2048
+    temperature: 0.15
+    top_p: 0.7
+    timeout_ms: 32000
+    description: "Стримана qwen3:8b для стратегічних агентів (Daarwizz, Yaromir, Orchestrator)"
+
+  qwen3_support_8b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen3:8b
+    max_tokens: 1536
+    temperature: 0.35
+    top_p: 0.88
+    timeout_ms: 28000
+    description: "Підтримка/CRM тон для GREENFOOD, CLAN"
+
+  qwen3_science_8b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen3:8b
+    max_tokens: 2048
+    temperature: 0.1
+    top_p: 0.65
+    timeout_ms: 40000
+    description: "Наукові агенти (Helion, DRUID, Nutra, Monitor)"
+
+  qwen3_creative_8b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen3:8b
+    max_tokens: 2048
+    temperature: 0.6
+    top_p: 0.92
+    timeout_ms: 32000
+    description: "Комʼюніті та мультимодальні агенти (Soul, EONARCH)"
+
+  qwen3_vision_8b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen3-vl:8b
+    max_tokens: 2048
+    temperature: 0.2
+    top_p: 0.9
+    timeout_ms: 60000
+    description: "Vision qwen3 для EONARCH/Helion"
+
+  qwen2_5_3b_service:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: qwen2.5:3b-instruct-q4_K_M
+    max_tokens: 768
+    temperature: 0.2
+    top_p: 0.85
+    timeout_ms: 20000
+    description: "Легка qwen2.5 3B для службових повідомлень та monitor ботів"
+
+  mistral_community_7b:
+    provider: ollama
+    base_url: http://172.17.0.1:11434
+    model: mistral:7b-instruct
+    max_tokens: 2048
+    temperature: 0.35
+    top_p: 0.9
+    timeout_ms: 32000
+    description: "Mistral 7B для CRM/community агентів (GREENFOOD, CLAN, SOUL, EONARCH)"
+
   cloud_deepseek:
     provider: deepseek
     base_url: https://api.deepseek.com
@@ -31,10 +99,10 @@ llm_profiles:
     max_tokens: 2048
     temperature: 0.2
     timeout_ms: 40000
-    description: "DeepSeek для складних аналітичних задач"
+    description: "DeepSeek для важких DevTools задач (опційно)"
 
 # ============================================================================
-# Orchestrator Providers - multi-agent workflow orchestration
+# Orchestrator Providers
 # ============================================================================
 orchestrator_providers:
   crewai:
@@ -42,12 +110,11 @@ orchestrator_providers:
     base_url: http://localhost:9010
     timeout_ms: 120000
     description: "CrewAI multi-agent workflow orchestrator"
-  
   vision_encoder:
     type: vision
     base_url: http://vision-encoder:8001
     timeout_ms: 30000
-    description: "Vision Encoder (OpenCLIP ViT-L/14) for text/image embeddings"
+    description: "Vision Encoder (OpenCLIP ViT-L/14)"
 
 # ============================================================================
 # Agents Configuration
@@ -63,8 +130,8 @@ agents:
       - рефакторингом
       - написанням тестів
       - git операціями
-      Відповідай коротко, конкретно, з прикладами коду коли потрібно.
-    
+      Відповідай коротко, конкретно, із прикладами коду.
+      Якщо у чаті є інші агенти (username закінчується на Bot) — мовчи, доки не отримуєш прямий тег чи питання по DevTools.
     tools:
       - id: fs_read
         type: builtin
@@ -83,158 +150,413 @@ agents:
         description: "Git commit"
 
   microdao_orchestrator:
-    description: "Multi-agent orchestrator for microDAO workflows"
-    default_llm: local_qwen3_8b
+    description: "Multi-agent orchestrator for MicroDAO workflows"
+    default_llm: qwen3_strategist_8b
     system_prompt: |
-      You are a multi-agent orchestrator for DAARION.city microDAO ecosystem.
-      You coordinate complex workflows involving multiple specialized agents.
-  
+      You are the central router/orchestrator for DAARION.city MicroDAO.
+      Coordinate multiple agents, respect RBAC, escalate only when needed.
+      Detect other bots (usernames ending with Bot or known agents) and respond only when orchestration context is required.
+
+  daarwizz:
+    description: "DAARWIZZ — головний оркестратор DAARION Core"
+    default_llm: qwen3_strategist_8b
+    system_prompt: |
+      Ти — DAARWIZZ, головний стратег MicroDAO DAARION.city.
+      Тримаєш контекст roadmap, delegation, crew-команд.
+      В групах відповідай лише при прямому зверненні або якщо питання стосується DAARION Core.
+      Розпізнавай інших агентів за ніками (суфікс Bot) і узгоджуй дії як колега.
+
   greenfood:
-    description: "GREENFOOD Assistant - ERP orchestrator for craft food producers"
-    default_llm: local_qwen3_8b
+    description: "GREENFOOD Assistant - ERP orchestrator"
+    default_llm: mistral_community_7b
     system_prompt: |
-      Ти — GREENFOOD Assistant, фронтовий оркестратор ERP-системи для крафтових виробників, хабів та покупців.
-      Твоя місія: зрозуміти, хто з тобою говорить (комітент, менеджер складу, логіст, бухгалтер, маркетолог, покупець), 
-      виявити намір і делегувати завдання спеціалізованим агентам GREENFOOD.
-      
-      У твоєму розпорядженні 12 спеціалізованих агентів:
-      - Product & Catalog (каталог товарів)
-      - Batch & Quality (партії та якість)
-      - Vendor Success (успіх комітентів)
-      - Warehouse (склад)
-      - Logistics & Delivery (доставка)
-      - Seller (продажі)
-      - Customer Care (підтримка)
-      - Finance & Pricing (фінанси)
-      - SMM & Campaigns (маркетинг)
-      - SEO & Web (SEO)
-      - Analytics & BI (аналітика)
-      - Compliance & Audit (аудит)
-      
-      Відповідай українською, чітко та по-діло вому.
-  
+      Ти — GREENFOOD Assistant, фронтовий оркестратор ERP-системи для крафтових виробників.
+      Розумій, хто з тобою говорить (комітент, покупець, склад, бухгалтер), та делегуй задачі відповідним під-агентам.
+      Якщо у чаті присутні інші агенти (ніки з Bot) — не перебивай, поки тема не стосується ERP/постачань.
+    tools:
+      - id: image_generation
+        type: tool
+        endpoint: http://image-gen-service:9600/image/generate
+        description: "Етикетки, маркетинг"
+      - id: web_search
+        type: external
+        endpoint: http://localhost:8897/api/search
+        description: "Пошук постачальників/ринків"
+      - id: vision
+        type: llm
+        model: qwen3-vl:8b
+        description: "Візуальний контроль партій"
+      - id: ocr
+        type: external
+        endpoint: http://localhost:8896/api/ocr
+        description: "Зчитування накладних"
+
+  clan:
+    description: "CLAN — комунікації кооперативів"
+    default_llm: mistral_community_7b
+    system_prompt: |
+      Ти — CLAN, координуєш комунікацію, оголошення та community operations.
+      Відповідай лише коли тема стосується координації, а звернення адресовано тобі (тег @ClanBot чи згадка кланів).
+      Розпізнавай ботів за username та погоджуй з ними дії.
+
+  soul:
+    description: "SOUL / Spirit — духовний гід комʼюніті"
+    default_llm: mistral_community_7b
+    system_prompt: |
+      Ти — Spirit/SOUL, ментор живої операційної системи.
+      Пояснюй місію, підтримуй мораль, працюй із soft-skills.
+      У групах відповідай тільки на духовні/ціннісні питання або коли кличуть @SoulBot.
+
+  druid:
+    description: "DRUID — R&D агент з косметології та eco design"
+    default_llm: qwen3_science_8b
+    system_prompt: |
+      Ти — DRUID AI, експерт з космецевтики, біохімії та сталого дизайну.
+      Працюй з формулами, стехіометрією, етичними ланцюгами постачання.
+      В групах аналізуй, чи звертаються до тебе (нік/тег @DruidBot) і мовчи, якщо тема не наукова.
+    tools:
+      - id: web_search
+        type: external
+        endpoint: http://localhost:8897/api/search
+        description: "Наукові статті"
+      - id: math
+        type: tool
+        description: "Хімічні/математичні обчислення"
+      - id: data_analysis
+        type: tool
+        description: "Аналіз лабораторних даних"
+      - id: chemistry
+        type: tool
+        description: "Моделювання реакцій"
+      - id: biology
+        type: tool
+        description: "Біологічні взаємодії"
+      - id: units
+        type: tool
+        description: "Конвертація одиниць"
+      - id: vision
+        type: llm
+        model: qwen3-vl:8b
+        description: "Аналіз фото формул/упаковок"
+      - id: ocr
+        type: external
+        endpoint: http://localhost:8896/api/ocr
+        description: "Зчитування етикеток"
+
+  nutra:
+    description: "NUTRA — нутріцевтичний агент"
+    default_llm: qwen3_science_8b
+    system_prompt: |
+      Ти — NUTRA, допомагаєш з формулами нутрієнтів, біомедичних добавок та лабораторних інтерпретацій.
+      Відповідай з науковою точністю, посилайся на джерела, якщо можливо.
+      Слідкуй, щоб не втручатися у чужі теми — відповідай лише при прямому зверненні чи темах нутріцівтики.
+    tools:
+      - id: web_search
+        type: external
+        endpoint: http://localhost:8897/api/search
+        description: "Пошук клінічних досліджень"
+      - id: math
+        type: tool
+        description: "Дозування/конверсії"
+      - id: data_analysis
+        type: tool
+        description: "Лабораторні таблиці"
+      - id: biology
+        type: tool
+        description: "Фізіологічні взаємодії"
+      - id: units
+        type: tool
+        description: "Конвертація одиниць"
+      - id: ocr
+        type: external
+        endpoint: http://localhost:8896/api/ocr
+        description: "Зчитування протоколів"
+
+  eonarch:
+    description: "EONARCH — мультимодальний агент (vision + chat)"
+    default_llm: mistral_community_7b
+    system_prompt: |
+      Ти — EONARCH, аналізуєш зображення, PDF та текстові запити.
+      Враховуй присутність інших ботів та працюй лише за прямим тегом або коли потрібно мультимодальне тлумачення.
+    tools:
+      - id: vision
+        type: llm
+        model: qwen3-vl:8b
+        description: "Vision reasoning"
+      - id: ocr
+        type: external
+        endpoint: http://localhost:8896/api/ocr
+        description: "Видобуток тексту"
+      - id: image_generation
+        type: tool
+        endpoint: http://image-gen-service:9600/image/generate
+        description: "Мокапи, схеми"
+
   helion:
     description: "Helion - AI agent for Energy Union platform"
-    default_llm: local_qwen3_8b
+    default_llm: qwen3_science_8b
     system_prompt: |
       Ти - Helion, AI-агент платформи Energy Union.
       Допомагай користувачам з технологіями EcoMiner/BioMiner, токеномікою та DAO governance.
-      
-      Твої основні функції:
-      - Консультації з енергетичними технологіями (сонячні панелі, вітряки, біогаз)
-      - Пояснення токеноміки Energy Union (ENERGY токен, стейкінг, винагороди)
-      - Допомога з onboarding в DAO
-      - Відповіді на питання про EcoMiner/BioMiner устаткування
+      - Консультуй щодо hardware, стейкінгу, інфраструктури.
+      - Аналізуй PDF/зображення, коли просять.
+      - В групах мовчи, доки тема не про енергетику або немає тегу @HelionBot.
+      Визначай інших агентів за ніком (суфікс Bot) і спілкуйся як з колегами.
+    tools:
+      - id: web_search
+        type: external
+        endpoint: http://localhost:8897/api/search
+        description: "Пошук технічних статей"
+      - id: crawl_url
+        type: tool
+        endpoint: http://dagi-parser:9400/crawl
+        description: "Глибокий парсинг URL"
+      - id: math
+        type: tool
+        description: "Енергетичні розрахунки"
+      - id: data_analysis
+        type: tool
+        description: "Обробка сенсорних даних"
+      - id: graph
+        type: tool
+        description: "Аналіз мережевих графів"
+      - id: units
+        type: tool
+        description: "Конвертація енергетичних одиниць"
+      - id: vision
+        type: llm
+        model: qwen3-vl:8b
+        description: "Опис технічних схем"
+      - id: ocr
+        type: external
+        endpoint: http://localhost:8896/api/ocr
+        description: "OCR креслень"
+
+  yaromir:
+    description: "Yaromir CrewAI (Вождь/Проводник/Домир/Создатель)"
+    default_llm: qwen3_strategist_8b
+    system_prompt: |
+      Ти — Yaromir Crew. Стратегія, наставництво, психологічна підтримка команди.
+      Розрізняй інших ботів за ніком та відповідай лише на стратегічні запити.
+
+  monitor:
+    description: "Monitor Agent - архітектор-інспектор DAGI"
+    default_llm: qwen2_5_3b_service
+    system_prompt: |
+      Ти - Monitor Agent, стежиш за нодами, сервісами, агентами.
+      Якщо бачиш у чаті інших ботів, відповідай тільки за інфраструктурою або прямим тегом.
+    tools:
+      - id: get_metrics
+        type: builtin
+      - id: check_health
+        type: builtin
 
 # ============================================================================
-# Routing Rules - правила маршрутизації
+# Routing Rules
 # ============================================================================
 routing:
-  # microDAO chat mode
   - id: microdao_chat
     priority: 10
     when:
       mode: chat
     use_llm: local_qwen3_8b
-    description: "microDAO chat → local LLM with RBAC context"
+    description: "microDAO chat → local qwen3"
 
-  # Q&A Builder mode (for parser-service 2-stage pipeline)
   - id: qa_build_mode
     priority: 8
     when:
       mode: qa_build
     use_llm: local_qwen3_8b
-    description: "Q&A generation from parsed documents → local LLM"
+    description: "Q&A generation from parsed docs"
 
-  # RAG Query mode (RAG + Memory → LLM)
   - id: rag_query_mode
     priority: 7
     when:
       mode: rag_query
     use_llm: local_qwen3_8b
-    description: "RAG query with Memory context → local LLM"
+    description: "RAG query with Memory"
 
-  # NEW: CrewAI workflow orchestration
   - id: crew_mode
     priority: 3
     when:
       mode: crew
     use_provider: orchestrator_crewai
-    description: "CrewAI workflow orchestration → CrewAI backend"
+    description: "CrewAI workflow orchestration"
 
-  # Vision Encoder - text/image embeddings
   - id: vision_encoder_embed
     priority: 3
     when:
       mode: vision_embed
     use_provider: vision_encoder
-    description: "Text/Image embeddings → Vision Encoder (OpenCLIP ViT-L/14)"
+    description: "Vision embeddings"
 
-  # DevTools tool execution mode
   - id: devtools_tool_execution
     priority: 3
     when:
       mode: devtools
     use_provider: devtools_devtools
-    description: "DevTools tool execution → DevTools backend"
+    description: "DevTools sandbox/actions"
 
-  # Explicit override через metadata.provider
   - id: explicit_provider_override
     priority: 5
     when:
       metadata_has: provider
     use_metadata: provider
-    description: "Явний вибір провайдера через metadata.provider"
+    description: "Explicit provider override"
 
-
-  # Helion Energy Union Agent
-  - id: helion_agent
-    priority: 5
+  - id: greenfood_cloud_override
+    priority: 4
     when:
-      agent: helion
-    use_llm: local_qwen3_8b
-    use_context_prompt: true
-    description: "Helion agent for Energy Union → uses context.system_prompt"
-  # DevTools + складні задачі → DeepSeek (якщо є API key)
+      agent: greenfood
+      metadata_equals:
+        requires_complex_reasoning: true
+    use_llm: cloud_deepseek
+    description: "GREENFOOD складні запити → DeepSeek"
+
+  - id: clan_cloud_override
+    priority: 4
+    when:
+      agent: clan
+      metadata_equals:
+        requires_complex_reasoning: true
+    use_llm: cloud_deepseek
+    description: "CLAN складні запити → DeepSeek"
+
+  - id: soul_cloud_override
+    priority: 4
+    when:
+      agent: soul
+      metadata_equals:
+        requires_complex_reasoning: true
+    use_llm: cloud_deepseek
+    description: "SOUL складні запити → DeepSeek"
+
+  - id: eonarch_cloud_override
+    priority: 4
+    when:
+      agent: eonarch
+      metadata_equals:
+        requires_complex_reasoning: true
+    use_llm: cloud_deepseek
+    description: "EONARCH складні запити → DeepSeek"
+
   - id: devtools_complex_cloud
     priority: 10
     when:
       agent: devtools
       and:
-        - task_type: 
+        - task_type:
             - refactor_large
             - architecture_review
             - security_audit
             - performance_analysis
         - api_key_available: DEEPSEEK_API_KEY
     use_llm: cloud_deepseek
-    description: "Складні DevTools задачі → DeepSeek"
+    description: "Тяжкі DevTools задачі → DeepSeek"
 
-  # DevTools + всі інші задачі → qwen3:8b (локально)
   - id: devtools_default_local
     priority: 20
     when:
       agent: devtools
     use_llm: local_qwen3_8b
-    description: "Стандартні DevTools задачі → локальна qwen3:8b"
+    description: "Будь-які інші DevTools задачі"
 
-  # microDAO orchestrator → CrewAI
-  - id: microdao_orchestrator
-    priority: 15
+  - id: microdao_orchestrator_agent
+    priority: 5
     when:
       agent: microdao_orchestrator
-    use_provider: orchestrator_crewai
-    description: "microDAO workflows → CrewAI orchestrator"
+    use_llm: qwen3_strategist_8b
+    use_context_prompt: true
+    description: "Оркестратор → стратегічний профіль"
 
-  # Fallback - будь-який інший запит → qwen3:8b
+  - id: daarwizz_agent
+    priority: 5
+    when:
+      agent: daarwizz
+    use_llm: qwen3_strategist_8b
+    use_context_prompt: true
+    description: "Daarwizz orchestrator"
+
+  - id: greenfood_agent
+    priority: 5
+    when:
+      agent: greenfood
+    use_llm: mistral_community_7b
+    use_context_prompt: true
+    description: "GREENFOOD ERP"
+
+  - id: clan_agent
+    priority: 5
+    when:
+      agent: clan
+    use_llm: mistral_community_7b
+    use_context_prompt: true
+    description: "CLAN community operations"
+
+  - id: soul_agent
+    priority: 5
+    when:
+      agent: soul
+    use_llm: mistral_community_7b
+    use_context_prompt: true
+    description: "SOUL / Spirit мотивація"
+
+  - id: druid_agent
+    priority: 5
+    when:
+      agent: druid
+    use_llm: qwen3_science_8b
+    use_context_prompt: true
+    description: "DRUID science"
+
+  - id: nutra_agent
+    priority: 5
+    when:
+      agent: nutra
+    use_llm: qwen3_science_8b
+    use_context_prompt: true
+    description: "NUTRA science"
+
+  - id: eonarch_agent
+    priority: 5
+    when:
+      agent: eonarch
+    use_llm: mistral_community_7b
+    use_context_prompt: true
+    description: "EONARCH vision"
+
+  - id: helion_agent
+    priority: 5
+    when:
+      agent: helion
+    use_llm: qwen3_science_8b
+    use_context_prompt: true
+    description: "Helion energy"
+
+  - id: yaromir_agent
+    priority: 5
+    when:
+      agent: yaromir
+    use_llm: qwen3_strategist_8b
+    use_context_prompt: true
+    description: "Yaromir crew"
+
+  - id: monitor_agent
+    priority: 5
+    when:
+      agent: monitor
+    use_llm: qwen2_5_3b_service
+    use_context_prompt: true
+    description: "Моніторинг інфраструктури"
+
   - id: fallback_local
     priority: 100
     when: {}
     use_llm: local_qwen3_8b
-    description: "Fallback: всі інші запити → qwen3:8b"
+    description: "Fallback: всі інші запити → базова qwen3"
 
 # ============================================================================
-# Telemetry & Logging
+# Telemetry & Policies
 # ============================================================================
 telemetry:
   enabled: true
@@ -244,9 +566,6 @@ telemetry:
     - latency_ms
     - tokens_used
 
-# ============================================================================
-# Policies
-# ============================================================================
 policies:
   rate_limit:
     enabled: false

@@ -36,6 +36,14 @@ class BotsRegistry:
         for bot_config in bot_configs:
             self.register_from_config(bot_config)
 
+    def unregister(self, agent_id: str) -> Optional[str]:
+        """Видалити бота за agent_id та повернути bot_token"""
+        bot_token = self._agent_to_token.pop(agent_id, None)
+        if bot_token:
+            self._token_to_agent.pop(bot_token, None)
+            logger.info(f"Unregistered bot: agent_id={agent_id}, token={bot_token[:8]}...")
+        return bot_token
+
     def get_token_by_agent(self, agent_id: str) -> Optional[str]:
         return self._agent_to_token.get(agent_id)
 

@@ -65,14 +65,16 @@ class RouterHandler:
     async def _handle_telegram_event(self, event: TelegramUpdateEvent):
         """Обробити подію Telegram та викликати Router"""
         try:
+            metadata = event.metadata or {}
+
             # Обробка фото (Vision Encoder)
-            if event.metadata and "photo" in event.metadata:
-                await self._handle_photo(event)
+            if "photo" in metadata:
+                await self._handle_photo(event, metadata)
                 return
             
             # Обробка документів (Parser Service)
-            if event.metadata and "document" in event.metadata:
-                await self._handle_document(event)
+            if "document" in metadata:
+                await self._handle_document(event, metadata)
                 return
             
             # Звичайні текстові повідомлення
@@ -160,7 +162,8 @@ class RouterHandler:
             logger.info(f"📤 Sending response: agent={event.agent_id}, chat={event.chat_id}, len={len(answer)}")
             
             # Перевірити чи треба відповідати голосом (якщо користувач надіслав voice)
-            should_reply_voice = event.raw_update.get("voice") or event.raw_update.get("audio") or event.raw_update.get("video_note")
+            raw_update = event.raw_update or {}
+            should_reply_voice = raw_update.get("voice") or raw_update.get("audio") or raw_update.get("video_note")
             
             if should_reply_voice:
                 # Синтезувати голос
@@ -203,17 +206,16 @@ class RouterHandler:
         except Exception as e:
             logger.error(f"❌ Error handling Telegram event: {e}", exc_info=True)
     
-    async def _handle_photo(self, event: TelegramUpdateEvent):
+    async def _handle_photo(self, event: TelegramUpdateEvent, metadata: Dict[str, Any]):
         """Обробити фото через Swapper vision-8b модель"""
         try:
-            photo_info = event.metadata.get("photo", {})
+            photo_info = metadata.get("photo", {})
             file_url = photo_info.get("file_url", "")
             caption = event.text or ""
             
             logger.info(f"🖼️ Processing photo: agent={event.agent_id}, url={file_url[:50]}...")
             
             # Відправити до Router з specialist_vision_8b через Swapper
-            router_url = os.getenv("ROUTER_URL", "http://router:9102")
             router_request = {
                 "message": f"Опиши це зображення детально: {file_url}",
                 "mode": "chat",
@@ -231,7 +233,7 @@ class RouterHandler:
             
             try:
                 async with httpx.AsyncClient(timeout=90.0) as client:
-                    response = await client.post(f"{router_url}/route", json=router_request)
+                    response = await client.post(f"{self._router_url}/route", json=router_request)
                     response.raise_for_status()
                     result = response.json()
                     
@@ -274,10 +276,10 @@ class RouterHandler:
             except:
                 pass
     
-    async def _handle_document(self, event: TelegramUpdateEvent):
+    async def _handle_document(self, event: TelegramUpdateEvent, metadata: Dict[str, Any]):
         """Обробити PDF через Parser Service"""
         try:
-            doc_info = event.metadata.get("document", {})
+            doc_info = metadata.get("document", {})
             file_url = doc_info.get("file_url", "")
             file_name = doc_info.get("file_name", "document.pdf")
             

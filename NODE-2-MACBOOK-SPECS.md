@@ -106,13 +106,20 @@
 - **Location:** `/opt/homebrew/bin/ollama`
 - **Running Instances:**
   - **Native macOS:** Port 11434 (via Pieces OS)
-  - **Docker Container:** Port 11435 (ollama-ai)
-- **Installed Models:**
-  - **qwen2.5:7b-instruct** (4.7 GB, Q4_K_M) — Main reasoning model, 7.6B params
-  - **qwen2.5:1.5b-instruct** (986 MB, Q4_K_M) — Lightweight model, 1.5B params
+  - **Docker Container:** Port 11435 (ollama-ai) — не працює
+- **Installed Models (8 моделей, завантажено 2025-11-21):**
+  - **mistral-nemo:12b** (7.1 GB, Q4_0, 12.2B params) — Mistral Nemo
+  - **gemma2:27b** (15 GB, Q4_0, 27.2B params) — Google Gemma 2
+  - **deepseek-coder:33b** (18 GB, Q4_0, 33B params) — Code generation
+  - **qwen2.5-coder:32b** (19 GB, Q4_K_M, 32.8B params) — Qwen code model
+  - **deepseek-r1:70b** (42 GB, Q4_K_M, 70.6B params) — Reasoning model
+  - **starcoder2:3b** (1.7 GB, Q4_0, 3B params) — Lightweight code model
+  - **phi3:latest** (2.2 GB, Q4_0, 3.8B params) — Microsoft Phi-3
+  - **gpt-oss:latest** (13 GB, MXFP4, 20.9B params) — Open source GPT
+- **Total Model Size:** ~118 GB
 - **API Endpoints:**
   - Native: `http://localhost:11434/api/tags`
-  - Docker: `http://localhost:11435/api/tags`
+  - Docker: `http://localhost:11435/api/tags` (не працює)
 
 #### Python
 - **Version:** Python 3.14.0 (latest)
@@ -445,12 +452,16 @@ docker exec dagi-postgres pg_isready
 
 ---
 
-**Last Updated:** 2025-01-17 by WARP AI  
+**Last Updated:** 2025-11-22 by WARP AI  
 **Maintained by:** Ivan Tytar  
-**Status:** ✅ Development Ready (Services Partially Running)  
+**Status:** ✅ Development Ready (8 AI Models Installed, Services Partially Running)  
+**Recent Updates:**
+- ✅ 2025-11-21: Завантажено 8 великих моделей Ollama (~118 GB)
+- ✅ Моделі включають: code models (deepseek-coder, qwen2.5-coder, starcoder2), reasoning (deepseek-r1:70b), general (gemma2, mistral-nemo, phi3, gpt-oss)
 **Next Steps:**
 1. Install missing Python packages: `pip3 install fastapi uvicorn`
 2. Start core DAGI services: Router, Memory, DevTools
 3. Fix Qdrant unhealthy status (check logs: `docker logs qdrant-vector-db`)
 4. Configure node-to-node communication with Node #1
 5. Set up PostgreSQL for DAARION core memory
+6. Test new models with DAGI Router (configure routing for different models)

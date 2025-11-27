@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web-search-service:
+    build: .
+    container_name: dagi-web-search-service
+    ports:
+      - "8897:8897"
+    environment:
+      - SEARCH_ENGINE=duckduckgo
+      - MAX_RESULTS=10
+    volumes:
+      - ./app:/app/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8897/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+

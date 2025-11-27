@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings, load_bots_config
 from .models import BotRegistration, TelegramSendCommand
@@ -14,6 +15,21 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO if settings.DEBUG else logging.WARNING)
 
 app = FastAPI(title="telegram-gateway", version="0.1.0")
+
+ALLOWED_ORIGINS = [
+    "http://localhost:8899",
+    "http://127.0.0.1:8899",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -102,11 +118,34 @@ async def register_bot(reg: BotRegistration):
     return {"status": "registered", "agent_id": reg.agent_id}
 
 
+@app.delete("/bots/{agent_id}")
+async def unregister_bot(agent_id: str):
+    """Відключити бота та зупинити polling"""
+    bot_token = bots_registry.unregister(agent_id)
+    if not bot_token:
+        raise HTTPException(status_code=404, detail="Bot not registered")
+
+    await telegram_listener.remove_bot(bot_token)
+    await nats_client.publish_json(
+        subject="bot.unregistered",
+        data={"agent_id": agent_id, "bot_token": bot_token[:8] + "..."},
+    )
+
+    return {"status": "unregistered", "agent_id": agent_id}
+
+
 @app.get("/bots/list")
 async def list_bots():
     """Повернути список зареєстрованих ботів"""
     agents = bots_registry.list_agents()
     return {"bots": agents, "count": len(agents)}
+
+
+@app.get("/bots/status/{agent_id}")
+async def bot_status(agent_id: str):
+    """Повернути статус конкретного бота"""
+    status = telegram_listener.get_status(agent_id)
+    return status
 
 
 @app.post("/send")

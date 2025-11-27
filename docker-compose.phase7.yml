@@ -1,0 +1,291 @@
+# Docker Compose для PHASE 7: microDAO Console (MVP)
+# microdao-service + agents-service + всі попередні сервіси
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Infrastructure
+  # ============================================================================
+  
+  postgres:
+    image: postgres:15-alpine
+    container_name: daarion-postgres
+    environment:
+      POSTGRES_DB: daarion
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  nats:
+    image: nats:latest
+    container_name: daarion-nats
+    command: "--jetstream"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  # ============================================================================
+  # PHASE 7: MicroDAO Console
+  # ============================================================================
+  
+  microdao-service:
+    build: ./services/microdao-service
+    container_name: daarion-microdao-service
+    ports:
+      - "7015:7015"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+      AGENTS_SERVICE_URL: "http://agents-service:7014"
+      MESSAGING_SERVICE_URL: "http://messaging-service:7004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7015/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  # ============================================================================
+  # PHASE 6: Agent Lifecycle (CRUD + Events + Live WS)
+  # ============================================================================
+  
+  agents-service:
+    build: ./services/agents-service
+    container_name: daarion-agents-service
+    ports:
+      - "7014:7014"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      MEMORY_ORCHESTRATOR_URL: "http://memory-orchestrator:7008"
+      USAGE_ENGINE_URL: "http://usage-engine:7013"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      memory-orchestrator:
+        condition: service_started
+      usage-engine:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7014/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  # ============================================================================
+  # PHASE 4: Security Layer
+  # ============================================================================
+  
+  auth-service:
+    build: ./services/auth-service
+    container_name: daarion-auth-service
+    ports:
+      - "7011:7011"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      JWT_SECRET: "your-secret-key-change-in-production"
+      RP_ID: "localhost"
+      RP_NAME: "DAARION"
+      ORIGIN: "http://localhost:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7011/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  pdp-service:
+    build: ./services/pdp-service
+    container_name: daarion-pdp-service
+    ports:
+      - "7012:7012"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+    volumes:
+      - ./services/pdp-service/config.yaml:/app/config.yaml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7012/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  usage-engine:
+    build: ./services/usage-engine
+    container_name: daarion-usage-engine
+    ports:
+      - "7013:7013"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7013/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  # ============================================================================
+  # PHASE 3: LLM Stack
+  # ============================================================================
+  
+  llm-proxy:
+    build: ./services/llm-proxy
+    container_name: daarion-llm-proxy
+    ports:
+      - "7007:7007"
+    environment:
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY}"
+      NATS_URL: "nats://nats:4222"
+      INTERNAL_SECRET: "dev-secret-token"
+    volumes:
+      - ./services/llm-proxy/config.yaml:/app/config.yaml:ro
+    depends_on:
+      - nats
+  
+  memory-orchestrator:
+    build: ./services/memory-orchestrator
+    container_name: daarion-memory-orchestrator
+    ports:
+      - "7008:7008"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+  
+  toolcore:
+    build: ./services/toolcore
+    container_name: daarion-toolcore
+    ports:
+      - "7009:7009"
+    environment:
+      TOOLCORE_SECRET: "dev-secret-token"
+    volumes:
+      - ./services/toolcore/config.yaml:/app/config.yaml:ro
+  
+  # ============================================================================
+  # PHASE 2: Agent Stack
+  # ============================================================================
+  
+  agent-filter:
+    build: ./services/agent-filter
+    container_name: daarion-agent-filter
+    ports:
+      - "7005:7005"
+    environment:
+      NATS_URL: "nats://nats:4222"
+      MESSAGING_SERVICE_URL: "http://messaging-service:7004"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      - nats
+  
+  dagi-router:
+    build: ./services/dagi-router
+    container_name: daarion-dagi-router
+    ports:
+      - "7006:7006"
+    environment:
+      NATS_URL: "nats://nats:4222"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      - nats
+  
+  agent-runtime:
+    build: ./services/agent-runtime
+    container_name: daarion-agent-runtime
+    ports:
+      - "7010:7010"
+    environment:
+      NATS_URL: "nats://nats:4222"
+      LLM_PROXY_URL: "http://llm-proxy:7007"
+      AGENT_MEMORY_URL: "http://memory-orchestrator:7008"
+      MESSAGING_SERVICE_URL: "http://messaging-service:7004"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      - nats
+      - llm-proxy
+      - memory-orchestrator
+      - pdp-service
+  
+  # ============================================================================
+  # PHASE 1: Core Services
+  # ============================================================================
+  
+  messaging-service:
+    build: ./services/messaging-service
+    container_name: daarion-messaging-service
+    ports:
+      - "7004:7004"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      MATRIX_GATEWAY_URL: "http://matrix-gateway:7003"
+      MATRIX_GATEWAY_SECRET: "dev-secret-token"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: daarion-network
+

@@ -24,6 +24,11 @@ scrape_configs:
   - job_name: 'dagi-router'
     static_configs:
       - targets: ['dagi-router:9102']
+        labels:
+          service: 'dagi-router'
+          node_id: 'node-1-hetzнер-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 10s
 
@@ -31,6 +36,11 @@ scrape_configs:
   - job_name: 'telegram-gateway'
     static_configs:
       - targets: ['telegram-gateway:8000']
+        labels:
+          service: 'telegram-gateway'
+          node_id: 'node-1-hetzнер-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 10s
 
@@ -38,6 +48,11 @@ scrape_configs:
   - job_name: 'dagi-gateway'
     static_configs:
       - targets: ['dagi-gateway:9300']
+        labels:
+          service: 'dagi-gateway'
+          node_id: 'node-1-hetzнер-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 10s
 
@@ -45,6 +60,11 @@ scrape_configs:
   - job_name: 'dagi-rbac'
     static_configs:
       - targets: ['dagi-rbac:9200']
+        labels:
+          service: 'dagi-rbac'
+          node_id: 'node-1-hetzнер-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 15s
 
@@ -52,6 +72,11 @@ scrape_configs:
   - job_name: 'dagi-crewai'
     static_configs:
       - targets: ['dagi-crewai:9010']
+        labels:
+          service: 'dagi-crewai'
+          node_id: 'node-1-hetzнер-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 15s
 
@@ -59,6 +84,11 @@ scrape_configs:
   - job_name: 'dagi-parser'
     static_configs:
       - targets: ['dagi-parser:9400']
+        labels:
+          service: 'dagi-parser'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 20s
 
@@ -66,6 +96,11 @@ scrape_configs:
   - job_name: 'dagi-vision-encoder'
     static_configs:
       - targets: ['dagi-vision-encoder:8001']
+        labels:
+          service: 'dagi-vision-encoder'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 20s
 
@@ -73,6 +108,11 @@ scrape_configs:
   - job_name: 'dagi-devtools'
     static_configs:
       - targets: ['dagi-devtools:8008']
+        labels:
+          service: 'dagi-devtools'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 15s
 
@@ -80,6 +120,11 @@ scrape_configs:
   - job_name: 'dagi-stt'
     static_configs:
       - targets: ['dagi-stt:9000']
+        labels:
+          service: 'dagi-stt'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 20s
 
@@ -87,6 +132,11 @@ scrape_configs:
   - job_name: 'dagi-tts'
     static_configs:
       - targets: ['dagi-tts:9101']
+        labels:
+          service: 'dagi-tts'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 20s
 
@@ -94,6 +144,11 @@ scrape_configs:
   - job_name: 'dagi-qdrant'
     static_configs:
       - targets: ['dagi-qdrant:6333']
+        labels:
+          service: 'dagi-qdrant'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 30s
 
@@ -101,6 +156,11 @@ scrape_configs:
   - job_name: 'nats'
     static_configs:
       - targets: ['nats:8222']
+        labels:
+          service: 'nats'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/varz'
     scrape_interval: 15s
 
@@ -108,6 +168,11 @@ scrape_configs:
   - job_name: 'postgres'
     static_configs:
       - targets: ['dagi-postgres:5432']
+        labels:
+          service: 'postgres'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     metrics_path: '/metrics'
     scrape_interval: 30s
 
@@ -115,10 +180,20 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
 
   # Docker containers (if node_exporter is installed)
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['host.docker.internal:9100']
+        labels:
+          service: 'node-exporter'
+          node_id: 'node-1-hetzner-gex44'
+          env: 'production'
+          cluster: 'daarion-prod'
     scrape_interval: 30s
 

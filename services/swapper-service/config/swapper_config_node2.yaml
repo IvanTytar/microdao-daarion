@@ -1,0 +1,90 @@
+# Swapper Configuration for Node #2 (Development Node)
+# Single-active LLM scheduler
+# MacBook Pro M4 Max - Apple Silicon (40-core GPU, 64GB RAM)
+# Auto-generated configuration with available Ollama models
+
+swapper:
+  mode: single-active
+  max_concurrent_models: 1
+  model_swap_timeout: 300
+  gpu_enabled: true
+  metal_acceleration: true  # Apple Silicon GPU acceleration
+  # Модель для автоматичного завантаження при старті (опціонально)
+  # Якщо не вказано - моделі завантажуються тільки за запитом
+  # Рекомендовано: gpt-oss:latest (швидка модель) або phi3:latest (легка модель)
+  default_model: gpt-oss:latest  # Модель активується автоматично при старті
+
+models:
+  # Fast LLM - GPT-OSS 20B (High Priority) - Main model for general tasks
+  gpt-oss-latest:
+    path: ollama:gpt-oss:latest
+    type: llm
+    size_gb: 13.0
+    priority: high
+    description: "Fast LLM for general tasks and conversations (20.9B params)"
+    
+  # Lightweight LLM - Phi3 3.8B (High Priority) - Fast responses
+  phi3-latest:
+    path: ollama:phi3:latest
+    type: llm
+    size_gb: 2.2
+    priority: high
+    description: "Lightweight LLM for fast responses (3.8B params)"
+    
+  # Code Specialist - StarCoder2 3B (Medium Priority) - Code engineering
+  starcoder2-3b:
+    path: ollama:starcoder2:3b
+    type: code
+    size_gb: 1.7
+    priority: medium
+    description: "Code specialist model for code engineering (3B params)"
+    
+  # Reasoning Model - Mistral Nemo 12.2B (High Priority) - Advanced reasoning
+  mistral-nemo-12b:
+    path: ollama:mistral-nemo:12b
+    type: llm
+    size_gb: 7.1
+    priority: high
+    description: "Advanced reasoning model for complex tasks (12.2B params)"
+    
+  # Reasoning Model - Gemma2 27B (Medium Priority) - Strategic reasoning
+  gemma2-27b:
+    path: ollama:gemma2:27b
+    type: llm
+    size_gb: 15.0
+    priority: medium
+    description: "Reasoning model for strategic tasks (27.2B params)"
+    
+  # Code Specialist - DeepSeek Coder 33B (High Priority) - Advanced code tasks
+  deepseek-coder-33b:
+    path: ollama:deepseek-coder:33b
+    type: code
+    size_gb: 18.0
+    priority: high
+    description: "Advanced code specialist model (33B params)"
+    
+  # Code Specialist - Qwen2.5 Coder 32B (High Priority) - Advanced code tasks
+  qwen2.5-coder-32b:
+    path: ollama:qwen2.5-coder:32b
+    type: code
+    size_gb: 19.0
+    priority: high
+    description: "Advanced code specialist model (32.8B params)"
+    
+  # Reasoning Model - DeepSeek R1 70B (High Priority) - Strategic reasoning (large model)
+  deepseek-r1-70b:
+    path: ollama:deepseek-r1:70b
+    type: llm
+    size_gb: 42.0
+    priority: high
+    description: "Strategic reasoning model (70.6B params, quantized)"
+
+storage:
+  models_dir: /app/models
+  cache_dir: /app/cache
+  swap_dir: /app/swap
+
+ollama:
+  url: http://localhost:11434  # Native Ollama on MacBook (via Pieces OS or brew)
+  timeout: 300
+

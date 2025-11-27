@@ -25,6 +25,7 @@
     }
   },
   "include": ["src"],
+  "exclude": ["src/app.ts", "src/infra", "src/services", "src/domain", "src/api/http", "src/api/middleware"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 

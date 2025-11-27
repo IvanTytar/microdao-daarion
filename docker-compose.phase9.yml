@@ -1,0 +1,96 @@
+version: '3.8'
+
+# ============================================================================
+# DAARION Phase 9A — Living Map (Backend)
+# Extends Phase 8 with living-map-service for network state aggregation
+# ============================================================================
+
+services:
+  # Include all Phase 8 services (postgres, nats, auth, pdp, usage, agents, microdao, dao)
+  postgres:
+    image: postgres:15-alpine
+    container_name: daarion-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: daarion
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  nats:
+    image: nats:latest
+    container_name: daarion-nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: "--jetstream --store_dir=/data"
+    volumes:
+      - nats-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  auth-service:
+    build: ./services/auth-service
+    container_name: daarion-auth-service
+    ports:
+      - "7011:7011"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+
+  # ... (other services from phase8)
+
+  # ============================================================================
+  # NEW: Living Map Service (Phase 9A)
+  # ============================================================================
+
+  living-map-service:
+    build: ./services/living-map-service
+    container_name: daarion-living-map-service
+    ports:
+      - "7017:7017"
+    environment:
+      PORT: "7017"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AGENTS_SERVICE_URL: "http://agents-service:7014"
+      MICRODAO_SERVICE_URL: "http://microdao-service:7015"
+      DAO_SERVICE_URL: "http://dao-service:7016"
+      USAGE_ENGINE_URL: "http://usage-engine:7013"
+      CITY_SERVICE_URL: "http://city-service:7001"
+      SPACE_SERVICE_URL: "http://space-service:7002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7017/living-map/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres-data:
+  nats-data:
+
+networks:
+  default:
+    name: daarion-phase9
+

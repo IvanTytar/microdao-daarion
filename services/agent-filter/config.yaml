@@ -1,0 +1,18 @@
+nats:
+  servers: ["nats://nats:4222"]
+  messaging_subject: "messaging.message.created"
+  decision_subject: "agent.filter.decision"
+
+rules:
+  quiet_hours:
+    start: "23:00"
+    end: "07:00"
+  
+  default_agents:
+    "microdao:daarion": "agent:sofia"
+    "microdao:daarion-city": "agent:sofia"
+    "microdao:7": "agent:sofia"
+
+
+
+

@@ -5,7 +5,7 @@ Memory Service - FastAPI додаток
 """
 
 import os
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from datetime import datetime
 
 from fastapi import FastAPI, Depends, HTTPException, Query, Header
@@ -32,7 +32,7 @@ from app.crud import (
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://user:password@localhost:5432/microdao"
+    "sqlite:///./memory.db"  # SQLite для розробки, PostgreSQL для продакшену
 )
 
 # Створюємо engine та sessionmaker
@@ -387,6 +387,35 @@ async def delete_memory_event(
     if not success:
         raise HTTPException(status_code=404, detail="Memory event not found")
     return {"success": True}
+
+
+# ========== Monitor Events Endpoints (Batch Processing) ==========
+
+from app.monitor_events import MonitorEventBatch, MonitorEventResponse, save_monitor_events_batch, save_monitor_event_single
+
+@app.post("/api/memory/monitor-events/batch", response_model=MonitorEventResponse)
+async def save_monitor_events_batch_endpoint(
+    batch: MonitorEventBatch,
+    db: Session = Depends(get_db),
+    authorization: Optional[str] = Header(None)
+):
+    """
+    Зберегти батч подій Monitor Agent
+    Оптимізовано для збору метрик з багатьох нод
+    """
+    return await save_monitor_events_batch(batch, db, authorization)
+
+@app.post("/api/memory/monitor-events/{node_id}", response_model=AgentMemoryEventResponse)
+async def save_monitor_event_endpoint(
+    node_id: str,
+    event: Dict[str, Any],
+    db: Session = Depends(get_db),
+    authorization: Optional[str] = Header(None)
+):
+    """
+    Зберегти одну подію Monitor Agent
+    """
+    return await save_monitor_event_single(node_id, event, db, authorization)
 
 
 # ========== Token Gate Integration Endpoint ==========

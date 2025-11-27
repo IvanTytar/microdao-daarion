@@ -2,18 +2,24 @@
 
 **Для швидкого посилання в чатах та Cursor**
 
+> ⚠️ **ВАЖЛИВО:** Для нового діалогу з Cursor обов'язково використовуй:
+> - **INFRASTRUCTURE.md** - центральний файл інфраструктури
+> - **docs/infrastructure_quick_ref.ipynb** - швидкий довідник
+> 
+> Ці файли містять актуальну інформацію про сервери, сервіси, порти, ноди та endpoints.
+
 ---
 
 ## 📍 Де знаходиться проєкт
 
 **Повний шлях:**
 ```
-/Users/apple/Desktop/MicroDAO/MicroDAO 3
+/Users/apple/github-projects/microdao-daarion
 ```
 
 **Швидкий доступ:**
-- Символічне посилання: `~/Desktop/MicroDAO-QuickAccess`
-- Spotlight: `⌘ + Space` → "MicroDAO 3"
+- GitHub: `git@github.com:IvanTytar/microdao-daarion.git`
+- Локально: `/Users/apple/github-projects/microdao-daarion`
 
 ---
 
@@ -161,8 +167,14 @@ npm run dev
 ```
 
 ### Відкрити в браузері
-- Головна: http://localhost:3000
-- Онбординг: http://localhost:3000/onboarding
+- Головна: http://localhost:8899
+- Console: http://localhost:8899/console
+- НОДИ: http://localhost:8899/nodes
+- Кабінет НОДА1: http://localhost:8899/nodes/node-1
+- Кабінет НОДА2: http://localhost:8899/nodes/node-2
+- Кабінет DAARION: http://localhost:8899/microdao/daarion
+- Кабінет GREENFOOD: http://localhost:8899/microdao/greenfood
+- Кабінет ENERGY UNION: http://localhost:8899/microdao/energy-union
 
 ---
 
@@ -194,6 +206,9 @@ microDAO2: /Users/apple/Desktop/MicroDAO/MicroDAO 3
 - **Backend:** API Gateway `https://api.microdao.xyz/v1`
 - **State:** React Query, Zustand/Context
 - **LLM:** OpenAI (інтеграція через backend)
+- **Swapper Service:** Динамічне завантаження моделей (тільки в кабінетах НОД)
+- **Node Cabinets:** Повна інформація про ноди, агенти, сервіси, метрики
+- **MicroDAO Cabinets:** Управління мікроДАО, чат з оркестраторами
 
 ---
 
@@ -207,5 +222,5 @@ microDAO2: /Users/apple/Desktop/MicroDAO/MicroDAO 3
 
 ---
 
-**Останнє оновлення:** 2024-11-13
+**Останнє оновлення:** 2025-11-23
 

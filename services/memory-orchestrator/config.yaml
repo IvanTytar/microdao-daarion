@@ -1,0 +1,32 @@
+backends:
+  short_term:
+    type: "postgresql"
+    table: "agent_memories_short"
+    retention_days: 7
+  
+  mid_term:
+    type: "vector"
+    table: "agent_memories_vector"
+    embedding_dim: 1024  # BGE-M3 default
+    retention_days: 90
+  
+  long_term:
+    type: "filesystem"  # Phase 3 stub
+    path: "/data/kb"
+
+embedding:
+  provider: "local"  # or "openai"
+  model: "bge-m3"
+  endpoint: "http://localhost:8001/embed"  # Placeholder
+
+database:
+  url_env: "DATABASE_URL"
+  pool_size: 10
+
+limits:
+  max_memories_per_agent: 10000
+  max_query_results: 50
+
+
+
+

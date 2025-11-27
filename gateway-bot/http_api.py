@@ -3,6 +3,7 @@ Bot Gateway HTTP API
 Handles incoming webhooks from Telegram, Discord, etc.
 """
 import asyncio
+import base64
 import logging
 import os
 import time
@@ -123,6 +124,18 @@ GREENFOOD_CONFIG = load_agent_config(
     default_prompt="Ти — GREENFOOD Assistant, AI-ERP для крафтових виробників та кооперативів. Допомагай з обліком партій, логістикою, бухгалтерією та продажами."
 )
 
+# NUTRA Configuration
+NUTRA_CONFIG = load_agent_config(
+    agent_id="nutra",
+    name=os.getenv("NUTRA_NAME", "NUTRA"),
+    prompt_path=os.getenv(
+        "NUTRA_PROMPT_PATH",
+        str(Path(__file__).parent / "nutra_prompt.txt"),
+    ),
+    telegram_token_env="NUTRA_TELEGRAM_BOT_TOKEN",
+    default_prompt="Ти — NUTRA, нутріцевтичний агент платформи DAARION. Допомагаєш з формулами нутрієнтів, біомедичних добавок та лабораторних інтерпретацій. Консультуєш з питань харчування, вітамінів та оптимізації здоров'я."
+)
+
 # Registry of all agents (для легкого додавання нових агентів)
 # 
 # Щоб додати нового агента:
@@ -135,7 +148,26 @@ GREENFOOD_CONFIG = load_agent_config(
 #        default_prompt="Ти — New Agent, AI-агент..."
 #    )
 # 2. Додайте до реєстру:
-#    AGENT_REGISTRY["new_agent"] = NEW_AGENT_CONFIG
+# DRUID Configuration
+DRUID_CONFIG = load_agent_config(
+    agent_id="druid",
+    name=os.getenv("DRUID_NAME", "DRUID"),
+    prompt_path=os.getenv(
+        "DRUID_PROMPT_PATH",
+        str(Path(__file__).parent / "druid_prompt.txt"),
+    ),
+    telegram_token_env="DRUID_TELEGRAM_BOT_TOKEN",
+    default_prompt="Ти — DRUID, агент платформи DAARION. Допомагай користувачам з аналізом даних, рекомендаціями та інтеграцією RAG.",
+)
+
+# Registry of all agents (для легкого додавання нових агентів)
+AGENT_REGISTRY: Dict[str, AgentConfig] = {
+    "daarwizz": DAARWIZZ_CONFIG,
+    "helion": HELION_CONFIG,
+    "greenfood": GREENFOOD_CONFIG,
+    "nutra": NUTRA_CONFIG,
+    "druid": DRUID_CONFIG,
+}
 # 3. Створіть endpoint (опціонально, якщо потрібен окремий webhook):
 #    @router.post("/new_agent/telegram/webhook")
 #    async def new_agent_telegram_webhook(update: TelegramUpdate):
@@ -147,11 +179,9 @@ GREENFOOD_CONFIG = load_agent_config(
 # - Обробку голосових повідомлень (коли буде реалізовано)
 # - RAG запити по документам
 # - Memory context
-AGENT_REGISTRY: Dict[str, AgentConfig] = {
-    "daarwizz": DAARWIZZ_CONFIG,
-    "helion": HELION_CONFIG,
-    "greenfood": GREENFOOD_CONFIG,
-}
+    #    AGENT_REGISTRY["new_agent"] = NEW_AGENT_CONFIG
+    # 3. Створіть endpoint (опціонально, якщо потрібен окремий webhook):
+
 
 # Backward compatibility
 DAARWIZZ_NAME = DAARWIZZ_CONFIG.name
@@ -165,6 +195,11 @@ GREENFOOD_SYSTEM_PROMPT = GREENFOOD_CONFIG.system_prompt
 # ========================================
 # Request Models
 # ========================================
+
+# DRUID webhook endpoint
+@router.post("/druid/telegram/webhook")
+async def druid_telegram_webhook(update: TelegramUpdate):
+    return await handle_telegram_webhook(DRUID_CONFIG, update)
 
 class TelegramUpdate(BaseModel):
     """Simplified Telegram update model"""
@@ -280,6 +315,27 @@ def store_response_cache(agent_id: str, chat_id: str, text: str, answer: str) ->
         "answer": answer,
         "ts": time.time(),
     }
+
+
+def _resolve_stt_upload_url() -> str:
+    """
+    Повертає фінальний endpoint для STT upload, враховуючи налаштування.
+    Дозволяє передати або базовий URL сервісу, або повний шлях до /api/stt/upload.
+    """
+    upload_override = os.getenv("STT_SERVICE_UPLOAD_URL")
+    if upload_override:
+        return upload_override.rstrip("/")
+    
+    base_url = os.getenv("STT_SERVICE_URL", "http://172.21.0.19:8895").rstrip("/")
+    
+    if base_url.endswith("/api/stt/upload"):
+        return base_url
+    if base_url.endswith("/api/stt"):
+        return f"{base_url}/upload"
+    if base_url.endswith("/api"):
+        return f"{base_url}/stt/upload"
+    
+    return f"{base_url}/api/stt/upload"
 
 
 # ========================================
@@ -430,6 +486,7 @@ async def process_photo(
     logger.info(f"{agent_config.name}: Photo from {username} (tg:{user_id}), file_id: {file_id}")
     
     try:
+        caption = (update.message or {}).get("caption") or ""
         # Get file path from Telegram
         telegram_token = agent_config.get_telegram_token()
         if not telegram_token:
@@ -442,11 +499,33 @@ async def process_photo(
         # Build file URL
         file_url = f"https://api.telegram.org/file/bot{telegram_token}/{file_path}"
         
+        # Download and encode the image as base64 data URL for Router
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            photo_resp = await client.get(file_url)
+            photo_resp.raise_for_status()
+            image_bytes = photo_resp.content
+            content_type = photo_resp.headers.get("Content-Type", "")
+        
+        if not content_type or not content_type.startswith("image/"):
+            content_type = "image/jpeg"
+        
+        encoded_image = base64.b64encode(image_bytes).decode("utf-8")
+        data_url = f"data:{content_type};base64,{encoded_image}"
+        
+        logger.info(
+            f"{agent_config.name}: Photo downloaded ({len(image_bytes)} bytes, content_type={content_type})"
+        )
+        
         # Send to Router with specialist_vision_8b model (Swapper)
+        prompt = caption.strip() if caption else "Опиши це зображення детально."
         router_request = {
-            "message": f"Опиши це зображення детально: {file_url}",
+            "message": f"{prompt}\n\n[Зображення передано окремо у context.images]",
             "mode": "chat",
             "agent": agent_config.agent_id,
+            "payload": {
+                "provider": "llm_specialist_vision_8b",
+                "task_type": "vision_photo_analysis",
+            },
             "metadata": {
                 "source": "telegram",
                 "dao_id": dao_id,
@@ -457,16 +536,18 @@ async def process_photo(
                 "file_id": file_id,
                 "file_url": file_url,
                 "has_image": True,
+                "provider": "llm_specialist_vision_8b",
                 "use_llm": "specialist_vision_8b",
             },
             "context": {
                 "agent_name": agent_config.name,
                 "system_prompt": agent_config.system_prompt,
+                "images": [data_url],
             },
         }
         
         # Send to Router
-        logger.info(f"{agent_config.name}: Sending photo to Router with vision-8b: file_url={file_url[:50]}...")
+        logger.info(f"{agent_config.name}: Sending photo to Router with vision-8b (provider override)")
         response = await send_to_router(router_request)
         
         # Extract response
@@ -669,11 +750,19 @@ async def process_voice(
             audio_bytes = file_resp.content
         
         # Відправляємо в STT-сервіс
-        stt_service_url = os.getenv("STT_SERVICE_URL", "http://stt-service:9000")
-        files = {"file": ("voice.ogg", audio_bytes, "audio/ogg")}
+        stt_upload_url = _resolve_stt_upload_url()
+        mime_type = media_obj.get("mime_type") if isinstance(media_obj, dict) else None
+        files = {
+            "file": (
+                "voice.ogg",
+                audio_bytes,
+                mime_type or "audio/ogg",
+            )
+        }
         
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            stt_resp = await client.post(f"{stt_service_url}/stt", files=files)
+        logger.info(f"{agent_config.name}: Sending voice to STT endpoint {stt_upload_url}")
+        async with httpx.AsyncClient(timeout=90.0) as client:
+            stt_resp = await client.post(stt_upload_url, files=files)
             stt_resp.raise_for_status()
             stt_data = stt_resp.json()
             text = stt_data.get("text", "")
@@ -1328,11 +1417,11 @@ async def _old_telegram_webhook(update: TelegramUpdate):
                     audio_bytes = file_resp.content
                 
                 # Відправляємо в STT-сервіс
-                stt_service_url = os.getenv("STT_SERVICE_URL", "http://stt-service:9000")
+                stt_upload_url = _resolve_stt_upload_url()
                 files = {"file": ("voice.ogg", audio_bytes, "audio/ogg")}
                 
                 async with httpx.AsyncClient(timeout=60.0) as client:
-                    stt_resp = await client.post(f"{stt_service_url}/stt", files=files)
+                    stt_resp = await client.post(stt_upload_url, files=files)
                     stt_resp.raise_for_status()
                     stt_data = stt_resp.json()
                     text = stt_data.get("text", "")

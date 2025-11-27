@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # Matrix Homeserver (Synapse)
+  matrix:
+    image: matrixdotorg/synapse:latest
+    container_name: matrix-synapse
+    restart: unless-stopped
+    ports:
+      - "8008:8008"
+    environment:
+      SYNAPSE_SERVER_NAME: "daarion.city"
+      SYNAPSE_REPORT_STATS: "no"
+    volumes:
+      - matrix_data:/data
+    command: >
+      bash -c "
+      python -m synapse.app.homeserver --server-name=daarion.city --config-path=/data/homeserver.yaml --generate-config --report-stats=no || true &&
+      python -m synapse.app.homeserver --config-path=/data/homeserver.yaml
+      "
+    networks:
+      - daarion-net
+
+  # Matrix Gateway (Internal service)
+  matrix-gateway:
+    build:
+      context: ./services/matrix-gateway
+      dockerfile: Dockerfile
+    container_name: matrix-gateway
+    restart: unless-stopped
+    ports:
+      - "7003:7003"
+    environment:
+      MATRIX_HOMESERVER_URL: "http://matrix:8008"
+      MATRIX_ADMIN_TOKEN: "dev-admin-token"
+      INTERNAL_SERVICE_SECRET: "dev-secret-token"
+      WEBHOOK_TIMEOUT_MS: "5000"
+      SYNC_TIMEOUT_MS: "30000"
+    depends_on:
+      - matrix
+    networks:
+      - daarion-net
+
+  # Messaging Service (DAARION API)
+  messaging-service:
+    build:
+      context: ./services/messaging-service
+      dockerfile: Dockerfile
+    container_name: messaging-service
+    restart: unless-stopped
+    ports:
+      - "7004:7004"
+    environment:
+      DATABASE_URL: "postgresql://daarion:daarion@postgres:5432/daarion"
+      MATRIX_GATEWAY_URL: "http://matrix-gateway:7003"
+      MATRIX_GATEWAY_SECRET: "dev-secret-token"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      - postgres
+      - matrix-gateway
+      - nats
+    networks:
+      - daarion-net
+
+  # PostgreSQL (if not already running)
+  postgres:
+    image: postgres:15-alpine
+    container_name: daarion-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "daarion"
+      POSTGRES_USER: "daarion"
+      POSTGRES_PASSWORD: "daarion"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    networks:
+      - daarion-net
+
+  # NATS JetStream (if not already running)
+  nats:
+    image: nats:2.10-alpine
+    container_name: daarion-nats
+    restart: unless-stopped
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: >
+      -js
+      -m 8222
+    volumes:
+      - nats_data:/data
+    networks:
+      - daarion-net
+
+  # Nginx API Gateway (optional, for production)
+  nginx:
+    image: nginx:alpine
+    container_name: daarion-nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/messenger-gateway.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - messaging-service
+    networks:
+      - daarion-net
+
+volumes:
+  matrix_data:
+  postgres_data:
+  nats_data:
+
+networks:
+  daarion-net:
+    driver: bridge
+
+
+
+

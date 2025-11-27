@@ -1,0 +1,55 @@
+name: Update Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.git/config'
+      - 'scripts/update_repos_info.py'
+  workflow_dispatch:  # Дозволити ручний запуск
+  schedule:
+    # Запускати щотижня в понеділок о 9:00 UTC
+    - cron: '0 9 * * 1'
+
+jobs:
+  update-repos-info:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Потрібна повна історія для git remote
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Update repositories info
+        run: |
+          python scripts/update_repos_info.py
+
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit changes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add INFRASTRUCTURE.md docs/infrastructure_quick_ref.ipynb
+          git commit -m "docs: auto-update repository information [skip ci]"
+          git push
+

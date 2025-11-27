@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # City Service
+  # ============================================================================
+  city-service:
+    build:
+      context: ./services/city-service
+      dockerfile: Dockerfile
+    container_name: daarion-city-service
+    ports:
+      - "7001:7001"
+    environment:
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=development
+      # TODO: додати з'єднання з Redis, NATS, PostgreSQL
+      # - REDIS_URL=redis://redis:6379
+      # - NATS_URL=nats://nats:4222
+      # - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/daarion
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:7001/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ============================================================================
+  # Space Service
+  # ============================================================================
+  space-service:
+    build:
+      context: ./services/space-service
+      dockerfile: Dockerfile
+    container_name: daarion-space-service
+    ports:
+      - "7002:7002"
+    environment:
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=development
+      # TODO: додати з'єднання з Redis, NATS
+      # - REDIS_URL=redis://redis:6379
+      # - NATS_URL=nats://nats:4222
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:7002/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ============================================================================
+  # Nginx Reverse Proxy (для єдиної точки входу)
+  # ============================================================================
+  api-gateway:
+    image: nginx:alpine
+    container_name: daarion-api-gateway
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/api-gateway.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - daarion-network
+    depends_on:
+      - city-service
+      - space-service
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  daarion-network:
+    name: daarion-network
+    driver: bridge
+
+
+
+

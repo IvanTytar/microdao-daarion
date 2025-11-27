@@ -22,6 +22,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 from openai import OpenAI
+# xAI uses OpenAI-compatible API, no need for separate import
 import httpx
 
 # ============================================================================
@@ -30,6 +31,10 @@ import httpx
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+
+XAI_API_KEY = os.getenv("XAI_API_KEY", "")
+XAI_BASE_URL = os.getenv("XAI_BASE_URL", "https://api.x.ai/v1")
+XAI_MODEL = os.getenv("XAI_MODEL", "grok-beta")
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://host.docker.internal:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:3b")
@@ -107,12 +112,13 @@ def simple_routing_strategy(req: RouteRequest) -> str:
         logger.info(f"Provider override via metadata: {provider}")
         return provider
     
-    # Default: use DeepSeek
+    # Allow explicit provider selection via metadata
+    # Default: use DeepSeek if available, otherwise fallback
     if DEEPSEEK_API_KEY:
         logger.info(f"Routing to DeepSeek for user={req.context.user_id}")
         return "cloud_deepseek"
     else:
-        logger.warning("No DeepSeek API key, falling back to echo")
+        logger.warning("No cloud API keys, falling back to echo")
         return "echo"
 
 
@@ -148,6 +154,56 @@ def call_backend(provider: str, req: RouteRequest) -> RouteResponse:
             routed_at=routed_at,
             route_debug=debug,
         )
+    
+    elif provider == "cloud_xai":
+        if not XAI_API_KEY:
+            raise HTTPException(status_code=500, detail="xAI API key not configured")
+        
+        try:
+            logger.info(f"Calling xAI (Grok) API for user={req.context.user_id}")
+            
+            # xAI SDK is OpenAI-compatible, use OpenAI client with xAI endpoint
+            client = OpenAI(api_key=XAI_API_KEY, base_url=XAI_BASE_URL)
+            
+            messages = [
+                {"role": "system", "content": "Ти - DAGI (Decentralized Agent Gateway Interface), асистент для DAARION.city та microDAO екосистеми. Відповідай українською мовою, будь корисним та дружнім."},
+                {"role": "user", "content": req.message}
+            ]
+            
+            response = client.chat.completions.create(
+                model=XAI_MODEL,
+                messages=messages,
+                temperature=0.7,
+                max_tokens=2000
+            )
+            
+            reply = response.choices[0].message.content
+            
+            debug = {
+                "model": XAI_MODEL,
+                "provider": "xAI (Grok)",
+                "finish_reason": response.choices[0].finish_reason,
+                "usage": {
+                    "prompt_tokens": response.usage.prompt_tokens,
+                    "completion_tokens": response.usage.completion_tokens,
+                    "total_tokens": response.usage.total_tokens
+                },
+                "base_url": XAI_BASE_URL
+            }
+            
+            logger.info(f"xAI (Grok) response: {response.usage.total_tokens} tokens")
+            
+            return RouteResponse(
+                text=reply,
+                provider=provider,
+                model=XAI_MODEL,
+                routed_at=routed_at,
+                route_debug=debug
+            )
+            
+        except Exception as e:
+            logger.error(f"xAI API error: {e}")
+            raise HTTPException(status_code=500, detail=f"xAI error: {str(e)}")
     
     elif provider == "cloud_deepseek":
         if not DEEPSEEK_API_KEY:
@@ -258,6 +314,9 @@ def health():
     """Health check endpoint"""
     available_providers = ["echo"]
     
+    if XAI_API_KEY:
+        available_providers.append("cloud_xai")
+    
     if DEEPSEEK_API_KEY:
         available_providers.append("cloud_deepseek")
     
@@ -275,7 +334,7 @@ def health():
         "service": "dagi-router",
         "version": "0.3.0",
         "providers": available_providers,
-        "capabilities": ["multi_provider_routing", "deepseek_integration", "ollama_integration"]
+        "capabilities": ["multi_provider_routing", "xai_integration", "deepseek_integration", "ollama_integration"]
     }
 
 
@@ -300,6 +359,15 @@ def list_providers():
     providers = [
         {"name": "echo", "status": "active", "description": "Echo provider (no LLM)"}
     ]
+    
+    if XAI_API_KEY:
+        providers.append({
+            "name": "cloud_xai",
+            "status": "active",
+            "description": f"xAI (Grok) - {XAI_MODEL}",
+            "model": XAI_MODEL,
+            "base_url": XAI_BASE_URL
+        })
     
     if DEEPSEEK_API_KEY:
         providers.append({
@@ -340,4 +408,4 @@ def list_providers():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=9100)
+    uvicorn.run(app, host="0.0.0.0", port=9102)

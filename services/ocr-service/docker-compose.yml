@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  ocr-service:
+    build: .
+    container_name: dagi-ocr-service
+    ports:
+      - "8896:8896"
+    environment:
+      - OCR_ENGINE=easyocr
+      - OCR_LANGUAGES=uk+en+ru
+    volumes:
+      - ./app:/app/app
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8896/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+

@@ -1,255 +1,224 @@
-# DAARION microDAO Repository Index
+# DAARION Documentation Index
 
-**Repository**: [IvanTytar/microdao-daarion](https://github.com/IvanTytar/microdao-daarion)
-
-**Purpose**: Full-stack DAARION infrastructure - DAGI Stack + Documentation + Roadmap
+**Quick navigation for all documentation**
 
 ---
 
-## 📂 Repository Structure
+## 🚀 Quick Start
 
-```
-microdao-daarion/
-├── 📁 DAGI Stack (Production Infrastructure)
-│   ├── router/                    # Core Router (main_v2.py, routing_engine.py)
-│   ├── providers/                 # LLM, DevTools, CrewAI providers
-│   ├── devtools-backend/          # File ops, test execution
-│   ├── orchestrator/              # CrewAI multi-agent workflows
-│   ├── gateway-bot/               # Telegram/Discord webhooks
-│   ├── microdao/                  # RBAC service
-│   ├── utils/                     # Structured logging
-│   ├── docker-compose.yml         # 5-service orchestration
-│   └── Dockerfile (x5)            # Service containers
-│
-├── 📁 Documentation
-│   ├── README.md                  # Main project documentation
-│   ├── FIRST-DEPLOY.md            # First deployment guide
-│   ├── SCENARIOS.md               # Golden test scenarios
-│   ├── PRODUCTION-CHECKLIST.md    # Pre-flight checklist
-│   ├── READY-TO-DEPLOY.md         # Deployment readiness summary
-│   ├── CHANGELOG.md               # Version history
-│   ├── PHASE-2-COMPLETE.md        # Phase 2 summary
-│   ├── PHASE-4-ROADMAP.md         # Phase 4 planning
-│   ├── docs/
-│   │   ├── INDEX.md               # This file
-│   │   ├── DEPLOYMENT.md          # Deployment scenarios
-│   │   ├── open-core-model.md     # Open Core licensing
-│   │   └── integrations/
-│   │       └── dify-integration.md # Dify integration guide
-│
-├── 📁 Testing
-│   ├── smoke.sh                   # Smoke test suite (10 tests)
-│   ├── test-devtools.sh           # DevTools E2E (11 tests)
-│   ├── test-crewai.sh             # CrewAI E2E (13 tests)
-│   ├── test-gateway.sh            # Gateway E2E (7 tests)
-│   └── test_config_loader.py      # Unit tests
-│
-├── 📁 Configuration
-│   ├── .env.example               # Environment template
-│   ├── router-config.yml          # Routing rules
-│   ├── requirements.txt           # Python dependencies
-│   └── .gitignore                 # Git ignore rules
-│
-└── 📁 Kubernetes/Helm (Optional)
-    └── chart/                     # Helm chart templates
-```
+### For New Developers
+1. [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md) — Project overview
+2. [INFRASTRUCTURE.md](../INFRASTRUCTURE.md) — Servers, ports, services
+3. [docs/cursor/README.md](./cursor/README.md) — Cursor AI documentation (72 docs)
+
+### For Implementation
+1. [docs/tasks/README.md](./tasks/README.md) — **Cursor-ready tasks** ⭐
+2. [MESSAGING_ARCHITECTURE.md](./MESSAGING_ARCHITECTURE.md) — Complete tech spec
+3. [MESSENGER_TESTING_GUIDE.md](./MESSENGER_TESTING_GUIDE.md) — Testing guide
 
 ---
 
-## 🔧 Development Workflow
+## 📋 Cursor Tasks (New!)
 
-### Working with Cursor IDE
+**Ready-to-use tasks for Cursor AI:**
 
-```bash
-# Clone repository
-git clone git@github.com:IvanTytar/microdao-daarion.git
-cd microdao-daarion
+### Priority 1: Agent Integration
+- [TASK_PHASE2_AGENT_INTEGRATION.md](./tasks/TASK_PHASE2_AGENT_INTEGRATION.md)
+  - 4 weeks, High priority
+  - agent_filter + DAGI Router + agent-runtime
+  - Makes Messenger agent-aware
 
-# Open in Cursor
-cursor .
-
-# Make changes, commit, push
-git add .
-git commit -m "feat: your changes"
-git push origin main
-```
-
-**Cursor Features:**
-- AI code completion (GPT-4)
-- Codebase indexing
-- Multi-file editing
-- Terminal integration
+### Priority 2: Agent Hub
+- [TASK_AGENT_HUB_MVP.md](./tasks/TASK_AGENT_HUB_MVP.md)
+  - 2 weeks, High priority
+  - Main interface for working with agents
+  - Reuses Messenger components
 
 ---
 
-### Working with Warp.dev (Production Server)
+## 🏗️ Architecture
 
-```bash
-# SSH to server
-ssh user@server
+### Core Specs
+- [MESSAGING_ARCHITECTURE.md](./MESSAGING_ARCHITECTURE.md) — Messenger + Matrix + Agents (110+ KB)
+- [MESSENGER_COMPLETE_SPECIFICATION.md](./MESSENGER_COMPLETE_SPECIFICATION.md) — Master doc
+- [messaging-erd.dbml](./messaging-erd.dbml) — Database ERD (dbdiagram.io format)
 
-# Navigate to working directory
-cd /opt/dagi-router
-
-# Pull latest changes from GitHub
-git pull origin main
-
-# Make changes (e.g., update config, fix bugs)
-nano router-config.yml
-
-# Commit and push
-git add .
-git commit -m "fix: update routing rule timeout"
-git push origin main
-
-# Deploy changes
-docker-compose restart router
-```
-
-**Warp.dev Features:**
-- AI Agent Mode (terminal assistant)
-- Codebase semantic search
-- Command suggestions
-- Git integration
+### Technical Docs
+- [INFRASTRUCTURE.md](../INFRASTRUCTURE.md) — Servers, nodes, ports, services
+- [infrastructure_quick_ref.ipynb](./infrastructure_quick_ref.ipynb) — Quick reference notebook
 
 ---
 
-### Sync Cycle
+## 📚 Cursor AI Documentation (72 docs)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     Development Flow                        │
-└─────────────────────────────────────────────────────────────┘
+**See:** [docs/cursor/README.md](./cursor/README.md)
 
-Local (Cursor)
-    ↓ git push
-GitHub (microdao-daarion)
-    ↓ git pull
-Server (Warp.dev @ /opt/dagi-router)
-    ↓ docker-compose restart
-Production (5 services running)
-```
+### Key Documents
+1. **MVP & Architecture (00-07)**
+   - `00_overview_microdao.md` — System overview
+   - `01_product_brief_mvp.md` — Product requirements
+   - `02_architecture_basics.md` — Technical architecture
+   - `03_api_core_snapshot.md` — API contracts
+   - `MVP_VERTICAL_SLICE.md` — Implementation plan
 
-**All environments stay in sync:**
-1. Develop in Cursor → push to GitHub
-2. Server pulls from GitHub → deploy changes
-3. Warp.dev monitors logs, debug issues
-4. Fixes pushed back to GitHub → loop continues
+2. **Agent System (08-24)**
+   - `12_agent_runtime_core.md` — Agent Runtime Core
+   - `13_agent_memory_system.md` — Memory system
+   - `21_agent_only_interface.md` — Agent-Only Interface
+   - `22_operator_modes_and_system_agents.md` — System agents
 
----
-
-## 📋 Key Files Reference
-
-### Core Router
-- `main_v2.py` - Entry point
-- `routing_engine.py` - Routing logic (1530 lines)
-- `router_app.py` - FastAPI HTTP server
-- `config_loader.py` - YAML config parser
-- `router-config.yml` - Routing rules (10 rules, 6 providers)
-
-### Providers
-- `providers/llm_provider.py` - LLM base class
-- `providers/devtools_provider.py` - DevTools integration (132 lines)
-- `providers/crewai_provider.py` - CrewAI orchestration (122 lines)
-- `providers/registry.py` - Provider discovery
-
-### Services
-- `devtools-backend/main.py` - DevTools FastAPI (261 lines)
-- `orchestrator/crewai_backend.py` - CrewAI workflows (236 lines)
-- `gateway-bot/main.py` - Bot gateway (100 lines)
-- `microdao/rbac_api.py` - RBAC service (212 lines)
-
-### Deployment
-- `docker-compose.yml` - 5 services orchestration
-- `Dockerfile` (x5) - Service containers
-- `.env.example` - Configuration template (4.3KB)
-
-### Documentation
-- `README.md` - Main documentation (12KB)
-- `FIRST-DEPLOY.md` - Deployment guide (10KB)
-- `SCENARIOS.md` - Test scenarios (8KB)
-- `PHASE-4-ROADMAP.md` - Phase 4 planning (11KB)
+3. **Infrastructure (25-50)**
+   - `25_deployment_infrastructure.md` — Deployment
+   - `27_database_schema_migrations.md` — Database schema
+   - `34_internal_services_architecture.md` — 17 services
+   - `42_nats_event_streams_and_event_catalog.md` — NATS events
 
 ---
 
-## 🎯 Quick Actions
+## 🔧 Implementation Guides
 
-### Deploy First Time
-```bash
-cd /opt/dagi-router
-cp .env.example .env
-nano .env  # Add tokens
-docker-compose up -d
-./smoke.sh
-```
+### Completed Modules
+- [MESSENGER_MODULE_COMPLETE.md](./MESSENGER_MODULE_COMPLETE.md) — Phase 1 summary
+  - Database schema
+  - messaging-service
+  - Frontend UI
+  - WebSocket real-time
 
-### Update Configuration
-```bash
-# Edit routing rules
-nano router-config.yml
-
-# Restart router
-docker-compose restart router
-
-# Verify
-curl http://localhost:9102/health
-```
-
-### Debug Production
-```bash
-# View logs
-docker-compose logs -f router
-
-# Check specific service
-docker-compose logs devtools | grep ERROR
-
-# Monitor all services
-docker-compose ps
-```
-
-### Run Tests
-```bash
-# Smoke tests (quick)
-./smoke.sh
-
-# Full E2E tests
-./test-devtools.sh
-./test-crewai.sh
-./test-gateway.sh
-```
+### In Progress
+- [tasks/TASK_PHASE2_AGENT_INTEGRATION.md](./tasks/TASK_PHASE2_AGENT_INTEGRATION.md) — Agent integration
+- [tasks/TASK_AGENT_HUB_MVP.md](./tasks/TASK_AGENT_HUB_MVP.md) — Agent Hub UI
 
 ---
 
-## 🔗 External Resources
+## 🧪 Testing
 
-- **GitHub**: https://github.com/IvanTytar/microdao-daarion
-- **Warp.dev**: https://warp.dev
-- **Cursor**: https://cursor.sh
-- **DAARION**: https://daarion.city
-- **Discord**: https://discord.gg/daarion
+### Messenger Testing
+- [MESSENGER_TESTING_GUIDE.md](./MESSENGER_TESTING_GUIDE.md) — 13 test scenarios
+  - Basic messaging
+  - Element compatibility
+  - Agent posting
+  - WebSocket
+  - E2EE channels
 
----
-
-## 📊 Current Status
-
-**Version**: 0.2.0 (Phase 2 Complete)  
-**Services**: 5 (Router, DevTools, CrewAI, Gateway, RBAC)  
-**Code**: ~3,200 lines  
-**Documentation**: 57KB  
-**Test Coverage**: 95% (41 tests)  
-**Deployment**: Production-ready ✅
+### General Testing
+- [cursor/07_testing_checklist_mvp.md](./cursor/07_testing_checklist_mvp.md) — MVP checklist
 
 ---
 
-## 🚀 Next Steps
+## 📊 Data Models
 
-1. **First Deployment** - Follow [FIRST-DEPLOY.md](../FIRST-DEPLOY.md)
-2. **Golden Scenarios** - Test with [SCENARIOS.md](../SCENARIOS.md)
-3. **Phase 4 Planning** - Review [PHASE-4-ROADMAP.md](../PHASE-4-ROADMAP.md)
-4. **Ecosystem Integration** - Explore [integrations/](integrations/)
+### Database
+- [messaging-erd.dbml](./messaging-erd.dbml) — **Messenger ERD** (paste to dbdiagram.io)
+- [cursor/27_database_schema_migrations.md](./cursor/27_database_schema_migrations.md) — Full schema
+
+### API
+- [cursor/03_api_core_snapshot.md](./cursor/03_api_core_snapshot.md) — Core API
+- [services/matrix-gateway/API_SPEC.md](../services/matrix-gateway/API_SPEC.md) — Matrix Gateway
 
 ---
 
-**Last Updated**: 2024-11-15  
-**Maintainer**: Ivan Tytar (@IvanTytar)  
-**License**: MIT (Core) - See [open-core-model.md](open-core-model.md)
+## 🎯 Roadmap & Plans
+
+### Current Phase
+- ✅ Phase 1: Messenger Core (Complete)
+- 📋 Phase 2: Agent Integration (Next)
+- 📋 Phase 2.5: Agent Hub (Parallel)
+
+### Planning Docs
+- [MVP_VERTICAL_SLICE.md](./cursor/MVP_VERTICAL_SLICE.md) — MVP plan
+- [PLAN_MODULES.md](./cursor/PLAN_MODULES.md) — Module plans
+- [ACTION_PLAN.md](./ACTION_PLAN.md) — Action plan
+
+---
+
+## 🔐 Security & Infrastructure
+
+### Security
+- [cursor/26_security_audit.md](./cursor/26_security_audit.md) — Security checklist
+- [cursor/33_api_gateway_security_and_pep.md](./cursor/33_api_gateway_security_and_pep.md) — API security
+
+### Infrastructure
+- [cursor/25_deployment_infrastructure.md](./cursor/25_deployment_infrastructure.md) — Deployment
+- [cursor/29_scaling_and_high_availability.md](./cursor/29_scaling_and_high_availability.md) — Scaling
+
+---
+
+## 🌐 Integration Guides
+
+### DAARION.city
+- [DAARION_city_integration.md](./cursor/DAARION_city_integration.md) — City integration
+- [DAARION_city_platforms_catalog.md](./cursor/DAARION_city_platforms_catalog.md) — Platforms
+
+### External Systems
+- [cursor/20_integrations_bridges_agent.md](./cursor/20_integrations_bridges_agent.md) — Bridges
+- [cursor/40_rwa_energy_food_water_flow_specs.md](./cursor/40_rwa_energy_food_water_flow_specs.md) — RWA
+
+---
+
+## 💰 Tokenomics
+
+### Core Docs
+- [tokenomics/city-tokenomics.md](./tokenomics/city-tokenomics.md) — ⭐ CANONICAL
+- [cursor/30_cost_optimization_and_token_economics_infrastructure.md](./cursor/30_cost_optimization_and_token_economics_infrastructure.md)
+
+---
+
+## 📝 Quick Reference
+
+### Files by Type
+
+#### Configuration
+- `../package.json` — Frontend dependencies
+- `../vite.config.ts` — Vite config
+- `../docker-compose.messenger.yml` — Messenger stack
+- `../docker-compose.agents.yml` — Agent services (to be created)
+
+#### Migrations
+- `../migrations/001_create_messenger_schema.sql` — Messenger DB
+
+#### Services
+- `../services/messaging-service/` — Messaging API
+- `../services/matrix-gateway/` — Matrix adapter
+- `../services/city-service/` — City API
+- `../services/space-service/` — Space API
+
+#### Frontend
+- `../src/features/messenger/` — Messenger UI
+- `../src/features/city/` — City Dashboard
+- `../src/features/space-dashboard/` — Space Dashboard
+- `../src/features/onboarding/` — Onboarding
+
+---
+
+## 🔍 Search Tips
+
+### Find by Topic
+- **Messenger:** Search for "messaging", "Matrix", "channels"
+- **Agents:** Search for "agent", "runtime", "LLM"
+- **Infrastructure:** Search for "deployment", "docker", "NATS"
+- **Security:** Search for "security", "PDP", "capabilities"
+
+### Find by File Type
+- `.md` — Documentation
+- `.dbml` — Database models
+- `.sql` — Migrations
+- `.ipynb` — Jupyter notebooks
+- `.yml` — Docker configs
+
+---
+
+## 📞 Support
+
+### Documentation Issues
+- Check [cursor/README.md](./cursor/README.md) for navigation
+- Use [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md) for quick context
+
+### Implementation Help
+- Start with [tasks/README.md](./tasks/README.md)
+- Review [MESSAGING_ARCHITECTURE.md](./MESSAGING_ARCHITECTURE.md) for technical details
+
+---
+
+**Last Updated:** 2025-11-24  
+**Version:** 1.1.0  
+**Maintainer:** DAARION Platform Team

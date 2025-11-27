@@ -8,6 +8,7 @@ import { MatrixRestClient, createMatrixClient, ChatMessage as MatrixChatMessage,
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
 import { getAccessToken } from '@/lib/auth'
+import { usePresenceHeartbeat } from '@/hooks/usePresenceHeartbeat'
 
 interface MatrixChatRoomProps {
   roomSlug: string
@@ -52,6 +53,15 @@ export function MatrixChatRoom({ roomSlug }: MatrixChatRoomProps) {
   const [onlineUsers, setOnlineUsers] = useState<Map<string, 'online' | 'offline' | 'unavailable'>>(new Map())
   const [typingUsers, setTypingUsers] = useState<Set<string>>(new Set())
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  
+  // Presence heartbeat - keeps user "online" in Matrix
+  usePresenceHeartbeat({
+    matrixUserId: bootstrap?.matrix_user_id ?? null,
+    accessToken: bootstrap?.matrix_access_token ?? null,
+    intervalMs: 30000,  // Every 30 seconds
+    awayAfterMs: 5 * 60 * 1000,  // 5 minutes of inactivity
+    enabled: status === 'online',
+  })
 
   // Scroll to bottom when new messages arrive
   const scrollToBottom = useCallback(() => {

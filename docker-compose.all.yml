@@ -1,0 +1,429 @@
+version: '3.9'
+
+# ============================================================================
+# DAARION ALL-IN-ONE — Phase INFRA
+# Complete stack with single NGINX gateway
+# ============================================================================
+
+networks:
+  daarion_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  nats_data:
+  redis_data:
+  matrix_data:
+
+services:
+  # ==========================================================================
+  # INFRASTRUCTURE
+  # ==========================================================================
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: daarion-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: daarion
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: daarion-redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  nats:
+    image: nats:latest
+    container_name: daarion-nats
+    command: "--jetstream --store_dir=/data"
+    volumes:
+      - nats_data:/data
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  # ==========================================================================
+  # MATRIX (Messaging Infrastructure)
+  # ==========================================================================
+
+  matrix-synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: daarion-matrix-synapse
+    environment:
+      SYNAPSE_SERVER_NAME: "matrix.daarion.local"
+      SYNAPSE_REPORT_STATS: "no"
+    volumes:
+      - matrix_data:/data
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/_matrix/client/versions"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  matrix-gateway:
+    build: ./gateway-bot
+    container_name: daarion-matrix-gateway
+    environment:
+      MATRIX_HOMESERVER: "http://matrix-synapse:8008"
+      POSTGRES_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      matrix-synapse:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  # ==========================================================================
+  # CORE SERVICES (Auth, PDP, Usage)
+  # ==========================================================================
+
+  auth-service:
+    build: ./services/auth-service
+    container_name: daarion-auth-service
+    environment:
+      PORT: "7011"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      REDIS_URL: "redis://redis:6379"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7011/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  pdp-service:
+    build: ./services/pdp-service
+    container_name: daarion-pdp-service
+    environment:
+      PORT: "7012"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7012/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  usage-engine:
+    build: ./services/usage-engine
+    container_name: daarion-usage-engine
+    environment:
+      PORT: "7013"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7013/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================================================
+  # MESSAGING SERVICE
+  # ==========================================================================
+
+  messaging-service:
+    build: ./services/messaging-service
+    container_name: daarion-messaging-service
+    environment:
+      PORT: "7004"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      MATRIX_HOMESERVER: "http://matrix-synapse:8008"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      matrix-synapse:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  # ==========================================================================
+  # AGENT INFRASTRUCTURE
+  # ==========================================================================
+
+  llm-proxy:
+    build: ./services/llm-proxy
+    container_name: daarion-llm-proxy
+    environment:
+      PORT: "7007"
+      NATS_URL: "nats://nats:4222"
+      USAGE_ENGINE_URL: "http://usage-engine:7013"
+    depends_on:
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  memory-orchestrator:
+    build: ./services/memory-orchestrator
+    container_name: daarion-memory-orchestrator
+    environment:
+      PORT: "7008"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  toolcore:
+    build: ./services/toolcore
+    container_name: daarion-toolcore
+    environment:
+      PORT: "7009"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  agent-filter:
+    build: ./services/agent-filter
+    container_name: daarion-agent-filter
+    environment:
+      PORT: "7005"
+      NATS_URL: "nats://nats:4222"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      nats:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  dagi-router:
+    build: ./services/dagi-router
+    container_name: daarion-dagi-router
+    environment:
+      PORT: "7006"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  agent-runtime:
+    build: ./services/agent-runtime
+    container_name: daarion-agent-runtime
+    environment:
+      PORT: "7010"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      LLM_PROXY_URL: "http://llm-proxy:7007"
+      MEMORY_ORCHESTRATOR_URL: "http://memory-orchestrator:7008"
+      TOOLCORE_URL: "http://toolcore:7009"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  # ==========================================================================
+  # APPLICATION SERVICES (Phase 6-9)
+  # ==========================================================================
+
+  city-service:
+    build: ./services/city-service
+    container_name: daarion-city-service
+    environment:
+      PORT: "7001"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  space-service:
+    build: ./services/space-service
+    container_name: daarion-space-service
+    environment:
+      PORT: "7002"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  agents-service:
+    build: ./services/agents-service
+    container_name: daarion-agents-service
+    environment:
+      PORT: "7014"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  microdao-service:
+    build: ./services/microdao-service
+    container_name: daarion-microdao-service
+    environment:
+      PORT: "7015"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  dao-service:
+    build: ./services/dao-service
+    container_name: daarion-dao-service
+    environment:
+      PORT: "7016"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  living-map-service:
+    build: ./services/living-map-service
+    container_name: daarion-living-map-service
+    environment:
+      PORT: "7017"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AGENTS_SERVICE_URL: "http://agents-service:7014"
+      MICRODAO_SERVICE_URL: "http://microdao-service:7015"
+      DAO_SERVICE_URL: "http://dao-service:7016"
+      USAGE_ENGINE_URL: "http://usage-engine:7013"
+      CITY_SERVICE_URL: "http://city-service:7001"
+      SPACE_SERVICE_URL: "http://space-service:7002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    networks:
+      - daarion_net
+
+  # ==========================================================================
+  # FRONTEND
+  # ==========================================================================
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: daarion-frontend
+    networks:
+      - daarion_net
+
+  # ==========================================================================
+  # GATEWAY (NGINX Reverse Proxy)
+  # ==========================================================================
+
+  gateway:
+    image: nginx:alpine
+    container_name: daarion-gateway
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/all-in-one.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - auth-service
+      - messaging-service
+      - agents-service
+      - microdao-service
+      - dao-service
+      - living-map-service
+    networks:
+      - daarion_net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+

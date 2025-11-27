@@ -1,26 +1,25 @@
 FROM python:3.11-slim
 
-WORKDIR /app
-
-# Встановлюємо системні залежності
-# qwen3_asr_toolkit може потребувати ffmpeg для обробки деяких форматів
+# Встановити системні залежності
 RUN apt-get update && apt-get install -y \
     ffmpeg \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
-# Копіюємо requirements та встановлюємо залежності
+WORKDIR /app
+
+# Копіювати requirements
 COPY requirements.txt .
+
+# Встановити Python залежності
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копіюємо код
-COPY . .
+# Копіювати код
+COPY app/ ./app/
 
-# Створюємо тимчасову директорію
-RUN mkdir -p /tmp/stt
+# Whisper модель завантажиться автоматично при першому запиті
+# Це уникає проблем з мережею під час build
 
-# Відкриваємо порт
-EXPOSE 9000
+EXPOSE 8895
 
-# Запускаємо додаток
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000"]
-
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8895"]

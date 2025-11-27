@@ -1,0 +1,191 @@
+version: '3.8'
+
+# ============================================================================
+# DAARION Phase 8 — DAO Dashboard
+# Extends Phase 7 with dao-service for Governance, Proposals, Voting
+# ============================================================================
+
+services:
+  # Include all Phase 7 services
+  postgres:
+    image: postgres:15-alpine
+    container_name: daarion-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: daarion
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  nats:
+    image: nats:latest
+    container_name: daarion-nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: "--jetstream --store_dir=/data"
+    volumes:
+      - nats-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  auth-service:
+    build: ./services/auth-service
+    container_name: daarion-auth-service
+    ports:
+      - "7011:7011"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      INTERNAL_SECRET: "dev-secret-token"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7011/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  pdp-service:
+    build: ./services/pdp-service
+    container_name: daarion-pdp-service
+    ports:
+      - "7012:7012"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7012/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  usage-engine:
+    build: ./services/usage-engine
+    container_name: daarion-usage-engine
+    ports:
+      - "7013:7013"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7013/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  agents-service:
+    build: ./services/agents-service
+    container_name: daarion-agents-service
+    ports:
+      - "7014:7014"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      MEMORY_ORCHESTRATOR_URL: "http://memory-orchestrator:7008"
+      USAGE_ENGINE_URL: "http://usage-engine:7013"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+      usage-engine:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7014/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  microdao-service:
+    build: ./services/microdao-service
+    container_name: daarion-microdao-service
+    ports:
+      - "7015:7015"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7015/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================================================
+  # NEW: DAO Service (Phase 8)
+  # ============================================================================
+
+  dao-service:
+    build: ./services/dao-service
+    container_name: daarion-dao-service
+    ports:
+      - "7016:7016"
+    environment:
+      PORT: "7016"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/daarion"
+      NATS_URL: "nats://nats:4222"
+      AUTH_SERVICE_URL: "http://auth-service:7011"
+      PDP_SERVICE_URL: "http://pdp-service:7012"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      pdp-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:7016/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres-data:
+  nats-data:
+
+networks:
+  default:
+    name: daarion-phase8
+

@@ -1,0 +1,81 @@
+# Swapper Configuration for Node #1 (Production Server)
+# Single-active LLM scheduler
+# Hetzner GEX44 - NVIDIA RTX 4000 SFF Ada (20GB VRAM)
+# Auto-generated configuration with all available Ollama models
+
+swapper:
+  mode: single-active
+  max_concurrent_models: 1
+  model_swap_timeout: 300
+  gpu_enabled: true
+  metal_acceleration: false  # NVIDIA GPU, not Apple Silicon
+  # Модель для автоматичного завантаження при старті (опціонально)
+  # Якщо не вказано - моделі завантажуються тільки за запитом
+  # Рекомендовано: qwen3-8b (основна модель) або qwen2.5-3b-instruct (легка модель)
+  default_model: qwen3-8b  # Модель активується автоматично при старті
+
+models:
+  # Primary LLM - Qwen3 8B (High Priority) - Main model from INFRASTRUCTURE.md
+  qwen3-8b:
+    path: ollama:qwen3:8b
+    type: llm
+    size_gb: 4.87
+    priority: high
+    description: "Primary LLM for general tasks and conversations"
+    
+  # Vision Model - Qwen3-VL 8B (High Priority) - For image processing
+  qwen3-vl-8b:
+    path: ollama:qwen3-vl:8b
+    type: vision
+    size_gb: 5.72
+    priority: high
+    description: "Vision model for image understanding and processing"
+    
+  # Qwen2.5 7B Instruct (High Priority)
+  qwen2.5-7b-instruct:
+    path: ollama:qwen2.5:7b-instruct-q4_K_M
+    type: llm
+    size_gb: 4.36
+    priority: high
+    description: "Qwen2.5 7B Instruct model"
+    
+  # Lightweight LLM - Qwen2.5 3B Instruct (Medium Priority)
+  qwen2.5-3b-instruct:
+    path: ollama:qwen2.5:3b-instruct-q4_K_M
+    type: llm
+    size_gb: 1.80
+    priority: medium
+    description: "Lightweight LLM for faster responses"
+    
+  # Math Specialist - Qwen2 Math 7B (High Priority)
+  qwen2-math-7b:
+    path: ollama:qwen2-math:7b
+    type: math
+    size_gb: 4.13
+    priority: high
+    description: "Specialized model for mathematical tasks"
+
+  # Lightweight conversational LLM - Mistral Nemo 2.3B (Medium Priority)
+  mistral-nemo-2_3b:
+    path: ollama:mistral-nemo:2.3b-instruct
+    type: llm
+    size_gb: 1.60
+    priority: medium
+    description: "Fast low-cost replies for monitor/service agents"
+  
+  # Compact Math Specialist - Qwen2.5 Math 1.5B (Medium Priority)
+  qwen2_5-math-1_5b:
+    path: ollama:qwen2.5-math:1.5b
+    type: math
+    size_gb: 1.20
+    priority: medium
+    description: "Lightweight math model for DRUID/Nutra micro-calculations"
+
+storage:
+  models_dir: /app/models
+  cache_dir: /app/cache
+  swap_dir: /app/swap
+
+ollama:
+  url: http://ollama:11434  # From Docker container to Ollama service
+  timeout: 300

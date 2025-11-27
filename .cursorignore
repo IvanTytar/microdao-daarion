@@ -1,0 +1,117 @@
+# Cursor Ignore - Оптимізація контексту для великого проєкту
+
+# Node modules та залежності
+node_modules/
+venv/
+venv_models/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Build артефакти
+dist/
+build/
+*.egg-info/
+.eggs/
+*.so
+*.dylib
+
+# Логи та тимчасові файли
+logs/
+*.log
+*.log.*
+.cache/
+*.tmp
+*.temp
+
+# IDE та редактори
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+
+# База даних
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Статусні файли (занадто багато, не потрібні в контексті)
+*-COMPLETE.md
+*-STATUS.md
+*-FIX.md
+*-REPORT.md
+*-SUMMARY.md
+*-SUCCESS.md
+*-DEPLOYMENT.md
+*-QUICKSTART.md
+*-SETUP.md
+*-INSTRUCTIONS.md
+*-GUIDE.md
+*-CHECKLIST.md
+*-ROADMAP.md
+*-PLAN.md
+
+# Винятки для важливих статусних файлів
+!PROJECT_CONTEXT.md
+!README.md
+!STATUS.md
+!TODO.md
+
+# SVG та PDF (великі файли)
+*.svg
+*.pdf
+
+# Старі версії файлів
+*.bak
+*.backup
+*.old
+
+# Тестові дані
+test_data/
+*.test.json
+*.spec.json
+
+# Coverage та тести
+.coverage
+.pytest_cache/
+htmlcov/
+coverage/
+
+# Git
+.git/
+.gitignore
+
+# Документація в архіві (не потрібна в контексті)
+docs/_archive/
+
+# Jupyter notebooks кеш
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Моделі та великі файли
+models/*.bin
+models/*.safetensors
+models/*.gguf
+*.bin
+*.safetensors
+*.gguf
+
+# Data папки з великими файлами
+data/raw/
+data/processed/
+data/cache/
+

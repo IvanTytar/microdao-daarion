@@ -1,0 +1,188 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Phase 3 Services: LLM + Memory + Tools
+  # ============================================================================
+  
+  llm-proxy:
+    build: ./services/llm-proxy
+    container_name: daarion-llm-proxy
+    ports:
+      - "7007:7007"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - LLM_PROXY_SECRET=${LLM_PROXY_SECRET:-dev-secret-token}
+    volumes:
+      - ./services/llm-proxy/config.yaml:/app/config.yaml
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  memory-orchestrator:
+    build: ./services/memory-orchestrator
+    container_name: daarion-memory-orchestrator
+    ports:
+      - "7008:7008"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/daarion
+      - EMBEDDING_ENDPOINT=${EMBEDDING_ENDPOINT:-http://localhost:8001/embed}
+      - MEMORY_ORCHESTRATOR_SECRET=${MEMORY_ORCHESTRATOR_SECRET:-dev-secret-token}
+    depends_on:
+      - postgres
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7008/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  toolcore:
+    build: ./services/toolcore
+    container_name: daarion-toolcore
+    ports:
+      - "7009:7009"
+    environment:
+      - TOOLCORE_SECRET=${TOOLCORE_SECRET:-dev-secret-token}
+    volumes:
+      - ./services/toolcore/config.yaml:/app/config.yaml
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7009/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  # ============================================================================
+  # Phase 2 Services (updated for Phase 3)
+  # ============================================================================
+  
+  agent-runtime:
+    build: ./services/agent-runtime
+    container_name: daarion-agent-runtime
+    ports:
+      - "7006:7006"
+    environment:
+      - NATS_URL=nats://nats:4222
+      - LLM_PROXY_URL=http://llm-proxy:7007
+      - LLM_PROXY_SECRET=${LLM_PROXY_SECRET:-dev-secret-token}
+      - AGENT_MEMORY_URL=http://memory-orchestrator:7008
+      - MEMORY_ORCHESTRATOR_SECRET=${MEMORY_ORCHESTRATOR_SECRET:-dev-secret-token}
+      - MESSAGING_SERVICE_URL=http://messaging-service:7004
+      - MESSAGING_SERVICE_SECRET=${MESSAGING_SERVICE_SECRET:-dev-secret-token}
+    depends_on:
+      - nats
+      - llm-proxy
+      - memory-orchestrator
+      - messaging-service
+    networks:
+      - daarion-network
+    restart: unless-stopped
+  
+  agent-filter:
+    build: ./services/agent-filter
+    container_name: daarion-agent-filter
+    ports:
+      - "7005:7005"
+    environment:
+      - NATS_URL=nats://nats:4222
+      - MESSAGING_SERVICE_URL=http://messaging-service:7004
+      - MESSAGING_SERVICE_SECRET=${MESSAGING_SERVICE_SECRET:-dev-secret-token}
+    depends_on:
+      - nats
+      - messaging-service
+    networks:
+      - daarion-network
+    restart: unless-stopped
+  
+  router:
+    build: ./services/router
+    container_name: daarion-router
+    ports:
+      - "8000:8000"
+    environment:
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+    networks:
+      - daarion-network
+    restart: unless-stopped
+  
+  messaging-service:
+    build: ./services/messaging-service
+    container_name: daarion-messaging-service
+    ports:
+      - "7004:7004"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/daarion
+      - NATS_URL=nats://nats:4222
+      - MATRIX_GATEWAY_URL=http://matrix-gateway:7003
+      - MATRIX_GATEWAY_SECRET=${MATRIX_GATEWAY_SECRET:-dev-secret-token}
+    depends_on:
+      - postgres
+      - nats
+    networks:
+      - daarion-network
+    restart: unless-stopped
+  
+  # ============================================================================
+  # Infrastructure
+  # ============================================================================
+  
+  postgres:
+    image: postgres:15-alpine
+    container_name: daarion-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=daarion
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  nats:
+    image: nats:latest
+    container_name: daarion-nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: ["-js", "-m", "8222"]
+    networks:
+      - daarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  daarion-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+
+
+
+

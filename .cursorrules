@@ -1,17 +1,53 @@
 # MicroDAO MVP - Cursor Rules
 
 ## Проєкт
-- Шлях: /Users/apple/Desktop/MicroDAO/MicroDAO 3
-- Документація: docs/cursor/
+- Шлях: /Users/apple/github-projects/microdao-daarion
+- Документація: docs/cursor/ (72 документи)
+- **Центральний контекст (ОБОВ'ЯЗКОВО):** 
+  - INFRASTRUCTURE.md - повна інфраструктура проєкту
+  - docs/infrastructure_quick_ref.ipynb - швидкий довідник
 - Швидкий контекст: PROJECT_CONTEXT.md
+- Workflow гайд: CURSOR_WORKFLOW.md
 
-## Стандарти
+## Стандарти кодування
 - Дотримуватися docs/cursor/05_coding_standards.md
 - Використовувати типи з docs/cursor/03_api_core_snapshot.md
 - UI тексти з docs/cursor/04_ui_ux_onboarding_chat.md
+- React компоненти: функціональні з hooks, TypeScript strict mode
+- Назви файлів: PascalCase для компонентів, camelCase для утиліт
 
-## Структура
-- React 18 + TypeScript + Vite
-- Tailwind CSS для стилів
-- React Query для state
+## Технологічний стек
+- Frontend: React 18 + TypeScript + Vite
+- Стилі: Tailwind CSS
+- State: React Query (TanStack Query)
+- Backend: Python (FastAPI) + Node.js сервіси
 - API: https://api.microdao.xyz/v1
+- База даних: PostgreSQL + Supabase
+- Message Bus: NATS JetStream
+
+## Архітектура проєкту
+- 17 внутрішніх сервісів (див. docs/cursor/34_internal_services_architecture.md)
+- Мікросервісна архітектура з Service Mesh
+- Event-driven архітектура через NATS
+- Multi-tenant архітектура (MicroDAO як tenant)
+
+## Правила роботи з кодом
+1. Завжди перевіряй існуючі типи перед створенням нових
+2. Використовуй існуючі API клієнти з src/api/
+3. Дотримуйся структури компонентів з src/components/
+4. Для нових функцій спочатку перевіряй документацію в docs/cursor/
+5. Використовуй PROJECT_CONTEXT.md для швидкого контексту
+
+## Важливі файли
+- **INFRASTRUCTURE.md** - центральний файл інфраструктури (ОБОВ'ЯЗКОВО для нового діалогу)
+- **docs/infrastructure_quick_ref.ipynb** - швидкий довідник інфраструктури (ОБОВ'ЯЗКОВО для нового діалогу)
+- PROJECT_CONTEXT.md - швидкий контекст проєкту
+- docs/cursor/README.md - навігація по документації
+- CURSOR_WORKFLOW.md - гайд по роботі з Cursor
+- .cursorignore - файли виключені з контексту
+
+## Принципи
+- Завжди відповідай українською мовою
+- Використовуй CODE REFERENCES для існуючого коду
+- Для нового коду використовуй MARKDOWN CODE BLOCKS
+- Не створюй дублікати функціональності - перевіряй існуючий код

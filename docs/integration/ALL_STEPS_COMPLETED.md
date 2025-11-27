@@ -170,3 +170,4 @@ curl http://localhost:6333/collections
 
 *Створено: 2025-11-18*
 
+
