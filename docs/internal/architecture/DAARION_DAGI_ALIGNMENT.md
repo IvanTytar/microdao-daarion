@@ -145,6 +145,7 @@ CREATE TABLE microdao_agents (
 1. Кожен MicroDAO має `orchestrator_agent_id` — головний агент
 2. `base_node_id` — нода де живе core стек MicroDAO
 3. Зв'язок з Matrix/City rooms через `microdao_channels`
+4. **Кожен активний агент ОБОВ'ЯЗКОВО належить хоча б до одного MicroDAO** (через `microdao_agents`)
 
 ### Source of Truth для
 - `/microdao` — список MicroDAO
