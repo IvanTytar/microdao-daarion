@@ -4,10 +4,10 @@ const CITY_API_URL = process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_U
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { agentId: string } }
+  context: { params: Promise<{ agentId: string }> }
 ) {
   try {
-    const { agentId } = params;
+    const { agentId } = await context.params;
     const body = await request.json();
 
     const response = await fetch(`${CITY_API_URL}/city/agents/${agentId}/visibility`, {
@@ -37,4 +37,3 @@ export async function PUT(
     );
   }
 }
-
