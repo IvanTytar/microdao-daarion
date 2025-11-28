@@ -39,13 +39,8 @@ export interface MicrodaoBadge {
 // Agent MicroDAO Membership (detailed)
 // =============================================================================
 
-export interface AgentMicrodaoMembership {
-  microdao_id: string;
-  microdao_slug: string;
-  microdao_name: string;
-  role?: string;
-  is_core: boolean;
-}
+import { AgentMicrodaoMembership } from './microdao';
+export type { AgentMicrodaoMembership };
 
 // =============================================================================
 // Agent Summary (unified for Agent Console & internal use)
