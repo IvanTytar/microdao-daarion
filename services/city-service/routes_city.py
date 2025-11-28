@@ -21,6 +21,7 @@ from models_city import (
     CityMapResponse,
     AgentRead,
     AgentPresence,
+    HomeNodeView,
     PublicCitizenSummary,
     PublicCitizenProfile,
     CitizenInteractionInfo,
@@ -80,6 +81,18 @@ async def list_public_citizens(
         
         items: List[PublicCitizenSummary] = []
         for citizen in citizens:
+            # Build home_node if available
+            home_node_data = citizen.get("home_node")
+            home_node = None
+            if home_node_data:
+                home_node = HomeNodeView(
+                    id=home_node_data.get("id"),
+                    name=home_node_data.get("name"),
+                    hostname=home_node_data.get("hostname"),
+                    roles=home_node_data.get("roles", []),
+                    environment=home_node_data.get("environment")
+                )
+            
             items.append(PublicCitizenSummary(
                 slug=citizen["public_slug"],
                 display_name=citizen["display_name"],
@@ -91,7 +104,8 @@ async def list_public_citizens(
                 primary_room_slug=citizen.get("public_primary_room_slug"),
                 public_skills=citizen.get("public_skills", []),
                 online_status=citizen.get("online_status"),
-                status=citizen.get("status")
+                status=citizen.get("status"),
+                home_node=home_node
             ))
         
         return {"items": items, "total": total}
