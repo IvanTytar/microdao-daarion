@@ -460,6 +460,78 @@ async def update_agent_visibility(
     return result is not None
 
 
+async def get_agent_prompts(agent_id: str) -> dict:
+    """Отримати системні промти агента"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT kind, content, version, created_at, note
+        FROM agent_prompts
+        WHERE agent_id = $1
+          AND is_active = true
+        ORDER BY kind
+    """
+    
+    rows = await pool.fetch(query, agent_id)
+    
+    result = {
+        "core": None,
+        "safety": None,
+        "governance": None,
+        "tools": None
+    }
+    
+    for row in rows:
+        kind = row["kind"]
+        if kind in result:
+            result[kind] = {
+                "content": row["content"],
+                "version": row["version"],
+                "created_at": row["created_at"].isoformat() if row["created_at"] else None,
+                "note": row.get("note")
+            }
+    
+    return result
+
+
+async def get_agent_public_profile(agent_id: str) -> Optional[dict]:
+    """Отримати публічний профіль агента"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            is_public,
+            public_slug,
+            public_title,
+            public_tagline,
+            COALESCE(public_skills, ARRAY[]::text[]) AS public_skills,
+            public_district,
+            public_primary_room_slug,
+            COALESCE(visibility_scope, 'city') AS visibility_scope,
+            COALESCE(is_listed_in_directory, true) AS is_listed_in_directory,
+            COALESCE(is_system, false) AS is_system
+        FROM agents
+        WHERE id = $1
+    """
+    
+    row = await pool.fetchrow(query, agent_id)
+    if not row:
+        return None
+    
+    return {
+        "is_public": row["is_public"],
+        "public_slug": row["public_slug"],
+        "public_title": row["public_title"],
+        "public_tagline": row["public_tagline"],
+        "public_skills": list(row["public_skills"] or []),
+        "public_district": row["public_district"],
+        "public_primary_room_slug": row["public_primary_room_slug"],
+        "visibility_scope": row["visibility_scope"],
+        "is_listed_in_directory": row["is_listed_in_directory"],
+        "is_system": row["is_system"]
+    }
+
+
 async def get_agents_with_home_node(
     kind: Optional[str] = None,
     node_id: Optional[str] = None,
