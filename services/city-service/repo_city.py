@@ -307,6 +307,87 @@ async def get_all_agents() -> List[dict]:
     return [dict(row) for row in rows]
 
 
+async def get_agents_with_home_node(
+    kind: Optional[str] = None,
+    node_id: Optional[str] = None,
+    limit: int = 100,
+    offset: int = 0
+) -> Tuple[List[dict], int]:
+    """Отримати агентів з інформацією про home_node"""
+    pool = await get_pool()
+    
+    params: List[Any] = []
+    where_clauses = ["1=1"]
+    
+    if kind:
+        params.append(kind)
+        where_clauses.append(f"a.kind = ${len(params)}")
+    
+    if node_id:
+        params.append(node_id)
+        where_clauses.append(f"a.node_id = ${len(params)}")
+    
+    where_sql = " AND ".join(where_clauses)
+    
+    query = f"""
+        SELECT
+            a.id,
+            a.display_name,
+            a.kind,
+            a.avatar_url,
+            a.status,
+            a.is_public,
+            a.public_slug,
+            a.public_title,
+            a.public_district,
+            a.node_id,
+            nc.node_name AS home_node_name,
+            nc.hostname AS home_node_hostname,
+            nc.roles AS home_node_roles,
+            nc.environment AS home_node_environment,
+            COUNT(*) OVER() AS total_count
+        FROM agents a
+        LEFT JOIN node_cache nc ON a.node_id = nc.node_id
+        WHERE {where_sql}
+        ORDER BY a.display_name
+        LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
+    """
+    
+    params.append(limit)
+    params.append(offset)
+    
+    rows = await pool.fetch(query, *params)
+    if not rows:
+        return [], 0
+    
+    total = rows[0]["total_count"]
+    items = []
+    
+    for row in rows:
+        data = dict(row)
+        data.pop("total_count", None)
+        
+        # Build home_node object
+        if data.get("node_id"):
+            data["home_node"] = {
+                "id": data.get("node_id"),
+                "name": data.get("home_node_name"),
+                "hostname": data.get("home_node_hostname"),
+                "roles": list(data.get("home_node_roles") or []),
+                "environment": data.get("home_node_environment")
+            }
+        else:
+            data["home_node"] = None
+        
+        # Clean up intermediate fields
+        for key in ["home_node_name", "home_node_hostname", "home_node_roles", "home_node_environment"]:
+            data.pop(key, None)
+        
+        items.append(data)
+    
+    return items, total
+
+
 async def get_agents_by_room(room_id: str) -> List[dict]:
     """Отримати агентів у конкретній кімнаті"""
     pool = await get_pool()

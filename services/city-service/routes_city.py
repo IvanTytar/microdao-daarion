@@ -21,6 +21,7 @@ from models_city import (
     CityMapResponse,
     AgentRead,
     AgentPresence,
+    AgentSummary,
     HomeNodeView,
     PublicCitizenSummary,
     PublicCitizenProfile,
@@ -55,6 +56,63 @@ class MicrodaoMembershipPayload(BaseModel):
     microdao_id: str
     role: Optional[str] = None
     is_core: bool = False
+
+
+# =============================================================================
+# Agents API (for Agent Console)
+# =============================================================================
+
+@public_router.get("/agents")
+async def list_agents(
+    kind: Optional[str] = Query(None, description="Filter by agent kind"),
+    node_id: Optional[str] = Query(None, description="Filter by node_id"),
+    limit: int = Query(100, le=200),
+    offset: int = Query(0, ge=0)
+):
+    """Список всіх агентів для Agent Console"""
+    try:
+        agents, total = await repo_city.get_agents_with_home_node(
+            kind=kind,
+            node_id=node_id,
+            limit=limit,
+            offset=offset
+        )
+        
+        items: List[AgentSummary] = []
+        for agent in agents:
+            # Build home_node if available
+            home_node_data = agent.get("home_node")
+            home_node = None
+            if home_node_data:
+                home_node = HomeNodeView(
+                    id=home_node_data.get("id"),
+                    name=home_node_data.get("name"),
+                    hostname=home_node_data.get("hostname"),
+                    roles=home_node_data.get("roles", []),
+                    environment=home_node_data.get("environment")
+                )
+            
+            # Get microdao memberships
+            memberships = await repo_city.get_agent_microdao_memberships(agent["id"])
+            
+            items.append(AgentSummary(
+                id=agent["id"],
+                display_name=agent["display_name"],
+                kind=agent.get("kind", "assistant"),
+                avatar_url=agent.get("avatar_url"),
+                status=agent.get("status", "offline"),
+                is_public=agent.get("is_public", False),
+                public_slug=agent.get("public_slug"),
+                public_title=agent.get("public_title"),
+                district=agent.get("public_district"),
+                home_node=home_node,
+                microdao_memberships=memberships
+            ))
+        
+        return {"items": items, "total": total}
+    except Exception as e:
+        logger.error(f"Failed to list agents: {e}")
+        raise HTTPException(status_code=500, detail="Failed to list agents")
 
 
 # =============================================================================
