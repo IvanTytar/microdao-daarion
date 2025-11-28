@@ -3,16 +3,19 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X, Home, Building2, User, Sparkles, Bot, Wallet, LogOut, Loader2 } from 'lucide-react'
+import { Menu, X, Home, Building2, User, Sparkles, Bot, Wallet, LogOut, Loader2, Server, Users, Network } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
 
 const navItems = [
   { href: '/', label: 'Головна', icon: Home },
   { href: '/city', label: 'Місто', icon: Building2 },
+  { href: '/citizens', label: 'Громадяни', icon: Users },
   { href: '/agents', label: 'Агенти', icon: Bot },
+  { href: '/microdao', label: 'MicroDAO', icon: Network },
   { href: '/governance', label: 'DAO', icon: Wallet },
   { href: '/secondme', label: 'Second Me', icon: User },
+  { href: '/nodes', label: 'Ноди', icon: Server },
 ]
 
 export function Navigation() {
