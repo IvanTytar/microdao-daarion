@@ -2,7 +2,7 @@
 City Backend API Routes
 """
 
-from fastapi import APIRouter, HTTPException, Depends, Body, Header, Query
+from fastapi import APIRouter, HTTPException, Depends, Body, Header, Query, Request
 from typing import List, Optional
 import logging
 import httpx
@@ -19,7 +19,11 @@ from models_city import (
     CityMapConfig,
     CityMapResponse,
     AgentRead,
-    AgentPresence
+    AgentPresence,
+    MicrodaoSummary,
+    MicrodaoDetail,
+    MicrodaoAgentView,
+    MicrodaoChannelView
 )
 import repo_city
 from common.redis_client import PresenceRedis, get_redis
@@ -473,6 +477,270 @@ async def get_city_map():
 # Agents API
 # =============================================================================
 
+@router.put("/agents/{agent_id}/public-profile")
+async def update_agent_public_profile(agent_id: str, request: Request):
+    """
+    Оновити публічний профіль агента.
+    Тільки для Architect/Admin.
+    """
+    try:
+        # Check agent exists
+        agent = await repo_city.get_agent_by_id(agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")
+        
+        # Parse body
+        body = await request.json()
+        
+        is_public = body.get("is_public", False)
+        public_slug = body.get("public_slug")
+        public_title = body.get("public_title")
+        public_tagline = body.get("public_tagline")
+        public_skills = body.get("public_skills", [])
+        public_district = body.get("public_district")
+        public_primary_room_slug = body.get("public_primary_room_slug")
+        
+        # Validate: if is_public, slug is required
+        if is_public and not public_slug:
+            raise HTTPException(status_code=400, detail="public_slug is required when is_public is true")
+        
+        # Validate slug format
+        if public_slug:
+            import re
+            if not re.match(r'^[a-z0-9_-]+$', public_slug.lower()):
+                raise HTTPException(status_code=400, detail="public_slug must contain only lowercase letters, numbers, underscores, and hyphens")
+        
+        # Validate skills (max 10, max 64 chars each)
+        if public_skills:
+            public_skills = [s[:64] for s in public_skills[:10]]
+        
+        # Update
+        result = await repo_city.update_agent_public_profile(
+            agent_id=agent_id,
+            is_public=is_public,
+            public_slug=public_slug,
+            public_title=public_title,
+            public_tagline=public_tagline,
+            public_skills=public_skills,
+            public_district=public_district,
+            public_primary_room_slug=public_primary_room_slug
+        )
+        
+        logger.info(f"Updated public profile for agent {agent_id}: is_public={is_public}, slug={public_slug}")
+        
+        return result
+    
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update agent public profile: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to update agent public profile")
+
+
+@router.get("/citizens")
+async def get_public_citizens(limit: int = 50, offset: int = 0):
+    """
+    Отримати список публічних громадян DAARION City.
+    """
+    try:
+        citizens = await repo_city.get_public_citizens(limit, offset)
+        return {"citizens": citizens, "total": len(citizens)}
+    except Exception as e:
+        logger.error(f"Failed to get public citizens: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get public citizens")
+
+
+@router.get("/citizens/{slug}")
+async def get_citizen_by_slug(slug: str, request: Request):
+    """
+    Отримати публічного громадянина за slug.
+    Для адмінів/архітекторів додається admin_panel_url.
+    """
+    try:
+        # TODO: Check user role from JWT
+        # For now, always include admin URL (will be filtered by frontend auth)
+        include_admin_url = True  # Should be: user.role in ['admin', 'architect']
+        
+        citizen = await repo_city.get_citizen_by_slug(slug, include_admin_url=include_admin_url)
+        if not citizen:
+            raise HTTPException(status_code=404, detail=f"Citizen not found: {slug}")
+        return citizen
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get citizen: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get citizen")
+
+
+@router.put("/agents/{agent_id}/prompts/{kind}")
+async def update_agent_prompt(agent_id: str, kind: str, request: Request):
+    """
+    Оновити системний промт агента.
+    Тільки для Architect/Admin.
+    kind: core | safety | governance | tools
+    """
+    try:
+        # Validate kind
+        valid_kinds = ["core", "safety", "governance", "tools"]
+        if kind not in valid_kinds:
+            raise HTTPException(status_code=400, detail=f"Invalid kind. Must be one of: {valid_kinds}")
+        
+        # Check agent exists
+        agent = await repo_city.get_agent_by_id(agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")
+        
+        # Parse body
+        body = await request.json()
+        content = body.get("content")
+        note = body.get("note")
+        
+        if not content or not content.strip():
+            raise HTTPException(status_code=400, detail="Content is required")
+        
+        # TODO: Get user from JWT and check permissions
+        # For now, use a placeholder
+        created_by = "ARCHITECT"  # Will be replaced with actual user from auth
+        
+        # Update prompt
+        result = await repo_city.update_agent_prompt(
+            agent_id=agent_id,
+            kind=kind,
+            content=content.strip(),
+            created_by=created_by,
+            note=note
+        )
+        
+        logger.info(f"Updated {kind} prompt for agent {agent_id} to version {result['version']}")
+        
+        return result
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update agent prompt: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to update agent prompt")
+
+
+@router.get("/agents/{agent_id}/prompts/{kind}/history")
+async def get_agent_prompt_history(agent_id: str, kind: str, limit: int = 10):
+    """
+    Отримати історію версій промту агента.
+    """
+    try:
+        valid_kinds = ["core", "safety", "governance", "tools"]
+        if kind not in valid_kinds:
+            raise HTTPException(status_code=400, detail=f"Invalid kind. Must be one of: {valid_kinds}")
+        
+        history = await repo_city.get_agent_prompt_history(agent_id, kind, limit)
+        return {"agent_id": agent_id, "kind": kind, "history": history}
+    
+    except Exception as e:
+        logger.error(f"Failed to get prompt history: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get prompt history")
+
+
+@router.get("/agents/{agent_id}/dashboard")
+async def get_agent_dashboard(agent_id: str):
+    """
+    Отримати повний dashboard агента (DAIS Profile + Node + Metrics)
+    """
+    try:
+        # Get agent profile
+        agent = await repo_city.get_agent_by_id(agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail=f"Agent not found: {agent_id}")
+        
+        # Get agent's rooms
+        rooms = await repo_city.get_agent_rooms(agent_id)
+        
+        # Build DAIS profile
+        profile = {
+            "agent_id": agent["id"],
+            "display_name": agent["display_name"],
+            "kind": agent.get("kind", "assistant"),
+            "status": agent.get("status", "offline"),
+            "node_id": agent.get("node_id"),
+            "roles": [agent.get("role")] if agent.get("role") else [],
+            "tags": [],
+            "dais": {
+                "core": {
+                    "title": agent.get("display_name"),
+                    "bio": f"{agent.get('kind', 'assistant').title()} agent in DAARION",
+                    "version": "1.0.0"
+                },
+                "vis": {
+                    "avatar_url": agent.get("avatar_url"),
+                    "color_primary": agent.get("color", "#22D3EE")
+                },
+                "cog": {
+                    "base_model": agent.get("model", "default"),
+                    "provider": "ollama",
+                    "node_id": agent.get("node_id")
+                },
+                "act": {
+                    "tools": agent.get("capabilities", [])
+                }
+            },
+            "city_presence": {
+                "primary_room_slug": agent.get("primary_room_slug"),
+                "district": agent.get("home_district"),
+                "rooms": rooms
+            }
+        }
+        
+        # Get node info (simplified)
+        node_info = None
+        if agent.get("node_id"):
+            node_info = {
+                "node_id": agent["node_id"],
+                "status": "online"  # Would fetch from Node Registry in production
+            }
+        
+        # Get system prompts
+        system_prompts = await repo_city.get_agent_prompts(agent_id)
+        
+        # Get public profile
+        public_profile = await repo_city.get_agent_public_profile(agent_id)
+        
+        # Build dashboard response
+        dashboard = {
+            "profile": profile,
+            "node": node_info,
+            "runtime": {
+                "health": "healthy" if agent.get("status") == "online" else "unknown",
+                "last_success_at": None,
+                "last_error_at": None
+            },
+            "metrics": {
+                "tasks_1h": 0,
+                "tasks_24h": 0,
+                "errors_24h": 0,
+                "avg_latency_ms_1h": 0,
+                "success_rate_24h": 1.0
+            },
+            "recent_activity": [],
+            "system_prompts": system_prompts,
+            "public_profile": public_profile
+        }
+        
+        return dashboard
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get agent dashboard: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to get agent dashboard")
+
+
 @router.get("/agents", response_model=List[AgentRead])
 async def get_agents():
     """
@@ -548,7 +816,10 @@ async def get_room_agents(room_id: str):
                 kind=agent.get("kind", "assistant"),
                 status=agent.get("status", "offline"),
                 room_id=room_id,
-                color=agent.get("color", "cyan")
+                color=agent.get("color", "cyan"),
+                node_id=agent.get("node_id"),
+                model=agent.get("model"),
+                role=agent.get("role")
             ))
         
         return result
@@ -556,4 +827,121 @@ async def get_room_agents(room_id: str):
     except Exception as e:
         logger.error(f"Failed to get room agents: {e}")
         raise HTTPException(status_code=500, detail="Failed to get room agents")
+
+
+@router.get("/agents/presence-snapshot")
+async def get_agents_presence_snapshot():
+    """
+    Отримати snapshot всіх агентів для presence (50 агентів по 10 districts)
+    """
+    try:
+        snapshot = await repo_city.get_agents_presence_snapshot()
+        return snapshot
+    except Exception as e:
+        logger.error(f"Failed to get agents presence snapshot: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get agents presence snapshot")
+
+
+# =============================================================================
+# MicroDAO API
+# =============================================================================
+
+@router.get("/microdao", response_model=List[MicrodaoSummary])
+async def get_microdaos(
+    district: Optional[str] = Query(None, description="Filter by district"),
+    q: Optional[str] = Query(None, description="Search by name/description"),
+    limit: int = Query(50, le=100),
+    offset: int = Query(0, ge=0)
+):
+    """
+    Отримати список MicroDAOs.
+    
+    - **district**: фільтр по дістрікту (Core, Energy, Green, Labs, etc.)
+    - **q**: пошук по назві або опису
+    """
+    try:
+        daos = await repo_city.get_microdaos(district=district, q=q, limit=limit, offset=offset)
+        
+        result = []
+        for dao in daos:
+            result.append(MicrodaoSummary(
+                id=dao["id"],
+                slug=dao["slug"],
+                name=dao["name"],
+                description=dao.get("description"),
+                district=dao.get("district"),
+                orchestrator_agent_id=dao.get("orchestrator_agent_id"),
+                is_active=dao.get("is_active", True),
+                logo_url=dao.get("logo_url"),
+                agents_count=dao.get("agents_count", 0),
+                rooms_count=dao.get("rooms_count", 0),
+                channels_count=dao.get("channels_count", 0)
+            ))
+        
+        return result
+    
+    except Exception as e:
+        logger.error(f"Failed to get microdaos: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to get microdaos")
+
+
+@router.get("/microdao/{slug}", response_model=MicrodaoDetail)
+async def get_microdao_by_slug(slug: str):
+    """
+    Отримати детальну інформацію про MicroDAO.
+    
+    Включає:
+    - Базову інформацію про DAO
+    - Список агентів (з ролями)
+    - Список каналів (Telegram, Matrix, City rooms, CrewAI)
+    """
+    try:
+        dao = await repo_city.get_microdao_by_slug(slug)
+        if not dao:
+            raise HTTPException(status_code=404, detail=f"MicroDAO not found: {slug}")
+        
+        # Build agents list
+        agents = []
+        for agent in dao.get("agents", []):
+            agents.append(MicrodaoAgentView(
+                agent_id=agent["agent_id"],
+                display_name=agent.get("display_name", agent["agent_id"]),
+                role=agent.get("role"),
+                is_core=agent.get("is_core", False)
+            ))
+        
+        # Build channels list
+        channels = []
+        for channel in dao.get("channels", []):
+            channels.append(MicrodaoChannelView(
+                kind=channel["kind"],
+                ref_id=channel["ref_id"],
+                display_name=channel.get("display_name"),
+                is_primary=channel.get("is_primary", False)
+            ))
+        
+        return MicrodaoDetail(
+            id=dao["id"],
+            slug=dao["slug"],
+            name=dao["name"],
+            description=dao.get("description"),
+            district=dao.get("district"),
+            orchestrator_agent_id=dao.get("orchestrator_agent_id"),
+            orchestrator_display_name=dao.get("orchestrator_display_name"),
+            is_active=dao.get("is_active", True),
+            is_public=dao.get("is_public", True),
+            logo_url=dao.get("logo_url"),
+            agents=agents,
+            channels=channels
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get microdao {slug}: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to get microdao")
 

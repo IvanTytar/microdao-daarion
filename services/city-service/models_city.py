@@ -169,4 +169,60 @@ class AgentPresence(BaseModel):
     status: str
     room_id: Optional[str] = None
     color: Optional[str] = None
+    node_id: Optional[str] = None
+    district: Optional[str] = None
+    model: Optional[str] = None
+    role: Optional[str] = None
+    avatar_url: Optional[str] = None
+
+
+# =============================================================================
+# MicroDAO
+# =============================================================================
+
+class MicrodaoSummary(BaseModel):
+    """MicroDAO summary for list view"""
+    id: str
+    slug: str
+    name: str
+    description: Optional[str] = None
+    district: Optional[str] = None
+    orchestrator_agent_id: Optional[str] = None
+    is_active: bool
+    logo_url: Optional[str] = None
+    agents_count: int
+    rooms_count: int
+    channels_count: int
+
+
+class MicrodaoChannelView(BaseModel):
+    """Channel/integration view for MicroDAO"""
+    kind: str           # 'matrix' | 'telegram' | 'city_room' | 'crew'
+    ref_id: str
+    display_name: Optional[str] = None
+    is_primary: bool
+
+
+class MicrodaoAgentView(BaseModel):
+    """Agent view within MicroDAO"""
+    agent_id: str
+    display_name: str
+    role: Optional[str] = None
+    is_core: bool
+
+
+class MicrodaoDetail(BaseModel):
+    """Full MicroDAO detail view"""
+    id: str
+    slug: str
+    name: str
+    description: Optional[str] = None
+    district: Optional[str] = None
+    orchestrator_agent_id: Optional[str] = None
+    orchestrator_display_name: Optional[str] = None
+    is_active: bool
+    is_public: bool
+    logo_url: Optional[str] = None
+    agents: List[MicrodaoAgentView]
+    channels: List[MicrodaoChannelView]
 

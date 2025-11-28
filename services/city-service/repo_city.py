@@ -347,3 +347,116 @@ async def update_agent_status(agent_id: str, status: str, room_id: Optional[str]
     
     return dict(row) if row else None
 
+
+# =============================================================================
+# MicroDAO Repository
+# =============================================================================
+
+async def get_microdaos(district: Optional[str] = None, q: Optional[str] = None, limit: int = 50, offset: int = 0) -> List[dict]:
+    """Отримати список MicroDAOs з агрегованою статистикою"""
+    pool = await get_pool()
+    
+    params = []
+    
+    where_clauses = ["m.is_public = true", "m.is_active = true"]
+    
+    if district:
+        params.append(district)
+        where_clauses.append(f"m.district = ${len(params)}")
+        
+    if q:
+        params.append(f"%{q}%")
+        where_clauses.append(f"(m.name ILIKE ${len(params)} OR m.description ILIKE ${len(params)})")
+        
+    where_sql = " AND ".join(where_clauses)
+    
+    query = f"""
+        SELECT
+          m.id,
+          m.slug,
+          m.name,
+          m.description,
+          m.district,
+          m.owner_agent_id as orchestrator_agent_id,
+          m.is_active,
+          m.logo_url,
+          COUNT(DISTINCT ma.agent_id) AS agents_count,
+          COUNT(DISTINCT mc.id) AS channels_count,
+          COUNT(DISTINCT CASE WHEN mc.kind = 'city_room' THEN mc.id END) AS rooms_count
+        FROM microdaos m
+        LEFT JOIN microdao_agents ma ON ma.microdao_id = m.id
+        LEFT JOIN microdao_channels mc ON mc.microdao_id = m.id
+        WHERE {where_sql}
+        GROUP BY m.id
+        ORDER BY m.name
+        LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
+    """
+    
+    # Append limit and offset to params
+    params.append(limit)
+    params.append(offset)
+    
+    rows = await pool.fetch(query, *params)
+    return [dict(row) for row in rows]
+
+
+async def get_microdao_by_slug(slug: str) -> Optional[dict]:
+    """Отримати детальну інформацію про MicroDAO"""
+    pool = await get_pool()
+    
+    # 1. Get main DAO info
+    query_dao = """
+        SELECT
+          m.id,
+          m.slug,
+          m.name,
+          m.description,
+          m.district,
+          m.owner_agent_id as orchestrator_agent_id,
+          m.is_active,
+          m.is_public,
+          m.logo_url,
+          a.display_name as orchestrator_display_name
+        FROM microdaos m
+        LEFT JOIN agents a ON m.owner_agent_id = a.id
+        WHERE m.slug = $1
+    """
+    
+    dao_row = await pool.fetchrow(query_dao, slug)
+    if not dao_row:
+        return None
+        
+    result = dict(dao_row)
+    dao_id = result["id"]
+    
+    # 2. Get Agents
+    query_agents = """
+        SELECT 
+            ma.agent_id,
+            ma.role,
+            ma.is_core,
+            a.display_name
+        FROM microdao_agents ma
+        JOIN agents a ON ma.agent_id = a.id
+        WHERE ma.microdao_id = $1
+        ORDER BY ma.is_core DESC, ma.role
+    """
+    agents_rows = await pool.fetch(query_agents, dao_id)
+    result["agents"] = [dict(row) for row in agents_rows]
+    
+    # 3. Get Channels
+    query_channels = """
+        SELECT 
+            kind,
+            ref_id,
+            display_name,
+            is_primary
+        FROM microdao_channels
+        WHERE microdao_id = $1
+        ORDER BY is_primary DESC, kind
+    """
+    channels_rows = await pool.fetch(query_channels, dao_id)
+    result["channels"] = [dict(row) for row in channels_rows]
+    
+    return result
+
