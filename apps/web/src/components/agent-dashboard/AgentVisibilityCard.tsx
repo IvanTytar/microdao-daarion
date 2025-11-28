@@ -14,7 +14,7 @@ interface AgentVisibilityCardProps {
 
 const VISIBILITY_OPTIONS: { value: VisibilityScope; label: string; description: string; icon: React.ReactNode }[] = [
   {
-    value: 'city',
+    value: 'global',
     label: 'Публічний',
     description: 'Видимий всім у міських сервісах',
     icon: <Globe className="w-4 h-4" />,
@@ -26,7 +26,7 @@ const VISIBILITY_OPTIONS: { value: VisibilityScope; label: string; description: 
     icon: <Users className="w-4 h-4" />,
   },
   {
-    value: 'owner_only',
+    value: 'private',
     label: 'Приватний',
     description: 'Видимий тільки власнику',
     icon: <Lock className="w-4 h-4" />,
@@ -51,9 +51,9 @@ export function AgentVisibilityCard({
     setScope(newScope);
     setError(null);
     
-    // If changing to non-city, auto-unlist from directory
-    const newListed = newScope === 'city' ? listed : false;
-    if (newScope !== 'city') {
+    // If changing to non-global, auto-unlist from directory
+    const newListed = newScope === 'global' ? listed : false;
+    if (newScope !== 'global') {
       setListed(false);
     }
     
@@ -72,7 +72,7 @@ export function AgentVisibilityCard({
   };
 
   const handleListedChange = async (checked: boolean) => {
-    if (readOnly || saving || scope !== 'city') return;
+    if (readOnly || saving || scope !== 'global') return;
     
     setListed(checked);
     setError(null);
@@ -134,8 +134,8 @@ export function AgentVisibilityCard({
         ))}
       </div>
 
-      {/* Citizens Directory toggle - only for city visibility */}
-      {scope === 'city' && (
+      {/* Citizens Directory toggle - only for global visibility */}
+      {scope === 'global' && (
         <div className="mt-4 pt-4 border-t border-white/10">
           <label className="flex items-center gap-3 cursor-pointer">
             <input
