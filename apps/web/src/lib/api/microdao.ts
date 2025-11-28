@@ -2,6 +2,8 @@
  * MicroDAO API Client (Task 029)
  */
 
+import { MicrodaoOption } from "@/lib/types/microdao";
+
 // =============================================================================
 // Types
 // =============================================================================
@@ -17,6 +19,12 @@ export interface MicrodaoVisibilityResponse {
   slug: string;
   is_public: boolean;
   is_platform: boolean;
+}
+
+export interface AssignAgentPayload {
+  microdao_id: string;
+  role?: string;
+  is_core?: boolean;
 }
 
 // =============================================================================
@@ -43,4 +51,52 @@ export async function updateMicrodaoVisibility(
   }
 
   return json;
+}
+
+/**
+ * Fetch available MicroDAO options for dropdown
+ */
+export async function fetchMicrodaoOptions(): Promise<MicrodaoOption[]> {
+  const res = await fetch("/api/microdao/options");
+  if (!res.ok) {
+    throw new Error("Failed to load MicroDAO options");
+  }
+  return res.json();
+}
+
+/**
+ * Assign agent to MicroDAO
+ */
+export async function assignAgentToMicrodao(
+  agentId: string,
+  payload: AssignAgentPayload
+): Promise<void> {
+  const res = await fetch(`/api/agents/${encodeURIComponent(agentId)}/microdao-membership`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.detail || error.error || "Failed to assign MicroDAO");
+  }
+}
+
+/**
+ * Remove agent from MicroDAO
+ */
+export async function removeAgentFromMicrodao(
+  agentId: string,
+  microdaoId: string
+): Promise<void> {
+  const res = await fetch(
+    `/api/agents/${encodeURIComponent(agentId)}/microdao-membership/${encodeURIComponent(microdaoId)}`,
+    { method: "DELETE" }
+  );
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.detail || error.error || "Failed to remove MicroDAO membership");
+  }
 }

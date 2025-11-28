@@ -112,6 +112,8 @@ export interface MicrodaoOption {
   id: string;
   slug: string;
   name: string;
+  district?: string | null;
+  is_active?: boolean;
 }
 
 // =============================================================================
