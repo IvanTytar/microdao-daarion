@@ -214,6 +214,19 @@ class NodeProfile(BaseModel):
     last_heartbeat: Optional[str] = None
 
 
+class ModelBindings(BaseModel):
+    """Agent model bindings for AI capabilities"""
+    primary_model: Optional[str] = None  # e.g., "qwen3:8b"
+    supported_kinds: List[str] = []  # e.g., ["text", "vision", "audio"]
+
+
+class UsageStats(BaseModel):
+    """Agent usage statistics"""
+    tokens_total_24h: Optional[int] = None
+    calls_total_24h: Optional[int] = None
+    last_active: Optional[str] = None
+
+
 class AgentSummary(BaseModel):
     """Agent summary for Agent Console"""
     id: str
@@ -227,6 +240,9 @@ class AgentSummary(BaseModel):
     district: Optional[str] = None
     home_node: Optional[HomeNodeView] = None
     microdao_memberships: List[Dict[str, Any]] = []
+    # Future: model bindings and usage stats
+    model_bindings: Optional[ModelBindings] = None
+    usage_stats: Optional[UsageStats] = None
 
 
 class PublicCitizenSummary(BaseModel):
