@@ -293,13 +293,14 @@ async def get_rooms_for_map() -> List[dict]:
 # =============================================================================
 
 async def get_all_agents() -> List[dict]:
-    """Отримати всіх агентів"""
+    """Отримати всіх агентів (non-archived)"""
     pool = await get_pool()
     
     query = """
         SELECT id, display_name, kind, avatar_url, color, status, 
                current_room_id, capabilities, created_at, updated_at
         FROM agents
+        WHERE COALESCE(is_archived, false) = false
         ORDER BY display_name
     """
     
@@ -317,7 +318,7 @@ async def get_agents_with_home_node(
     pool = await get_pool()
     
     params: List[Any] = []
-    where_clauses = ["1=1"]
+    where_clauses = ["COALESCE(a.is_archived, false) = false"]
     
     if kind:
         params.append(kind)
@@ -656,7 +657,7 @@ async def get_public_citizens(
     pool = await get_pool()
     
     params: List[Any] = []
-    where_clauses = ["a.is_public = true", "a.public_slug IS NOT NULL"]
+    where_clauses = ["a.is_public = true", "a.public_slug IS NOT NULL", "COALESCE(a.is_archived, false) = false"]
     
     if district:
         params.append(district)
@@ -982,7 +983,7 @@ async def get_microdaos(district: Optional[str] = None, q: Optional[str] = None,
     
     params = []
     
-    where_clauses = ["m.is_public = true", "m.is_active = true"]
+    where_clauses = ["m.is_public = true", "m.is_active = true", "COALESCE(m.is_archived, false) = false"]
     
     if district:
         params.append(district)
@@ -1043,7 +1044,7 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
           a.display_name as orchestrator_display_name
         FROM microdaos m
         LEFT JOIN agents a ON m.owner_agent_id = a.id
-        WHERE m.slug = $1
+        WHERE m.slug = $1 AND COALESCE(m.is_archived, false) = false
     """
     
     dao_row = await pool.fetchrow(query_dao, slug)
