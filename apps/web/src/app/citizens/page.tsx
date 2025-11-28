@@ -106,16 +106,17 @@ export default function CitizensPage() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(isLoading ? Array.from({ length: 6 }) : citizens).map(
-            (citizen, index) =>
-              citizen ? (
-                <CitizenCard key={citizen.slug} citizen={citizen} />
-              ) : (
-                <div
-                  key={`placeholder-${index}`}
-                  className="bg-white/5 rounded-2xl border border-white/5 animate-pulse h-60"
-                />
-              )
+          {isLoading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={`placeholder-${index}`}
+                className="bg-white/5 rounded-2xl border border-white/5 animate-pulse h-60"
+              />
+            ))
+          ) : (
+            citizens.map((citizen) => (
+              <CitizenCard key={citizen.slug} citizen={citizen} />
+            ))
           )}
         </div>
         
