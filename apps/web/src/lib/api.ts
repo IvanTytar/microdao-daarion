@@ -138,7 +138,9 @@ class ApiClient {
 
   // City Rooms
   async getCityRooms(): Promise<CityRoom[]> {
-    return this.fetch<CityRoom[]>('/api/city/rooms')
+    // Server-side: call backend directly, client-side: use proxy
+    const endpoint = typeof window === 'undefined' ? '/city/rooms' : '/api/city/rooms'
+    return this.fetch<CityRoom[]>(endpoint)
   }
 
   async getCityRoom(slug: string): Promise<CityRoom | null> {
