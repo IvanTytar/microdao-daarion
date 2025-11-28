@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const API_BASE = process.env.CITY_API_BASE_URL;
+const API_BASE = process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_URL || "http://daarion-city-service:7001";
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  if (!API_BASE) {
-    return NextResponse.json(
-      { error: "CITY_API_BASE_URL is not configured" },
-      { status: 500 }
-    );
-  }
 
   const { slug } = await params;
   const body = await req.json().catch(() => ({}));
