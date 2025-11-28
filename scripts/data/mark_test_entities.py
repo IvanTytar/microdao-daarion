@@ -34,6 +34,10 @@ async def main():
     allowed_microdao_slugs = set(allowlist.get('microdao', []))
     allowed_agent_slugs = set(allowlist.get('agents', []))
     
+    print(f"Loaded allowlist: {len(allowed_agent_slugs)} agents, {len(allowed_microdao_slugs)} microdaos")
+    print(f"Allowed agents sample: {list(allowed_agent_slugs)[:5]}")
+    print(f"Allowed microdaos sample: {list(allowed_microdao_slugs)[:5]}")
+    
     print(f"Connecting to DB...")
     try:
         conn = await asyncpg.connect(DATABASE_URL)
