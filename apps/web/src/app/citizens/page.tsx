@@ -199,13 +199,14 @@ function CitizenCard({ citizen }: { citizen: PublicCitizenSummary }) {
               />
               {status}
             </span>
-            {citizen.home_node?.name && (
+            {citizen.home_node?.id && (
               <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
                 citizen.home_node.environment === 'production' 
                   ? 'bg-emerald-500/20 text-emerald-400' 
                   : 'bg-amber-500/20 text-amber-400'
               }`}>
-                {citizen.home_node.name.split(' ')[0]}
+                {citizen.home_node.id.includes('node-1') ? 'НОДА1' : 
+                 citizen.home_node.id.includes('node-2') ? 'НОДА2' : 'НОДА'}
               </span>
             )}
           </div>
