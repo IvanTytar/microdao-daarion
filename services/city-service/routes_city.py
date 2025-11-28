@@ -22,6 +22,7 @@ from models_city import (
     AgentRead,
     AgentPresence,
     AgentSummary,
+    MicrodaoBadge,
     HomeNodeView,
     NodeProfile,
     PublicCitizenSummary,
@@ -67,14 +68,19 @@ class MicrodaoMembershipPayload(BaseModel):
 async def list_agents(
     kind: Optional[str] = Query(None, description="Filter by agent kind"),
     node_id: Optional[str] = Query(None, description="Filter by node_id"),
+    visibility_scope: Optional[str] = Query(None, description="Filter by visibility: city, microdao, owner_only"),
+    include_system: bool = Query(True, description="Include system agents"),
     limit: int = Query(100, le=200),
     offset: int = Query(0, ge=0)
 ):
-    """Список всіх агентів для Agent Console"""
+    """Список всіх агентів для Agent Console (unified API)"""
     try:
-        agents, total = await repo_city.get_agents_with_home_node(
-            kind=kind,
+        kinds_list = [kind] if kind else None
+        agents, total = await repo_city.list_agent_summaries(
             node_id=node_id,
+            visibility_scope=visibility_scope,
+            kinds=kinds_list,
+            include_system=include_system,
             limit=limit,
             offset=offset
         )
@@ -93,27 +99,83 @@ async def list_agents(
                     environment=home_node_data.get("environment")
                 )
             
-            # Get microdao memberships
-            memberships = await repo_city.get_agent_microdao_memberships(agent["id"])
+            # Build microdao badges
+            microdaos = [
+                MicrodaoBadge(
+                    id=m.get("id", ""),
+                    name=m.get("name", ""),
+                    slug=m.get("slug"),
+                    role=m.get("role")
+                )
+                for m in agent.get("microdaos", [])
+            ]
             
             items.append(AgentSummary(
                 id=agent["id"],
+                slug=agent.get("slug"),
                 display_name=agent["display_name"],
+                title=agent.get("title"),
+                tagline=agent.get("tagline"),
                 kind=agent.get("kind", "assistant"),
                 avatar_url=agent.get("avatar_url"),
                 status=agent.get("status", "offline"),
-                is_public=agent.get("is_public", False),
-                public_slug=agent.get("public_slug"),
-                public_title=agent.get("public_title"),
-                district=agent.get("public_district"),
+                node_id=agent.get("node_id"),
+                node_label=agent.get("node_label"),
                 home_node=home_node,
-                microdao_memberships=memberships
+                visibility_scope=agent.get("visibility_scope", "city"),
+                is_listed_in_directory=agent.get("is_listed_in_directory", True),
+                is_system=agent.get("is_system", False),
+                is_public=agent.get("is_public", False),
+                primary_microdao_id=agent.get("primary_microdao_id"),
+                primary_microdao_name=agent.get("primary_microdao_name"),
+                primary_microdao_slug=agent.get("primary_microdao_slug"),
+                district=agent.get("district"),
+                microdaos=microdaos,
+                microdao_memberships=agent.get("microdao_memberships", []),
+                public_skills=agent.get("public_skills", [])
             ))
         
         return {"items": items, "total": total}
     except Exception as e:
         logger.error(f"Failed to list agents: {e}")
         raise HTTPException(status_code=500, detail="Failed to list agents")
+
+
+class AgentVisibilityPayload(BaseModel):
+    visibility_scope: str  # city, microdao, owner_only
+    is_listed_in_directory: bool = True
+
+
+@router.put("/agents/{agent_id}/visibility")
+async def update_agent_visibility(
+    agent_id: str,
+    payload: AgentVisibilityPayload
+):
+    """Оновити налаштування видимості агента"""
+    try:
+        # Validate visibility_scope
+        if payload.visibility_scope not in ("city", "microdao", "owner_only"):
+            raise HTTPException(
+                status_code=400, 
+                detail="visibility_scope must be one of: city, microdao, owner_only"
+            )
+        
+        # Update in database
+        success = await repo_city.update_agent_visibility(
+            agent_id=agent_id,
+            visibility_scope=payload.visibility_scope,
+            is_listed_in_directory=payload.is_listed_in_directory
+        )
+        
+        if not success:
+            raise HTTPException(status_code=404, detail="Agent not found")
+        
+        return {"status": "ok", "agent_id": agent_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update agent visibility: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update visibility")
 
 
 # =============================================================================

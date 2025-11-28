@@ -13,7 +13,10 @@ import {
   AgentPublicProfileCard,
   AgentMicrodaoMembershipCard
 } from '@/components/agent-dashboard';
+import { AgentVisibilityCard } from '@/components/agent-dashboard/AgentVisibilityCard';
 import { api, Agent, AgentInvokeResponse } from '@/lib/api';
+import { updateAgentVisibility } from '@/lib/api/agents';
+import { AgentVisibilityPayload, VisibilityScope } from '@/lib/types/agents';
 
 // Chat Message type
 interface Message {
@@ -221,6 +224,17 @@ export default function AgentPage() {
               onUpdated={refresh}
             />
             
+            {/* Visibility Settings */}
+            <AgentVisibilityCard
+              agentId={dashboard.profile.agent_id}
+              visibilityScope={(dashboard.public_profile?.visibility_scope as VisibilityScope) || 'city'}
+              isListedInDirectory={dashboard.public_profile?.is_listed_in_directory ?? true}
+              onUpdate={async (payload: AgentVisibilityPayload) => {
+                await updateAgentVisibility(dashboard.profile.agent_id, payload);
+                refresh();
+              }}
+            />
+
             {/* Public Profile Settings */}
             <AgentPublicProfileCard
               agentId={dashboard.profile.agent_id}

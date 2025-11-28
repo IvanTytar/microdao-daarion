@@ -292,8 +292,137 @@ async def get_rooms_for_map() -> List[dict]:
 # Agents Repository
 # =============================================================================
 
+async def list_agent_summaries(
+    *,
+    node_id: Optional[str] = None,
+    visibility_scope: Optional[str] = None,
+    listed_only: Optional[bool] = None,
+    kinds: Optional[List[str]] = None,
+    include_system: bool = True,
+    include_archived: bool = False,
+    limit: int = 200,
+    offset: int = 0
+) -> Tuple[List[dict], int]:
+    """
+    Unified method to list agents with all necessary data.
+    Used by both Agent Console and Citizens page.
+    """
+    pool = await get_pool()
+    
+    params: List[Any] = []
+    where_clauses = []
+    
+    # Always filter archived unless explicitly included
+    if not include_archived:
+        where_clauses.append("COALESCE(a.is_archived, false) = false")
+    
+    if node_id:
+        params.append(node_id)
+        where_clauses.append(f"a.node_id = ${len(params)}")
+    
+    if visibility_scope:
+        params.append(visibility_scope)
+        where_clauses.append(f"COALESCE(a.visibility_scope, 'city') = ${len(params)}")
+    
+    if listed_only is True:
+        where_clauses.append("COALESCE(a.is_listed_in_directory, true) = true")
+    elif listed_only is False:
+        where_clauses.append("COALESCE(a.is_listed_in_directory, true) = false")
+    
+    if kinds:
+        params.append(kinds)
+        where_clauses.append(f"a.kind = ANY(${len(params)})")
+    
+    if not include_system:
+        where_clauses.append("COALESCE(a.is_system, false) = false")
+    
+    where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+    
+    query = f"""
+        SELECT
+            a.id,
+            COALESCE(a.slug, a.public_slug, LOWER(REPLACE(a.display_name, ' ', '-'))) AS slug,
+            a.display_name,
+            COALESCE(a.public_title, '') AS title,
+            COALESCE(a.public_tagline, '') AS tagline,
+            a.kind,
+            a.avatar_url,
+            COALESCE(a.status, 'offline') AS status,
+            a.node_id,
+            nc.node_name AS node_label,
+            nc.hostname AS node_hostname,
+            nc.roles AS node_roles,
+            nc.environment AS node_environment,
+            COALESCE(a.visibility_scope, 'city') AS visibility_scope,
+            COALESCE(a.is_listed_in_directory, true) AS is_listed_in_directory,
+            COALESCE(a.is_system, false) AS is_system,
+            COALESCE(a.is_public, false) AS is_public,
+            a.primary_microdao_id,
+            pm.name AS primary_microdao_name,
+            pm.slug AS primary_microdao_slug,
+            pm.district AS district,
+            COALESCE(a.public_skills, ARRAY[]::text[]) AS public_skills,
+            COUNT(*) OVER() AS total_count
+        FROM agents a
+        LEFT JOIN node_cache nc ON a.node_id = nc.node_id
+        LEFT JOIN microdaos pm ON a.primary_microdao_id = pm.id
+        WHERE {where_sql}
+        ORDER BY a.display_name
+        LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
+    """
+    
+    params.append(limit)
+    params.append(offset)
+    
+    rows = await pool.fetch(query, *params)
+    if not rows:
+        return [], 0
+    
+    total = rows[0]["total_count"]
+    items = []
+    
+    for row in rows:
+        data = dict(row)
+        data.pop("total_count", None)
+        
+        # Build home_node object
+        if data.get("node_id"):
+            data["home_node"] = {
+                "id": data.get("node_id"),
+                "name": data.get("node_label"),
+                "hostname": data.get("node_hostname"),
+                "roles": list(data.get("node_roles") or []),
+                "environment": data.get("node_environment")
+            }
+        else:
+            data["home_node"] = None
+        
+        # Clean up intermediate fields
+        for key in ["node_hostname", "node_roles", "node_environment"]:
+            data.pop(key, None)
+        
+        # Get MicroDAO memberships
+        memberships = await get_agent_microdao_memberships(data["id"])
+        data["microdaos"] = [
+            {
+                "id": m.get("microdao_id", ""),
+                "name": m.get("name", ""),
+                "slug": m.get("slug"),
+                "role": m.get("role")
+            }
+            for m in memberships
+        ]
+        data["microdao_memberships"] = memberships  # backward compatibility
+        
+        data["public_skills"] = list(data.get("public_skills") or [])
+        
+        items.append(data)
+    
+    return items, total
+
+
 async def get_all_agents() -> List[dict]:
-    """Отримати всіх агентів (non-archived)"""
+    """Отримати всіх агентів (non-archived) - legacy method"""
     pool = await get_pool()
     
     query = """
@@ -306,6 +435,29 @@ async def get_all_agents() -> List[dict]:
     
     rows = await pool.fetch(query)
     return [dict(row) for row in rows]
+
+
+async def update_agent_visibility(
+    agent_id: str,
+    visibility_scope: str,
+    is_listed_in_directory: bool
+) -> bool:
+    """Оновити налаштування видимості агента"""
+    pool = await get_pool()
+    
+    query = """
+        UPDATE agents
+        SET visibility_scope = $2,
+            is_listed_in_directory = $3,
+            is_public = $3,
+            updated_at = NOW()
+        WHERE id = $1
+          AND COALESCE(is_archived, false) = false
+        RETURNING id
+    """
+    
+    result = await pool.fetchrow(query, agent_id, visibility_scope, is_listed_in_directory)
+    return result is not None
 
 
 async def get_agents_with_home_node(

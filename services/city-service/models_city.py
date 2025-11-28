@@ -227,19 +227,47 @@ class UsageStats(BaseModel):
     last_active: Optional[str] = None
 
 
-class AgentSummary(BaseModel):
-    """Agent summary for Agent Console"""
+class MicrodaoBadge(BaseModel):
+    """MicroDAO badge for agent display"""
     id: str
+    name: str
+    slug: Optional[str] = None
+    role: Optional[str] = None  # orchestrator, member, etc.
+
+
+class AgentSummary(BaseModel):
+    """Unified Agent summary for Agent Console and Citizens"""
+    id: str
+    slug: Optional[str] = None
     display_name: str
+    title: Optional[str] = None  # public_title
+    tagline: Optional[str] = None  # public_tagline
     kind: str = "assistant"
     avatar_url: Optional[str] = None
     status: str = "offline"
-    is_public: bool = False
-    public_slug: Optional[str] = None
-    public_title: Optional[str] = None
-    district: Optional[str] = None
+    
+    # Node info
+    node_id: Optional[str] = None
+    node_label: Optional[str] = None  # "НОДА1" / "НОДА2"
     home_node: Optional[HomeNodeView] = None
-    microdao_memberships: List[Dict[str, Any]] = []
+    
+    # Visibility
+    visibility_scope: str = "city"  # city, microdao, owner_only
+    is_listed_in_directory: bool = True
+    is_system: bool = False
+    is_public: bool = False  # backward compatibility
+    
+    # MicroDAO
+    primary_microdao_id: Optional[str] = None
+    primary_microdao_name: Optional[str] = None
+    primary_microdao_slug: Optional[str] = None
+    district: Optional[str] = None
+    microdaos: List[MicrodaoBadge] = []
+    microdao_memberships: List[Dict[str, Any]] = []  # backward compatibility
+    
+    # Skills
+    public_skills: List[str] = []
+    
     # Future: model bindings and usage stats
     model_bindings: Optional[ModelBindings] = None
     usage_stats: Optional[UsageStats] = None
