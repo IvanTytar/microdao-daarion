@@ -14,12 +14,12 @@ services:
     environment:
       - LOG_LEVEL=INFO
       - ENVIRONMENT=development
-      # TODO: додати з'єднання з Redis, NATS, PostgreSQL
-      # - REDIS_URL=redis://redis:6379
-      # - NATS_URL=nats://nats:4222
-      # - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/daarion
+      - DATABASE_URL=postgresql://postgres:postgres@dagi-postgres:5432/daarion
+      - REDIS_URL=redis://dagi-redis:6379
+      - NATS_URL=nats://dagi-nats:4222
     networks:
       - daarion-network
+      - dagi-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:7001/health')"]
@@ -80,6 +80,8 @@ networks:
   daarion-network:
     name: daarion-network
     driver: bridge
+  dagi-network:
+    external: true
 
 
 
