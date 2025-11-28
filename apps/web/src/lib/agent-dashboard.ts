@@ -79,6 +79,7 @@ export interface AgentProfile {
   status: 'online' | 'offline' | 'degraded' | 'training' | 'maintenance';
   node_id?: string;
   is_public?: boolean;
+  public_slug?: string | null;
   is_orchestrator?: boolean;
   primary_microdao_id?: string;
   primary_microdao_name?: string;

@@ -1131,6 +1131,7 @@ async def get_agent_dashboard(agent_id: str):
             "status": agent.get("status", "offline"),
             "node_id": agent.get("node_id"),
             "is_public": agent.get("is_public", False),
+            "public_slug": agent.get("public_slug"),
             "is_orchestrator": agent.get("is_orchestrator", False),
             "primary_microdao_id": agent.get("primary_microdao_id"),
             "primary_microdao_name": agent.get("primary_microdao_name"),
