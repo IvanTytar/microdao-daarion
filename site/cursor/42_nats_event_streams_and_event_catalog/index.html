@@ -1,0 +1,1666 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/42_nats_event_streams_and_event_catalog/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>42 — NATS Event Streams & Event Catalog (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#42-nats-event-streams-event-catalog-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              42 — NATS Event Streams & Event Catalog (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-jetstream-cluster-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. JetStream Cluster Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-event-categories-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Event Categories Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-stream-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Stream Naming Convention
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-topic-naming-convention-subjects" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Topic Naming Convention (Subjects)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-event-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Event Envelope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-outbox-integration-guaranteed-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Outbox Integration (Guaranteed Delivery)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-stream-by-stream-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Stream-by-Stream Specification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Stream-by-Stream Specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-stream_agent_run" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 STREAM_AGENT_RUN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 STREAM_AGENT_RUN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subjects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subjects:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payloads
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-stream_chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 STREAM_CHAT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 STREAM_CHAT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subjects_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subjects:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payload:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-stream_project" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 STREAM_PROJECT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-stream_task" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 STREAM_TASK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-stream_wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 STREAM_WALLET
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-stream_staking" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.6 STREAM_STAKING
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-stream_payout" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.7 STREAM_PAYOUT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#88-stream_embassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.8 STREAM_EMBASSY
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#89-stream_oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.9 STREAM_ORACLE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#810-stream_rwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.10 STREAM_RWA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#811-stream_governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.11 STREAM_GOVERNANCE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#812-stream_usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.12 STREAM_USAGE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#813-stream_telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.13 STREAM_TELEMETRY
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#814-stream_rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.14 STREAM_RAG
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.14 STREAM_RAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subjects_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subjects:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payloads_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payloads
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-retention-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Retention Policies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Retention Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-chat-project-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent, Chat, Project, Task
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rwa-embassy-oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      RWA, Embassy, Oracle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Governance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wallet-payout-staking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wallet, Payout, Staking
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-consumer-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Consumer Groups
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-message-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Message Ordering
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-security-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Security / ACL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Security / ACL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-replay-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Replay &amp; Recovery
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-nats-integration-with-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. NATS Integration with Mesh
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="42-nats-event-streams-event-catalog-microdao">42 — NATS Event Streams &amp; Event Catalog (MicroDAO)<a class="headerlink" href="#42-nats-event-streams-event-catalog-microdao" title="Permanent link">&para;</a></h1>
+<p><em>NATS JetStream архітектура, топіки, схеми подій, ретенція, реплікація, кластеризація, consumer groups, replay, дедуплікація, outbox-pattern інтеграція</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ визначає <strong>офіційний Event Catalog DAARION.city</strong>:</p>
+<ul>
+<li>перелік усіх подій (events),</li>
+<li>схеми Payloadів,</li>
+<li>NATS-стріми та топіки,</li>
+<li>lifecycle подій,</li>
+<li>гарантії доставки,</li>
+<li>retention правила,</li>
+<li>інструкції для сервісів,</li>
+<li>інтеграцію з Outbox Worker,</li>
+<li>безпеку та ACL для стрімів.</li>
+</ul>
+<p>Це база для:</p>
+<ul>
+<li>Wallet Service,</li>
+<li>Agent Orchestrator,</li>
+<li>Embassy/RWA,</li>
+<li>Governance Agent,</li>
+<li>Usage Service,</li>
+<li>Analytics/Monitoring,</li>
+<li>Replaying events (for recovery).</li>
+</ul>
+<hr />
+<h2 id="2-jetstream-cluster-model">2. JetStream Cluster Model<a class="headerlink" href="#2-jetstream-cluster-model" title="Permanent link">&para;</a></h2>
+<p>DAARION використовує <strong>3-5 вузлів JetStream кластеру</strong> з параметрами:</p>
+<ul>
+<li>Replication: <strong>3</strong></li>
+<li>Acknowledgement: <strong>explicit</strong></li>
+<li>Storage: <strong>file (SSD)</strong></li>
+<li>Retention: <strong>WorkQueue</strong> або <strong>Interest</strong> залежно від стріму</li>
+</ul>
+<hr />
+<h2 id="3-event-categories-overview">3. Event Categories Overview<a class="headerlink" href="#3-event-categories-overview" title="Permanent link">&para;</a></h2>
+<p>Уся система складається з 14 груп подій:</p>
+<ol>
+<li><strong>agent.run.</strong>*</li>
+<li><strong>chat.message.</strong>*</li>
+<li><strong>project.</strong>*</li>
+<li><strong>task.</strong>*</li>
+<li><strong>wallet.</strong>*</li>
+<li><strong>staking.</strong>*</li>
+<li><strong>payout.</strong>*</li>
+<li><strong>embassy.</strong>*</li>
+<li><strong>oracle.</strong>*</li>
+<li><strong>rwa.inventory.</strong>*</li>
+<li><strong>governance.</strong>*</li>
+<li><strong>usage.</strong>*</li>
+<li><strong>telemetry.</strong>*</li>
+<li><strong>rag.</strong>*</li>
+</ol>
+<p>Кожна категорія має окремий JetStream "stream".</p>
+<hr />
+<h2 id="4-stream-naming-convention">4. Stream Naming Convention<a class="headerlink" href="#4-stream-naming-convention" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>STREAM_&lt;DOMAIN&gt;
+</code></pre></div>
+
+<p>Приклади:</p>
+<div class="codehilite"><pre><span></span><code>STREAM_AGENT_RUN
+STREAM_CHAT
+STREAM_EMBASSY
+STREAM_RWA
+STREAM_GOVERNANCE
+STREAM_WALLET
+STREAM_USAGE
+</code></pre></div>
+
+<hr />
+<h2 id="5-topic-naming-convention-subjects">5. Topic Naming Convention (Subjects)<a class="headerlink" href="#5-topic-naming-convention-subjects" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>&lt;domain&gt;.&lt;subdomain&gt;.&lt;action&gt;
+</code></pre></div>
+
+<p>Приклади:</p>
+<div class="codehilite"><pre><span></span><code>agent.run.started
+agent.run.completed
+wallet.payout.generated
+embassy.energy.update
+rwa.inventory.updated
+governance.policy.updated
+</code></pre></div>
+
+<hr />
+<h2 id="6-event-envelope">6. Event Envelope<a class="headerlink" href="#6-event-envelope" title="Permanent link">&para;</a></h2>
+<p>Усі події використовують уніфікований формат:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-14T12:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.run.completed&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user|agent|service|embassy&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_abc&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;span_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;span_def&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-outbox-integration-guaranteed-delivery">7. Outbox Integration (Guaranteed Delivery)<a class="headerlink" href="#7-outbox-integration-guaranteed-delivery" title="Permanent link">&para;</a></h2>
+<p>Усі сервіси, що генерують події, пишуть <em>спочатку</em> в таблицю:</p>
+<div class="codehilite"><pre><span></span><code>outbox_events
+</code></pre></div>
+
+<p>Далі Outbox Worker:</p>
+<ol>
+<li>читає записи <code>processed=false</code></li>
+<li>публікує у NATS</li>
+<li>позначає <code>processed=true</code></li>
+</ol>
+<p>Гарантія: <strong>at-least-once delivery</strong></p>
+<hr />
+<h2 id="8-stream-by-stream-specification">8. Stream-by-Stream Specification<a class="headerlink" href="#8-stream-by-stream-specification" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="81-stream_agent_run">8.1 STREAM_AGENT_RUN<a class="headerlink" href="#81-stream_agent_run" title="Permanent link">&para;</a></h3>
+<h4 id="subjects">Subjects:<a class="headerlink" href="#subjects" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>agent.run.started</code></li>
+<li><code>agent.run.completed</code></li>
+<li><code>agent.run.failed</code></li>
+<li><code>agent.run.rate_limited</code></li>
+</ul>
+<h4 id="payloads">Payloads<a class="headerlink" href="#payloads" title="Permanent link">&para;</a></h4>
+<p><strong>agent.run.started</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ar_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_555&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_444&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;math&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;memory&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;input_summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>agent.run.completed</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ar_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3421</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tokens_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1842</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;cost_1t&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00023</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output_summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="82-stream_chat">8.2 STREAM_CHAT<a class="headerlink" href="#82-stream_chat" title="Permanent link">&para;</a></h3>
+<h4 id="subjects_1">Subjects:<a class="headerlink" href="#subjects_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>chat.message.created</code></li>
+<li><code>chat.message.updated</code></li>
+<li><code>chat.message.deleted</code></li>
+</ul>
+<h4 id="payload">Payload:<a class="headerlink" href="#payload" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg_777&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ch_222&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user|agent|system&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w">        </span><span class="c1">// plaintext not included</span>
+<span class="w">  </span><span class="nt">&quot;embeddings&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;ref&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="83-stream_project">8.3 STREAM_PROJECT<a class="headerlink" href="#83-stream_project" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>project.created</code></li>
+<li><code>project.updated</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_111&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_444&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="84-stream_task">8.4 STREAM_TASK<a class="headerlink" href="#84-stream_task" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>task.created</code></li>
+<li><code>task.updated</code></li>
+<li><code>task.completed</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tsk_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_111&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_444&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;open|in_progress|done&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="85-stream_wallet">8.5 STREAM_WALLET<a class="headerlink" href="#85-stream_wallet" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>wallet.balance.updated</code></li>
+<li><code>wallet.tx.sent</code></li>
+<li><code>wallet.tx.confirmed</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KWT|1T|DAARION&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">12.55</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="86-stream_staking">8.6 STREAM_STAKING<a class="headerlink" href="#86-stream_staking" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>staking.locked</code></li>
+<li><code>staking.unlocked</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_x&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_y&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RINGK&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="87-stream_payout">8.7 STREAM_PAYOUT<a class="headerlink" href="#87-stream_payout" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>payout.generated</code></li>
+<li><code>payout.claimed</code></li>
+<li><code>payout.failed</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;payout_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;payout_727&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KWT&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rwa_ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inv_888&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="88-stream_embassy">8.8 STREAM_EMBASSY<a class="headerlink" href="#88-stream_embassy" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>embassy.energy.update</code></li>
+<li><code>embassy.food.update</code></li>
+<li><code>embassy.water.update</code></li>
+<li><code>embassy.event.received</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energyunion&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;site_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EU-KYIV-01&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">125.4</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kwh&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="89-stream_oracle">8.9 STREAM_ORACLE<a class="headerlink" href="#89-stream_oracle" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>oracle.reading.published</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;site_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EU-KYIV-01&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;normalized_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">125.4</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;delta&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">23.1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="810-stream_rwa">8.10 STREAM_RWA<a class="headerlink" href="#810-stream_rwa" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>rwa.inventory.updated</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;inventory_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inv_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;site_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EU-KYIV-01&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">125.4</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;delta&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">23.1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kwh&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="811-stream_governance">8.11 STREAM_GOVERNANCE<a class="headerlink" href="#811-stream_governance" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>governance.policy.created</code></li>
+<li><code>governance.policy.updated</code></li>
+<li><code>governance.policy.failed</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gov_0012&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plan.entitlement.update&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;applied&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="812-stream_usage">8.12 STREAM_USAGE<a class="headerlink" href="#812-stream_usage" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>usage.agent_run.increment</code></li>
+<li><code>usage.llm.increment</code></li>
+<li><code>usage.embassy.increment</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_runs&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="813-stream_telemetry">8.13 STREAM_TELEMETRY<a class="headerlink" href="#813-stream_telemetry" title="Permanent link">&para;</a></h3>
+<p>Subjects:</p>
+<ul>
+<li><code>telemetry.event</code></li>
+<li><code>telemetry.error</code></li>
+<li><code>telemetry.screen_view</code></li>
+</ul>
+<p>Payload:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;screen_view&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;screen&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dashboard&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="814-stream_rag">8.14 STREAM_RAG<a class="headerlink" href="#814-stream_rag" title="Permanent link">&para;</a></h3>
+<h4 id="subjects_2">Subjects:<a class="headerlink" href="#subjects_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>parser.document.parsed</code></li>
+<li><code>rag.document.ingested</code></li>
+<li><code>rag.document.indexed</code></li>
+</ul>
+<h4 id="payloads_1">Payloads<a class="headerlink" href="#payloads_1" title="Permanent link">&para;</a></h4>
+<p><strong>parser.document.parsed</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_abc&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-17T10:45:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parser&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parser.document.parsed&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parser-service&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;doc_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;doc_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pdf|image&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pages_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;parsed_jpumped&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;indexed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sample Document&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;parsing_time_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2340</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_abc&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;span_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;span_def&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>rag.document.ingested</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_def&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-17T10:46:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rag&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rag.document.ingested&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rag-service&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;doc_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chunk_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;indexed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ingestion_time_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3134</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;embed_model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bge-m3@v1&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_def&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;span_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;span_ghi&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>rag.document.indexed</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_ghi&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-17T10:47:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rag&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rag.document.indexed&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rag-ingest-worker&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;doc_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chunk_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;c_001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;c_002&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;c_003&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;indexed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;indexing_time_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">127</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;milvus_collection&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;documents_v1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;neo4j_nodes_created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_ghi&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;span_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;span_jkl&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="9-retention-policies">9. Retention Policies<a class="headerlink" href="#9-retention-policies" title="Permanent link">&para;</a></h2>
+<h3 id="agent-chat-project-task">Agent, Chat, Project, Task<a class="headerlink" href="#agent-chat-project-task" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>retention: 14–90 days
+storage: workqueue
+</code></pre></div>
+
+<h3 id="rwa-embassy-oracle">RWA, Embassy, Oracle<a class="headerlink" href="#rwa-embassy-oracle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>retention: 1–3 years
+storage: file
+</code></pre></div>
+
+<h3 id="governance">Governance<a class="headerlink" href="#governance" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>retention: permanent
+storage: file
+</code></pre></div>
+
+<h3 id="wallet-payout-staking">Wallet, Payout, Staking<a class="headerlink" href="#wallet-payout-staking" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>retention: 3–7 years
+storage: file
+</code></pre></div>
+
+<hr />
+<h2 id="10-consumer-groups">10. Consumer Groups<a class="headerlink" href="#10-consumer-groups" title="Permanent link">&para;</a></h2>
+<p>Для кожного стріму визначені consumer groups:</p>
+<table>
+<thead>
+<tr>
+<th>Stream</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STREAM_AGENT_RUN</td>
+<td>telemetry, analytics</td>
+</tr>
+<tr>
+<td>STREAM_WALLET</td>
+<td>wallet, payout, usage</td>
+</tr>
+<tr>
+<td>STREAM_RWA</td>
+<td>wallet, dashboard</td>
+</tr>
+<tr>
+<td>STREAM_EMBASSY</td>
+<td>oracle, usage</td>
+</tr>
+<tr>
+<td>STREAM_GOVERNANCE</td>
+<td>PDP, audit</td>
+</tr>
+<tr>
+<td>STREAM_USAGE</td>
+<td>quota service</td>
+</tr>
+<tr>
+<td>STREAM_CHAT</td>
+<td>search-indexer</td>
+</tr>
+<tr>
+<td>STREAM_RAG</td>
+<td>rag-service, parser-service, search-indexer</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-message-ordering">11. Message Ordering<a class="headerlink" href="#11-message-ordering" title="Permanent link">&para;</a></h2>
+<p>Гарантовано:</p>
+<ul>
+<li><strong>per site_id</strong> (RWA)</li>
+<li><strong>per agent_run_id</strong></li>
+<li><strong>per payout_id</strong></li>
+</ul>
+<hr />
+<h2 id="12-security-acl">12. Security / ACL<a class="headerlink" href="#12-security-acl" title="Permanent link">&para;</a></h2>
+<h3 id="example">Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>SERVICE agent-orchestrator:
+  allow publish: agent.run.*
+  allow subscribe: usage.agent_run.*
+  deny: wallet.*
+
+SERVICE embassy:
+  allow publish: embassy.*
+  deny: wallet.*
+</code></pre></div>
+
+<hr />
+<h2 id="13-replay-recovery">13. Replay &amp; Recovery<a class="headerlink" href="#13-replay-recovery" title="Permanent link">&para;</a></h2>
+<p>JetStream дозволяє:</p>
+<ul>
+<li><code>DeliverLast</code></li>
+<li><code>DeliverByStartTime</code></li>
+<li><code>ReplayInstant</code></li>
+<li><code>ReplayOriginal</code></li>
+</ul>
+<p>При аваріях можна:</p>
+<ul>
+<li>відтворити RWA-потоки за 3 роки,</li>
+<li>відновити usage counters,</li>
+<li>відновити governance history,</li>
+<li>відтворити agent-run статистику.</li>
+</ul>
+<hr />
+<h2 id="14-nats-integration-with-mesh">14. NATS Integration with Mesh<a class="headerlink" href="#14-nats-integration-with-mesh" title="Permanent link">&para;</a></h2>
+<p>Mesh забезпечує:</p>
+<ul>
+<li>retry,</li>
+<li>load-balancing,</li>
+<li>mTLS,</li>
+<li>service identities,</li>
+<li>audit по pod/service.</li>
+</ul>
+<hr />
+<h2 id="15-integration-with-other-docs">15. Integration with Other Docs<a class="headerlink" href="#15-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>34_internal_services_architecture.md</code></li>
+<li><code>35_microdao_service_mesh_design.md</code></li>
+<li><code>27_database_schema_migrations.md</code></li>
+<li><code>28_flows_wallet_embassy_energy_union.md</code></li>
+<li><code>40_rwa_energy_food_water_flow_specs.md</code></li>
+<li><code>41_ai_governance_agent_design.md</code></li>
+</ul>
+<hr />
+<h2 id="16-cursor">16. Завдання для Cursor<a class="headerlink" href="#16-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement NATS Event Streams &amp; Event Catalog using:
+- 42_nats_event_streams_and_event_catalog.md
+- 34_internal_services_architecture.md
+- 27_database_schema_migrations.md
+
+Tasks:
+1) Configure JetStream cluster (3-5 nodes, replication=3, explicit ack, file storage).
+2) Create 13 streams (STREAM_AGENT_RUN, STREAM_CHAT, STREAM_PROJECT, STREAM_TASK, STREAM_WALLET, STREAM_STAKING, STREAM_PAYOUT, STREAM_EMBASSY, STREAM_ORACLE, STREAM_RWA, STREAM_GOVERNANCE, STREAM_USAGE, STREAM_TELEMETRY).
+3) Define topic naming convention and subjects for each stream.
+4) Implement Event Envelope format (event_id, ts, domain, type, version, actor, payload, meta).
+5) Integrate with Outbox Worker (guaranteed delivery).
+6) Define payload schemas for all event types (agent.run.*, chat.message.*, project.*, task.*, wallet.*, staking.*, payout.*, embassy.*, oracle.*, rwa.inventory.*, governance.*, usage.*, telemetry.*).
+7) Configure retention policies (14-90 days for agent/chat/project/task, 1-3 years for RWA/Embassy/Oracle, permanent for Governance, 3-7 years for Wallet/Payout/Staking).
+8) Set up consumer groups for each stream.
+9) Implement message ordering guarantees (per site_id, per agent_run_id, per payout_id).
+10) Configure Security/ACL (service-level permissions).
+11) Add replay &amp; recovery capabilities (DeliverLast, DeliverByStartTime, ReplayInstant, ReplayOriginal).
+12) Integrate with Service Mesh (retry, load-balancing, mTLS, service identities, audit).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="17-summary">17. Summary<a class="headerlink" href="#17-summary" title="Permanent link">&para;</a></h2>
+<p>Цей документ визначає:</p>
+<ul>
+<li>повний Event Catalog DAARION,</li>
+<li>JetStream конфігурацію,</li>
+<li>payload формати,</li>
+<li>життєвий цикл подій,</li>
+<li>безпеку,</li>
+<li>ACL,</li>
+<li>гарантії доставки,</li>
+<li>інтеграцію з Outbox,</li>
+<li>правила retention.</li>
+</ul>
+<p>Це — <strong>єдиний, канонічний опис подій у DAARION OS</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

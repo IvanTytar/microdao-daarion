@@ -1,0 +1,1627 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/36_agent_runtime_isolation_and_sandboxing/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>36 — Agent Runtime Isolation & Sandboxing (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#36-agent-runtime-isolation-sandboxing-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              36 — Agent Runtime Isolation & Sandboxing (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Threat Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Threat Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Загрози від агента
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Загрози для агента
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-agent-runtime-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Agent Runtime Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sandbox-security-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Sandbox Security Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Sandbox Security Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-isolation-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Isolation Levels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-namespaces-cgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Namespaces / cgroups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-banned-syscalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Banned syscalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-network-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Network Policy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Network Policy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-default-no-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Default: NO NETWORK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-allowed-network-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Allowed network flows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-agent-permissions-pdp-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Agent Permissions &amp; PDP Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tools-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Tools Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Tools Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-types-of-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Types of Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-tool-execution-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Tool Execution Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-tool-security-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Tool Security Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-dangerous-tools-require-chief-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Dangerous Tools (Require Chief Approval)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-agent-memory-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Agent Memory Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Agent Memory Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-no-persistent-state-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 No persistent state (strict)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-co-memory-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Co-Memory Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-confidential-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Confidential Mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-prompt-injection-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Prompt Injection Protection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-runtime-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Runtime Limits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Runtime Limits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-parallel-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4 Parallel Agents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-file-system-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. File System Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-logging-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Logging Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-chain-of-thought-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Chain-of-Thought Protection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-deny-list-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Deny-List Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-escalation-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Escalation Prevention
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Escalation Prevention">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-capability-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1 Capability Escalation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-tool-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2 Tool Escalation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-api-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3 API Escalation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-governance-hooks-for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Governance Hooks for Agents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1 Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2 Tracing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3 Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-agent-cost-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Agent Cost Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Failure Modes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Failure Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-infinite-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.1 Infinite loops
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-crash-oom-kill" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.2 Crash / OOM Kill
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-network-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.3 Network abuse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#194-prompt-takeover" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.4 Prompt takeover
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      22. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="36-agent-runtime-isolation-sandboxing-microdao">36 — Agent Runtime Isolation &amp; Sandboxing (MicroDAO)<a class="headerlink" href="#36-agent-runtime-isolation-sandboxing-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Безпечна ізоляція приватних агентів, sandbox-модель, інструменти, обмеження доступу, мережеві політики, memory policy, E2EE, PDP/PEP інтеграція</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Агенти — найбільш потужний і найбільш небезпечний компонент DAARION.city.</p>
+<p>Цей документ визначає:</p>
+<ul>
+<li>як виконується код/логіка агентів,</li>
+<li>які гарантії безпеки надані,</li>
+<li>як працює sandbox,</li>
+<li>які дії дозволені/заборонені,</li>
+<li>як працює інтеграція з PDP,</li>
+<li>які інструменти agent може використовувати,</li>
+<li>як запобігти «втечі із sandbox» і зловживанням,</li>
+<li>як працює memory / summarization у приватних і confidential контекстах.</li>
+</ul>
+<hr />
+<h2 id="2-threat-model">2. Threat Model<a class="headerlink" href="#2-threat-model" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 Загрози від агента<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>перегляд приватних даних користувача,</li>
+<li>надмірні виклики LLM (cost explosion),</li>
+<li>шкідливі інструкції (prompt injection),</li>
+<li>доступ до чужих команд,</li>
+<li>маніпуляція гаманцем,</li>
+<li>неконтрольований код (плагін, tool),</li>
+<li>«втеча» в мережу,</li>
+<li>створення небезпечних запитів до Embassy/Wallet.</li>
+</ul>
+<h3 id="22">2.2 Загрози для агента<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>обмеження через PDP,</li>
+<li>відсутність доступу до plaintext у confidential mode,</li>
+<li>можливі rate-limits,</li>
+<li>відключення інструментів.</li>
+</ul>
+<hr />
+<h2 id="3-agent-runtime-architecture">3. Agent Runtime Architecture<a class="headerlink" href="#3-agent-runtime-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>User/Team → API Gateway (PEP) → Agent Orchestrator → Agent Runtime Sandbox → LLM/Tools
+</code></pre></div>
+
+<p>Агент виконується в <strong>ізольованому контейнері/воркері</strong>, який:</p>
+<ul>
+<li>обмежений у CPU/RAM,</li>
+<li>не має доступу до файлової системи поза sandbox,</li>
+<li>не має прямого мережевого доступу,</li>
+<li>не має доступу до БД,</li>
+<li>має доступ тільки до дозволених API через internal gateway.</li>
+</ul>
+<hr />
+<h2 id="4-sandbox-security-model">4. Sandbox Security Model<a class="headerlink" href="#4-sandbox-security-model" title="Permanent link">&para;</a></h2>
+<h3 id="41-isolation-levels">4.1 Isolation Levels<a class="headerlink" href="#41-isolation-levels" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Isolation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process</td>
+<td>кожен агент-run = окремий воркер</td>
+</tr>
+<tr>
+<td>Filesystem</td>
+<td>read-only FS, tmpfs для runtime</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>за замовчуванням повністю відключена</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>очищується після кожного run</td>
+</tr>
+<tr>
+<td>Tools</td>
+<td>whitelisted</td>
+</tr>
+<tr>
+<td>Logs</td>
+<td>фільтруються, не містять plaintext</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-namespaces-cgroups">4.2 Namespaces / cgroups<a class="headerlink" href="#42-namespaces-cgroups" title="Permanent link">&para;</a></h3>
+<p>Sandbox використовує:</p>
+<ul>
+<li>CPU limits,</li>
+<li>Memory limits,</li>
+<li>PID isolation,</li>
+<li>Network namespace,</li>
+<li>Seccomp (drop dangerous syscalls).</li>
+</ul>
+<h3 id="43-banned-syscalls">4.3 Banned syscalls<a class="headerlink" href="#43-banned-syscalls" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>fork()</code></li>
+<li><code>execve()</code> (крім заздалегідь дозволених sandbox tools)</li>
+<li><code>socket()</code></li>
+<li><code>mount</code></li>
+<li><code>open</code> (поза <code>/tmp/sandbox</code>)</li>
+<li><code>ptrace</code></li>
+</ul>
+<hr />
+<h2 id="5-network-policy">5. Network Policy<a class="headerlink" href="#5-network-policy" title="Permanent link">&para;</a></h2>
+<h3 id="51-default-no-network">5.1 Default: NO NETWORK<a class="headerlink" href="#51-default-no-network" title="Permanent link">&para;</a></h3>
+<p>Агенти НЕ можуть:</p>
+<ul>
+<li>робити HTTP-запити в інтернет,</li>
+<li>дзвонити сторонні API,</li>
+<li>створювати сокети.</li>
+</ul>
+<h3 id="52-allowed-network-flows">5.2 Allowed network flows<a class="headerlink" href="#52-allowed-network-flows" title="Permanent link">&para;</a></h3>
+<p>Дозволяється ТІЛЬКИ через internal gateway:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/internal/llm/chat</code></td>
+<td>LLM inference</td>
+</tr>
+<tr>
+<td><code>/internal/llm/embeddings</code></td>
+<td>embeddings</td>
+</tr>
+<tr>
+<td><code>/internal/router/*</code></td>
+<td>tool routing</td>
+</tr>
+<tr>
+<td><code>/internal/tools/*</code></td>
+<td>safe tools</td>
+</tr>
+<tr>
+<td><code>/internal/usage/*</code></td>
+<td>usage accounting</td>
+</tr>
+</tbody>
+</table>
+<p>Sandbox не має прямого доступу до:</p>
+<ul>
+<li>Wallet,</li>
+<li>Embassy,</li>
+<li>RWA,</li>
+<li>DB,</li>
+<li>Projects/Tasks,</li>
+<li>Messaging.</li>
+</ul>
+<p>Усе це виконується через Orchestrator (як посередник).</p>
+<hr />
+<h2 id="6-agent-permissions-pdp-integration">6. Agent Permissions &amp; PDP Integration<a class="headerlink" href="#6-agent-permissions-pdp-integration" title="Permanent link">&para;</a></h2>
+<p>Перед кожним запуском агента:</p>
+<div class="codehilite"><pre><span></span><code>API Gateway → PDP → allow(agent.run.invoke)
+</code></pre></div>
+
+<p>Після цього Orchestrator створює sandbox-process.</p>
+<p>Всередині sandbox:</p>
+<ul>
+<li>кожен виклик інструменту → PDP check:</li>
+</ul>
+<p><code>text
+  action = tool.&lt;name&gt;.invoke</code></p>
+<ul>
+<li>якщо capability відсутня →拒否 (deny).</li>
+</ul>
+<hr />
+<h2 id="7-tools-architecture">7. Tools Architecture<a class="headerlink" href="#7-tools-architecture" title="Permanent link">&para;</a></h2>
+<p>Tools = «дозволені інструменти» для агента.</p>
+<h3 id="71-types-of-tools">7.1 Types of Tools<a class="headerlink" href="#71-types-of-tools" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Доступ</th>
+<th>Ризик</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>math</td>
+<td>локальний</td>
+<td>низький</td>
+</tr>
+<tr>
+<td>calendar</td>
+<td>internal</td>
+<td>низький</td>
+</tr>
+<tr>
+<td>browser-lite</td>
+<td>internal proxy</td>
+<td>середній</td>
+</tr>
+<tr>
+<td>code-executor</td>
+<td>sandboxed</td>
+<td>високий</td>
+</tr>
+<tr>
+<td>memory</td>
+<td>індексація</td>
+<td>низький</td>
+</tr>
+<tr>
+<td>search-lite</td>
+<td>internal</td>
+<td>середній</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-tool-execution-model">7.2 Tool Execution Model<a class="headerlink" href="#72-tool-execution-model" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Agent → Sandbox → Tool Proxy → Allowed internal API
+</code></pre></div>
+
+<h3 id="73-tool-security-rules">7.3 Tool Security Rules<a class="headerlink" href="#73-tool-security-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>кожен tool має максимум runtime (timeout),</li>
+<li>memory cap,</li>
+<li>супутні rate-limits,</li>
+<li>PDP capability: <code>tool.&lt;name&gt;.invoke</code>.</li>
+</ul>
+<h3 id="74-dangerous-tools-require-chief-approval">7.4 Dangerous Tools (Require Chief Approval)<a class="headerlink" href="#74-dangerous-tools-require-chief-approval" title="Permanent link">&para;</a></h3>
+<ul>
+<li>browser (full internet),</li>
+<li>code execution with system calls,</li>
+<li>integration tools (webhooks, external calls).</li>
+</ul>
+<hr />
+<h2 id="8-agent-memory-model">8. Agent Memory Model<a class="headerlink" href="#8-agent-memory-model" title="Permanent link">&para;</a></h2>
+<h3 id="81-no-persistent-state-strict">8.1 No persistent state (strict)<a class="headerlink" href="#81-no-persistent-state-strict" title="Permanent link">&para;</a></h3>
+<p>Агенти не зберігають:</p>
+<ul>
+<li>внутрішню пам'ять,</li>
+<li>plaintext історію,</li>
+<li>raw messages.</li>
+</ul>
+<p>Після виконання:</p>
+<ul>
+<li>sandbox memory очищується,</li>
+<li>зберігається лише «summary» або «embeddings».</li>
+</ul>
+<h3 id="82-co-memory-integration">8.2 Co-Memory Integration<a class="headerlink" href="#82-co-memory-integration" title="Permanent link">&para;</a></h3>
+<p>Агент може додавати summary у:</p>
+<ul>
+<li>
+<p><code>comemory_items</code></p>
+</li>
+<li>
+<p>але не plaintext (особливо у confidential mode).</p>
+</li>
+</ul>
+<h3 id="83-confidential-mode">8.3 Confidential Mode<a class="headerlink" href="#83-confidential-mode" title="Permanent link">&para;</a></h3>
+<p>Якщо <code>team.mode == confidential</code>, агент:</p>
+<ul>
+<li>НЕ бачить plaintext,</li>
+<li>отримує:</li>
+<li>embeddings,</li>
+<li>short summary,</li>
+<li>user roles,</li>
+<li>мінімальні метадані.</li>
+</ul>
+<hr />
+<h2 id="9-prompt-injection-protection">9. Prompt Injection Protection<a class="headerlink" href="#9-prompt-injection-protection" title="Permanent link">&para;</a></h2>
+<p>На рівні Orchestrator:</p>
+<ol>
+<li>перевірка вводу користувача;</li>
+<li>escaping of dangerous sequences;</li>
+<li>instruction boundary:</li>
+</ol>
+<p><code>text
+   system: "Агент працює ТІЛЬКИ в дозволених межах."</code></p>
+<ol>
+<li>розділення user-prompts і instructions;</li>
+<li>sandbox-level enforced policy.</li>
+</ol>
+<hr />
+<h2 id="10-runtime-limits">10. Runtime Limits<a class="headerlink" href="#10-runtime-limits" title="Permanent link">&para;</a></h2>
+<h3 id="101-cpu">10.1 CPU<a class="headerlink" href="#101-cpu" title="Permanent link">&para;</a></h3>
+<ul>
+<li>0.2–1 vCPU на агент-run.</li>
+</ul>
+<h3 id="102-memory">10.2 Memory<a class="headerlink" href="#102-memory" title="Permanent link">&para;</a></h3>
+<ul>
+<li>256–1024 MB.</li>
+</ul>
+<h3 id="103-timeout">10.3 Timeout<a class="headerlink" href="#103-timeout" title="Permanent link">&para;</a></h3>
+<ul>
+<li>60–300 секунд (залежно від plan/role).</li>
+</ul>
+<h3 id="104-parallel-agents">10.4 Parallel Agents<a class="headerlink" href="#104-parallel-agents" title="Permanent link">&para;</a></h3>
+<p>Залежить від:</p>
+<ul>
+<li>плану,</li>
+<li>стейку RINGK,</li>
+<li>governance policy.</li>
+</ul>
+<p>Приклад:</p>
+<div class="codehilite"><pre><span></span><code>Freemium: max_parallel_runs = 1
+Casual: 2–3
+Premium: 5–10
+Platformium: 10–20
+</code></pre></div>
+
+<hr />
+<h2 id="11-file-system-policy">11. File System Policy<a class="headerlink" href="#11-file-system-policy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>read-only root FS,</li>
+<li>дозволено:</li>
+<li><code>/tmp/sandbox</code> — ephemeral,</li>
+<li>не дозволено:</li>
+<li>читання системних файлів,</li>
+<li>запис поза <code>/tmp</code>,</li>
+<li>файлові операції, що залишають слід.</li>
+</ul>
+<hr />
+<h2 id="12-logging-policy">12. Logging Policy<a class="headerlink" href="#12-logging-policy" title="Permanent link">&para;</a></h2>
+<p>Агентні логи:</p>
+<ul>
+<li>не зберігають plaintext,</li>
+<li>не містять особистих даних,</li>
+<li>маскують небезпечні інструкції,</li>
+<li>зберігаються до 24–72 год (configurable),</li>
+<li>використовуються для debugging.</li>
+</ul>
+<hr />
+<h2 id="13-chain-of-thought-protection">13. Chain-of-Thought Protection<a class="headerlink" href="#13-chain-of-thought-protection" title="Permanent link">&para;</a></h2>
+<p>Runtime приховує:</p>
+<ul>
+<li>reasoning chain,</li>
+<li>проміжні кроки LLM,</li>
+<li>внутрішні підказки.</li>
+</ul>
+<p>LLM отримує:</p>
+<ul>
+<li>системну інструкцію,</li>
+<li>узгоджені інструментальні виклики,</li>
+<li>стислі контексти.</li>
+</ul>
+<hr />
+<h2 id="14-deny-list-rules">14. Deny-List Rules<a class="headerlink" href="#14-deny-list-rules" title="Permanent link">&para;</a></h2>
+<p>Sandbox не дозволяє:</p>
+<ul>
+<li>зовнішні HTTP виклики,</li>
+<li>довільний TCP/UDP,</li>
+<li>відкриття файлів поза temp-сферою,</li>
+<li>доступ до DB,</li>
+<li>виконання shell команд,</li>
+<li>spawn процесів,</li>
+<li>код поза дозволеним toolset.</li>
+</ul>
+<hr />
+<h2 id="15-escalation-prevention">15. Escalation Prevention<a class="headerlink" href="#15-escalation-prevention" title="Permanent link">&para;</a></h2>
+<h3 id="151-capability-escalation">15.1 Capability Escalation<a class="headerlink" href="#151-capability-escalation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>agent keys мають capabilities, що жорстко обмежені:</li>
+<li><code>agent.run.invoke</code></li>
+<li><code>tool.*</code></li>
+</ul>
+<h3 id="152-tool-escalation">15.2 Tool Escalation<a class="headerlink" href="#152-tool-escalation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>немає можливості відкрити:</li>
+<li>wallet endpoints,</li>
+<li>governance endpoints,</li>
+<li>embassy endpoints.</li>
+</ul>
+<h3 id="153-api-escalation">15.3 API Escalation<a class="headerlink" href="#153-api-escalation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>agent sandbox не може викликати:</li>
+<li><code>/internal/wallet/*</code></li>
+<li><code>/internal/embassy/*</code></li>
+<li><code>/internal/rwa/*</code></li>
+<li><code>/internal/projects/*</code></li>
+<li><code>/internal/messages/*</code></li>
+</ul>
+<hr />
+<h2 id="16-governance-hooks-for-agents">16. Governance Hooks for Agents<a class="headerlink" href="#16-governance-hooks-for-agents" title="Permanent link">&para;</a></h2>
+<p>Governance дозволяє налаштовувати:</p>
+<ul>
+<li>максимальну кількість агентів,</li>
+<li>доступні інструменти,</li>
+<li>тайм-ліміти,</li>
+<li>cost per run,</li>
+<li>доступні потужності (через stake RINGK),</li>
+<li>whitelist/blacklist tools.</li>
+</ul>
+<hr />
+<h2 id="17-observability">17. Observability<a class="headerlink" href="#17-observability" title="Permanent link">&para;</a></h2>
+<h3 id="171-metrics">17.1 Metrics<a class="headerlink" href="#171-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li>number of runs,</li>
+<li>tokens used,</li>
+<li>average runtime,</li>
+<li>tool usage,</li>
+<li>error rate.</li>
+</ul>
+<h3 id="172-tracing">17.2 Tracing<a class="headerlink" href="#172-tracing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>кожен run:</li>
+<li>trace_id,</li>
+<li>span_id,</li>
+<li>parent_id.</li>
+</ul>
+<h3 id="173-logs">17.3 Logs<a class="headerlink" href="#173-logs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>agent-run logs per run,</li>
+<li>sampled/error-prone runs зберігаються довше.</li>
+</ul>
+<hr />
+<h2 id="18-agent-cost-control">18. Agent Cost Control<a class="headerlink" href="#18-agent-cost-control" title="Permanent link">&para;</a></h2>
+<p>Механізм, описаний у Document 30:</p>
+<ul>
+<li>облік compute (1T),</li>
+<li>ліміти per plan &amp; stake RINGK,</li>
+<li>cost estimates до старту,</li>
+<li>hard cap.</li>
+</ul>
+<p>Example cost policy:</p>
+<div class="codehilite"><pre><span></span><code>max_cost_per_run = 0.02 1T
+max_cost_per_day = 0.5 1T
+</code></pre></div>
+
+<hr />
+<h2 id="19-failure-modes">19. Failure Modes<a class="headerlink" href="#19-failure-modes" title="Permanent link">&para;</a></h2>
+<h3 id="191-infinite-loops">19.1 Infinite loops<a class="headerlink" href="#191-infinite-loops" title="Permanent link">&para;</a></h3>
+<p>Sandbox має:</p>
+<ul>
+<li>max compute instructions,</li>
+<li>max steps,</li>
+<li>timeout.</li>
+</ul>
+<h3 id="192-crash-oom-kill">19.2 Crash / OOM Kill<a class="headerlink" href="#192-crash-oom-kill" title="Permanent link">&para;</a></h3>
+<p>Orchestrator:</p>
+<ul>
+<li>маркує run як failed,</li>
+<li>додає подію <code>agent.run.failed</code>.</li>
+</ul>
+<h3 id="193-network-abuse">19.3 Network abuse<a class="headerlink" href="#193-network-abuse" title="Permanent link">&para;</a></h3>
+<p>Неможливе через strict firewall.</p>
+<h3 id="194-prompt-takeover">19.4 Prompt takeover<a class="headerlink" href="#194-prompt-takeover" title="Permanent link">&para;</a></h3>
+<p>Захищено instruction boundary.</p>
+<hr />
+<h2 id="20-integration-with-other-docs">20. Integration with Other Docs<a class="headerlink" href="#20-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>12_agent_runtime_core.md</code></li>
+<li><code>13_agent_memory_system.md</code></li>
+<li><code>30_cost_optimization_and_token_economics_infrastructure.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>33_api_gateway_security_and_pep.md</code></li>
+<li><code>26_security_audit.md</code></li>
+</ul>
+<hr />
+<h2 id="21-cursor">21. Завдання для Cursor<a class="headerlink" href="#21-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Agent Runtime Isolation &amp; Sandboxing using:
+- 36_agent_runtime_isolation_and_sandboxing.md
+- 12_agent_runtime_core.md
+- 32_policy_service_PDP_design.md
+
+Tasks:
+1) Create sandbox environment with process isolation (cgroups, namespaces).
+2) Implement network policy (default deny, allow-list for internal APIs).
+3) Set up filesystem policy (read-only root, tmpfs for /tmp/sandbox).
+4) Implement syscall filtering (seccomp, banned syscalls).
+5) Create tool proxy system for safe tool execution.
+6) Integrate PDP checks for tool invocations.
+7) Implement memory cleanup after each run.
+8) Add prompt injection protection.
+9) Set up runtime limits (CPU, memory, timeout).
+10) Implement logging policy (no plaintext, masking).
+11) Add observability (metrics, tracing, logs).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="22-summary">22. Summary<a class="headerlink" href="#22-summary" title="Permanent link">&para;</a></h2>
+<p>Модель безпеки Agent Runtime гарантує:</p>
+<ul>
+<li>повну ізоляцію кожного агентного run,</li>
+<li>безпечні інструменти,</li>
+<li>zero-trust доступ до внутрішніх сервісів,</li>
+<li>E2EE сумісність confidential mode,</li>
+<li>контроль compute-витрат,</li>
+<li>відсутність витоку даних від команд до команд,</li>
+<li>неможливість ескалації доступів,</li>
+<li>захист від prompt injection,</li>
+<li>детальну observability.</li>
+</ul>
+<p>Агенти перетворюються з «небезпечної чорної скриньки» у <strong>контрольовану, передбачувану, економічно-керовану частину DAARION OS</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

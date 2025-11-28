@@ -1,0 +1,1201 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/node2/MODELS_CURRENT_STATUS/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Поточний стан моделей Ollama на НОДА2 - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ollama-2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Поточний стан моделей Ollama на НОДА2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ ВАЖЛИВЕ ПОПЕРЕДЖЕННЯ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Встановлені моделі (8 моделей)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Встановлені моделі (8 моделей)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Список встановлених моделей:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Порівняння з планом встановлення
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Порівняння з планом встановлення">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-critical-models-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔴 Пріоритет 1 (Critical Models) - 9 моделей
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-specialized-models-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟡 Пріоритет 2 (Specialized Models) - 1 модель
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ultra-light-models-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      🟢 Пріоритет 3 (Ultra-light Models) - 3 моделі
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Загальна статистика
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Відсутні моделі (критичні)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ Відсутні моделі (критичні)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fast-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для Fast Agents:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#math-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для Math Agents:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для Memory Agents:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vision-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для Vision Agents (покращення):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Доступні категорії моделей
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Доступні категорії моделей">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reasoningstrategic-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Reasoning/Strategic Agents ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-code-engineering-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Code Engineering Agents ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-vision-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Vision Agents ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fast-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Fast Agents ⚠️
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-memory-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Memory Agents ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-math-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Math Agents ❌
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Рекомендації
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Рекомендації">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Встановити відсутні критичні моделі:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Перевірити версії моделей:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-swoper" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Оновити конфігурацію Swoper:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Наступні кроки
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 Збережені файли
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="ollama-2">Поточний стан моделей Ollama на НОДА2<a class="headerlink" href="#ollama-2" title="Permanent link">&para;</a></h1>
+<p><strong>Дата перевірки:</strong> 2025-11-21 (актуально)</p>
+<h2 id="_1">⚠️ ВАЖЛИВЕ ПОПЕРЕДЖЕННЯ<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><strong>Встановлені моделі мають значно менші розміри, ніж планувалося!</strong></p>
+<p><strong>Причина:</strong> Ollama автоматично вибрав <code>:latest</code> теги, які встановили <strong>менші версії</strong> моделей:
+- <code>deepseek-r1:latest</code> = 5.2 GB (8.2B) замість планованих ~40 GB
+- <code>qwen2.5-coder:latest</code> = 4.7 GB (7.6B) замість планованих ~40 GB (72B)
+- <code>starcoder2:latest</code> = 1.7 GB (3B) замість планованих ~20 GB (34B)
+- <code>gemma2:latest</code> = 5.4 GB (9.2B) замість планованих ~18 GB (27B)</p>
+<p><strong>Детальний аналіз:</strong> Див. <code>docs/node2/MODELS_DETAILED_LIST.md</code></p>
+<hr />
+<h2 id="8">📊 Встановлені моделі (8 моделей)<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="_2">Список встановлених моделей:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Модель</th>
+<th>Розмір</th>
+<th>Параметри</th>
+<th>Квантізація</th>
+<th>Встановлено</th>
+<th>Призначення</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>phi3:latest</strong></td>
+<td>2.2 GB</td>
+<td>3.8B</td>
+<td>Q4_0</td>
+<td>2 години тому</td>
+<td>Memory Agents</td>
+</tr>
+<tr>
+<td><strong>gpt-oss:latest</strong></td>
+<td>13 GB</td>
+<td>20.9B</td>
+<td>MXFP4</td>
+<td>2 години тому</td>
+<td>Fast Agents</td>
+</tr>
+<tr>
+<td><strong>starcoder2:latest</strong></td>
+<td>1.7 GB</td>
+<td>3B</td>
+<td>Q4_0</td>
+<td>2 години тому</td>
+<td>Code Engineering</td>
+</tr>
+<tr>
+<td><strong>qwen2.5-coder:latest</strong></td>
+<td>4.7 GB</td>
+<td>7.6B</td>
+<td>Q4_K_M</td>
+<td>2 години тому</td>
+<td>Code Engineering</td>
+</tr>
+<tr>
+<td><strong>gemma2:latest</strong></td>
+<td>5.4 GB</td>
+<td>9.2B</td>
+<td>Q4_0</td>
+<td>2 години тому</td>
+<td>Reasoning/Strategic</td>
+</tr>
+<tr>
+<td><strong>mistral-nemo:latest</strong></td>
+<td>7.1 GB</td>
+<td>12.2B</td>
+<td>Q4_0</td>
+<td>2 години тому</td>
+<td>Reasoning/Strategic</td>
+</tr>
+<tr>
+<td><strong>deepseek-r1:latest</strong></td>
+<td>5.2 GB</td>
+<td>8.2B</td>
+<td>Q4_K_M</td>
+<td>2 години тому</td>
+<td>Reasoning/Strategic</td>
+</tr>
+<tr>
+<td><strong>qwen3-vl:latest</strong></td>
+<td>6.1 GB</td>
+<td>8.8B</td>
+<td>Q4_K_M</td>
+<td>42 години тому</td>
+<td>Vision Agents</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Загальний розмір:</strong> ~45.6 GB</p>
+<hr />
+<h2 id="_3">✅ Порівняння з планом встановлення<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="1-critical-models-9">🔴 Пріоритет 1 (Critical Models) - 9 моделей<a class="headerlink" href="#1-critical-models-9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Планована модель</th>
+<th>Статус</th>
+<th>Фактична модель</th>
+<th>Примітка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deepseek-r1:q4</td>
+<td>⚠️</td>
+<td>deepseek-r1:latest</td>
+<td><strong>МЕНША ВЕРСІЯ</strong> (5.2 GB, 8.2B замість ~40 GB)</td>
+</tr>
+<tr>
+<td>mistral-nemo:22b:q4</td>
+<td>⚠️</td>
+<td>mistral-nemo:latest</td>
+<td><strong>МЕНША ВЕРСІЯ</strong> (7.1 GB, 12.2B замість ~13 GB, 22B)</td>
+</tr>
+<tr>
+<td>gemma2:27b-it:q4</td>
+<td>⚠️</td>
+<td>gemma2:latest</td>
+<td><strong>МЕНША ВЕРСІЯ</strong> (5.4 GB, 9.2B замість ~18 GB, 27B)</td>
+</tr>
+<tr>
+<td>qwen2.5-coder:72b:q4</td>
+<td>⚠️</td>
+<td>qwen2.5-coder:latest</td>
+<td><strong>МЕНША ВЕРСІЯ</strong> (4.7 GB, 7.6B замість ~40 GB, 72B)</td>
+</tr>
+<tr>
+<td>starcoder2:34b:q4</td>
+<td>⚠️</td>
+<td>starcoder2:latest</td>
+<td><strong>МЕНША ВЕРСІЯ</strong> (1.7 GB, 3B замість ~20 GB, 34B)</td>
+</tr>
+<tr>
+<td>qwen2-vl:32b-instruct:q4</td>
+<td>⚠️</td>
+<td>qwen3-vl:latest</td>
+<td>Замінено на qwen3-vl (6.1 GB)</td>
+</tr>
+<tr>
+<td>mistral:7b-instruct:4.1</td>
+<td>❌</td>
+<td>-</td>
+<td>Не встановлено</td>
+</tr>
+<tr>
+<td>qwen2.5:7b-instruct:4.4</td>
+<td>❌</td>
+<td>-</td>
+<td>Не встановлено</td>
+</tr>
+<tr>
+<td>gpt-oss:20b:q4</td>
+<td>✅</td>
+<td>gpt-oss:latest</td>
+<td>Встановлено (13 GB)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Результат:</strong> 6/9 встановлено (67%)</p>
+<h3 id="2-specialized-models-1">🟡 Пріоритет 2 (Specialized Models) - 1 модель<a class="headerlink" href="#2-specialized-models-1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Планована модель</th>
+<th>Статус</th>
+<th>Фактична модель</th>
+<th>Примітка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deepseek-math:33b:q4</td>
+<td>❌</td>
+<td>-</td>
+<td>Не встановлено</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Результат:</strong> 0/1 встановлено (0%)</p>
+<h3 id="3-ultra-light-models-3">🟢 Пріоритет 3 (Ultra-light Models) - 3 моделі<a class="headerlink" href="#3-ultra-light-models-3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Планована модель</th>
+<th>Статус</th>
+<th>Фактична модель</th>
+<th>Примітка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gemma2:2b-it</td>
+<td>⚠️</td>
+<td>gemma2:latest</td>
+<td>Встановлено, але інша версія</td>
+</tr>
+<tr>
+<td>phi3:mini</td>
+<td>⚠️</td>
+<td>phi3:latest</td>
+<td>Встановлено, але інша версія (2.2 GB)</td>
+</tr>
+<tr>
+<td>qwen2.5:3b-instruct</td>
+<td>❌</td>
+<td>-</td>
+<td>Не встановлено</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Результат:</strong> 2/3 встановлено (67%)</p>
+<hr />
+<h2 id="_4">📊 Загальна статистика<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Всього встановлено:</strong> 8 моделей</li>
+<li><strong>Загальний розмір:</strong> ~45.6 GB</li>
+<li><strong>З плану Пріоритет 1:</strong> 6/9 (67%)</li>
+<li><strong>З плану Пріоритет 2:</strong> 0/1 (0%)</li>
+<li><strong>З плану Пріоритет 3:</strong> 2/3 (67%)</li>
+<li><strong>Загальний прогрес:</strong> 8/13 (62%)</li>
+</ul>
+<hr />
+<h2 id="_5">⚠️ Відсутні моделі (критичні)<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="fast-agents">Для Fast Agents:<a class="headerlink" href="#fast-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ <strong>mistral:7b-instruct</strong> - швидка модель для швидких агентів</li>
+<li>❌ <strong>qwen2.5:7b-instruct</strong> - альтернатива для швидких агентів</li>
+</ul>
+<h3 id="math-agents">Для Math Agents:<a class="headerlink" href="#math-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ <strong>deepseek-math:33b</strong> - спеціалізована модель для математичних задач</li>
+</ul>
+<h3 id="memory-agents">Для Memory Agents:<a class="headerlink" href="#memory-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ <strong>qwen2.5:3b-instruct</strong> - легка модель для memory агентів</li>
+</ul>
+<h3 id="vision-agents">Для Vision Agents (покращення):<a class="headerlink" href="#vision-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>⚠️ <strong>qwen2-vl:32b-instruct</strong> - краща якість ніж qwen3-vl (опціонально)</li>
+</ul>
+<hr />
+<h2 id="_6">✅ Доступні категорії моделей<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1-reasoningstrategic-agents">1. Reasoning/Strategic Agents ✅<a class="headerlink" href="#1-reasoningstrategic-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ deepseek-r1:latest (5.2 GB) - основна</li>
+<li>✅ mistral-nemo:latest (7.1 GB) - альтернатива</li>
+<li>✅ gemma2:latest (5.4 GB) - альтернатива</li>
+</ul>
+<h3 id="2-code-engineering-agents">2. Code Engineering Agents ✅<a class="headerlink" href="#2-code-engineering-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ qwen2.5-coder:latest (4.7 GB) - основна</li>
+<li>✅ starcoder2:latest (1.7 GB) - легка альтернатива</li>
+</ul>
+<h3 id="3-vision-agents">3. Vision Agents ✅<a class="headerlink" href="#3-vision-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ qwen3-vl:latest (6.1 GB) - встановлено</li>
+</ul>
+<h3 id="4-fast-agents">4. Fast Agents ⚠️<a class="headerlink" href="#4-fast-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ gpt-oss:latest (13 GB) - встановлено</li>
+<li>❌ mistral:7b-instruct - відсутня</li>
+<li>❌ qwen2.5:7b-instruct - відсутня</li>
+</ul>
+<h3 id="5-memory-agents">5. Memory Agents ✅<a class="headerlink" href="#5-memory-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ phi3:latest (2.2 GB) - встановлено</li>
+<li>⚠️ gemma2:latest (5.4 GB) - є, але не 2B версія</li>
+<li>❌ qwen2.5:3b-instruct - відсутня</li>
+</ul>
+<h3 id="6-math-agents">6. Math Agents ❌<a class="headerlink" href="#6-math-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ deepseek-math:33b - відсутня</li>
+</ul>
+<hr />
+<h2 id="_7">💡 Рекомендації<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Встановити відсутні критичні моделі:<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Fast Agents</span>
+ollama<span class="w"> </span>pull<span class="w"> </span>mistral:7b-instruct
+ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:7b-instruct
+
+<span class="c1"># Math Agents</span>
+ollama<span class="w"> </span>pull<span class="w"> </span>deepseek-math:33b
+
+<span class="c1"># Memory Agents</span>
+ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:3b-instruct
+</code></pre></div>
+
+<h3 id="2">2. Перевірити версії моделей:<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>Деякі моделі встановлені як <code>:latest</code> замість конкретних версій. Це нормально, але варто перевірити:
+- <code>gemma2:latest</code> - чи це 27b-it версія?
+- <code>qwen2.5-coder:latest</code> - чи це 72b версія?
+- <code>starcoder2:latest</code> - чи це 34b версія?</p>
+<h3 id="3-swoper">3. Оновити конфігурацію Swoper:<a class="headerlink" href="#3-swoper" title="Permanent link">&para;</a></h3>
+<p>Оновити <code>~/node2/swoper/config_node2.yaml</code> з фактичними назвами моделей:
+- Використовувати <code>:latest</code> теги або конкретні версії
+- Перевірити розміри моделей</p>
+<hr />
+<h2 id="_8">📋 Наступні кроки<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ol>
+<li>✅ <strong>Завершено:</strong> Перевірка поточного стану моделей</li>
+<li>⏳ <strong>Рекомендовано:</strong> Встановити відсутні критичні моделі</li>
+<li>⏳ <strong>Потрібно:</strong> Оновити конфігурацію Swoper з фактичними назвами</li>
+<li>⏳ <strong>Потрібно:</strong> Створити агентів з правильним призначенням LLM</li>
+</ol>
+<hr />
+<h2 id="_9">📁 Збережені файли<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>~/node2/installed_models.txt</code> - список моделей</li>
+<li><code>~/node2/models_details.json</code> - детальна інформація про моделі</li>
+</ul>
+<hr />
+<p><strong>Останнє оновлення:</strong> 2025-11-21 (актуально)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

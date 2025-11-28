@@ -1,0 +1,2299 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/MESSAGING_ARCHITECTURE/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>DAARION Messaging Architecture - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#daarion-messaging-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DAARION Messaging Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Layers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-messaging-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. messaging-service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-matrix-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. matrix-gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agent_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. agent_filter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dagi-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. DAGI Router
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-agent-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Agent Runtime
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model-erd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Model (ERD)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Model (ERD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mermaid-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mermaid Diagram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Relationships
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matrix-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrix Mapping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matrix-gateway-api-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      matrix-gateway API Specification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="matrix-gateway API Specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-create-room" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Create Room
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-send-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Send Message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-invite-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Invite User
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-get-room-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Get Room History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-webhook-receive-matrix-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Webhook: Receive Matrix Events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Health Check
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-flow-human-agent-reply" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Flow: Human → Agent Reply
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Flow: Human → Agent Reply">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence Diagram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-user-sends-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. User sends message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agent_filter-processes-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. agent_filter processes event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dagi-router-invokes-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. DAGI Router invokes agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent-runtime-executes" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Agent Runtime executes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-messaging-service-posts-agent-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. messaging-service posts agent message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-frontend-receives-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Frontend receives update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-initiated-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent-Initiated Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent-Initiated Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_filter-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      agent_filter Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="agent_filter Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules Categories
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dagi-router-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAGI Router Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DAGI Router Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#router-rules-for-messaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Router Rules for Messaging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-invocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Invocation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-core-infrastructure-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Core Infrastructure (DONE ✅)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-agent-integration-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Agent Integration (NEXT)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Advanced Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-production-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Production Hardening
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nats-event-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      NATS Event Catalog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NATS Event Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#published-by-messaging-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Published by messaging-service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Published by messaging-service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#messagingmessagecreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      messaging.message.created
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messagingchannelcreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      messaging.channel.created
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#published-by-matrix-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Published by matrix-gateway
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Published by matrix-gateway">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integrationmatrixmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      integration.matrix.message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrationmatrixroomcreated" class="md-nav__link">
+    <span class="md-ellipsis">
+      integration.matrix.room.created
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#published-by-agent_filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Published by agent_filter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Published by agent_filter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agentfilterdecision" class="md-nav__link">
+    <span class="md-ellipsis">
+      agent.filter.decision
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-agent-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Agent Access Control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-content-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Content Safety
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Rate Limiting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-audit-trail" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Audit Trail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-confidential-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Confidential Channels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Targets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e2e-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      E2E Tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roadmap
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roadmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v11-2-weeks" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.1 (2 weeks)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v12-1-month" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.2 (1 month)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v20-2-months" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2.0 (2 months)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="daarion-messaging-architecture">DAARION Messaging Architecture<a class="headerlink" href="#daarion-messaging-architecture" title="Permanent link">&para;</a></h1>
+<p><strong>Complete Specification: Messenger + Matrix + Agents + DAGI Router</strong></p>
+<p><strong>Version:</strong> 1.0.0<br />
+<strong>Date:</strong> 2025-11-24<br />
+<strong>Status:</strong> Production Ready</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#system-components">System Components</a></li>
+<li><a href="#data-model-erd">Data Model (ERD)</a></li>
+<li><a href="#matrix-gateway-api-specification">matrix-gateway API Specification</a></li>
+<li><a href="#message-flow-human--agent-reply">Message Flow: Human → Agent Reply</a></li>
+<li><a href="#agent-initiated-messages">Agent-Initiated Messages</a></li>
+<li><a href="#agent_filter-rules">agent_filter Rules</a></li>
+<li><a href="#dagi-router-integration">DAGI Router Integration</a></li>
+<li><a href="#sequence-diagrams">Sequence Diagrams</a></li>
+<li><a href="#implementation-guide">Implementation Guide</a></li>
+</ol>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>DAARION Messaging Architecture побудована на Matrix protocol з повною інтеграцією агентів через DAGI Router.</p>
+<h3 id="key-principles">Key Principles<a class="headerlink" href="#key-principles" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Matrix as Source of Truth</strong> — повідомлення зберігаються в Matrix, DAARION тримає індекс</li>
+<li><strong>Agent-Aware</strong> — агенти як повноцінні учасники каналів</li>
+<li><strong>Event-Driven</strong> — всі дії через NATS JetStream</li>
+<li><strong>Security First</strong> — agent_filter контролює доступ агентів</li>
+<li><strong>Element Compatible</strong> — повна сумісність з Element та іншими Matrix клієнтами</li>
+</ol>
+<h3 id="architecture-layers">Architecture Layers<a class="headerlink" href="#architecture-layers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
+│                   Frontend (React)                      │
+│              MessengerPage + WebSocket                  │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│              messaging-service (FastAPI)                │
+│         REST API + WebSocket + Channel Management       │
+└────────────────────┬────────────────────────────────────┘
+                     │
+       ┌─────────────┴─────────────┐
+       │                           │
+       ▼                           ▼
+┌──────────────┐         ┌──────────────────┐
+│ matrix-gateway│         │   NATS JetStream │
+│  (Internal)  │         │   Event Bus      │
+└──────┬───────┘         └────────┬─────────┘
+       │                          │
+       ▼                          ▼
+┌──────────────┐         ┌──────────────────┐
+│    Matrix    │         │  agent_filter    │
+│  Homeserver  │         │  DAGI Router     │
+│  (Synapse)   │         │  Agent Runtime   │
+└──────────────┘         └──────────────────┘
+</code></pre></div>
+
+<hr />
+<h2 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">&para;</a></h2>
+<h3 id="1-messaging-service">1. messaging-service<a class="headerlink" href="#1-messaging-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Role:</strong> DAARION-specific messaging API</li>
+<li><strong>Port:</strong> 7004</li>
+<li><strong>Responsibilities:</strong></li>
+<li>Channel CRUD (mapped to Matrix rooms)</li>
+<li>Message indexing (full content in Matrix)</li>
+<li>Member management</li>
+<li>WebSocket real-time updates</li>
+<li>Agent posting endpoint</li>
+</ul>
+<h3 id="2-matrix-gateway">2. matrix-gateway<a class="headerlink" href="#2-matrix-gateway" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Role:</strong> Internal Matrix API adapter</li>
+<li><strong>Port:</strong> 7003 (internal only)</li>
+<li><strong>Responsibilities:</strong></li>
+<li>Create/manage Matrix rooms</li>
+<li>Send messages on behalf of users/agents</li>
+<li>Receive Matrix events via webhook</li>
+<li>Normalize Matrix ↔ DAARION entities</li>
+<li>Publish to NATS</li>
+</ul>
+<h3 id="3-agent_filter">3. agent_filter<a class="headerlink" href="#3-agent_filter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Role:</strong> Security and routing layer</li>
+<li><strong>Responsibilities:</strong></li>
+<li>Validate agent access to channels</li>
+<li>Apply content policies</li>
+<li>Decide which agents can reply</li>
+<li>Route to DAGI Router</li>
+</ul>
+<h3 id="4-dagi-router">4. DAGI Router<a class="headerlink" href="#4-dagi-router" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Role:</strong> Agent orchestration</li>
+<li><strong>Responsibilities:</strong></li>
+<li>Select model for agent</li>
+<li>Choose pipeline (Memory, Tools, etc.)</li>
+<li>Invoke Agent Runtime</li>
+<li>Track agent sessions</li>
+</ul>
+<h3 id="5-agent-runtime">5. Agent Runtime<a class="headerlink" href="#5-agent-runtime" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Role:</strong> Execute agent logic</li>
+<li><strong>Responsibilities:</strong></li>
+<li>Read channel context</li>
+<li>Query Agent Memory (RAG)</li>
+<li>Call LLM Proxy</li>
+<li>Execute tools</li>
+<li>Post reply to channel</li>
+</ul>
+<hr />
+<h2 id="data-model-erd">Data Model (ERD)<a class="headerlink" href="#data-model-erd" title="Permanent link">&para;</a></h2>
+<h3 id="mermaid-diagram">Mermaid Diagram<a class="headerlink" href="#mermaid-diagram" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">erDiagram</span>
+<span class="w">    </span><span class="nx">USERS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">external_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">matrix_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">handle</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">created_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">MICRODAOS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">external_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">name</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">owner_user_id</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">created_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">MICRODAO_MEMBERS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">microdao_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">user_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">role</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">created_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">AGENT_BLUEPRINTS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">code</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">description</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">model</span>
+<span class="w">      </span><span class="nx">json</span><span class="w"> </span><span class="nx">capabilities</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">AGENTS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">external_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">name</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">kind</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">microdao_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">owner_user_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">matrix_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">blueprint_id</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">created_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">CHANNELS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">slug</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">name</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">microdao_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">team_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">matrix_room_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">visibility</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">created_by_user_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">created_by_agent_id</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">created_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">CHANNEL_MEMBERS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">channel_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">member_user_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">member_agent_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">role</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">joined_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">MESSAGES</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">channel_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">matrix_event_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">sender_user_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">sender_agent_id</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">sender_type</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">content_preview</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">created_at</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">AGENT_SESSIONS</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">agent_id</span>
+<span class="w">      </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">channel_id</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">started_at</span>
+<span class="w">      </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">last_activity_at</span>
+<span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="nx">status</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">USERS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">MICRODAOS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;owns&quot;</span>
+<span class="w">    </span><span class="nx">USERS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">MICRODAO_MEMBERS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;member&quot;</span>
+<span class="w">    </span><span class="nx">MICRODAOS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">MICRODAO_MEMBERS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;has members&quot;</span>
+
+<span class="w">    </span><span class="nx">USERS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">AGENTS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;owns&quot;</span>
+<span class="w">    </span><span class="nx">MICRODAOS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">AGENTS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;scoped&quot;</span>
+<span class="w">    </span><span class="nx">AGENT_BLUEPRINTS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">AGENTS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;template&quot;</span>
+
+<span class="w">    </span><span class="nx">MICRODAOS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CHANNELS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;has&quot;</span>
+
+<span class="w">    </span><span class="nx">CHANNELS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CHANNEL_MEMBERS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;members&quot;</span>
+<span class="w">    </span><span class="nx">USERS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CHANNEL_MEMBERS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user member&quot;</span>
+<span class="w">    </span><span class="nx">AGENTS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CHANNEL_MEMBERS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;agent member&quot;</span>
+
+<span class="w">    </span><span class="nx">CHANNELS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">MESSAGES</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;contains&quot;</span>
+<span class="w">    </span><span class="nx">USERS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">MESSAGES</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sender&quot;</span>
+<span class="w">    </span><span class="nx">AGENTS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">MESSAGES</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sender&quot;</span>
+
+<span class="w">    </span><span class="nx">AGENTS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">AGENT_SESSIONS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;runs&quot;</span>
+<span class="w">    </span><span class="nx">CHANNELS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">AGENT_SESSIONS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;context&quot;</span>
+</code></pre></div>
+
+<h3 id="key-relationships">Key Relationships<a class="headerlink" href="#key-relationships" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>users</code> → <code>microdaos</code> (1:many, via owner)</li>
+<li><code>microdaos</code> ↔ <code>users</code> (many:many, via <code>microdao_members</code>)</li>
+<li><code>agents</code> → <code>microdaos</code> (many:1, optional scope)</li>
+<li><code>agents</code> → <code>users</code> (many:1, optional owner)</li>
+<li><code>channels</code> → <code>microdaos</code> (many:1, required)</li>
+<li><code>channels</code> ↔ (<code>users</code> + <code>agents</code>) (many:many, via <code>channel_members</code>)</li>
+<li><code>messages</code> → <code>channels</code> (many:1)</li>
+<li><code>messages</code> → (<code>users</code> | <code>agents</code>) (many:1, sender)</li>
+</ul>
+<h3 id="matrix-mapping">Matrix Mapping<a class="headerlink" href="#matrix-mapping" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>DAARION</th>
+<th>Matrix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>channels.matrix_room_id</code></td>
+<td><code>room_id</code> (!abc:server)</td>
+</tr>
+<tr>
+<td><code>messages.matrix_event_id</code></td>
+<td><code>event_id</code> ($event:server)</td>
+</tr>
+<tr>
+<td><code>users.matrix_id</code></td>
+<td><code>user_id</code> (@user:server)</td>
+</tr>
+<tr>
+<td><code>agents.matrix_id</code></td>
+<td><code>user_id</code> (@agent:server)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="matrix-gateway-api-specification">matrix-gateway API Specification<a class="headerlink" href="#matrix-gateway-api-specification" title="Permanent link">&para;</a></h2>
+<h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
+<p>All internal endpoints require:</p>
+<div class="codehilite"><pre><span></span><code>X-Internal-Service-Token: &lt;shared-secret&gt;
+</code></pre></div>
+
+<h3 id="1-create-room">1. Create Room<a class="headerlink" href="#1-create-room" title="Permanent link">&para;</a></h3>
+<p><strong>POST /internal/matrix/rooms</strong></p>
+<p>Create Matrix room for DAARION channel.</p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao7-general&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Quantum Garden / General&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;creator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:93&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;preset&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trusted_private_chat&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;power_users&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;user:93&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!abc123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;room_alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#microdao7-general:matrix.daarion.city&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Actions:</strong>
+- Call <code>/_matrix/client/v3/createRoom</code>
+- Set power levels for users/agents
+- Add custom state (<code>microdao_id</code>)
+- Publish NATS <code>integration.matrix.room.created</code></p>
+<hr />
+<h3 id="2-send-message">2. Send Message<a class="headerlink" href="#2-send-message" title="Permanent link">&para;</a></h3>
+<p><strong>POST /internal/matrix/send</strong></p>
+<p>Send message to Matrix room.</p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!abc123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_matrix_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@sofia:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;msgtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.text&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Короткий summary останніх DAO подій.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;relates_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;m.in_reply_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event123:matrix.daarion.city&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7c72d497-27aa-4e75-bb2f-4a4a21d4f91f&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event999:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!abc123:matrix.daarion.city&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Actions:</strong>
+- Call <code>/_matrix/client/v3/rooms/{roomId}/send/m.room.message/{txnId}</code>
+- Generate unique <code>txnId</code>
+- Return <code>event_id</code>
+- Publish NATS <code>integration.matrix.message</code></p>
+<hr />
+<h3 id="3-invite-user">3. Invite User<a class="headerlink" href="#3-invite-user" title="Permanent link">&para;</a></h3>
+<p><strong>POST /internal/matrix/invite</strong></p>
+<p>Invite user/agent to room.</p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!abc123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;user_matrix_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@alice:matrix.daarion.city&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="4-get-room-history">4. Get Room History<a class="headerlink" href="#4-get-room-history" title="Permanent link">&para;</a></h3>
+<p><strong>GET /internal/matrix/rooms/{room_id}/messages</strong></p>
+<p>Retrieve message history (for agents/services).</p>
+<p><strong>Query params:</strong>
+- <code>from</code> — pagination token (optional)
+- <code>limit</code> — max events (default 50)
+- <code>dir</code> — <code>b</code> (backwards) or <code>f</code> (forwards)</p>
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;chunk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@alice:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;origin_server_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1735749000000</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.room.message&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;msgtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.text&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Привіт, DAARION!&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t1-12345_67890_1234&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;end&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t1-12345_67890_1200&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Actions:</strong>
+- Call <code>/_matrix/client/v3/rooms/{roomId}/messages</code>
+- Return paginated events</p>
+<hr />
+<h3 id="5-webhook-receive-matrix-events">5. Webhook: Receive Matrix Events<a class="headerlink" href="#5-webhook-receive-matrix-events" title="Permanent link">&para;</a></h3>
+<p><strong>POST /internal/matrix/event</strong></p>
+<p>Receive events from Matrix (via appservice/webhook).</p>
+<p><strong>Request (from Matrix):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!abc123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@alice:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.room.message&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;origin_server_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1735749000000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;msgtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.text&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Привіт з Matrix!&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;unsigned&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Actions:</strong>
+1. Validate source (shared secret / IP allowlist)
+2. Transform to internal DTO:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!abc123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event123:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_matrix_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@alice:matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.room.message&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1735749000000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Привіт з Matrix!&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;msgtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.text&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>Publish to NATS:</li>
+<li>Subject: <code>integration.matrix.message</code></li>
+<li>Payload: DTO + raw content</li>
+</ol>
+<hr />
+<h3 id="6-health-check">6. Health Check<a class="headerlink" href="#6-health-check" title="Permanent link">&para;</a></h3>
+<p><strong>GET /internal/matrix/health</strong></p>
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;homeserver&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://matrix.daarion.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;appservice_enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="message-flow-human-agent-reply">Message Flow: Human → Agent Reply<a class="headerlink" href="#message-flow-human-agent-reply" title="Permanent link">&para;</a></h2>
+<h3 id="sequence-diagram">Sequence Diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">User</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Frontend</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Matrix</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">NATS</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">agent_filter</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DAGI_Router</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Agent_Runtime</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">LLM_Proxy</span>
+
+<span class="w">    </span><span class="n">User</span><span class="o">-&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="n">message</span>
+<span class="w">    </span><span class="n">Frontend</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">messaging</span><span class="o">/</span><span class="n">channels</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">messages</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">matrix</span><span class="o">/</span><span class="n">send</span>
+<span class="w">    </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">-&gt;&gt;</span><span class="n">Matrix</span><span class="o">:</span><span class="w"> </span><span class="n">Send</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">room</span><span class="p">.</span><span class="n">message</span>
+<span class="w">    </span><span class="n">Matrix</span><span class="o">--&gt;&gt;</span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">:</span><span class="w"> </span><span class="n">event_id</span>
+<span class="w">    </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">--&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="n">event_id</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="nf">Index</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="nf">table</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">messaging</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">created</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">--&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="mi">201</span><span class="w"> </span><span class="n">Created</span>
+<span class="w">    </span><span class="n">Frontend</span><span class="o">-&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="n">Display</span><span class="w"> </span><span class="n">message</span>
+
+<span class="w">    </span><span class="n">NATS</span><span class="o">-&gt;&gt;</span><span class="n">agent_filter</span><span class="o">:</span><span class="w"> </span><span class="n">messaging</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">created</span>
+<span class="w">    </span><span class="n">agent_filter</span><span class="o">-&gt;&gt;</span><span class="n">agent_filter</span><span class="o">:</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">rules</span><span class="w"> </span><span class="p">(</span><span class="n">channel</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">agents</span><span class="p">)</span>
+<span class="w">    </span><span class="n">alt</span><span class="w"> </span><span class="n">Allow</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">reply</span>
+<span class="w">        </span><span class="n">agent_filter</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">agent</span><span class="p">.</span><span class="n">filter</span><span class="p">.</span><span class="n">decision</span><span class="w"> </span><span class="p">(</span><span class="n">allow</span><span class="p">)</span>
+<span class="w">        </span><span class="n">NATS</span><span class="o">-&gt;&gt;</span><span class="n">DAGI_Router</span><span class="o">:</span><span class="w"> </span><span class="n">agent</span><span class="p">.</span><span class="n">filter</span><span class="p">.</span><span class="n">decision</span>
+<span class="w">        </span><span class="n">DAGI_Router</span><span class="o">-&gt;&gt;</span><span class="n">DAGI_Router</span><span class="o">:</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">pipeline</span>
+<span class="w">        </span><span class="n">DAGI_Router</span><span class="o">-&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="n">Invoke</span><span class="w"> </span><span class="n">agent</span><span class="o">:</span><span class="n">sofia</span>
+<span class="w">        </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">messaging</span><span class="o">/</span><span class="n">channels</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">messages</span>
+<span class="w">        </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">--&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="n">Recent</span><span class="w"> </span><span class="n">messages</span>
+<span class="w">        </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">Memory</span><span class="w"> </span><span class="p">(</span><span class="n">RAG</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="kr">Build</span><span class="w"> </span><span class="n">prompt</span>
+<span class="w">        </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">LLM_Proxy</span><span class="o">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">response</span>
+<span class="w">        </span><span class="n">LLM_Proxy</span><span class="o">--&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="n">text</span>
+<span class="w">        </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="n">agent</span><span class="o">:</span><span class="n">sofia</span><span class="o">/</span><span class="n">post</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">channel</span>
+<span class="w">        </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">matrix</span><span class="o">/</span><span class="n">send</span><span class="w"> </span><span class="p">(</span><span class="kr">as</span><span class="w"> </span><span class="n">agent</span><span class="p">)</span>
+<span class="w">        </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">-&gt;&gt;</span><span class="n">Matrix</span><span class="o">:</span><span class="w"> </span><span class="n">Send</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">room</span><span class="p">.</span><span class="n">message</span><span class="w"> </span><span class="p">(</span><span class="n">agent</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Matrix</span><span class="o">--&gt;&gt;</span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">:</span><span class="w"> </span><span class="n">event_id</span>
+<span class="w">        </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">integration</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">message</span>
+<span class="w">        </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="nf">Index</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">message</span>
+<span class="w">        </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">messaging</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">created</span>
+<span class="w">        </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="n">WebSocket</span><span class="o">:</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">created</span>
+<span class="w">        </span><span class="n">Frontend</span><span class="o">-&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="n">Display</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">reply</span>
+<span class="w">    </span><span class="n">else</span><span class="w"> </span><span class="n">Deny</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">reply</span>
+<span class="w">        </span><span class="n">agent_filter</span><span class="o">-&gt;&gt;</span><span class="n">agent_filter</span><span class="o">:</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">action</span>
+<span class="w">    </span><span class="kd">end</span>
+</code></pre></div>
+
+<h3 id="step-by-step-flow">Step-by-Step Flow<a class="headerlink" href="#step-by-step-flow" title="Permanent link">&para;</a></h3>
+<h4 id="1-user-sends-message">1. User sends message<a class="headerlink" href="#1-user-sends-message" title="Permanent link">&para;</a></h4>
+<p><strong>Frontend:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">sendMessage</span><span class="p">(</span><span class="nx">channelId</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+
+<p><strong>messaging-service:</strong>
+- Validates user permissions
+- Calls <code>matrix-gateway</code> → Matrix
+- Indexes message in DB
+- Publishes NATS <code>messaging.message.created</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:93&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;human&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T10:30:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="2-agent_filter-processes-event">2. agent_filter processes event<a class="headerlink" href="#2-agent_filter-processes-event" title="Permanent link">&para;</a></h4>
+<p>Subscribed to: <code>messaging.message.created</code></p>
+<p><strong>Logic:</strong>
+- Check channel type (public/private/microdao)
+- Check agent access (is agent member? can_write?)
+- Check content (spam, policy violations)
+- Check context (time, frequency)</p>
+<p><strong>Decision:</strong>
+- <code>ALLOW</code> → route to agent
+- <code>DENY</code> → no action
+- <code>MODIFY</code> → rewrite prompt</p>
+<p><strong>Publish NATS:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">Subjec</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.filter.decision&quot;</span>
+<span class="err">Payload</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;target_agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rewrite_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="3-dagi-router-invokes-agent">3. DAGI Router invokes agent<a class="headerlink" href="#3-dagi-router-invokes-agent" title="Permanent link">&para;</a></h4>
+<p>Subscribed to: <code>agent.filter.decision</code> (only <code>allow</code>)</p>
+<p><strong>Actions:</strong>
+- Load agent blueprint → get model
+- Determine pipeline (Memory? Tools?)
+- Create <code>AgentInvocation</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;entrypoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;channel_message&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Send to <code>Agent Runtime</code></li>
+</ul>
+<h4 id="4-agent-runtime-executes">4. Agent Runtime executes<a class="headerlink" href="#4-agent-runtime-executes" title="Permanent link">&para;</a></h4>
+<p><strong>a) Read channel context:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /internal/messaging/channels/{channelId}/messages?limit=50</span>
+</code></pre></div>
+
+<p><strong>b) Query Agent Memory:</strong>
+- Fetch relevant memories for agent + microdao
+- RAG query based on message content</p>
+<p><strong>c) Build prompt:</strong>
+- System instructions (from blueprint)
+- Channel history (truncated)
+- Relevant memories
+- Optional rewrite from agent_filter</p>
+<p><strong>d) Call LLM Proxy:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>e) Execute tools (if needed):</strong>
+- Create task, followup, etc.</p>
+<p><strong>f) Post reply:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /internal/agents/agent:sofia/post-to-channel</span>
+<span class="err">{</span>
+<span class="err">  &quot;channel_id&quot;: &quot;...&quot;,</span>
+<span class="err">  &quot;text&quot;: &quot;Ось короткий summary...&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<h4 id="5-messaging-service-posts-agent-message">5. messaging-service posts agent message<a class="headerlink" href="#5-messaging-service-posts-agent-message" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Find <code>matrix_room_id</code> by <code>channel_id</code></li>
+<li>Call <code>matrix-gateway</code> → Matrix (as agent)</li>
+<li>Index message in DB (<code>sender_type = "agent"</code>)</li>
+<li>Publish NATS <code>messaging.message.created</code></li>
+</ul>
+<h4 id="6-frontend-receives-update">6. Frontend receives update<a class="headerlink" href="#6-frontend-receives-update" title="Permanent link">&para;</a></h4>
+<ul>
+<li>WebSocket <code>/ws/messaging/{channelId}</code> gets signal</li>
+<li>Display agent message in UI</li>
+</ul>
+<hr />
+<h2 id="agent-initiated-messages">Agent-Initiated Messages<a class="headerlink" href="#agent-initiated-messages" title="Permanent link">&para;</a></h2>
+<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Scheduled reminders</li>
+<li>Daily digests</li>
+<li>Event notifications</li>
+<li>Autonomous agent actions</li>
+</ul>
+<h3 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="nf">Cron</span><span class="o">/</span><span class="nf">Event</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Agent_Runtime</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Matrix</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">NATS</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Frontend</span>
+
+<span class="w">    </span><span class="nf">Cron</span><span class="o">/</span><span class="nf">Event</span><span class="o">-&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="n">Trigger</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="w"> </span><span class="n">daily</span><span class="w"> </span><span class="n">digest</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">Agent_Runtime</span><span class="o">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">message</span>
+<span class="w">    </span><span class="n">Agent_Runtime</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">post</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">channel</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">internal</span><span class="o">/</span><span class="n">matrix</span><span class="o">/</span><span class="n">send</span>
+<span class="w">    </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">-&gt;&gt;</span><span class="n">Matrix</span><span class="o">:</span><span class="w"> </span><span class="n">Send</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">room</span><span class="p">.</span><span class="n">message</span>
+<span class="w">    </span><span class="n">Matrix</span><span class="o">--&gt;&gt;</span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">:</span><span class="w"> </span><span class="n">event_id</span>
+<span class="w">    </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">integration</span><span class="p">.</span><span class="n">matrix</span><span class="p">.</span><span class="n">message</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">:</span><span class="w"> </span><span class="nf">Index</span><span class="w"> </span><span class="n">message</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">messaging</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">created</span>
+<span class="w">    </span><span class="n">messaging</span><span class="o">-</span><span class="kr">service</span><span class="o">-&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="n">WebSocket</span><span class="o">:</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">created</span>
+<span class="w">    </span><span class="n">Frontend</span><span class="o">-&gt;&gt;</span><span class="n">Frontend</span><span class="o">:</span><span class="w"> </span><span class="n">Display</span><span class="w"> </span><span class="n">message</span>
+</code></pre></div>
+
+<p><strong>Key difference:</strong> No agent_filter check (agent explicitly decided to post).</p>
+<p>Optional: Add <code>system_override</code> flag to bypass filter.</p>
+<hr />
+<h2 id="agent_filter-rules">agent_filter Rules<a class="headerlink" href="#agent_filter-rules" title="Permanent link">&para;</a></h2>
+<h3 id="decision-logic">Decision Logic<a class="headerlink" href="#decision-logic" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">agent_filter_decision</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">MessageCreatedEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FilterDecision</span><span class="p">:</span>
+    <span class="c1"># 1. Check channel permissions</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_agent_member</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">target_agent_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="n">decision</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;not_member&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_write_permission</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">target_agent_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="n">decision</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;no_write_permission&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 2. Check content policy</span>
+    <span class="k">if</span> <span class="n">contains_spam</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">content</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="n">decision</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">violates_policy</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">content</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="n">decision</span><span class="o">=</span><span class="s2">&quot;modify&quot;</span><span class="p">,</span> <span class="n">rewrite</span><span class="o">=</span><span class="s2">&quot;Sanitize content&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 3. Check context (rate limiting, time of day)</span>
+    <span class="k">if</span> <span class="n">too_many_agent_messages_recently</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="n">decision</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;rate_limit&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 4. Check microdao rules</span>
+    <span class="n">microdao_rules</span> <span class="o">=</span> <span class="n">get_microdao_rules</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">microdao_rules</span><span class="o">.</span><span class="n">allow_agents</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="n">decision</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;microdao_policy&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 5. Select agent</span>
+    <span class="n">target_agent</span> <span class="o">=</span> <span class="n">select_best_agent</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span>
+        <span class="n">decision</span><span class="o">=</span><span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+        <span class="n">target_agent_id</span><span class="o">=</span><span class="n">target_agent</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">rewrite_prompt</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<h3 id="rules-categories">Rules Categories<a class="headerlink" href="#rules-categories" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Permissions</strong></li>
+<li>Is agent member of channel?</li>
+<li>Does agent have <code>can_write</code> permission?</li>
+<li>
+<p>Is channel in agent's allowed scope?</p>
+</li>
+<li>
+<p><strong>Content Policy</strong></p>
+</li>
+<li>Spam detection</li>
+<li>Profanity filter</li>
+<li>Sensitive topics</li>
+<li>
+<p>Privacy violations</p>
+</li>
+<li>
+<p><strong>Context Rules</strong></p>
+</li>
+<li>Rate limiting (max N messages per hour)</li>
+<li>Time of day restrictions</li>
+<li>
+<p>Frequency (don't reply to every message)</p>
+</li>
+<li>
+<p><strong>microDAO Rules</strong></p>
+</li>
+<li>Are agents allowed in this microDAO?</li>
+<li>Which agent roles are permitted?</li>
+<li>
+<p>Custom governance policies</p>
+</li>
+<li>
+<p><strong>Agent Selection</strong></p>
+</li>
+<li>Which agent should respond? (Team Assistant, Quest Agent, etc.)</li>
+<li>Based on content, channel type, time</li>
+</ol>
+<hr />
+<h2 id="dagi-router-integration">DAGI Router Integration<a class="headerlink" href="#dagi-router-integration" title="Permanent link">&para;</a></h2>
+<h3 id="router-rules-for-messaging">Router Rules for Messaging<a class="headerlink" href="#router-rules-for-messaging" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;messaging.inbound&quot;</span>
+<span class="w">    </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;agent.filter.decision&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;decision</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;allow&#39;&quot;</span>
+<span class="w">    </span><span class="nt">action</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;invoke_agent&quot;</span>
+<span class="w">      </span><span class="nt">agent_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">target_agent_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">      </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;channel_message&quot;</span>
+<span class="w">      </span><span class="nt">payload</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">channel_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">channel_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">        </span><span class="nt">message_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">message_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">        </span><span class="nt">microdao_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">microdao_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;messaging.scheduled&quot;</span>
+<span class="w">    </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cron.daily_digest&quot;</span>
+<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;time</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;09:00&#39;&quot;</span>
+<span class="w">    </span><span class="nt">action</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;invoke_agent&quot;</span>
+<span class="w">      </span><span class="nt">agent_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;agent:daily-digest&quot;</span>
+<span class="w">      </span><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;generate_digest&quot;</span>
+<span class="w">      </span><span class="nt">payload</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">microdao_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">microdao_id</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</code></pre></div>
+
+<h3 id="agent-invocation">Agent Invocation<a class="headerlink" href="#agent-invocation" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;invocation_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inv-uuid&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;entrypoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;channel_message&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;create_task&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;create_followup&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;memory_enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="implementation-guide">Implementation Guide<a class="headerlink" href="#implementation-guide" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-core-infrastructure-done">Phase 1: Core Infrastructure (DONE ✅)<a class="headerlink" href="#phase-1-core-infrastructure-done" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Database schema (channels, messages, channel_members)</li>
+<li>[x] messaging-service (REST + WebSocket)</li>
+<li>[x] matrix-gateway API spec</li>
+<li>[x] Frontend UI (MessengerPage)</li>
+<li>[x] Docker orchestration</li>
+</ul>
+<h3 id="phase-2-agent-integration-next">Phase 2: Agent Integration (NEXT)<a class="headerlink" href="#phase-2-agent-integration-next" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Implement agent_filter service</li>
+<li>[ ] Extend DAGI Router with messaging rules</li>
+<li>[ ] Add Agent Runtime channel context reader</li>
+<li>[ ] Implement <code>/internal/agents/{id}/post-to-channel</code> logic</li>
+<li>[ ] NATS event integration (actual publishing)</li>
+</ul>
+<h3 id="phase-3-advanced-features">Phase 3: Advanced Features<a class="headerlink" href="#phase-3-advanced-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Agent Memory integration (RAG for channel context)</li>
+<li>[ ] Tool execution (create_task from messages)</li>
+<li>[ ] Multi-agent coordination</li>
+<li>[ ] Scheduled agent messages (digests, reminders)</li>
+</ul>
+<h3 id="phase-4-production-hardening">Phase 4: Production Hardening<a class="headerlink" href="#phase-4-production-hardening" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Rate limiting (per agent, per channel)</li>
+<li>[ ] Abuse detection</li>
+<li>[ ] Analytics and metrics</li>
+<li>[ ] A/B testing for agent responses</li>
+</ul>
+<hr />
+<h2 id="nats-event-catalog">NATS Event Catalog<a class="headerlink" href="#nats-event-catalog" title="Permanent link">&para;</a></h2>
+<h3 id="published-by-messaging-service">Published by messaging-service<a class="headerlink" href="#published-by-messaging-service" title="Permanent link">&para;</a></h3>
+<h4 id="messagingmessagecreated">messaging.message.created<a class="headerlink" href="#messagingmessagecreated" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:93 | agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;human | agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content_preview&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T10:30:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="messagingchannelcreated">messaging.channel.created<a class="headerlink" href="#messagingchannelcreated" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!room:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;created_by&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:93&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="published-by-matrix-gateway">Published by matrix-gateway<a class="headerlink" href="#published-by-matrix-gateway" title="Permanent link">&para;</a></h3>
+<h4 id="integrationmatrixmessage">integration.matrix.message<a class="headerlink" href="#integrationmatrixmessage" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!room:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender_matrix_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@user:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.room.message&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1735749000000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;msgtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m.text&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="integrationmatrixroomcreated">integration.matrix.room.created<a class="headerlink" href="#integrationmatrixroomcreated" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!room:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;room_alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#alias:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;creator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:93&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="published-by-agent_filter">Published by agent_filter<a class="headerlink" href="#published-by-agent_filter" title="Permanent link">&para;</a></h3>
+<h4 id="agentfilterdecision">agent.filter.decision<a class="headerlink" href="#agentfilterdecision" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$event:server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;allow | deny | modify&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;target_agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rewrite_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sanitize...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;not_member | spam | rate_limit | policy&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="1-agent-access-control">1. Agent Access Control<a class="headerlink" href="#1-agent-access-control" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Agents must be explicitly added to channels</li>
+<li><code>can_write</code> permission required</li>
+<li>agent_filter validates all agent replies</li>
+</ul>
+<h3 id="2-content-safety">2. Content Safety<a class="headerlink" href="#2-content-safety" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Spam detection</li>
+<li>Profanity filtering</li>
+<li>PII detection (for confidential channels)</li>
+</ul>
+<h3 id="3-rate-limiting">3. Rate Limiting<a class="headerlink" href="#3-rate-limiting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Per agent: max 10 messages/hour</li>
+<li>Per channel: max 50% agent messages</li>
+<li>Global: max 1000 agent messages/hour</li>
+</ul>
+<h3 id="4-audit-trail">4. Audit Trail<a class="headerlink" href="#4-audit-trail" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All agent actions logged in <code>channel_events</code></li>
+<li>Matrix events are immutable (audit log)</li>
+<li>NATS events retained for 30 days</li>
+</ul>
+<h3 id="5-confidential-channels">5. Confidential Channels<a class="headerlink" href="#5-confidential-channels" title="Permanent link">&para;</a></h3>
+<ul>
+<li>E2EE channels: agents can't read plaintext</li>
+<li>Agents operate on summaries/metadata only</li>
+</ul>
+<hr />
+<h2 id="performance-targets">Performance Targets<a class="headerlink" href="#performance-targets" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Message send latency</td>
+<td>&lt; 100ms</td>
+<td>User → Matrix → Index</td>
+</tr>
+<tr>
+<td>Agent reply latency</td>
+<td>&lt; 3s</td>
+<td>Full pipeline (filter → LLM → post)</td>
+</tr>
+<tr>
+<td>WebSocket latency</td>
+<td>&lt; 50ms</td>
+<td>Real-time updates</td>
+</tr>
+<tr>
+<td>Channel list load</td>
+<td>&lt; 500ms</td>
+<td>With 100+ channels</td>
+</tr>
+<tr>
+<td>Message history (50)</td>
+<td>&lt; 300ms</td>
+<td>Paginated from index</td>
+</tr>
+<tr>
+<td>Agent context load</td>
+<td>&lt; 1s</td>
+<td>50 messages + memory query</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="testing-checklist">Testing Checklist<a class="headerlink" href="#testing-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] User sends message → indexed correctly</li>
+<li>[ ] Message appears in Element</li>
+<li>[ ] Agent reply triggered by filter</li>
+<li>[ ] Agent reply appears in DAARION UI</li>
+<li>[ ] Agent reply appears in Element</li>
+<li>[ ] Multiple agents in same channel</li>
+<li>[ ] Rate limiting works</li>
+<li>[ ] Confidential channel blocks agent</li>
+</ul>
+<h3 id="e2e-tests">E2E Tests<a class="headerlink" href="#e2e-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Full flow: User → Agent → Reply (&lt; 5s)</li>
+<li>[ ] Agent-initiated message (digest)</li>
+<li>[ ] Multi-agent conversation</li>
+<li>[ ] Tool execution from agent message</li>
+</ul>
+<hr />
+<h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="v11-2-weeks">v1.1 (2 weeks)<a class="headerlink" href="#v11-2-weeks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Implement agent_filter service</li>
+<li>DAGI Router messaging rules</li>
+<li>NATS event publishing (production)</li>
+<li>Agent Memory integration</li>
+</ul>
+<h3 id="v12-1-month">v1.2 (1 month)<a class="headerlink" href="#v12-1-month" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Multi-agent coordination</li>
+<li>Scheduled agent messages</li>
+<li>Analytics dashboard</li>
+</ul>
+<h3 id="v20-2-months">v2.0 (2 months)<a class="headerlink" href="#v20-2-months" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Voice messages (agent TTS)</li>
+<li>Agent-to-agent direct messaging</li>
+<li>Federated agents (cross-homeserver)</li>
+</ul>
+<hr />
+<p><strong>Version:</strong> 1.0.0<br />
+<strong>Last Updated:</strong> 2025-11-24<br />
+<strong>Status:</strong> Production Ready (Phase 1), Phase 2 Spec Complete<br />
+<strong>Maintainer:</strong> DAARION Platform Team</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

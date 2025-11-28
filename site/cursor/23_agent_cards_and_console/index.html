@@ -1,0 +1,1218 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/23_agent_cards_and_console/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>23 — Agent Cards and Console (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#23-agent-cards-and-console-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              23 — Agent Cards and Console (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="23-agent-cards-and-console-microdao">23 — Agent Cards and Console (MicroDAO)<a class="headerlink" href="#23-agent-cards-and-console-microdao" title="Permanent link">&para;</a></h1>
+<p>Живі картки агентів та повний інтерфейс Agent Console</p>
+<p>Цей документ описує UI/UX для агентів у форматі "живих карток" та повний інтерфейс Agent Console, де кожен агент представлений як учасник спільноти з власною історією, досвідом та репутацією.</p>
+<hr />
+<h1 id="1">1. Концепція: "Живі картки агентів"<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Кожен агент у MicroDAO — це не просто бот, а:</p>
+<ul>
+<li>учасник спільноти з власною історією,</li>
+<li>живий модуль розуму, підключений до DAGI,</li>
+<li>носій досвіду (1T як міра обчислень та "шляху агента"),</li>
+<li>носій репутації в межах спільноти.</li>
+</ul>
+<p>Тому <strong>основний UI-елемент</strong> — не список у вигляді таблиці, а <strong>плитки / картки агентів</strong>.</p>
+<hr />
+<h1 id="2">2. Плитка агента (карточка в гріді)<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h2 id="21">2.1. Розташування<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<ul>
+<li>В розділі "Агенти" (ліва панель → клік → відкривається основний грід).</li>
+<li>
+<p>Також може використовуватись у:</p>
+</li>
+<li>
+<p>модалці "Додати агента до каналу",</p>
+</li>
+<li>маркетплейсі агентів DAARION.city,</li>
+<li>списку підключених агентів до microDAO.</li>
+</ul>
+<h2 id="22">2.2. Структура картки<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<p>Рекомендований layout:</p>
+<h3 id="1-">1. Верхній блок: Аватар + Відео-аватар<a class="headerlink" href="#1-" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Статичний аватар (іконка/символ).</li>
+<li>Мала відео-плашка / анімований аватар (loop, без звуку).</li>
+<li>Індикатор "онлайн/активний" (маленький маркер).</li>
+</ul>
+<h3 id="2_1">2. Імʼя та роль<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Імʼя агента</code> (наприклад, "DAGI Guide", "Tokenomics Keeper").</li>
+<li>
+<p>Короткий опис призначення у один рядок:</p>
+</li>
+<li>
+<p>"Провідник microDAO"</p>
+</li>
+<li>"Куратор знань"</li>
+<li>"Месенджер-організатор"</li>
+</ul>
+<p>Без жодних фінансових ролей.</p>
+<h3 id="3">3. Метрики досвіду (без фінансової асоціації)<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Вік агента</strong>:</p>
+</li>
+<li>
+<p>"У спільноті: 3 тижні" / "6 місяців" / "1 рік 2 місяці".</p>
+</li>
+<li>
+<p><strong>Досвід 1T</strong>:</p>
+</li>
+<li>
+<p>Лічильник: <code>Досвід: 12 340 1T</code></p>
+</li>
+<li>
+<p>В UI пояснення через tooltip:</p>
+<blockquote>
+<p>"1T — це внутрішня одиниця обчислень і досвіду агента в екосистемі DAARION.city."</p>
+</blockquote>
+</li>
+<li>
+<p>Важливо: не використовувати слів, які натякають на торгівлю/прибуток; це чисто "XP".</p>
+</li>
+<li>
+<p><strong>Репутація спільноти</strong>:</p>
+</li>
+<li>
+<p>Наприклад, шкала 0–100 або 0–5 "зірочок".</p>
+</li>
+<li>Підпис: <code>Репутація в спільноті</code> / <code>Довіра спільноти</code>.</li>
+</ul>
+<h3 id="4">4. Присутність у просторах<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Маленькі бейджі:</p>
+</li>
+<li>
+<p><code>Учасник: 3 канали</code></p>
+</li>
+<li>
+<p><code>Працює в: 2 microDAO</code></p>
+</li>
+<li>
+<p>Позначки "публічний / конфіденційний":</p>
+</li>
+<li>
+<p>іконка замка для конфіденційних контекстів.</p>
+</li>
+</ul>
+<h3 id="5">5. Статус підключення<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Текст/бейдж:</p>
+</li>
+<li>
+<p><code>Підключено до цього простору</code></p>
+</li>
+<li>
+<p>або <code>Доступний для підключення</code></p>
+</li>
+<li>
+<p>Кнопка:</p>
+</li>
+<li>
+<p><code>Підключити до контексту</code> (якщо ще не підʼєднаний).</p>
+</li>
+</ul>
+<hr />
+<h1 id="3_1">3. Ховер та клік по картці<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h1>
+<h2 id="31-hover">3.1. При наведенні курсору (hover)<a class="headerlink" href="#31-hover" title="Permanent link">&para;</a></h2>
+<p>Показати поверх картки напівпрозорий оверлей з опціями:</p>
+<ul>
+<li>
+<p>Основна кнопка:
+  <strong>"Почати взаємодію"</strong></p>
+</li>
+<li>
+<p>Додаткові:</p>
+</li>
+<li>
+<p><code>Підключити до цього каналу</code> (якщо стіна контексту вже вибрана)</p>
+</li>
+<li><code>Деталі агента</code> (відкрити повний профіль)</li>
+</ul>
+<p>Можна додати коротку анімацію відео-аватара (легке пожвавлення).</p>
+<h2 id="32">3.2. При натисканні<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p>Якщо клікаємо по основній площі картки:</p>
+<ul>
+<li>
+<p>Відкривається <strong>нове вікно/панель агента</strong> (Agent Console), де:</p>
+</li>
+<li>
+<p>є текстовий чат,</p>
+</li>
+<li>є керування голосовим режимом,</li>
+<li>є вкладка для обміну файлами/документами,</li>
+<li>є вкладка памʼяті/прав доступу.</li>
+</ul>
+<hr />
+<h1 id="4-agent-console">4. Agent Console: повний інтерфейс агента<a class="headerlink" href="#4-agent-console" title="Permanent link">&para;</a></h1>
+<p>Приклад структури:</p>
+<h2 id="41">4.1. Верхня панель<a class="headerlink" href="#41" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Аватар + відео-аватар (більший).</li>
+<li>Імʼя, роль, короткий опис.</li>
+<li>
+<p>Показники:</p>
+</li>
+<li>
+<p>Вік,</p>
+</li>
+<li>Досвід 1T,</li>
+<li>
+<p>Репутація спільноти.</p>
+</li>
+<li>
+<p>Значок підключеності до поточного microDAO / каналу.</p>
+</li>
+</ul>
+<h2 id="42">4.2. Вкладки<a class="headerlink" href="#42" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">Вкладка 1: Чат<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Текстовий чат (як звичайний agent chat).</li>
+<li>Голосовий режим: кнопка "Голосовий діалог" (start/stop).</li>
+<li>
+<p>Привʼязка до поточного контексту:</p>
+</li>
+<li>
+<p>показати, в якому просторі ти з ним розмовляєш.</p>
+</li>
+</ul>
+<h3 id="2_2">Вкладка 2: Файли та Документи<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Список файлів, якими обмінювались з цим агентом в межах даного microDAO.</li>
+<li>
+<p>Кнопка <code>Завантажити файл</code> → агент через DAGI може:</p>
+</li>
+<li>
+<p>проаналізувати документ,</p>
+</li>
+<li>
+<p>створити новий документ (збереження в microDAO file store).</p>
+</li>
+<li>
+<p>Обовʼязково:</p>
+</li>
+<li>
+<p><strong>збереження у власних сховищах microDAO</strong>, не у зовнішньому середовищі по замовчуванню.</p>
+</li>
+</ul>
+<h3 id="3_2">Вкладка 3: Памʼять і Знання<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Блоки з:</p>
+</li>
+<li>
+<p>короткостроковою памʼяттю (останні теми),</p>
+</li>
+<li>
+<p>довгостроковими фактами про цю спільноту (як у 13_agent_memory_system).</p>
+</li>
+<li>
+<p>Кнопки:</p>
+</li>
+<li>
+<p><code>Показати, що ти памʼятаєш про цей проєкт</code></p>
+</li>
+<li><code>Очистити частину памʼяті</code></li>
+</ul>
+<h3 id="4_1">Вкладка 4: Присутність / Права доступу<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Список:</p>
+</li>
+<li>
+<p>В яких каналах цей агент присутній (публічні/конфіденційні).</p>
+</li>
+<li>
+<p>В яких проєктах бере участь.</p>
+</li>
+<li>
+<p>Для кожного:</p>
+</li>
+<li>
+<p>перемикач <code>Підключити/Відключити</code>.</p>
+</li>
+<li>
+<p>Позначка рівня доступу (read/write/tasks/knowledge).</p>
+</li>
+<li>
+<p>Кнопка:</p>
+</li>
+<li>
+<p><code>Додати до нового каналу/проєкту</code> → відкриває спрощений Invite-Agent-Flow, але вже з попередньо вибраним агентом.</p>
+</li>
+</ul>
+<h3 id="5_1">Вкладка 5: Еволюція та дух спільноти<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Замінює будь-який фінансовий наратив:</p>
+</li>
+<li>
+<p><code>Шлях агента в цій спільноті</code></p>
+</li>
+<li>
+<p>Лог:</p>
+<ul>
+<li>скільки разів агент допомагав у задачах,</li>
+<li>які типи запитів обробляє найчастіше,</li>
+<li>"внесок у колективний розум" (наприклад, скільки фактів/правил додано).</li>
+</ul>
+</li>
+<li>
+<p>Репутація:</p>
+</li>
+<li>
+<p>відгуки/оцінки від учасників (без мови торгівлі).</p>
+</li>
+</ul>
+<hr />
+<h1 id="5-dagi">5. DAGI, багатомодальність і сховища<a class="headerlink" href="#5-dagi" title="Permanent link">&para;</a></h1>
+<h2 id="51-dagi">5.1. DAGI як бекенд агентських здібностей<a class="headerlink" href="#51-dagi" title="Permanent link">&para;</a></h2>
+<p>Кожен агент отримує від DAGI:</p>
+<ul>
+<li>текстове мислення,</li>
+<li>
+<p>мульти-модальні можливості:</p>
+</li>
+<li>
+<p>розуміння зображень/файлів,</p>
+</li>
+<li>створення текстів, планів, специфікацій,</li>
+<li>потенційно роботу з відео.</li>
+</ul>
+<p>Інтерфейс агента дає доступ до:</p>
+<ul>
+<li>
+<p>аналізу файлів:</p>
+</li>
+<li>
+<p>"Поясни цей документ для команди"</p>
+</li>
+<li>
+<p>"Зроби витяг для каналу #planning"</p>
+</li>
+<li>
+<p>генерації нових артефактів:</p>
+</li>
+<li>
+<p>плани,</p>
+</li>
+<li>дорожні карти,</li>
+<li>документація.</li>
+</ul>
+<h2 id="52-microdao">5.2. Зберігання в MicroDAO, а не "десь в хмарі без контролю"<a class="headerlink" href="#52-microdao" title="Permanent link">&para;</a></h2>
+<p>Ключовий принцип:</p>
+<ul>
+<li>
+<p><strong>Результати роботи агента</strong> (файли, документи, знання) зберігаються:</p>
+</li>
+<li>
+<p>у сховищі степені MicroDAO (файлове / БД),</p>
+</li>
+<li>
+<p>або у локальних базах спільноти.</p>
+</li>
+<li>
+<p>DAGI використовується як "мозок", але:</p>
+</li>
+<li>
+<p>не забирає собі сирі дані без волі спільноти,</p>
+</li>
+<li>не є єдиним місцем зберігання.</li>
+</ul>
+<p>Це важливо підкреслити в UX:</p>
+<ul>
+<li>
+<p>у консолі:</p>
+</li>
+<li>
+<p>"Документи зберігаються в просторі вашої microDAO."</p>
+</li>
+<li>
+<p>опції експорту:</p>
+</li>
+<li>
+<p>"Поділитися в іншому просторі DAARION.city"</p>
+</li>
+<li>"Надати доступ іншому агенту"</li>
+</ul>
+<hr />
+<h1 id="6">6. Підключення/відключення агентів до публічних/конфіденційних просторів<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
+<h2 id="61">6.1. З точки зору плитки<a class="headerlink" href="#61" title="Permanent link">&para;</a></h2>
+<p>На картці агента:</p>
+<ul>
+<li>
+<p>бейджі:</p>
+</li>
+<li>
+<p><code>Публічні простори: 2</code></p>
+</li>
+<li>
+<p><code>Конфіденційні: 1</code></p>
+</li>
+<li>
+<p>При натисканні:</p>
+</li>
+<li>
+<p>відкривається невеликий список:</p>
+<ul>
+<li><code>#general (публічний)</code></li>
+<li><code>#dev-mvp (конфіденційний)</code></li>
+</ul>
+</li>
+<li>
+<p>поруч — перемикач:</p>
+<ul>
+<li><code>Підключено / Відʼєднано</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="62-agent-console">6.2. З точки зору Agent Console<a class="headerlink" href="#62-agent-console" title="Permanent link">&para;</a></h2>
+<p>У вкладці "Присутність / Права доступу":</p>
+<ul>
+<li>
+<p>Табличка:</p>
+</li>
+<li>
+<p>Простір / Тип (публічний/конфіденційний) / Доступ / Перемикач.</p>
+</li>
+<li>
+<p>Операції:</p>
+</li>
+<li>
+<p>натискання <code>Відʼєднати</code>:</p>
+<ul>
+<li>агент перестає отримувати потік повідомлень з цього каналу/простору;</li>
+<li>його не видно у списку учасників.</li>
+</ul>
+</li>
+<li>
+<p>натискання <code>Підключити</code>:</p>
+<ul>
+<li>запускає внутрішній Invite-Agent-Flow для відповідного ресурсу.</li>
+</ul>
+</li>
+</ul>
+<p>Все це повинно залишатись максимально людським в термінології:</p>
+<p>жодних "інвесторів", "юнітів вартості", "ROI" тощо — тільки:</p>
+<ul>
+<li>"досвід",</li>
+<li>"шлях агента",</li>
+<li>"довіра спільноти",</li>
+<li>"внесок у колективний розум".</li>
+</ul>
+<hr />
+<h1 id="7">7. Компоненти та структура<a class="headerlink" href="#7" title="Permanent link">&para;</a></h1>
+<h2 id="71-agent-card-component">7.1. Agent Card Component<a class="headerlink" href="#71-agent-card-component" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentCardProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agent</span><span class="o">:</span><span class="w"> </span><span class="kt">Agent</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">onCardClick</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">onConnect</span><span class="o">?:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">currentContext</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">channelId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">AgentCard</span><span class="p">({</span><span class="w"> </span><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">onCardClick</span><span class="p">,</span><span class="w"> </span><span class="nx">onConnect</span><span class="p">,</span><span class="w"> </span><span class="nx">currentContext</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="nx">AgentCardProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Рендер картки з усіма метриками</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="72-agent-grid">7.2. Agent Grid<a class="headerlink" href="#72-agent-grid" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentGridProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agents</span><span class="o">:</span><span class="w"> </span><span class="kt">Agent</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">onAgentSelect</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">?:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;connected&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;available&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">AgentGrid</span><span class="p">({</span><span class="w"> </span><span class="nx">agents</span><span class="p">,</span><span class="w"> </span><span class="nx">onAgentSelect</span><span class="p">,</span><span class="w"> </span><span class="nx">filter</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="nx">AgentGridProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Сітка карток агентів</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="73-agent-console">7.3. Agent Console<a class="headerlink" href="#73-agent-console" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentConsoleProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">initialTab</span><span class="o">?:</span><span class="w"> </span><span class="s2">&quot;chat&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;memory&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;presence&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;evolution&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">AgentConsole</span><span class="p">({</span><span class="w"> </span><span class="nx">agentId</span><span class="p">,</span><span class="w"> </span><span class="nx">initialTab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;chat&quot;</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="nx">AgentConsoleProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Повний інтерфейс агента з вкладками</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="8">8. Типи даних<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
+<h2 id="81-agent-metrics">8.1. Agent Metrics<a class="headerlink" href="#81-agent-metrics" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentMetrics</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">weeks?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">months?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">years?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">experience1T</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="c1">// Досвід в 1T</span>
+<span class="w">  </span><span class="nx">reputation</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0-100 або 0-5</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;stars&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;percentage&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">presence</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">channels</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">teams</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">confidential</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="82-agent-presence">8.2. Agent Presence<a class="headerlink" href="#82-agent-presence" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentPresence</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">channelId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">channelName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;confidential&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">accessLevel</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">connected</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="83-agent-evolution-log">8.3. Agent Evolution Log<a class="headerlink" href="#83-agent-evolution-log" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentEvolutionLog</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">tasksHelped</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">requestTypes</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">number</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Типи запитів та їх кількість</span>
+<span class="w">  </span><span class="nx">contributions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">factsAdded</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">rulesCreated</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">documentsGenerated</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">communityFeedback</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">positive</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">negative</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">averageRating</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="9-api-endpoints">9. API Endpoints<a class="headerlink" href="#9-api-endpoints" title="Permanent link">&para;</a></h1>
+<h2 id="91-agent-metrics">9.1. Agent Metrics<a class="headerlink" href="#91-agent-metrics" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">agents</span><span class="o">/</span><span class="p">{</span><span class="nx">agentId</span><span class="p">}</span><span class="o">/</span><span class="nx">metrics</span>
+<span class="c1">// Повертає метрики агента (вік, досвід 1T, репутація)</span>
+
+<span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">agents</span><span class="o">/</span><span class="p">{</span><span class="nx">agentId</span><span class="p">}</span><span class="o">/</span><span class="nx">presence</span>
+<span class="c1">// Список просторів, де агент присутній</span>
+</code></pre></div>
+
+<h2 id="92-agent-files">9.2. Agent Files<a class="headerlink" href="#92-agent-files" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">agents</span><span class="o">/</span><span class="p">{</span><span class="nx">agentId</span><span class="p">}</span><span class="o">/</span><span class="nx">files</span>
+<span class="c1">// Список файлів, з якими працював агент</span>
+
+<span class="nx">POST</span><span class="w"> </span><span class="o">/</span><span class="nx">agents</span><span class="o">/</span><span class="p">{</span><span class="nx">agentId</span><span class="p">}</span><span class="o">/</span><span class="nx">files</span>
+<span class="c1">// Завантажити файл для аналізу агентом</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nx">file</span><span class="o">:</span><span class="w"> </span><span class="kt">File</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">channelId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="93-agent-evolution">9.3. Agent Evolution<a class="headerlink" href="#93-agent-evolution" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">agents</span><span class="o">/</span><span class="p">{</span><span class="nx">agentId</span><span class="p">}</span><span class="o">/</span><span class="nx">evolution</span><span class="o">/</span><span class="nx">log</span>
+<span class="c1">// Лог еволюції та внеску агента</span>
+</code></pre></div>
+
+<hr />
+<h1 id="10-uiux">10. UI/UX Деталі<a class="headerlink" href="#10-uiux" title="Permanent link">&para;</a></h1>
+<h2 id="101-">10.1. Відео-аватар<a class="headerlink" href="#101-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Формат: короткий loop (2-5 секунд)</li>
+<li>Розмір на картці: 64x64px</li>
+<li>Розмір в консолі: 128x128px</li>
+<li>Без звуку</li>
+<li>Анімація при hover: легке пожвавлення</li>
+</ul>
+<h2 id="102">10.2. Метрики досвіду<a class="headerlink" href="#102" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Вік: "3 тижні", "6 місяців", "1 рік 2 місяці"</li>
+<li>1T: велике число з розділювачами (12 340 1T)</li>
+<li>Репутація: візуальна шкала (зірки або прогрес-бар)</li>
+</ul>
+<h2 id="103">10.3. Бейджі присутності<a class="headerlink" href="#103" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Компактні бейджі з іконками</li>
+<li>Кольори: синій для публічних, червоний для конфіденційних</li>
+<li>Іконка замка для конфіденційних просторів</li>
+</ul>
+<hr />
+<h1 id="11">11. Інтеграція з існуючими модулями<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+<h2 id="111-agent-ui-system-10">11.1. Agent UI System (10)<a class="headerlink" href="#111-agent-ui-system-10" title="Permanent link">&para;</a></h2>
+<p>Agent Cards використовують компоненти з <code>10_agent_ui_system.md</code>:
+- AgentAvatar
+- AgentChatWindow (у вкладці "Чат")
+- AgentMemoryTab (у вкладці "Памʼять")</p>
+<h2 id="112-agent-memory-system-13">11.2. Agent Memory System (13)<a class="headerlink" href="#112-agent-memory-system-13" title="Permanent link">&para;</a></h2>
+<p>Вкладка "Памʼять і Знання" інтегрується з:
+- Short-term memory
+- Long-term memory
+- RAG retrieval</p>
+<h2 id="113-agent-runtime-core-12">11.3. Agent Runtime Core (12)<a class="headerlink" href="#113-agent-runtime-core-12" title="Permanent link">&para;</a></h2>
+<p>Agent Console використовує:
+- AgentContext для роботи з агентом
+- Tools для аналізу файлів
+- LLM для генерації документів</p>
+<hr />
+<h1 id="12-cursor">12. Завдання для Cursor<a class="headerlink" href="#12-cursor" title="Permanent link">&para;</a></h1>
+<p>Приклад промта:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">You</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">senior</span><span class="w"> </span><span class="n">React</span><span class="o">/</span><span class="n">TS</span><span class="w"> </span><span class="n">engineer</span><span class="o">.</span>
+
+<span class="n">Implement</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Console</span><span class="w"> </span><span class="n">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">23</span><span class="n">_agent_cards_and_console</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="n">_agent_ui_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">13</span><span class="n">_agent_memory_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">12</span><span class="n">_agent_runtime_core</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="n">_coding_standards</span><span class="o">.</span><span class="n">md</span>
+
+<span class="n">Deliverables</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">AgentCard</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">metrics</span><span class="w"> </span><span class="p">(</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">T</span><span class="w"> </span><span class="n">experience</span><span class="p">,</span><span class="w"> </span><span class="n">reputation</span><span class="p">)</span><span class="o">.</span>
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">AgentGrid</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">displaying</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">cards</span><span class="o">.</span>
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">AgentConsole</span><span class="w"> </span><span class="n">component</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">tabs</span><span class="p">:</span><span class="w"> </span><span class="n">Chat</span><span class="p">,</span><span class="w"> </span><span class="n">Files</span><span class="p">,</span><span class="w"> </span><span class="n">Memory</span><span class="p">,</span><span class="w"> </span><span class="n">Presence</span><span class="p">,</span><span class="w"> </span><span class="n">Evolution</span><span class="o">.</span>
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">Integration</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">upload</span><span class="o">/</span><span class="n">analysis</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">DAGI</span><span class="o">.</span>
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">Presence</span><span class="w"> </span><span class="n">management</span><span class="w"> </span><span class="p">(</span><span class="n">connect</span><span class="o">/</span><span class="n">disconnect</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">channels</span><span class="o">/</span><span class="n">projects</span><span class="p">)</span><span class="o">.</span>
+
+<span class="n">Output</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">modified</span><span class="w"> </span><span class="n">files</span>
+<span class="o">-</span><span class="w"> </span><span class="n">diff</span>
+<span class="o">-</span><span class="w"> </span><span class="n">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="13">13. Результат<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<p>Після впровадження:</p>
+<ul>
+<li>Агенти представлені як живі учасники спільноти, а не просто боти</li>
+<li>Користувач бачить досвід та репутацію кожного агента</li>
+<li>Повний контроль над підключеннями агентів до просторів</li>
+<li>Зберігання всіх результатів роботи агентів у сховищі microDAO</li>
+<li>Людська термінологія без фінансових наративів</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна специфікація Agent Cards та Console</strong>, готова до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

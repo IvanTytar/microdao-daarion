@@ -1,0 +1,1188 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/rag_gateway_task/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Task: Unified RAG-Gateway service (Milvus + Neo4j) for all agents - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-unified-rag-gateway-service-milvus-neo4j-for-all-agents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task: Unified RAG-Gateway service (Milvus + Neo4j) for all agents
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-level architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-level architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rag-gateway-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. RAG-Gateway service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-haystack-as-internal-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Haystack as internal orchestrator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-model-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data model &amp; schema
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data model & schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-milvus-document-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Milvus document schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-neo4j-graph-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Neo4j graph schema
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag-tools-api-for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAG tools API for agents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RAG tools API for agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ragsearch_docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. rag.search_docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-graphquery_context" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. graph.query_context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ragenrich_answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. rag.enrich_answer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenancy-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-tenancy &amp; security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ingestion-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ingestion &amp; pipelines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ingestion & pipelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ingest-service-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Ingest service / worker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-event-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Event contracts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization for agents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-to-createmodify-suggested" class="md-nav__link">
+    <span class="md-ellipsis">
+      Files to create/modify (suggested)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acceptance criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run-this-task-with-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to run this task with Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-unified-rag-gateway-service-milvus-neo4j-for-all-agents">Task: Unified RAG-Gateway service (Milvus + Neo4j) for all agents<a class="headerlink" href="#task-unified-rag-gateway-service-milvus-neo4j-for-all-agents" title="Permanent link">&para;</a></h1>
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Design and implement a <strong>single RAG-gateway service</strong> that sits between agents and storage backends (Milvus, Neo4j, etc.), so that:</p>
+<ul>
+<li>Agents never talk directly to Milvus or Neo4j.</li>
+<li>All retrieval, graph queries and hybrid RAG behavior go through one service with a clear API.</li>
+<li>Security, multi-tenancy, logging, and optimization are centralized.</li>
+</ul>
+<p>This task is about <strong>architecture and API</strong> first (code layout, endpoints, data contracts). A later task can cover concrete implementation details if needed.</p>
+<blockquote>
+<p>This spec is intentionally high-level but should be detailed enough for Cursor to scaffold the service, HTTP API, and integration points with DAGI Router.</p>
+</blockquote>
+<hr />
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Project root: <code>microdao-daarion/</code>.</li>
+<li>There are (or will be) multiple agents:</li>
+<li>DAARWIZZ (system orchestrator)</li>
+<li>Helion (Energy Union)</li>
+<li>Team/Project/Messenger/Co-Memory agents, etc.</li>
+<li>Agents already have access to:</li>
+<li>DAGI Router (LLM routing, tools, orchestrator).</li>
+<li>Memory service (short/long-term chat memory).</li>
+<li>Parser-service (OCR and document parsing).</li>
+</ul>
+<p>We now want a <strong>RAG layer</strong> that can:</p>
+<ul>
+<li>Perform semantic document search across all DAO documents / messages / files.</li>
+<li>Use a <strong>vector DB</strong> (Milvus) and <strong>graph DB</strong> (Neo4j) together.</li>
+<li>Provide a clean tool-like API to agents.</li>
+</ul>
+<p>The RAG layer should be exposed as a standalone service:</p>
+<ul>
+<li>Working name: <code>rag-gateway</code> or <code>knowledge-service</code>.</li>
+<li>Internally can use Haystack (or similar) for pipelines.</li>
+</ul>
+<hr />
+<h2 id="high-level-architecture">High-level architecture<a class="headerlink" href="#high-level-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="1-rag-gateway-service">1. RAG-Gateway service<a class="headerlink" href="#1-rag-gateway-service" title="Permanent link">&para;</a></h3>
+<p>Create a new service (later we can place it under <code>services/rag-gateway/</code>), with HTTP API, which will:</p>
+<ul>
+<li>Accept tool-style requests from DAGI Router / agents.</li>
+<li>Internally talk to:</li>
+<li>Milvus (vector search, embeddings).</li>
+<li>Neo4j (graph queries, traversals).</li>
+<li>Return structured JSON for agents to consume.</li>
+</ul>
+<p>Core API endpoints (first iteration):</p>
+<ul>
+<li><code>POST /rag/search_docs</code> — semantic/hybrid document search.</li>
+<li><code>POST /rag/enrich_answer</code> — enrich an existing answer with sources.</li>
+<li><code>POST /graph/query</code> — run a graph query (Cypher or intent-based).</li>
+<li><code>POST /graph/explain_path</code> — return graph-based explanation / path between entities.</li>
+</ul>
+<p>Agents will see these as tools (e.g. <code>rag.search_docs</code>, <code>graph.query_context</code>) configured in router config.</p>
+<h3 id="2-haystack-as-internal-orchestrator">2. Haystack as internal orchestrator<a class="headerlink" href="#2-haystack-as-internal-orchestrator" title="Permanent link">&para;</a></h3>
+<p>Within the RAG-gateway, use Haystack components (or analogous) to organize:</p>
+<ul>
+<li><code>MilvusDocumentStore</code> as the main vector store.</li>
+<li>Retrievers:</li>
+<li>Dense retriever over Milvus.</li>
+<li>Optional BM25/keyword retriever (for hybrid search).</li>
+<li>Pipelines:</li>
+<li><code>indexing_pipeline</code> — ingest DAO documents/messages/files into Milvus.</li>
+<li><code>query_pipeline</code> — answer agent queries using retrieved documents.</li>
+<li><code>graph_rag_pipeline</code> — combine Neo4j graph queries with Milvus retrieval.</li>
+</ul>
+<p>The key idea: <strong>agents never talk to Haystack directly</strong>, only to RAG-gateway HTTP API.</p>
+<hr />
+<h2 id="data-model-schema">Data model &amp; schema<a class="headerlink" href="#data-model-schema" title="Permanent link">&para;</a></h2>
+<h3 id="1-milvus-document-schema">1. Milvus document schema<a class="headerlink" href="#1-milvus-document-schema" title="Permanent link">&para;</a></h3>
+<p>Define a standard metadata schema for all documents/chunks stored in Milvus. Required fields:</p>
+<ul>
+<li><code>team_id</code> / <code>dao_id</code> — which DAO / team this data belongs to.</li>
+<li><code>project_id</code> — optional project-level grouping.</li>
+<li><code>channel_id</code> — optional chat/channel ID (Telegram, internal channel, etc.).</li>
+<li><code>agent_id</code> — which agent produced/owns this piece.</li>
+<li><code>visibility</code> — one of <code>"public" | "confidential"</code>.</li>
+<li><code>doc_type</code> — one of <code>"message" | "doc" | "file" | "wiki" | "rwa" | "transaction"</code> (extensible).</li>
+<li><code>tags</code> — list of tags (topics, domains, etc.).</li>
+<li><code>created_at</code> — timestamp.</li>
+</ul>
+<p>These should be part of Milvus metadata, so that RAG-gateway can apply filters (by DAO, project, visibility, etc.).</p>
+<h3 id="2-neo4j-graph-schema">2. Neo4j graph schema<a class="headerlink" href="#2-neo4j-graph-schema" title="Permanent link">&para;</a></h3>
+<p>Design a <strong>minimal default graph model</strong> with node labels:</p>
+<ul>
+<li><code>User</code>, <code>Agent</code>, <code>MicroDAO</code>, <code>Project</code>, <code>Channel</code></li>
+<li><code>Topic</code>, <code>Resource</code>, <code>File</code>, <code>RWAObject</code> (e.g. energy asset, food batch, water object).</li>
+</ul>
+<p>Key relationships (examples):</p>
+<ul>
+<li><code>(:User)-[:MEMBER_OF]-&gt;(:MicroDAO)</code></li>
+<li><code>(:Agent)-[:SERVES]-&gt;(:MicroDAO|:Project)</code></li>
+<li><code>(:Doc)-[:MENTIONS]-&gt;(:Topic)</code></li>
+<li><code>(:Project)-[:USES]-&gt;(:Resource)</code></li>
+</ul>
+<p>Every node/relationship should also carry:</p>
+<ul>
+<li><code>team_id</code> / <code>dao_id</code></li>
+<li><code>visibility</code> or similar privacy flag</li>
+</ul>
+<p>This allows RAG-gateway to enforce access control at query time.</p>
+<hr />
+<h2 id="rag-tools-api-for-agents">RAG tools API for agents<a class="headerlink" href="#rag-tools-api-for-agents" title="Permanent link">&para;</a></h2>
+<p>Define 2–3 canonical tools that DAGI Router can call. These map to RAG-gateway endpoints.</p>
+<h3 id="1-ragsearch_docs">1. <code>rag.search_docs</code><a class="headerlink" href="#1-ragsearch_docs" title="Permanent link">&para;</a></h3>
+<p>Main tool for most knowledge queries.</p>
+<p><strong>Request JSON example:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_daarwizz&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;які проєкти у нас вже використовують Milvus?&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;top_k&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;filters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;prj_x&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;doc_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wiki&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response JSON example:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;matches&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.82</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Spec microdao RAG stack&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;snippet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source_ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_123&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;doc_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="2-graphquery_context">2. <code>graph.query_context</code><a class="headerlink" href="#2-graphquery_context" title="Permanent link">&para;</a></h3>
+<p>For relationship/structural questions ("хто з ким повʼязаний", "які проєкти використовують X" etc.).</p>
+<p>Two options (can support both):</p>
+<ol>
+<li><strong>Low-level Cypher</strong>:</li>
+</ol>
+<p><code>json
+   {
+     "team_id": "dao_energy",
+     "cypher": "MATCH (p:Project)-[:USES]-&gt;(r:Resource {name:$name}) RETURN p LIMIT 10",
+     "params": {"name": "Milvus"}
+   }</code></p>
+<ol>
+<li><strong>High-level intent</strong>:</li>
+</ol>
+<p><code>json
+   {
+     "team_id": "dao_energy",
+     "intent": "FIND_PROJECTS_BY_TECH",
+     "args": {"tech": "Milvus"}
+   }</code></p>
+<p>RAG-gateway then maps intent → Cypher internally.</p>
+<h3 id="3-ragenrich_answer">3. <code>rag.enrich_answer</code><a class="headerlink" href="#3-ragenrich_answer" title="Permanent link">&para;</a></h3>
+<p>Given a draft answer from an agent, RAG-gateway retrieves supporting documents and returns enriched answer + citations.</p>
+<p><strong>Request example:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Поясни коротко архітектуру RAG шару в нашому місті.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;draft_answer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Архітектура складається з ...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;max_docs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response example:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;enriched_answer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Архітектура складається з ... (з врахуванням джерел)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RAG spec&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Milvus setup&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="multi-tenancy-security">Multi-tenancy &amp; security<a class="headerlink" href="#multi-tenancy-security" title="Permanent link">&para;</a></h2>
+<p>Add a small <strong>authorization layer</strong> inside RAG-gateway:</p>
+<ul>
+<li>Each request includes:</li>
+<li><code>user_id</code>, <code>team_id</code> (DAO), optional <code>roles</code>.</li>
+<li><code>mode</code> / <code>visibility</code> (e.g. <code>"public"</code> or <code>"confidential"</code>).</li>
+<li>Before querying Milvus/Neo4j, RAG-gateway applies filters:</li>
+<li><code>team_id = ...</code></li>
+<li><code>visibility</code> within allowed scope.</li>
+<li>Optional role-based constraints (Owner/Guardian/Member) affecting what doc_types can be seen.</li>
+</ul>
+<p>Implementation hints:</p>
+<ul>
+<li>Start with a simple <code>AccessContext</code> object built from request, used by all pipelines.</li>
+<li>Later integrate with existing PDP/RBAC if available.</li>
+</ul>
+<hr />
+<h2 id="ingestion-pipelines">Ingestion &amp; pipelines<a class="headerlink" href="#ingestion-pipelines" title="Permanent link">&para;</a></h2>
+<p>Define an ingestion plan and API.</p>
+<h3 id="1-ingest-service-worker">1. Ingest service / worker<a class="headerlink" href="#1-ingest-service-worker" title="Permanent link">&para;</a></h3>
+<p>Create a separate ingestion component (can be part of RAG-gateway or standalone worker) that:</p>
+<ul>
+<li>Listens to events like:</li>
+<li><code>message.created</code></li>
+<li><code>doc.upsert</code></li>
+<li><code>file.uploaded</code></li>
+<li>For each event:</li>
+<li>Builds text chunks.</li>
+<li>Computes embeddings.</li>
+<li>Writes chunks into Milvus with proper metadata.</li>
+<li>Updates Neo4j graph (nodes/edges) where appropriate.</li>
+</ul>
+<p>Requirements:</p>
+<ul>
+<li>Pipelines must be <strong>idempotent</strong> — re-indexing same document does not break anything.</li>
+<li>Create an API / job for <code>reindex(team_id)</code> to reindex a full DAO if needed.</li>
+<li>Store embedding model version in metadata (e.g. <code>embed_model: "bge-m3@v1"</code>) to ease future migrations.</li>
+</ul>
+<h3 id="2-event-contracts">2. Event contracts<a class="headerlink" href="#2-event-contracts" title="Permanent link">&para;</a></h3>
+<p>Align ingestion with the existing Event Catalog (if present in <code>docs/cursor</code>):</p>
+<ul>
+<li>Document which event types lead to RAG ingestion.</li>
+<li>For each event, define mapping → Milvus doc, Neo4j nodes/edges.</li>
+</ul>
+<hr />
+<h2 id="optimization-for-agents">Optimization for agents<a class="headerlink" href="#optimization-for-agents" title="Permanent link">&para;</a></h2>
+<p>Add support for:</p>
+<ol>
+<li>
+<p><strong>Semantic cache per agent</strong></p>
+</li>
+<li>
+<p>Cache <code>query → RAG-result</code> for N minutes per (<code>agent_id</code>, <code>team_id</code>).</p>
+</li>
+<li>
+<p>Useful for frequently repeated queries.</p>
+</li>
+<li>
+<p><strong>RAG behavior profiles per agent</strong></p>
+</li>
+<li>
+<p>In agent config (probably in router config), define:</p>
+<ul>
+<li><code>rag_mode: off | light | strict</code></li>
+<li><code>max_context_tokens</code></li>
+<li><code>max_docs_per_query</code></li>
+</ul>
+</li>
+<li>RAG-gateway can read these via metadata from Router, or Router can decide when to call RAG at all.</li>
+</ol>
+<hr />
+<h2 id="files-to-createmodify-suggested">Files to create/modify (suggested)<a class="headerlink" href="#files-to-createmodify-suggested" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>NOTE: This is a suggestion; adjust exact paths/names to fit the existing project structure.</p>
+</blockquote>
+<ul>
+<li>New service directory: <code>services/rag-gateway/</code>:</li>
+<li><code>main.py</code> — FastAPI (or similar) entrypoint.</li>
+<li><code>api.py</code> — defines <code>/rag/search_docs</code>, <code>/rag/enrich_answer</code>, <code>/graph/query</code>, <code>/graph/explain_path</code>.</li>
+<li><code>core/pipelines.py</code> — Haystack pipelines (indexing, query, graph-rag).</li>
+<li><code>core/schema.py</code> — Pydantic models for request/response, data schema.</li>
+<li><code>core/access.py</code> — access control context + checks.</li>
+<li><code>core/backends/milvus_client.py</code> — wrapper for Milvus.</li>
+<li>
+<p><code>core/backends/neo4j_client.py</code> — wrapper for Neo4j.</p>
+</li>
+<li>
+<p>Integration with DAGI Router:</p>
+</li>
+<li>Update <code>router-config.yml</code> to define RAG tools:<ul>
+<li><code>rag.search_docs</code></li>
+<li><code>graph.query_context</code></li>
+<li><code>rag.enrich_answer</code></li>
+</ul>
+</li>
+<li>
+<p>Configure providers for RAG-gateway base URL.</p>
+</li>
+<li>
+<p>Docs:</p>
+</li>
+<li><code>docs/cursor/rag_gateway_api_spec.md</code> — optional detailed API spec for RAG tools.</li>
+</ul>
+<hr />
+<h2 id="acceptance-criteria">Acceptance criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Service skeleton</strong></p>
+</li>
+<li>
+<p>A new RAG-gateway service exists under <code>services/</code> with:</p>
+<ul>
+<li>A FastAPI (or similar) app.</li>
+<li>Endpoints:</li>
+<li><code>POST /rag/search_docs</code></li>
+<li><code>POST /rag/enrich_answer</code></li>
+<li><code>POST /graph/query</code></li>
+<li><code>POST /graph/explain_path</code></li>
+<li>Pydantic models for requests/responses.</li>
+</ul>
+</li>
+<li>
+<p><strong>Data contracts</strong></p>
+</li>
+<li>
+<p>Milvus document metadata schema is defined (and used in code).</p>
+</li>
+<li>
+<p>Neo4j node/edge labels and key relationships are documented and referenced in code.</p>
+</li>
+<li>
+<p><strong>Security &amp; multi-tenancy</strong></p>
+</li>
+<li>
+<p>All RAG/graph endpoints accept <code>user_id</code>, <code>team_id</code>, and enforce at least basic filtering by <code>team_id</code> and <code>visibility</code>.</p>
+</li>
+<li>
+<p><strong>Agent tool contracts</strong></p>
+</li>
+<li>
+<p>JSON contracts for tools <code>rag.search_docs</code>, <code>graph.query_context</code>, and <code>rag.enrich_answer</code> are documented and used by RAG-gateway.</p>
+</li>
+<li>
+<p>DAGI Router integration is sketched (even if not fully wired): provider entry + basic routing rule examples.</p>
+</li>
+<li>
+<p><strong>Ingestion design</strong></p>
+</li>
+<li>
+<p>Ingestion pipeline is outlined in code (or stubs) with clear TODOs:</p>
+<ul>
+<li>where to hook event consumption,</li>
+<li>how to map events to Milvus/Neo4j.</li>
+</ul>
+</li>
+<li>
+<p>Idempotency and <code>reindex(team_id)</code> strategy described in code/docs.</p>
+</li>
+<li>
+<p><strong>Documentation</strong></p>
+</li>
+<li>
+<p>This file (<code>docs/cursor/rag_gateway_task.md</code>) plus, optionally, a more detailed API spec file for RAG-gateway.</p>
+</li>
+</ol>
+<hr />
+<h2 id="how-to-run-this-task-with-cursor">How to run this task with Cursor<a class="headerlink" href="#how-to-run-this-task-with-cursor" title="Permanent link">&para;</a></h2>
+<p>From repo root (<code>microdao-daarion</code>):</p>
+<div class="codehilite"><pre><span></span><code>cursor<span class="w"> </span>task<span class="w"> </span>&lt;<span class="w"> </span>docs/cursor/rag_gateway_task.md
+</code></pre></div>
+
+<p>Cursor should then:</p>
+<ul>
+<li>Scaffold the RAG-gateway service structure.</li>
+<li>Implement request/response models and basic endpoints.</li>
+<li>Sketch out Milvus/Neo4j client wrappers and pipelines.</li>
+<li>Optionally, add TODOs where deeper implementation is needed.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

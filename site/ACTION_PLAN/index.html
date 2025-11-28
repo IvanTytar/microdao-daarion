@@ -1,0 +1,1244 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/ACTION_PLAN/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>🚀 План дій: Інтеграція всіх сервісів - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🚀 План дій: Інтеграція всіх сервісів
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Що вже працює (готово до використання)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Що вже працює (готово до використання)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-crewai" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. CrewAI 🤖
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-neo4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Neo4j 📊
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dify-ai-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Dify AI Platform 🎯
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-weaviate" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Weaviate 🔍
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Що потребує фіксу
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ Що потребує фіксу">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-memory-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Memory Service 🧠
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-rag-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. RAG Service 📚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-milvus" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Milvus 🔍
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Рекомендований план (пріоритезовано)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Рекомендований план (пріоритезовано)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-dify-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Дослідити Dify (1 год) 🔴
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-crewai-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Інтегрувати CrewAI (30 хв) 🔴
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 2: Інтегрувати CrewAI (30 хв) 🔴">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-crewai-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Крок 1: Перевірити CrewAI API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-crewai-provider-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      Крок 2: Додати CrewAI provider в Router
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-workflow-greenfood" class="md-nav__link">
+    <span class="md-ellipsis">
+      Крок 3: Створити workflow для GREENFOOD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-neo4j-45" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Підключити Neo4j (45 хв) 🟡
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 3: Підключити Neo4j (45 хв) 🟡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-neo4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      Крок 1: Перевірити Neo4j
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-neo4j-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Крок 2: Створити Neo4j client
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-vision-dify-api-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Vision через Dify або API (30 хв) 🟡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-streaming-tts-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 5: Streaming TTS (1 год) 🟢
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Phase 5: Streaming TTS (1 год) 🟢">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-coqui-tts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Варіант A: Coqui TTS (локальний)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-elevenlabs-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Варіант B: ElevenLabs API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-grafana-alerts-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 6: Grafana Alerts (30 хв) 🟢
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Пріоритизований Timeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Пріоритизований Timeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Сьогодні (3-4 год):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Завтра (2-3 год):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Опційно (якщо потрібно):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Ключові висновки
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Ключові висновки">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Що маємо:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Що можна зробити швидко:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Що не критично:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Готовий почати?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">🚀 План дій: Інтеграція всіх сервісів<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><strong>Дата</strong>: 2025-11-18<br />
+<strong>На основі</strong>: SERVER_AUDIT_REPORT.md</p>
+<hr />
+<h2 id="_2">✅ Що вже працює (готово до використання)<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-crewai">1. <strong>CrewAI</strong> 🤖<a class="headerlink" href="#1-crewai" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Статус</strong>: ✅ Працює (<code>dagi-crewai:9102</code>)</li>
+<li><strong>Що робити</strong>: Додати workflows для GREENFOOD та інших агентів</li>
+<li><strong>Час</strong>: 30 хв</li>
+<li><strong>Пріоритет</strong>: 🔴 ВИСОКИЙ</li>
+</ul>
+<h3 id="2-neo4j">2. <strong>Neo4j</strong> 📊<a class="headerlink" href="#2-neo4j" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Статус</strong>: ✅ Працює (ports 7474, 7687)</li>
+<li><strong>Що робити</strong>: Підключити до Router для knowledge graphs</li>
+<li><strong>UI</strong>: http://144.76.224.179:7474</li>
+<li><strong>Час</strong>: 45 хв</li>
+<li><strong>Пріоритет</strong>: 🟡 СЕРЕДНІЙ</li>
+</ul>
+<h3 id="3-dify-ai-platform">3. <strong>Dify AI Platform</strong> 🎯<a class="headerlink" href="#3-dify-ai-platform" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Статус</strong>: ✅ Повний стек працює!</li>
+<li><strong>Компоненти</strong>: API, Web, Workers, Weaviate, Plugins</li>
+<li><strong>Можливості</strong>:</li>
+<li>LLM orchestration</li>
+<li>RAG workflows (через Weaviate)</li>
+<li><strong>МОЖЕ МАТИ GPT-4V/Claude Vision!</strong></li>
+<li><strong>Що робити</strong>: Дослідити API та можливості</li>
+<li><strong>Час</strong>: 1 год</li>
+<li><strong>Пріоритет</strong>: 🔴 ВИСОКИЙ</li>
+</ul>
+<h3 id="4-weaviate">4. <strong>Weaviate</strong> 🔍<a class="headerlink" href="#4-weaviate" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Статус</strong>: ✅ Працює (port 8080)</li>
+<li><strong>Використання</strong>: Vector DB для Dify</li>
+<li><strong>Інтеграція</strong>: Через Dify RAG</li>
+</ul>
+<hr />
+<h2 id="_3">❌ Що потребує фіксу<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="5-memory-service">5. <strong>Memory Service</strong> 🧠<a class="headerlink" href="#5-memory-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Проблема</strong>: PostgreSQL не має <code>pgvector</code> extension</li>
+<li><strong>Рішення</strong>: </li>
+<li>Встановити pgvector в PostgreSQL container</li>
+<li>АБО використовувати Memory з Dify/Neo4j</li>
+<li><strong>Час</strong>: 1 год</li>
+<li><strong>Пріоритет</strong>: 🟢 НИЗЬКИЙ (не критично)</li>
+</ul>
+<h3 id="6-rag-service">6. <strong>RAG Service</strong> 📚<a class="headerlink" href="#6-rag-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Проблема</strong>: Haystack 2.x API changes</li>
+<li><strong>Рішення</strong>: </li>
+<li>Виправити imports</li>
+<li>АБО використовувати Dify RAG (через Weaviate)</li>
+<li><strong>Час</strong>: 1-2 год</li>
+<li><strong>Пріоритет</strong>: 🟡 СЕРЕДНІЙ</li>
+</ul>
+<h3 id="7-milvus">7. <strong>Milvus</strong> 🔍<a class="headerlink" href="#7-milvus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Проблема</strong>: Зупинено 2 дні тому</li>
+<li><strong>Рішення</strong>: Запустити, ЯКЩО потрібна альтернатива Qdrant</li>
+<li><strong>Час</strong>: 15 хв</li>
+<li><strong>Пріоритет</strong>: 🟢 НИЗЬКИЙ (є Qdrant і Weaviate)</li>
+</ul>
+<hr />
+<h2 id="_4">🎯 Рекомендований план (пріоритезовано)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-dify-1"><strong>Phase 1: Дослідити Dify</strong> (1 год) 🔴<a class="headerlink" href="#phase-1-dify-1" title="Permanent link">&para;</a></h3>
+<p><strong>Чому</strong>: Dify може замінити багато сервісів!</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Перевірити Dify API</span>
+curl<span class="w"> </span>http://localhost/v1/models
+
+<span class="c1"># 2. Перевірити чи підключено GPT-4V/Claude</span>
+curl<span class="w"> </span>http://localhost/v1/chat/completions<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;model&quot;: &quot;gpt-4-vision-preview&quot;, &quot;messages&quot;: [...]}&#39;</span>
+
+<span class="c1"># 3. Перевірити RAG capabilities</span>
+<span class="c1"># Через Dify Web UI: http://localhost/</span>
+</code></pre></div>
+
+<p><strong>Результат</strong>: Якщо Dify має GPT-4V - ГОТОВО! Якщо ні - знаємо що додати.</p>
+<hr />
+<h3 id="phase-2-crewai-30"><strong>Phase 2: Інтегрувати CrewAI</strong> (30 хв) 🔴<a class="headerlink" href="#phase-2-crewai-30" title="Permanent link">&para;</a></h3>
+<p><strong>Що</strong>: Додати CrewAI workflows для агентів</p>
+<h4 id="1-crewai-api">Крок 1: Перевірити CrewAI API<a class="headerlink" href="#1-crewai-api" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>http://dagi-crewai:9102/health
+curl<span class="w"> </span>http://dagi-crewai:9102/crews<span class="w">  </span><span class="c1"># List available crews</span>
+</code></pre></div>
+
+<h4 id="2-crewai-provider-router">Крок 2: Додати CrewAI provider в Router<a class="headerlink" href="#2-crewai-provider-router" title="Permanent link">&para;</a></h4>
+<p><code>router-config.yml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">crewai</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;crew&quot;</span>
+<span class="w">    </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://dagi-crewai:9102&quot;</span>
+</code></pre></div>
+
+<h4 id="3-workflow-greenfood">Крок 3: Створити workflow для GREENFOOD<a class="headerlink" href="#3-workflow-greenfood" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># services/greenfood/crew/workflows.py</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">web_search_workflow</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Пошук в інтернеті через CrewAI&quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">httpx</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;http://dagi-crewai:9102/crews/research/run&quot;</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Результат</strong>: GREENFOOD може шукати в інтернеті!</p>
+<hr />
+<h3 id="phase-3-neo4j-45"><strong>Phase 3: Підключити Neo4j</strong> (45 хв) 🟡<a class="headerlink" href="#phase-3-neo4j-45" title="Permanent link">&para;</a></h3>
+<p><strong>Що</strong>: Knowledge graph для зв'язків</p>
+<h4 id="1-neo4j">Крок 1: Перевірити Neo4j<a class="headerlink" href="#1-neo4j" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Browser: http://144.76.224.179:7474</span>
+<span class="c1"># Username: neo4j</span>
+<span class="c1"># Password: &lt;перевірити в docker-compose&gt;</span>
+</code></pre></div>
+
+<h4 id="2-neo4j-client">Крок 2: Створити Neo4j client<a class="headerlink" href="#2-neo4j-client" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># utils/neo4j_client.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neo4j</span><span class="w"> </span><span class="kn">import</span> <span class="n">GraphDatabase</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Neo4jClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">GraphDatabase</span><span class="o">.</span><span class="n">driver</span><span class="p">(</span>
+            <span class="s2">&quot;bolt://neo4j:7687&quot;</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;neo4j&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">save_interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">agent_id</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Зберегти взаємодію&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                MERGE (u:User {id: $user_id})</span>
+<span class="s2">                MERGE (a:Agent {id: $agent_id})</span>
+<span class="s2">                CREATE (u)-[:ASKED]-&gt;(m:Message {text: $message, timestamp: datetime()})</span>
+<span class="s2">                CREATE (a)-[:RESPONDED]-&gt;(r:Response {text: $response, timestamp: datetime()})</span>
+<span class="s2">                CREATE (m)-[:GOT_RESPONSE]-&gt;(r)</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Результат</strong>: Візуалізація зв'язків користувач ↔ агент ↔ документи!</p>
+<hr />
+<h3 id="phase-4-vision-dify-api-30"><strong>Phase 4: Vision через Dify або API</strong> (30 хв) 🟡<a class="headerlink" href="#phase-4-vision-dify-api-30" title="Permanent link">&para;</a></h3>
+<p><strong>Варіант A</strong>: Якщо Dify має GPT-4V:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Use Dify API for vision</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">analyze_image_dify</span><span class="p">(</span><span class="n">image_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">httpx</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;http://localhost/v1/chat/completions&quot;</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;gpt-4-vision&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="p">[{</span>
+                <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span> <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">image_url</span><span class="p">}}</span>
+                <span class="p">]</span>
+            <span class="p">}]</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Варіант B</strong>: Якщо немає - додати OpenAI API key:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Прямий виклик OpenAI</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">openai</span>
+<span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;sk-...&quot;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">ChatCompletion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-vision-preview&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Результат</strong>: Боти описують зображення!</p>
+<hr />
+<h3 id="phase-5-streaming-tts-1"><strong>Phase 5: Streaming TTS</strong> (1 год) 🟢<a class="headerlink" href="#phase-5-streaming-tts-1" title="Permanent link">&para;</a></h3>
+<p><strong>Що</strong>: Замінити gTTS на Coqui TTS або ElevenLabs</p>
+<h4 id="a-coqui-tts">Варіант A: Coqui TTS (локальний)<a class="headerlink" href="#a-coqui-tts" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c"># Dockerfile для Coqui TTS</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">python:3.10</span>
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>TTS
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;tts-server&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;5002&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="b-elevenlabs-api">Варіант B: ElevenLabs API<a class="headerlink" href="#b-elevenlabs-api" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">elevenlabs</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">text_to_speech_elevenlabs</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">audio</span> <span class="o">=</span> <span class="n">elevenlabs</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+        <span class="n">voice</span><span class="o">=</span><span class="s2">&quot;Bella&quot;</span><span class="p">,</span>  <span class="c1"># Ukrainian voice</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;eleven_multilingual_v2&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">audio</span>
+</code></pre></div>
+
+<p><strong>Результат</strong>: Якісніший голос, підтримка довших текстів!</p>
+<hr />
+<h3 id="phase-6-grafana-alerts-30"><strong>Phase 6: Grafana Alerts</strong> (30 хв) 🟢<a class="headerlink" href="#phase-6-grafana-alerts-30" title="Permanent link">&para;</a></h3>
+<p><strong>Що</strong>: Налаштувати alerting rules</p>
+<p><code>monitoring/prometheus/alerts/daarion_alerts.yml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">groups</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical_alerts</span>
+<span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceDown</span>
+<span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">up{job=~&quot;dagi-.*|telegram-gateway&quot;} == 0</span>
+<span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1m</span>
+<span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical</span>
+<span class="w">        </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Service</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.job</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">down&quot;</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HighErrorRate</span>
+<span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rate(http_requests_total{status_code=~&quot;5..&quot;}[5m]) / rate(http_requests_total[5m]) &gt; 0.05</span>
+<span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5m</span>
+<span class="w">        </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warning</span>
+</code></pre></div>
+
+<p><strong>Налаштувати Telegram notifications</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># monitoring/prometheus/alertmanager.yml</span>
+<span class="nt">receivers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;telegram&#39;</span>
+<span class="w">    </span><span class="nt">telegram_configs</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bot_token</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;YOUR_BOT_TOKEN&#39;</span>
+<span class="w">        </span><span class="nt">chat_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR_CHAT_ID</span>
+</code></pre></div>
+
+<p><strong>Результат</strong>: Автоматичні алерти в Telegram!</p>
+<hr />
+<h2 id="timeline">📊 Пріоритизований Timeline<a class="headerlink" href="#timeline" title="Permanent link">&para;</a></h2>
+<h3 id="3-4">Сьогодні (3-4 год):<a class="headerlink" href="#3-4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>✅ Дослідити Dify (1 год) - може має все що треба!</li>
+<li>✅ Інтегрувати CrewAI (30 хв) - web search для агентів</li>
+<li>✅ Vision через Dify або OpenAI (30 хв) - описи зображень</li>
+</ol>
+<h3 id="2-3">Завтра (2-3 год):<a class="headerlink" href="#2-3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>✅ Підключити Neo4j (45 хв) - knowledge graphs</li>
+<li>✅ Streaming TTS (1 год) - якісний голос</li>
+<li>✅ Grafana Alerts (30 хв) - моніторинг</li>
+</ol>
+<h3 id="_5">Опційно (якщо потрібно):<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>⚠️ Виправити RAG Service (2 год) - АБО використовувати Dify RAG</li>
+<li>⚠️ Виправити Memory Service (1 год) - АБО використовувати Neo4j</li>
+<li>⚠️ Запустити Milvus (15 хв) - тільки якщо Qdrant недостатньо</li>
+</ol>
+<hr />
+<h2 id="_6">💡 Ключові висновки<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">Що маємо:<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>35 Docker контейнерів</strong> - величезна інфраструктура!</li>
+<li>✅ <strong>Dify AI Platform</strong> - може замінити багато сервісів</li>
+<li>✅ <strong>CrewAI</strong> - готовий до використання</li>
+<li>✅ <strong>Neo4j</strong> - готовий до використання</li>
+<li>✅ <strong>3 Vector DBs</strong> - Qdrant, Weaviate, (Milvus)</li>
+</ul>
+<h3 id="_8">Що можна зробити швидко:<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Dify exploration</strong> - може вже все є!</li>
+<li><strong>CrewAI integration</strong> - web search для агентів</li>
+<li><strong>Neo4j integration</strong> - knowledge graphs</li>
+</ol>
+<h3 id="_9">Що не критично:<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Memory Service (є альтернативи)</li>
+<li>RAG Service (є Dify RAG)</li>
+<li>Milvus (є Qdrant і Weaviate)</li>
+</ul>
+<hr />
+<h2 id="_10">🚀 Готовий почати?<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p><strong>Рекомендую порядок</strong>:
+1. <strong>Dify</strong> - дослідити можливості (може GPT-4V вже там!)
+2. <strong>CrewAI</strong> - додати до GREENFOOD
+3. <strong>Vision</strong> - через Dify або OpenAI API
+4. <strong>Neo4j</strong> - knowledge graphs
+5. <strong>Інше</strong> - за потребою</p>
+<p><strong>З чого почнемо?</strong> 🎯</p>
+<hr />
+<p><em>Створено: 2025-11-18</em><br />
+<em>Базується на: SERVER_AUDIT_REPORT.md</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

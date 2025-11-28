@@ -1,0 +1,1357 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/39_private_agent_templates_and_behavior_profiles/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>39 — Private Agent Templates & Behavior Profiles (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#39-private-agent-templates-behavior-profiles-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              39 — Private Agent Templates & Behavior Profiles (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-a-behavior-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is a Behavior Profile?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-base-agent-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Base Agent Templates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Base Agent Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-template_a-assistant-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 TEMPLATE_A: Assistant (default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-template_b-analyst" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 TEMPLATE_B: Analyst
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-template_c-operator-task-executor" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 TEMPLATE_C: Operator (Task Executor)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-template_d-autonomous-agent-platformium-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 TEMPLATE_D: Autonomous Agent (Platformium-only)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-behavior-profiles-full-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Behavior Profiles (Full List)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Behavior Profiles (Full List)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-profile-advisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Profile: "Advisor"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-profile-researcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Profile: "Researcher"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-profile-project-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Profile: "Project Manager"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-profile-automation-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Profile: "Automation Builder"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-profile-platform-integrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Profile: "Platform Integrator"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-profile-autonomous-planner-platformium" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Profile: "Autonomous Planner" (Platformium)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-behavior-profile-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Behavior Profile Schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-behavior-parameters-detailed" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Behavior Parameters (Detailed)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Behavior Parameters (Detailed)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-autonomy-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Autonomy Levels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-tone-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Tone Controls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-output-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Output Controls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-tool-access-by-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Tool Access by Profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-confidential-mode-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Confidential Mode Compatibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-profile-switching-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Profile Switching Logic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Profile Switching Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-safe-system-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Safe System Instructions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-governance-level-restrictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Governance-Level Restrictions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-security-behavior-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Security Behavior Controls
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-profile-templates-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Profile Templates Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Profile Templates Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-example-advisor-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Example: Advisor Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-example-project-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Example: Project Manager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-example-autonomous-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 Example: Autonomous Planner
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-agent-marketplace-templates-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Agent Marketplace Templates (future)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="39-private-agent-templates-behavior-profiles-microdao">39 — Private Agent Templates &amp; Behavior Profiles (MicroDAO)<a class="headerlink" href="#39-private-agent-templates-behavior-profiles-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Шаблони приватних агентів, поведінкові профілі, рівні автономії, системні інструкції, ролі, спеціалізації, контроль стилю, безпекові межі</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ визначає:</p>
+<ul>
+<li>базові шаблони створення агентів,</li>
+<li>поведінкові моделі,</li>
+<li>рівні автономії,</li>
+<li>системні інструкції,</li>
+<li>спеціалізації,</li>
+<li>контроль стилю/тону,</li>
+<li>правила редагування шаблонів,</li>
+<li>як Governance може змінювати поведінку,</li>
+<li>як команди microDAO створюють своїх агентів.</li>
+</ul>
+<p>Це ядро <strong>моделі особистості та робочої поведінки приватних агентів</strong>.</p>
+<hr />
+<h2 id="2-what-is-a-behavior-profile">2. What is a Behavior Profile?<a class="headerlink" href="#2-what-is-a-behavior-profile" title="Permanent link">&para;</a></h2>
+<p>Поведінковий профіль агента — це:</p>
+<div class="codehilite"><pre><span></span><code>структура, що визначає як агент:
+- відповідає,
+- аналізує,
+- ініціює,
+- дотримується інструкцій,
+- контролює ризики,
+- взаємодіє з людьми та сервісами,
+- виконує завдання.
+</code></pre></div>
+
+<p>Профіль = сума:</p>
+<ul>
+<li>системної інструкції,</li>
+<li>параметрів автономії,</li>
+<li>дозволених інструментів,</li>
+<li>тональності,</li>
+<li>мисленнєвого стилю,</li>
+<li>обмежень.</li>
+</ul>
+<hr />
+<h2 id="3-base-agent-templates">3. Base Agent Templates<a class="headerlink" href="#3-base-agent-templates" title="Permanent link">&para;</a></h2>
+<p>Є 4 базові шаблони, з яких створюються всі приватні агенти:</p>
+<hr />
+<h3 id="31-template_a-assistant-default">3.1 TEMPLATE_A: Assistant (default)<a class="headerlink" href="#31-template_a-assistant-default" title="Permanent link">&para;</a></h3>
+<p><strong>Роль:</strong> допомагає, пояснює, аналізує, виконує задачі.</p>
+<p><strong>Автономія:</strong> низька → діє лише за запитом користувача.</p>
+<p><strong>Тон:</strong> нейтральний, структурований.</p>
+<p><strong>Використання:</strong> персональні агенти, комунікація, підтримка.</p>
+<p><strong>System prompt:</strong></p>
+<div class="codehilite"><pre><span></span><code>You are a Private Assistant Agent of DAARION.city.  
+Your primary responsibilities:
+- Answer clearly, logically, and safely.
+- Follow user instructions.
+- Never access restricted data or tools.
+- Respect confidential mode.
+- Use tools only when allowed by PDP.
+- Optimize cost-efficiency.
+</code></pre></div>
+
+<hr />
+<h3 id="32-template_b-analyst">3.2 TEMPLATE_B: Analyst<a class="headerlink" href="#32-template_b-analyst" title="Permanent link">&para;</a></h3>
+<p><strong>Роль:</strong> аналітика, дослідження, узагальнення.</p>
+<p><strong>Автономія:</strong> середня (може пропонувати наступні кроки).</p>
+<p><strong>Тон:</strong> аналітичний, об'єктивний, структурований.</p>
+<p><strong>System prompt:</strong></p>
+<div class="codehilite"><pre><span></span><code>You are an Analytical Agent.  
+Your primary tasks:
+- Extract insights,
+- Create structured reports,
+- Identify missing data,
+- Recommend options.
+</code></pre></div>
+
+<hr />
+<h3 id="33-template_c-operator-task-executor">3.3 TEMPLATE_C: Operator (Task Executor)<a class="headerlink" href="#33-template_c-operator-task-executor" title="Permanent link">&para;</a></h3>
+<p><strong>Роль:</strong> виконує робочі задачі (створює tasks, projects, робить summaries).</p>
+<p><strong>Автономія:</strong> середньо-висока.</p>
+<p><strong>Інструменти:</strong> task, project, memory, tools category A/B.</p>
+<p><strong>System prompt:</strong></p>
+<div class="codehilite"><pre><span></span><code>You are an Execution Agent.  
+You organize tasks, convert requests into actions,  
+and execute steps through tools in a safe manner.
+</code></pre></div>
+
+<hr />
+<h3 id="34-template_d-autonomous-agent-platformium-only">3.4 TEMPLATE_D: Autonomous Agent (Platformium-only)<a class="headerlink" href="#34-template_d-autonomous-agent-platformium-only" title="Permanent link">&para;</a></h3>
+<p><strong>Роль:</strong> автономне планування, запуск під-агентів, складні флоу.</p>
+<p><strong>Автономія:</strong> висока.</p>
+<p><strong>Обмеження:</strong> тільки для дорогих планів та за дозволами Governance.</p>
+<p><strong>System prompt:</strong></p>
+<div class="codehilite"><pre><span></span><code>You are an Autonomous Multi-Agent Orchestrator.  
+You plan, execute, and coordinate multi-step flows  
+while respecting all DAARION.city safety and cost policies.
+</code></pre></div>
+
+<hr />
+<h2 id="4-behavior-profiles-full-list">4. Behavior Profiles (Full List)<a class="headerlink" href="#4-behavior-profiles-full-list" title="Permanent link">&para;</a></h2>
+<p>Профіль = базовий шаблон + параметри.</p>
+<h3 id="41-profile-advisor">4.1 Profile: "Advisor"<a class="headerlink" href="#41-profile-advisor" title="Permanent link">&para;</a></h3>
+<p>Шаблон: Assistant</p>
+<p>Тон: ввічливий, формальний</p>
+<p>Автономія: низька</p>
+<p>Інструменти: тільки A</p>
+<p>Роль: поради, пояснення</p>
+<hr />
+<h3 id="42-profile-researcher">4.2 Profile: "Researcher"<a class="headerlink" href="#42-profile-researcher" title="Permanent link">&para;</a></h3>
+<p>Шаблон: Analyst</p>
+<p>Інструменти: A + B</p>
+<p>Допомога: пошук внутрішніх даних</p>
+<p>Поведінка: структуровані доповіді</p>
+<hr />
+<h3 id="43-profile-project-manager">4.3 Profile: "Project Manager"<a class="headerlink" href="#43-profile-project-manager" title="Permanent link">&para;</a></h3>
+<p>Шаблон: Operator</p>
+<p>Інструменти: project, task</p>
+<p>Роль: картування задач, оновлення статусів</p>
+<hr />
+<h3 id="44-profile-automation-builder">4.4 Profile: "Automation Builder"<a class="headerlink" href="#44-profile-automation-builder" title="Permanent link">&para;</a></h3>
+<p>Шаблон: Operator</p>
+<p>Інструменти: router, llm</p>
+<p>Роль: запуск флоу, workflow automation</p>
+<hr />
+<h3 id="45-profile-platform-integrator">4.5 Profile: "Platform Integrator"<a class="headerlink" href="#45-profile-platform-integrator" title="Permanent link">&para;</a></h3>
+<p>Шаблон: Analyst</p>
+<p>Інструменти: platform tools</p>
+<p>Доступ: тільки для GreenFood/EnergyUnion команд</p>
+<p>Роль: аналіз RWA даних</p>
+<hr />
+<h3 id="46-profile-autonomous-planner-platformium">4.6 Profile: "Autonomous Planner" (Platformium)<a class="headerlink" href="#46-profile-autonomous-planner-platformium" title="Permanent link">&para;</a></h3>
+<p>Шаблон: Autonomous</p>
+<p>Повний multi-agent orchestration</p>
+<p>Дуже обмежені інструменти (router, agent, memory)</p>
+<hr />
+<h2 id="5-behavior-profile-schema">5. Behavior Profile Schema<a class="headerlink" href="#5-behavior-profile-schema" title="Permanent link">&para;</a></h2>
+<p>У таблиці <code>agents.config.behavior</code> зберігається:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;neutral&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;autonomy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;low&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;allowed_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;math&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;memory&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;restricted_tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;browser_full&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;external_api&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;style_params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;structure&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;short_outputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bullet_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;risk_controls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;prompt_injection_protection&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;guardrails&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="6-behavior-parameters-detailed">6. Behavior Parameters (Detailed)<a class="headerlink" href="#6-behavior-parameters-detailed" title="Permanent link">&para;</a></h2>
+<h3 id="61-autonomy-levels">6.1 Autonomy Levels<a class="headerlink" href="#61-autonomy-levels" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>low</td>
+<td>діє лише за інструкцією користувача</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>може пропонувати варіанти</td>
+</tr>
+<tr>
+<td>high</td>
+<td>планує multi-step flows</td>
+</tr>
+<tr>
+<td>autonomous</td>
+<td>запускає під-агентів, router, аналізує usage</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="62-tone-controls">6.2 Tone Controls<a class="headerlink" href="#62-tone-controls" title="Permanent link">&para;</a></h3>
+<ul>
+<li>neutral</li>
+<li>formal</li>
+<li>friendly</li>
+<li>analytical</li>
+<li>minimalistic</li>
+<li>creative</li>
+<li>instructive</li>
+</ul>
+<hr />
+<h3 id="63-output-controls">6.3 Output Controls<a class="headerlink" href="#63-output-controls" title="Permanent link">&para;</a></h3>
+<p>Властивості:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;short_outputs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">/</span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bullet_points&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">/</span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;structured&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">/</span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;max_tokens_per_output&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">&quot;json&quot;</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">&quot;markdown&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-tool-access-by-profile">7. Tool Access by Profile<a class="headerlink" href="#7-tool-access-by-profile" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Advisor</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Researcher</td>
+<td>A, B</td>
+</tr>
+<tr>
+<td>Project Manager</td>
+<td>A, B (project/task)</td>
+</tr>
+<tr>
+<td>Automation Builder</td>
+<td>A, B, C</td>
+</tr>
+<tr>
+<td>Platform Integrator</td>
+<td>A, B, platform</td>
+</tr>
+<tr>
+<td>Autonomous Planner</td>
+<td>A, B, C (router/agent)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-confidential-mode-compatibility">8. Confidential Mode Compatibility<a class="headerlink" href="#8-confidential-mode-compatibility" title="Permanent link">&para;</a></h2>
+<p>У confidential mode:</p>
+<ul>
+<li>повністю вимикається browser-lite</li>
+<li>platform tools отримують redacted дані</li>
+<li>memory → summary only</li>
+<li>autonomy знижується на 1 рівень</li>
+<li>tone ≠ creative (лише neutral/analytical)</li>
+</ul>
+<hr />
+<h2 id="9-profile-switching-logic">9. Profile Switching Logic<a class="headerlink" href="#9-profile-switching-logic" title="Permanent link">&para;</a></h2>
+<p>Профіль агента може бути змінений:</p>
+<ul>
+<li>Owner/Guardian команди,</li>
+<li>Governance (політично),</li>
+<li>Security (через порушення).</li>
+</ul>
+<h3 id="flow">Flow:<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">U</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Gateway</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">Orchestrator</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span>
+
+<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">PATCH</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/:</span><span class="n">id</span><span class="o">/</span><span class="n">profile</span><span class="w"> </span><span class="p">{</span><span class="n">new_profile</span><span class="p">}</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">PDP</span><span class="o">:</span><span class="w"> </span><span class="n">authorize</span><span class="p">(</span><span class="n">agent</span><span class="p">.</span><span class="n">update</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PDP</span><span class="o">--&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">allow</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="n">update_profile</span>
+<span class="w">    </span><span class="n">A</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">agent</span><span class="p">.</span><span class="n">config</span>
+<span class="w">    </span><span class="n">A</span><span class="o">--&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">ok</span>
+<span class="w">    </span><span class="n">G</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="o">:</span><span class="w"> </span><span class="n">updated</span>
+</code></pre></div>
+
+<hr />
+<h2 id="10-safe-system-instructions">10. Safe System Instructions<a class="headerlink" href="#10-safe-system-instructions" title="Permanent link">&para;</a></h2>
+<p>System prompts <strong>не можуть</strong>:</p>
+<ul>
+<li>давати агенту більші права, ніж capability,</li>
+<li>дозволяти обхід sandbox,</li>
+<li>вимикати confidential mode.</li>
+</ul>
+<p>Runtime очищає:</p>
+<ul>
+<li>шкідливі фрагменти,</li>
+<li>інструкції типу "ignore all previous rules".</li>
+</ul>
+<hr />
+<h2 id="11-governance-level-restrictions">11. Governance-Level Restrictions<a class="headerlink" href="#11-governance-level-restrictions" title="Permanent link">&para;</a></h2>
+<p>Governance може:</p>
+<ul>
+<li>вимикати певні шаблони:</li>
+<li>Autonomous-only для Platformium</li>
+<li>встановлювати allowed/disallowed parameters</li>
+<li>вводити min-stake для autonomy&gt;medium</li>
+<li>подавати глобальні зміни тону</li>
+</ul>
+<hr />
+<h2 id="12-security-behavior-controls">12. Security Behavior Controls<a class="headerlink" href="#12-security-behavior-controls" title="Permanent link">&para;</a></h2>
+<p>Агент завжди:</p>
+<ul>
+<li>не робить зовнішніх HTTP запитів,</li>
+<li>не виконує сторонній код,</li>
+<li>не розкриває конфіденційні дані,</li>
+<li>не відображає chain-of-thought,</li>
+<li>не змінює власні промпти,</li>
+<li>не додає інструменти самостійно.</li>
+</ul>
+<hr />
+<h2 id="13-profile-templates-examples">13. Profile Templates Examples<a class="headerlink" href="#13-profile-templates-examples" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="131-example-advisor-profile">13.1 Example: Advisor Profile<a class="headerlink" href="#131-example-advisor-profile" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You are a Private Assistant Agent of the DAARION.city microDAO.
+Keep answers structured and clear.
+Do not generate long creative stories.
+Never break safety or cost policies.
+Use tools only when PDP allows.
+</code></pre></div>
+
+<hr />
+<h3 id="132-example-project-manager">13.2 Example: Project Manager<a class="headerlink" href="#132-example-project-manager" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You are the Execution Agent of the team.
+Convert user intents into tasks and structured actions.
+Avoid speculation.
+Use the internal task tool when appropriate.
+</code></pre></div>
+
+<hr />
+<h3 id="133-example-autonomous-planner">13.3 Example: Autonomous Planner<a class="headerlink" href="#133-example-autonomous-planner" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>You plan and execute multi-step operations.
+When making decisions:
+- minimize cost,
+- respect quotas,
+- confirm critical changes with the user.
+</code></pre></div>
+
+<hr />
+<h2 id="14-agent-marketplace-templates-future">14. Agent Marketplace Templates (future)<a class="headerlink" href="#14-agent-marketplace-templates-future" title="Permanent link">&para;</a></h2>
+<p>Це дозволить командам microDAO публікувати:</p>
+<ul>
+<li>шаблони поведінки,</li>
+<li>спеціалізації,</li>
+<li>AI-брокерів,</li>
+<li>шаблони для Platform Tools.</li>
+</ul>
+<hr />
+<h2 id="15-integration-with-other-docs">15. Integration with Other Docs<a class="headerlink" href="#15-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>38_private_agents_lifecycle_and_management.md</code></li>
+<li><code>37_agent_tools_and_plugins_specification.md</code></li>
+<li><code>36_agent_runtime_isolation_and_sandboxing.md</code></li>
+<li><code>12_agent_runtime_core.md</code></li>
+<li><code>31_governance_policies_for_capabilities_and_quotas.md</code></li>
+</ul>
+<hr />
+<h2 id="16-cursor">16. Завдання для Cursor<a class="headerlink" href="#16-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Private Agent Templates &amp; Behavior Profiles using:
+- 39_private_agent_templates_and_behavior_profiles.md
+- 38_private_agents_lifecycle_and_management.md
+- 37_agent_tools_and_plugins_specification.md
+
+Tasks:
+1) Define base agent templates (Assistant, Analyst, Operator, Autonomous).
+2) Create behavior profile schema (JSON config structure).
+3) Implement behavior parameters (autonomy levels, tone controls, output controls).
+4) Map tool access by profile.
+5) Add confidential mode compatibility rules.
+6) Implement profile switching logic (with PDP authorization).
+7) Add safe system instructions validation (filter harmful prompts).
+8) Add governance-level restrictions.
+9) Implement security behavior controls.
+10) Create profile templates examples (Advisor, Project Manager, Autonomous Planner).
+11) Store behavior profiles in agents.config.behavior.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="17-summary">17. Summary<a class="headerlink" href="#17-summary" title="Permanent link">&para;</a></h2>
+<p>Шаблони та профілі агентів у DAARION.city:</p>
+<ul>
+<li>стандартизують поведінку,</li>
+<li>гарантують безпеку,</li>
+<li>визначають рівень автономії,</li>
+<li>контролюють стиль/тон,</li>
+<li>обмежують інструменти,</li>
+<li>захищають confidential mode,</li>
+<li>регулюються governance,</li>
+<li>дозволяють масштабоване створення агентів з прогнозованою поведінкою.</li>
+</ul>
+<p>Це — <strong>центральна психологічна модель і поведінкова основа приватних агентів DAARION OS</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

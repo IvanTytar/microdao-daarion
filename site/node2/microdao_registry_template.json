@@ -1,0 +1,42 @@
+{
+  "microdao_id": "microdao-node2",
+  "name": "microdao-node2-agents",
+  "owner": "local_user",
+  "node_type": "agent-team",
+  "description": "Autonomous microDAO node with local agents, memory, and LLM inference",
+  "dependencies": {
+    "llm_provider": "swoper",
+    "vector": ["qdrant", "milvus"],
+    "graph": "neo4j",
+    "event_store": "jetstream"
+  },
+  "agents": [
+    {
+      "id": "agent-001",
+      "name": "DAO-Analyst",
+      "status": "active"
+    },
+    {
+      "id": "agent-002",
+      "name": "DAO-Researcher",
+      "status": "active"
+    }
+  ],
+  "memory": {
+    "qdrant_path": "/node2/qdrant/",
+    "milvus_path": "/node2/milvus/",
+    "neo4j_path": "/node2/neo4j/",
+    "event_store_path": "/node2/events/"
+  },
+  "network": {
+    "nats_url": "nats://node1:4222",
+    "dagi_router_url": "http://node1:9102",
+    "sync_enabled": true
+  },
+  "status": "active",
+  "created_at": "2025-11-21T12:00:00Z",
+  "updated_at": "2025-11-21T12:00:00Z"
+}
+
+
+

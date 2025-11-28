@@ -1,0 +1,1469 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/41_ai_governance_agent_design/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>41 — AI Governance Agent Design (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#41-ai-governance-agent-design-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              41 — AI Governance Agent Design (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-governance-model-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Governance Model Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-governance-proposal-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Governance Proposal Lifecycle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-governance-proposal-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Governance Proposal Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-governance-agent-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Governance Agent Responsibilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Governance Agent Responsibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-voting-finalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Voting Finalization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-applying-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Applying Policy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Audit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-failure-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Failure Recovery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-governance-agent-internal-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Governance Agent Internal Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-policy-validation-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Policy Validation Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Policy Validation Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-format-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Format validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-capability-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Capability rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-planentitlements-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Plan/Entitlements rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-stake-multiplier-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Stake-multiplier rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-compute1t-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Compute/1T rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-rwa-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6 RWA policies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-voting-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Voting Engine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-policy-applicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Policy Applicator
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-registry-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Registry Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Registry Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-capability-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Capability Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-quota-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Quota Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-stake-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Stake Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-rwa-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4 RWA Registry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-pdp-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. PDP Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-security-rules-critical" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Security Rules (Critical)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Security Rules (Critical)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-governance-agent-cannot-modify-db-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 Governance Agent cannot modify DB directly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-cannot-bypass-validation-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Cannot bypass Validation Engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-cannot-assign-itself-new-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3 Cannot assign itself new capabilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-immutable-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.4 Immutable History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-governance-agent-cannot-break-economic-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.5 Governance Agent cannot break economic model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-error-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Error Recovery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Error Recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-if-validation-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 If validation fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-if-apply-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 If apply fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-if-pdp-reload-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 If PDP reload fails
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-transparency-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Transparency &amp; Audit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-governance-agent-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Governance Agent Runtime
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Governance Agent Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-frequency" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1 Frequency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-autoscaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2 Autoscaling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-example-policy-application-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Example Policy Application (Full)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Example Policy Application (Full)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-proposal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input proposal:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operations:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#governance-agent-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Governance Agent process:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="41-ai-governance-agent-design-microdao">41 — AI Governance Agent Design (MicroDAO)<a class="headerlink" href="#41-ai-governance-agent-design-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Специфікація AI Governance Agent: політики, голосування, застосування правил, оновлення capability/bundle/quotas, безпека, журналювання, інтеграція з PDP та Registry</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>AI Governance Agent — це <strong>суверенний системний агент</strong>, який:</p>
+<ul>
+<li>приймає та опрацьовує governance proposals,</li>
+<li>перевіряє їх коректність,</li>
+<li>обчислює результати голосування,</li>
+<li>застосовує зміни до Policy Registry,</li>
+<li>оновлює bundles, capabilities, entitlements, stake-multipliers,</li>
+<li>взаємодіє з PDP,</li>
+<li>гарантує консистентність і безпеку системи.</li>
+</ul>
+<p>Це <strong>центральний мозок політик</strong> DAARION.city.</p>
+<hr />
+<h2 id="2-governance-model-overview">2. Governance Model Overview<a class="headerlink" href="#2-governance-model-overview" title="Permanent link">&para;</a></h2>
+<p>Система складається з:</p>
+<ul>
+<li><strong>Governance Token Holders (DAAR/DAARION)</strong></li>
+<li><strong>AI Governance Agent</strong></li>
+<li><strong>Policy Registry</strong></li>
+<li><strong>Capability Registry</strong></li>
+<li><strong>Quota Service</strong></li>
+<li><strong>PDP</strong></li>
+<li><strong>Audit Log</strong></li>
+</ul>
+<p>Основний принцип:</p>
+<div class="codehilite"><pre><span></span><code>AI Governance Agent — це механічний виконавець волі DAO.
+</code></pre></div>
+
+<p>Він сам <strong>не генерує політик</strong>, а лише обробляє та застосовує.</p>
+<hr />
+<h2 id="3-governance-proposal-lifecycle">3. Governance Proposal Lifecycle<a class="headerlink" href="#3-governance-proposal-lifecycle" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">User</span><span class="o">/</span><span class="n">Token</span><span class="w"> </span><span class="n">Holder</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">API</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Governance</span><span class="w"> </span><span class="n">Agent</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Policy</span><span class="w"> </span><span class="n">Registry</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span>
+
+<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">API</span><span class="p">:</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">proposal</span>
+<span class="w">    </span><span class="n">API</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">proposal</span><span class="w"> </span><span class="p">(</span><span class="n">pending</span><span class="p">)</span>
+<span class="w">    </span><span class="n">API</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="p">:</span><span class="w"> </span><span class="n">proposal_id</span>
+
+<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">API</span><span class="p">:</span><span class="w"> </span><span class="n">submit</span><span class="w"> </span><span class="n">votes</span>
+<span class="w">    </span><span class="n">API</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">votes</span>
+
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">proposals</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">finalization</span>
+<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">G</span><span class="p">:</span><span class="w"> </span><span class="n">proposal</span><span class="w"> </span><span class="n">ready</span>
+
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">G</span><span class="p">:</span><span class="w"> </span><span class="n">validate</span><span class="w"> </span><span class="n">proposal</span><span class="w"> </span><span class="n">payload</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="n">changes</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">PDP</span><span class="p">:</span><span class="w"> </span><span class="n">reload</span><span class="w"> </span><span class="n">capabilities</span><span class="o">/</span><span class="n">quotas</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">mark</span><span class="w"> </span><span class="n">proposal</span><span class="w"> </span><span class="n">applied</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-governance-proposal-structure">4. Governance Proposal Structure<a class="headerlink" href="#4-governance-proposal-structure" title="Permanent link">&para;</a></h2>
+<p>Зберігається у таблиці <code>governance_policies</code>.</p>
+<p>Приклад:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gov_0012&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;policy_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plan.entitlement.update&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plan.Premium&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;operations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;set_quota&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llm_tokens_per_month&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3500000</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;increase_quota&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_runs_per_day&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;proposed_by&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;voting_end&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-20T00:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-governance-agent-responsibilities">5. Governance Agent Responsibilities<a class="headerlink" href="#5-governance-agent-responsibilities" title="Permanent link">&para;</a></h2>
+<h3 id="51-validation">5.1 Validation<a class="headerlink" href="#51-validation" title="Permanent link">&para;</a></h3>
+<p>Перевіряє:</p>
+<ul>
+<li>формат політики,</li>
+<li>чи існує bundle/cap/plan,</li>
+<li>чи операції не суперечать безпековим правилам,</li>
+<li>чи не роблять escalation.</li>
+</ul>
+<h3 id="52-voting-finalization">5.2 Voting Finalization<a class="headerlink" href="#52-voting-finalization" title="Permanent link">&para;</a></h3>
+<p>Після дедлайну:</p>
+<ul>
+<li>рахує голоси,</li>
+<li>перевіряє кворум,</li>
+<li>визначає результат.</li>
+</ul>
+<h3 id="53-applying-policy">5.3 Applying Policy<a class="headerlink" href="#53-applying-policy" title="Permanent link">&para;</a></h3>
+<p>Головна роль:</p>
+<ul>
+<li>оновити bundles/capabilities/entitlements,</li>
+<li>оновити Registry,</li>
+<li>створити подію <code>governance.policy.updated</code>,</li>
+<li>скинути кеш PDP.</li>
+</ul>
+<h3 id="54-audit">5.4 Audit<a class="headerlink" href="#54-audit" title="Permanent link">&para;</a></h3>
+<p>Записує:</p>
+<ul>
+<li>хто подав,</li>
+<li>хто голосував,</li>
+<li>коли застосовано,</li>
+<li>які зміни внесено.</li>
+</ul>
+<h3 id="55-failure-recovery">5.5 Failure Recovery<a class="headerlink" href="#55-failure-recovery" title="Permanent link">&para;</a></h3>
+<p>У разі помилок:</p>
+<ul>
+<li>застосовує rollback-strategy,</li>
+<li>помічає політику як failed.</li>
+</ul>
+<hr />
+<h2 id="6-governance-agent-internal-architecture">6. Governance Agent Internal Architecture<a class="headerlink" href="#6-governance-agent-internal-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Governance Agent
+    ├── Policy Validator
+    ├── Voting Engine
+    ├── Policy Applicator
+    ├── Registry Updater
+    ├── PDP Connector
+    ├── Event Publisher
+    └── Audit Logger
+</code></pre></div>
+
+<hr />
+<h2 id="7-policy-validation-rules">7. Policy Validation Rules<a class="headerlink" href="#7-policy-validation-rules" title="Permanent link">&para;</a></h2>
+<p>Головний блок — <strong>Validation Engine</strong>.</p>
+<h3 id="71-format-validation">7.1 Format validation<a class="headerlink" href="#71-format-validation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>JSON schema must match.</li>
+<li>All required fields exist.</li>
+</ul>
+<h3 id="72-capability-rules">7.2 Capability rules<a class="headerlink" href="#72-capability-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>capability must exist in <code>capabilities</code>.</li>
+<li>cannot assign admin caps to visitors.</li>
+<li>cannot remove baseline capabilities from Owner/Guardian.</li>
+</ul>
+<h3 id="73-planentitlements-rules">7.3 Plan/Entitlements rules<a class="headerlink" href="#73-planentitlements-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>plan hierarchy is preserved.</li>
+<li>quota cannot be lower than Freemium baseline.</li>
+<li>cannot create infinite cost-free compute.</li>
+</ul>
+<h3 id="74-stake-multiplier-rules">7.4 Stake-multiplier rules<a class="headerlink" href="#74-stake-multiplier-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>multiplier ranges must be monotonic.</li>
+<li>cannot set multiplier=0 or negative.</li>
+</ul>
+<h3 id="75-compute1t-rules">7.5 Compute/1T rules<a class="headerlink" href="#75-compute1t-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li>compute costs must be &gt;= minimum threshold.</li>
+<li>cannot create zero-cost for heavy tools.</li>
+</ul>
+<h3 id="76-rwa-policies">7.6 RWA policies<a class="headerlink" href="#76-rwa-policies" title="Permanent link">&para;</a></h3>
+<ul>
+<li>cannot set reward rates above safety ranges.</li>
+<li>cannot autogenerate rewards for unverified RWA.</li>
+</ul>
+<hr />
+<h2 id="8-voting-engine">8. Voting Engine<a class="headerlink" href="#8-voting-engine" title="Permanent link">&para;</a></h2>
+<p>Перевіряє:</p>
+<ul>
+<li>голоси,</li>
+<li>токен-вагу,</li>
+<li>кворум,</li>
+<li>approval threshold.</li>
+</ul>
+<p>Приклад:</p>
+<div class="codehilite"><pre><span></span><code>min_quorum = 10% від circulating_supply
+approval_required = 51%
+</code></pre></div>
+
+<p>Після дедлайну:</p>
+<div class="codehilite"><pre><span></span><code>if quorum_met &amp;&amp; approval &gt;= 51%:
+     status = approved
+else:
+     status = rejected
+</code></pre></div>
+
+<hr />
+<h2 id="9-policy-applicator">9. Policy Applicator<a class="headerlink" href="#9-policy-applicator" title="Permanent link">&para;</a></h2>
+<p>Застосовує зміни до:</p>
+<ul>
+<li>bundles</li>
+<li>capabilities</li>
+<li>bundle_caps</li>
+<li>plan entitlements</li>
+<li>stake multipliers</li>
+<li>compute pricing</li>
+<li>RWA conversion rates</li>
+<li>platform-level quotas</li>
+</ul>
+<p>Алгоритм:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">policy</span><span class="o">.</span><span class="n">operations</span><span class="p">:</span>
+    <span class="n">apply</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+<span class="n">validate_consistency</span><span class="p">()</span>
+<span class="n">commit</span><span class="p">()</span>
+<span class="n">publish_event</span><span class="p">(</span><span class="s2">&quot;governance.policy.updated&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h2 id="10-registry-integration">10. Registry Integration<a class="headerlink" href="#10-registry-integration" title="Permanent link">&para;</a></h2>
+<h3 id="101-capability-registry">10.1 Capability Registry<a class="headerlink" href="#101-capability-registry" title="Permanent link">&para;</a></h3>
+<p>Оновлюються:</p>
+<ul>
+<li>capabilities table,</li>
+<li>bundles,</li>
+<li>bundle_caps.</li>
+</ul>
+<h3 id="102-quota-registry">10.2 Quota Registry<a class="headerlink" href="#102-quota-registry" title="Permanent link">&para;</a></h3>
+<p>Оновлюється JSON конфіг ентитлментів:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;plan.Premium&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;llm_tokens_per_month&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3500000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;agent_runs_per_day&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="103-stake-registry">10.3 Stake Registry<a class="headerlink" href="#103-stake-registry" title="Permanent link">&para;</a></h3>
+<p>Оновлюються множники для RINGK.</p>
+<h3 id="104-rwa-registry">10.4 RWA Registry<a class="headerlink" href="#104-rwa-registry" title="Permanent link">&para;</a></h3>
+<p>Оновлюються conversion rates:</p>
+<ul>
+<li>energy → KWT</li>
+<li>water → 1T</li>
+<li>food → 1T</li>
+</ul>
+<hr />
+<h2 id="11-pdp-integration">11. PDP Integration<a class="headerlink" href="#11-pdp-integration" title="Permanent link">&para;</a></h2>
+<p>Після застосування політики Governance Agent публікує:</p>
+<div class="codehilite"><pre><span></span><code>governance.policy.updated
+</code></pre></div>
+
+<p>PDP:</p>
+<ul>
+<li>скидає кеш capabilities,</li>
+<li>скидає кеш entitlements,</li>
+<li>оновлює compute pricing,</li>
+<li>оновлює stake multipliers,</li>
+<li>застосовує нові access rules.</li>
+</ul>
+<hr />
+<h2 id="12-security-rules-critical">12. Security Rules (Critical)<a class="headerlink" href="#12-security-rules-critical" title="Permanent link">&para;</a></h2>
+<h3 id="121-governance-agent-cannot-modify-db-directly">12.1 Governance Agent cannot modify DB directly<a class="headerlink" href="#121-governance-agent-cannot-modify-db-directly" title="Permanent link">&para;</a></h3>
+<p>Усе через:</p>
+<ul>
+<li>internal service keys,</li>
+<li>capability: <code>service.governance.apply</code>.</li>
+</ul>
+<h3 id="122-cannot-bypass-validation-engine">12.2 Cannot bypass Validation Engine<a class="headerlink" href="#122-cannot-bypass-validation-engine" title="Permanent link">&para;</a></h3>
+<p>Будь-яка спроба → automatic deny.</p>
+<h3 id="123-cannot-assign-itself-new-capabilities">12.3 Cannot assign itself new capabilities<a class="headerlink" href="#123-cannot-assign-itself-new-capabilities" title="Permanent link">&para;</a></h3>
+<p>Strict no-self-escalation.</p>
+<h3 id="124-immutable-history">12.4 Immutable History<a class="headerlink" href="#124-immutable-history" title="Permanent link">&para;</a></h3>
+<p>Після <code>applied=true</code> політика не може бути змінена.</p>
+<h3 id="125-governance-agent-cannot-break-economic-model">12.5 Governance Agent cannot break economic model<a class="headerlink" href="#125-governance-agent-cannot-break-economic-model" title="Permanent link">&para;</a></h3>
+<p>Заборонено:</p>
+<ul>
+<li>знизити compute cost нижче min,</li>
+<li>встановити reward rate за RWA &gt; максимум.</li>
+</ul>
+<hr />
+<h2 id="13-error-recovery">13. Error Recovery<a class="headerlink" href="#13-error-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="131-if-validation-fails">13.1 If validation fails<a class="headerlink" href="#131-if-validation-fails" title="Permanent link">&para;</a></h3>
+<ul>
+<li>політика <code>status=invalid</code>.</li>
+</ul>
+<h3 id="132-if-apply-fails">13.2 If apply fails<a class="headerlink" href="#132-if-apply-fails" title="Permanent link">&para;</a></h3>
+<ul>
+<li>rollback to pre-apply snapshot,</li>
+<li>mark policy <code>failed</code>.</li>
+</ul>
+<h3 id="133-if-pdp-reload-fails">13.3 If PDP reload fails<a class="headerlink" href="#133-if-pdp-reload-fails" title="Permanent link">&para;</a></h3>
+<ul>
+<li>retry with exponential backoff,</li>
+<li>system enters "safe mode".</li>
+</ul>
+<hr />
+<h2 id="14-transparency-audit">14. Transparency &amp; Audit<a class="headerlink" href="#14-transparency-audit" title="Permanent link">&para;</a></h2>
+<p>Усі операції Governance Agent:</p>
+<ul>
+<li>логуються,</li>
+<li>підписуються service identity,</li>
+<li>зберігаються у <code>audit_log</code>,</li>
+<li>доступні для перегляду через:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>GET /governance/policies
+GET /governance/policies/:id
+</code></pre></div>
+
+<hr />
+<h2 id="15-governance-agent-runtime">15. Governance Agent Runtime<a class="headerlink" href="#15-governance-agent-runtime" title="Permanent link">&para;</a></h2>
+<h3 id="151-frequency">15.1 Frequency<a class="headerlink" href="#151-frequency" title="Permanent link">&para;</a></h3>
+<p>Agent запускається:</p>
+<ul>
+<li>кожні 60 секунд (плановий цикл),</li>
+<li>або по події «proposal.pending».</li>
+</ul>
+<h3 id="152-autoscaling">15.2 Autoscaling<a class="headerlink" href="#152-autoscaling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>stateless service,</li>
+<li>масштабування необмежене.</li>
+</ul>
+<hr />
+<h2 id="16-example-policy-application-full">16. Example Policy Application (Full)<a class="headerlink" href="#16-example-policy-application-full" title="Permanent link">&para;</a></h2>
+<h3 id="input-proposal">Input proposal:<a class="headerlink" href="#input-proposal" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Increase Premium compute quotas by 25%
+</code></pre></div>
+
+<h3 id="operations">Operations:<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;increase_quota&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_runs_per_day&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;increase_quota&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llm_tokens_per_month&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500000</span><span class="w"> </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h3 id="governance-agent-process">Governance Agent process:<a class="headerlink" href="#governance-agent-process" title="Permanent link">&para;</a></h3>
+<ol>
+<li>validate structure → OK</li>
+<li>validate quotas do not exceed global max → OK</li>
+<li>check plan hierarchy → OK</li>
+<li>commit changes → DB updated</li>
+<li>publish <code>policy.updated</code></li>
+<li>PDP reloads → new quotas active</li>
+</ol>
+<hr />
+<h2 id="17-integration-with-other-docs">17. Integration with Other Docs<a class="headerlink" href="#17-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>31_governance_policies_for_capabilities_and_quotas.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>24_access_keys_capabilities_system.md</code></li>
+<li><code>30_cost_optimization_and_token_economics_infrastructure.md</code></li>
+<li><code>40_rwa_energy_food_water_flow_specs.md</code></li>
+</ul>
+<hr />
+<h2 id="18-cursor">18. Завдання для Cursor<a class="headerlink" href="#18-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement AI Governance Agent using:
+- 41_ai_governance_agent_design.md
+- 31_governance_policies_for_capabilities_and_quotas.md
+- 32_policy_service_PDP_design.md
+
+Tasks:
+1) Create Governance Agent service architecture (Policy Validator, Voting Engine, Policy Applicator, Registry Updater, PDP Connector, Event Publisher, Audit Logger).
+2) Implement Governance Proposal Lifecycle (create, vote, finalize, apply).
+3) Create Governance Proposal Structure (JSON schema).
+4) Implement Policy Validation Rules (format, capability, plan/entitlements, stake-multiplier, compute/1T, RWA policies).
+5) Implement Voting Engine (vote counting, quorum check, approval threshold).
+6) Implement Policy Applicator (apply operations to bundles, capabilities, entitlements, quotas).
+7) Add Registry Integration (Capability Registry, Quota Registry, Stake Registry, RWA Registry).
+8) Implement PDP Integration (reload capabilities/quotas after policy update).
+9) Add Security Rules (no direct DB access, no bypass validation, no self-escalation, immutable history, economic model protection).
+10) Implement Error Recovery (validation failure, apply failure, PDP reload failure).
+11) Add Transparency &amp; Audit (logging, service identity signing, audit_log storage).
+12) Create Governance Agent Runtime (periodic execution, event-driven triggers).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="19-summary">19. Summary<a class="headerlink" href="#19-summary" title="Permanent link">&para;</a></h2>
+<p>AI Governance Agent:</p>
+<ul>
+<li>керує всіма політиками DAARION.city,</li>
+<li>контролює capability-набори,</li>
+<li>регулює квоти та економіку,</li>
+<li>гарантує безпеку та непротирічність,</li>
+<li>забезпечує прозорість і аудитність,</li>
+<li>інтегрується з PDP/PEP/Registry/NATS,</li>
+<li>виконує волю резидентів DAO,</li>
+<li>є однією з найважливіших служб у системі.</li>
+</ul>
+<p>Це — <strong>архітектурне серце управління DAARION OS</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

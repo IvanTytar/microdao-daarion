@@ -1,0 +1,1178 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DEPLOY_SSL_SETUP/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>SSL/HTTPS Setup для DAARION Production - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sslhttps-setup-daarion-production" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SSL/HTTPS Setup для DAARION Production
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Вибір SSL рішення
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Вибір SSL рішення">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-caddy" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ ВАРІАНТ A: Caddy (Рекомендовано)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-nginx-certbot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ ВАРІАНТ B: Nginx + Certbot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      🤔 ВАРІАНТ C: Traefik
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caddy" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Реалізація: Caddy (Рекомендовано)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Реалізація: Caddy (Рекомендовано)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Структура файлів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-caddyfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Caddyfile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-docker-composecaddyyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. docker-compose.caddy.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-docker-composeallyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Інтеграція з існуючим docker-compose.all.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Deployment команди
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssl-certificate-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 SSL Certificate Verification
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Автоматичне оновлення сертифікатів
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caddy_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Моніторинг Caddy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Моніторинг Caddy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metrics-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metrics endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Логи
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssl-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: SSL certificate не отримується
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#websocket-connection-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: WebSocket connection fails
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#502-bad-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: 502 Bad Gateway
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Security Headers (Опціонально)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-deployment-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Post-deployment Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Наступні кроки
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="sslhttps-setup-daarion-production">SSL/HTTPS Setup для DAARION Production<a class="headerlink" href="#sslhttps-setup-daarion-production" title="Permanent link">&para;</a></h1>
+<p><strong>Рекомендований метод:</strong> Caddy (найпростіший для MVP)</p>
+<hr />
+<h2 id="ssl">🎯 Вибір SSL рішення<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h2>
+<h3 id="a-caddy">✅ ВАРІАНТ A: Caddy (Рекомендовано)<a class="headerlink" href="#a-caddy" title="Permanent link">&para;</a></h3>
+<p><strong>Переваги:</strong>
+- Автоматичний SSL (Let's Encrypt)
+- Автоматичне оновлення сертифікатів
+- Мінімальна конфігурація
+- HTTP/2 та HTTP/3 out of the box</p>
+<p><strong>Недоліки:</strong>
+- Менш поширений ніж Nginx</p>
+<hr />
+<h3 id="b-nginx-certbot">⚠️ ВАРІАНТ B: Nginx + Certbot<a class="headerlink" href="#b-nginx-certbot" title="Permanent link">&para;</a></h3>
+<p><strong>Переваги:</strong>
+- Класичне рішення
+- Велика спільнота
+- Дуже гнучкий</p>
+<p><strong>Недоліки:</strong>
+- Більше ручної роботи
+- Треба налаштовувати cron для renewal</p>
+<hr />
+<h3 id="c-traefik">🤔 ВАРІАНТ C: Traefik<a class="headerlink" href="#c-traefik" title="Permanent link">&para;</a></h3>
+<p><strong>Переваги:</strong>
+- Інтеграція з Docker labels
+- Автоматичний SSL
+- Service discovery</p>
+<p><strong>Недоліки:</strong>
+- Більш складна конфігурація
+- Overkill для MVP</p>
+<hr />
+<h2 id="caddy">🚀 Реалізація: Caddy (Рекомендовано)<a class="headerlink" href="#caddy" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Структура файлів<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>/opt/daarion/
+├── Caddyfile
+├── docker-compose.caddy.yml
+└── docker-compose.all.yml (існуючий)
+</code></pre></div>
+
+<h3 id="2-caddyfile">2. Caddyfile<a class="headerlink" href="#2-caddyfile" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Головний домен - redirect на app</span>
+<span class="n">daarion</span><span class="o">.</span><span class="n">space</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">redir</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">app</span><span class="o">.</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span><span class="p">{</span><span class="n">uri</span><span class="p">}</span><span class="w"> </span><span class="n">permanent</span>
+<span class="p">}</span>
+
+<span class="c1"># Application субдомен - головний MVP</span>
+<span class="n">app</span><span class="o">.</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># Логування</span>
+<span class="w">    </span><span class="nb">log</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">caddy</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">log</span>
+<span class="w">        </span><span class="n">level</span><span class="w"> </span><span class="n">INFO</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># Reverse proxy на internal gateway</span>
+<span class="w">    </span><span class="n">reverse_proxy</span><span class="w"> </span><span class="n">gateway</span><span class="p">:</span><span class="mi">80</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1"># Headers</span>
+<span class="w">        </span><span class="n">header_up</span><span class="w"> </span><span class="n">Host</span><span class="w"> </span><span class="p">{</span><span class="n">host</span><span class="p">}</span>
+<span class="w">        </span><span class="n">header_up</span><span class="w"> </span><span class="n">X</span><span class="o">-</span><span class="n">Real</span><span class="o">-</span><span class="n">IP</span><span class="w"> </span><span class="p">{</span><span class="n">remote_host</span><span class="p">}</span>
+<span class="w">        </span><span class="n">header_up</span><span class="w"> </span><span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">For</span><span class="w"> </span><span class="p">{</span><span class="n">remote_host</span><span class="p">}</span>
+<span class="w">        </span><span class="n">header_up</span><span class="w"> </span><span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Proto</span><span class="w"> </span><span class="p">{</span><span class="n">scheme</span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1"># Timeouts</span>
+<span class="w">        </span><span class="n">transport</span><span class="w"> </span><span class="n">http</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">dial_timeout</span><span class="w"> </span><span class="mi">10</span><span class="n">s</span>
+<span class="w">            </span><span class="n">response_header_timeout</span><span class="w"> </span><span class="mi">30</span><span class="n">s</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># WebSocket support</span>
+<span class="w">    </span><span class="err">@</span><span class="n">websocket</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">header</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="o">*</span><span class="n">Upgrade</span><span class="o">*</span>
+<span class="w">        </span><span class="n">header</span><span class="w"> </span><span class="n">Upgrade</span><span class="w"> </span><span class="n">websocket</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">reverse_proxy</span><span class="w"> </span><span class="err">@</span><span class="n">websocket</span><span class="w"> </span><span class="n">gateway</span><span class="p">:</span><span class="mi">80</span>
+<span class="p">}</span>
+
+<span class="c1"># Grafana (опціонально, можна закоментувати)</span>
+<span class="c1"># grafana.daarion.space {</span>
+<span class="c1">#     reverse_proxy grafana:3000</span>
+<span class="c1">#     </span>
+<span class="c1">#     # Basic Auth</span>
+<span class="c1">#     basicauth {</span>
+<span class="c1">#         admin $2a$14$... # bcrypt hash</span>
+<span class="c1">#     }</span>
+<span class="c1"># }</span>
+</code></pre></div>
+
+<h3 id="3-docker-composecaddyyml">3. docker-compose.caddy.yml<a class="headerlink" href="#3-docker-composecaddyyml" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">caddy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">caddy:2.7-alpine</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion-caddy</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;80:80&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;443:443&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;443:443/udp&quot;</span><span class="w">  </span><span class="c1"># HTTP/3</span>
+
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./Caddyfile:/etc/caddy/Caddyfile:ro</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">caddy_data:/data</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">caddy_config:/config</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">caddy_logs:/var/log/caddy</span>
+
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion-network</span>
+
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ACME_AGREE=true</span>
+
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;wget&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--spider&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-q&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;http://localhost:2019/metrics&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40s</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">caddy_data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">  </span><span class="nt">caddy_config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">  </span><span class="nt">caddy_logs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">daarion-network</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion-network</span>
+<span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<h3 id="4-docker-composeallyml">4. Інтеграція з існуючим docker-compose.all.yml<a class="headerlink" href="#4-docker-composeallyml" title="Permanent link">&para;</a></h3>
+<p><strong>Оновити</strong> <code>docker-compose.all.yml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># В існуючому файлі змінити:</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">gateway</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># ...existing config...</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># ВИДАЛИТИ direct port exposure:</span>
+<span class="w">      </span><span class="c1"># - &quot;80:80&quot;  </span>
+<span class="w">      </span><span class="c1"># ЗАМІСТЬ цього expose тільки для internal network:</span>
+<span class="w">    </span><span class="nt">expose</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;80&quot;</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion-network</span>
+
+<span class="c1"># Додати в кінець файлу:</span>
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">daarion-network</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion-network</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+</code></pre></div>
+
+<h3 id="5-deployment">5. Deployment команди<a class="headerlink" href="#5-deployment" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Створити network (якщо не існує)</span>
+docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>daarion-network
+
+<span class="c1"># 2. Запустити основні сервіси</span>
+<span class="nb">cd</span><span class="w"> </span>/opt/daarion
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># 3. Запустити Caddy</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.caddy.yml<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># 4. Перевірити логи Caddy</span>
+docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>daarion-caddy
+
+<span class="c1"># 5. Перевірити статус</span>
+docker<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>caddy
+curl<span class="w"> </span>-I<span class="w"> </span>https://app.daarion.space
+</code></pre></div>
+
+<hr />
+<h2 id="ssl-certificate-verification">🔒 SSL Certificate Verification<a class="headerlink" href="#ssl-certificate-verification" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірка SSL certificate</span>
+openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>app.daarion.space:443<span class="w"> </span>-servername<span class="w"> </span>app.daarion.space<span class="w"> </span>&lt;<span class="w"> </span>/dev/null
+
+<span class="c1"># Перевірка expiration date</span>
+<span class="nb">echo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>s_client<span class="w"> </span>-servername<span class="w"> </span>app.daarion.space<span class="w"> </span>-connect<span class="w"> </span>app.daarion.space:443<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-dates
+
+<span class="c1"># Через curl</span>
+curl<span class="w"> </span>-vI<span class="w"> </span>https://app.daarion.space<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;SSL\|cert\|expire&quot;</span>
+
+<span class="c1"># SSL Labs test (онлайн)</span>
+<span class="c1"># https://www.ssllabs.com/ssltest/analyze.html?d=app.daarion.space</span>
+</code></pre></div>
+
+<hr />
+<h2 id="_1">🔄 Автоматичне оновлення сертифікатів<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Caddy автоматично:
+- Отримує SSL сертифікати від Let's Encrypt
+- Оновлює їх за 30 днів до закінчення
+- Перезавантажує конфігурацію без downtime</p>
+<p><strong>Перевірка renewal process:</strong></p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>daarion-caddy<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;renew\|certificate&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="caddy_1">📊 Моніторинг Caddy<a class="headerlink" href="#caddy_1" title="Permanent link">&para;</a></h2>
+<h3 id="metrics-endpoint">Metrics endpoint<a class="headerlink" href="#metrics-endpoint" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Caddy metrics (Prometheus format)</span>
+curl<span class="w"> </span>http://localhost:2019/metrics
+
+<span class="c1"># Health check</span>
+curl<span class="w"> </span>http://localhost:2019/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>caddy_http_response_duration_seconds_count
+</code></pre></div>
+
+<h3 id="_2">Логи<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Real-time logs</span>
+docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>daarion-caddy
+
+<span class="c1"># Логи для конкретного домену</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>daarion-caddy<span class="w"> </span>cat<span class="w"> </span>/var/log/caddy/app.daarion.space.log
+
+<span class="c1"># Статистика логів</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>daarion-caddy<span class="w"> </span>tail<span class="w"> </span>-100<span class="w"> </span>/var/log/caddy/app.daarion.space.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;error|warn&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="troubleshooting">🚨 Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="ssl-certificate">Проблема: SSL certificate не отримується<a class="headerlink" href="#ssl-certificate" title="Permanent link">&para;</a></h3>
+<p><strong>Діагностика:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити Caddy логи</span>
+docker<span class="w"> </span>logs<span class="w"> </span>daarion-caddy<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;acme\|challenge&quot;</span>
+
+<span class="c1"># Перевірити що порти відкриті</span>
+sudo<span class="w"> </span>netstat<span class="w"> </span>-tulpn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;:80|:443&quot;</span>
+
+<span class="c1"># Перевірити DNS</span>
+dig<span class="w"> </span>app.daarion.space<span class="w"> </span>+short
+</code></pre></div>
+
+<p><strong>Рішення:</strong>
+1. Переконатися що DNS propagated
+2. Перевірити firewall:
+   <code>bash
+   sudo ufw allow 80/tcp
+   sudo ufw allow 443/tcp</code>
+3. Перевірити що порт 80 не зайнятий іншим процесом
+4. Перезапустити Caddy:
+   <code>bash
+   docker compose -f docker-compose.caddy.yml restart</code></p>
+<hr />
+<h3 id="websocket-connection-fails">Проблема: WebSocket connection fails<a class="headerlink" href="#websocket-connection-fails" title="Permanent link">&para;</a></h3>
+<p><strong>Рішення:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">В</span><span class="w"> </span><span class="n">Caddyfile</span><span class="w"> </span><span class="n">додати</span><span class="w"> </span><span class="n">явну</span><span class="w"> </span><span class="n">підтримку</span><span class="w"> </span><span class="nl">WebSocket</span><span class="p">:</span>
+<span class="n">app</span><span class="p">.</span><span class="n">daarion</span><span class="p">.</span><span class="nf">space</span><span class="w"> </span><span class="err">{</span>
+<span class="w">    </span><span class="nv">@websocket</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">header</span><span class="w"> </span><span class="k">Connection</span><span class="w"> </span><span class="o">*</span><span class="n">Upgrade</span><span class="o">*</span>
+<span class="w">        </span><span class="n">header</span><span class="w"> </span><span class="n">Upgrade</span><span class="w"> </span><span class="n">websocket</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="n">reverse_proxy</span><span class="w"> </span><span class="nv">@websocket</span><span class="w"> </span><span class="nl">gateway</span><span class="p">:</span><span class="mi">80</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">header_up</span><span class="w"> </span><span class="k">Connection</span><span class="w"> </span><span class="err">{</span><span class="o">&gt;</span><span class="k">Connection</span><span class="err">}</span>
+<span class="w">        </span><span class="n">header_up</span><span class="w"> </span><span class="n">Upgrade</span><span class="w"> </span><span class="err">{</span><span class="o">&gt;</span><span class="n">Upgrade</span><span class="err">}</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="n">reverse_proxy</span><span class="w"> </span><span class="nl">gateway</span><span class="p">:</span><span class="mi">80</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="502-bad-gateway">Проблема: 502 Bad Gateway<a class="headerlink" href="#502-bad-gateway" title="Permanent link">&para;</a></h3>
+<p><strong>Діагностика:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити що gateway запущений</span>
+docker<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>gateway
+
+<span class="c1"># Перевірити логи gateway</span>
+docker<span class="w"> </span>logs<span class="w"> </span>daarion-gateway
+
+<span class="c1"># Перевірити network</span>
+docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>daarion-network
+</code></pre></div>
+
+<p><strong>Рішення:</strong>
+1. Перевірити що gateway в тій самій мережі
+2. Перевірити що gateway слухає на порті 80
+3. Перезапустити gateway та Caddy</p>
+<hr />
+<h2 id="security-headers">🔐 Security Headers (Опціонально)<a class="headerlink" href="#security-headers" title="Permanent link">&para;</a></h2>
+<p>Додати до <code>Caddyfile</code> для посилення безпеки:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">app</span><span class="o">.</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># Security headers</span>
+<span class="w">    </span><span class="n">header</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1"># HSTS</span>
+<span class="w">        </span><span class="n">Strict</span><span class="o">-</span><span class="n">Transport</span><span class="o">-</span><span class="n">Security</span><span class="w"> </span><span class="s2">&quot;max-age=31536000; includeSubDomains; preload&quot;</span>
+
+<span class="w">        </span><span class="c1"># XSS Protection</span>
+<span class="w">        </span><span class="n">X</span><span class="o">-</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">-</span><span class="n">Options</span><span class="w"> </span><span class="s2">&quot;nosniff&quot;</span>
+<span class="w">        </span><span class="n">X</span><span class="o">-</span><span class="n">Frame</span><span class="o">-</span><span class="n">Options</span><span class="w"> </span><span class="s2">&quot;DENY&quot;</span>
+<span class="w">        </span><span class="n">X</span><span class="o">-</span><span class="n">XSS</span><span class="o">-</span><span class="n">Protection</span><span class="w"> </span><span class="s2">&quot;1; mode=block&quot;</span>
+
+<span class="w">        </span><span class="c1"># CSP (налаштувати під свій контент)</span>
+<span class="w">        </span><span class="n">Content</span><span class="o">-</span><span class="n">Security</span><span class="o">-</span><span class="n">Policy</span><span class="w"> </span><span class="s2">&quot;default-src &#39;self&#39;; script-src &#39;self&#39; &#39;unsafe-inline&#39;; style-src &#39;self&#39; &#39;unsafe-inline&#39;;&quot;</span>
+
+<span class="w">        </span><span class="c1"># Permissions Policy</span>
+<span class="w">        </span><span class="n">Permissions</span><span class="o">-</span><span class="n">Policy</span><span class="w"> </span><span class="s2">&quot;geolocation=(), microphone=(), camera=()&quot;</span>
+
+<span class="w">        </span><span class="c1"># Remove server header</span>
+<span class="w">        </span><span class="o">-</span><span class="n">Server</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">reverse_proxy</span><span class="w"> </span><span class="n">gateway</span><span class="p">:</span><span class="mi">80</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="post-deployment-checklist">✅ Post-deployment Checklist<a class="headerlink" href="#post-deployment-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] HTTPS працює на <code>https://app.daarion.space</code></li>
+<li>[ ] Редірект з HTTP на HTTPS працює автоматично</li>
+<li>[ ] Редірект з <code>daarion.space</code> на <code>app.daarion.space</code> працює</li>
+<li>[ ] SSL certificate валідний (Let's Encrypt)</li>
+<li>[ ] WebSocket connections працюють</li>
+<li>[ ] Немає mixed content warnings</li>
+<li>[ ] SSL Labs Grade: A або A+</li>
+<li>[ ] Логи Caddy пишуться коректно</li>
+<li>[ ] Auto-renewal налаштовано</li>
+</ul>
+<hr />
+<h2 id="_3">📚 Наступні кроки<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>➡️ <strong>Environment Configuration</strong> (<code>docs/DEPLOY_ENV_CONFIG.md</code>)</li>
+<li>➡️ <strong>Database Migrations</strong> (<code>docs/DEPLOY_MIGRATIONS.md</code>)</li>
+<li>➡️ <strong>Smoke Tests</strong> (<code>docs/DEPLOY_SMOKETEST_CHECKLIST.md</code>)</li>
+</ol>
+<hr />
+<p><strong>Статус:</strong> ✅ SSL/HTTPS Setup Guide Complete<br />
+<strong>Версія:</strong> 1.0.0<br />
+<strong>Дата:</strong> 24 листопада 2025</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

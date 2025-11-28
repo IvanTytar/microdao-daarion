@@ -1,0 +1,1423 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/40_rwa_energy_food_water_flow_specs/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>40 — RWA Energy, Food, Water Flow Specifications (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#40-rwa-energy-food-water-flow-specifications-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              40 — RWA Energy, Food, Water Flow Specifications (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-supported-rwa-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Supported RWA Domains
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-data-flow-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Data Flow Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-embassy-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Embassy Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Embassy Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Authentication
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-oracle-payload-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Oracle Payload Specification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Oracle Payload Specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Поля:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-rwa-inventory-table-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. RWA Inventory Table Schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-processing-flow-for-each-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Processing Flow for Each Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Processing Flow for Each Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-energy-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 ENERGY Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 ENERGY Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Одиниця:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Джерела:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Потік:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-food-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 FOOD Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 FOOD Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Одиниця:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Джерела:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Потік:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-water-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 WATER Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 WATER Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Одиниця:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Джерела:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-kwt-1t-tokenization-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. KWT / 1T Tokenization Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. KWT / 1T Tokenization Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-energy-kwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 ENERGY → KWT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-food-1t-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 FOOD → 1T (optional)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-water-1tkwt-mixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 WATER → 1T/KWT (mixed)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-wallet-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Wallet Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-governance-controlled-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Governance-Controlled Parameters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-anomaly-detection-anti-fraud" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Anomaly Detection &amp; Anti-Fraud
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Anomaly Detection & Anti-Fraud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-value-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Value Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-site-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Site Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-signature-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Signature Verification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-oracle-processor-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Oracle Processor Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-data-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Data Retention
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Data Retention">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-oracles" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Oracles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-rwa-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 RWA Inventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-embassy-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 Embassy Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-critical-security-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Critical Security Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-example-end-to-end-flow-energy" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Example End-to-End Flow (Energy)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="40-rwa-energy-food-water-flow-specifications-microdao">40 — RWA Energy, Food, Water Flow Specifications (MicroDAO)<a class="headerlink" href="#40-rwa-energy-food-water-flow-specifications-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Потоки RWA (Real-World Assets): енергія, їжа, вода. Embassy інтеграція. Oracle-потоки. Токенізація KWT/1T. Верифікація. Платежі. Аудит.</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Документ визначає:</p>
+<ul>
+<li>як DAARION.city інтегрує реальні фізичні активи (RWA),</li>
+<li>які дані проходять через Embassy,</li>
+<li>як обробляються вимірювання енергії/врожаю/води,</li>
+<li>формат орієнтирів (oracle payloads),</li>
+<li>як оновлюється <code>rwa_inventory</code>,</li>
+<li>як це конвертується в KWT/1T виплати,</li>
+<li>які правила безпеки та аудиту.</li>
+</ul>
+<p>Це критична частина економічного ядра.</p>
+<hr />
+<h2 id="2-supported-rwa-domains">2. Supported RWA Domains<a class="headerlink" href="#2-supported-rwa-domains" title="Permanent link">&para;</a></h2>
+<p>DAARION.city на рівні MVP підтримує 3 види RWA:</p>
+<table>
+<thead>
+<tr>
+<th>Домен</th>
+<th>Опис</th>
+<th>Платформа</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Energy (kWh)</td>
+<td>виробництво та споживання енергії</td>
+<td>EnergyUnion</td>
+</tr>
+<tr>
+<td>Food (kg/units)</td>
+<td>продукти харчування (агро, GreenFood)</td>
+<td>GREENFOOD</td>
+</tr>
+<tr>
+<td>Water (m³)</td>
+<td>вода, фільтрація, очищення</td>
+<td>WaterUnion</td>
+</tr>
+</tbody>
+</table>
+<p>Кожен домен має власні:</p>
+<ul>
+<li>сенсори/джерела даних,</li>
+<li>Embassy-канали,</li>
+<li>unit of measure,</li>
+<li>payout формулу.</li>
+</ul>
+<hr />
+<h2 id="3-data-flow-overview">3. Data Flow Overview<a class="headerlink" href="#3-data-flow-overview" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Device/Meter → Platform (GREENFOOD/EnergyUnion/WaterUnion) → Embassy → API Gateway → PDP → RWA Inventory → Wallet
+</code></pre></div>
+
+<p>Події в NATS:</p>
+<ul>
+<li><code>embassy.energy.update</code></li>
+<li><code>embassy.food.update</code></li>
+<li><code>embassy.water.update</code></li>
+<li><code>oracle.reading.published</code></li>
+<li><code>rwa.inventory.updated</code></li>
+<li><code>payout.generated</code></li>
+</ul>
+<hr />
+<h2 id="4-embassy-integration">4. Embassy Integration<a class="headerlink" href="#4-embassy-integration" title="Permanent link">&para;</a></h2>
+<p>Embassy — це trusted шлюз між DAARION та платформами RWA.</p>
+<h3 id="41-authentication">4.1 Authentication<a class="headerlink" href="#41-authentication" title="Permanent link">&para;</a></h3>
+<p>Усі платформи надсилають webhook-запити:</p>
+<div class="codehilite"><pre><span></span><code>POST /embassy/&lt;domain&gt;
+</code></pre></div>
+
+<p>З заголовками:</p>
+<div class="codehilite"><pre><span></span><code>X-Platform-Id: energyunion
+X-Timestamp: 1700000000
+X-Signature: HMAC_SHA256(payload, secret)
+</code></pre></div>
+
+<p>Gateway перевіряє:</p>
+<ul>
+<li>HMAC → valid</li>
+<li>timestamp → ±5 хв</li>
+<li>platform → відома</li>
+<li>key → active</li>
+</ul>
+<p>Після валідації → PDP(authorize):</p>
+<div class="codehilite"><pre><span></span><code>action = embassy.energy.update
+subject = emb_&lt;platform_id&gt;
+</code></pre></div>
+
+<hr />
+<h2 id="5-oracle-payload-specification">5. Oracle Payload Specification<a class="headerlink" href="#5-oracle-payload-specification" title="Permanent link">&para;</a></h2>
+<p>Усі орієнтири мають однакову структуру:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energyunion&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;site_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EU-KYIV-01&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kwh&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">126.45</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-14T12:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;platform-signature&gt;&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="_1">Поля:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>source</code>: назва платформи</li>
+<li><code>domain</code>: energy | food | water</li>
+<li><code>site_id</code>: унікальний ID локації</li>
+<li><code>unit</code>: kwh | kg | m3</li>
+<li><code>value</code>: величина RWA</li>
+<li><code>ts</code>: timestamp фактичного виміру</li>
+<li><code>signature</code>: підпис платформи (опціонально окремо від HMAC)</li>
+</ul>
+<hr />
+<h2 id="6-rwa-inventory-table-schema">6. RWA Inventory Table Schema<a class="headerlink" href="#6-rwa-inventory-table-schema" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">rwa_inventory</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="k">domain</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">             </span><span class="c1">-- energy / food / water</span>
+<span class="w">  </span><span class="n">site_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">unit</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">               </span><span class="c1">-- kwh / kg / m3</span>
+<span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="nb">numeric</span><span class="p">,</span>
+<span class="w">  </span><span class="n">value_delta</span><span class="w"> </span><span class="nb">numeric</span><span class="p">,</span><span class="w">     </span><span class="c1">-- різниця vs попереднього</span>
+<span class="w">  </span><span class="n">ts</span><span class="w"> </span><span class="n">timestamptz</span><span class="p">,</span>
+<span class="w">  </span><span class="n">platform</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-processing-flow-for-each-domain">7. Processing Flow for Each Domain<a class="headerlink" href="#7-processing-flow-for-each-domain" title="Permanent link">&para;</a></h2>
+<h3 id="71-energy-domain">7.1 ENERGY Domain<a class="headerlink" href="#71-energy-domain" title="Permanent link">&para;</a></h3>
+<h4 id="_2">Одиниця:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p><strong>kWh</strong></p>
+<h4 id="_3">Джерела:<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>сонячні панелі,</li>
+<li>біогазові станції,</li>
+<li>інвертори.</li>
+</ul>
+<h4 id="_4">Потік:<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Device → EnergyUnion</li>
+<li>EnergyUnion → Embassy (<code>POST /embassy/energy</code>)</li>
+<li>Gateway:</li>
+<li>HMAC validate</li>
+<li>PDP(authorize embassy.energy.update)</li>
+<li>Oracle Processor → таблиця <code>oracles</code></li>
+<li>Delta обчислення:</li>
+</ol>
+<p><code>text
+   delta = current_kwh - previous_kwh</code></p>
+<ol>
+<li>Update <code>rwa_inventory</code></li>
+<li>Publish <code>rwa.inventory.updated (energy)</code></li>
+<li>Wallet Service:</li>
+<li>конвертує kWh → KWT (токен енергії)</li>
+<li>нараховує payouts (KWT або 1T залежно від політик)</li>
+</ol>
+<hr />
+<h3 id="72-food-domain">7.2 FOOD Domain<a class="headerlink" href="#72-food-domain" title="Permanent link">&para;</a></h3>
+<h4 id="_5">Одиниця:<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p><strong>kg</strong> або <strong>units</strong> (залежно від товару)</p>
+<h4 id="_6">Джерела:<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>агропідприємства,</li>
+<li>ферми,</li>
+<li>парники,</li>
+<li>склади GreenFood.</li>
+</ul>
+<h4 id="_7">Потік:<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<ol>
+<li>GREENFOOD → Embassy (<code>POST /embassy/food</code>)</li>
+<li>Gateway → PDP</li>
+<li>Oracle Processor:</li>
+<li>normalize units</li>
+<li>validate ranges (не може бути -100 або +1e9)</li>
+<li>Update <code>rwa_inventory</code></li>
+<li>Publish <code>rwa.inventory.updated (food)</code></li>
+<li>Wallet Service:</li>
+<li>може нараховувати 1T для food supply chain (опційно)</li>
+</ol>
+<hr />
+<h3 id="73-water-domain">7.3 WATER Domain<a class="headerlink" href="#73-water-domain" title="Permanent link">&para;</a></h3>
+<h4 id="_8">Одиниця:<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p><strong>m³</strong></p>
+<h4 id="_9">Джерела:<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>фільтрувальні станції,</li>
+<li>водні вузли,</li>
+<li>лічильники споживання.</li>
+</ul>
+<p>Потік аналогічний:</p>
+<ol>
+<li>WaterUnion → Embassy (<code>/embassy/water</code>)</li>
+<li>Gateway → PDP</li>
+<li>Oracle Processor</li>
+<li>Update <code>rwa_inventory</code></li>
+<li>Publish event</li>
+<li>Wallet Service payout (за політиками міста)</li>
+</ol>
+<hr />
+<h2 id="8-kwt-1t-tokenization-rules">8. KWT / 1T Tokenization Rules<a class="headerlink" href="#8-kwt-1t-tokenization-rules" title="Permanent link">&para;</a></h2>
+<h3 id="81-energy-kwt">8.1 ENERGY → KWT<a class="headerlink" href="#81-energy-kwt" title="Permanent link">&para;</a></h3>
+<p>Формула:</p>
+<div class="codehilite"><pre><span></span><code>KWT = kWh × conversion_rate
+</code></pre></div>
+
+<p><code>conversion_rate</code> встановлюється Governance.</p>
+<h3 id="82-food-1t-optional">8.2 FOOD → 1T (optional)<a class="headerlink" href="#82-food-1t-optional" title="Permanent link">&para;</a></h3>
+<p>Може працювати як subsidy:</p>
+<div class="codehilite"><pre><span></span><code>1T = kg × food_bonus_rate
+</code></pre></div>
+
+<h3 id="83-water-1tkwt-mixed">8.3 WATER → 1T/KWT (mixed)<a class="headerlink" href="#83-water-1tkwt-mixed" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>1T = m3 × water_treatment_reward
+</code></pre></div>
+
+<p>або:</p>
+<div class="codehilite"><pre><span></span><code>KWT = m3 × (energy_equivalent)
+</code></pre></div>
+
+<hr />
+<h2 id="9-wallet-integration">9. Wallet Integration<a class="headerlink" href="#9-wallet-integration" title="Permanent link">&para;</a></h2>
+<p>При кожному <code>rwa.inventory.updated</code>:</p>
+<p>Wallet Service:</p>
+<ol>
+<li>Перевіряє політику:</li>
+<li>reward type: KWT / 1T / NONE</li>
+<li>conversion rate</li>
+<li>Обчислює payout:</li>
+</ol>
+<p><code>text
+   payout = delta_value × reward_rate</code></p>
+<ol>
+<li>Генерує запис у <code>payouts</code>:</li>
+</ol>
+<p><code>sql
+   insert into payouts (team_id, value, symbol, rwa_ref)</code></p>
+<ol>
+<li>Публікує:</li>
+</ol>
+<p><code>text
+   payout.generated</code></p>
+<hr />
+<h2 id="10-governance-controlled-parameters">10. Governance-Controlled Parameters<a class="headerlink" href="#10-governance-controlled-parameters" title="Permanent link">&para;</a></h2>
+<p>Governance може:</p>
+<ul>
+<li>міняти <code>conversion_rate</code> для кожного домену;</li>
+<li>встановлювати максимальний reward per day;</li>
+<li>вимикати певні reward-и тимчасово;</li>
+<li>встановлювати девіаційні фільтри (anomaly filters);</li>
+<li>встановлювати правила верифікації (multi-oracle consensus).</li>
+</ul>
+<hr />
+<h2 id="11-anomaly-detection-anti-fraud">11. Anomaly Detection &amp; Anti-Fraud<a class="headerlink" href="#11-anomaly-detection-anti-fraud" title="Permanent link">&para;</a></h2>
+<p>Базові правила для відхилення аномалій:</p>
+<h3 id="111-value-constraints">11.1 Value Constraints<a class="headerlink" href="#111-value-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li>kWh не може рости на &gt;500% за 1 годину.</li>
+<li>food (kg) не може бути негативною величиною.</li>
+<li>water (m³) не може мати spikes &gt;100x.</li>
+</ul>
+<h3 id="112-site-consistency">11.2 Site Consistency<a class="headerlink" href="#112-site-consistency" title="Permanent link">&para;</a></h3>
+<p>Якщо site передає дані 3 рази на годину, а потім 1 раз у хвилину — вмикається throttling.</p>
+<h3 id="113-signature-verification">11.3 Signature Verification<a class="headerlink" href="#113-signature-verification" title="Permanent link">&para;</a></h3>
+<p>Дані мають бути підписані платформою.</p>
+<hr />
+<h2 id="12-oracle-processor-rules">12. Oracle Processor Rules<a class="headerlink" href="#12-oracle-processor-rules" title="Permanent link">&para;</a></h2>
+<p>Oracle Processor:</p>
+<ul>
+<li>нормалізує величини,</li>
+<li>сортує за ts,</li>
+<li>шукає відсутні delta-записи,</li>
+<li>фільтрує аномалії,</li>
+<li>додає дані в <code>oracles</code>,</li>
+<li>створює RWA inventory updates.</li>
+</ul>
+<hr />
+<h2 id="13-data-retention">13. Data Retention<a class="headerlink" href="#13-data-retention" title="Permanent link">&para;</a></h2>
+<h3 id="131-oracles">13.1 Oracles<a class="headerlink" href="#131-oracles" title="Permanent link">&para;</a></h3>
+<ul>
+<li>зберігаються 2–5 років.</li>
+</ul>
+<h3 id="132-rwa-inventory">13.2 RWA Inventory<a class="headerlink" href="#132-rwa-inventory" title="Permanent link">&para;</a></h3>
+<ul>
+<li>зберігається 3–7 років.</li>
+</ul>
+<h3 id="133-embassy-logs">13.3 Embassy Logs<a class="headerlink" href="#133-embassy-logs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>зберігаються 90–180 днів.</li>
+</ul>
+<hr />
+<h2 id="14-critical-security-rules">14. Critical Security Rules<a class="headerlink" href="#14-critical-security-rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Embassy keys не повинні мати розширених прав.</li>
+<li>Немає прямого доступу до Wallet.</li>
+<li>Немає можливості змінити історію RWA.</li>
+<li>PDP перевіряє:</li>
+</ul>
+<p><code>text
+  embassy.&lt;domain&gt;.update</code></p>
+<ul>
+<li>Gateway відкидає:</li>
+<li>запити без HMAC,</li>
+<li>запити з старим timestamp,</li>
+<li>підозрілі spikes.</li>
+</ul>
+<hr />
+<h2 id="15-example-end-to-end-flow-energy">15. Example End-to-End Flow (Energy)<a class="headerlink" href="#15-example-end-to-end-flow-energy" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Meter</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">EU</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">EnergyUnion</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">EMB</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Embassy</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="p">(</span><span class="n">PEP</span><span class="p">)</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Oracle</span><span class="w"> </span><span class="n">Processor</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Wallet</span>
+
+<span class="w">    </span><span class="n">M</span><span class="o">-&gt;&gt;</span><span class="n">EU</span><span class="p">:</span><span class="w"> </span><span class="n">kWh</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span><span class="n">EU</span><span class="o">-&gt;&gt;</span><span class="n">EMB</span><span class="p">:</span><span class="w"> </span><span class="n">webhook</span><span class="w"> </span><span class="p">(</span><span class="n">signed</span><span class="p">)</span>
+<span class="w">    </span><span class="n">EMB</span><span class="o">-&gt;&gt;</span><span class="n">G</span><span class="p">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">embassy</span><span class="o">/</span><span class="n">energy</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">PDP</span><span class="p">:</span><span class="w"> </span><span class="n">authorize</span><span class="p">(</span><span class="n">embassy</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PDP</span><span class="o">--&gt;&gt;</span><span class="n">G</span><span class="p">:</span><span class="w"> </span><span class="n">allow</span>
+
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">O</span><span class="p">:</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="n">payload</span>
+<span class="w">    </span><span class="n">O</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">oracles</span>
+<span class="w">    </span><span class="n">O</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">rwa_inventory</span>
+
+<span class="w">    </span><span class="n">O</span><span class="o">-&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">rwa</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">updated</span>
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="p">:</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">payouts</span>
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="p">:</span><span class="w"> </span><span class="n">payout</span><span class="o">.</span><span class="n">generated</span>
+</code></pre></div>
+
+<hr />
+<h2 id="16-integration-with-other-docs">16. Integration with Other Docs<a class="headerlink" href="#16-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>28_flows_wallet_embassy_energy_union.md</code></li>
+<li><code>33_api_gateway_security_and_pep.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>DAARION_city_platforms_catalog.md</code></li>
+<li><code>27_database_schema_migrations.md</code></li>
+</ul>
+<hr />
+<h2 id="17-cursor">17. Завдання для Cursor<a class="headerlink" href="#17-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement RWA Energy, Food, Water Flow Specifications using:
+- 40_rwa_energy_food_water_flow_specs.md
+- 28_flows_wallet_embassy_energy_union.md
+- 33_api_gateway_security_and_pep.md
+
+Tasks:
+1) Create Embassy webhook endpoints (/embassy/energy, /embassy/food, /embassy/water).
+2) Implement HMAC signature validation for Embassy webhooks.
+3) Create Oracle Processor service (normalize, validate, filter anomalies).
+4) Implement RWA Inventory updates (delta calculation, insert/update).
+5) Create Wallet integration for RWA payouts (KWT/1T tokenization).
+6) Add anomaly detection rules (value constraints, site consistency, signature verification).
+7) Implement Governance-controlled parameters (conversion rates, reward limits).
+8) Add data retention policies (oracles, RWA inventory, Embassy logs).
+9) Create NATS events (embassy.energy.update, embassy.food.update, embassy.water.update, rwa.inventory.updated, payout.generated).
+10) Add PDP authorization checks for embassy.&lt;domain&gt;.update.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="18-summary">18. Summary<a class="headerlink" href="#18-summary" title="Permanent link">&para;</a></h2>
+<p>Потоки RWA у DAARION.city:</p>
+<ul>
+<li>дозволяють токенізувати енергію (KWT), їжу та воду (1T/KWT),</li>
+<li>працюють через Embassy як secure gateway,</li>
+<li>використовують oracles для перевірки та нормалізації даних,</li>
+<li>контролюються Governance для стійкої економіки,</li>
+<li>створюють payouts через Wallet Service,</li>
+<li>повністю логуються,</li>
+<li>захищені від аномалій, підробок і повторних атак.</li>
+</ul>
+<p>Це — <strong>серце економічного механізму міста DAARION</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

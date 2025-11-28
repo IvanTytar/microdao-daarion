@@ -1,0 +1,1157 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/MVP_VERTICAL_SLICE/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>MVP_VERTICAL_SLICE — MicroDAO (Agent-First MVP) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mvp_vertical_slice-microdao-agent-first-mvp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MVP_VERTICAL_SLICE — MicroDAO (Agent-First MVP)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="mvp_vertical_slice-microdao-agent-first-mvp">MVP_VERTICAL_SLICE — MicroDAO (Agent-First MVP)<a class="headerlink" href="#mvp_vertical_slice-microdao-agent-first-mvp" title="Permanent link">&para;</a></h1>
+<p>Вертикальний зріз для перших живих користувачів</p>
+<p>Цей документ визначає, ЩО саме потрібно реалізувати у першому MVP, щоб:</p>
+<ul>
+<li>microDAO виглядало як окремий "живий простір",</li>
+<li>користувач одразу взаємодіє з агентами,</li>
+<li>є базові чати, проєкти, нагадування,</li>
+<li>агенти мають "обличчя" (картки + консолі),</li>
+<li>операторські режими вже закладені в архітектуру, але не перевантажують реалізацію.</li>
+</ul>
+<p>Документ збирає ключові фрагменти з:</p>
+<ul>
+<li>14_messenger_agent_module.md</li>
+<li>15_projects_agent_module.md</li>
+<li>16_followups_reminders_agent.md</li>
+<li>21_agent_only_interface.md</li>
+<li>22_operator_modes_and_system_agents.md</li>
+<li>23_domains_wallet_dao_deepdive.md</li>
+<li>23_agent_cards_and_console_tasks.md</li>
+</ul>
+<hr />
+<h1 id="0-mvp">0. Мета MVP<a class="headerlink" href="#0-mvp" title="Permanent link">&para;</a></h1>
+<p>Зробити <strong>один живий вертикальний шмат</strong>:</p>
+<ul>
+<li>людина заходить у свій microDAO (через slug.daarion.city),</li>
+<li>бачить Agent Hub (головний екран),</li>
+<li>спілкується з Team Assistant,</li>
+<li>бачить "Учасників" (Люди / Агенти),</li>
+<li>має базові канали (Messenger Agent),</li>
+<li>має хоча б один Проєкт і Задачі (Projects Agent),</li>
+<li>може сказати "нагадай" (Followups Agent),</li>
+<li>може зайти на <code>/agents</code> і побачити картки агентів,</li>
+<li>може відкрити Agent Console і подивитись, де агент присутній.</li>
+</ul>
+<p>Web3, DAO-протокол, Wallet Agent, глибокий Governance, Attention, Co-Memory — описані, але <strong>не обовʼязково реалізуються в цьому MVP</strong>, тільки каркас там, де це дешево.</p>
+<hr />
+<h1 id="1-multi-tenant-team-context">1. Multi-tenant &amp; Team Context (без кастомних доменів)<a class="headerlink" href="#1-multi-tenant-team-context" title="Permanent link">&para;</a></h1>
+<h2 id="11-mvp">1.1. Обсяг MVP<a class="headerlink" href="#11-mvp" title="Permanent link">&para;</a></h2>
+<p>Реалізувати:</p>
+<ul>
+<li><code>teams.slug</code> + базовий domain routing по <code>slug.daarion.city</code>,</li>
+<li><code>currentTeamId</code> у бекенд-контексті,</li>
+<li>
+<p>два режими UI:</p>
+</li>
+<li>
+<p>режим <code>/t/:teamId/...</code> (центральний домен),</p>
+</li>
+<li>режим <code>slug.daarion.city/...</code> (автоматичне визначення <code>teamId</code> з домену).</li>
+</ul>
+<p>Не реалізувати:</p>
+<ul>
+<li>кастомні домени користувачів (<code>mydao.org</code>),</li>
+<li>DNS-перевірки, SSL-автоматизацію.</li>
+</ul>
+<h2 id="12-tasks">1.2. Tasks<a class="headerlink" href="#12-tasks" title="Permanent link">&para;</a></h2>
+<p>1) Додати в БД:</p>
+<ul>
+<li>поле <code>slug</code> у <code>teams</code>.</li>
+</ul>
+<p>2) Реалізувати lookup:</p>
+<ul>
+<li><code>Host</code> → <code>slug</code> → <code>teamId</code>.</li>
+</ul>
+<p>3) У бекенд-контексті:</p>
+<ul>
+<li>зберігати <code>currentTeamId</code>.</li>
+</ul>
+<p>4) На фронті:</p>
+<ul>
+<li>
+<p>якщо контекст дає <code>currentTeamId</code> з домену:</p>
+<ul>
+<li>приховати <code>t/:teamId</code> у URL,</li>
+<li>використовувати просто <code>/home</code>, <code>/agents</code>, <code>/projects</code> тощо.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="2-agent-hub-home-agent-only-interface-shell">2. Agent Hub (Home) + Agent-Only Interface Shell<a class="headerlink" href="#2-agent-hub-home-agent-only-interface-shell" title="Permanent link">&para;</a></h1>
+<p>Спиратись на:  </p>
+<p><code>21_agent_only_interface.md</code> (Agent-Only Interface)  </p>
+<ul>
+<li>базові UI стандарти (<code>10_agent_ui_system.md</code>).</li>
+</ul>
+<h2 id="21-mvp">2.1. Обсяг MVP<a class="headerlink" href="#21-mvp" title="Permanent link">&para;</a></h2>
+<p>1) Новий маршрут:</p>
+<ul>
+<li><code>/t/:teamId/home</code> (у режимі slug-домену — просто <code>/home</code>).</li>
+</ul>
+<p>2) Лівий сайдбар:</p>
+<ul>
+<li>блок "Простори / Проєкти" (stub-список, але справжні посилання),</li>
+<li>блок "Учасники": <code>Люди / Агенти / Роботи (плейсхолдер)</code>.</li>
+</ul>
+<p>3) Центральна область:</p>
+<ul>
+<li>
+<p><strong>Agent Hub Chat</strong> з Team Assistant:</p>
+<ul>
+<li>мінімальний AgentChatWindow,</li>
+<li>LLM-виклик з <code>agent_id = Team Assistant</code>.</li>
+</ul>
+</li>
+</ul>
+<p>4) Правий сайдбар:</p>
+<ul>
+<li>
+<p>stub "Контекст команди":</p>
+<ul>
+<li>кількість учасників,</li>
+<li>кількість проєктів,</li>
+<li>список останніх подій (можна поки мок).</li>
+</ul>
+</li>
+</ul>
+<h2 id="22-tasks">2.2. Tasks<a class="headerlink" href="#22-tasks" title="Permanent link">&para;</a></h2>
+<p>1) Додати компонент <code>AgentHubPage</code>.</p>
+<p>2) Додати маршрут <code>/t/:teamId/home</code>.</p>
+<p>3) У сайдбарі додати пункт "Головна / Agent Hub".</p>
+<p>4) Реалізувати базовий <code>AgentChatWindow</code>:</p>
+<ul>
+<li>історія повідомлень,</li>
+<li>input для користувача,</li>
+<li>відправка на <code>/agents/{id}/chat</code> або відповідний endpoint.</li>
+</ul>
+<p>5) Підʼєднати Team Assistant як базового агента для цього екрану.</p>
+<hr />
+<h1 id="3-messenger-agent-14-dm">3. Messenger Agent (14): канали, DM, "додати агента"<a class="headerlink" href="#3-messenger-agent-14-dm" title="Permanent link">&para;</a></h1>
+<p>Опиратись на:  </p>
+<p><code>14_messenger_agent_module.md</code>  </p>
+<ul>
+<li><code>Task Invite-Agent-Flow</code> з задачника.</li>
+</ul>
+<h2 id="31-mvp">3.1. Обсяг MVP<a class="headerlink" href="#31-mvp" title="Permanent link">&para;</a></h2>
+<p>Реалізувати мінімум:</p>
+<p>1) Список каналів/чатів у лівому сайдбарі:</p>
+<ul>
+<li>
+<p>кілька каналів типу:</p>
+<ul>
+<li><code>#general</code>,</li>
+<li><code>#mvp</code>.</li>
+</ul>
+</li>
+</ul>
+<p>2) Центральний чат для вибраного каналу:</p>
+<ul>
+<li>вивід історії,</li>
+<li>відправка повідомлень,</li>
+<li>позначення агента/людини автором.</li>
+</ul>
+<p>3) Кнопка "Додати учасника" у header каналу:</p>
+<ul>
+<li>
+<p>модалка зі вкладками:</p>
+<ul>
+<li><code>Люди</code>,</li>
+<li><code>Агенти</code> (ми фокусуємось саме на цьому).</li>
+</ul>
+</li>
+<li>
+<p>у вкладці <code>Агенти</code>:</p>
+<ul>
+<li>список агентів (із <code>/agents</code>),</li>
+<li>вибір 1 агента,</li>
+<li>
+<p>чекбокси прав:</p>
+</li>
+<li>
+<p><code>Читати</code>,</p>
+</li>
+<li><code>Писати</code>,</li>
+<li><code>Створювати задачі</code>.</li>
+</ul>
+</li>
+<li>
+<p>POST entitlements (stub-модель RBAC/Entitlements).</p>
+</li>
+</ul>
+<p>Не обовʼязково:</p>
+<ul>
+<li>складні фічі (search_messages, pinned messages, reactions і т.п.).</li>
+</ul>
+<h2 id="32-tasks">3.2. Tasks<a class="headerlink" href="#32-tasks" title="Permanent link">&para;</a></h2>
+<p>1) Реалізувати модель:</p>
+<ul>
+<li><code>channels</code> + <code>messages</code>.</li>
+</ul>
+<p>2) Реалізувати simple REST:</p>
+<ul>
+<li><code>GET /channels</code>, <code>GET /channels/:id/messages</code>, <code>POST /messages</code>.</li>
+</ul>
+<p>3) Реалізувати "Add Participant → Agent" модалку:</p>
+<ul>
+<li>frontend модалка,</li>
+<li>backend entitlements stub: <code>POST /entitlements</code> з <code>agent_id</code> + <code>channel_id</code> + scopes.</li>
+</ul>
+<p>4) Показувати аватари агентів у header каналу.</p>
+<hr />
+<h1 id="4-projects-agent-15">4. Projects Agent (15): один проєкт, прості задачі<a class="headerlink" href="#4-projects-agent-15" title="Permanent link">&para;</a></h1>
+<p>Опиратись на:  </p>
+<p><code>15_projects_agent_module.md</code>.</p>
+<h2 id="41-mvp">4.1. Обсяг MVP<a class="headerlink" href="#41-mvp" title="Permanent link">&para;</a></h2>
+<p>Реалізувати:</p>
+<p>1) Мінімальну модель:</p>
+<ul>
+<li><code>projects</code> (id, name, description, team_id),</li>
+<li><code>tasks</code> (id, project_id, title, status, assignees, created_at).</li>
+</ul>
+<p>2) Правий сайдбар для проєктного каналу:</p>
+<ul>
+<li>
+<p>якщо канал привʼязаний до проєкту (наприклад <code>#mvp</code> → <code>MicroDAO MVP</code>):</p>
+<ul>
+<li>
+<p>показувати коротку панель:</p>
+</li>
+<li>
+<p>назва проєкту,</p>
+</li>
+<li>список задач (група за статусом: new / in_progress / done),</li>
+<li>кнопка "Нова задача".</li>
+</ul>
+</li>
+</ul>
+<p>3) Модалка "Нова задача":</p>
+<ul>
+<li>
+<p>поля:</p>
+<ul>
+<li>Назва,</li>
+<li>Опис (опційно),</li>
+<li>Статус (по замовчуванню <code>new</code>),</li>
+<li>Виконавці (поки можна просто селект із людей/агентів).</li>
+</ul>
+</li>
+</ul>
+<p>4) Мінімальна інтеграція з Messenger:</p>
+<ul>
+<li>
+<p>при створенні задачі з правого сайдбару:</p>
+<ul>
+<li>повідомлення у канал:</li>
+</ul>
+<blockquote>
+<p>"Створено задачу: {title}".</p>
+</blockquote>
+</li>
+</ul>
+<p>Можна НЕ робити поки:</p>
+<ul>
+<li>спринти,</li>
+<li>складні фільтри,</li>
+<li>Planning Agent.</li>
+</ul>
+<h2 id="42-tasks">4.2. Tasks<a class="headerlink" href="#42-tasks" title="Permanent link">&para;</a></h2>
+<p>1) Бекенд-моделі <code>projects</code> і <code>tasks</code> + API.</p>
+<p>2) Привʼязка каналу до проєкту (наприклад, поле <code>channel.project_id</code>).</p>
+<p>3) Компонент <code>ProjectSidebarPanel</code>:</p>
+<ul>
+<li>читає з API <code>GET /projects/:id/tasks</code>,</li>
+<li>рендерить список,</li>
+<li>кнопка "Нова задача".</li>
+</ul>
+<p>4) Модалка створення задач:</p>
+<ul>
+<li><code>POST /tasks</code>,</li>
+<li>після успіху: оновити список + відправити повідомлення у канал через Messenger API.</li>
+</ul>
+<hr />
+<h1 id="5-followups-reminders-agent-16">5. Followups &amp; Reminders Agent (16): "нагадай мені"<a class="headerlink" href="#5-followups-reminders-agent-16" title="Permanent link">&para;</a></h1>
+<p>Опиратись на:  </p>
+<p><code>16_followups_reminders_agent.md</code>.</p>
+<h2 id="51-mvp">5.1. Обсяг MVP<a class="headerlink" href="#51-mvp" title="Permanent link">&para;</a></h2>
+<p>Реалізувати:</p>
+<p>1) Модель <code>reminders</code>:</p>
+<ul>
+<li>id, user_id, message, fire_at, created_at, status.</li>
+</ul>
+<p>2) Простий tool:</p>
+<ul>
+<li>
+<p><code>create_reminder({ user_id, message, schedule })</code>:</p>
+<ul>
+<li>
+<p>для MVP:</p>
+</li>
+<li>
+<p>підтримати шаблони:</p>
+<ul>
+<li>"через N хвилин/годин/днів",</li>
+<li>"завтра о HH:MM".</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>3) Інтеграція з чатом:</p>
+<ul>
+<li>
+<p>якщо користувач пише:</p>
+<ul>
+<li>"нагадай мені завтра о 10 про X"</li>
+</ul>
+</li>
+<li>
+<p>Followup Agent:</p>
+<ul>
+<li>парсить час,</li>
+<li>створює reminder,</li>
+<li>відповідає:</li>
+</ul>
+<blockquote>
+<p>"Нагадування створено: завтра о 10:00 — «X»."</p>
+</blockquote>
+</li>
+</ul>
+<p>4) Worker / cron:</p>
+<ul>
+<li>
+<p>кожну хвилину:</p>
+<ul>
+<li><code>SELECT * FROM reminders WHERE fire_at &lt;= now AND status = 'pending'</code>,</li>
+<li>відправити повідомлення користувачу (DM або системне повідомлення),</li>
+<li>помітити як <code>fired</code>.</li>
+</ul>
+</li>
+</ul>
+<p>UI:</p>
+<ul>
+<li>мінімальна панель "Мої нагадування" (наприклад, у профілі).</li>
+</ul>
+<h2 id="52-tasks">5.2. Tasks<a class="headerlink" href="#52-tasks" title="Permanent link">&para;</a></h2>
+<p>1) Бекенд-таблиця <code>reminders</code> + API.</p>
+<p>2) Базовий Followup Agent з tool <code>create_reminder</code>.</p>
+<p>3) Простий parser NLU для фраз типу "нагадай мені завтра о 10":</p>
+<ul>
+<li>можна почати з регулярок + rule-based.</li>
+</ul>
+<p>4) Cron/worker для тригеру ремайндерів.</p>
+<p>5) Простий UI список нагадувань (може бути не першочергово).</p>
+<hr />
+<h1 id="6-agent-cards-grid-agent-console-23">6. Agent Cards Grid + Agent Console (23)<a class="headerlink" href="#6-agent-cards-grid-agent-console-23" title="Permanent link">&para;</a></h1>
+<p>Опиратись на:  </p>
+<p><code>23_agent_cards_and_console_tasks.md</code>.</p>
+<h2 id="61-mvp">6.1. Обсяг MVP<a class="headerlink" href="#61-mvp" title="Permanent link">&para;</a></h2>
+<p>1) Маршрут <code>/t/:teamId/agents</code>:</p>
+<ul>
+<li>
+<p>грід карток агентів:</p>
+<ul>
+<li>Team Assistant,</li>
+<li>Messenger Agent,</li>
+<li>Projects Agent,</li>
+<li>Followups Agent,</li>
+<li>Knowledge (stub),</li>
+<li>Governance (stub),</li>
+<li>Bridges (stub).</li>
+</ul>
+</li>
+<li>
+<p>картка:</p>
+<ul>
+<li>аватар,</li>
+<li>імʼя,</li>
+<li>коротке призначення,</li>
+<li>вік (можна згенерувати pseudo-дані),</li>
+<li>базовий текст <code>Досвід 1T: ...</code> + <code>Репутація: ...</code> (можна поки stub).</li>
+</ul>
+</li>
+<li>
+<p>hover overlay:</p>
+<ul>
+<li>"Почати взаємодію",</li>
+<li>"Деталі агента".</li>
+</ul>
+</li>
+</ul>
+<p>2) Agent Console <code>/t/:teamId/agent/:agentId</code>:</p>
+<ul>
+<li>
+<p>хедер:</p>
+<ul>
+<li>аватар,</li>
+<li>імʼя,</li>
+<li>опис,</li>
+<li>базові метрики (stub).</li>
+</ul>
+</li>
+<li>
+<p>вкладки:</p>
+<ul>
+<li>
+<p><code>Чат</code>:</p>
+</li>
+<li>
+<p>той же <code>AgentChatWindow</code>.</p>
+</li>
+<li>
+<p><code>Присутність / Права</code>:</p>
+</li>
+<li>
+<p>поки список каналів/проєктів, де агент підключений.</p>
+</li>
+<li>
+<p>без складних toggle-операцій (можна просто read-only у MVP).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>це має працювати як "профіль агента".</p>
+</li>
+</ul>
+<h2 id="62-tasks">6.2. Tasks<a class="headerlink" href="#62-tasks" title="Permanent link">&para;</a></h2>
+<p>1) Реалізувати <code>/agents</code> грід (Agent-Cards-Grid).</p>
+<p>2) Реалізувати <code>/agent/:agentId</code> консоль.</p>
+<p>3) Зв'язати "Почати взаємодію" → <code>AgentConsolePage</code> на вкладці "Чат".</p>
+<p>4) Створити простий endpoint <code>GET /agents</code> з базовими метаданими (name, role, created_at, stub-metrics).</p>
+<p>5) Створити endpoint <code>GET /agents/:id/presence</code>:</p>
+<ul>
+<li>
+<p>повертає:</p>
+<ul>
+<li>канали, де агент присутній,</li>
+<li>повʼязані проєкти.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="7-operatormode">7. OperatorMode — тільки каркас<a class="headerlink" href="#7-operatormode" title="Permanent link">&para;</a></h1>
+<p>Опиратись на:  </p>
+<p><code>22_operator_modes_and_system_agents.md</code>.</p>
+<h2 id="71-mvp">7.1. Обсяг MVP<a class="headerlink" href="#71-mvp" title="Permanent link">&para;</a></h2>
+<p>Реалізувати лише:</p>
+<p>1) Поле <code>operatorMode</code> у <code>AgentConfig</code>.</p>
+<p>2) Guard у <code>runAgentTurn</code> / scheduler:</p>
+<ul>
+<li>
+<p>якщо <code>trigger = "operator_tick"</code>:</p>
+<ul>
+<li>
+<p>перевірити:</p>
+</li>
+<li>
+<p><code>operatorMode.enabled</code>,</p>
+</li>
+<li>ліміт дій на годину,</li>
+<li>allowedTools.</li>
+</ul>
+</li>
+</ul>
+<p>3) Увімкнути operatorMode:</p>
+<ul>
+<li>
+<p>для Followups Agent:</p>
+<ul>
+<li>для worker-а нагадувань можна поки використовувати прямий cron без LLM, але структуру вже передбачити.</li>
+</ul>
+</li>
+<li>
+<p>опційно для Attention Agent (якщо буде час) — для базового daily digest.</p>
+</li>
+</ul>
+<p>Не реалізовувати:</p>
+<ul>
+<li>UI для operatorMode,</li>
+<li>розширені operator режими для всіх агентів.</li>
+</ul>
+<hr />
+<h1 id="8-mvp">8. Що явно НЕ входить до цього MVP (але вже є в документації)<a class="headerlink" href="#8-mvp" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Wallet Agent (підпис дій).</li>
+<li>DAO Agent (on-chain DAO інтеграція).</li>
+<li>Повна Governance &amp; Access реалізація (ключі, ритуали узгодження).</li>
+<li>Повний Co-Memory (17) як RAG-система.</li>
+<li>Повний Notifications &amp; Attention Agent (розумні стріми уваги).</li>
+<li>Кастомні домени (<code>mydao.org</code>) з DNS-перевірками і auto-SSL.</li>
+</ul>
+<hr />
+<h1 id="9-cursor">9. Порядок реалізації для Cursor (рекомендація)<a class="headerlink" href="#9-cursor" title="Permanent link">&para;</a></h1>
+<p>Рекомендований порядок задач:</p>
+<p>1) <strong>Multi-tenant context + Agent Hub</strong></p>
+<ul>
+<li>teams.slug,</li>
+<li>визначення <code>currentTeamId</code>,</li>
+<li><code>/home</code> + базовий Agent Hub.</li>
+</ul>
+<p>2) <strong>Messenger Agent (канали + чати + "додати агента")</strong></p>
+<p>3) <strong>Projects Agent (проєкт + задачі + правий сайдбар)</strong></p>
+<p>4) <strong>Followups Agent (reminders + інтеграція з чатом)</strong></p>
+<p>5) <strong>Agent Cards Grid + Agent Console</strong></p>
+<p>6) <strong>OperatorMode (каркас guard-ів)</strong></p>
+<p>Кожен блок можна оформлювати окремим промтом:  </p>
+<p>"Implement part X of MVP_VERTICAL_SLICE.md using docs 14/15/16/21/22/23 + 05_coding_standards.md".</p>
+<hr />
+<h1 id="10-cursor">10. Інструкція для Cursor (узагальнений промт)<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h1>
+<p>Приклад загального промта:</p>
+<div class="codehilite"><pre><span></span><code>You are working on the MicroDAO MVP vertical slice.
+
+Use:
+
+- MVP_VERTICAL_SLICE.md
+- 14_messenger_agent_module.md
+- 15_projects_agent_module.md
+- 16_followups_reminders_agent.md
+- 21_agent_only_interface.md
+- 22_operator_modes_and_system_agents.md
+- 23_domains_wallet_dao_deepdive.md
+- 23_agent_cards_and_console_tasks.md
+- 10_agent_ui_system.md
+- 05_coding_standards.md
+
+Goal:
+
+Implement the MVP vertical slice described in MVP_VERTICAL_SLICE.md, step by step.
+
+Start with:
+
+1) Multi-tenant team context + Agent Hub Home.
+
+Then:
+
+2) Messenger Agent basics (channels, messages, Add Agent to channel).
+
+3) Projects Agent basics (one project, tasks, right sidebar).
+
+4) Followups Agent basics (reminders + chat trigger &quot;нагадай&quot;).
+
+5) Agent Cards grid and Agent Console.
+
+6) OperatorMode guard skeleton.
+
+For each step:
+
+- list changed files,
+- show diff,
+- provide a short summary.
+</code></pre></div>
+
+<hr />
+<p><strong>Цей документ — твій "мастер-план" для першого живого MVP microDAO.</strong></p>
+<p>Далі можна або відразу йти в задачі для кроку 1 (multi-tenant + Agent Hub), або доповнити MVP ще якимись деталями, якщо бачиш прогалини.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

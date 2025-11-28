@@ -1,0 +1,1248 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DAARWIZZ/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>DAARWIZZ - AI Agent for DAARION.city - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#daarwizz-ai-agent-for-daarioncity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DAARWIZZ - AI Agent for DAARION.city
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-daarwizz" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 What is DAARWIZZ?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personality-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 Personality &amp; Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Personality & Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-traits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Traits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Style Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 System Prompt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-daarwizz-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 How DAARWIZZ Works
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 How DAARWIZZ Works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Technical Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Technical Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gateway-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gateway Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm-provider-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM Provider Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      📖 Example Interactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 Example Interactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-greeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Greeting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Onboarding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customization" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎛️ Customization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎛️ Customization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-system-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating System Prompt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-daarwizz" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing DAARWIZZ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing DAARWIZZ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-test-curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Test (curl)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#telegram-bot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Telegram Bot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-log-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Log Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Metrics &amp; Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Metrics & Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Health Check
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Targets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Future Enhancements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Future Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4 Roadmap
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="daarwizz-ai-agent-for-daarioncity">DAARWIZZ - AI Agent for DAARION.city<a class="headerlink" href="#daarwizz-ai-agent-for-daarioncity" title="Permanent link">&para;</a></h1>
+<p><strong>DAARWIZZ</strong> is the official AI agent for the DAARION.city ecosystem, designed to help community members navigate microDAO processes, understand roles, and interact with the DAGI Stack.</p>
+<hr />
+<h2 id="what-is-daarwizz">🎯 What is DAARWIZZ?<a class="headerlink" href="#what-is-daarwizz" title="Permanent link">&para;</a></h2>
+<p>DAARWIZZ is an intelligent agent that:
+- <strong>Guides users</strong> through microDAO operations
+- <strong>Explains roles</strong> and permissions (RBAC)
+- <strong>Answers questions</strong> about DAO processes
+- <strong>Provides onboarding</strong> for new members
+- <strong>Enforces security</strong> by respecting user entitlements</p>
+<hr />
+<h2 id="personality-behavior">🧠 Personality &amp; Behavior<a class="headerlink" href="#personality-behavior" title="Permanent link">&para;</a></h2>
+<h3 id="core-traits">Core Traits<a class="headerlink" href="#core-traits" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Helpful</strong>: Provides practical, actionable guidance</li>
+<li><strong>Concise</strong>: Avoids unnecessary explanations</li>
+<li><strong>Security-aware</strong>: Respects RBAC permissions</li>
+<li><strong>Honest</strong>: Admits when it doesn't know something</li>
+<li><strong>Professional yet friendly</strong>: Approachable but not casual</li>
+</ul>
+<h3 id="style-guidelines">Style Guidelines<a class="headerlink" href="#style-guidelines" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Short paragraphs, no fluff</li>
+<li>Step-by-step instructions when needed</li>
+<li>Uses numbered lists for procedures</li>
+<li>Always considers user's role and permissions</li>
+</ul>
+<hr />
+<h2 id="system-prompt">📋 System Prompt<a class="headerlink" href="#system-prompt" title="Permanent link">&para;</a></h2>
+<p>DAARWIZZ's behavior is defined by its system prompt located at:</p>
+<div class="codehilite"><pre><span></span><code>gateway-bot/daarwizz_prompt.txt
+</code></pre></div>
+
+<p><strong>Key elements:</strong>
+1. Identity: Official DAARION.city AI agent
+2. Role: Help with microDAO, roles, processes
+3. Context awareness: Uses dao_id, user_id, RBAC data
+4. Limitations: No legal/financial/medical advice
+5. Knowledge boundaries: Only DAARION/microDAO topics</p>
+<hr />
+<h2 id="how-daarwizz-works">🔄 How DAARWIZZ Works<a class="headerlink" href="#how-daarwizz-works" title="Permanent link">&para;</a></h2>
+<h3 id="message-flow">Message Flow<a class="headerlink" href="#message-flow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>User (Telegram)
+    ↓ &quot;Привіт! Що це за DAO?&quot;
+Gateway (:9300)
+    ↓ Load daarwizz_prompt.txt
+    ↓ Build request with agent=&quot;daarwizz&quot;
+Router (:9102)
+    ↓ Fetch RBAC context
+RBAC (:9200)
+    ↓ role: member, entitlements: [chat, vote, comment]
+Router
+    ↓ Inject RBAC + system_prompt
+LLM Provider (Ollama/OpenAI)
+    ↓ Generate response with full context
+Gateway
+    ↓ Send to Telegram
+User receives answer
+</code></pre></div>
+
+<hr />
+<h2 id="technical-implementation">🛠️ Technical Implementation<a class="headerlink" href="#technical-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="gateway-integration">Gateway Integration<a class="headerlink" href="#gateway-integration" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>gateway-bot/http_api.py</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Load DAARWIZZ prompt on startup</span>
+<span class="n">DAARWIZZ_SYSTEM_PROMPT</span> <span class="o">=</span> <span class="n">load_daarwizz_prompt</span><span class="p">()</span>
+
+<span class="c1"># Build request to Router</span>
+<span class="n">router_request</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+    <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;chat&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;agent&quot;</span><span class="p">:</span> <span class="s2">&quot;daarwizz&quot;</span><span class="p">,</span>  <span class="c1"># Agent identifier</span>
+    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;dao_id&quot;</span><span class="p">:</span> <span class="s2">&quot;greenfood-dao&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="s2">&quot;tg:12345&quot;</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;agent_name&quot;</span><span class="p">:</span> <span class="s2">&quot;DAARWIZZ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;system_prompt&quot;</span><span class="p">:</span> <span class="n">DAARWIZZ_SYSTEM_PROMPT</span><span class="p">,</span>
+        <span class="c1"># RBAC injected by Router</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="llm-provider-support">LLM Provider Support<a class="headerlink" href="#llm-provider-support" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>providers/llm_provider.py</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_system_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">RouterRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="c1"># 1. Check context.system_prompt (from Gateway)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;context&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="s2">&quot;system_prompt&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;system_prompt&quot;</span><span class="p">]</span>
+
+    <span class="c1"># 2. Agent-specific fallback</span>
+    <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">agent</span> <span class="o">==</span> <span class="s2">&quot;daarwizz&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Ти — DAARWIZZ, AI-агент DAARION.city...&quot;</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+
+<h3 id="docker-configuration">Docker Configuration<a class="headerlink" href="#docker-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>gateway-bot/Dockerfile</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c"># Copy DAARWIZZ prompt</span>
+<span class="k">COPY</span><span class="w"> </span>gateway-bot/daarwizz_prompt.txt<span class="w"> </span>/app/gateway-bot/daarwizz_prompt.txt
+
+<span class="k">ENV</span><span class="w"> </span><span class="nv">DAARWIZZ_NAME</span><span class="o">=</span>DAARWIZZ
+<span class="k">ENV</span><span class="w"> </span><span class="nv">DAARWIZZ_PROMPT_PATH</span><span class="o">=</span>/app/gateway-bot/daarwizz_prompt.txt
+</code></pre></div>
+
+<hr />
+<h2 id="example-interactions">📖 Example Interactions<a class="headerlink" href="#example-interactions" title="Permanent link">&para;</a></h2>
+<h3 id="basic-greeting">Basic Greeting<a class="headerlink" href="#basic-greeting" title="Permanent link">&para;</a></h3>
+<p><strong>User</strong>: <code>Привіт! Хто ти?</code></p>
+<p><strong>DAARWIZZ</strong>: </p>
+<div class="codehilite"><pre><span></span><code>Привіт! Я — DAARWIZZ, AI-агент екосистеми DAARION.city. 
+
+Я допомагаю учасникам розібратися з:
+• microDAO та їх структурою
+• Ролями і правами доступу (RBAC)
+• Процесами голосування та пропозиціями
+• Завданнями та винагородами
+
+Чим можу допомогти?
+</code></pre></div>
+
+<h3 id="role-information">Role Information<a class="headerlink" href="#role-information" title="Permanent link">&para;</a></h3>
+<p><strong>User</strong>: <code>Які у мене права в цьому DAO?</code></p>
+<p><strong>DAARWIZZ</strong> (with RBAC context):</p>
+<div class="codehilite"><pre><span></span><code>У greenfood-dao ти маєш роль: member
+
+Твої права (entitlements):
+1. chat_access - писати в чат
+2. read_proposals - читати пропозиції
+3. vote - голосувати за пропозиції
+4. comment - коментувати
+
+Для більших прав (наприклад, створення пропозицій) потрібна роль contributor або вища.
+</code></pre></div>
+
+<h3 id="onboarding">Onboarding<a class="headerlink" href="#onboarding" title="Permanent link">&para;</a></h3>
+<p><strong>User</strong>: <code>Як розпочати роботу в DAO?</code></p>
+<p><strong>DAARWIZZ</strong>:</p>
+<div class="codehilite"><pre><span></span><code>Ласкаво просимо! Ось кроки для старту:
+
+1. Ознайомся з документацією DAO (команда /docs)
+2. Переглянь активні пропозиції (/proposals)
+3. Познайомся з командою в чаті
+4. Виконай перше завдання (/tasks)
+5. Накопичуй репутацію для підвищення ролі
+
+Твоя поточна роль: guest
+Наступна роль: member (після 1 виконаного завдання)
+
+Є питання? Запитуй!
+</code></pre></div>
+
+<hr />
+<h2 id="customization">🎛️ Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
+<h3 id="updating-system-prompt">Updating System Prompt<a class="headerlink" href="#updating-system-prompt" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Edit prompt file</strong>:
+   <code>bash
+   nano gateway-bot/daarwizz_prompt.txt</code></p>
+</li>
+<li>
+<p><strong>Rebuild Gateway</strong>:
+   <code>bash
+   docker-compose build gateway
+   docker-compose restart gateway</code></p>
+</li>
+<li>
+<p><strong>Verify loading</strong>:
+   <code>bash
+   docker-compose logs gateway | grep "DAARWIZZ system prompt loaded"</code></p>
+</li>
+</ol>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># .env</span>
+<span class="nv">DAARWIZZ_NAME</span><span class="o">=</span>DAARWIZZ
+<span class="nv">DAARWIZZ_PROMPT_PATH</span><span class="o">=</span>/app/gateway-bot/daarwizz_prompt.txt
+</code></pre></div>
+
+<hr />
+<h2 id="testing-daarwizz">🧪 Testing DAARWIZZ<a class="headerlink" href="#testing-daarwizz" title="Permanent link">&para;</a></h2>
+<h3 id="local-test-curl">Local Test (curl)<a class="headerlink" href="#local-test-curl" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:9300/telegram/webhook<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;message&quot;: {</span>
+<span class="s1">      &quot;message_id&quot;: 1,</span>
+<span class="s1">      &quot;from&quot;: {&quot;id&quot;: 12345, &quot;username&quot;: &quot;testuser&quot;},</span>
+<span class="s1">      &quot;chat&quot;: {&quot;id&quot;: 12345, &quot;type&quot;: &quot;private&quot;},</span>
+<span class="s1">      &quot;text&quot;: &quot;Привіт! Хто ти?&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
+
+<h3 id="telegram-bot">Telegram Bot<a class="headerlink" href="#telegram-bot" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Set up webhook</strong>:
+   <code>bash
+   curl -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook" \
+     -d "url=https://your-domain.com/telegram/webhook"</code></p>
+</li>
+<li>
+<p><strong>Send message</strong> to bot in Telegram</p>
+</li>
+<li>
+<p><strong>Check logs</strong>:
+   <code>bash
+   docker-compose logs -f gateway router</code></p>
+</li>
+</ol>
+<h3 id="expected-log-output">Expected Log Output<a class="headerlink" href="#expected-log-output" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">gateway</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">DAARWIZZ</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="n">loaded</span><span class="w"> </span><span class="p">(</span><span class="mi">1243</span><span class="w"> </span><span class="n">chars</span><span class="p">)</span>
+<span class="n">gateway</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">Telegram</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">testuser</span><span class="w"> </span><span class="p">(</span><span class="n">tg</span><span class="p">:</span><span class="mi">12345</span><span class="p">):</span><span class="w"> </span><span class="err">Привіт</span><span class="o">!</span><span class="w"> </span><span class="err">Хто</span><span class="w"> </span><span class="err">ти?</span>
+<span class="n">gateway</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">Sending</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Router</span><span class="p">:</span><span class="w"> </span><span class="n">agent</span><span class="o">=</span><span class="n">daarwizz</span><span class="p">,</span><span class="w"> </span><span class="n">dao</span><span class="o">=</span><span class="n">greenfood</span><span class="o">-</span><span class="n">dao</span>
+<span class="n">router</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">Received</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">mode</span><span class="o">=</span><span class="n">chat</span><span class="p">,</span><span class="w"> </span><span class="n">agent</span><span class="o">=</span><span class="n">daarwizz</span>
+<span class="n">router</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">RBAC</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="n">role</span><span class="o">=</span><span class="n">member</span><span class="p">,</span><span class="w"> </span><span class="n">entitlements</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">router</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">Routing</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">llm_local_qwen3_8b</span>
+<span class="n">router</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="n">generated</span><span class="w"> </span><span class="p">(</span><span class="mi">345</span><span class="w"> </span><span class="n">chars</span><span class="p">,</span><span class="w"> </span><span class="mf">2.3</span><span class="n">s</span><span class="p">)</span>
+<span class="n">gateway</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">INFO</span><span class="p">:</span><span class="w"> </span><span class="n">Telegram</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">sent</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">chat</span><span class="w"> </span><span class="mi">12345</span>
+</code></pre></div>
+
+<hr />
+<h2 id="metrics-monitoring">📊 Metrics &amp; Monitoring<a class="headerlink" href="#metrics-monitoring" title="Permanent link">&para;</a></h2>
+<h3 id="health-check">Health Check<a class="headerlink" href="#health-check" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>http://localhost:9300/health
+</code></pre></div>
+
+<p><strong>Response</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARWIZZ&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;system_prompt_loaded&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-15T14:30:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="performance-targets">Performance Targets<a class="headerlink" href="#performance-targets" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompt loading</td>
+<td>&lt; 100ms</td>
+<td>On startup</td>
+</tr>
+<tr>
+<td>Request enrichment</td>
+<td>&lt; 50ms</td>
+<td>Gateway processing</td>
+</tr>
+<tr>
+<td>End-to-end response</td>
+<td>&lt; 5s</td>
+<td>Including LLM generation</td>
+</tr>
+<tr>
+<td>RBAC lookup</td>
+<td>&lt; 100ms</td>
+<td>From RBAC service</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="future-enhancements">🚀 Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h2>
+<h3 id="phase-4-roadmap">Phase 4 Roadmap<a class="headerlink" href="#phase-4-roadmap" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Knowledge Base Integration</strong></li>
+<li>Connect to microdao-daarion docs</li>
+<li>RAG (Retrieval-Augmented Generation)</li>
+<li>
+<p>Contextual answers from official docs</p>
+</li>
+<li>
+<p><strong>Multi-language Support</strong></p>
+</li>
+<li>Ukrainian (default)</li>
+<li>English</li>
+<li>
+<p>Auto-detect user language</p>
+</li>
+<li>
+<p><strong>Workflow Triggers</strong></p>
+</li>
+<li>User: "Onboard me" → triggers CrewAI workflow</li>
+<li>
+<p>User: "Review proposal #123" → triggers multi-agent review</p>
+</li>
+<li>
+<p><strong>Analytics</strong></p>
+</li>
+<li>Track common questions</li>
+<li>Identify knowledge gaps</li>
+<li>
+<p>Improve prompt iteratively</p>
+</li>
+<li>
+<p><strong>Personalization</strong></p>
+</li>
+<li>Remember user context across sessions</li>
+<li>Adapt responses based on user role</li>
+<li>Suggest relevant actions</li>
+</ol>
+<hr />
+<h2 id="related-documentation">🔗 Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../gateway-bot/README.md">Gateway Bot</a></li>
+<li><a href="../microdao/README.md">RBAC Service</a></li>
+<li><a href="../providers/README.md">LLM Providers</a></li>
+<li><a href="../router-config.yml">Router Configuration</a></li>
+</ul>
+<hr />
+<p><strong>Version</strong>: 0.2.0<br />
+<strong>Agent</strong>: DAARWIZZ<br />
+<strong>Status</strong>: Production-ready ✅<br />
+<strong>Last Updated</strong>: 2024-11-15</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

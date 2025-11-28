@@ -1,0 +1,1507 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DEPLOY_MVP_NODE1_COMPREHENSIVE_ANALYSIS/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>🚀 MVP Deployment на НОДА1 — Комплексний Аналіз - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mvp-deployment-1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🚀 MVP Deployment на НОДА1 — Комплексний Аналіз
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Executive Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Executive Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Що готово:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Потенційні ризики:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Рекомендована стратегія:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🗺️ Інфраструктурна Картина
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗺️ Інфраструктурна Картина">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      НОДА1 (Production)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      НОДА2 (Development)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-3-mvp-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1-3 MVP (треба додати до НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Аналіз Конфліктів
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Аналіз Конфліктів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Порти (Немає конфліктів!)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ База Даних (Критично!)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Nginx Config (Потребує оновлення)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-strategy-staged-rollout" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Deployment Strategy: STAGED ROLLOUT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Deployment Strategy: STAGED ROLLOUT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-pre-flight-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 0: PRE-FLIGHT (На НОДА2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-backup-analysis-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 1: BACKUP &amp; ANALYSIS (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-code-sync-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 2: CODE SYNC (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-environment-config-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 3: ENVIRONMENT CONFIG (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-database-migrations-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 4: DATABASE MIGRATIONS (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-docker-build-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 5: DOCKER BUILD (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-service-startup-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 6: SERVICE STARTUP (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-nginx-update-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 7: NGINX UPDATE (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-smoke-tests-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 8: SMOKE TESTS (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-monitoring-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Фаза 9: MONITORING (На НОДА1)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Rollback Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Rollback Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6-service-startup-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Якщо Фаза 6 (Service Startup) failed:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-nginx-update-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Якщо Фаза 7 (Nginx Update) failed:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Final Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Final Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Deployment:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deployment:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Success Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔮 Next Steps (Після успішного deployment)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emergency-contacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      📞 Emergency Contacts
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="mvp-deployment-1">🚀 MVP Deployment на НОДА1 — Комплексний Аналіз<a class="headerlink" href="#mvp-deployment-1" title="Permanent link">&para;</a></h1>
+<p><strong>Версія:</strong> 1.0.0<br />
+<strong>Дата:</strong> 25 листопада 2025<br />
+<strong>Статус:</strong> Ready for Execution<br />
+<strong>НОДА1 IP:</strong> 144.76.224.179<br />
+<strong>Domain:</strong> gateway.daarion.city</p>
+<hr />
+<h2 id="executive-summary">📊 Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>Після аналізу інфраструктури маємо:</p>
+<h3 id="_1">✅ Що готово:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Phase 1-3 код готовий</strong> (Frontend MVP, Agents Core, City MVP, Second Me)</li>
+<li><strong>Міграції БД готові</strong> (001-010)</li>
+<li><strong>Docker Compose готовий</strong> (<code>docker-compose.all.yml</code>)</li>
+<li><strong>Сервіси зібрані</strong> (agents, city, secondme, microdao)</li>
+<li><strong>Nginx/SSL працює</strong> на НОДА1 (<code>gateway.daarion.city</code>)</li>
+</ol>
+<h3 id="_2">⚠️ Потенційні ризики:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Мультимодальна система в процесі</strong> (Router v1.1.0, Telegram Enhanced)</li>
+<li><strong>Щоденні зміни</strong> на обох нодах</li>
+<li><strong>Невідомий стан production БД</strong> на НОДА1</li>
+<li><strong>Можливі конфлікти портів</strong> (хоча перевірка показує що немає)</li>
+</ol>
+<h3 id="_3">🎯 Рекомендована стратегія:<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>Staged Deployment</strong> з isolation + rollback plan</p>
+<hr />
+<h2 id="_4">🗺️ Інфраструктурна Картина<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1-production">НОДА1 (Production)<a class="headerlink" href="#1-production" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="mf">144.76.224.179</span><span class="w"> </span><span class="p">(</span><span class="n">Hetzner</span><span class="w"> </span><span class="n">GEX44</span><span class="p">)</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">DAGI</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="p">(</span><span class="mf">17</span><span class="o">+</span><span class="w"> </span><span class="n">сервісів</span><span class="p">)</span><span class="w"> </span><span class="err">✅</span><span class="w"> </span><span class="n">ПРАЦЮЄ</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Router</span><span class="w"> </span><span class="p">(</span><span class="mf">9102</span><span class="p">)</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">в</span><span class="w"> </span><span class="n">процесі</span><span class="w"> </span><span class="n">оновлення</span><span class="w"> </span><span class="n">до</span><span class="w"> </span><span class="n">v1</span><span class="mf">.1.0</span><span class="w"> </span><span class="n">multimodal</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="p">(</span><span class="mf">9300</span><span class="p">)</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Telegram</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="n">Enhanced</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">DevTools</span><span class="w"> </span><span class="p">(</span><span class="mf">8008</span><span class="p">)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Swapper</span><span class="w"> </span><span class="p">(</span><span class="mf">8890</span><span class="o">-</span><span class="mf">8891</span><span class="p">)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Frontend</span><span class="w"> </span><span class="p">(</span><span class="mf">8899</span><span class="p">)</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">існуючий</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nb">Pos</span><span class="n">tgreSQL</span><span class="w"> </span><span class="p">(</span><span class="mf">5432</span><span class="p">)</span><span class="w"> </span><span class="err">⚠️</span><span class="w"> </span><span class="n">PRODUCTION</span><span class="w"> </span><span class="n">DB</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Redis</span><span class="w"> </span><span class="p">(</span><span class="mf">6379</span><span class="p">)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Neo4j</span><span class="w"> </span><span class="p">(</span><span class="mf">7687</span><span class="p">,</span><span class="w"> </span><span class="mf">7474</span><span class="p">)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Qdrant</span><span class="w"> </span><span class="p">(</span><span class="mf">6333</span><span class="p">,</span><span class="w"> </span><span class="mf">6334</span><span class="p">)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Grafana</span><span class="w"> </span><span class="p">(</span><span class="mf">3000</span><span class="p">)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">Prometheus</span><span class="w"> </span><span class="p">(</span><span class="mf">9090</span><span class="p">)</span>
+<span class="err">│</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Nginx</span><span class="w"> </span><span class="p">(</span><span class="mf">80</span><span class="p">,</span><span class="w"> </span><span class="mf">443</span><span class="p">)</span><span class="w"> </span><span class="err">✅</span><span class="w"> </span><span class="n">SSL</span><span class="w"> </span><span class="kd">Let</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">Encrypt</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">gateway</span><span class="mf">.</span><span class="n">daarion</span><span class="mf">.</span><span class="n">city</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">працює</span>
+<span class="err">│</span>
+<span class="err">└──</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">microdao</span><span class="o">-</span><span class="n">daarion</span><span class="w"> </span><span class="p">(</span><span class="n">project</span><span class="w"> </span><span class="n">root</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="2-development">НОДА2 (Development)<a class="headerlink" href="#2-development" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="mf">192.168.1.244</span><span class="w"> </span><span class="p">(</span><span class="n">MacBook</span><span class="w"> </span><span class="n">Pro</span><span class="w"> </span><span class="n">M4</span><span class="w"> </span><span class="n">Max</span><span class="p">)</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Розробка</span><span class="w"> </span><span class="n">Phase</span><span class="w"> </span><span class="mf">1</span><span class="o">-</span><span class="mf">3</span><span class="w"> </span><span class="err">✅</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Мультимодальні</span><span class="w"> </span><span class="n">сервіси</span><span class="w"> </span><span class="p">(</span><span class="n">STT</span><span class="p">,</span><span class="w"> </span><span class="n">OCR</span><span class="p">,</span><span class="w"> </span><span class="n">Web</span><span class="w"> </span><span class="n">Search</span><span class="p">,</span><span class="w"> </span><span class="n">Vector</span><span class="w"> </span><span class="n">DB</span><span class="p">)</span>
+<span class="err">└──</span><span class="w"> </span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">apple</span><span class="o">/</span><span class="n">github</span><span class="o">-</span><span class="n">projects</span><span class="o">/</span><span class="n">microdao</span><span class="o">-</span><span class="n">daarion</span>
+</code></pre></div>
+
+<h3 id="phase-1-3-mvp-1">Phase 1-3 MVP (треба додати до НОДА1)<a class="headerlink" href="#phase-1-3-mvp-1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Нові сервіси:
+├── agents-service (7002) — Phase 2
+├── city-service (7001) — Phase 3
+├── secondme-service (7003) — Phase 3
+└── microdao-service (7004) — Phase 7
+
+Нові API endpoints:
+├── /api/agents/* → 7002
+├── /api/city/* → 7001
+├── /api/secondme/* → 7003
+└── /api/microdao/* → 7004
+
+WebSocket:
+└── /ws/city/* → 7001
+</code></pre></div>
+
+<hr />
+<h2 id="_5">🔍 Аналіз Конфліктів<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">✅ Порти (Немає конфліктів!)<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Існуючі (НОДА1)</th>
+<th>Нові (MVP)</th>
+<th>Статус</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9102 (Router)</td>
+<td>7002 (Agents)</td>
+<td>✅ OK</td>
+</tr>
+<tr>
+<td>9300 (Gateway)</td>
+<td>7001 (City)</td>
+<td>✅ OK</td>
+</tr>
+<tr>
+<td>8008 (DevTools)</td>
+<td>7003 (Second Me)</td>
+<td>✅ OK</td>
+</tr>
+<tr>
+<td>8890 (Swapper)</td>
+<td>7004 (MicroDAO)</td>
+<td>✅ OK</td>
+</tr>
+<tr>
+<td>8899 (Frontend)</td>
+<td>-</td>
+<td>⚠️ Може потребувати оновлення</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">⚠️ База Даних (Критично!)<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><strong>Ситуація:</strong>
+- НОДА1 має <strong>production PostgreSQL</strong> (<code>daarion_memory</code>)
+- MVP потребує <strong>нові таблиці</strong> (міграції 007-010)
+- Невідомо чи існуючі таблиці не конфліктують</p>
+<p><strong>Рішення:</strong>
+1. <strong>Backup перед міграцією</strong> (обов'язково!)
+2. <strong>Перевірити існуючі таблиці</strong> перед застосуванням міграцій
+3. <strong>Rollback план</strong> готовий</p>
+<h3 id="nginx-config">⚠️ Nginx Config (Потребує оновлення)<a class="headerlink" href="#nginx-config" title="Permanent link">&para;</a></h3>
+<p><strong>Існуючий config:</strong></p>
+<div class="codehilite"><pre><span></span><code>/etc/nginx/sites-available/daarion
+├── /telegram/webhook → 9300
+└── /helion/telegram/webhook → 9300
+</code></pre></div>
+
+<p><strong>Треба додати:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="s">/api/agents/</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7002/</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">location</span><span class="w"> </span><span class="s">/api/city/</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7001/</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">location</span><span class="w"> </span><span class="s">/api/secondme/</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7003/</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">location</span><span class="w"> </span><span class="s">/api/microdao/</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7004/</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">location</span><span class="w"> </span><span class="s">/ws/city/</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7001/ws/city/</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Upgrade</span><span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Connection</span><span class="w"> </span><span class="s">&quot;upgrade&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="deployment-strategy-staged-rollout">🎯 Deployment Strategy: STAGED ROLLOUT<a class="headerlink" href="#deployment-strategy-staged-rollout" title="Permanent link">&para;</a></h2>
+<h3 id="0-pre-flight-2">Фаза 0: PRE-FLIGHT (На НОДА2)<a class="headerlink" href="#0-pre-flight-2" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Підготовка коду</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/Users/apple/github-projects/microdao-daarion
+
+<span class="c1"># 1. Commit всі зміни</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Phase 1-3: Ready for NODE1 deployment&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># 2. Перевірити що всі файли на місці</span>
+ls<span class="w"> </span>-la<span class="w"> </span>services/<span class="o">{</span>agents,city,secondme,microdao<span class="o">}</span>-service/
+ls<span class="w"> </span>-la<span class="w"> </span>migrations/00<span class="o">{</span><span class="m">7</span>,8,9,10<span class="o">}</span>_*.sql
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] Git push виконано
+- [ ] Всі сервіси мають Dockerfile
+- [ ] Міграції 007-010 існують
+- [ ] docker-compose.all.yml оновлено (якщо потрібно)</p>
+<hr />
+<h3 id="1-backup-analysis-1">Фаза 1: BACKUP &amp; ANALYSIS (На НОДА1)<a class="headerlink" href="#1-backup-analysis-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Захистити production і зібрати інформацію</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># SSH на НОДА1</span>
+ssh<span class="w"> </span>root@144.76.224.179
+<span class="nb">cd</span><span class="w"> </span>/opt/microdao-daarion
+
+<span class="c1"># 1. Backup PostgreSQL (КРИТИЧНО!)</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>daarion-postgres<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>daarion_memory<span class="w"> </span>&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/root/backups/daarion_memory_<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>.sql
+
+<span class="c1"># 2. Перевірити існуючі таблиці</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;\dt&quot;</span>
+
+<span class="c1"># 3. Перевірити існуючі сервіси</span>
+docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.Names}}\t{{.Status}}\t{{.Ports}}&quot;</span>
+
+<span class="c1"># 4. Перевірити порти</span>
+sudo<span class="w"> </span>netstat<span class="w"> </span>-tulpn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>LISTEN<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;700[1-4]|9102|9300&quot;</span>
+
+<span class="c1"># 5. Перевірити Nginx config</span>
+cat<span class="w"> </span>/etc/nginx/sites-available/daarion
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] Backup БД створено (перевірити розмір файлу!)
+- [ ] Список таблиць збережено
+- [ ] Порти 7001-7004 вільні
+- [ ] Nginx config збережено</p>
+<hr />
+<h3 id="2-code-sync-1">Фаза 2: CODE SYNC (На НОДА1)<a class="headerlink" href="#2-code-sync-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Синхронізувати код з GitHub</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/microdao-daarion
+
+<span class="c1"># 1. Перевірити поточний стан</span>
+git<span class="w"> </span>status
+git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-5
+
+<span class="c1"># 2. Pull нових змін</span>
+git<span class="w"> </span>fetch<span class="w"> </span>origin
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># 3. Перевірити що файли прибули</span>
+ls<span class="w"> </span>-la<span class="w"> </span>services/<span class="o">{</span>agents,city,secondme,microdao<span class="o">}</span>-service/Dockerfile
+ls<span class="w"> </span>-la<span class="w"> </span>migrations/007_*.sql<span class="w"> </span>migrations/008_*.sql<span class="w"> </span>migrations/009_*.sql<span class="w"> </span>migrations/010_*.sql
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] Git pull успішний
+- [ ] Нові сервіси присутні
+- [ ] Міграції 007-010 на місці</p>
+<hr />
+<h3 id="3-environment-config-1">Фаза 3: ENVIRONMENT CONFIG (На НОДА1)<a class="headerlink" href="#3-environment-config-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Налаштувати змінні оточення</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/microdao-daarion
+
+<span class="c1"># 1. Backup існуючого .env</span>
+cp<span class="w"> </span>.env<span class="w"> </span>.env.backup.<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+
+<span class="c1"># 2. Додати нові змінні</span>
+cat<span class="w"> </span>&gt;&gt;<span class="w"> </span>.env<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+
+<span class="s"># ============================================================================</span>
+<span class="s"># PHASE 1-3 MVP SERVICES</span>
+<span class="s"># ============================================================================</span>
+
+<span class="s"># Service URLs</span>
+<span class="s">AGENTS_SERVICE_URL=http://agents-service:7002</span>
+<span class="s">CITY_SERVICE_URL=http://city-service:7001</span>
+<span class="s">SECONDME_SERVICE_URL=http://secondme-service:7003</span>
+<span class="s">MICRODAO_SERVICE_URL=http://microdao-service:7004</span>
+
+<span class="s"># City Configuration</span>
+<span class="s">CITY_DEFAULT_ROOMS=general,welcome,builders,science,energy</span>
+<span class="s">SECONDME_AGENT_ID=ag_secondme_global</span>
+
+<span class="s"># WebSocket</span>
+<span class="s">WS_BASE_URL=wss://gateway.daarion.city/ws</span>
+
+<span class="s"># Frontend (якщо потрібно оновити)</span>
+<span class="s">VITE_API_BASE_URL=https://gateway.daarion.city/api</span>
+<span class="s">VITE_WS_BASE_URL=wss://gateway.daarion.city/ws</span>
+
+<span class="s">EOF</span>
+
+<span class="c1"># 3. Перевірити</span>
+tail<span class="w"> </span>-20<span class="w"> </span>.env
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] .env backup створено
+- [ ] Нові змінні додано
+- [ ] Синтаксис правильний</p>
+<hr />
+<h3 id="4-database-migrations-1">Фаза 4: DATABASE MIGRATIONS (На НОДА1)<a class="headerlink" href="#4-database-migrations-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Застосувати міграції 007-010</p>
+<p>⚠️ <strong>КРИТИЧНА ФАЗА — МОЖЛИВІСТЬ ROLLBACK</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/microdao-daarion
+
+<span class="c1"># Перевірити які міграції вже застосовані (якщо є tracking)</span>
+<span class="c1"># або вручну перевірити чи існують таблиці</span>
+
+<span class="c1"># Застосувати міграції (ПО ОДНІЙ!)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Applying 007_create_agents_tables.sql...&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>&lt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>migrations/007_create_agents_tables.sql
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Applying 008_create_microdao_core.sql...&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>&lt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>migrations/008_create_microdao_core.sql
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Applying 009_create_dao_core.sql...&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>&lt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>migrations/009_create_dao_core.sql
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Applying 010_create_city_backend.sql...&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>&lt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>migrations/010_create_city_backend.sql
+
+<span class="c1"># Перевірити що таблиці створені</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;\dt&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;agents|city|secondme|microdao&quot;</span>
+</code></pre></div>
+
+<p><strong>Якщо помилка:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ROLLBACK: Відновити з backup</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>&lt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/root/backups/daarion_memory_YYYYMMDD_HHMMSS.sql
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] Міграція 007 успішна
+- [ ] Міграція 008 успішна
+- [ ] Міграція 009 успішна
+- [ ] Міграція 010 успішна
+- [ ] Нові таблиці підтверджені</p>
+<hr />
+<h3 id="5-docker-build-1">Фаза 5: DOCKER BUILD (На НОДА1)<a class="headerlink" href="#5-docker-build-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Зібрати нові сервіси</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/microdao-daarion
+
+<span class="c1"># Build нових сервісів (один за одним для діагностики)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>build<span class="w"> </span>agents-service
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>build<span class="w"> </span>city-service
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>build<span class="w"> </span>secondme-service
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>build<span class="w"> </span>microdao-service
+
+<span class="c1"># Перевірити що образи створені</span>
+docker<span class="w"> </span>images<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;agents-service|city-service|secondme|microdao&quot;</span>
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] agents-service образ створено
+- [ ] city-service образ створено
+- [ ] secondme-service образ створено
+- [ ] microdao-service образ створено</p>
+<hr />
+<h3 id="6-service-startup-1">Фаза 6: SERVICE STARTUP (На НОДА1)<a class="headerlink" href="#6-service-startup-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Запустити нові сервіси (БЕЗ перезапуску існуючих!)</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/microdao-daarion
+
+<span class="c1"># Запустити ТІЛЬКИ нові сервіси</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>agents-service<span class="w"> </span>city-service<span class="w"> </span>secondme-service<span class="w"> </span>microdao-service
+
+<span class="c1"># Моніторити старт (перші 30 секунд критичні)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>agents-service<span class="w"> </span>city-service<span class="w"> </span>secondme-service<span class="w"> </span>microdao-service
+
+<span class="c1"># В окремому терміналі перевірити health</span>
+watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s2">&quot;docker ps | grep -E &#39;agents-service|city-service|secondme|microdao&#39;&quot;</span>
+</code></pre></div>
+
+<p><strong>Що моніторити:</strong>
+- [ ] Контейнери запустилися (не в Restarting стані)
+- [ ] Логи не містять критичних помилок
+- [ ] БД з'єднання успішні
+- [ ] Health endpoints відповідають</p>
+<hr />
+<h3 id="7-nginx-update-1">Фаза 7: NGINX UPDATE (На НОДА1)<a class="headerlink" href="#7-nginx-update-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Додати нові endpoints до Nginx</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Backup існуючого config</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/nginx/sites-available/daarion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/etc/nginx/sites-available/daarion.backup.<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+
+<span class="c1"># Додати нові location blocks (ПЕРЕД останньою фігурною дужкою сервера)</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/nginx/sites-available/daarion
+</code></pre></div>
+
+<p><strong>Додати цей блок:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="c1"># ========================================================================</span>
+<span class="w">    </span><span class="c1"># PHASE 1-3 MVP API ENDPOINTS</span>
+<span class="w">    </span><span class="c1"># ========================================================================</span>
+
+<span class="w">    </span><span class="k">location</span><span class="w"> </span><span class="s">/api/agents/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7002/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Request-Id</span><span class="w"> </span><span class="nv">$request_id</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">location</span><span class="w"> </span><span class="s">/api/city/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7001/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Request-Id</span><span class="w"> </span><span class="nv">$request_id</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">location</span><span class="w"> </span><span class="s">/api/secondme/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7003/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Request-Id</span><span class="w"> </span><span class="nv">$request_id</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">location</span><span class="w"> </span><span class="s">/api/microdao/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7004/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Request-Id</span><span class="w"> </span><span class="nv">$request_id</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># WebSocket для City</span>
+<span class="w">    </span><span class="k">location</span><span class="w"> </span><span class="s">/ws/city/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://127.0.0.1:7001/ws/city/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Upgrade</span><span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Connection</span><span class="w"> </span><span class="s">&quot;upgrade&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_read_timeout</span><span class="w"> </span><span class="mi">86400</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити синтаксис</span>
+sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+
+<span class="c1"># Якщо OK — reload</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>nginx
+
+<span class="c1"># Перевірити статус</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>nginx
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] Backup Nginx config створено
+- [ ] Нові location blocks додано
+- [ ] <code>nginx -t</code> успішний
+- [ ] <code>systemctl reload nginx</code> успішний</p>
+<hr />
+<h3 id="8-smoke-tests-1">Фаза 8: SMOKE TESTS (На НОДА1)<a class="headerlink" href="#8-smoke-tests-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Перевірити що все працює</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Health checks (локально)</span>
+curl<span class="w"> </span>http://localhost:7001/health<span class="w">  </span><span class="c1"># City</span>
+curl<span class="w"> </span>http://localhost:7002/health<span class="w">  </span><span class="c1"># Agents</span>
+curl<span class="w"> </span>http://localhost:7003/health<span class="w">  </span><span class="c1"># Second Me</span>
+curl<span class="w"> </span>http://localhost:7004/health<span class="w">  </span><span class="c1"># MicroDAO</span>
+
+<span class="c1"># 2. Health checks (через Nginx/SSL)</span>
+curl<span class="w"> </span>https://gateway.daarion.city/api/city/health
+curl<span class="w"> </span>https://gateway.daarion.city/api/agents/health
+curl<span class="w"> </span>https://gateway.daarion.city/api/secondme/health
+curl<span class="w"> </span>https://gateway.daarion.city/api/microdao/health
+
+<span class="c1"># 3. City Rooms API</span>
+curl<span class="w"> </span>https://gateway.daarion.city/api/city/rooms<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+
+<span class="c1"># 4. WebSocket (через wscat або websocat)</span>
+websocat<span class="w"> </span>wss://gateway.daarion.city/ws/city/rooms/general
+</code></pre></div>
+
+<p><strong>Expected Results:</strong>
+- [ ] Всі health endpoints → 200 OK
+- [ ] City Rooms API → 5 default rooms
+- [ ] WebSocket → connection established</p>
+<hr />
+<h3 id="9-monitoring-1">Фаза 9: MONITORING (На НОДА1)<a class="headerlink" href="#9-monitoring-1" title="Permanent link">&para;</a></h3>
+<p><strong>Мета:</strong> Переконатися що система стабільна</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Перевірити логи (перші 5 хвилин)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span>agents-service<span class="w"> </span>city-service
+
+<span class="c1"># 2. Перевірити ресурси</span>
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream
+
+<span class="c1"># 3. Перевірити Prometheus metrics (якщо доступний)</span>
+curl<span class="w"> </span>http://localhost:9090/api/v1/query?query<span class="o">=</span>up<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+
+<span class="c1"># 4. Grafana (якщо налаштований)</span>
+<span class="c1"># Відкрити http://localhost:3000 і перевірити дашборди</span>
+</code></pre></div>
+
+<p><strong>Checklist:</strong>
+- [ ] Немає error логів (перші 5 хвилин)
+- [ ] CPU/RAM в нормі
+- [ ] Prometheus бачить нові таргети
+- [ ] Grafana показує метрики</p>
+<hr />
+<h2 id="rollback-plan">🚨 Rollback Plan<a class="headerlink" href="#rollback-plan" title="Permanent link">&para;</a></h2>
+<h3 id="6-service-startup-failed">Якщо Фаза 6 (Service Startup) failed:<a class="headerlink" href="#6-service-startup-failed" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Зупинити нові сервіси</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>stop<span class="w"> </span>agents-service<span class="w"> </span>city-service<span class="w"> </span>secondme-service<span class="w"> </span>microdao-service
+
+<span class="c1"># 2. Видалити контейнери</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>agents-service<span class="w"> </span>city-service<span class="w"> </span>secondme-service<span class="w"> </span>microdao-service
+
+<span class="c1"># 3. Відкатити БД</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion_memory<span class="w"> </span>&lt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/root/backups/daarion_memory_YYYYMMDD_HHMMSS.sql
+
+<span class="c1"># 4. Система повернулась до початкового стану</span>
+</code></pre></div>
+
+<h3 id="7-nginx-update-failed">Якщо Фаза 7 (Nginx Update) failed:<a class="headerlink" href="#7-nginx-update-failed" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Відновити Nginx config</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/nginx/sites-available/daarion.backup.YYYYMMDD_HHMMSS<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/etc/nginx/sites-available/daarion
+
+<span class="c1"># Reload</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>nginx
+</code></pre></div>
+
+<hr />
+<h2 id="final-checklist">📋 Final Checklist<a class="headerlink" href="#final-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="pre-deployment">Pre-Deployment:<a class="headerlink" href="#pre-deployment" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Git push з НОДА2 виконано</li>
+<li>[ ] Backup БД на НОДА1 створено (і перевірено!)</li>
+<li>[ ] .env файл оновлено</li>
+<li>[ ] Nginx backup створено</li>
+</ul>
+<h3 id="deployment">Deployment:<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Git pull на НОДА1 успішний</li>
+<li>[ ] Міграції 007-010 застосовані</li>
+<li>[ ] Нові сервіси зібрані</li>
+<li>[ ] Нові сервіси запущені</li>
+<li>[ ] Nginx config оновлено</li>
+<li>[ ] Nginx reload успішний</li>
+</ul>
+<h3 id="post-deployment">Post-Deployment:<a class="headerlink" href="#post-deployment" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Health checks: 4/4 ✅</li>
+<li>[ ] City Rooms API працює</li>
+<li>[ ] WebSocket підключення працює</li>
+<li>[ ] Логи без критичних помилок</li>
+<li>[ ] Існуючі DAGI сервіси працюють стабільно</li>
+<li>[ ] Monitoring налаштовано</li>
+</ul>
+<hr />
+<h2 id="success-criteria">🎯 Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
+<p><strong>MVP вважається успішно задеплоєним якщо:</strong></p>
+<ol>
+<li>✅ Всі 4 нові сервіси запущені і healthy</li>
+<li>✅ API endpoints доступні через <code>https://gateway.daarion.city/api/*</code></li>
+<li>✅ WebSocket працює через <code>wss://gateway.daarion.city/ws/city/*</code></li>
+<li>✅ City Rooms API повертає 5 default rooms</li>
+<li>✅ Існуючі DAGI сервіси НЕ постраждали</li>
+<li>✅ Prometheus/Grafana бачать нові сервіси</li>
+<li>✅ Немає критичних помилок в логах (перші 30 хвилин)</li>
+</ol>
+<hr />
+<h2 id="next-steps-deployment">🔮 Next Steps (Після успішного deployment)<a class="headerlink" href="#next-steps-deployment" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Frontend Integration</strong> — Оновити Frontend (port 8899) для роботи з новими API</li>
+<li><strong>Multimodal Integration</strong> — Коли документи готові, інтегрувати STT/OCR/Web Search</li>
+<li><strong>Load Testing</strong> — Перевірити навантаження на нові сервіси</li>
+<li><strong>Documentation Update</strong> — Оновити INFRASTRUCTURE.md з новими сервісами</li>
+<li><strong>Monitoring Dashboards</strong> — Створити Grafana дашборди для Phase 1-3</li>
+</ol>
+<hr />
+<h2 id="emergency-contacts">📞 Emergency Contacts<a class="headerlink" href="#emergency-contacts" title="Permanent link">&para;</a></h2>
+<p><strong>Якщо щось йде не так:</strong>
+- Backup БД: <code>/root/backups/daarion_memory_*.sql</code>
+- Rollback command: <code>docker compose -f docker-compose.all.yml stop ...</code>
+- Nginx restore: <code>sudo cp /etc/nginx/sites-available/daarion.backup.* ...</code></p>
+<hr />
+<p><strong>Документ створено:</strong> Cursor AI Assistant<br />
+<strong>Для проєкту:</strong> MicroDAO DAARION<br />
+<strong>Останнє оновлення:</strong> 2025-11-25</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

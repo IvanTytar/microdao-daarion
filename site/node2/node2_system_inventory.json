@@ -1,0 +1,199 @@
+{
+  "hardware": {
+    "cpu": {
+      "model": "arm",
+      "cores": 16,
+      "threads": 16
+    },
+    "memory_gb": 64.0,
+    "gpu": {
+      "type": "Apple Silicon",
+      "vram_gb": 0,
+      "driver_version": "unknown"
+    },
+    "disk": {
+      "free_gb": 1552.86,
+      "total_gb": 1858.19,
+      "used_gb": 305.33
+    }
+  },
+  "llm_servers": [
+    {
+      "name": "ollama",
+      "version": "unknown",
+      "path": "/opt/homebrew/bin/ollama",
+      "status": "running",
+      "port": 11434
+    }
+  ],
+  "vector_dbs": [],
+  "graph_dbs": [],
+  "rag_components": {
+    "embedding_models": [],
+    "pipelines": [],
+    "indexes": []
+  },
+  "agents": [
+    {
+      "name": "router-config.yml",
+      "path": "/Users/apple/github-projects/microdao-daarion/router-config.yml",
+      "language": "yaml",
+      "status": "active",
+      "config_file": "/Users/apple/github-projects/microdao-daarion/router-config.yml"
+    }
+  ],
+  "docker_containers": [
+    {
+      "name": "dagi-postgres",
+      "image": "postgres:15-alpine",
+      "ports": [
+        "0.0.0.0:5432->5432/tcp",
+        "[::]:5432->5432/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-11-21 00:40:23 -0800 PST"
+    },
+    {
+      "name": "dagi-gateway",
+      "image": "microdao-daarion-gateway",
+      "ports": [
+        "0.0.0.0:9300->9300/tcp",
+        "[::]:9300->9300/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-11-17 13:20:11 -0800 PST"
+    },
+    {
+      "name": "dagi-router",
+      "image": "microdao-daarion-router",
+      "ports": [
+        "0.0.0.0:9102->9102/tcp",
+        "[::]:9102->9102/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-11-17 13:20:11 -0800 PST"
+    },
+    {
+      "name": "dagi-crewai",
+      "image": "microdao-daarion-crewai",
+      "ports": [
+        "0.0.0.0:9010->9010/tcp",
+        "[::]:9010->9010/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-11-17 13:20:10 -0800 PST"
+    },
+    {
+      "name": "dagi-devtools",
+      "image": "microdao-daarion-devtools",
+      "ports": [
+        "0.0.0.0:8008->8008/tcp",
+        "[::]:8008->8008/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-11-17 13:20:10 -0800 PST"
+    },
+    {
+      "name": "dagi-rbac",
+      "image": "microdao-daarion-rbac",
+      "ports": [
+        "0.0.0.0:9200->9200/tcp",
+        "[::]:9200->9200/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-11-17 13:20:10 -0800 PST"
+    },
+    {
+      "name": "ollama-ai",
+      "image": "ollama/ollama:latest",
+      "ports": [
+        "0.0.0.0:11435->11434/tcp"
+      ],
+      "status": "Exited (255) 3 hours ago",
+      "created": "2025-11-17 06:03:31 -0800 PST"
+    },
+    {
+      "name": "nats-jetstream",
+      "image": "nats:latest",
+      "ports": [
+        "0.0.0.0:4222->4222/tcp",
+        "0.0.0.0:6222->6222/tcp",
+        "0.0.0.0:8222->8222/tcp"
+      ],
+      "status": "Exited (255) 3 hours ago",
+      "created": "2025-11-17 03:06:08 -0800 PST"
+    },
+    {
+      "name": "lobe-chat",
+      "image": "lobehub/lobe-chat",
+      "ports": [
+        "0.0.0.0:3210->3210/tcp",
+        "[::]:3210->3210/tcp"
+      ],
+      "status": "Up 3 hours",
+      "created": "2025-10-14 02:47:06 -0700 PDT"
+    },
+    {
+      "name": "jupyter-lab",
+      "image": "jupyter/datascience-notebook:latest",
+      "ports": [
+        "0.0.0.0:8888->8888/tcp",
+        "[::]:8888->8888/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-10-13 09:43:35 -0700 PDT"
+    },
+    {
+      "name": "qdrant-vector-db",
+      "image": "qdrant/qdrant:latest",
+      "ports": [
+        "0.0.0.0:6333-6335->6333-6335/tcp",
+        "[::]:6333-6335->6333-6335/tcp"
+      ],
+      "status": "Up 3 hours (unhealthy)",
+      "created": "2025-10-13 09:43:35 -0700 PDT"
+    },
+    {
+      "name": "meilisearch-search",
+      "image": "getmeili/meilisearch:v1.11",
+      "ports": [
+        "0.0.0.0:7700->7700/tcp",
+        "[::]:7700->7700/tcp"
+      ],
+      "status": "Up 3 hours (healthy)",
+      "created": "2025-10-13 09:43:35 -0700 PDT"
+    }
+  ],
+  "brew_services": [
+    {
+      "name": "ollama",
+      "status": "started",
+      "path": "unknown"
+    },
+    {
+      "name": "unbound",
+      "status": "none",
+      "path": "unknown"
+    }
+  ],
+  "model_files": [],
+  "repositories": [
+    {
+      "name": "daarion-ai-city",
+      "path": "/Users/apple/github-projects/daarion-ai-city",
+      "remote_url": "https://github.com/DAARION-DAO/daarion-ai-city.git",
+      "branch": "pr-2"
+    },
+    {
+      "name": "microdao-daarion",
+      "path": "/Users/apple/github-projects/microdao-daarion",
+      "remote_url": "https://github.com/IvanTytar/microdao-daarion.git",
+      "branch": "main"
+    }
+  ],
+  "duplicates": [],
+  "conflicts": [],
+  "recommended_cleanup": [],
+  "scan_timestamp": "2025-11-21T04:04:14.915284",
+  "scan_version": "1.0.0"
+}

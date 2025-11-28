@@ -1,0 +1,1437 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/48_teams_access_control_and_confidential_mode/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>48 — Teams Access Control & Confidential Mode (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#48-teams-access-control-confidential-mode-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              48 — Teams Access Control & Confidential Mode (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-team-microdao-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Team (microDAO) Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-team-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Team Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-role-capability-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Role Capability Mapping
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Role Capability Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#owner" class="md-nav__link">
+    <span class="md-ellipsis">
+      Owner
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guardian" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guardian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member" class="md-nav__link">
+    <span class="md-ellipsis">
+      Member
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-team-level-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Team-Level ACL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Team-Level ACL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wallet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embassy-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embassy Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-team-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Team States
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-confidential-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Confidential Mode
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Confidential Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Увімкнення:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Поведінка:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Поведінка:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-llm-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 LLM Proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-messaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Messaging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-projectstasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Projects/Tasks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-walletrwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Wallet/RWA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-team-privacy-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Team Privacy Layers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-team-settings-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Team Settings Schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pdp-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. PDP Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-governance-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Governance Controls
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-membership-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Membership Lifecycle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Membership Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Team:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invite-member" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invite Member:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promote" class="md-nav__link">
+    <span class="md-ellipsis">
+      Promote:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demote" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demote:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-agent-integration-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Agent Integration Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1 — Створення приватного каналу
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2 — Канал для автономного агента
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-confidential-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3 — Канал у confidential mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="48-teams-access-control-confidential-mode-microdao">48 — Teams Access Control &amp; Confidential Mode (MicroDAO)<a class="headerlink" href="#48-teams-access-control-confidential-mode-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Командні доступи, ролі, членство, ACL, confidential mode, індексація, інструменти, агенти, governance-політики. Канонічна специфікація microDAO команд.</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ визначає:</p>
+<ul>
+<li>структуру команд (microDAO),</li>
+<li>ролі та дозволи,</li>
+<li>ACL для ресурсів,</li>
+<li>поведінку Confidential Mode,</li>
+<li>вплив на агентів, інструменти, чат, LLM Proxy, Router, Wallet, Embassy, Projects/Tasks,</li>
+<li>правила Governance.</li>
+</ul>
+<p>Це центральний рівень контролю безпеки й приватності у DAARION.city.</p>
+<hr />
+<h2 id="2-team-microdao-model">2. Team (microDAO) Model<a class="headerlink" href="#2-team-microdao-model" title="Permanent link">&para;</a></h2>
+<p>Команда = організаційний домен, який має:</p>
+<ul>
+<li>учасників (members),</li>
+<li>ролі,</li>
+<li>командні налаштування,</li>
+<li>власну економіку (1T / KWT / RINGK стейк),</li>
+<li>власний набір агентів,</li>
+<li>власні канали,</li>
+<li>власні ACL.</li>
+</ul>
+<hr />
+<h2 id="3-team-roles">3. Team Roles<a class="headerlink" href="#3-team-roles" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Capabilities</th>
+<th>Опис</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Owner</strong></td>
+<td>повний контроль, зміна налаштувань, звільнення Guardian</td>
+<td>creator of team</td>
+</tr>
+<tr>
+<td><strong>Guardian</strong></td>
+<td>майже все, крім знищення команди</td>
+<td>security + oversight</td>
+</tr>
+<tr>
+<td><strong>Admin</strong></td>
+<td>керування каналами/агентами/ресурсами</td>
+<td>operational</td>
+</tr>
+<tr>
+<td><strong>Member</strong></td>
+<td>доступ до основних інструментів</td>
+<td>worker</td>
+</tr>
+<tr>
+<td><strong>Guest</strong></td>
+<td>читання + обмежені інструменти</td>
+<td>limited</td>
+</tr>
+<tr>
+<td><strong>Agent</strong></td>
+<td>системний агент команди</td>
+<td>restricted</td>
+</tr>
+</tbody>
+</table>
+<p>Команда може мати:</p>
+<ul>
+<li>1 owner</li>
+<li>0–N guardians</li>
+<li>0–N admins</li>
+<li>0–N members</li>
+<li>0–N guests</li>
+<li>0–N private agents</li>
+</ul>
+<hr />
+<h2 id="4-role-capability-mapping">4. Role Capability Mapping<a class="headerlink" href="#4-role-capability-mapping" title="Permanent link">&para;</a></h2>
+<h3 id="owner">Owner<a class="headerlink" href="#owner" title="Permanent link">&para;</a></h3>
+<ul>
+<li>повний доступ</li>
+<li>оновлювати план</li>
+<li>додавати/видаляти членів</li>
+<li>змінювати confidential mode</li>
+<li>випускати токени команди (якщо дозволено governance)</li>
+</ul>
+<h3 id="guardian">Guardian<a class="headerlink" href="#guardian" title="Permanent link">&para;</a></h3>
+<ul>
+<li>контролює security sensitive</li>
+<li>додавання агентів</li>
+<li>доступ до private channels</li>
+<li>керування ACL</li>
+<li>активація E2EE</li>
+</ul>
+<h3 id="admin">Admin<a class="headerlink" href="#admin" title="Permanent link">&para;</a></h3>
+<ul>
+<li>створення каналів</li>
+<li>створення проектів</li>
+<li>керування задачами</li>
+<li>запуск agent flows</li>
+</ul>
+<h3 id="member">Member<a class="headerlink" href="#member" title="Permanent link">&para;</a></h3>
+<ul>
+<li>участь у каналах</li>
+<li>запуск агентів (якщо дозволено)</li>
+<li>створення задач у публічних проєктах</li>
+</ul>
+<h3 id="guest">Guest<a class="headerlink" href="#guest" title="Permanent link">&para;</a></h3>
+<ul>
+<li>читання</li>
+<li>обмежені інструменти</li>
+<li>немає доступу до agent visibility</li>
+</ul>
+<h3 id="agent">Agent<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>діє через PDP</li>
+<li>може діяти лише у дозволених каналах/проєктах</li>
+<li>не має власних ролей</li>
+</ul>
+<hr />
+<h2 id="5-team-level-acl">5. Team-Level ACL<a class="headerlink" href="#5-team-level-acl" title="Permanent link">&para;</a></h2>
+<p>У команді існує ACL для кожного типу ресурсу:</p>
+<div class="codehilite"><pre><span></span><code>RESOURCE → [allowed_roles]
+</code></pre></div>
+
+<p>Приклад:</p>
+<h3 id="projects">Projects<a class="headerlink" href="#projects" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>create: [owner, guardian, admin]
+read: [owner, guardian, admin, member]
+update: [owner, guardian, admin]
+delete: [owner, guardian]
+</code></pre></div>
+
+<h3 id="channels">Channels<a class="headerlink" href="#channels" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>create: [owner, guardian, admin]
+read/write: залежить від channel.acl
+</code></pre></div>
+
+<h3 id="agents">Agents<a class="headerlink" href="#agents" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>create: [owner, guardian]
+update: [owner, guardian]
+run: [owner, guardian, member] (опційно)
+</code></pre></div>
+
+<h3 id="wallet">Wallet<a class="headerlink" href="#wallet" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>view: [owner, guardian]
+tx: [owner]
+claim: [owner, guardian]
+</code></pre></div>
+
+<h3 id="embassy-data">Embassy Data<a class="headerlink" href="#embassy-data" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>read: [owner, guardian]
+write: none (тільки embassy service)
+</code></pre></div>
+
+<hr />
+<h2 id="6-team-states">6. Team States<a class="headerlink" href="#6-team-states" title="Permanent link">&para;</a></h2>
+<p>Команда може перебувати в станах:</p>
+<ul>
+<li><strong>active</strong> — нормальна робота</li>
+<li><strong>locked</strong> — тимчасове блокування (борги, порушення)</li>
+<li><strong>confidential</strong> — підвищена приватність</li>
+<li><strong>suspended</strong> — потребує KYC / security audit</li>
+<li><strong>archived</strong> — команда закрита</li>
+</ul>
+<hr />
+<h2 id="7-confidential-mode">7. Confidential Mode<a class="headerlink" href="#7-confidential-mode" title="Permanent link">&para;</a></h2>
+<p>Confidential Mode — це <strong>режим максимального захисту</strong> для команд.</p>
+<h3 id="_1">Увімкнення:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>лише Owner або Guardian</p>
+<h3 id="_2">Поведінка:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="71-llm-proxy">7.1 LLM Proxy<a class="headerlink" href="#71-llm-proxy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>не бачить plaintext повідомлень</li>
+<li>використовує summary-only режим</li>
+<li>vision вимкнено</li>
+<li>embedding робиться з redacted тексту</li>
+</ul>
+<h4 id="72-agents">7.2 Agents<a class="headerlink" href="#72-agents" title="Permanent link">&para;</a></h4>
+<ul>
+<li>не отримують plaintext</li>
+<li>не можуть використовувати tools категорії C/D</li>
+<li>не можуть використовувати platform tools</li>
+<li>autonomy знижується на 1 рівень</li>
+<li>не можуть запускати subagents</li>
+</ul>
+<h4 id="73-messaging">7.3 Messaging<a class="headerlink" href="#73-messaging" title="Permanent link">&para;</a></h4>
+<ul>
+<li>повідомлення не зберігаються у plaintext</li>
+<li>DM канал між Owner та Guardian → E2EE only</li>
+<li>file attachments encrypt-only</li>
+<li>retention: 0–30 днів</li>
+</ul>
+<h4 id="74-projectstasks">7.4 Projects/Tasks<a class="headerlink" href="#74-projectstasks" title="Permanent link">&para;</a></h4>
+<ul>
+<li>task description → summary-only</li>
+<li>файли завжди E2EE</li>
+<li>agent-run logs → redacted</li>
+</ul>
+<h4 id="75-walletrwa">7.5 Wallet/RWA<a class="headerlink" href="#75-walletrwa" title="Permanent link">&para;</a></h4>
+<ul>
+<li>доступ обмежений Owner/Guardian</li>
+<li>payouts проходять без content-level history</li>
+<li>RWA дані теж redacted</li>
+</ul>
+<hr />
+<h2 id="8-team-privacy-layers">8. Team Privacy Layers<a class="headerlink" href="#8-team-privacy-layers" title="Permanent link">&para;</a></h2>
+<p>Рівні приватності:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>звичайний режим</td>
+</tr>
+<tr>
+<td>restricted</td>
+<td>менш видимі канали</td>
+</tr>
+<tr>
+<td>private</td>
+<td>DM-like behavior</td>
+</tr>
+<tr>
+<td>confidential</td>
+<td>максимальний захист, summary-only</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-team-settings-schema">9. Team Settings Schema<a class="headerlink" href="#9-team-settings-schema" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_444&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GreenFood Hub&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;plan&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Premium&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;confidential&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;agents_enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;allow_subagents&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;allow_router_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;file_storage_limit_mb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;agent_default_autonomy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;low&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;acl_overrides&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;wallet.view&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="s2">&quot;guardian&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;wallet.tx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;owner&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;projects.create&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="s2">&quot;guardian&quot;</span><span class="p">,</span><span class="s2">&quot;admin&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="10-pdp-integration">10. PDP Integration<a class="headerlink" href="#10-pdp-integration" title="Permanent link">&para;</a></h2>
+<p>PDP оцінює дію:</p>
+<ul>
+<li>роль користувача</li>
+<li>ACL ресурсу</li>
+<li>командний стан</li>
+<li>confidential mode</li>
+<li>usage</li>
+<li>план команди</li>
+<li>stake RINGK</li>
+</ul>
+<p>Висновок:</p>
+<div class="codehilite"><pre><span></span><code>allow | deny | require-confirmation
+</code></pre></div>
+
+<hr />
+<h2 id="11-governance-controls">11. Governance Controls<a class="headerlink" href="#11-governance-controls" title="Permanent link">&para;</a></h2>
+<p>Governance може:</p>
+<ul>
+<li>змінювати allowed roles</li>
+<li>визначати максимальну автономію агентів</li>
+<li>вмикати/вимикати confidential mode для певного плану</li>
+<li>вводити policy templates для ACL</li>
+<li>встановлювати KYC-вимоги</li>
+<li>заморожувати команди, що порушили правила</li>
+</ul>
+<hr />
+<h2 id="12-membership-lifecycle">12. Membership Lifecycle<a class="headerlink" href="#12-membership-lifecycle" title="Permanent link">&para;</a></h2>
+<h3 id="create-team">Create Team:<a class="headerlink" href="#create-team" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Owner створює</li>
+<li>Дається початковий ACL</li>
+</ul>
+<h3 id="invite-member">Invite Member:<a class="headerlink" href="#invite-member" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Owner/Admin може запросити → role=member</li>
+</ul>
+<h3 id="promote">Promote:<a class="headerlink" href="#promote" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Member → Admin → Guardian</li>
+</ul>
+<h3 id="demote">Demote:<a class="headerlink" href="#demote" title="Permanent link">&para;</a></h3>
+<ul>
+<li>лише Owner може демотити Guardian</li>
+</ul>
+<h3 id="remove">Remove:<a class="headerlink" href="#remove" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Owner або Guardian (якщо не Owner)</li>
+</ul>
+<hr />
+<h2 id="13-agent-integration-rules">13. Agent Integration Rules<a class="headerlink" href="#13-agent-integration-rules" title="Permanent link">&para;</a></h2>
+<p>Агенти:</p>
+<ul>
+<li>самі не мають ролей</li>
+<li>використовують access keys</li>
+<li>діють тільки через PDP</li>
+<li>бачать тільки те, що канал/проект дозволяє</li>
+<li>у confidential mode → summary-only</li>
+<li>не можуть змінювати ACL</li>
+<li>не можуть виконувати wallet.tx</li>
+</ul>
+<hr />
+<h2 id="14-examples">14. Examples<a class="headerlink" href="#14-examples" title="Permanent link">&para;</a></h2>
+<h3 id="example-1">Example 1 — Створення приватного каналу<a class="headerlink" href="#example-1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>roles: [owner, guardian]
+confidential: false
+</code></pre></div>
+
+<h3 id="example-2">Example 2 — Канал для автономного агента<a class="headerlink" href="#example-2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>roles: [owner, guardian, member]
+agents_allowed: [ag_777]
+confidential: false
+</code></pre></div>
+
+<h3 id="example-3-confidential-mode">Example 3 — Канал у confidential mode<a class="headerlink" href="#example-3-confidential-mode" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>type: confidential
+agents_allowed: []
+raw disabled
+summary-only
+</code></pre></div>
+
+<hr />
+<h2 id="15-integration-with-other-docs">15. Integration with Other Docs<a class="headerlink" href="#15-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>47_messaging_channels_and_privacy_layers.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>36_agent_runtime_isolation_and_sandboxing.md</code></li>
+<li><code>45_llm_proxy_and_multimodel_routing.md</code></li>
+<li><code>46_router_orchestrator_design.md</code></li>
+<li><code>40_rwa_energy_food_water_flow_specs.md</code></li>
+</ul>
+<hr />
+<h2 id="16-cursor">16. Завдання для Cursor<a class="headerlink" href="#16-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Teams Access Control &amp; Confidential Mode using:
+- 48_teams_access_control_and_confidential_mode.md
+- 32_policy_service_PDP_design.md
+- 47_messaging_channels_and_privacy_layers.md
+
+Tasks:
+1) Define Team Roles (Owner, Guardian, Admin, Member, Guest, Agent) with capabilities.
+2) Implement Role Capability Mapping (per role permissions).
+3) Create Team-Level ACL (Projects, Channels, Agents, Wallet, Embassy Data).
+4) Implement Team States (active, locked, confidential, suspended, archived).
+5) Add Confidential Mode (LLM Proxy behavior, Agents restrictions, Messaging rules, Projects/Tasks rules, Wallet/RWA rules).
+6) Implement Team Privacy Layers (open, restricted, private, confidential).
+7) Create Team Settings Schema (JSON config with settings and ACL overrides).
+8) Integrate with PDP (role, ACL, team state, confidential mode, usage, plan, stake evaluation).
+9) Add Governance Controls (allowed roles, agent autonomy, confidential mode activation, ACL templates, KYC requirements, team freezing).
+10) Implement Membership Lifecycle (Create Team, Invite Member, Promote, Demote, Remove).
+11) Add Agent Integration Rules (no roles, access keys, PDP-only, channel/project permissions, confidential mode restrictions, no ACL changes, no wallet.tx).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="17-summary">17. Summary<a class="headerlink" href="#17-summary" title="Permanent link">&para;</a></h2>
+<p>Система команд (microDAO):</p>
+<ul>
+<li>має строгі ролі та ACL</li>
+<li>повністю інтегрована з PDP</li>
+<li>визначає дозволи для projects/tasks/wallet/agents</li>
+<li>підтримує confidential mode (summary-only, no plaintext, no vision)</li>
+<li>гарантує приватність даних</li>
+<li>дозволяє побудову складних робочих просторів</li>
+<li>є фундаментом безпеки та організації в DAARION OS</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

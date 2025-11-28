@@ -1,0 +1,1538 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/37_agent_tools_and_plugins_specification/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>37 — Agent Tools & Plugins Specification (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#37-agent-tools-plugins-specification-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              37 — Agent Tools & Plugins Specification (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-architectural-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Architectural Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tool-security-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tool Security Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tool Security Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-category-a-safe-tools-default-enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Category A — Safe Tools (default-enabled)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-category-b-controlled-tools-internal-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Category B — Controlled Tools (internal-only)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-category-c-sensitive-tools-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Category C — Sensitive Tools (restricted)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-category-d-critical-tools-governance-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Category D — Critical Tools (governance-only)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tool-capability-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Tool Capability Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tool-execution-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tool Execution Contract
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tool Execution Contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-request-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Request Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-response-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Response Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tool-proxy-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Tool Proxy Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Tool Proxy Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-all-calls-go-through-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 All Calls Go Through Proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-pdp-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 PDP Check
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-usage-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Usage Accounting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-timeouts-limits-per-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Timeouts &amp; Limits per Category
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-plugins-api-extensible-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Plugins API (Extensible Tools)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Plugins API (Extensible Tools)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-plugin-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Plugin Manifest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Plugin Manifest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allowed-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowed fields:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-plugin-execution-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Plugin Execution Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Plugin Execution Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugin-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin Runtime:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-plugin-security-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Plugin Security Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-built-in-tools-full-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Built-in Tools (Full List)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Built-in Tools (Full List)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-core-tools-category-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Core Tools (Category A)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-internal-tools-category-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Internal Tools (Category B)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-advanced-tools-category-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Advanced Tools (Category C)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-platform-tools-category-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 Platform Tools (Category D)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-platform-tool-contracts-energyunion-greenfood" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Platform Tool Contracts (EnergyUnion, GREENFOOD)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Platform Tool Contracts (EnergyUnion, GREENFOOD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-greenfood-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 GREENFOOD Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-energyunion-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 EnergyUnion Tool
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-confidential-mode-tool-restrictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Confidential Mode — Tool Restrictions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-error-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Error Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-auditing-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Auditing &amp; Logging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-governance-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Governance Hooks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="37-agent-tools-plugins-specification-microdao">37 — Agent Tools &amp; Plugins Specification (MicroDAO)<a class="headerlink" href="#37-agent-tools-plugins-specification-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Докладна специфікація інструментів агентів, категорій безпеки, API-викликів, plugins lifecycle, capability-кодів, sandbox-контрактів та інтеграції через DAARION Tool Fabric</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Документ визначає:</p>
+<ul>
+<li>повний список підтримуваних інструментів (tools),</li>
+<li>категорії інструментів за рівнями безпеки,</li>
+<li>правила використання,</li>
+<li>Plugins API (розширюваність),</li>
+<li>інтерфейс між агентом та Tool Proxy,</li>
+<li>capability-коди,</li>
+<li>сповіщення / події,</li>
+<li>обмеження (timeouts, rate limits, isolation),</li>
+<li>як підключаються інструменти DAARION Platforms (EnergyUnion, GREENFOOD, Water Union),</li>
+<li>як працюють інструменти в confidential mode.</li>
+</ul>
+<hr />
+<h2 id="2-architectural-overview">2. Architectural Overview<a class="headerlink" href="#2-architectural-overview" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Agent → Sandbox Runtime → Tool Proxy → Internal Services → DB/NATS
+</code></pre></div>
+
+<p>Ключові компоненти:</p>
+<ul>
+<li><strong>Tool Proxy</strong> — єдина точка доступу агентів до інструментів.</li>
+<li><strong>PDP</strong> — перевіряє <code>tool.&lt;name&gt;.invoke</code>.</li>
+<li><strong>Sandbox</strong> — обмежує ресурси.</li>
+<li><strong>Plugins API</strong> — дозволяє додавати нові інструменти без ризиків.</li>
+</ul>
+<hr />
+<h2 id="3-tool-security-categories">3. Tool Security Categories<a class="headerlink" href="#3-tool-security-categories" title="Permanent link">&para;</a></h2>
+<p>Інструменти діляться на 4 категорії:</p>
+<h3 id="31-category-a-safe-tools-default-enabled">3.1 Category A — Safe Tools (default-enabled)<a class="headerlink" href="#31-category-a-safe-tools-default-enabled" title="Permanent link">&para;</a></h3>
+<p>Не мають доступу до зовнішньої мережі, не можуть виконувати код.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Capability</th>
+<th>Опис</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>math</td>
+<td>tool.math.invoke</td>
+<td>базові обчислення</td>
+</tr>
+<tr>
+<td>text</td>
+<td>tool.text.invoke</td>
+<td>форматування тексту</td>
+</tr>
+<tr>
+<td>memory</td>
+<td>tool.memory.invoke</td>
+<td>створення коротких summary</td>
+</tr>
+<tr>
+<td>embeddings</td>
+<td>tool.embeddings.invoke</td>
+<td>генерація embedding'ів</td>
+</tr>
+<tr>
+<td>calendar</td>
+<td>tool.calendar.invoke</td>
+<td>маніпуляції з датами/таймзонами</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-category-b-controlled-tools-internal-only">3.2 Category B — Controlled Tools (internal-only)<a class="headerlink" href="#32-category-b-controlled-tools-internal-only" title="Permanent link">&para;</a></h3>
+<p>Працюють тільки через internal APIs.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Capability</th>
+<th>Доступ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>search-lite</td>
+<td>tool.search.invoke</td>
+<td>внутрішній пошук</td>
+</tr>
+<tr>
+<td>browser-lite</td>
+<td>tool.browser_lite.invoke</td>
+<td>обмежений перегляд HTML (без JS)</td>
+</tr>
+<tr>
+<td>file</td>
+<td>tool.file.invoke</td>
+<td>читання з internal storage</td>
+</tr>
+<tr>
+<td>project</td>
+<td>tool.project.invoke</td>
+<td>створення/оновлення проектів</td>
+</tr>
+<tr>
+<td>task</td>
+<td>tool.task.invoke</td>
+<td>створення/оновлення задач</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-category-c-sensitive-tools-restricted">3.3 Category C — Sensitive Tools (restricted)<a class="headerlink" href="#33-category-c-sensitive-tools-restricted" title="Permanent link">&para;</a></h3>
+<p>Вимагають додаткових capability.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Capability</th>
+<th>Опис</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>router</td>
+<td>tool.router.invoke</td>
+<td>взаємодія з DAARWIZZ Router</td>
+</tr>
+<tr>
+<td>llm</td>
+<td>tool.llm.invoke</td>
+<td>прямі виклики LLM (через токен-квоти)</td>
+</tr>
+<tr>
+<td>agent</td>
+<td>tool.agent.invoke</td>
+<td>виклик іншого агента</td>
+</tr>
+<tr>
+<td>data.query</td>
+<td>tool.data_query.invoke</td>
+<td>запити до структурованих даних</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34-category-d-critical-tools-governance-only">3.4 Category D — Critical Tools (governance-only)<a class="headerlink" href="#34-category-d-critical-tools-governance-only" title="Permanent link">&para;</a></h3>
+<p>Потребують схвалення Governance.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Capability</th>
+<th>Ризик</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>browser-full</td>
+<td>tool.browser_full.invoke</td>
+<td>доступ до інтернету</td>
+</tr>
+<tr>
+<td>external_api</td>
+<td>tool.external_api.invoke</td>
+<td>сторонні API</td>
+</tr>
+<tr>
+<td>chain</td>
+<td>tool.chain.invoke</td>
+<td>ончейн-транзакції</td>
+</tr>
+<tr>
+<td>platform</td>
+<td>tool.platform.invoke</td>
+<td>доступ до платформ DAARION (energy/food/water)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-tool-capability-model">4. Tool Capability Model<a class="headerlink" href="#4-tool-capability-model" title="Permanent link">&para;</a></h2>
+<p>Кожен інструмент має capability:</p>
+<div class="codehilite"><pre><span></span><code>tool.&lt;name&gt;.invoke
+</code></pre></div>
+
+<p>При запуску:</p>
+<div class="codehilite"><pre><span></span><code>Agent Runtime → Tool Proxy → PDP(authorize)
+</code></pre></div>
+
+<p>Якщо capability відсутній → deny.</p>
+<hr />
+<h2 id="5-tool-execution-contract">5. Tool Execution Contract<a class="headerlink" href="#5-tool-execution-contract" title="Permanent link">&para;</a></h2>
+<h3 id="51-request-format">5.1 Request Format<a class="headerlink" href="#51-request-format" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;browser_lite&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200000</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;agent_run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ar_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_555&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="52-response-format">5.2 Response Format<a class="headerlink" href="#52-response-format" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;... sanitized result ...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tokens_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;cost_1t&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00002</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="6-tool-proxy-rules">6. Tool Proxy Rules<a class="headerlink" href="#6-tool-proxy-rules" title="Permanent link">&para;</a></h2>
+<h3 id="61-all-calls-go-through-proxy">6.1 All Calls Go Through Proxy<a class="headerlink" href="#61-all-calls-go-through-proxy" title="Permanent link">&para;</a></h3>
+<p>Агент не має прямого доступу до:</p>
+<ul>
+<li>внутрішніх сервісів,</li>
+<li>БД,</li>
+<li>зовнішнього інтернету.</li>
+</ul>
+<h3 id="62-pdp-check">6.2 PDP Check<a class="headerlink" href="#62-pdp-check" title="Permanent link">&para;</a></h3>
+<p>Перед кожним викликом:</p>
+<div class="codehilite"><pre><span></span><code>PDP(action=tool.&lt;name&gt;.invoke)
+</code></pre></div>
+
+<h3 id="63-usage-accounting">6.3 Usage Accounting<a class="headerlink" href="#63-usage-accounting" title="Permanent link">&para;</a></h3>
+<p>Tool Proxy інкрементує usage:</p>
+<ul>
+<li>tokens (LLM),</li>
+<li>compute units,</li>
+<li>tool invocations per day.</li>
+</ul>
+<hr />
+<h2 id="7-timeouts-limits-per-category">7. Timeouts &amp; Limits per Category<a class="headerlink" href="#7-timeouts-limits-per-category" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Timeout</th>
+<th>Rate Limit</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>1–2s</td>
+<td>high</td>
+<td>безпечні</td>
+</tr>
+<tr>
+<td>B</td>
+<td>1–3s</td>
+<td>medium</td>
+<td>тільки internal</td>
+</tr>
+<tr>
+<td>C</td>
+<td>3–5s</td>
+<td>low</td>
+<td>квоти/обмеження</td>
+</tr>
+<tr>
+<td>D</td>
+<td>5–10s</td>
+<td>very low</td>
+<td>governance-only</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-plugins-api-extensible-tools">8. Plugins API (Extensible Tools)<a class="headerlink" href="#8-plugins-api-extensible-tools" title="Permanent link">&para;</a></h2>
+<p>Plugins дозволяють стороннім розробникам або платформам додавати нові інструменти.</p>
+<h3 id="81-plugin-manifest">8.1 Plugin Manifest<a class="headerlink" href="#81-plugin-manifest" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood.order&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plugin.js&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;tool.greenfood.order.invoke&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;internal_api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;greenfood&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="allowed-fields">Allowed fields:<a class="headerlink" href="#allowed-fields" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>name</code></li>
+<li><code>version</code></li>
+<li><code>entry</code></li>
+<li><code>capabilities</code></li>
+<li><code>permissions</code></li>
+</ul>
+<hr />
+<h3 id="82-plugin-execution-flow">8.2 Plugin Execution Flow<a class="headerlink" href="#82-plugin-execution-flow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Agent → Tool Proxy → Plugin Runtime → Internal Service
+</code></pre></div>
+
+<h4 id="plugin-runtime">Plugin Runtime:<a class="headerlink" href="#plugin-runtime" title="Permanent link">&para;</a></h4>
+<ul>
+<li>запускається в окремому mini-sandbox,</li>
+<li>має read-only FS,</li>
+<li>немає network,</li>
+<li>отримує контекст:</li>
+<li>agent_run_id,</li>
+<li>team_id,</li>
+<li>capability list.</li>
+</ul>
+<hr />
+<h3 id="83-plugin-security-model">8.3 Plugin Security Model<a class="headerlink" href="#83-plugin-security-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Plugins НЕ отримують plaintext повідомлень.</li>
+<li>Plugins НЕ бачать user session.</li>
+<li>Plugins НЕ можуть:</li>
+<li>запускати shell,</li>
+<li>читати файл-систему,</li>
+<li>робити сторонні HTTP-запити.</li>
+</ul>
+<hr />
+<h2 id="9-built-in-tools-full-list">9. Built-in Tools (Full List)<a class="headerlink" href="#9-built-in-tools-full-list" title="Permanent link">&para;</a></h2>
+<h3 id="91-core-tools-category-a">9.1 Core Tools (Category A)<a class="headerlink" href="#91-core-tools-category-a" title="Permanent link">&para;</a></h3>
+<ul>
+<li>math</li>
+<li>date</li>
+<li>calendar</li>
+<li>text</li>
+<li>memory</li>
+<li>embeddings</li>
+<li>table</li>
+<li>format</li>
+</ul>
+<h3 id="92-internal-tools-category-b">9.2 Internal Tools (Category B)<a class="headerlink" href="#92-internal-tools-category-b" title="Permanent link">&para;</a></h3>
+<ul>
+<li>project</li>
+<li>task</li>
+<li>file.storage</li>
+<li>search-lite</li>
+<li>browser-lite</li>
+</ul>
+<h3 id="93-advanced-tools-category-c">9.3 Advanced Tools (Category C)<a class="headerlink" href="#93-advanced-tools-category-c" title="Permanent link">&para;</a></h3>
+<ul>
+<li>llm</li>
+<li>router</li>
+<li>agent</li>
+<li>data.query</li>
+</ul>
+<h3 id="94-platform-tools-category-d">9.4 Platform Tools (Category D)<a class="headerlink" href="#94-platform-tools-category-d" title="Permanent link">&para;</a></h3>
+<ul>
+<li>platform.energy</li>
+<li>platform.food</li>
+<li>platform.water</li>
+<li>chain (controlled by Wallet)</li>
+<li>external_api (disabled by default)</li>
+</ul>
+<hr />
+<h2 id="10-platform-tool-contracts-energyunion-greenfood">10. Platform Tool Contracts (EnergyUnion, GREENFOOD)<a class="headerlink" href="#10-platform-tool-contracts-energyunion-greenfood" title="Permanent link">&para;</a></h2>
+<h3 id="101-greenfood-tool">10.1 GREENFOOD Tool<a class="headerlink" href="#101-greenfood-tool" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>tool.greenfood.order.invoke
+</code></pre></div>
+
+<p>Allow:</p>
+<ul>
+<li>створення замовлення,</li>
+<li>перегляд інвентарю продуктів.</li>
+</ul>
+<p>Deny:</p>
+<ul>
+<li>змінювати ціни,</li>
+<li>модифікувати склад.</li>
+</ul>
+<p>Input:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="s2">&quot;greenfood.order&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;product_id&quot;</span><span class="p">:</span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;qty&quot;</span><span class="p">:</span><span class="mi">1</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Output:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;order_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;created&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="102-energyunion-tool">10.2 EnergyUnion Tool<a class="headerlink" href="#102-energyunion-tool" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>tool.energy.meter.read
+</code></pre></div>
+
+<p>Allow:</p>
+<ul>
+<li>читати дані енергетики через Embassy.</li>
+</ul>
+<p>Deny:</p>
+<ul>
+<li>оновлювати RWA дані.</li>
+</ul>
+<p>Output:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;kwh&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">123.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="11-confidential-mode-tool-restrictions">11. Confidential Mode — Tool Restrictions<a class="headerlink" href="#11-confidential-mode-tool-restrictions" title="Permanent link">&para;</a></h2>
+<p>Якщо канал або команда має <code>confidential</code>:</p>
+<ul>
+<li>Tools НЕ отримують plaintext.</li>
+<li>browser-lite додає redaction:</li>
+</ul>
+<p><code>text
+  [confidential section removed]</code></p>
+<ul>
+<li>memory-tool зберігає тільки summary (не raw).</li>
+</ul>
+<hr />
+<h2 id="12-error-model">12. Error Model<a class="headerlink" href="#12-error-model" title="Permanent link">&para;</a></h2>
+<p>Tool Proxy повертає структуровані помилки:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tool_capability_missing</td>
+<td>агент не має прав</td>
+</tr>
+<tr>
+<td>tool_timeout</td>
+<td>перевищено час</td>
+</tr>
+<tr>
+<td>tool_restricted</td>
+<td>заборонене в режимі</td>
+</tr>
+<tr>
+<td>tool_invalid_args</td>
+<td>некоректні аргументи</td>
+</tr>
+<tr>
+<td>tool_sandbox_violation</td>
+<td>порушено правила</td>
+</tr>
+<tr>
+<td>tool_internal_error</td>
+<td>помилка сервісу</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-auditing-logging">13. Auditing &amp; Logging<a class="headerlink" href="#13-auditing-logging" title="Permanent link">&para;</a></h2>
+<ul>
+<li>запис кожного tool invocation:</li>
+<li>tool name,</li>
+<li>agent_run_id,</li>
+<li>tokens used,</li>
+<li>duration,</li>
+<li>
+<p>result (ok/error).</p>
+</li>
+<li>
+<p>plaintext не зберігається.</p>
+</li>
+</ul>
+<hr />
+<h2 id="14-governance-hooks">14. Governance Hooks<a class="headerlink" href="#14-governance-hooks" title="Permanent link">&para;</a></h2>
+<p>Governance може:</p>
+<ul>
+<li>вимикати/вмикати інструменти,</li>
+<li>змінювати rate limits,</li>
+<li>вимагати додатковий stake RINGK для категорії C/D,</li>
+<li>додавати або видаляти платформні інструменти,</li>
+<li>регулювати доступ до GreenFood/EnergyUnion.</li>
+</ul>
+<hr />
+<h2 id="15-integration-with-other-docs">15. Integration with Other Docs<a class="headerlink" href="#15-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>36_agent_runtime_isolation_and_sandboxing.md</code></li>
+<li><code>12_agent_runtime_core.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>31_governance_policies_for_capabilities_and_quotas.md</code></li>
+<li><code>DAARION_city_platforms_catalog.md</code></li>
+</ul>
+<hr />
+<h2 id="16-cursor">16. Завдання для Cursor<a class="headerlink" href="#16-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Agent Tools &amp; Plugins system using:
+- 37_agent_tools_and_plugins_specification.md
+- 36_agent_runtime_isolation_and_sandboxing.md
+- 32_policy_service_PDP_design.md
+
+Tasks:
+1) Create Tool Proxy service.
+2) Implement tool categories (A, B, C, D) with security rules.
+3) Create tool execution contract (request/response format).
+4) Integrate PDP checks for tool invocations.
+5) Implement built-in tools (math, text, memory, embeddings, calendar, project, task, etc.).
+6) Create Plugins API (Plugin Manifest, Plugin Runtime, Plugin Security Model).
+7) Implement platform tool contracts (GREENFOOD, EnergyUnion).
+8) Add confidential mode restrictions for tools.
+9) Implement error model and auditing/logging.
+10) Add governance hooks for tool management.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="17-summary">17. Summary<a class="headerlink" href="#17-summary" title="Permanent link">&para;</a></h2>
+<p>Ця специфікація формує:</p>
+<ul>
+<li>повний набір інструментів,</li>
+<li>безпечну модель доступу,</li>
+<li>zero-trust взаємодію,</li>
+<li>механізм розширення через Plugins,</li>
+<li>жорстку ізоляцію,</li>
+<li>чіткі capability-коди,</li>
+<li>контроль вартості (compute cost),</li>
+<li>сумісність із confidential режимом,</li>
+<li>інтеграцію з PDP/PEP,</li>
+<li>можливість підключення платформ DAARION через безпечні tool-plugins.</li>
+</ul>
+<p>Це — <strong>DAARION Tool Fabric</strong>, центральна платформа інструментів агентів.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

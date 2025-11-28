@@ -1,0 +1,1004 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/08_agent_first_onboarding/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>08 — Agent-First Onboarding Specification (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#08-agent-first-onboarding-specification-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              08 — Agent-First Onboarding Specification (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="08-agent-first-onboarding-specification-microdao">08 — Agent-First Onboarding Specification (MicroDAO)<a class="headerlink" href="#08-agent-first-onboarding-specification-microdao" title="Permanent link">&para;</a></h1>
+<p>Цей документ описує нову модель онбордингу MicroDAO:<br />
+<strong>користувач входить у чат з агентом-провідником, який крок за кроком створює спільноту, канал і налаштовує агента.</strong></p>
+<p>Весь процес — діалоговий.<br />
+Усі API-виклики — ті самі, що в 03_api_core_snapshot.md.</p>
+<hr />
+<h1 id="1">1. Мета<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Замінити класичні форми/кроки онбордингу повністю <strong>агентським інтерфейсом</strong>.<br />
+Увесь onboarding виконується через <code>AgentOnboardingChat</code>, який:</p>
+<ul>
+<li>говорить з користувачем живою мовою,</li>
+<li>ставить запитання,</li>
+<li>парсить відповіді,</li>
+<li>викликає API,</li>
+<li>підтверджує успішні кроки,</li>
+<li>веде користувача до створення першої microDAO,</li>
+<li>налаштовує приватного агента,</li>
+<li>завершує онбординг фразою та редіректом.</li>
+</ul>
+<hr />
+<h1 id="2">2. Загальна архітектура<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<p>Усі дії будуються на:</p>
+<ul>
+<li><strong>state-machine</strong> (опис нижче),</li>
+<li><strong>Chat UI</strong> (аналог звичайного чату),</li>
+<li><strong>репліках агента</strong> (скрипт),</li>
+<li><strong>розпізнаванні наміру користувача</strong> (regex / LLM / кнопки),</li>
+<li><strong>викликах API</strong> (з 03_api_core_snapshot.md).</li>
+</ul>
+<p>Компоненти:</p>
+<div class="codehilite"><pre><span></span><code>src/features/onboarding-agent/
+  AgentOnboardingChat.tsx
+  useOnboardingState.ts
+  scripts/
+    script.json
+    parser.ts
+    transitions.ts
+</code></pre></div>
+
+<hr />
+<h1 id="3-state-machine">3. State Machine<a class="headerlink" href="#3-state-machine" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">OnboardingStep</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;greet&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_profile&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_team_name&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_team_desc&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_mode&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_channel_name&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_channel_type&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_agent_enable&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_agent_prefs&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;ask_invites&quot;</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;done&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Перехід між кроками базується на:</p>
+<ul>
+<li>відповіді користувача,</li>
+<li>успішності API-виклику.</li>
+</ul>
+<hr />
+<h1 id="4">4. Повний сценарій діалогу (репліки агента)<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<p>Нижче — готовий сценарій, який можна покласти в JSON або хардкод.</p>
+<h2 id="41-greet">4.1. greet<a class="headerlink" href="#41-greet" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Привіт! Я — агент-провідник MicroDAO.
+Зараз ми разом створимо твою першу спільноту та особистого помічника.
+Як до тебе звертатися?</p>
+</blockquote>
+<p>Після відповіді → <code>ask_profile</code>.</p>
+<hr />
+<h2 id="42-ask_profile">4.2. ask_profile<a class="headerlink" href="#42-ask_profile" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Приємно познайомитися, {name}.
+Якою мовою хочеш працювати — українською чи англійською?</p>
+</blockquote>
+<p>Після відповіді — зберегти <code>locale</code> → <code>ask_team_name</code>.</p>
+<hr />
+<h2 id="43-ask_team_name">4.3. ask_team_name<a class="headerlink" href="#43-ask_team_name" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Як назвемо твою майбутню microDAO?
+Наприклад: "Креативна Майстерня", "AI-Команда Альфа", "Моя Спільнота".</p>
+</blockquote>
+<p>Читаємо будь-який текст → <code>POST /teams</code> → <code>ask_team_desc</code>.</p>
+<hr />
+<h2 id="44-ask_team_desc">4.4. ask_team_desc<a class="headerlink" href="#44-ask_team_desc" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Класно. А як би ти описав спільноту одним реченням?
+(Не обов'язково, можеш написати "пропустити".)</p>
+</blockquote>
+<p>Зберегти опис → <code>ask_mode</code>.</p>
+<hr />
+<h2 id="45-ask_mode">4.5. ask_mode<a class="headerlink" href="#45-ask_mode" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Обери режим для твоєї microDAO:
+<strong>1)</strong> Відкрита — є публічний канал, гості можуть читати.
+<strong>2)</strong> Приватна — тільки запрошені, чати зашифровані.
+Напиши <code>1</code> або <code>2</code>.</p>
+</blockquote>
+<p>Після відповіді:</p>
+<ul>
+<li>map → <code>"public"</code> / <code>"confidential"</code></li>
+<li><code>PATCH /teams/{teamId}</code>
+  → <code>ask_channel_name</code>.</li>
+</ul>
+<hr />
+<h2 id="46-ask_channel_name">4.6. ask_channel_name<a class="headerlink" href="#46-ask_channel_name" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Давай створимо перший канал.
+Як би ти хотів його назвати? (<code>general</code>, <code>core</code>, <code>support</code>)</p>
+</blockquote>
+<p>Після відповіді → <code>ask_channel_type</code>.</p>
+<hr />
+<h2 id="47-ask_channel_type">4.7. ask_channel_type<a class="headerlink" href="#47-ask_channel_type" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Це буде публічний канал чи приватна кімната?
+Напиши: <strong>public</strong> або <strong>private</strong>.</p>
+</blockquote>
+<p>Mapping:</p>
+<ul>
+<li><code>public</code> → <code>type: "public"</code></li>
+<li><code>private</code> → <code>type: "group"</code></li>
+</ul>
+<p>API:
+<code>POST /channels</code></p>
+<p>Після успіху → <code>ask_agent_enable</code>.</p>
+<hr />
+<h2 id="48-ask_agent_enable">4.8. ask_agent_enable<a class="headerlink" href="#48-ask_agent_enable" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>У MicroDAO кожна спільнота має власного ШІ-агента, який памʼятає контекст і самонавчається.
+Хочеш одразу створити командного агента?</p>
+</blockquote>
+<p>Очікувані відповіді: так / ні.</p>
+<ul>
+<li>Якщо «ні» → <code>ask_invites</code></li>
+<li>Якщо «так» → <code>ask_agent_prefs</code></li>
+</ul>
+<hr />
+<h2 id="49-ask_agent_prefs">4.9. ask_agent_prefs<a class="headerlink" href="#49-ask_agent_prefs" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Добре. Налаштуємо агента.
+Якою мовою він має відповідати?</p>
+</blockquote>
+<p>Після відповіді →</p>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Який у нього фокус?
+Вибери одне: <strong>general</strong>, <strong>business</strong>, <strong>technical</strong>, <strong>creative</strong>.</p>
+</blockquote>
+<p>Після відповіді →</p>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Що він має памʼятати?</p>
+<ol>
+<li>Лише цей канал</li>
+<li>Усі канали спільноти</li>
+</ol>
+</blockquote>
+<p>Після відповіді:</p>
+<p>Викликаємо:
+<code>POST /agents</code></p>
+<p>Потім → <code>ask_invites</code>.</p>
+<hr />
+<h2 id="410-ask_invites">4.10. ask_invites<a class="headerlink" href="#410-ask_invites" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Все готово!
+Хочеш зараз запросити людей до своєї microDAO?
+Я підготую посилання, яке можна надіслати будь-кому.</p>
+</blockquote>
+<p>Після відповіді — показати UI-елемент з інвайт-лінком.</p>
+<p>→ <code>done</code>.</p>
+<hr />
+<h2 id="411-done">4.11. done<a class="headerlink" href="#411-done" title="Permanent link">&para;</a></h2>
+<p><strong>Агент:</strong></p>
+<blockquote>
+<p>Вітаю!
+Твоя microDAO <strong>{team.name}</strong> створена.
+Я створив канал <strong>#{channel.title}</strong> і готовий допомагати.
+Можеш почати працювати або поставити мені питання:
+"Що ти вмієш?" / "Як користуватися каналами?" / "Як запросити команду?"</p>
+</blockquote>
+<p>redirect → <code>/t/:teamId/c/:channelId</code>.</p>
+<hr />
+<h1 id="5-intent-parser">5. Intent Parser (як агент розуміє відповіді)<a class="headerlink" href="#5-intent-parser" title="Permanent link">&para;</a></h1>
+<p>Мінімальний підхід (regex):</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">parseMode</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/1|пуб/i</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/2|прив/i</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;confidential&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">parseYesNo</span><span class="p">(</span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^так|yes|y$/i</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^ні|no|n$/i</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Або гібридний:</p>
+<ul>
+<li>парсимо regex,</li>
+<li>якщо незрозуміло → питаємо LLM:
+  <em>"Чи відповідь користувача означає Так/Ні/Інше?"</em></li>
+</ul>
+<hr />
+<h1 id="6-agentonboardingchattsx">6. Компонент <code>AgentOnboardingChat.tsx</code><a class="headerlink" href="#6-agentonboardingchattsx" title="Permanent link">&para;</a></h1>
+<h3 id="_1">Мінімальна структура:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">AgentOnboardingChat</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">step</span><span class="p">,</span><span class="w"> </span><span class="nx">setStep</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">updateState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useOnboardingState</span><span class="p">();</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">handleUserMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">addMessage</span><span class="p">({</span><span class="w"> </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">step</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;greet&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">updateState</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">text</span><span class="w"> </span><span class="p">});</span>
+<span class="w">        </span><span class="nx">addAgent</span><span class="p">(</span><span class="s2">&quot;Приємно познайомитися, &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">setStep</span><span class="p">(</span><span class="s2">&quot;ask_profile&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;ask_profile&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="nx">updateState</span><span class="p">({</span><span class="w"> </span><span class="nx">locale</span><span class="o">:</span><span class="w"> </span><span class="kt">detectLocale</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">});</span>
+<span class="w">        </span><span class="nx">addAgent</span><span class="p">(</span><span class="s2">&quot;Як назвемо твою microDAO?&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">setStep</span><span class="p">(</span><span class="s2">&quot;ask_team_name&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;ask_team_name&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">team</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">api</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/teams&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">text</span><span class="w"> </span><span class="p">});</span>
+<span class="w">        </span><span class="nx">updateState</span><span class="p">({</span><span class="w"> </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">team.id</span><span class="w"> </span><span class="p">});</span>
+<span class="w">        </span><span class="nx">addAgent</span><span class="p">(</span><span class="s2">&quot;А як би ти описав спільноту?&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">setStep</span><span class="p">(</span><span class="s2">&quot;ask_team_desc&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">      </span><span class="c1">// ... і так далі для кожного step.</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">ChatUI</span>
+<span class="w">      </span><span class="na">messages</span><span class="o">=</span><span class="p">{</span><span class="nx">messages</span><span class="p">}</span>
+<span class="w">      </span><span class="na">onSend</span><span class="o">=</span><span class="p">{</span><span class="nx">handleUserMessage</span><span class="p">}</span>
+<span class="w">      </span><span class="na">agentAvatar</span><span class="o">=</span><span class="s">&quot;guide&quot;</span>
+<span class="w">    </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="7-acceptance-criteria">7. Acceptance Criteria (як перевіряти)<a class="headerlink" href="#7-acceptance-criteria" title="Permanent link">&para;</a></h1>
+<ul>
+<li><code>/onboarding</code> відкривається як чат.</li>
+<li>Користувач спілкується з агентом.</li>
+<li>На кожному кроці агент відповідає правильно.</li>
+<li>
+<p>Усі API виклики працюють:</p>
+</li>
+<li>
+<p><code>/teams</code></p>
+</li>
+<li><code>/teams/{id}</code></li>
+<li><code>/channels</code></li>
+<li><code>/agents</code></li>
+<li>Після завершення → redirect.</li>
+<li>UX: користувач не бачить жодної форми. Все — діалог.</li>
+</ul>
+<hr />
+<h1 id="8-cursor">8. Для Cursor<a class="headerlink" href="#8-cursor" title="Permanent link">&para;</a></h1>
+<p>Коли ти даси йому задачу, використовуй цей формат:</p>
+<div class="codehilite"><pre><span></span><code>You are a senior React/TS engineer.
+
+Implement the Agent-first onboarding at <span class="sb">`/onboarding`</span> using the specification in:
+<span class="k">-</span> 08_agent_first_onboarding.md
+<span class="k">-</span> 03_api_core_snapshot.md
+<span class="k">-</span> 05_coding_standards.md
+
+Create the component <span class="sb">`AgentOnboardingChat.tsx`</span> and supporting files.
+
+Output:
+<span class="k">-</span> list of modified files
+<span class="k">-</span> diff
+<span class="k">-</span> summary
+</code></pre></div>
+
+<hr />
+<h1 id="9">9. Інтеграція з існуючим кодом<a class="headerlink" href="#9" title="Permanent link">&para;</a></h1>
+<h2 id="91">9.1. Заміна класичного онбордингу<a class="headerlink" href="#91" title="Permanent link">&para;</a></h2>
+<p>Існуючий <code>OnboardingPage.tsx</code> можна:
+- залишити як fallback для користувачів, які не хочуть агентський онбординг,
+- або повністю замінити на <code>AgentOnboardingChat</code>.</p>
+<h2 id="92-api">9.2. Використання API клієнтів<a class="headerlink" href="#92-api" title="Permanent link">&para;</a></h2>
+<p>Використовувати існуючі API клієнти з <code>src/api/</code>:
+- <code>teams.ts</code> — для створення команди
+- <code>channels.ts</code> — для створення каналу
+- <code>agents.ts</code> — для створення агента
+- <code>auth.ts</code> — для автентифікації</p>
+<h2 id="93-state-management">9.3. State Management<a class="headerlink" href="#93-state-management" title="Permanent link">&para;</a></h2>
+<p>Використовувати <code>useOnboardingState</code> hook або розширити існуючий <code>useOnboarding.ts</code> для агентського онбордингу.</p>
+<hr />
+<h1 id="10-uiux">10. UI/UX Вимоги<a class="headerlink" href="#10-uiux" title="Permanent link">&para;</a></h1>
+<h2 id="101-chat-interface">10.1. Chat Interface<a class="headerlink" href="#101-chat-interface" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Повідомлення агента з аватаром</li>
+<li>Повідомлення користувача справа</li>
+<li>Індикатор набору тексту (typing indicator) під час обробки</li>
+<li>Кнопки швидких відповідей (опціонально)</li>
+<li>Плавні анімації появи повідомлень</li>
+</ul>
+<h2 id="102">10.2. Візуальні елементи<a class="headerlink" href="#102" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Аватар агента (іконка або зображення)</li>
+<li>Індикатор прогресу онбордингу (опціонально)</li>
+<li>Підказки для користувача</li>
+<li>Обробка помилок з дружніми повідомленнями</li>
+</ul>
+<h2 id="103">10.3. Мобільна адаптація<a class="headerlink" href="#103" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Адаптивний дизайн для мобільних пристроїв</li>
+<li>Зручний ввід тексту на мобільних</li>
+<li>Оптимізація для маленьких екранів</li>
+</ul>
+<hr />
+<h1 id="11">11. Обробка помилок<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+<h2 id="111-api">11.1. Помилки API<a class="headerlink" href="#111-api" title="Permanent link">&para;</a></h2>
+<p>Якщо API виклик не вдався:
+- Показати дружнє повідомлення від агента
+- Запропонувати спробувати ще раз
+- Зберегти стан, щоб не втратити прогрес</p>
+<h2 id="112">11.2. Незрозумілі відповіді<a class="headerlink" href="#112" title="Permanent link">&para;</a></h2>
+<p>Якщо агент не розуміє відповідь:
+- Задати уточнююче питання
+- Показати приклади правильних відповідей
+- Запропонувати кнопки з варіантами</p>
+<h2 id="113">11.3. Таймаути<a class="headerlink" href="#113" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Обробка повільних API викликів</li>
+<li>Показ індикатора завантаження</li>
+<li>Повідомлення про затримку</li>
+</ul>
+<hr />
+<h1 id="12">12. Тестування<a class="headerlink" href="#12" title="Permanent link">&para;</a></h1>
+<h2 id="121-unit-tests">12.1. Unit Tests<a class="headerlink" href="#121-unit-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Тести для <code>parser.ts</code> (розпізнавання намірів)</li>
+<li>Тести для <code>transitions.ts</code> (переходи між станами)</li>
+<li>Тести для компонента <code>AgentOnboardingChat</code></li>
+</ul>
+<h2 id="122-integration-tests">12.2. Integration Tests<a class="headerlink" href="#122-integration-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Тестування повного flow онбордингу</li>
+<li>Тестування API інтеграції</li>
+<li>Тестування обробки помилок</li>
+</ul>
+<h2 id="123-e2e-tests">12.3. E2E Tests<a class="headerlink" href="#123-e2e-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Повний сценарій онбордингу від початку до кінця</li>
+<li>Різні варіанти відповідей користувача</li>
+<li>Перевірка редіректу після завершення</li>
+</ul>
+<hr />
+<h1 id="13">13. Майбутні покращення<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<h2 id="131-llm-integration">13.1. LLM Integration<a class="headerlink" href="#131-llm-integration" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Використання LLM для розпізнавання намірів</li>
+<li>Більш природна мова агента</li>
+<li>Контекстне розуміння відповідей</li>
+</ul>
+<h2 id="132">13.2. Персоналізація<a class="headerlink" href="#132" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Адаптація мови агента під користувача</li>
+<li>Запам'ятовування попередніх відповідей</li>
+<li>Рекомендації на основі профілю</li>
+</ul>
+<h2 id="133">13.3. Мультимовність<a class="headerlink" href="#133" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Підтримка багатьох мов</li>
+<li>Автоматичне визначення мови</li>
+<li>Перемикання мови під час онбордингу</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна специфікація агентського онбордингу</strong>, готова до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

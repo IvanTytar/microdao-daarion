@@ -1,0 +1,1064 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_PHASE_MATRIX_PREPARE/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK_PHASE_MATRIX_PREPARE.md - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task_phase_matrix_preparemd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK_PHASE_MATRIX_PREPARE.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Жорсткі обмеження (дуже важливо)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Структура каталогів
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-synapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Synapse — шаблони конфігів
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Synapse — шаблони конфігів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-synapsehomeserveryaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 synapse/homeserver.yaml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-synapseworkersyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 synapse/workers.yaml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-synapselogconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 synapse/log.config
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-postgres-schema-init" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Postgres schema init
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-turnstun" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. TURN/STUN конфіг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-element-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Element Web конфіг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-gateway-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Gateway конфіг (Nginx) — шаблон
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-schemas-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Schemas — майбутній Bridge
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-readme_matrixmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. README_MATRIX.md
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. README_MATRIX.md">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Ролі
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Фази
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Безпека
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Команда для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task_phase_matrix_preparemd">TASK_PHASE_MATRIX_PREPARE.md<a class="headerlink" href="#task_phase_matrix_preparemd" title="Permanent link">&para;</a></h1>
+<p>DAARION — PHASE 4: MATRIX PREPARE (Без деплою)</p>
+<p>Цей таск <strong>підготовчий</strong>:<br />
+ми створюємо <strong>повну структуру й конфіги для Matrix + Element Web + TURN</strong>,<br />
+але <strong>нічого не деплоїмо і не запускаємо</strong>.</p>
+<hr />
+<h2 id="0">0. Жорсткі обмеження (дуже важливо)<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<p>Cursor <strong>НЕ МАЄ ПРАВА</strong> в цій фазі:</p>
+<ul>
+<li>запускати Synapse, Element, TURN  </li>
+<li>змінювати існуючі docker-compose файли  </li>
+<li>додавати Matrix у прод-інфру  </li>
+<li>змінювати gateway, порти, SSL</li>
+</ul>
+<p>Це <strong>тільки підготовка файлів</strong> для майбутньої <strong>PHASE MATRIX FULL</strong>.</p>
+<hr />
+<h2 id="1">1. Структура каталогів<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>Створити:</p>
+<div class="codehilite"><pre><span></span><code>infra/
+  matrix/
+    synapse/
+      homeserver.yaml
+      workers.yaml
+      log.config
+    postgres/
+      init.sql
+    turn/
+      turnserver.conf
+    element-web/
+      config.json
+    gateway/
+      matrix.conf
+    schemas/
+      events/
+        matrix_event.schema.json
+    README_MATRIX.md
+</code></pre></div>
+
+<hr />
+<h2 id="2-synapse">2. Synapse — шаблони конфігів<a class="headerlink" href="#2-synapse" title="Permanent link">&para;</a></h2>
+<h3 id="21-synapsehomeserveryaml">2.1 <code>synapse/homeserver.yaml</code><a class="headerlink" href="#21-synapsehomeserveryaml" title="Permanent link">&para;</a></h3>
+<p>Шаблон (без реальних ключів і паролів):</p>
+<ul>
+<li><code>server_name: "matrix.daarion.space"</code> (placeholder)</li>
+<li><code>public_baseurl: "https://matrix.daarion.space/"</code> (placeholder)</li>
+<li><code>database:</code> → Postgres (без реальних паролів)</li>
+<li>
+<p><code>listeners:</code>:</p>
+</li>
+<li>
+<p>порт 8008 (http)</p>
+</li>
+<li>
+<p><code>registration:</code>:</p>
+</li>
+<li>
+<p><code>enable_registration: false</code></p>
+</li>
+<li>
+<p><code>registration_shared_secret: "&lt;TO_BE_FILLED&gt;"</code> (placeholder comment)</p>
+</li>
+<li>
+<p><code>media_store_path: "/data/media"</code> (placeholder)</p>
+</li>
+<li><code>federation_domain_whitelist</code> (коментар, не обов'язково)</li>
+<li>
+<p><code>modules:</code>:</p>
+</li>
+<li>
+<p>залишити секцію порожньою або з коментарями для майбутніх MSC</p>
+</li>
+<li>
+<p><code>log_config: /config/log.config</code></p>
+</li>
+</ul>
+<p><strong>Важливо:</strong> у файлі мають бути <strong>коментарі</strong>, що це шаблон і реальні значення будуть заповнені в PHASE MATRIX FULL.</p>
+<h3 id="22-synapseworkersyaml">2.2 <code>synapse/workers.yaml</code><a class="headerlink" href="#22-synapseworkersyaml" title="Permanent link">&para;</a></h3>
+<p>Шаблон worker-конфіга:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">worker_app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generic_worker</span>
+
+<span class="nt">worker_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker1</span>
+
+<span class="nt">worker_listeners</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9101</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">client</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">federation</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">compress</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">worker_daemonize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">worker_log_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/config/log.config</span>
+
+<span class="nt">worker_replication_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">synapse</span>
+<span class="nt">worker_replication_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9093</span>
+<span class="nt">worker_replication_http_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9093</span>
+</code></pre></div>
+
+<ul>
+<li>коментарі, як це буде використовуватись у майбутньому.</li>
+</ul>
+<h3 id="23-synapselogconfig">2.3 <code>synapse/log.config</code><a class="headerlink" href="#23-synapselogconfig" title="Permanent link">&para;</a></h3>
+<p>Мінімальний logging конфіг (YAML), з рівнем <code>INFO</code> та коментарями.</p>
+<hr />
+<h2 id="3-postgres-schema-init">3. Postgres schema init<a class="headerlink" href="#3-postgres-schema-init" title="Permanent link">&para;</a></h2>
+<p><code>postgres/init.sql</code> — SQL-шаблон:</p>
+<ul>
+<li>створити БД <code>synapse</code></li>
+<li>створити роль <code>synapse</code> з паролем <code>'CHANGE_ME'</code> (коментар, що змінити)</li>
+<li>дати права на БД</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">synapse</span><span class="p">;</span>
+<span class="k">create</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">synapse</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">encrypted</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;CHANGE_ME&#39;</span><span class="p">;</span>
+<span class="k">grant</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">privileges</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">synapse</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">synapse</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Коментар: у PHASE MATRIX FULL буде або використовуватись офіційний мигратор Synapse, або helm/compose, а це — лише стартова заготівка.</p>
+<hr />
+<h2 id="4-turnstun">4. TURN/STUN конфіг<a class="headerlink" href="#4-turnstun" title="Permanent link">&para;</a></h2>
+<p><code>turn/turnserver.conf</code> — шаблон для coturn:</p>
+<ul>
+<li><code>listening-port=3478</code></li>
+<li><code>fingerprint</code></li>
+<li><code>lt-cred-mech</code></li>
+<li><code>realm=daarion.space</code></li>
+<li><code>user=matrix:CHANGE_ME</code></li>
+<li><code>total-quota=100</code></li>
+<li><code>bps-capacity=0</code></li>
+</ul>
+<p>З великими коментарями:</p>
+<ul>
+<li>про використання real secrets</li>
+<li>про те, що TLS/DTLS налаштовуватиметься в PHASE MATRIX FULL</li>
+</ul>
+<hr />
+<h2 id="5-element-web">5. Element Web конфіг<a class="headerlink" href="#5-element-web" title="Permanent link">&para;</a></h2>
+<p><code>element-web/config.json</code> — базовий шаблон:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;default_server_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;m.homeserver&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;base_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://matrix.daarion.space&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;server_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion.space&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;brand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION Matrix&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;integrations_ui_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://scalar.vector.im/&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;integrations_rest_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://scalar.vector.im/api&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bug_report_endpoint_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">  </span><span class="nt">&quot;show_labs_settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;defaultCountryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UA&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;disable_custom_urls&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;disable_3pid_login&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>З коментарями (у README):</p>
+<ul>
+<li>як і де це буде використовуватись</li>
+<li>що сторінка <code>/element/</code> буде віддавати цей SPA</li>
+</ul>
+<hr />
+<h2 id="6-gateway-nginx">6. Gateway конфіг (Nginx) — шаблон<a class="headerlink" href="#6-gateway-nginx" title="Permanent link">&para;</a></h2>
+<p><code>gateway/matrix.conf</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Шаблон. Не підключати до прод nginx поки що.</span>
+
+<span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">matrix.daarion.space</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/_matrix/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://matrix-homeserver:8008</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/element/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">root</span><span class="w"> </span><span class="s">/var/www/element</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Коментар великими літерами:
+<strong>"ЦЕ ШАБЛОН. НЕ АКТИВУВАТИ, ПОКИ НЕ БУДЕ PHASE MATRIX FULL."</strong></p>
+<hr />
+<h2 id="7-schemas-bridge">7. Schemas — майбутній Bridge<a class="headerlink" href="#7-schemas-bridge" title="Permanent link">&para;</a></h2>
+<p><code>schemas/events/matrix_event.schema.json</code>:</p>
+<p>JSON Schema для подій, які:</p>
+<ul>
+<li>Matrix → DAARION (через майбутній bridge)</li>
+<li>DAARION → Matrix</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;$schema&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://json-schema.org/draft/2020-12/schema&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Matrix Event (Bridge)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;origin_server_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;event_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;room_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sender&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;content&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="8-readme_matrixmd">8. README_MATRIX.md<a class="headerlink" href="#8-readme_matrixmd" title="Permanent link">&para;</a></h2>
+<p>Документ повинен описати:</p>
+<h3 id="81">8.1. Ролі<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Synapse — Matrix homeserver</li>
+<li>Element Web — клієнт</li>
+<li>TURN — медіа (voice/video, на майбутнє)</li>
+<li>Gateway — HTTP reverse proxy</li>
+<li>Bridge (майбутній) — DAARION City / Agents ↔ Matrix</li>
+</ul>
+<h3 id="82">8.2. Фази<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<p>Описати <strong>5 фаз</strong>:</p>
+<ol>
+<li>
+<p><strong>Phase 4 — Prepare (цей таск)</strong></p>
+</li>
+<li>
+<p>файли, структури, без деплою.</p>
+</li>
+<li>
+<p><strong>Phase 5 — Base Synapse Deploy</strong></p>
+</li>
+<li>
+<p>розгортання Synapse + Postgres + TLS.</p>
+</li>
+<li>
+<p><strong>Phase 6 — Element Web + Gateway</strong></p>
+</li>
+<li>
+<p>деплой статичного SPA, <code>/element/</code> route, <code>/_matrix/</code>.</p>
+</li>
+<li>
+<p><strong>Phase 7 — Federation + Multi-node</strong></p>
+</li>
+<li>
+<p>кілька нод DAARION Matrix, federation keys, SRV-записи.</p>
+</li>
+<li>
+<p><strong>Phase 8 — DAARION Bridge</strong></p>
+</li>
+<li>
+<p>агентний міст: public rooms ↔ Matrix rooms, presence, events.</p>
+</li>
+</ol>
+<h3 id="83">8.3. Безпека<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<ul>
+<li>зберігання ключів</li>
+<li>обмеження доступу</li>
+<li>E2EE keys (відповідальність клієнта)</li>
+<li>логування та privacy</li>
+</ul>
+<hr />
+<h2 id="9-acceptance-criteria">9. Acceptance Criteria<a class="headerlink" href="#9-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Директорія <code>infra/matrix/</code> існує з усіма піддиректоріями й файлами.</li>
+<li>Усі конфіги (<code>homeserver.yaml</code>, <code>workers.yaml</code>, <code>log.config</code>, <code>config.json</code>, <code>turnserver.conf</code>, <code>matrix.conf</code>) — є, містять валідний YAML/JSON/NGINX-синтаксис.</li>
+<li><code>postgres/init.sql</code> — є, описує базову схему БД (без реальних паролів).</li>
+<li><code>schemas/events/matrix_event.schema.json</code> — валідний JSON Schema.</li>
+<li><code>README_MATRIX.md</code> — повністю описує архітектуру, фази, безпеку та майбутні кроки.</li>
+<li><strong>ЖОДНОГО</strong> нового сервісу не додано в docker-compose.</li>
+<li><strong>ЖОДЕН</strong> Matrix-сервіс не запускається в цій фазі.</li>
+</ol>
+<hr />
+<h2 id="10-cursor">10. Команда для Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h2>
+<p><strong>"Підготувати структуру та конфіги для Matrix згідно TASK_PHASE_MATRIX_PREPARE.md.
+НЕ змінювати існуючі docker-compose, НЕ запускати Synapse/Element/Turn,
+тільки створити файли та README."</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

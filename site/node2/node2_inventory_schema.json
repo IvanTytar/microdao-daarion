@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Node-2 System Inventory Schema",
+  "type": "object",
+  "properties": {
+    "hardware": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "object",
+          "properties": {
+            "model": {"type": "string"},
+            "cores": {"type": "integer"},
+            "threads": {"type": "integer"}
+          }
+        },
+        "memory_gb": {"type": "number"},
+        "gpu": {
+          "type": "object",
+          "properties": {
+            "type": {"type": "string"},
+            "vram_gb": {"type": "number"},
+            "driver_version": {"type": "string"}
+          }
+        },
+        "disk": {
+          "type": "object",
+          "properties": {
+            "free_gb": {"type": "number"},
+            "total_gb": {"type": "number"},
+            "used_gb": {"type": "number"}
+          }
+        }
+      }
+    },
+    "llm_servers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "version": {"type": "string"},
+          "path": {"type": "string"},
+          "status": {"type": "string", "enum": ["running", "stopped", "unknown"]},
+          "port": {"type": "integer"},
+          "process_id": {"type": "integer"}
+        }
+      }
+    },
+    "vector_dbs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "engine": {"type": "string", "enum": ["milvus", "qdrant", "faiss", "weaviate", "pinecone", "other"]},
+          "version": {"type": "string"},
+          "path": {"type": "string"},
+          "status": {"type": "string"},
+          "collections": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "port": {"type": "integer"}
+        }
+      }
+    },
+    "graph_dbs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "engine": {"type": "string", "enum": ["neo4j", "duckdb-graph", "arangodb", "other"]},
+          "version": {"type": "string"},
+          "path": {"type": "string"},
+          "status": {"type": "string"},
+          "db_size_gb": {"type": "number"},
+          "port": {"type": "integer"}
+        }
+      }
+    },
+    "rag_components": {
+      "type": "object",
+      "properties": {
+        "embedding_models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "path": {"type": "string"},
+              "size_gb": {"type": "number"}
+            }
+          }
+        },
+        "pipelines": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "indexes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "path": {"type": "string"},
+              "size_gb": {"type": "number"}
+            }
+          }
+        }
+      }
+    },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "path": {"type": "string"},
+          "language": {"type": "string", "enum": ["python", "javascript", "go", "rust", "other"]},
+          "status": {"type": "string", "enum": ["active", "inactive", "unknown"]},
+          "config_file": {"type": "string"}
+        }
+      }
+    },
+    "docker_containers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "image": {"type": "string"},
+          "ports": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "status": {"type": "string"},
+          "created": {"type": "string"}
+        }
+      }
+    },
+    "brew_services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"type": "string"},
+          "path": {"type": "string"}
+        }
+      }
+    },
+    "model_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "size_gb": {"type": "number"},
+          "path": {"type": "string"},
+          "format": {"type": "string"},
+          "type": {"type": "string", "enum": ["llm", "embedding", "other"]}
+        }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "path": {"type": "string"},
+          "remote_url": {"type": "string"},
+          "branch": {"type": "string"}
+        }
+      }
+    },
+    "duplicates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "paths": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "component": {"type": "string"},
+          "description": {"type": "string"},
+          "severity": {"type": "string", "enum": ["high", "medium", "low"]}
+        }
+      }
+    },
+    "recommended_cleanup": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {"type": "string", "enum": ["delete", "migrate", "keep"]},
+          "target": {"type": "string"},
+          "reason": {"type": "string"},
+          "safe": {"type": "boolean"}
+        }
+      }
+    },
+    "scan_timestamp": {"type": "string"},
+    "scan_version": {"type": "string"}
+  },
+  "required": ["hardware", "llm_servers", "vector_dbs", "graph_dbs", "agents", "docker_containers"]
+}
+
+
+

@@ -1,0 +1,1319 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/matrix/MATRIX_CHAT_CLIENT_SPEC/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>MATRIX CHAT CLIENT — DAARION.city - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#matrix-chat-client-daarioncity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MATRIX CHAT CLIENT — DAARION.city
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. PURPOSE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. ARCHITECTURE OVERVIEW
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. ARCHITECTURE OVERVIEW">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Компоненти:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-auth-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. AUTH MODEL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. AUTH MODEL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Допущення (MVP):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matrix-user-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrix User Mapping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-backend-chat-bootstrap-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. BACKEND: CHAT BOOTSTRAP API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. BACKEND: CHAT BOOTSTRAP API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-endpoint-get-apicitychatbootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Endpoint: GET /api/city/chat/bootstrap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-matrix-gateway-user-token-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Matrix Gateway: User Token Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-frontend-matrix-chat-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. FRONTEND: MATRIX CHAT CLIENT
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. FRONTEND: MATRIX CHAT CLIENT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-chat-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Поточний Chat Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Нова схема
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-matrix-event-chat-message-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Matrix Event → Chat Message Mapping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-matrix-rest-client-lightweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. MATRIX REST CLIENT (Lightweight)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ui-ux-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. UI / UX REQUIREMENTS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. UI / UX REQUIREMENTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Стан підключення
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Відображення історії
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3. Надсилання повідомлень
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-limitations-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. LIMITATIONS / MVP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-api-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. API SUMMARY
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. API SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#city-service-7001" class="md-nav__link">
+    <span class="md-ellipsis">
+      City Service (7001)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matrix-gateway-7025" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrix Gateway (7025)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-roadmap-after-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. ROADMAP AFTER THIS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. ACCEPTANCE CRITERIA
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="matrix-chat-client-daarioncity">MATRIX CHAT CLIENT — DAARION.city<a class="headerlink" href="#matrix-chat-client-daarioncity" title="Permanent link">&para;</a></h1>
+<p>Version: 1.0.0</p>
+<h2 id="0-purpose">0. PURPOSE<a class="headerlink" href="#0-purpose" title="Permanent link">&para;</a></h2>
+<p>Зробити так, щоб сторінка <code>/city/[slug]</code> у DAARION UI була <strong>повноцінним Matrix-чатом</strong>:</p>
+<ul>
+<li>використовує реальні Matrix rooms (<code>matrix_room_id</code>, <code>matrix_room_alias</code>),</li>
+<li>працює від імені поточного користувача DAARION,</li>
+<li>показує історію, нові повідомлення, статус підключення,</li>
+<li>використовує існуючий Chat Layout (UI), але замість тимчасового WebSocket — Matrix.</li>
+</ul>
+<p>Це базовий крок для подальшого:
+- Presence / Typing / Read receipts,
+- агентів як ботів,
+- 2D/2.5D City Map з live-активністю.</p>
+<hr />
+<h2 id="1-architecture-overview">1. ARCHITECTURE OVERVIEW<a class="headerlink" href="#1-architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">                      </span><span class="n">DAARION</span><span class="w"> </span><span class="n">Frontend</span><span class="w">                           </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">┌───────────────────────────────────────────────────────────┐</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">               </span><span class="o">/</span><span class="n">city</span><span class="o">/[</span><span class="n">slug</span><span class="o">]</span><span class="w"> </span><span class="n">Page</span><span class="w">                           </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">┌─────────────────┐</span><span class="w">  </span><span class="err">┌────────────────────────────────┐</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">   </span><span class="n">Room</span><span class="w"> </span><span class="n">Info</span><span class="w">     </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">      </span><span class="n">Matrix</span><span class="w"> </span><span class="n">Chat</span><span class="w"> </span><span class="n">Client</span><span class="w">        </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">   </span><span class="p">(</span><span class="k">from</span><span class="w"> </span><span class="n">API</span><span class="p">)</span><span class="w">    </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="k">Connect</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Synapse</span><span class="w">          </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">└─────────────────┘</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Send</span><span class="o">/</span><span class="n">receive</span><span class="w"> </span><span class="n">messages</span><span class="w">       </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">                       </span><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Show</span><span class="w"> </span><span class="n">history</span><span class="w">                 </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">                       </span><span class="err">└────────────────────────────────┘</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">└───────────────────────────────────────────────────────────┘</span><span class="w">  </span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+<span class="w">                              </span><span class="err">│</span>
+<span class="w">                              </span><span class="err">▼</span>
+<span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">                         </span><span class="n">Backend</span><span class="w">                                  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">┌─────────────┐</span><span class="w">  </span><span class="err">┌──────────────────┐</span><span class="w">  </span><span class="err">┌───────────────────┐</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="n">auth</span><span class="o">-</span><span class="n">service</span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">   </span><span class="n">city</span><span class="o">-</span><span class="n">service</span><span class="w">   </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="n">matrix</span><span class="o">-</span><span class="n">gateway</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">   </span><span class="p">(</span><span class="mi">7020</span><span class="p">)</span><span class="w">    </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">     </span><span class="p">(</span><span class="mi">7001</span><span class="p">)</span><span class="w">       </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">     </span><span class="p">(</span><span class="mi">7025</span><span class="p">)</span><span class="w">        </span><span class="err">│</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">             </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">                  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">                   </span><span class="err">│</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="n">JWT</span><span class="w"> </span><span class="n">tokens</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="o">/</span><span class="n">chat</span><span class="o">/</span><span class="n">bootstrap</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="o">/</span><span class="k">user</span><span class="o">/</span><span class="n">token</span><span class="w">       </span><span class="err">│</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="k">User</span><span class="err">→</span><span class="n">Matrix</span><span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="n">matrix_room_id</span><span class="w">   </span><span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">rooms</span><span class="w">      </span><span class="err">│</span><span class="w">   </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">└─────────────┘</span><span class="w">  </span><span class="err">└──────────────────┘</span><span class="w">  </span><span class="err">└───────────────────┘</span><span class="w">   </span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+<span class="w">                              </span><span class="err">│</span>
+<span class="w">                              </span><span class="err">▼</span>
+<span class="err">┌─────────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">                    </span><span class="n">Matrix</span><span class="w"> </span><span class="n">Synapse</span><span class="w"> </span><span class="p">(</span><span class="mi">8018</span><span class="p">)</span><span class="w">                        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nl">Rooms</span><span class="p">:</span><span class="w"> </span><span class="err">!</span><span class="nl">xxx</span><span class="p">:</span><span class="n">daarion</span><span class="p">.</span><span class="nf">space</span><span class="w">                                    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nl">Users</span><span class="p">:</span><span class="w"> </span><span class="nv">@daarion_xxx</span><span class="err">:</span><span class="n">daarion</span><span class="p">.</span><span class="nf">space</span><span class="w">                            </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Messages</span><span class="p">,</span><span class="w"> </span><span class="n">history</span><span class="p">,</span><span class="w"> </span><span class="n">sync</span><span class="w">                                      </span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────────────────────────────────┘</span>
+</code></pre></div>
+
+<h3 id="_1">Компоненти:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>auth-service</strong> (7020)</li>
+<li>
+<p>знає <code>user_id</code>, email, Matrix user mapping.</p>
+</li>
+<li>
+<p><strong>matrix-gateway</strong> (7025)</p>
+</li>
+<li>вміє створювати кімнати (вже реалізовано),</li>
+<li>
+<p>буде видавати Matrix access tokens для користувачів.</p>
+</li>
+<li>
+<p><strong>city-service</strong> (7001)</p>
+</li>
+<li>надає <code>matrix_room_id</code> / <code>matrix_room_alias</code>,</li>
+<li>
+<p>новий endpoint <code>/chat/bootstrap</code>.</p>
+</li>
+<li>
+<p><strong>web (Next.js UI)</strong></p>
+</li>
+<li>сторінка <code>/city/[slug]</code>,</li>
+<li>компонент <code>ChatRoom</code>,</li>
+<li>Matrix chat client.</li>
+</ul>
+<hr />
+<h2 id="2-auth-model">2. AUTH MODEL<a class="headerlink" href="#2-auth-model" title="Permanent link">&para;</a></h2>
+<h3 id="mvp">Допущення (MVP):<a class="headerlink" href="#mvp" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Користувач уже залогінений у DAARION (JWT).</li>
+<li>Для кожного <code>user_id</code> вже існує Matrix-акаунт (авто-provisioning реалізовано раніше).</li>
+<li>Потрібен <strong>bootstrap endpoint</strong>, який:</li>
+<li>по JWT → знаходить Matrix user,</li>
+<li>видає Matrix access token,</li>
+<li>повертає <code>matrix_room_id</code> для кімнати.</li>
+</ul>
+<h3 id="matrix-user-mapping">Matrix User Mapping<a class="headerlink" href="#matrix-user-mapping" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>DAARION user_id</th>
+<th>Matrix user_id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>87838688-d7c4-436c-...</code></td>
+<td><code>@daarion_87838688:daarion.space</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-backend-chat-bootstrap-api">3. BACKEND: CHAT BOOTSTRAP API<a class="headerlink" href="#3-backend-chat-bootstrap-api" title="Permanent link">&para;</a></h2>
+<h3 id="31-endpoint-get-apicitychatbootstrap">3.1. Endpoint: <code>GET /api/city/chat/bootstrap</code><a class="headerlink" href="#31-endpoint-get-apicitychatbootstrap" title="Permanent link">&para;</a></h3>
+<p><strong>Розташування:</strong> <code>city-service</code> (логічно відповідає за City+Matrix інтеграцію)</p>
+<p><strong>Вхід:</strong>
+- HTTP заголовок <code>Authorization: Bearer &lt;access_token&gt;</code> (DAARION JWT)
+- query param: <code>room_slug</code>, наприклад <code>energy</code></p>
+<p><strong>Логіка:</strong></p>
+<ol>
+<li>Валідувати JWT → отримати <code>user_id</code>.</li>
+<li>Знайти <code>city_room</code> по <code>slug</code>:</li>
+<li>витягнути <code>matrix_room_id</code> / <code>matrix_room_alias</code>.</li>
+<li>Через internal виклик до <code>matrix-gateway</code>:</li>
+<li>отримати Matrix access token для цього <code>user_id</code>.</li>
+<li>Повернути фронтенду:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;matrix_hs_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://app.daarion.space&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@daarion_87838688:daarion.space&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;syt_...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;!gykdLyazhkcSZGHmbG:daarion.space&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;matrix_room_alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#city_energy:daarion.space&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;room&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_energy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;energy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Energy&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="32-matrix-gateway-user-token-endpoint">3.2. Matrix Gateway: User Token Endpoint<a class="headerlink" href="#32-matrix-gateway-user-token-endpoint" title="Permanent link">&para;</a></h3>
+<p><strong>Endpoint:</strong> <code>POST /internal/matrix/users/token</code></p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;87838688-d7c4-436c-9466-4ab0947d7730&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;matrix_user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@daarion_87838688:daarion.space&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;syt_...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;device_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEVICE_ID&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Логіка:</strong>
+1. Побудувати Matrix username: <code>daarion_{user_id[:8]}</code>
+2. Спробувати логін з відомим паролем
+3. Якщо користувач не існує — створити через admin API
+4. Повернути access token</p>
+<h3 id="33-security">3.3. Security<a class="headerlink" href="#33-security" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Endpoint вимагає валідний DAARION JWT.</li>
+<li><code>matrix_access_token</code> — короткоживучий (30 хв) або session-based.</li>
+<li>Internal endpoints (<code>/internal/*</code>) доступні тільки з Docker network.</li>
+</ul>
+<hr />
+<h2 id="4-frontend-matrix-chat-client">4. FRONTEND: MATRIX CHAT CLIENT<a class="headerlink" href="#4-frontend-matrix-chat-client" title="Permanent link">&para;</a></h2>
+<h3 id="41-chat-layout">4.1. Поточний Chat Layout<a class="headerlink" href="#41-chat-layout" title="Permanent link">&para;</a></h3>
+<p>Вже існує:
+* сторінка <code>/city/[slug]</code>,
+* компонент <code>ChatRoom</code>:
+  * <code>messages[]</code>,
+  * <code>onSend(message)</code>,
+  * індикатор підключення.</p>
+<p>Зараз він працює через свій WebSocket/stub.</p>
+<h3 id="42">4.2. Нова схема<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>При завантаженні сторінки:</strong>
+   ```tsx
+   // /city/[slug]/page.tsx
+   const [bootstrap, setBootstrap] = useState(null);
+   const [status, setStatus] = useState&lt;'loading' | 'connecting' | 'online' | 'error'&gt;('loading');</li>
+</ol>
+<p>useEffect(() =&gt; {
+     async function init() {
+       // 1. Отримати bootstrap дані
+       const res = await fetch(<code>/api/city/chat/bootstrap?room_slug=${slug}</code>, {
+         headers: { Authorization: <code>Bearer ${token}</code> }
+       });
+       const data = await res.json();
+       setBootstrap(data);</p>
+<div class="codehilite"><pre><span></span><code><span class="w">   </span><span class="c1">// 2. Ініціалізувати Matrix client</span>
+<span class="w">   </span><span class="n">setStatus</span><span class="p">(</span><span class="s">&#39;connecting&#39;</span><span class="p">);</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="n">init</span><span class="p">();</span>
+</code></pre></div>
+
+<p>}, [slug]);
+   ```</p>
+<ol>
+<li>
+<p><strong>Створення Matrix клієнта:</strong>
+   <code>tsx
+   // Використовуємо REST API напряму (без matrix-js-sdk для простоти MVP)
+   const matrixClient = new MatrixRestClient({
+     baseUrl: bootstrap.matrix_hs_url,
+     accessToken: bootstrap.matrix_access_token,
+     userId: bootstrap.matrix_user_id,
+     roomId: bootstrap.matrix_room_id
+   });</code></p>
+</li>
+<li>
+<p><strong>Отримання історії:</strong>
+   <code>tsx
+   const messages = await matrixClient.getMessages(roomId, { limit: 50 });</code></p>
+</li>
+<li>
+<p><strong>Відправка повідомлень:</strong>
+   <code>tsx
+   await matrixClient.sendMessage(roomId, {
+     msgtype: 'm.text',
+     body: text
+   });</code></p>
+</li>
+<li>
+<p><strong>Підписка на нові повідомлення:</strong>
+   <code>tsx
+   // Long-polling або sync
+   matrixClient.onMessage((event) =&gt; {
+     setMessages(prev =&gt; [...prev, mapMatrixEvent(event)]);
+   });</code></p>
+</li>
+</ol>
+<h3 id="43-matrix-event-chat-message-mapping">4.3. Matrix Event → Chat Message Mapping<a class="headerlink" href="#43-matrix-event-chat-message-mapping" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">mapMatrixEvent</span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="kt">MatrixEvent</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">ChatMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">event.event_id</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">senderId</span><span class="o">:</span><span class="w"> </span><span class="kt">event.sender</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">senderName</span><span class="o">:</span><span class="w"> </span><span class="kt">event.sender.split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;@daarion_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;User &#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">event.content.body</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin_server_ts</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">isUser</span><span class="o">:</span><span class="w"> </span><span class="kt">event.sender</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">bootstrap</span><span class="p">.</span><span class="nx">matrix_user_id</span><span class="p">,</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-matrix-rest-client-lightweight">5. MATRIX REST CLIENT (Lightweight)<a class="headerlink" href="#5-matrix-rest-client-lightweight" title="Permanent link">&para;</a></h2>
+<p>Замість важкого <code>matrix-js-sdk</code>, створимо легкий REST клієнт:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// lib/matrix-client.ts</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MatrixRestClient</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">baseUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">accessToken</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">userId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">config</span><span class="o">:</span><span class="w"> </span><span class="kt">MatrixClientConfig</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">baseUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">accessToken</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">userId</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Get room messages</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">getMessages</span><span class="p">(</span><span class="nx">roomId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="o">?:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">limit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="nx">from?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">dir</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">String</span><span class="p">(</span><span class="nx">options</span><span class="o">?</span><span class="p">.</span><span class="nx">limit</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">50</span><span class="p">)</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">options</span><span class="o">?</span><span class="p">.</span><span class="kr">from</span><span class="p">)</span><span class="w"> </span><span class="nx">params</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;from&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="kr">from</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">      </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/_matrix/client/v3/rooms/</span><span class="si">${</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">roomId</span><span class="p">)</span><span class="si">}</span><span class="sb">/messages?</span><span class="si">${</span><span class="nx">params</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="kt">this.authHeaders</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Send text message</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">sendMessage</span><span class="p">(</span><span class="nx">roomId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">txnId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`m</span><span class="si">${</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">      </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/_matrix/client/v3/rooms/</span><span class="si">${</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">roomId</span><span class="p">)</span><span class="si">}</span><span class="sb">/send/m.room.message/</span><span class="si">${</span><span class="nx">txnId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;PUT&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="kt">this.authHeaders</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="kt">JSON.stringify</span><span class="p">({</span>
+<span class="w">          </span><span class="nx">msgtype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;m.text&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="kt">body</span>
+<span class="w">        </span><span class="p">})</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Join room</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">joinRoom</span><span class="p">(</span><span class="nx">roomId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">      </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/_matrix/client/v3/join/</span><span class="si">${</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">roomId</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="kt">this.authHeaders</span><span class="p">()</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Sync (for real-time updates)</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">sync</span><span class="p">(</span><span class="nx">since?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">({</span><span class="w"> </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;30000&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">since</span><span class="p">)</span><span class="w"> </span><span class="nx">params</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;since&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">since</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span>
+<span class="w">      </span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/_matrix/client/v3/sync?</span><span class="si">${</span><span class="nx">params</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="kt">this.authHeaders</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">authHeaders</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;Authorization&#39;</span><span class="o">:</span><span class="w"> </span><span class="sb">`Bearer </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">accessToken</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="6-ui-ux-requirements">6. UI / UX REQUIREMENTS<a class="headerlink" href="#6-ui-ux-requirements" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1. Стан підключення<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>UI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loading</code></td>
+<td>Skeleton loader</td>
+</tr>
+<tr>
+<td><code>connecting</code></td>
+<td>"Підключення до Matrix…" + spinner</td>
+</tr>
+<tr>
+<td><code>online</code></td>
+<td>Зелений індикатор "Онлайн"</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Червоний індикатор + "Помилка підключення" + кнопка "Повторити"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62">6.2. Відображення історії<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ul>
+<li>При завантаженні показувати останні 50 повідомлень</li>
+<li>Infinite scroll для старіших повідомлень</li>
+<li>Показувати дату-роздільник між днями</li>
+</ul>
+<h3 id="63">6.3. Надсилання повідомлень<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Enter — відправити</li>
+<li>Shift+Enter — новий рядок</li>
+<li>Показувати "sending..." стан</li>
+<li>При помилці — показати "Не вдалося відправити" + retry</li>
+</ul>
+<hr />
+<h2 id="7-limitations-mvp">7. LIMITATIONS / MVP<a class="headerlink" href="#7-limitations-mvp" title="Permanent link">&para;</a></h2>
+<p>Поки що:
+* ✅ Тільки текстові повідомлення (<code>m.text</code>)
+* ❌ Без файлів/зображень
+* ❌ Без threads/reactions
+* ❌ Без read receipts
+* ❌ Без typing indicators</p>
+<p>Це все буде додано у наступних фазах.</p>
+<hr />
+<h2 id="8-api-summary">8. API SUMMARY<a class="headerlink" href="#8-api-summary" title="Permanent link">&para;</a></h2>
+<h3 id="city-service-7001">City Service (7001)<a class="headerlink" href="#city-service-7001" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/city/chat/bootstrap?room_slug=X</code></td>
+<td>Bootstrap Matrix chat</td>
+</tr>
+</tbody>
+</table>
+<h3 id="matrix-gateway-7025">Matrix Gateway (7025)<a class="headerlink" href="#matrix-gateway-7025" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/internal/matrix/users/token</code></td>
+<td>Get/create user token</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-roadmap-after-this">9. ROADMAP AFTER THIS<a class="headerlink" href="#9-roadmap-after-this" title="Permanent link">&para;</a></h2>
+<p>Після Matrix Chat Client:</p>
+<ol>
+<li><strong>Presence &amp; Typing:</strong></li>
+<li>
+<p>слухати <code>m.presence</code>, <code>m.typing</code> → показувати "online/typing".</p>
+</li>
+<li>
+<p><strong>Reactions &amp; read receipts.</strong></p>
+</li>
+<li>
+<p><strong>Attachments (фото/файли).</strong></p>
+</li>
+<li>
+<p><strong>City Map інтеграція</strong> (активність кімнат → візуалізація).</p>
+</li>
+</ol>
+<hr />
+<h2 id="10-acceptance-criteria">10. ACCEPTANCE CRITERIA<a class="headerlink" href="#10-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <code>/api/city/chat/bootstrap</code> повертає Matrix credentials для авторизованого користувача</li>
+<li>[ ] Frontend підключається до Matrix і показує історію повідомлень</li>
+<li>[ ] Користувач може надсилати повідомлення через DAARION UI</li>
+<li>[ ] Повідомлення з'являються в Element Web і навпаки</li>
+<li>[ ] Обробляються стани: loading, connecting, online, error</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

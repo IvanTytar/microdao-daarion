@@ -1,0 +1,1349 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/PHASE3_MASTER_TASK/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK: PHASE 3 — LLM PROXY + MEMORY ORCHESTRATOR + TOOLCORE - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-phase-3-llm-proxy-memory-orchestrator-toolcore" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK: PHASE 3 — LLM PROXY + MEMORY ORCHESTRATOR + TOOLCORE
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-service-llm-proxy-servicesllm-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) SERVICE: LLM PROXY (services/llm-proxy)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1) SERVICE: LLM PROXY (services/llm-proxy)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-model-routing-routerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Model routing (router.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-providers-providerspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Providers (providers/*.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-logging-limits-middlewarespy-logging_middlewarepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Logging &amp; limits (middlewares.py, logging_middleware.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-readmemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 README.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-service-memory-orchestrator-servicesmemory-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) SERVICE: MEMORY ORCHESTRATOR (services/memory-orchestrator)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2) SERVICE: MEMORY ORCHESTRATOR (services/memory-orchestrator)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Backends
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-embedding-client-embedding_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Embedding client (embedding_client.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Integration points
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-service-toolcore-servicestoolcore" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) SERVICE: TOOLCORE (services/toolcore)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3) SERVICE: TOOLCORE (services/toolcore)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Data model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-executors" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Executors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-registry-registrypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Registry (registry.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-nats-optional-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 NATS (optional для Phase 3)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-integration-agent-runtime-llm-proxy-memory-toolcore" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) INTEGRATION: agent-runtime + LLM Proxy + Memory + Toolcore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4) INTEGRATION: agent-runtime + LLM Proxy + Memory + Toolcore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-llm-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Використовувати LLM Proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-memory-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Використовувати Memory Orchestrator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Виклик tools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-docker-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5) DOCKER + DOCS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5) DOCKER + DOCS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 docker-compose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Документація
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      6) ACCEPTANCE CRITERIA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6) ACCEPTANCE CRITERIA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-llm-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) LLM Proxy:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-memory-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) Memory Orchestrator:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-toolcore" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) Toolcore:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-end-to-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) End-to-end:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-of-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      END OF TASK
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-phase-3-llm-proxy-memory-orchestrator-toolcore">TASK: PHASE 3 — LLM PROXY + MEMORY ORCHESTRATOR + TOOLCORE<a class="headerlink" href="#task-phase-3-llm-proxy-memory-orchestrator-toolcore" title="Permanent link">&para;</a></h1>
+<p><strong>Goal:</strong>
+Зробити агентів DAARION по-справжньому розумними та інструментальними:
+- єдиний LLM Proxy з підтримкою кількох провайдерів і локальних моделей;
+- Memory Orchestrator, який дає єдиний API для памʼяті агентів;
+- Toolcore — реєстр інструментів і безпечне виконання tools для агентів.</p>
+<p><strong>PHASE 3 = інфраструктура мислення й дії для Agent Runtime.</strong></p>
+<p><strong>Existing (assume from Phase 1–2):</strong>
+- messaging-service, matrix-gateway, Messenger UI.
+- agent-filter, DAGI Router (router.invoke.agent).
+- agent-runtime (використовує /internal/llm/proxy та /internal/agent-memory/*, але поки можуть бути stubs).
+- базова БД (users, microdaos, agents, channels, messages, etc.).
+- NATS JetStream, PostgreSQL, docker-compose.</p>
+<p><strong>Deliverables:</strong>
+1. services/llm-proxy/ — LLM Router + Providers + Logging.
+2. services/memory-orchestrator/ — єдиний API для памʼяті агентів.
+3. services/toolcore/ — registry + execution engine для tools.
+4. Інтеграція з agent-runtime.
+5. Оновлення docker-compose та docs.</p>
+<hr />
+<h2 id="1-service-llm-proxy-servicesllm-proxy">1) SERVICE: LLM PROXY (services/llm-proxy)<a class="headerlink" href="#1-service-llm-proxy-servicesllm-proxy" title="Permanent link">&para;</a></h2>
+<p><strong>Create folder:</strong></p>
+<div class="codehilite"><pre><span></span><code>services/llm-proxy/
+  main.py
+  models.py
+  router.py
+  providers/
+    __init__.py
+    openai_provider.py
+    deepseek_provider.py
+    local_provider.py
+  config.yaml
+  middlewares.py
+  logging_middleware.py
+  Dockerfile
+  requirements.txt
+  README.md
+</code></pre></div>
+
+<h3 id="11-api">1.1 API<a class="headerlink" href="#11-api" title="Permanent link">&para;</a></h3>
+<p><strong>Base URL (internal-only):</strong>
+- <code>POST /internal/llm/proxy</code></p>
+<p><strong>Request (v1):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1-mini&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;текст відповіді&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;prompt_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;completion_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">168</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openai&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_resolved&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1-mini&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Optional (stub for later):</strong>
+- <code>/internal/llm/batch</code>
+- <code>/internal/llm/stream</code> (можна залишити TODO)</p>
+<h3 id="12-model-routing-routerpy">1.2 Model routing (router.py)<a class="headerlink" href="#12-model-routing-routerpy" title="Permanent link">&para;</a></h3>
+<p>Створити модуль:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">route_model</span><span class="p">(</span><span class="n">logical_model</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProviderConfig</span><span class="p">:</span>
+    <span class="c1"># Читає зі структури в config.yaml</span>
+    <span class="c1"># Напр.:</span>
+    <span class="c1">#  - gpt-4.1-mini → OpenAI (gpt-4.1-mini)</span>
+    <span class="c1">#  - deepseek-r1 → DeepSeek API</span>
+    <span class="c1">#  - dagi-local-8b → Local provider (Ollama / vllm)</span>
+</code></pre></div>
+
+<p><strong>config.yaml (приклад):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">providers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">openai</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.openai.com/v1&quot;</span>
+<span class="w">    </span><span class="nt">api_key_env</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OPENAI_API_KEY&quot;</span>
+<span class="w">  </span><span class="nt">deepseek</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.deepseek.com/v1&quot;</span>
+<span class="w">    </span><span class="nt">api_key_env</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DEEPSEEK_API_KEY&quot;</span>
+<span class="w">  </span><span class="nt">local</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://local-llm:8000&quot;</span>
+
+<span class="nt">models</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">gpt-4.1-mini</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;openai&quot;</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gpt-4.1-mini&quot;</span>
+<span class="w">  </span><span class="nt">deepseek-r1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deepseek&quot;</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deepseek-r1&quot;</span>
+<span class="w">  </span><span class="nt">dagi-local-8b</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;local&quot;</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;qwen2.5-8b-instruct&quot;</span>
+</code></pre></div>
+
+<h3 id="13-providers-providerspy">1.3 Providers (providers/*.py)<a class="headerlink" href="#13-providers-providerspy" title="Permanent link">&para;</a></h3>
+<p>Кожен провайдер:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BaseProvider</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ChatMessage</span><span class="p">],</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LLMResponse</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+
+<p><strong>Файли:</strong>
+- <code>providers/openai_provider.py</code>
+- <code>providers/deepseek_provider.py</code>
+- <code>providers/local_provider.py</code></p>
+<p>Вони:
+- отримують normalized messages,
+- викликають відповідний API/endpoint,
+- повертають LLMResponse (контент + usage).</p>
+<p><strong>Local provider:</strong>
+- для Phase 3 можна зробити простий HTTP-запит до існуючого локального сервісу (Ollama/vLLM), або stub.</p>
+<h3 id="14-logging-limits-middlewarespy-logging_middlewarepy">1.4 Logging &amp; limits (middlewares.py, logging_middleware.py)<a class="headerlink" href="#14-logging-limits-middlewarespy-logging_middlewarepy" title="Permanent link">&para;</a></h3>
+<p>Добавити:
+- простий rate limit per-agent (стабово, через in-memory або Redis stub).
+- логування викликів:
+  - agent_id, microdao_id, model, latency, tokens.
+- TODO hooks для Billing/Usage Engine (на майбутнє).</p>
+<h3 id="15-readmemd">1.5 README.md<a class="headerlink" href="#15-readmemd" title="Permanent link">&para;</a></h3>
+<p>Описати:
+- підтримувані моделі та мапінг,
+- як додати нового провайдера,
+- як викликати /internal/llm/proxy з інших сервісів (особливо agent-runtime).</p>
+<hr />
+<h2 id="2-service-memory-orchestrator-servicesmemory-orchestrator">2) SERVICE: MEMORY ORCHESTRATOR (services/memory-orchestrator)<a class="headerlink" href="#2-service-memory-orchestrator-servicesmemory-orchestrator" title="Permanent link">&para;</a></h2>
+<p><strong>Goal:</strong>
+Єдиний API для роботи з памʼяттю:
+- short-term (канальний контекст / event log),
+- mid-term (agent memory / RAG embedding store),
+- long-term (knowledge base, docs, roadmaps).</p>
+<p><strong>Create folder:</strong></p>
+<div class="codehilite"><pre><span></span><code>services/memory-orchestrator/
+  main.py
+  models.py
+  router.py
+  backends/
+    __init__.py
+    short_term_pg.py
+    vector_store_pg.py
+    kb_filesystem.py
+  embedding_client.py
+  config.yaml
+  Dockerfile
+  requirements.txt
+  README.md
+</code></pre></div>
+
+<h3 id="21-api">2.1 API<a class="headerlink" href="#21-api" title="Permanent link">&para;</a></h3>
+<p><strong>Base URL:</strong>
+- <code>POST /internal/agent-memory/query</code>
+- <code>POST /internal/agent-memory/store</code>
+- <code>POST /internal/agent-memory/summarize</code> (optional v1)</p>
+<p><strong>Request /query:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;optional&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;коротко, які були останні зміни в цьому microDAO?&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mem-123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;conversation | kb | task | dao-event&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Текст фрагменту памʼяті&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;channel:...&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Request /store:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;optional&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;conversation | kb | task | dao-event&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;user_message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;agent_reply&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mem-123&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<h3 id="22-backends">2.2 Backends<a class="headerlink" href="#22-backends" title="Permanent link">&para;</a></h3>
+<p><strong>backends/short_term_pg.py:</strong>
+- зберігає сирі events (або посилання на messages) в PostgreSQL, якщо треба окремо від messenger.</p>
+<p><strong>backends/vector_store_pg.py:</strong>
+- використовує embeddings (через embedding_client.py) і зберігає в таблиці:
+  <code>sql
+  agent_memories (id, agent_id, microdao_id, embedding vector, content, meta)</code>
+- простий cosine similarity пошук.</p>
+<p><strong>backends/kb_filesystem.py:</strong>
+- stub для long-term знань (roadmaps, docs), можна залишити TODO.</p>
+<h3 id="23-embedding-client-embedding_clientpy">2.3 Embedding client (embedding_client.py)<a class="headerlink" href="#23-embedding-client-embedding_clientpy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Простий клієнт до існуючої embedding-моделі (наприклад, BGE-M3 чи інша) через /internal/embedding/proxy або безпосередньо.</li>
+<li>Якщо embedding-сервіс не описаний — зробити stub + TODO.</li>
+</ul>
+<h3 id="24-integration-points">2.4 Integration points<a class="headerlink" href="#24-integration-points" title="Permanent link">&para;</a></h3>
+<p><strong>agent-runtime:</strong>
+- замінити прямі виклики agent-memory на:
+  - <code>POST /internal/agent-memory/query</code>
+  - <code>POST /internal/agent-memory/store</code></p>
+<p>Надалі можна буде підʼєднати:
+- microDAO knowledge,
+- DAO events,
+- roadmaps.</p>
+<hr />
+<h2 id="3-service-toolcore-servicestoolcore">3) SERVICE: TOOLCORE (services/toolcore)<a class="headerlink" href="#3-service-toolcore-servicestoolcore" title="Permanent link">&para;</a></h2>
+<p><strong>Goal:</strong>
+Єдина точка для:
+- реєстрації tools (інструментів агентів),
+- перевірки дозволів,
+- виконання tools та повернення результату агенту.</p>
+<p><strong>Create folder:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">services</span><span class="o">/</span><span class="n">toolcore</span><span class="o">/</span>
+<span class="w">  </span><span class="n">main</span><span class="o">.</span><span class="n">py</span>
+<span class="w">  </span><span class="n">models</span><span class="o">.</span><span class="n">py</span>
+<span class="w">  </span><span class="n">router</span><span class="o">.</span><span class="n">py</span>
+<span class="w">  </span><span class="n">registry</span><span class="o">.</span><span class="n">py</span>
+<span class="w">  </span><span class="n">executors</span><span class="o">/</span>
+<span class="w">    </span><span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="w">    </span><span class="n">http_executor</span><span class="o">.</span><span class="n">py</span>
+<span class="w">    </span><span class="n">python_executor</span><span class="o">.</span><span class="n">py</span><span class="w"> </span><span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+<span class="w">  </span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+<span class="w">  </span><span class="n">Dockerfile</span>
+<span class="w">  </span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="w">  </span><span class="n">README</span><span class="o">.</span><span class="n">md</span>
+</code></pre></div>
+
+<h3 id="31-data-model">3.1 Data model<a class="headerlink" href="#31-data-model" title="Permanent link">&para;</a></h3>
+<p><strong>models.py:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ToolDefinition</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>                <span class="c1"># &quot;projects.list&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">input_schema</span><span class="p">:</span> <span class="nb">dict</span>     <span class="c1"># JSON Schema</span>
+    <span class="n">output_schema</span><span class="p">:</span> <span class="nb">dict</span>    <span class="c1"># JSON Schema</span>
+    <span class="n">executor</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="p">]</span>
+    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span>            <span class="c1"># HTTP URL or python path</span>
+    <span class="n">allowed_agents</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ToolCallRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">tool_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ToolCallResult</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">ok</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+<h3 id="32-api">3.2 API<a class="headerlink" href="#32-api" title="Permanent link">&para;</a></h3>
+<p><strong>HTTP (internal):</strong></p>
+<ul>
+<li>
+<p><code>GET /internal/tools</code>
+  → список доступних tools</p>
+</li>
+<li>
+<p><code>POST /internal/tools/call</code>
+  Body: ToolCallRequest
+  Behavior:</p>
+</li>
+<li>перевірити, чи agent_id має право на tool_id (allowed_agents).</li>
+<li>знайти ToolDefinition.</li>
+<li>виконати через відповідний executor.</li>
+<li>повернути ToolCallResult.</li>
+</ul>
+<h3 id="33-executors">3.3 Executors<a class="headerlink" href="#33-executors" title="Permanent link">&para;</a></h3>
+<p><strong>executors/http_executor.py:</strong>
+- викликає target як HTTP endpoint (POST з args + context).
+- хендлінг помилок та таймаутів.</p>
+<p><strong>executors/python_executor.py (optional):</strong>
+- allows direct call of internal python functions (у v1 можна залишити TODO або мінімальний stub).</p>
+<h3 id="34-registry-registrypy">3.4 Registry (registry.py)<a class="headerlink" href="#34-registry-registrypy" title="Permanent link">&para;</a></h3>
+<p>Початок — з config.yaml (static registry):</p>
+<p><strong>config.yaml:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">tools</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;projects.list&quot;</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;List</span><span class="nv"> </span><span class="s">projects&quot;</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Повертає</span><span class="nv"> </span><span class="s">список</span><span class="nv"> </span><span class="s">проєктів</span><span class="nv"> </span><span class="s">microDAO.&quot;</span>
+<span class="w">    </span><span class="nt">input_schema</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;object&quot;</span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">microdao_id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;microdao_id&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">output_schema</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;array&quot;</span>
+<span class="w">      </span><span class="nt">items</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">executor</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http&quot;</span>
+<span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://projects-service:8000/internal/tools/projects.list&quot;</span>
+<span class="w">    </span><span class="nt">allowed_agents</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;agent:sofia&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;agent:pm&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;agent:cto&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p><strong>Registry API:</strong>
+- load from config.yaml at startup
+- later можна зробити DB-backed registry.</p>
+<h3 id="35-nats-optional-phase-3">3.5 NATS (optional для Phase 3)<a class="headerlink" href="#35-nats-optional-phase-3" title="Permanent link">&para;</a></h3>
+<p>Можна додати:
+- subject: <code>tool.request</code>
+- subject: <code>tool.response</code></p>
+<p>Але для Phase 3 достатньо HTTP-контракту, який викликає agent-runtime.</p>
+<hr />
+<h2 id="4-integration-agent-runtime-llm-proxy-memory-toolcore">4) INTEGRATION: agent-runtime + LLM Proxy + Memory + Toolcore<a class="headerlink" href="#4-integration-agent-runtime-llm-proxy-memory-toolcore" title="Permanent link">&para;</a></h2>
+<p><strong>Update agent-runtime:</strong></p>
+<h3 id="41-llm-proxy">4.1 Використовувати LLM Proxy<a class="headerlink" href="#41-llm-proxy" title="Permanent link">&para;</a></h3>
+<p>Замість прямого виклику будь-яких LLM:
+- завжди викликати:
+  <code>http
+  POST /internal/llm/proxy
+  {
+    "model": "&lt;logical model from agent blueprint&gt;",
+    "messages": [...],
+    "metadata": {
+      "agent_id": ...,
+      "microdao_id": ...,
+      "channel_id": ...
+    }
+  }</code></p>
+<h3 id="42-memory-orchestrator">4.2 Використовувати Memory Orchestrator<a class="headerlink" href="#42-memory-orchestrator" title="Permanent link">&para;</a></h3>
+<p>При channel_message:
+- контекст:
+  <code>GET /internal/messaging/channels/{channelId}/messages?limit=50</code>
+- памʼять:
+  <code>POST /internal/agent-memory/query</code>
+- запис:
+  <code>POST /internal/agent-memory/store</code> після відповіді.</p>
+<h3 id="43-tools">4.3 Виклик tools<a class="headerlink" href="#43-tools" title="Permanent link">&para;</a></h3>
+<p>Якщо в blueprint агента передбачені tools:
+- парсити вихід LLM (JSON/structured) або через simple convention (наприклад, спеціальний формат "TOOL: projects.list {...}").
+- для кожного tool call:
+  <code>http
+  POST /internal/tools/call
+  {
+    "tool_id": "...",
+    "agent_id": "...",
+    "microdao_id": "...",
+    "args": {...}
+  }</code>
+- включати результати tools у наступний LLM виклик як контекст.
+- (На Phase 3 можна реалізувати один-два прості tools: projects.list, followups.create.)</p>
+<hr />
+<h2 id="5-docker-docs">5) DOCKER + DOCS<a class="headerlink" href="#5-docker-docs" title="Permanent link">&para;</a></h2>
+<h3 id="51-docker-compose">5.1 docker-compose<a class="headerlink" href="#51-docker-compose" title="Permanent link">&para;</a></h3>
+<p>Додати new services:
+- llm-proxy
+- memory-orchestrator
+- toolcore</p>
+<p>Переконатися, що:
+- вони в тій же мережі, що agent-runtime, messaging-service, NATS, DB;
+- є healthcheck-и (GET /health).</p>
+<h3 id="52">5.2 Документація<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>Додати/оновити:
+- <code>docs/LLM_PROXY_SPEC.md</code>
+- <code>docs/MEMORY_ORCHESTRATOR_SPEC.md</code>
+- <code>docs/TOOLCORE_SPEC.md</code>
+- оновити <code>docs/INDEX.md</code> (додати посилання на ці три сервіси).
+- в PHASE2_READY.md або окремому PHASE3_READY.md описати нову архітектуру agent pipeline.</p>
+<hr />
+<h2 id="6-acceptance-criteria">6) ACCEPTANCE CRITERIA<a class="headerlink" href="#6-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<h3 id="1-llm-proxy">1) LLM Proxy:<a class="headerlink" href="#1-llm-proxy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ /internal/llm/proxy приймає запити, повертає відповіді.</li>
+<li>✅ Принаймні 2 логічні моделі працюють (наприклад, один remote, один local.stub).</li>
+<li>✅ Логуються виклики per-agent.</li>
+</ul>
+<h3 id="2-memory-orchestrator">2) Memory Orchestrator:<a class="headerlink" href="#2-memory-orchestrator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ /internal/agent-memory/query повертає релевантні фрагменти (можна з простим vector search або stub).</li>
+<li>✅ /internal/agent-memory/store зберігає нові entries.</li>
+<li>✅ agent-runtime успішно використовує його при відповіді.</li>
+</ul>
+<h3 id="3-toolcore">3) Toolcore:<a class="headerlink" href="#3-toolcore" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ /internal/tools повертає список інструментів.</li>
+<li>✅ /internal/tools/call виконує хоча б один реальний tool (HTTP executor).</li>
+<li>✅ agent-runtime може викликати хоча б один tool впродовж свого pipeline.</li>
+</ul>
+<h3 id="4-end-to-end">4) End-to-end:<a class="headerlink" href="#4-end-to-end" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Агент у Messenger:</li>
+<li>читає контекст (messages + memory),</li>
+<li>викликає LLM через LLM Proxy,</li>
+<li>за потреби викликає tool через Toolcore,</li>
+<li>повертає відповідь у канал.</li>
+<li>✅ Для одного демо-агента (наприклад, Sofia-Prime) цей ланцюг стабільно працює.</li>
+</ul>
+<hr />
+<h2 id="end-of-task">END OF TASK<a class="headerlink" href="#end-of-task" title="Permanent link">&para;</a></h2>
+<p><strong>Estimated Time:</strong> 6-8 weeks<br />
+<strong>Priority:</strong> High<br />
+<strong>Dependencies:</strong> Phase 2 complete<br />
+<strong>Version:</strong> 1.0.0<br />
+<strong>Date:</strong> 2025-11-24</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

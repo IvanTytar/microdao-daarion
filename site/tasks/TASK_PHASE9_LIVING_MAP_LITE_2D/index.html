@@ -1,0 +1,1192 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_PHASE9_LIVING_MAP_LITE_2D/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK PHASE 9 — LIVING MAP (LITE 2D UI) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-phase-9-living-map-lite-2d-ui" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK PHASE 9 — LIVING MAP (LITE 2D UI)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Goals
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ui-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. UI Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. UI Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-files-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Files (Frontend)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-contract-ui-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Data Contract (UI Level)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-hook-uselivingmaplite" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Hook: useLivingMapLite
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Hook: useLivingMapLite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Поведінка
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-canvas-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Canvas Rendering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Canvas Rendering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-livingmapcanvastsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. LivingMapCanvas.tsx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-mini-enginecanvasrendererts" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. mini-engine/canvasRenderer.ts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-mini-enginelayoutenginets" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3. mini-engine/layoutEngine.ts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ui-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. UI Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. UI Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-layerswitchertsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. LayerSwitcher.tsx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-entitydetailspaneltsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. EntityDetailsPanel.tsx
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-livingmappagetsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. LivingMapPage.tsx
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-todo-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. TODO Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-phase-9-living-map-lite-2d-ui">TASK PHASE 9 — LIVING MAP (LITE 2D UI)<a class="headerlink" href="#task-phase-9-living-map-lite-2d-ui" title="Permanent link">&para;</a></h1>
+<p>Version: 1.0<br />
+Status: READY FOR IMPLEMENTATION<br />
+Scope: Frontend-Only 2D Interactive Map (React + Canvas)</p>
+<h2 id="1-context">1. Context<a class="headerlink" href="#1-context" title="Permanent link">&para;</a></h2>
+<p>Існує або буде реалізовано <code>living-map-service</code> (Phase 9 FULL):</p>
+<ul>
+<li><code>GET /living-map/snapshot</code></li>
+<li><code>WS /living-map/stream</code></li>
+</ul>
+<p>Цей таск — чисто <strong>UI/Frontend</strong>, який:</p>
+<ul>
+<li>візуалізує стан мережі DAARION у вигляді 2D карти,</li>
+<li>дає змогу перемикатися між шарами (City / Space / Nodes / Agents),</li>
+<li>показує базові стани (online/offline, load, alerts),</li>
+<li>реагує на живі події (WS).</li>
+</ul>
+<p>Цей 2D UI має працювати <strong>без 3D/Three.js</strong>, тільки React + Canvas.</p>
+<hr />
+<h2 id="2-goals">2. Goals<a class="headerlink" href="#2-goals" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Створити 2D "Living Map" сторінку <code>/living-map</code>.</li>
+<li>Зробити Canvas-рендеринг 4 шарів:</li>
+<li>City layer (microDAO як "райони міста")</li>
+<li>Space layer (DAO-планети, орбіти нод)</li>
+<li>Nodes layer (ноди, їх завантаженість)</li>
+<li>Agents layer (агенти як точки/іконки)</li>
+<li>Підключити <code>useLivingMapFull</code> (з FULL таску) або окремий <code>useLivingMapLite</code>.</li>
+<li>Забезпечити:</li>
+<li>панель шарів (Layer switcher),</li>
+<li>клік по сутності → панель деталей справа,</li>
+<li>zoom/pan базового рівня.</li>
+</ol>
+<hr />
+<h2 id="3-ui-structure">3. UI Structure<a class="headerlink" href="#3-ui-structure" title="Permanent link">&para;</a></h2>
+<h3 id="31-routes">3.1. Routes<a class="headerlink" href="#31-routes" title="Permanent link">&para;</a></h3>
+<p>У <code>src/App.tsx</code>:</p>
+<ul>
+<li>Додати route:</li>
+<li><code>/living-map</code> → <code>LivingMapPage</code>.</li>
+</ul>
+<h3 id="32-files-frontend">3.2. Files (Frontend)<a class="headerlink" href="#32-files-frontend" title="Permanent link">&para;</a></h3>
+<p>Створити:</p>
+<div class="codehilite"><pre><span></span><code>src/features/livingMap/
+  ├── LivingMapPage.tsx
+  ├── hooks/useLivingMapLite.ts        # або reuse useLivingMapFull
+  ├── components/LivingMapCanvas.tsx
+  ├── components/LayerSwitcher.tsx
+  ├── components/EntityDetailsPanel.tsx
+  ├── mini-engine/canvasRenderer.ts
+  └── mini-engine/layoutEngine.ts
+</code></pre></div>
+
+<hr />
+<h2 id="4-data-contract-ui-level">4. Data Contract (UI Level)<a class="headerlink" href="#4-data-contract-ui-level" title="Permanent link">&para;</a></h2>
+<p>Очікуваний формат snapshot (узгоджений з FULL таском):</p>
+<div class="codehilite"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">LivingMapSnapshot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">generated_at</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">layers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">city</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">slug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;inactive&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">agents</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">nodes</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nx">space</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">planets</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;dao&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;platform&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;other&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;inactive&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">orbits</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">      </span><span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">nodes</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;offline&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">cpu</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">gpu</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nx">nodes</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">microdao_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;offline&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">metrics</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">cpu</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">          </span><span class="nx">gpu</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">          </span><span class="nx">ram</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">      </span><span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nx">agents</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">microdao_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;offline&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;idle&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">usage</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">llm_calls_24h</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">          </span><span class="nx">tokens_24h</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">      </span><span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Якщо backend ще не повністю готовий — у hook'у передбачити fallback з mock-даними.</p>
+<hr />
+<h2 id="5-hook-uselivingmaplite">5. Hook: <code>useLivingMapLite</code><a class="headerlink" href="#5-hook-uselivingmaplite" title="Permanent link">&para;</a></h2>
+<p>Мета: інкапсулювати логіку:</p>
+<ul>
+<li>HTTP-запит snapshot</li>
+<li>WebSocket-підписка</li>
+<li>merge подій у локальний state</li>
+</ul>
+<h3 id="51-api">5.1. API<a class="headerlink" href="#51-api" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">UseLivingMapLiteResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">snapshot</span><span class="o">:</span><span class="w"> </span><span class="kt">LivingMapSnapshot</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">isLoading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">connectionStatus</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;connecting&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;open&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;closed&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">selectedLayer</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">setSelectedLayer</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">layer</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">selectedEntityId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">setSelectedEntityId</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h3 id="52">5.2. Поведінка<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>При mount:</p>
+</li>
+<li>
+<p><code>GET /living-map/snapshot</code></p>
+</li>
+<li>після успіху — зберегти в <code>snapshot</code></li>
+<li>відкрити WS <code>/living-map/stream</code></li>
+<li>
+<p>На WS повідомлення:</p>
+</li>
+<li>
+<p>якщо <code>kind="event"</code>:</p>
+<ul>
+<li>оновлювати відповідні <code>layers.*</code> immutable-способом</li>
+<li>При помилках:</li>
+</ul>
+</li>
+<li>
+<p>виставити <code>error</code></p>
+</li>
+<li>обережний reconnect (наприклад, через 5–10 сек).</li>
+</ul>
+<hr />
+<h2 id="6-canvas-rendering">6. Canvas Rendering<a class="headerlink" href="#6-canvas-rendering" title="Permanent link">&para;</a></h2>
+<h3 id="61-livingmapcanvastsx">6.1. <code>LivingMapCanvas.tsx</code><a class="headerlink" href="#61-livingmapcanvastsx" title="Permanent link">&para;</a></h3>
+<p>Компонент:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">LivingMapCanvasProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">snapshot</span><span class="o">:</span><span class="w"> </span><span class="kt">LivingMapSnapshot</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">selectedLayer</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">selectedEntityId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">onSelectEntity</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">LivingMapCanvas</span><span class="p">(</span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">LivingMapCanvasProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// створює &lt;canvas&gt;, підключає canvasRenderer</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Використати <code>useRef&lt;HTMLCanvasElement&gt;</code> + <code>useEffect</code>.</li>
+<li>
+<p>Передавати в <code>canvasRenderer</code>:</p>
+</li>
+<li>
+<p><code>snapshot</code></p>
+</li>
+<li><code>selectedLayer</code></li>
+<li><code>selectedEntityId</code></li>
+<li><code>onSelectEntity</code></li>
+<li>внутрішній state zoom/pan (можна зберігати тут або в hook'у).</li>
+</ul>
+<h3 id="62-mini-enginecanvasrendererts">6.2. <code>mini-engine/canvasRenderer.ts</code><a class="headerlink" href="#62-mini-enginecanvasrendererts" title="Permanent link">&para;</a></h3>
+<p>Експортувати функцію:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">createLivingMapRenderer</span><span class="p">(</span><span class="nx">opts</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">canvas</span><span class="o">:</span><span class="w"> </span><span class="kt">HTMLCanvasElement</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">getState</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">snapshot</span><span class="o">:</span><span class="w"> </span><span class="kt">LivingMapSnapshot</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">selectedLayer</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">selectedEntityId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">zoom</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">offsetX</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">offsetY</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">onSelectEntity</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 1) ініціалізація контексту</span>
+<span class="w">  </span><span class="c1">// 2) підписка на mouse events</span>
+<span class="w">  </span><span class="c1">// 3) основний render loop (requestAnimationFrame)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Проста логіка:</p>
+<ul>
+<li>
+<p>Layer <code>"city"</code>:</p>
+</li>
+<li>
+<p>Рендерити прямокутники/кластери для кожного microDAO.</p>
+</li>
+<li>
+<p>Layer <code>"space"</code>:</p>
+</li>
+<li>
+<p>Кола/"орбіти" для DAO-планет, ноди — точки на орбітах.</p>
+</li>
+<li>
+<p>Layer <code>"nodes"</code>:</p>
+</li>
+<li>
+<p>Квадрати/іконки нод, колір залежить від <code>status</code> + bar для <code>cpu/gpu</code>.</p>
+</li>
+<li>
+<p>Layer <code>"agents"</code>:</p>
+</li>
+<li>
+<p>Маленькі точки/іконки, колір за статусом, розмір за <code>usage.tokens_24h</code>.</p>
+</li>
+</ul>
+<h3 id="63-mini-enginelayoutenginets">6.3. <code>mini-engine/layoutEngine.ts</code><a class="headerlink" href="#63-mini-enginelayoutenginets" title="Permanent link">&para;</a></h3>
+<p>Нехай вміщає функції:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">layoutCityLayer</span><span class="p">(</span><span class="cm">/* items */</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* x,y,w,h для кожного microDAO */</span><span class="w"> </span><span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">layoutSpaceLayer</span><span class="p">(</span><span class="cm">/* planets, nodes */</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* координати */</span><span class="w"> </span><span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">layoutNodesLayer</span><span class="p">(</span><span class="cm">/* nodes */</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* grid/cluster layout */</span><span class="w"> </span><span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">layoutAgentsLayer</span><span class="p">(</span><span class="cm">/* agents */</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* grid / spiral / random seeded */</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>Координати зберігати в локальному мапінгу (наприклад, <code>Map&lt;entityId, {x,y,w,h}&gt;</code>).</p>
+<hr />
+<h2 id="7-ui-components">7. UI Components<a class="headerlink" href="#7-ui-components" title="Permanent link">&para;</a></h2>
+<h3 id="71-layerswitchertsx">7.1. <code>LayerSwitcher.tsx</code><a class="headerlink" href="#71-layerswitchertsx" title="Permanent link">&para;</a></h3>
+<p>Простий компонент:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">LayerSwitcherProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">onChange</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">v</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">LayerSwitcher</span><span class="p">(</span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">LayerSwitcherProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 4 кнопки / pills / segmented control</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="72-entitydetailspaneltsx">7.2. <code>EntityDetailsPanel.tsx</code><a class="headerlink" href="#72-entitydetailspaneltsx" title="Permanent link">&para;</a></h3>
+<p>Показує деталі обраної сутності:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">EntityDetailsPanelProps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">snapshot</span><span class="o">:</span><span class="w"> </span><span class="kt">LivingMapSnapshot</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">selectedLayer</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;nodes&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">selectedEntityId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">EntityDetailsPanel</span><span class="p">(</span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">EntityDetailsPanelProps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// шукає entity у відповідному layer</span>
+<span class="w">  </span><span class="c1">// показує name, type, status, basic metrics</span>
+<span class="w">  </span><span class="c1">// опційно: кнопки &quot;Open Agent Hub&quot;, &quot;Open microDAO Console&quot;, &quot;Open DAO&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="8-livingmappagetsx">8. <code>LivingMapPage.tsx</code><a class="headerlink" href="#8-livingmappagetsx" title="Permanent link">&para;</a></h2>
+<p>Складає все разом:</p>
+<ul>
+<li>
+<p>Layout:</p>
+</li>
+<li>
+<p>Ліворуч — Canvas (70% ширини)</p>
+</li>
+<li>
+<p>Праворуч — панель з:</p>
+<ul>
+<li>LayerSwitcher</li>
+<li>Connection status (WS)</li>
+<li>EntityDetailsPanel</li>
+<li>Підключає <code>useLivingMapLite</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Псевдокод:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">LivingMapPage</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">snapshot</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">isLoading</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">error</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">connectionStatus</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">selectedLayer</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">setSelectedLayer</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">selectedEntityId</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">setSelectedEntityId</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useLivingMapLite</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex h-full&quot;</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;flex-1&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">LivingMapCanvas</span>
+<span class="w">          </span><span class="na">snapshot</span><span class="o">=</span><span class="p">{</span><span class="nx">snapshot</span><span class="p">}</span>
+<span class="w">          </span><span class="na">selectedLayer</span><span class="o">=</span><span class="p">{</span><span class="nx">selectedLayer</span><span class="p">}</span>
+<span class="w">          </span><span class="na">selectedEntityId</span><span class="o">=</span><span class="p">{</span><span class="nx">selectedEntityId</span><span class="p">}</span>
+<span class="w">          </span><span class="na">onSelectEntity</span><span class="o">=</span><span class="p">{</span><span class="nx">setSelectedEntityId</span><span class="p">}</span>
+<span class="w">        </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;w-96 border-l flex flex-col&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">LayerSwitcher</span><span class="w"> </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">selectedLayer</span><span class="p">}</span><span class="w"> </span><span class="na">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">setSelectedLayer</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">        </span><span class="p">{</span><span class="cm">/* status + errors */</span><span class="p">}</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">EntityDetailsPanel</span>
+<span class="w">          </span><span class="na">snapshot</span><span class="o">=</span><span class="p">{</span><span class="nx">snapshot</span><span class="p">}</span>
+<span class="w">          </span><span class="na">selectedLayer</span><span class="o">=</span><span class="p">{</span><span class="nx">selectedLayer</span><span class="p">}</span>
+<span class="w">          </span><span class="na">selectedEntityId</span><span class="o">=</span><span class="p">{</span><span class="nx">selectedEntityId</span><span class="p">}</span>
+<span class="w">        </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="9-todo-checklist">9. TODO Checklist<a class="headerlink" href="#9-todo-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Додати route <code>/living-map</code> в <code>App.tsx</code>.</li>
+<li>[ ] Створити папку <code>src/features/livingMap/</code>.</li>
+<li>[ ] Реалізувати <code>useLivingMapLite</code> (або обгорнути <code>useLivingMapFull</code>).</li>
+<li>[ ] Створити <code>LivingMapPage.tsx</code>.</li>
+<li>[ ] Створити <code>LivingMapCanvas.tsx</code>.</li>
+<li>
+<p>[ ] Реалізувати <code>canvasRenderer.ts</code> з базовим рендером:</p>
+</li>
+<li>
+<p>[ ] city layer</p>
+</li>
+<li>[ ] space layer</li>
+<li>[ ] nodes layer</li>
+<li>[ ] agents layer</li>
+<li>[ ] Реалізувати <code>layoutEngine.ts</code>.</li>
+<li>[ ] Додати <code>LayerSwitcher.tsx</code> (простий UI).</li>
+<li>[ ] Додати <code>EntityDetailsPanel.tsx</code>.</li>
+<li>[ ] Підключити WebSocket stream (якщо backend вже готовий).</li>
+<li>[ ] Додати fallback на mock-дані, якщо API недоступний.</li>
+<li>[ ] Переконатись, що немає TypeScript/lint помилок.</li>
+</ul>
+<hr />
+<h2 id="10-acceptance-criteria">10. Acceptance Criteria<a class="headerlink" href="#10-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Route <code>/living-map</code> доступний у UI.</li>
+<li>
+<p>При відкритті сторінки:</p>
+</li>
+<li>
+<p>робиться запит <code>GET /living-map/snapshot</code> (або використовується mock),</p>
+</li>
+<li>на Canvas зʼявляються базові форми (місто/космос/ноди/агенти).</li>
+<li>LayerSwitcher перемикає режим рендерингу між <code>city</code>, <code>space</code>, <code>nodes</code>, <code>agents</code>.</li>
+<li>Клік по елементу на Canvas змінює <code>selectedEntityId</code> і панель деталей показує правильні дані.</li>
+<li>WebSocket (якщо активний) змінює стан (наприклад, статус ноди, агента) без перезавантаження сторінки.</li>
+<li>FPS достатній (без явних лагів на базовому обсязі даних).</li>
+<li>Код компілюється без TypeScript та ESLint помилок.</li>
+</ol>
+<hr />
+<p>END OF TASK</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

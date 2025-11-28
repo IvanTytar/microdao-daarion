@@ -1,0 +1,1236 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/43_database_events_outbox_design/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>43 — Database Events Outbox Design (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#43-database-events-outbox-design-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              43 — Database Events Outbox Design (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-outbox-pattern-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why Outbox Pattern Is Required
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-outbox-table-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Outbox Table Schema
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Outbox Table Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Вимоги:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-outbox-event-insertion" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Outbox Event Insertion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-outbox-worker-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Outbox Worker Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-worker-processing-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Worker Processing Loop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-deduplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Deduplication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-retry-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Retry Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Retry Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-backoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Backoff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-dead-letter-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Dead-letter Condition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-batch-processing-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Batch Processing &amp; Throughput
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Batch Processing & Throughput">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Рекомендації:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-event-ordering-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Event Ordering Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-multi-stream-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Multi-Stream Routing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Failure Modes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Failure Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-worker-crash" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 Worker Crash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-database-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Database Down
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-nats-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3 NATS Down
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-corrupted-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.4 Corrupted Payload
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-safety-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Safety Guarantees
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-event-consumer-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Event Consumer Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-operational-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Operational Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-backpressure-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Backpressure Control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-batch-deletion-archival" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Batch Deletion / Archival
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-example-end-to-end-flow-payout" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Example End-to-End Flow (Payout)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="43-database-events-outbox-design-microdao">43 — Database Events Outbox Design (MicroDAO)<a class="headerlink" href="#43-database-events-outbox-design-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Outbox Pattern: транзакційна доставка подій, таблиця outbox_events, воркери, дедуплікація, retry, backpressure, інтеграція з NATS JetStream</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Outbox Pattern вирішує проблему:</p>
+<blockquote>
+<p>Як гарантувати, що подія завжди буде доставлена у NATS без втрати даних, навіть якщо сервіс або NATS відмовили?</p>
+</blockquote>
+<p>Цей документ визначає:</p>
+<ul>
+<li>структуру <code>outbox_events</code>,</li>
+<li>процес вставки,</li>
+<li>воркерів,</li>
+<li>правила retry/backoff,</li>
+<li>дедуплікацію,</li>
+<li>atomic commit,</li>
+<li>safety механізми,</li>
+<li>інтеграцію з JetStream.</li>
+</ul>
+<hr />
+<h2 id="2-why-outbox-pattern-is-required">2. Why Outbox Pattern Is Required<a class="headerlink" href="#2-why-outbox-pattern-is-required" title="Permanent link">&para;</a></h2>
+<p>У DAARION.city outbox використовується для:</p>
+<ul>
+<li>agent-run events,</li>
+<li>payouts,</li>
+<li>staking,</li>
+<li>wallet tx,</li>
+<li>embassy updates,</li>
+<li>oracle readings,</li>
+<li>governance updates,</li>
+<li>usage increments.</li>
+</ul>
+<p>Причини:</p>
+<ul>
+<li>JetStream може бути недоступним у момент транзакції.</li>
+<li>Сервіси не повинні втрачати події.</li>
+<li>Потрібно гарантувати idempotency.</li>
+<li>Потрібно відокремити business logic від доставки.</li>
+</ul>
+<hr />
+<h2 id="3-outbox-table-schema">3. Outbox Table Schema<a class="headerlink" href="#3-outbox-table-schema" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">outbox_events</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">stream</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">                </span><span class="c1">-- e.g. STREAM_RWA</span>
+<span class="w">  </span><span class="n">topic</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">                 </span><span class="c1">-- e.g. rwa.inventory.updated</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">jsonb</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">processed</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">false</span><span class="p">,</span>
+<span class="w">  </span><span class="n">processed_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="p">,</span>
+<span class="w">  </span><span class="n">error</span><span class="w"> </span><span class="nb">text</span><span class="w">                           </span><span class="c1">-- optional failure reason</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h3 id="_1">Вимоги:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>id</code> генерується UUID або snowflake.</li>
+<li>Рядки <strong>ніколи не видаляються</strong> (тільки retention archive).</li>
+<li><code>processed=false</code> означає «готовий до доставки».</li>
+</ul>
+<hr />
+<h2 id="4-outbox-event-insertion">4. Outbox Event Insertion<a class="headerlink" href="#4-outbox-event-insertion" title="Permanent link">&para;</a></h2>
+<p>Подія вставляється у <strong>тій самій транзакції</strong>, що і бізнес-операція.</p>
+<p>Приклад (псевдо):</p>
+<div class="codehilite"><pre><span></span><code><span class="k">BEGIN</span><span class="p">;</span>
+
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">payouts</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;generated&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="s1">&#39;p_001&#39;</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">outbox_events</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">topic</span><span class="p">,</span><span class="w"> </span><span class="n">payload</span>
+<span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">gen_id</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">    </span><span class="s1">&#39;STREAM_PAYOUT&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;payout.generated&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;{&quot;payout_id&quot;:&quot;p_001&quot;,&quot;team_id&quot;:&quot;t_555&quot;}&#39;</span><span class="p">::</span><span class="n">jsonb</span>
+<span class="p">);</span>
+
+<span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Гарантія:</p>
+<ul>
+<li>якщо COMMIT відбувся → подія потрапила у Outbox.</li>
+<li>якщо COMMIT не відбувся → подія не існує.</li>
+</ul>
+<hr />
+<h2 id="5-outbox-worker-architecture">5. Outbox Worker Architecture<a class="headerlink" href="#5-outbox-worker-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Outbox Worker →
+    SELECT * FROM outbox_events
+    WHERE processed=false
+    ORDER BY created_at
+    LIMIT 200;
+
+for each event:
+    TRY publish to NATS
+    ON success → mark processed
+    ON failure → retry later
+</code></pre></div>
+
+<p>Workers можуть бути:</p>
+<ul>
+<li>1..N штук,</li>
+<li>статично або auto-scaled,</li>
+<li>у Mesh під mTLS.</li>
+</ul>
+<hr />
+<h2 id="6-worker-processing-loop">6. Worker Processing Loop<a class="headerlink" href="#6-worker-processing-loop" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">while</span> <span class="n">true</span><span class="p">:</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">fetch_unprocessed</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">evt</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nats</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">evt</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span> <span class="n">evt</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">mark_processed</span><span class="p">(</span><span class="n">evt</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">NATSDownError</span><span class="p">:</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="n">backoff</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">mark_error</span><span class="p">(</span><span class="n">evt</span><span class="p">,</span> <span class="s2">&quot;invalid payload&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-deduplication">7. Deduplication<a class="headerlink" href="#7-deduplication" title="Permanent link">&para;</a></h2>
+<p>Необхідно витримати <strong>at-least-once</strong>, але уникати дублювань:</p>
+<ul>
+<li>JetStream має natural dedupe по <code>msg_id</code></li>
+<li>Outbox Worker використовує:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>NATS header: Nats-Msg-Id = outbox_event_id
+</code></pre></div>
+
+<p>Приклад:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nats</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span>
+  <span class="n">topic</span><span class="p">,</span>
+  <span class="n">payload</span><span class="p">,</span>
+  <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Nats-Msg-Id&quot;</span><span class="p">:</span> <span class="n">evt</span><span class="o">.</span><span class="n">id</span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>JetStream не доставить дубль.</p>
+<hr />
+<h2 id="8-retry-strategy">8. Retry Strategy<a class="headerlink" href="#8-retry-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="81-backoff">8.1 Backoff<a class="headerlink" href="#81-backoff" title="Permanent link">&para;</a></h3>
+<p>Експоненційний:</p>
+<div class="codehilite"><pre><span></span><code>1s → 2s → 4s → 8s → 16s → max 60s
+</code></pre></div>
+
+<h3 id="82-dead-letter-condition">8.2 Dead-letter Condition<a class="headerlink" href="#82-dead-letter-condition" title="Permanent link">&para;</a></h3>
+<p>Після X помилок:</p>
+<div class="codehilite"><pre><span></span><code>processed=false
+error=&quot;unrecoverable&quot;
+</code></pre></div>
+
+<p>worker перестає ретрити; адміністратор розбирається вручну.</p>
+<hr />
+<h2 id="9-batch-processing-throughput">9. Batch Processing &amp; Throughput<a class="headerlink" href="#9-batch-processing-throughput" title="Permanent link">&para;</a></h2>
+<h3 id="_2">Рекомендації:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>batch size: 100–300 подій</li>
+<li>2–10 worker replicas</li>
+<li>автоматичний autoscaling по lag:</li>
+<li>якщо кількість <code>processed=false</code> &gt; 10,000 → scale up</li>
+</ul>
+<hr />
+<h2 id="10-event-ordering-rules">10. Event Ordering Rules<a class="headerlink" href="#10-event-ordering-rules" title="Permanent link">&para;</a></h2>
+<p>Outbox Worker дотримується ordering:</p>
+<ul>
+<li>per stream</li>
+<li>per partition key (custom)</li>
+</ul>
+<p>Порядок подій важливий для:</p>
+<ul>
+<li>payouts</li>
+<li>RWA updates</li>
+<li>governance</li>
+</ul>
+<hr />
+<h2 id="11-multi-stream-routing">11. Multi-Stream Routing<a class="headerlink" href="#11-multi-stream-routing" title="Permanent link">&para;</a></h2>
+<p>Сервіс визначає stream:</p>
+<div class="codehilite"><pre><span></span><code>if topic startswith &quot;agent.run&quot;:
+    stream = STREAM_AGENT_RUN
+
+if topic startswith &quot;embassy&quot;:
+    stream = STREAM_EMBASSY
+</code></pre></div>
+
+<p>Усі стріми повинні бути попередньо створені:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;STREAM_RWA&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;subjects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;rwa.inventory.*&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;storage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="12-failure-modes">12. Failure Modes<a class="headerlink" href="#12-failure-modes" title="Permanent link">&para;</a></h2>
+<h3 id="121-worker-crash">12.1 Worker Crash<a class="headerlink" href="#121-worker-crash" title="Permanent link">&para;</a></h3>
+<p>Рішення:</p>
+<ul>
+<li>worker restart → обробляє далі.</li>
+</ul>
+<h3 id="122-database-down">12.2 Database Down<a class="headerlink" href="#122-database-down" title="Permanent link">&para;</a></h3>
+<p>Outbox Worker призупиняється → не доставляє події.</p>
+<h3 id="123-nats-down">12.3 NATS Down<a class="headerlink" href="#123-nats-down" title="Permanent link">&para;</a></h3>
+<p>Worker робить retry до відновлення.</p>
+<h3 id="124-corrupted-payload">12.4 Corrupted Payload<a class="headerlink" href="#124-corrupted-payload" title="Permanent link">&para;</a></h3>
+<p>Worker позначає <code>error</code> і пропускає подію.</p>
+<hr />
+<h2 id="13-safety-guarantees">13. Safety Guarantees<a class="headerlink" href="#13-safety-guarantees" title="Permanent link">&para;</a></h2>
+<p>Outbox забезпечує:</p>
+<ul>
+<li><strong>atomicity</strong></li>
+<li><strong>consistency</strong></li>
+<li><strong>at-least-once</strong></li>
+<li><strong>no-loss</strong></li>
+<li><strong>event replayability</strong></li>
+<li><strong>jetstream dedupe</strong></li>
+<li><strong>idempotent consumers</strong></li>
+</ul>
+<hr />
+<h2 id="14-event-consumer-rules">14. Event Consumer Rules<a class="headerlink" href="#14-event-consumer-rules" title="Permanent link">&para;</a></h2>
+<p>Кожен сервіс, що слухає події, дотримується:</p>
+<ul>
+<li>idempotency (повтор повинен не ламати логіку),</li>
+<li>durable consumer,</li>
+<li>manual ack,</li>
+<li>retry on failure,</li>
+<li>trace_id propagation.</li>
+</ul>
+<hr />
+<h2 id="15-operational-metrics">15. Operational Metrics<a class="headerlink" href="#15-operational-metrics" title="Permanent link">&para;</a></h2>
+<p>Моніторимо:</p>
+<ul>
+<li>outbox_events total count</li>
+<li>unprocessed count</li>
+<li>processing rate</li>
+<li>worker lag</li>
+<li>NATS publish latency</li>
+<li>error rate</li>
+</ul>
+<hr />
+<h2 id="16-backpressure-control">16. Backpressure Control<a class="headerlink" href="#16-backpressure-control" title="Permanent link">&para;</a></h2>
+<p>Якщо worker не встигає:</p>
+<ul>
+<li>автоматичний autoscaling,</li>
+<li>або backpressure для producer services (м'яке гальмування).</li>
+</ul>
+<hr />
+<h2 id="17-batch-deletion-archival">17. Batch Deletion / Archival<a class="headerlink" href="#17-batch-deletion-archival" title="Permanent link">&para;</a></h2>
+<p>Outbox події можуть бути:</p>
+<ul>
+<li>заархівовані після 90–365 днів,</li>
+<li>переведені у cold storage (S3),</li>
+<li>видалені після 3 років (policy-dependent).</li>
+</ul>
+<hr />
+<h2 id="18-example-end-to-end-flow-payout">18. Example End-to-End Flow (Payout)<a class="headerlink" href="#18-example-end-to-end-flow-payout" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Wallet</span><span class="w"> </span><span class="kr">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">OUT</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Outbox</span><span class="w"> </span><span class="n">Worker</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">NATS</span>
+
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="n">begin</span>
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">payout</span>
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">outbox_event</span><span class="p">(</span><span class="n">payout</span><span class="p">.</span><span class="n">generated</span><span class="p">)</span>
+<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">W</span><span class="o">:</span><span class="w"> </span><span class="n">commit</span>
+
+<span class="w">    </span><span class="n">OUT</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="nf">fetch</span><span class="w"> </span><span class="n">unprocessed</span>
+<span class="w">    </span><span class="n">OUT</span><span class="o">-&gt;&gt;</span><span class="n">NATS</span><span class="o">:</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">payout</span><span class="p">.</span><span class="n">generated</span><span class="w"> </span><span class="p">(</span><span class="n">msg_id</span><span class="o">=</span><span class="n">evt_id</span><span class="p">)</span>
+<span class="w">    </span><span class="n">NATS</span><span class="o">--&gt;&gt;</span><span class="n">OUT</span><span class="o">:</span><span class="w"> </span><span class="n">ack</span>
+<span class="w">    </span><span class="n">OUT</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">mark</span><span class="w"> </span><span class="n">processed</span>
+</code></pre></div>
+
+<hr />
+<h2 id="19-integration-with-other-docs">19. Integration with Other Docs<a class="headerlink" href="#19-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>42_nats_event_streams_and_event_catalog.md</code></li>
+<li><code>27_database_schema_migrations.md</code></li>
+<li><code>34_internal_services_architecture.md</code></li>
+<li><code>29_scaling_and_high_availability.md</code></li>
+</ul>
+<hr />
+<h2 id="20-cursor">20. Завдання для Cursor<a class="headerlink" href="#20-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Database Events Outbox Design using:
+- 43_database_events_outbox_design.md
+- 42_nats_event_streams_and_event_catalog.md
+- 27_database_schema_migrations.md
+
+Tasks:
+1) Create outbox_events table schema (id, stream, topic, payload, created_at, processed, processed_at, error).
+2) Implement Outbox Event Insertion (atomic transaction with business logic).
+3) Create Outbox Worker service (fetch unprocessed, publish to NATS, mark processed).
+4) Implement Worker Processing Loop (batch processing, error handling).
+5) Add Deduplication (NATS header Nats-Msg-Id = outbox_event_id).
+6) Implement Retry Strategy (exponential backoff, dead-letter condition).
+7) Configure Batch Processing &amp; Throughput (batch size 100-300, autoscaling).
+8) Add Event Ordering Rules (per stream, per partition key).
+9) Implement Multi-Stream Routing (topic → stream mapping).
+10) Handle Failure Modes (worker crash, database down, NATS down, corrupted payload).
+11) Add Safety Guarantees (atomicity, consistency, at-least-once, no-loss, replayability).
+12) Define Event Consumer Rules (idempotency, durable consumer, manual ack, retry, trace_id).
+13) Add Operational Metrics (outbox_events count, unprocessed count, processing rate, worker lag, NATS latency, error rate).
+14) Implement Backpressure Control (autoscaling, producer backpressure).
+15) Add Batch Deletion / Archival (90-365 days archive, S3 cold storage, 3 years deletion).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="21-summary">21. Summary<a class="headerlink" href="#21-summary" title="Permanent link">&para;</a></h2>
+<p>Outbox Design гарантує:</p>
+<ul>
+<li>надійну доставку подій у JetStream,</li>
+<li>100% уникнення втрати даних,</li>
+<li>консистентність життєво важливих RWA/payout/embassy процесів,</li>
+<li>контрольовану доставку у high-load,</li>
+<li>retry/backoff без дублювань,</li>
+<li>зручну діагностику й моніторинг.</li>
+</ul>
+<p>Це — <strong>основний транспортний транзакційний шар DAARION OS</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -5,4 +5,5 @@ export { AgentMetricsCard } from './AgentMetricsCard';
 export { AgentSystemPromptsCard } from './AgentSystemPromptsCard';
 export { AgentPublicProfileCard } from './AgentPublicProfileCard';
 export { AgentMicrodaoMembershipCard } from './AgentMicrodaoMembershipCard';
-
+export { AgentVisibilityCard } from './AgentVisibilityCard';
+export { CreateMicrodaoCard } from './CreateMicrodaoCard';

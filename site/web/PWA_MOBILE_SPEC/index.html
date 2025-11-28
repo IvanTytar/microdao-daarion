@@ -1,0 +1,1073 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/web/PWA_MOBILE_SPEC/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>PWA / Mobile Specification — DAARION.city - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pwa-mobile-specification-daarioncity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PWA / Mobile Specification — DAARION.city
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. PURPOSE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. GOALS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. GOALS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-installable" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. Installable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-offline-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. Offline Shell
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3. Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-manifestjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. MANIFEST.JSON
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-icons" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. ICONS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-service-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. SERVICE WORKER
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. SERVICE WORKER">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cache-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Cache Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-cache-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Cache Names
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-precache-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Precache List
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-offline-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. OFFLINE PAGE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-head-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. HEAD METADATA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-sw-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. SW REGISTRATION
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. TESTING CHECKLIST
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. TESTING CHECKLIST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-devtools-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. DevTools → Application
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-install-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Install Prompt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-offline-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Offline Mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-lighthouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4. Lighthouse
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-limitations-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. LIMITATIONS (MVP)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. FUTURE ENHANCEMENTS
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="pwa-mobile-specification-daarioncity">PWA / Mobile Specification — DAARION.city<a class="headerlink" href="#pwa-mobile-specification-daarioncity" title="Permanent link">&para;</a></h1>
+<p>Version: 1.0.0</p>
+<h2 id="0-purpose">0. PURPOSE<a class="headerlink" href="#0-purpose" title="Permanent link">&para;</a></h2>
+<p>Зробити <code>app.daarion.space</code> Progressive Web App (PWA):
+- <strong>Installable</strong> — можна додати на домашній екран як додаток
+- <strong>Offline shell</strong> — базові сторінки працюють без мережі
+- <strong>Mobile-first</strong> — оптимізовано для мобільних пристроїв
+- <strong>Foundation for push</strong> — підготовка до push-нотифікацій</p>
+<hr />
+<h2 id="1-goals">1. GOALS<a class="headerlink" href="#1-goals" title="Permanent link">&para;</a></h2>
+<h3 id="11-installable">1.1. Installable<a class="headerlink" href="#11-installable" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Користувач може "Add to Home Screen" на iOS/Android/Desktop</li>
+<li>Відкривається в standalone режимі (без browser UI)</li>
+<li>Власна іконка та splash screen</li>
+</ul>
+<h3 id="12-offline-shell">1.2. Offline Shell<a class="headerlink" href="#12-offline-shell" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Головна сторінка <code>/</code> працює з кешу</li>
+<li>Список кімнат <code>/city</code> працює з кешу</li>
+<li>Сторінки кімнат <code>/city/[slug]</code> — кешований shell + повідомлення "ви офлайн"</li>
+<li>Matrix чат — показує offline-стан, не намагається емулювати</li>
+</ul>
+<h3 id="13-performance">1.3. Performance<a class="headerlink" href="#13-performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Швидке завантаження через кешування статичних ресурсів</li>
+<li>App shell architecture</li>
+</ul>
+<hr />
+<h2 id="2-manifestjson">2. MANIFEST.JSON<a class="headerlink" href="#2-manifestjson" title="Permanent link">&para;</a></h2>
+<p>Файл: <code>public/manifest.json</code></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;short_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Децентралізована платформа для мікро-спільнот з AI-агентами&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;start_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;standalone&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;orientation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;portrait-primary&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;theme_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#0c4a6e&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;background_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#0f172a&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;icons&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/icons/icon-192x192.png&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sizes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192x192&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image/png&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;purpose&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;any maskable&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/icons/icon-512x512.png&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sizes&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;512x512&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image/png&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;purpose&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;any maskable&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;social&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;productivity&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="3-icons">3. ICONS<a class="headerlink" href="#3-icons" title="Permanent link">&para;</a></h2>
+<p>Директорія: <code>public/icons/</code></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Size</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>icon-192x192.png</code></td>
+<td>192×192</td>
+<td>Android, Chrome</td>
+</tr>
+<tr>
+<td><code>icon-512x512.png</code></td>
+<td>512×512</td>
+<td>Splash screen</td>
+</tr>
+<tr>
+<td><code>apple-touch-icon.png</code></td>
+<td>180×180</td>
+<td>iOS</td>
+</tr>
+<tr>
+<td><code>favicon.ico</code></td>
+<td>32×32</td>
+<td>Browser tab</td>
+</tr>
+</tbody>
+</table>
+<p>Дизайн: DAARION логотип (sparkles/зірка) на темному фоні (#0f172a)</p>
+<hr />
+<h2 id="4-service-worker">4. SERVICE WORKER<a class="headerlink" href="#4-service-worker" title="Permanent link">&para;</a></h2>
+<p>Файл: <code>public/sw.js</code></p>
+<h3 id="41-cache-strategy">4.1. Cache Strategy<a class="headerlink" href="#41-cache-strategy" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
+│                    REQUEST FLOW                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Static Assets (/_next/static/*, fonts, images)             │
+│  └── Cache First → Return cached → Update in background     │
+│                                                             │
+│  HTML Pages (/, /city, /city/*)                             │
+│  └── Network First → Fallback to cache → Offline page       │
+│                                                             │
+│  API Requests (/api/*)                                      │
+│  └── Network Only → No caching                              │
+│                                                             │
+│  Matrix/WebSocket                                           │
+│  └── Network Only → Show offline state in UI                │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<h3 id="42-cache-names">4.2. Cache Names<a class="headerlink" href="#42-cache-names" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">CACHE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;daarion-v1&#39;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">STATIC_CACHE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;daarion-static-v1&#39;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">PAGES_CACHE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;daarion-pages-v1&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="43-precache-list">4.3. Precache List<a class="headerlink" href="#43-precache-list" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">PRECACHE_URLS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="s1">&#39;/&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;/city&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;/offline&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;/manifest.json&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;/icons/icon-192x192.png&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;/icons/icon-512x512.png&#39;</span>
+<span class="p">];</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-offline-page">5. OFFLINE PAGE<a class="headerlink" href="#5-offline-page" title="Permanent link">&para;</a></h2>
+<p>Файл: <code>src/app/offline/page.tsx</code></p>
+<p>Простий екран:
+- DAARION логотип
+- "Ви офлайн"
+- "Перевірте підключення до інтернету"
+- Кнопка "Спробувати знову"</p>
+<hr />
+<h2 id="6-head-metadata">6. HEAD METADATA<a class="headerlink" href="#6-head-metadata" title="Permanent link">&para;</a></h2>
+<p>В <code>layout.tsx</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">link</span><span class="w"> </span><span class="na">rel</span><span class="o">=</span><span class="s">&quot;manifest&quot;</span><span class="w"> </span><span class="na">href</span><span class="o">=</span><span class="s">&quot;/manifest.json&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">meta</span><span class="w"> </span><span class="na">name</span><span class="o">=</span><span class="s">&quot;theme-color&quot;</span><span class="w"> </span><span class="na">content</span><span class="o">=</span><span class="s">&quot;#0c4a6e&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">link</span><span class="w"> </span><span class="na">rel</span><span class="o">=</span><span class="s">&quot;apple-touch-icon&quot;</span><span class="w"> </span><span class="na">href</span><span class="o">=</span><span class="s">&quot;/icons/apple-touch-icon.png&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">meta</span><span class="w"> </span><span class="na">name</span><span class="o">=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span><span class="w"> </span><span class="na">content</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">meta</span><span class="w"> </span><span class="na">name</span><span class="o">=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span><span class="w"> </span><span class="na">content</span><span class="o">=</span><span class="s">&quot;black-translucent&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">meta</span><span class="w"> </span><span class="na">name</span><span class="o">=</span><span class="s">&quot;apple-mobile-web-app-title&quot;</span><span class="w"> </span><span class="na">content</span><span class="o">=</span><span class="s">&quot;DAARION&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-sw-registration">7. SW REGISTRATION<a class="headerlink" href="#7-sw-registration" title="Permanent link">&para;</a></h2>
+<p>В <code>src/lib/pwa.ts</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">registerServiceWorker</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nb">window</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;undefined&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="s1">&#39;serviceWorker&#39;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">navigator</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Only in production</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;production&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;SW: Skipping registration in development&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">registration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;/sw.js&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;SW: Registered&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">registration</span><span class="p">.</span><span class="nx">scope</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;SW: Registration failed&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="8-testing-checklist">8. TESTING CHECKLIST<a class="headerlink" href="#8-testing-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="81-devtools-application">8.1. DevTools → Application<a class="headerlink" href="#81-devtools-application" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Manifest loads correctly</li>
+<li>[ ] Icons display properly</li>
+<li>[ ] Service Worker is active</li>
+<li>[ ] Cache Storage has expected caches</li>
+</ul>
+<h3 id="82-install-prompt">8.2. Install Prompt<a class="headerlink" href="#82-install-prompt" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Chrome shows "Install app" option</li>
+<li>[ ] Safari iOS shows "Add to Home Screen"</li>
+<li>[ ] App opens in standalone mode</li>
+</ul>
+<h3 id="83-offline-mode">8.3. Offline Mode<a class="headerlink" href="#83-offline-mode" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>/</code> loads from cache</li>
+<li>[ ] <code>/city</code> loads from cache</li>
+<li>[ ] <code>/city/general</code> shows chat offline state</li>
+<li>[ ] API calls show appropriate error</li>
+</ul>
+<h3 id="84-lighthouse">8.4. Lighthouse<a class="headerlink" href="#84-lighthouse" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] PWA score &gt; 90</li>
+<li>[ ] Performance &gt; 80</li>
+<li>[ ] Accessibility &gt; 90</li>
+</ul>
+<hr />
+<h2 id="9-limitations-mvp">9. LIMITATIONS (MVP)<a class="headerlink" href="#9-limitations-mvp" title="Permanent link">&para;</a></h2>
+<ul>
+<li>❌ No push notifications (future phase)</li>
+<li>❌ No background sync</li>
+<li>❌ No offline message queue</li>
+<li>❌ No IndexedDB for offline data</li>
+</ul>
+<hr />
+<h2 id="10-future-enhancements">10. FUTURE ENHANCEMENTS<a class="headerlink" href="#10-future-enhancements" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Push Notifications</strong></li>
+<li>Web Push API</li>
+<li>VAPID keys</li>
+<li>
+<p>Notification preferences</p>
+</li>
+<li>
+<p><strong>Background Sync</strong></p>
+</li>
+<li>Queue messages when offline</li>
+<li>
+<p>Sync when back online</p>
+</li>
+<li>
+<p><strong>IndexedDB</strong></p>
+</li>
+<li>Cache chat history</li>
+<li>
+<p>Offline-first architecture</p>
+</li>
+<li>
+<p><strong>App Badges</strong></p>
+</li>
+<li>Unread message count on icon</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

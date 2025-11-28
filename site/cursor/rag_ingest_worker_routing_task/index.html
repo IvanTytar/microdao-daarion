@@ -1,0 +1,809 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/rag_ingest_worker_routing_task/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Task: Configure rag-ingest-worker routing & unified event interface - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-configure-rag-ingest-worker-routing-unified-event-interface" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task: Configure rag-ingest-worker routing & unified event interface
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-event-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Єдиний event envelope у воркері
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-routing-wave-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Routing таблиця (Wave 1–3)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mode-indexed" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Обробка mode та indexed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-nats-streams-vs-teams" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Підписки на NATS (streams vs teams.*)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-error-handling-backpressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Error handling &amp; backpressure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Acceptance criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-configure-rag-ingest-worker-routing-unified-event-interface">Task: Configure rag-ingest-worker routing &amp; unified event interface<a class="headerlink" href="#task-configure-rag-ingest-worker-routing-unified-event-interface" title="Permanent link">&para;</a></h1>
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Налаштувати <strong>єдиний інтерфейс на вхід</strong> для <code>rag-ingest-worker</code> і routing таблицю, яка:</p>
+<ul>
+<li>приймає події з <code>teams.*</code>/outbox або відповідних STREAM_*,</li>
+<li>уніфіковано парсить Event Envelope (<code>event</code>, <code>ts</code>, <code>meta</code>, <code>payload</code>),</li>
+<li>мапить <code>event.type</code> → нормалізатор/пайплайн (Wave 1–3),</li>
+<li>гарантує правильну обробку <code>mode</code>/<code>indexed</code> для всіх RAG-подій.</li>
+</ul>
+<p>Це glue-задача, яка повʼязує Event Catalog із <code>rag_ingestion_events_*</code> тасками.</p>
+<hr />
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Root: <code>microdao-daarion/</code>.</li>
+<li>Event envelope та NATS: <code>docs/cursor/42_nats_event_streams_and_event_catalog.md</code>.</li>
+<li>RAG worker &amp; gateway:</li>
+<li><code>docs/cursor/rag_ingestion_worker_task.md</code></li>
+<li><code>docs/cursor/rag_gateway_task.md</code></li>
+<li>RAG waves:</li>
+<li><code>docs/cursor/rag_ingestion_events_wave1_mvp_task.md</code></li>
+<li><code>docs/cursor/rag_ingestion_events_wave2_workflows_task.md</code></li>
+<li><code>docs/cursor/rag_ingestion_events_wave3_governance_rwa_task.md</code></li>
+</ul>
+<hr />
+<h2 id="1-event-envelope">1. Єдиний event envelope у воркері<a class="headerlink" href="#1-event-envelope" title="Permanent link">&para;</a></h2>
+<p>У <code>services/rag-ingest-worker/events/consumer.py</code> або окремому модулі:</p>
+<ol>
+<li>Ввести Pydantic-модель/DTO для envelope, наприклад <code>RagEventEnvelope</code>:</li>
+<li><code>event_id: str</code></li>
+<li><code>ts: datetime</code></li>
+<li><code>type: str</code> (повний typo: <code>chat.message.created</code>, <code>task.created</code>, ...)</li>
+<li><code>domain: str</code> (optional)</li>
+<li><code>meta: { team_id, trace_id, ... }</code></li>
+<li><code>payload: dict</code></li>
+<li>Додати функцію <code>parse_raw_msg_to_envelope(raw_msg) -&gt; RagEventEnvelope</code>.</li>
+<li>Забезпечити, що <strong>весь routing</strong> далі працює з <code>RagEventEnvelope</code>, а не з сирим JSON.</li>
+</ol>
+<hr />
+<h2 id="2-routing-wave-13">2. Routing таблиця (Wave 1–3)<a class="headerlink" href="#2-routing-wave-13" title="Permanent link">&para;</a></h2>
+<p>У тому ж модулі або окремому <code>router.py</code> створити mapping:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">ROUTES</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;chat.message.created&quot;</span><span class="p">:</span> <span class="n">handle_message_created</span><span class="p">,</span>
+  <span class="s2">&quot;doc.upserted&quot;</span><span class="p">:</span> <span class="n">handle_doc_upserted</span><span class="p">,</span>
+  <span class="s2">&quot;file.uploaded&quot;</span><span class="p">:</span> <span class="n">handle_file_uploaded</span><span class="p">,</span>
+  <span class="s2">&quot;task.created&quot;</span><span class="p">:</span> <span class="n">handle_task_event</span><span class="p">,</span>
+  <span class="s2">&quot;task.updated&quot;</span><span class="p">:</span> <span class="n">handle_task_event</span><span class="p">,</span>
+  <span class="s2">&quot;followup.created&quot;</span><span class="p">:</span> <span class="n">handle_followup_event</span><span class="p">,</span>
+  <span class="s2">&quot;followup.status_changed&quot;</span><span class="p">:</span> <span class="n">handle_followup_event</span><span class="p">,</span>
+  <span class="s2">&quot;meeting.summary.upserted&quot;</span><span class="p">:</span> <span class="n">handle_meeting_summary</span><span class="p">,</span>
+  <span class="s2">&quot;governance.proposal.created&quot;</span><span class="p">:</span> <span class="n">handle_proposal_event</span><span class="p">,</span>
+  <span class="s2">&quot;governance.proposal.closed&quot;</span><span class="p">:</span> <span class="n">handle_proposal_event</span><span class="p">,</span>
+  <span class="s2">&quot;governance.vote.cast&quot;</span><span class="p">:</span> <span class="n">handle_vote_event</span><span class="p">,</span>
+  <span class="s2">&quot;payout.generated&quot;</span><span class="p">:</span> <span class="n">handle_payout_event</span><span class="p">,</span>
+  <span class="s2">&quot;payout.claimed&quot;</span><span class="p">:</span> <span class="n">handle_payout_event</span><span class="p">,</span>
+  <span class="s2">&quot;rwa.summary.created&quot;</span><span class="p">:</span> <span class="n">handle_rwa_summary_event</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Handler-и мають бути thin-обгортками над нормалізаторами з <code>pipeline/normalization.py</code> та <code>index_neo4j.py</code>.</p>
+<hr />
+<h2 id="3-mode-indexed">3. Обробка <code>mode</code> та <code>indexed</code><a class="headerlink" href="#3-mode-indexed" title="Permanent link">&para;</a></h2>
+<p>У кожному handler-і або в спільній helper-функції треба:</p>
+<ol>
+<li>Дістати <code>mode</code> та <code>indexed</code> з <code>payload</code> (або похідним чином).</li>
+<li>Якщо <code>indexed == false</code> — логувати і завершувати без виклику нормалізаторів.</li>
+<li>Передавати <code>mode</code> у нормалізатор, щоб той міг вирішити, чи зберігати plaintext.</li>
+</ol>
+<p>Рекомендовано зробити утиліту, наприклад:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">should_index</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">RagEventEnvelope</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1"># врахувати payload.indexed + можливі global overrides</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p>і використовувати її у всіх handler-ах.</p>
+<hr />
+<h2 id="4-nats-streams-vs-teams">4. Підписки на NATS (streams vs teams.*)<a class="headerlink" href="#4-nats-streams-vs-teams" title="Permanent link">&para;</a></h2>
+<p>У <code>events/consumer.py</code> узгодити 2 можливі режими:</p>
+<ol>
+<li><strong>Прямі підписки на STREAM_*:</strong></li>
+<li>STREAM_CHAT → <code>chat.message.*</code></li>
+<li>STREAM_PROJECT → <code>doc.upserted</code>, <code>meeting.*</code></li>
+<li>STREAM_TASK → <code>task.*</code>, <code>followup.*</code></li>
+<li>STREAM_GOVERNANCE → <code>governance.*</code></li>
+<li>STREAM_RWA → <code>rwa.summary.*</code></li>
+<li><strong>teams.* outbox:</strong></li>
+<li>якщо існує outbox-стрім <code>teams.*</code> із aggregate-подіями, воркер може підписуватися на нього замість окремих STREAM_*.</li>
+</ol>
+<p>У цьому таску достатньо:</p>
+<ul>
+<li>вибрати й реалізувати <strong>один</strong> режим (той, що відповідає поточній архітектурі);</li>
+<li>акуратно задокументувати, які subjects використовуються, щоб не дублювати події.</li>
+</ul>
+<hr />
+<h2 id="5-error-handling-backpressure">5. Error handling &amp; backpressure<a class="headerlink" href="#5-error-handling-backpressure" title="Permanent link">&para;</a></h2>
+<p>У routing-шарі реалізувати базові правила:</p>
+<ul>
+<li>якщо <code>event.type</code> відсутній у <code>ROUTES</code> → логувати warning і ack-нути подію (щоб не блокувати стрім);</li>
+<li>якщо нормалізація/embedding/indexing кидає виняток →</li>
+<li>логувати з контекстом (<code>event_id</code>, <code>type</code>, <code>team_id</code>),</li>
+<li>залежно від політики JetStream: або <code>nack</code> з retry, або ручний DLQ.</li>
+</ul>
+<p>Можна додати просту метрику: <code>ingest_events_total{type=..., status=ok|error}</code>.</p>
+<hr />
+<h2 id="6-acceptance-criteria">6. Acceptance criteria<a class="headerlink" href="#6-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li>У <code>rag-ingest-worker</code> існує єдина модель envelope (<code>RagEventEnvelope</code>) і функція парсингу raw NATS-повідомлень.</li>
+<li>Routing таблиця покриває всі події Wave 1–3, описані в <code>rag_ingestion_events_wave*_*.md</code>.</li>
+<li>Усі handler-и використовують спільну логіку <code>should_index(event)</code> для <code>mode</code>/<code>indexed</code>.</li>
+<li>NATS-підписки налаштовані на обраний режим (STREAM_* або <code>teams.*</code>), задокументовані й не дублюють події.</li>
+<li>В наявності базове логування/обробка помилок на рівні routing-шару.</li>
+<li>Цей файл (<code>docs/cursor/rag_ingest_worker_routing_task.md</code>) можна виконати через Cursor:</li>
+</ol>
+<p><code>bash
+   cursor task &lt; docs/cursor/rag_ingest_worker_routing_task.md</code></p>
+<p>і Cursor використає його як основу для налаштування routing-шару ingestion-воркера.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

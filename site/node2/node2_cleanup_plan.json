@@ -1,0 +1,72 @@
+{
+  "delete": [
+    {
+      "type": "docker_container",
+      "name": "ollama-ai",
+      "image": "ollama/ollama:latest",
+      "reason": "Container is stopped: exited (255) 3 hours ago",
+      "safe": true,
+      "action": "docker rm"
+    },
+    {
+      "type": "docker_container",
+      "name": "nats-jetstream",
+      "image": "nats:latest",
+      "reason": "Container is stopped: exited (255) 3 hours ago",
+      "safe": true,
+      "action": "docker rm"
+    },
+    {
+      "type": "docker_container",
+      "name": "lobe-chat",
+      "image": "lobehub/lobe-chat",
+      "reason": "LobeChat is not part of microDAO architecture",
+      "safe": true,
+      "action": "docker stop && docker rm"
+    }
+  ],
+  "migrate": [],
+  "keep": [
+    {
+      "type": "vector_db",
+      "name": "Qdrant (Docker)",
+      "path": "Docker: qdrant-vector-db",
+      "reason": "Qdrant is required for microDAO Node-2 fast RAG",
+      "safe": true,
+      "action": "Keep and ensure healthy"
+    }
+  ],
+  "stop": [],
+  "warnings": [
+    {
+      "type": "duplicate",
+      "component": "Ollama",
+      "description": "Ollama found both as brew service and Docker container. Recommend using one.",
+      "severity": "medium"
+    },
+    {
+      "type": "missing",
+      "component": "Milvus",
+      "description": "Milvus not found. Required for microDAO Node-2 heavy vector indexing.",
+      "severity": "high"
+    },
+    {
+      "type": "missing",
+      "component": "Neo4j",
+      "description": "Neo4j not found. Required for microDAO Node-2 graph memory.",
+      "severity": "high"
+    },
+    {
+      "type": "unhealthy",
+      "component": "Docker: qdrant-vector-db",
+      "description": "Container is unhealthy: up 3 hours (unhealthy)",
+      "severity": "medium"
+    },
+    {
+      "type": "duplicate",
+      "component": "DAARION repositories",
+      "description": "Multiple DAARION repositories found: ['daarion-ai-city', 'microdao-daarion']",
+      "severity": "low"
+    }
+  ]
+}

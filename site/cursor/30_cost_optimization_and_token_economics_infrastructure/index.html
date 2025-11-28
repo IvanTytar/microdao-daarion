@@ -1,0 +1,1403 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/30_cost_optimization_and_token_economics_infrastructure/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>30 — Cost Optimization & Token Economics Infrastructure (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#30-cost-optimization-token-economics-infrastructure-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              30 — Cost Optimization & Token Economics Infrastructure (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Основні центри витрат
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Основні центри витрат">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-llm-ai-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 LLM / AI / Agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-compute-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Compute &amp; Networking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Observability
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Принципи оптимізації
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Зв'язок токенів з технічною економікою
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Зв'язок токенів з технічною економікою">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-ringk" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 RINGK (стейк / права / ліміти)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-1t-compute-" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 1T (compute-шар)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-kwt-energy-" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 KWT (energy-шар)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-daar-daarion" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 DAAR / DAARION (міський рівень)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-entitlements" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Технічні ліміти та Entitlements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Технічні ліміти та Entitlements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-quotas-per-user-team-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Quotas (per user / team / platform)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Механіка використання
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-autoscaling-vs-cost-guards" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Autoscaling vs. Cost Guards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Autoscaling vs. Cost Guards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-autoscaling-budget-" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Autoscaling з budget-обмеженнями
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-burst-" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Burst-мод
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-llm-agents-cost-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. LLM / Agents Cost Controls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. LLM / Agents Cost Controls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 На рівні агента
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 На рівні користувача/команди
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-rwaembassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Послуговування RWA/Embassy з економічними обмеженнями
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Послуговування RWA/Embassy з економічними обмеженнями">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-embassy-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Embassy Limits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-oracle-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Oracle Inputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-wallet-chain-gas-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Wallet / Chain / Gas Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Wallet / Chain / Gas Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-bundle-" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Bundle-транзакції
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-chain-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Chain Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-offchain-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Offchain-first
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Analytics для економіки
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Analytics для економіки">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Збір метрик
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Дашборди
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-governance-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Governance Controls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Governance Controls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Політики
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Процес
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Практичні граничні значення (рекомендації MVP)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Висновок
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="30-cost-optimization-token-economics-infrastructure-microdao">30 — Cost Optimization &amp; Token Economics Infrastructure (MicroDAO)<a class="headerlink" href="#30-cost-optimization-token-economics-infrastructure-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Оптимізація витрат інфраструктури та зв'язок з токеномікою (RINGK, 1T, KWT, DAAR/DAARION)</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ описує, як:</p>
+<ul>
+<li>технічні витрати (LLM, інфраструктура, зберігання, мережа, моніторинг) пов'язані з:</li>
+<li>токенами <strong>RINGK</strong> (стейк / ліміти),</li>
+<li><strong>1T</strong> (обчислювальні потоки),</li>
+<li><strong>KWT</strong> (енергетичні потоки),</li>
+<li><strong>DAAR/DAARION</strong> (глобальна міська економіка);</li>
+<li>вводити технічні ліміти, щоби:</li>
+<li>платформа залишалась економічно стійкою;</li>
+<li>не було «безкоштовного» спалювання бюджету;</li>
+<li>користувачі бачили прозорі сигнали вартості.</li>
+</ul>
+<p>Ціль: зробити так, щоб архітектура не лише масштабувалась (див. <code>29_scaling_and_high_availability.md</code>), а й <strong>не розвалювала економіку</strong>.</p>
+<hr />
+<h2 id="2">2. Основні центри витрат<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-llm-ai-agents">2.1 LLM / AI / Agents<a class="headerlink" href="#21-llm-ai-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Виклики великих моделей (hosted / власні).</li>
+<li>Токени контексту (input/output).</li>
+<li>Паралельні агенти, багатоінструментальні ланцюги.</li>
+<li>Фонові агенти (спостерігачі/аналітики).</li>
+</ul>
+<h3 id="22-compute-networking">2.2 Compute &amp; Networking<a class="headerlink" href="#22-compute-networking" title="Permanent link">&para;</a></h3>
+<ul>
+<li>API/Backend CPU/RAM.</li>
+<li>Agent Runtime pool.</li>
+<li>Embassy Gateway (спайки вебхуків).</li>
+<li>Wallet Service / chain RPC.</li>
+</ul>
+<h3 id="23-storage">2.3 Storage<a class="headerlink" href="#23-storage" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Postgres (об'єм + IOPS).</li>
+<li>Object storage (файли, логи агентів, документи).</li>
+<li>Long-term logs / audit.</li>
+</ul>
+<h3 id="24-observability">2.4 Observability<a class="headerlink" href="#24-observability" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Метрики (Prometheus, Cloud Monitoring).</li>
+<li>Логи (ELK/Loki/Cloud).</li>
+<li>Traces (якщо є).</li>
+</ul>
+<hr />
+<h2 id="3">3. Принципи оптимізації<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Немає «нескінченного безкоштовного» LLM</strong>
+   Кожен агентний виклик → лічильник → квота → кореляція з токенами/планами.</p>
+</li>
+<li>
+<p><strong>Бюджети на рівні:</strong></p>
+</li>
+<li>користувача,</li>
+<li>команди (microDAO),</li>
+<li>
+<p>платформи (GreenFood, Energy Union).</p>
+</li>
+<li>
+<p><strong>Економічні сигнали в UI</strong>
+   Користувач бачить:</p>
+</li>
+<li>«Скільки обчислювального бюджету залишилось»;</li>
+<li>
+<p>«Які дії дорогі».</p>
+</li>
+<li>
+<p><strong>Soft- та hard-limits</strong></p>
+</li>
+<li>Soft-limits → попередження/тротлінг.</li>
+<li>Hard-limits → зупинка / пропозиція оновити план / збільшити стейк.</li>
+</ol>
+<hr />
+<h2 id="4">4. Зв'язок токенів з технічною економікою<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41-ringk">4.1 RINGK (стейк / права / ліміти)<a class="headerlink" href="#41-ringk" title="Permanent link">&para;</a></h3>
+<p>RINGK — базовий стейковий токен, який:</p>
+<ul>
+<li>визначає <strong>довгострокову участь</strong>;</li>
+<li>впливає на:</li>
+<li>quota мультиплікатори (LLM, storage, bandwidth);</li>
+<li>пріоритет обробки;</li>
+<li>доступ до Platformium-рівня.</li>
+</ul>
+<p>Формула (концептуально):</p>
+<div class="codehilite"><pre><span></span><code>effective_quota = base_quota(plan) × f(RINGK_staked)
+</code></pre></div>
+
+<p>Де <code>f(RINGK_staked)</code> — piecewise-функція (step / log):</p>
+<ul>
+<li>0 RINGK → 1.0×</li>
+<li>X RINGK → 1.5×</li>
+<li>Y RINGK → 2.0× …</li>
+</ul>
+<h3 id="42-1t-compute-">4.2 1T (compute-шар)<a class="headerlink" href="#42-1t-compute-" title="Permanent link">&para;</a></h3>
+<p>1T — токен, пов'язаний з обчислювальною потужністю:</p>
+<ul>
+<li>кожен LLM-виклик / агентний run / роутинг DAARWIZZ має <strong>внутрішню собівартість</strong> в 1T-еквіваленті;</li>
+<li>внутрішньо ведеться облік:</li>
+<li><code>compute_units_used</code> → конвертується в 1T (offchain/onchain settlement);</li>
+<li>для кожної команди:</li>
+<li><code>monthly_compute_budget_1T</code>;</li>
+<li>якщо план → включає X 1T / місяць.</li>
+</ul>
+<h3 id="43-kwt-energy-">4.3 KWT (energy-шар)<a class="headerlink" href="#43-kwt-energy-" title="Permanent link">&para;</a></h3>
+<p>KWT — енергетичний токен (див. Energy Union):</p>
+<ul>
+<li>залежно від того, чи обчислення живляться «зеленим» контуром:</li>
+<li>частина витрат в 1T «покривається» через локальне енергопостачання;</li>
+<li>для data-центрів / вузлів:</li>
+<li><code>kwh → KWT</code> → subsidy / incentive.</li>
+</ul>
+<h3 id="44-daar-daarion">4.4 DAAR / DAARION (міський рівень)<a class="headerlink" href="#44-daar-daarion" title="Permanent link">&para;</a></h3>
+<ul>
+<li>DAAR/DAARION визначають:</li>
+<li>статус резидента;</li>
+<li>участь у міській економіці, Gift Fabric;</li>
+<li>через governance → можуть змінювати:</li>
+<li>ціни 1T для певних категорій;</li>
+<li>пільги для платформ (GreenFood, соціальні ініціативи).</li>
+</ul>
+<hr />
+<h2 id="5-entitlements">5. Технічні ліміти та Entitlements<a class="headerlink" href="#5-entitlements" title="Permanent link">&para;</a></h2>
+<p>Загальна формула:</p>
+<div class="codehilite"><pre><span></span><code>allow_action =
+  RBAC ∧ Capability ∧ ACL ∧ Mode
+  ∧ (usage &lt; quota(plan, stake))
+</code></pre></div>
+
+<p>З боку інфраструктури:</p>
+<h3 id="51-quotas-per-user-team-platform">5.1 Quotas (per user / team / platform)<a class="headerlink" href="#51-quotas-per-user-team-platform" title="Permanent link">&para;</a></h3>
+<p>Приклади метрик:</p>
+<ul>
+<li><code>agent_runs_per_day</code></li>
+<li><code>tokens_llm_per_day</code></li>
+<li><code>router_invocations_per_day</code></li>
+<li><code>messages_per_day</code></li>
+<li><code>storage_mb_per_team</code></li>
+<li><code>embassy_events_per_day</code></li>
+<li><code>wallet_tx_per_day</code></li>
+</ul>
+<p>Для кожного плану:</p>
+<table>
+<thead>
+<tr>
+<th>План</th>
+<th>LLM-токени / місяць</th>
+<th>Agent runs / день</th>
+<th>Storage / team</th>
+<th>Embassy events / місяць</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Freemium</td>
+<td>N1</td>
+<td>R1</td>
+<td>S1</td>
+<td>E1</td>
+</tr>
+<tr>
+<td>Casual</td>
+<td>N2</td>
+<td>R2</td>
+<td>S2</td>
+<td>E2</td>
+</tr>
+<tr>
+<td>Premium</td>
+<td>N3</td>
+<td>R3</td>
+<td>S3</td>
+<td>E3</td>
+</tr>
+<tr>
+<td>Platformium</td>
+<td>N4</td>
+<td>R4</td>
+<td>S4</td>
+<td>E4</td>
+</tr>
+</tbody>
+</table>
+<p>Множиться на <code>f(RINGK_staked)</code>.</p>
+<h3 id="52">5.2 Механіка використання<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Worker/API перед кожною дорогою операцією:</li>
+<li>інкрементує usage;</li>
+<li>порівнює з quotas;</li>
+<li>якщо близько до ліміту:<ul>
+<li>soft-warning → UI/notification;</li>
+</ul>
+</li>
+<li>якщо перевищено:<ul>
+<li>hard-stop → 429 / custom error.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="6-autoscaling-vs-cost-guards">6. Autoscaling vs. Cost Guards<a class="headerlink" href="#6-autoscaling-vs-cost-guards" title="Permanent link">&para;</a></h2>
+<h3 id="61-autoscaling-budget-">6.1 Autoscaling з budget-обмеженнями<a class="headerlink" href="#61-autoscaling-budget-" title="Permanent link">&para;</a></h3>
+<p>Класичне autoscaling (CPU/RPS) → може «роздути» рахунок.</p>
+<p>Тому на рівні SRE:</p>
+<ul>
+<li>визначається <strong>max_instances_per_service</strong> per environment;</li>
+<li>для дорогих компонентів:</li>
+<li>Agent Runtime,</li>
+<li>Wallet Service,</li>
+<li>Embassy,</li>
+<li>LLM Proxies;</li>
+</ul>
+<p>застосовується:</p>
+<div class="codehilite"><pre><span></span><code>desired_instances = min(
+  autoscaler_recommendation,
+  max_instances_budget
+)
+</code></pre></div>
+
+<h3 id="62-burst-">6.2 Burst-мод<a class="headerlink" href="#62-burst-" title="Permanent link">&para;</a></h3>
+<p>Для подій типу Energy Union / Embassy:</p>
+<ul>
+<li>дозволяється короткий burst (наприклад, ×2–3 від норми) при:</li>
+<li>наявності RWA/енергетичного покриття;</li>
+<li>bursts логуються, накладається governance policy.</li>
+</ul>
+<hr />
+<h2 id="7-llm-agents-cost-controls">7. LLM / Agents Cost Controls<a class="headerlink" href="#7-llm-agents-cost-controls" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 На рівні агента<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<p>Кожен агент має конфіг:</p>
+<ul>
+<li><code>max_tokens_per_run</code></li>
+<li><code>max_cost_per_run</code> (у внутрішніх одиницях / 1T-еквівалент)</li>
+<li><code>max_parallel_runs</code></li>
+<li><code>allowed_tools</code> (частина з них дорогі, напр. browser/crawler)</li>
+</ul>
+<p>Agent Orchestrator:</p>
+<ul>
+<li>перед запуском оцінює потенційний cost;</li>
+<li>при chain-of-thought / multi-step run:</li>
+<li>веде контрліміти (break if too expensive).</li>
+</ul>
+<h3 id="72">7.2 На рівні користувача/команди<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<ul>
+<li>кожен run → запис у таблицю usage:</li>
+<li><code>team_id</code>, <code>agent_id</code>, <code>compute_cost</code>, <code>tokens_used</code>, <code>ts</code>;</li>
+<li>менеджер або Owner бачить usage dashboard:</li>
+<li>по агентах;</li>
+<li>по членах команди;</li>
+<li>по типам задач.</li>
+</ul>
+<hr />
+<h2 id="8-rwaembassy">8. Послуговування RWA/Embassy з економічними обмеженнями<a class="headerlink" href="#8-rwaembassy" title="Permanent link">&para;</a></h2>
+<h3 id="81-embassy-limits">8.1 Embassy Limits<a class="headerlink" href="#81-embassy-limits" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Кількість оброблених webhook'ів per платформа:</li>
+<li><code>events_per_minute</code> / <code>events_per_day</code>;</li>
+<li>Для платформи:</li>
+<li><code>free_tier</code> (для соціальних / важливих ініціатив);</li>
+<li><code>sponsored_tier</code> (оплачується з RWA фонду);</li>
+<li><code>commercial_tier</code> (необхідний стейк / плата 1T/DAARION).</li>
+</ul>
+<h3 id="82-oracle-inputs">8.2 Oracle Inputs<a class="headerlink" href="#82-oracle-inputs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Oracle'и можуть бути дорогими (обсяг даних).</li>
+<li>Вводяться:</li>
+<li>batch-обмеження;</li>
+<li>ліміти по <code>payload_size</code>;</li>
+<li>price per oracle event (у 1T-еквіваленті).</li>
+</ul>
+<hr />
+<h2 id="9-wallet-chain-gas-optimization">9. Wallet / Chain / Gas Optimization<a class="headerlink" href="#9-wallet-chain-gas-optimization" title="Permanent link">&para;</a></h2>
+<h3 id="91-bundle-">9.1 Bundle-транзакції<a class="headerlink" href="#91-bundle-" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Об'єднувати можливі tx:</li>
+<li>payout claims → batch claim, якщо можливо;</li>
+<li>aggregation перед ончейном.</li>
+</ul>
+<h3 id="92-chain-selection">9.2 Chain Selection<a class="headerlink" href="#92-chain-selection" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Використовувати:</li>
+<li>L2 / sidechain з низьким gas;</li>
+<li>minimal calldata.</li>
+</ul>
+<h3 id="93-offchain-first">9.3 Offchain-first<a class="headerlink" href="#93-offchain-first" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Стейт RWA, стейку, usage:</li>
+<li>максимально offchain (Postgres + NATS + audit_log);</li>
+<li>ончейн тільки фіналізація.</li>
+</ul>
+<hr />
+<h2 id="10-analytics">10. Analytics для економіки<a class="headerlink" href="#10-analytics" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 Збір метрик<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<p>Збираються агрегати:</p>
+<ul>
+<li><code>llm_tokens_per_team_per_day</code></li>
+<li><code>agent_runs_per_team_per_day</code></li>
+<li><code>events_embassy_per_platform_per_day</code></li>
+<li><code>wallet_tx_per_day</code></li>
+<li><code>gas_spent_per_day</code></li>
+<li><code>kwh_used_for_compute</code> (якщо є energy integration)</li>
+</ul>
+<h3 id="102">10.2 Дашборди<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<p>Для:</p>
+<ul>
+<li>технічної команди:</li>
+<li>cost per component (LLM, API, NATS, DB, Chain);</li>
+<li>продуктової/економічної:</li>
+<li>cost per feature / platform / cohort;</li>
+<li>governance:</li>
+<li>чи треба змінити планові ліміти/ціни.</li>
+</ul>
+<hr />
+<h2 id="11-governance-controls">11. Governance Controls<a class="headerlink" href="#11-governance-controls" title="Permanent link">&para;</a></h2>
+<h3 id="111">11.1 Політики<a class="headerlink" href="#111" title="Permanent link">&para;</a></h3>
+<p>Governance Agent (див. попередні документи) може:</p>
+<ul>
+<li>змінювати:</li>
+<li>quotas (N1–N4, R1–R4…);</li>
+<li>цінові коефіцієнти (1T per token, KWT subsidies);</li>
+<li>правила bursts / high-priority flows;</li>
+<li>вводити:</li>
+<li>пільги для окремих платформ/районів міста;</li>
+<li>обмеження для надмірних споживачів.</li>
+</ul>
+<h3 id="112">11.2 Процес<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Пропозиція (proposal) з новими параметрами.</li>
+<li>Голосування DAAR/DAARION.</li>
+<li>Після прийняття:</li>
+<li>оновлення конфігів у Capability/Entitlements Registry;</li>
+<li>deployment змін в PDP/Pricing Service;</li>
+<li>журнал подій: <code>governance.policy.updated</code>.</li>
+</ol>
+<hr />
+<h2 id="12-mvp">12. Практичні граничні значення (рекомендації MVP)<a class="headerlink" href="#12-mvp" title="Permanent link">&para;</a></h2>
+<p>Орієнтовні базові параметри для MVP (приклад):</p>
+<ul>
+<li>Freemium:</li>
+<li><code>agent_runs_per_day</code> — 20</li>
+<li><code>llm_tokens_per_day</code> — 20k–50k</li>
+<li>Casual:</li>
+<li><code>agent_runs_per_day</code> — 100</li>
+<li><code>llm_tokens_per_day</code> — 100k–200k</li>
+<li>Premium:</li>
+<li><code>agent_runs_per_day</code> — 500</li>
+<li><code>llm_tokens_per_day</code> — 1M</li>
+<li>Platformium:</li>
+<li>за домовленістю; ліміти → контракт + stake RINGK.</li>
+</ul>
+<p>Множники <code>f(RINGK_staked)</code>:</p>
+<ul>
+<li>0 RINGK — ×1.0</li>
+<li>1000 RINGK — ×1.25</li>
+<li>5000 RINGK — ×1.5</li>
+<li>20000 RINGK — ×2.0</li>
+</ul>
+<p>(значення можна винести в окрему конфіг/таблицю і коригувати governance'ом).</p>
+<hr />
+<h2 id="13-cursor">13. Завдання для Cursor<a class="headerlink" href="#13-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement cost optimization and token economics using:
+- 30_cost_optimization_and_token_economics_infrastructure.md
+- 24_access_keys_capabilities_system.md
+- 29_scaling_and_high_availability.md
+
+Tasks:
+1) Create usage tracking tables (agent_runs_usage, llm_tokens_usage, etc.).
+2) Implement quota checking middleware in API Gateway.
+3) Integrate RINGK stake multipliers into quota calculations.
+4) Create cost estimation service for agent runs.
+5) Implement soft/hard limits with UI notifications.
+6) Create usage dashboards for teams/owners.
+7) Add governance hooks for quota policy updates.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="14">14. Висновок<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Інфраструктура не повинна «зливати» бюджет LLM/compute без зв'язку з токеномікою.</li>
+<li>Усі ключові операції (агенти, Embassy, Wallet, RWA) мають:</li>
+<li>квоти,</li>
+<li>usage-облік,</li>
+<li>прив'язку до планів і стейку RINGK,</li>
+<li>внутрішній 1T-еквівалент.</li>
+<li>Governance може змінювати правила, але технічна основа — у quotas, метриках та PDP.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

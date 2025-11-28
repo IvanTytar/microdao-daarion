@@ -1,0 +1,1409 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/21_agent_only_interface/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>21 — Agent-Only Interface (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-agent-only-interface-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              21 — Agent-Only Interface (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="21-agent-only-interface-microdao">21 — Agent-Only Interface (MicroDAO)<a class="headerlink" href="#21-agent-only-interface-microdao" title="Permanent link">&para;</a></h1>
+<p>Агентська операційна система замість класичного застосунку</p>
+<p>Цей документ описує цільовий інтерфейс MicroDAO, де:</p>
+<ul>
+<li>
+<p>немає класичного "меню функцій";</p>
+</li>
+<li>
+<p>все представлено як <strong>учасники</strong>: Люди, Агенти, Роботи;</p>
+</li>
+<li>
+<p>чати, проєкти, бази знань і доступи — це <strong>ресурси</strong>, якими керують агенти;</p>
+</li>
+<li>
+<p>інвайти, шеринги, права і токени виконуються через агентські дії (з web3-фіксацією, де потрібно).</p>
+</li>
+</ul>
+<p>Це візійний, але достатньо конкретний документ для Cursor:</p>
+<ul>
+<li>
+<p>UX-специфікація;</p>
+</li>
+<li>
+<p>структура layout;</p>
+</li>
+<li>
+<p>сценарії;</p>
+</li>
+<li>
+<p>задачі для реалізації перших версій.</p>
+</li>
+</ul>
+<hr />
+<h1 id="1">1. Мета<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Перетворити MicroDAO на <strong>агентську ОС спільнот</strong>, де:</p>
+<ul>
+<li>
+<p>користувач взаємодіє насамперед з агентами, а не з "екранами";</p>
+</li>
+<li>
+<p>кожен контекст (канал, проєкт, база даних, DAO-голосування) — це простір, де присутні:</p>
+</li>
+<li>
+<p>Люди,</p>
+</li>
+<li>
+<p>Агенти,</p>
+</li>
+<li>
+<p>(у майбутньому) Роботи;</p>
+</li>
+<li>
+<p>запрошення, шеринги, доступи — це:</p>
+</li>
+<li>
+<p>діалог з агентом,</p>
+</li>
+<li>
+<ul>
+<li>технічні дії (RBAC, entitlements, web3-транзакції).</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="2-layout">2. Загальний layout агентської ОС<a class="headerlink" href="#2-layout" title="Permanent link">&para;</a></h1>
+<h2 id="21">2.1. Лівий сайдбар — Простори та Учасники<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p>Структура:</p>
+<ol>
+<li>
+<p><strong>Мої простори (microDAO)</strong>  </p>
+</li>
+<li>
+<p><code>[DAARION Core]</code>  </p>
+</li>
+<li>
+<p><code>[GreenFood DAO]</code>  </p>
+</li>
+<li>
+<p><code>[Personal Lab]</code></p>
+</li>
+<li>
+<p><strong>Учасники</strong>  </p>
+</li>
+<li>
+<p><strong>Люди</strong></p>
+</li>
+<li>
+<p><strong>Агенти</strong></p>
+</li>
+<li>
+<p><strong>Роботи</strong> (поки пусто, плейсхолдер)</p>
+</li>
+<li>
+<p><strong>Активний контекст</strong>  </p>
+</li>
+</ol>
+<p>Підсвічений простір + "поточний стіл":</p>
+<ul>
+<li>
+<p>Канал: <code>#dev-mvp</code></p>
+</li>
+<li>
+<p>Проєкт: <code>MicroDAO MVP</code></p>
+</li>
+<li>
+<p>Простір знань: <code>Tokenomics</code></p>
+</li>
+</ul>
+<p>Сайдбар показує <strong>структуру світу</strong>, але основні дії йдуть через агентів.</p>
+<h2 id="22">2.2. Центр — Діалоговий простір<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<p>Центральна колонка завжди є <strong>чатом</strong>:</p>
+<ul>
+<li>
+<p>Це може бути:</p>
+</li>
+<li>
+<p>канал (<code>#dev-mvp</code>),</p>
+</li>
+<li>
+<p>група (мультичат),</p>
+</li>
+<li>
+<p>DM з людиною,</p>
+</li>
+<li>
+<p>або "Agent Hub" (чат з головним агентом).</p>
+</li>
+</ul>
+<p>У заголовку:</p>
+<ul>
+<li>
+<p>Назва контексту (наприклад, <code>#dev-mvp</code>).</p>
+</li>
+<li>
+<p>Список учасників (аватари):</p>
+</li>
+<li>
+<p>Люди: 2–5</p>
+</li>
+<li>
+<p>Агенти: Team Assistant, Messenger Agent, Projects Agent, Governance Agent</p>
+</li>
+<li>
+<p>(Роботи, якщо є)</p>
+</li>
+</ul>
+<p>Звідси:</p>
+<ul>
+<li>
+<p>пишуть люди,</p>
+</li>
+<li>
+<p>відповідають агенти,</p>
+</li>
+<li>
+<p>запускаються операції над ресурсами (проєктами, БД, токенами).</p>
+</li>
+</ul>
+<h2 id="23">2.3. Правий сайдбар — Контекст і Ресурси<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<p>Праворуч:</p>
+<ol>
+<li>
+<p><strong>Контекст</strong>:</p>
+</li>
+<li>
+<p>Активний простір (microDAO)</p>
+</li>
+<li>
+<p>Поточний канал/проєкт</p>
+</li>
+<li>
+<p>Які агенти мають доступ</p>
+</li>
+<li>
+<p><strong>Ресурси</strong>:</p>
+</li>
+<li>
+<p>Проєкти</p>
+</li>
+<li>
+<p>Бази даних / таблиці</p>
+</li>
+<li>
+<p>Простори знань (Co-Memory)</p>
+</li>
+<li>
+<p>Повʼязані гаманці / токени</p>
+</li>
+<li>
+<p><strong>Права та ключі</strong>:</p>
+</li>
+<li>
+<p>Список людей та агентів з доступами (read/write/admin/use-in-prompts)</p>
+</li>
+<li>
+<p>Кнопка "Керувати доступами"</p>
+</li>
+<li>
+<p>Інформація про web3-стан (якщо є on-chain записи)</p>
+</li>
+</ol>
+<hr />
+<h1 id="3">3. Панель "Люди / Агенти / Роботи"<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<h2 id="31">3.1. Люди<a class="headerlink" href="#31" title="Permanent link">&para;</a></h2>
+<p>Елементи списку:</p>
+<ul>
+<li>
+<p>Аватар</p>
+</li>
+<li>
+<p>Імʼя</p>
+</li>
+<li>
+<p>Статус (online/offline/busy)</p>
+</li>
+<li>
+<p>Ролі в microDAO (Member, Guardian, Investor…)</p>
+</li>
+</ul>
+<p>Клік по людині:</p>
+<ul>
+<li>
+<p>відкриває:</p>
+</li>
+<li>
+<p>DM-чат з цією людиною,</p>
+</li>
+<li>
+<p>або розширений профіль (у майбутньому):</p>
+<ul>
+<li>
+<p>в яких проєктах,</p>
+</li>
+<li>
+<p>з якими агентами працює.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="32">3.2. Агенти<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p>Групи:</p>
+<ul>
+<li>
+<p><strong>Системні агенти</strong>:</p>
+</li>
+<li>
+<p>Team Assistant</p>
+</li>
+<li>
+<p>Messenger Agent</p>
+</li>
+<li>
+<p>Projects Agent</p>
+</li>
+<li>
+<p>Memory/Knowledge Agent</p>
+</li>
+<li>
+<p>Governance/Tokenomics Agent</p>
+</li>
+<li>
+<p>Bridge/Integrations Agent</p>
+</li>
+<li>
+<p><strong>Користувацькі агенти</strong>:</p>
+</li>
+<li>
+<p>спеціалізовані боти, створені командою.</p>
+</li>
+<li>
+<p><strong>Зовнішні агенти (маркетплейс)</strong>:</p>
+</li>
+<li>
+<p>агенти з інших microDAO або від сторонніх розробників.</p>
+</li>
+</ul>
+<p>Клік по агенту:</p>
+<ul>
+<li>
+<p>відкриває <strong>сторінку агента</strong>:</p>
+</li>
+<li>
+<p>вкладка "Чат",</p>
+</li>
+<li>
+<p>вкладка "Памʼять",</p>
+</li>
+<li>
+<p>вкладка "Самонавчання/Еволюція",</p>
+</li>
+<li>
+<p>вкладка "Доступи та ресурси" (які проєкти/БД він бачить).</p>
+</li>
+</ul>
+<h2 id="33">3.3. Роботи<a class="headerlink" href="#33" title="Permanent link">&para;</a></h2>
+<p>Поки може бути просто секція "Роботи (скоро)".  </p>
+<p>Модель на майбутнє:</p>
+<ul>
+<li>
+<p>Привʼязані до фізичних пристроїв (робот, сенсор, енергоблок).</p>
+</li>
+<li>
+<p>Участь у чатах як окремі "учасники".</p>
+</li>
+<li>
+<p>Окремі права на дії у фізичному світі.</p>
+</li>
+</ul>
+<hr />
+<h1 id="4">4. Запрошення агентів до каналів/чатів<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<h2 id="41-ux-">4.1. UX-флоу<a class="headerlink" href="#41-ux-" title="Permanent link">&para;</a></h2>
+<p>У будь-якому чаті/каналі:</p>
+<ul>
+<li>кнопка <strong>"Додати учасника"</strong>.</li>
+</ul>
+<p>При натисканні:</p>
+<ol>
+<li>
+<p>Модалка:</p>
+</li>
+<li>
+<p>таби: <code>Люди | Агенти | Роботи</code></p>
+</li>
+<li>
+<p>поле пошуку</p>
+</li>
+<li>
+<p>Вибір Агента:</p>
+</li>
+<li>
+<p>список агентів,</p>
+</li>
+<li>
+<p>короткий опис (роль, профіль, що вміє).</p>
+</li>
+<li>
+<p>Налаштування прав:</p>
+</li>
+<li>
+<p>чекбокси / селект:</p>
+<ul>
+<li>
+<p><code>Читати цей канал</code></p>
+</li>
+<li>
+<p><code>Писати в цей канал</code></p>
+</li>
+<li>
+<p><code>Створювати задачі / follow-ups</code></p>
+</li>
+<li>
+<p><code>Доступ до проєктів цього контексту</code></p>
+</li>
+<li>
+<p><code>Доступ до баз знань цього контексту</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Підтвердження:</p>
+</li>
+<li>
+<p>кнопка <strong>"Запросити агента"</strong></p>
+</li>
+</ol>
+<p>Після цього:</p>
+<ul>
+<li>
+<p>у header чату зʼявляється новий агент;</p>
+</li>
+<li>
+<p>агент отримує повідомлення (system DM):</p>
+</li>
+</ul>
+<blockquote>
+<p>"Тебе додали до каналу #dev-mvp з правами: читати, писати, створювати задачі."</p>
+</blockquote>
+<h2 id="42-backend">4.2. Backend/протоколно<a class="headerlink" href="#42-backend" title="Permanent link">&para;</a></h2>
+<p>Під капотом:</p>
+<ul>
+<li>
+<p>створюється entitlement для <code>agent_id</code> з:</p>
+</li>
+<li>
+<p><code>resource_kind</code>: <code>channel</code> / <code>project</code> / <code>knowledge_space</code>,</p>
+</li>
+<li>
+<p><code>resource_id</code>,</p>
+</li>
+<li>
+<p><code>scopes</code>: <code>[read, write, tasks, knowledge]</code>.</p>
+</li>
+<li>
+<p>(optionally) запускається web3-транзакція:</p>
+</li>
+<li>
+<p>видача capability-токена / NFT-доступу,</p>
+</li>
+<li>
+<p>запис в on-chain реєстр (аудит, DAO-гарантія).</p>
+</li>
+</ul>
+<hr />
+<h1 id="5">5. Обмін проєктами / базами даних між людьми та агентами<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
+<h2 id="51">5.1. Поняття "Ресурсу"<a class="headerlink" href="#51" title="Permanent link">&para;</a></h2>
+<p>Ресурс — це будь-що, до чого можна дати/забрати доступ:</p>
+<ul>
+<li>
+<p>Проєкт (<code>project_id</code>)</p>
+</li>
+<li>
+<p>Таблиця / БД (<code>dataset_id</code>, <code>table_id</code>)</p>
+</li>
+<li>
+<p>Простір знань (<code>knowledge_space_id</code>)</p>
+</li>
+<li>
+<p>Набір подій (<code>events_stream_id</code>)</p>
+</li>
+<li>
+<p>Гаманець / смарт-контракт (<code>wallet_id</code>, <code>contract_id</code>)</p>
+</li>
+</ul>
+<p>У правому сайдбарі поточного контексту:</p>
+<ul>
+<li>
+<p>"Ресурси цього контексту"</p>
+</li>
+<li>
+<p>Кожен ресурс має меню:</p>
+</li>
+<li>
+<p>"Поділитися…"</p>
+</li>
+<li>
+<p>"Показати, хто має доступ"</p>
+</li>
+</ul>
+<h2 id="52-ux">5.2. UX шерингу<a class="headerlink" href="#52-ux" title="Permanent link">&para;</a></h2>
+<p>У правій панелі користувач:</p>
+<ol>
+<li>
+<p>Обирає ресурс → "Поділитися".</p>
+</li>
+<li>
+<p>Відкривається модалка:</p>
+</li>
+<li>
+<p>таби: <code>Люди | Агенти | MicroDAO</code></p>
+</li>
+<li>
+<p>Вибирає:</p>
+</li>
+<li>
+<p>одного або кількох адресатів.</p>
+</li>
+<li>
+<p>Вказує права:</p>
+</li>
+<li>
+<p><code>read</code> / <code>write</code> / <code>admin</code> / <code>use_in_prompts_only</code>.</p>
+</li>
+<li>
+<p>Підтверджує.</p>
+</li>
+</ol>
+<p>Після цього:</p>
+<ul>
+<li>
+<p>Governance/Tokenomics Agent:</p>
+</li>
+<li>
+<p>оформлює web3-операцію (за потреби),</p>
+</li>
+<li>
+<p>оновлює entitlements,</p>
+</li>
+<li>
+<p>лог у audit/journal.</p>
+</li>
+<li>
+<p>Memory/Knowledge Agent:</p>
+</li>
+<li>
+<p>оновлює карту знань (хто/що бачить),</p>
+</li>
+<li>
+<p>може пропонувати нові рекомендації (наприклад, Projects Agent тепер бачить дані продажів).</p>
+</li>
+</ul>
+<hr />
+<h1 id="6-agent-hub">6. "Agent Hub" — стартовий екран без меню<a class="headerlink" href="#6-agent-hub" title="Permanent link">&para;</a></h1>
+<p>Замість класичного "Home":</p>
+<ul>
+<li>при вході в MicroDAO користувач потрапляє в чат з головним агентом (<strong>Team Assistant / OS Agent</strong>).</li>
+</ul>
+<p>Верхня частина:</p>
+<ul>
+<li>
+<p>"Привіт, це твоя microDAO: [Назва]"</p>
+</li>
+<li>
+<p>Короткі блоки:</p>
+</li>
+<li>
+<p>"Учасники" (скільки людей, скільки агентів)</p>
+</li>
+<li>
+<p>"Проєкти" (активні)</p>
+</li>
+<li>
+<p>"Сигнали" (важливі нотифікації)</p>
+</li>
+</ul>
+<p>Основний елемент — чат, де користувач може написати будь-що:</p>
+<p>Приклади:</p>
+<ul>
+<li>
+<p>"Покажи, хто зараз працює над MVP."</p>
+</li>
+<li>
+<p>"Створи новий проєкт для інтеграції DAGI."</p>
+</li>
+<li>
+<p>"Запроси Projects Agent і Governance Agent в цей проєкт."</p>
+</li>
+<li>
+<p>"Поділись базою <code>sales_events</code> з Projects Agent тільки для читання."</p>
+</li>
+</ul>
+<p>Агент:</p>
+<ul>
+<li>
+<p>ставить уточнюючі питання (якщо потрібно),</p>
+</li>
+<li>
+<p>викликає внутрішні агенти:</p>
+</li>
+<li>
+<p>Messenger Agent → створити/налаштувати канал</p>
+</li>
+<li>
+<p>Projects Agent → створити проєкт/таски</p>
+</li>
+<li>
+<p>Governance Agent → оформити доступи й web3-запис</p>
+</li>
+<li>
+<p>Knowledge Agent → підключити Co-Memory</p>
+</li>
+</ul>
+<p>Усе це відображається як:</p>
+<ul>
+<li>
+<p>ланцюжок дій у чаті,</p>
+</li>
+<li>
+<p>результати в структурі UI (нові канали / проєкти / ресурси).</p>
+</li>
+</ul>
+<hr />
+<h1 id="7-mvp">7. Мінімальний MVP цієї парадигми<a class="headerlink" href="#7-mvp" title="Permanent link">&para;</a></h1>
+<p>Для першої реалізації (без надроздуття):</p>
+<ol>
+<li>
+<p><strong>Лівий сайдбар:</strong></p>
+</li>
+<li>
+<p>блок "Учасники": <code>Люди</code>, <code>Агенти</code> (Роботи — плейсхолдер).</p>
+</li>
+<li>
+<p>кліки відкривають DM / сторінку агента.</p>
+</li>
+<li>
+<p><strong>Agent Hub як Home:</strong></p>
+</li>
+<li>
+<p><code>/t/:teamId/home</code> → чат з Team Assistant.</p>
+</li>
+<li>
+<p>кнопка "Домашня" у сайдбарі → туди.</p>
+</li>
+<li>
+<p><strong>Модалка "Додати учасника" для каналів:</strong></p>
+</li>
+<li>
+<p>можливість додати агента,</p>
+</li>
+<li>
+<p>налаштувати права (на поки що хоча б <code>read/write</code>).</p>
+</li>
+<li>
+<p><strong>Модалка "Поділитися ресурсом":</strong></p>
+</li>
+<li>
+<p>для проєктів (Projects Agent вже буде з 15-го документа),</p>
+</li>
+<li>
+<p>базові права <code>read/write</code>.</p>
+</li>
+<li>
+<p><strong>Без web3 на першому етапі:</strong></p>
+</li>
+<li>
+<p>тільки модель прав у БД (RBAC + entitlements),</p>
+</li>
+<li>
+<p>web3-интеграція — stub/плейсхолдер (логіка в Governance Agent).</p>
+</li>
+</ol>
+<hr />
+<h1 id="8">8. Компоненти та структура<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
+<h2 id="81-layout-components">8.1. Layout Components<a class="headerlink" href="#81-layout-components" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>src/layouts/
+  AgentOSLayout.tsx          # Головний layout з 3 колонками
+  LeftSidebar.tsx            # Простори + Учасники
+  ParticipantsPanel.tsx      # Панель Люди/Агенти/Роботи
+  RightSidebar.tsx           # Контекст + Ресурси
+  ContextPanel.tsx           # Панель контексту
+  ResourcesPanel.tsx         # Панель ресурсів
+</code></pre></div>
+
+<h2 id="82-pages">8.2. Pages<a class="headerlink" href="#82-pages" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>src/pages/
+  AgentHubPage.tsx           # /t/:teamId/home - стартовий екран
+  ParticipantPage.tsx        # Сторінка учасника (людина/агент)
+</code></pre></div>
+
+<h2 id="83-modals">8.3. Modals<a class="headerlink" href="#83-modals" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>src/components/modals/
+  AddParticipantModal.tsx    # Додати учасника до каналу/чату
+  ShareResourceModal.tsx     # Поділитися ресурсом
+  ManageAccessModal.tsx      # Керування доступами
+</code></pre></div>
+
+<h2 id="84-types">8.4. Types<a class="headerlink" href="#84-types" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">Participant</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;human&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;robot&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">avatar?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">status</span><span class="o">?:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;offline&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;busy&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">roles?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">Resource</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;project&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;dataset&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;knowledge_space&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;wallet&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;contract&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">description?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">accessLevel</span><span class="o">?:</span><span class="w"> </span><span class="s2">&quot;read&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;write&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;use_in_prompts_only&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">Entitlement</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">participantId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">resourceKind</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">resourceId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="9-api-endpoints">9. API Endpoints<a class="headerlink" href="#9-api-endpoints" title="Permanent link">&para;</a></h1>
+<h2 id="91-participants">9.1. Participants<a class="headerlink" href="#91-participants" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">teams</span><span class="o">/</span><span class="p">{</span><span class="nx">teamId</span><span class="p">}</span><span class="o">/</span><span class="nx">participants</span>
+<span class="c1">// Повертає список учасників (люди + агенти)</span>
+
+<span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">teams</span><span class="o">/</span><span class="p">{</span><span class="nx">teamId</span><span class="p">}</span><span class="o">/</span><span class="nx">participants</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span>
+<span class="c1">// Деталі учасника</span>
+
+<span class="nx">POST</span><span class="w"> </span><span class="o">/</span><span class="nx">channels</span><span class="o">/</span><span class="p">{</span><span class="nx">channelId</span><span class="p">}</span><span class="o">/</span><span class="nx">participants</span>
+<span class="c1">// Додати учасника до каналу</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nx">participantId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">participantType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;human&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="92-resources">9.2. Resources<a class="headerlink" href="#92-resources" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">teams</span><span class="o">/</span><span class="p">{</span><span class="nx">teamId</span><span class="p">}</span><span class="o">/</span><span class="nx">resources</span>
+<span class="c1">// Список ресурсів у контексті</span>
+
+<span class="nx">POST</span><span class="w"> </span><span class="o">/</span><span class="nx">resources</span><span class="o">/</span><span class="p">{</span><span class="nx">resourceId</span><span class="p">}</span><span class="o">/</span><span class="nx">share</span>
+<span class="c1">// Поділитися ресурсом</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nx">participantIds</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="93-entitlements">9.3. Entitlements<a class="headerlink" href="#93-entitlements" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">entitlements</span>
+<span class="c1">// Список прав поточного користувача/агента</span>
+
+<span class="nx">POST</span><span class="w"> </span><span class="o">/</span><span class="nx">entitlements</span>
+<span class="c1">// Створити entitlement</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nx">participantId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">resourceKind</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">resourceId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="10">10. Інтеграція з існуючими модулями<a class="headerlink" href="#10" title="Permanent link">&para;</a></h1>
+<h2 id="101-messenger-agent-14">10.1. Messenger Agent (14)<a class="headerlink" href="#101-messenger-agent-14" title="Permanent link">&para;</a></h2>
+<p>Messenger Agent може:</p>
+<ul>
+<li>показувати список каналів з учасниками</li>
+<li>фільтрувати канали за наявністю агентів</li>
+<li>пропонувати додати агента до каналу</li>
+</ul>
+<h2 id="102-projects-agent-15">10.2. Projects Agent (15)<a class="headerlink" href="#102-projects-agent-15" title="Permanent link">&para;</a></h2>
+<p>Projects Agent може:</p>
+<ul>
+<li>показувати проєкти як ресурси</li>
+<li>керувати доступами до проєктів</li>
+<li>пропонувати поділитися проєктом з іншими агентами</li>
+</ul>
+<h2 id="103-governance-agent-18">10.3. Governance Agent (18)<a class="headerlink" href="#103-governance-agent-18" title="Permanent link">&para;</a></h2>
+<p>Governance Agent:</p>
+<ul>
+<li>оформлює web3-транзакції для доступу</li>
+<li>веде audit log всіх змін прав</li>
+<li>керує токеномікою доступів</li>
+</ul>
+<hr />
+<h1 id="11-cursor">11. Завдання для Cursor<a class="headerlink" href="#11-cursor" title="Permanent link">&para;</a></h1>
+<p>Приклад промта:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">You</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">senior</span><span class="w"> </span><span class="nx">React</span><span class="o">/</span><span class="nx">TS</span><span class="w"> </span><span class="nx">engineer</span><span class="p">.</span>
+
+<span class="nx">Implement</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Agent</span><span class="o">-</span><span class="nx">Only</span><span class="w"> </span><span class="nx">Interface</span><span class="w"> </span><span class="nx">shell</span><span class="w"> </span><span class="nx">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">21</span><span class="nx">_agent_only_interface</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="nx">_agent_ui_system</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">14</span><span class="nx">_messenger_agent_module</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">03</span><span class="nx">_api_core_snapshot</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="nx">_coding_standards</span><span class="p">.</span><span class="nx">md</span>
+
+<span class="nx">Tasks</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="nx">Update</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">main</span><span class="w"> </span><span class="nx">layout</span><span class="p">:</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Left</span><span class="w"> </span><span class="nx">sidebar</span><span class="p">:</span><span class="w"> </span><span class="nx">Spaces</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">Participants</span><span class="w"> </span><span class="p">(</span><span class="nx">People</span><span class="p">,</span><span class="w"> </span><span class="nx">Agents</span><span class="p">,</span><span class="w"> </span><span class="nx">Robots</span><span class="w"> </span><span class="nx">placeholder</span><span class="p">).</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Center</span><span class="p">:</span><span class="w"> </span><span class="nx">Dialog</span><span class="w"> </span><span class="nx">area</span><span class="w"> </span><span class="p">(</span><span class="nx">chat</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">current</span><span class="w"> </span><span class="nx">context</span><span class="p">).</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Right</span><span class="w"> </span><span class="nx">sidebar</span><span class="p">:</span><span class="w"> </span><span class="nx">Context</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">Resources</span><span class="w"> </span><span class="nx">panel</span><span class="w"> </span><span class="p">(</span><span class="nx">stub</span><span class="w"> </span><span class="nx">data</span><span class="p">).</span>
+
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="nx">Create</span><span class="w"> </span><span class="s">&quot;Agent Hub&quot;</span><span class="w"> </span><span class="nx">route</span><span class="w"> </span><span class="err">`</span><span class="o">/</span><span class="nx">t</span><span class="o">/</span><span class="p">:</span><span class="nx">teamId</span><span class="o">/</span><span class="nx">home</span><span class="err">`</span><span class="p">:</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Chat</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">Team</span><span class="w"> </span><span class="nx">Assistant</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">main</span><span class="w"> </span><span class="nx">entry</span><span class="w"> </span><span class="nx">point</span><span class="p">.</span>
+
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="s">&quot;Add participant&quot;</span><span class="w"> </span><span class="nx">flow</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">channels</span><span class="p">:</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Modal</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">tabs</span><span class="p">:</span><span class="w"> </span><span class="nx">People</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Agents</span><span class="p">.</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">For</span><span class="w"> </span><span class="nx">Agents</span><span class="p">:</span><span class="w"> </span><span class="nx">basic</span><span class="w"> </span><span class="nx">permissions</span><span class="w"> </span><span class="p">(</span><span class="nx">read</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">write</span><span class="p">)</span><span class="w"> </span><span class="nx">stored</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">entitlements</span><span class="w"> </span><span class="p">(</span><span class="nx">stub</span><span class="p">).</span>
+
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="s">&quot;Share resource&quot;</span><span class="w"> </span><span class="nx">flow</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">right</span><span class="w"> </span><span class="nx">sidebar</span><span class="p">:</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">For</span><span class="w"> </span><span class="nx">now</span><span class="p">:</span><span class="w"> </span><span class="nx">projects</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="p">(</span><span class="nx">resource</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="nx">stub</span><span class="p">).</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Modal</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">grant</span><span class="w"> </span><span class="nx">read</span><span class="o">/</span><span class="nx">write</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">People</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">Agents</span><span class="w"> </span><span class="p">(</span><span class="nx">no</span><span class="w"> </span><span class="nx">web3</span><span class="w"> </span><span class="nx">yet</span><span class="p">).</span>
+
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="nx">Ensure</span><span class="w"> </span><span class="nx">navigation</span><span class="p">:</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="nx">Clicking</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">Person</span><span class="o">/</span><span class="nx">Agent</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">sidebar</span><span class="w"> </span><span class="nx">opens</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">appropriate</span><span class="w"> </span><span class="nx">chat</span><span class="o">/</span><span class="nx">page</span><span class="p">.</span>
+
+<span class="nx">Output</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">modified</span><span class="w"> </span><span class="nx">files</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">diff</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="12">12. Результат<a class="headerlink" href="#12" title="Permanent link">&para;</a></h1>
+<p>Після впровадження цього модуля:</p>
+<ul>
+<li>
+<p>MicroDAO отримує "агентський" каркас інтерфейсу:</p>
+</li>
+<li>
+<p>вхід через Agent Hub,</p>
+</li>
+<li>
+<p>центральна роль агентів,</p>
+</li>
+<li>
+<p>простий механізм запрошення агентів,</p>
+</li>
+<li>
+<p>базові flows шерингу ресурсів;</p>
+</li>
+<li>
+<p>класичний месенджер (документ 14) стає лише однією з "здібностей" всередині агентської ОС, а не центром продукту.</p>
+</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна специфікація Agent-Only Interface</strong>, готова до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

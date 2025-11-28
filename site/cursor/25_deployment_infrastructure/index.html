@@ -1,0 +1,1472 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/25_deployment_infrastructure/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>25 — Deployment & Infrastructure (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#25-deployment-infrastructure-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              25 — Deployment & Infrastructure (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Environments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Environments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Local
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Dev
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Prod
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-core-infrastructure-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Core Infrastructure Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Core Infrastructure Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-database-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Database Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-event-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Event Bus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Application Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Object Storage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-level-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. High-level Topology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-deployment-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Deployment Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Deployment Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Local
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Dev
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Staging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Prod
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuration-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Configuration &amp; Environment Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuration & Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-nats-event-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 NATS / Event Bus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-auth-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Auth / Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-embassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Embassy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-wallet-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 Wallet / Chain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Secrets Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-database-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Database Migrations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-event-bus-outbox-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Event Bus &amp; Outbox Pattern
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-monitoring-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Monitoring &amp; Logging
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Monitoring & Logging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Метрики
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Логи
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-backups-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Backups &amp; Restore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Backups & Restore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Backups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-restore-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Restore Policy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-rollout-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Rollout Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Rollout Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-apibackend" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 API/Backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-feature-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3 Feature Flags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-cicd-pipeline-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. CI/CD Pipeline (Reference)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Результат
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="25-deployment-infrastructure-microdao">25 — Deployment &amp; Infrastructure (MicroDAO)<a class="headerlink" href="#25-deployment-infrastructure-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Deployment процес, середовища, інфраструктура, CI/CD, моніторинг</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ описує інфраструктуру розгортання та процеси деплою для:</p>
+<ul>
+<li>microdao (messenger + agents + governance + wallet);</li>
+<li>DAARION.city core (Second Me, Gift Fabric, Citizenship);</li>
+<li>інтеграційних модулів (Embassy, RWA, Energy Union, GREENFOOD та ін.);</li>
+<li>Event-driven шару (NATS/JetStream / Outbox).</li>
+</ul>
+<p>Ціль:</p>
+<ul>
+<li>чітко визначити середовища (local/dev/staging/prod);</li>
+<li>описати основні компоненти інфра-стеку;</li>
+<li>стандартизувати CI/CD pipeline та керування міграціями;</li>
+<li>визначити моніторинг, логування, backup/restore.</li>
+</ul>
+<hr />
+<h2 id="2-environments">2. Environments<a class="headerlink" href="#2-environments" title="Permanent link">&para;</a></h2>
+<h3 id="21-local">2.1 Local<a class="headerlink" href="#21-local" title="Permanent link">&para;</a></h3>
+<p>Призначення:</p>
+<ul>
+<li>швидка розробка;</li>
+<li>інтеграційні тести окремого розробника.</li>
+</ul>
+<p>Особливості:</p>
+<ul>
+<li>Postgres (може бути Supabase local або Docker);</li>
+<li>NATS/JetStream локально (Docker);</li>
+<li>фронтенд (Next.js / React) — <code>localhost:3000</code>;</li>
+<li>backend/edge functions — <code>localhost:PORT</code>;</li>
+<li>спрощена конфігурація OAuth/Email.</li>
+</ul>
+<h3 id="22-dev">2.2 Dev<a class="headerlink" href="#22-dev" title="Permanent link">&para;</a></h3>
+<p>Призначення:</p>
+<ul>
+<li>інтеграція гілок;</li>
+<li>тестування нових фіч командою.</li>
+</ul>
+<p>Особливості:</p>
+<ul>
+<li>часто автодеплой з <code>develop</code> / <code>dev</code> гілки;</li>
+<li>нестабільне середовище, допускається breaking changes;</li>
+<li>окремі ресурси БД, NATS, storage.</li>
+</ul>
+<h3 id="23-staging">2.3 Staging<a class="headerlink" href="#23-staging" title="Permanent link">&para;</a></h3>
+<p>Призначення:</p>
+<ul>
+<li>передпродакшн середовище, максимально наближене до прод;</li>
+<li>тестування релізів перед викоткою на prod;</li>
+<li>smoke-тести, регресія, перевірка міграцій.</li>
+</ul>
+<p>Особливості:</p>
+<ul>
+<li>конфігурації максимально збігаються з prod;</li>
+<li>ті ж версії Postgres/NATS/Redis;</li>
+<li>мінімум тестових даних, максимально наближені сценарії.</li>
+</ul>
+<h3 id="24-prod">2.4 Prod<a class="headerlink" href="#24-prod" title="Permanent link">&para;</a></h3>
+<p>Призначення:</p>
+<ul>
+<li>бойове середовище для реальних користувачів та агентів;</li>
+<li>висока доступність, резервування, SLA.</li>
+</ul>
+<p>Особливості:</p>
+<ul>
+<li>реплікація БД;</li>
+<li>резервні копії (snapshots + PITR);</li>
+<li>горизонтальне масштабування критичних сервісів;</li>
+<li>жорсткі політики безпеки, rate limiting, WAF.</li>
+</ul>
+<hr />
+<h2 id="3-core-infrastructure-components">3. Core Infrastructure Components<a class="headerlink" href="#3-core-infrastructure-components" title="Permanent link">&para;</a></h2>
+<h3 id="31-database-layer">3.1 Database Layer<a class="headerlink" href="#31-database-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Postgres</strong> (Supabase / керований Postgres):</li>
+<li>основні таблиці: <code>users</code>, <code>teams</code>, <code>channels</code>, <code>messages</code>, <code>projects</code>, <code>tasks</code>, <code>agents</code>, <code>wallets</code>, <code>staking_ringk</code>, <code>payouts</code>, <code>rwa_inventory</code>, <code>embassy_*</code>, <code>access_keys</code>, <code>capabilities</code>, <code>bundles</code>, <code>audit_log</code>, <code>outbox_events</code>.</li>
+<li>схема й міграції описані в <code>27_database_schema_migrations.md</code>.</li>
+</ul>
+<p>Рекомендації:</p>
+<ul>
+<li>один кластер на середовище (dev/staging/prod);</li>
+<li>не змішувати dev/staging/prod в одному кластері;</li>
+<li>використовувати read-replicas для prod (аналітика, довгі запити).</li>
+</ul>
+<h3 id="32-event-bus">3.2 Event Bus<a class="headerlink" href="#32-event-bus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>NATS JetStream</strong> (або інший стейтовий event bus):</li>
+<li>теми (topics) з <code>Data Model &amp; Event Catalog</code>;</li>
+<li>консьюмери: Wallet service, Gift Fabric, Embassies, Telemetry.</li>
+</ul>
+<p>Роль:</p>
+<ul>
+<li>децентралізований шар подій;</li>
+<li>відв'язка інтерфейсу, агентів і бекенду;</li>
+<li>реалізація Outbox pattern (<code>outbox_events</code> → NATS).</li>
+</ul>
+<h3 id="33-application-layer">3.3 Application Layer<a class="headerlink" href="#33-application-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>API Gateway / Edge Functions</strong>:</li>
+<li>REST/gRPC/API для frontend, агентів, інтеграцій;</li>
+<li>PEP (Policy Enforcement Point) для capability-check;</li>
+<li>
+<p>валідація access keys, підписів Embassy, rate limiting.</p>
+</li>
+<li>
+<p><strong>Domain Services</strong> (можуть бути edge functions / окремі сервіси):</p>
+</li>
+<li>Messaging Service (channels/messages/followups);</li>
+<li>Projects/Tasks Service;</li>
+<li>Agent Orchestrator (agent_runs, router);</li>
+<li>Wallet &amp; Payouts;</li>
+<li>Embassy Service;</li>
+<li>Governance Service.</li>
+</ul>
+<h3 id="34-frontend">3.4 Frontend<a class="headerlink" href="#34-frontend" title="Permanent link">&para;</a></h3>
+<ul>
+<li>SPA/SSR (React/Next.js):</li>
+<li>DAARION.city UI;</li>
+<li>microdao messenger + agents;</li>
+<li>admin-консоль (telemetry, управління платформи).</li>
+</ul>
+<p>Рекомендації:</p>
+<ul>
+<li>окремі build'и для user-facing (місто) і admin/ops;</li>
+<li>environment-specific base URLs.</li>
+</ul>
+<h3 id="35-object-storage">3.5 Object Storage<a class="headerlink" href="#35-object-storage" title="Permanent link">&para;</a></h3>
+<ul>
+<li>зберігання файлів/документів/зображень:</li>
+<li>user uploads (файли в каналах, документи);</li>
+<li>логи агентів (якщо великі);</li>
+<li>snapshot-и моделей/конфігів (якщо потрібно).</li>
+</ul>
+<hr />
+<h2 id="4-high-level-topology">4. High-level Topology<a class="headerlink" href="#4-high-level-topology" title="Permanent link">&para;</a></h2>
+<p>Текстовий опис (спрощено):</p>
+<ul>
+<li>Frontend (Web) → API Gateway</li>
+<li>API Gateway → Postgres / NATS / Services</li>
+<li>Agent Mesh ↔ API Gateway ↔ NATS</li>
+<li>Embassy Webhooks ↔ API Gateway ↔ NATS ↔ Services</li>
+<li>Observability Stack (Prometheus/Grafana/Logs) → читає метрики з усіх компонентів</li>
+</ul>
+<p>(Опційно можна додати Mermaid-діаграму у цьому файлі.)</p>
+<hr />
+<h2 id="5-deployment-workflows">5. Deployment Workflows<a class="headerlink" href="#5-deployment-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="51-local">5.1 Local<a class="headerlink" href="#51-local" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>docker-compose</code> / Supabase local:</li>
+<li><code>postgres</code>, <code>nats</code>, <code>minio</code> (опційно), <code>api</code>, <code>web</code>.</li>
+<li>Команди:</li>
+<li><code>npm run dev</code> (web);</li>
+<li><code>supabase db push</code> / <code>pnpm prisma migrate</code> / <code>golang-migrate up</code> (залежно від стеку);</li>
+<li>запуск background workers для Outbox → NATS.</li>
+</ul>
+<h3 id="52-dev">5.2 Dev<a class="headerlink" href="#52-dev" title="Permanent link">&para;</a></h3>
+<p>Trigger:</p>
+<ul>
+<li>push в <code>develop</code> / <code>dev</code> гілку.</li>
+</ul>
+<p>Кроки:</p>
+<ol>
+<li>CI: <code>lint</code>, <code>tests</code>, <code>typecheck</code>.</li>
+<li>Build:</li>
+<li>web (static/SSR bundle);</li>
+<li>backend/edge functions (docker image або окремі функції).</li>
+<li>Deploy:</li>
+<li>apply DB migrations;</li>
+<li>деплой API/edge;</li>
+<li>деплой web (dev URL).</li>
+<li>Smoke-тести:</li>
+<li>healthcheck endpoints;</li>
+<li>простий сценарій (login → створити канал → відправити повідомлення).</li>
+</ol>
+<h3 id="53-staging">5.3 Staging<a class="headerlink" href="#53-staging" title="Permanent link">&para;</a></h3>
+<p>Trigger:</p>
+<ul>
+<li>merge/push у <code>main</code> з тегом <code>rc-*</code> або окрема <code>release/*</code> гілка.</li>
+</ul>
+<p>Кроки:</p>
+<ol>
+<li>CI повторює dev-пайплайн.</li>
+<li>DB migrations:</li>
+<li>запуск у режимі dry-run (якщо підтримується);</li>
+<li>застосування на staging.</li>
+<li>Deploy API, workers, web (staging domain).</li>
+<li>Інтеграційні тести:</li>
+<li>агенти, Embassy вебхуки, payouts, RWA, governance flows.</li>
+</ol>
+<h3 id="54-prod">5.4 Prod<a class="headerlink" href="#54-prod" title="Permanent link">&para;</a></h3>
+<p>Trigger:</p>
+<ul>
+<li>тег <code>vX.Y.Z</code> або manual approval релізу.</li>
+</ul>
+<p>Кроки:</p>
+<ol>
+<li>Freeze staging (ті самі артефакти).</li>
+<li>Backup prod DB (snapshot).</li>
+<li>Apply migrations на prod.</li>
+<li>Deploy API/edge з поетапним rollout (canary / по одному інстансу).</li>
+<li>Deploy web (атомарна заміна, rollback через попередній build).</li>
+<li>Post-deploy чек-лист:</li>
+<li>логін/чат;</li>
+<li>ворк агента;</li>
+<li>простий payout симуляційний (якщо є test mode);</li>
+<li>кілька Embassy викликів у test-конфігурації.</li>
+</ol>
+<hr />
+<h2 id="6-configuration-environment-variables">6. Configuration &amp; Environment Variables<a class="headerlink" href="#6-configuration-environment-variables" title="Permanent link">&para;</a></h2>
+<p>Приклад розділів <code>.env</code> (загальні ключі):</p>
+<h3 id="61-database">6.1 Database<a class="headerlink" href="#61-database" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>DB_HOST</code></li>
+<li><code>DB_PORT</code></li>
+<li><code>DB_NAME</code></li>
+<li><code>DB_USER</code></li>
+<li><code>DB_PASSWORD</code></li>
+<li><code>DB_SSLMODE</code> (prod: <code>require</code>)</li>
+</ul>
+<h3 id="62-nats-event-bus">6.2 NATS / Event Bus<a class="headerlink" href="#62-nats-event-bus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>NATS_URL</code></li>
+<li><code>NATS_USER</code></li>
+<li><code>NATS_PASSWORD</code></li>
+<li><code>NATS_STREAM_EVENTS</code> (ім'я стріму для event catalog)</li>
+<li><code>NATS_CONSUMER_WALLET</code></li>
+<li><code>NATS_CONSUMER_EMBASSY</code></li>
+<li><code>NATS_CONSUMER_GIFT_FABRIC</code></li>
+</ul>
+<h3 id="63-auth-security">6.3 Auth / Security<a class="headerlink" href="#63-auth-security" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>JWT_SECRET</code> (для capability-token, якщо локально)</li>
+<li><code>SESSION_SECRET</code></li>
+<li><code>E2EE_PUBLIC_KEY</code> / <code>E2EE_PRIVATE_KEY</code> (або інший механізм)</li>
+<li><code>RATE_LIMIT_GLOBAL</code></li>
+<li><code>RATE_LIMIT_PER_KEY</code></li>
+</ul>
+<h3 id="64-embassy">6.4 Embassy<a class="headerlink" href="#64-embassy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>EMBASSY_WEBHOOK_SECRET_ENERGY_UNION</code></li>
+<li><code>EMBASSY_WEBHOOK_SECRET_GREENFOOD</code></li>
+<li><code>EMBASSY_WEBHOOK_SECRET_WATER_UNION</code></li>
+<li><code>EMBASSY_WEBHOOK_SECRET_ESSENCE_STREAM</code></li>
+</ul>
+<h3 id="65-wallet-chain">6.5 Wallet / Chain<a class="headerlink" href="#65-wallet-chain" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>CHAIN_RPC_URL</code></li>
+<li><code>CHAIN_EXPLORER_URL</code></li>
+<li><code>WALLET_SAFE_ADDRESS</code> (якщо multi-sig)</li>
+<li><code>WALLET_PRIVATE_KEY</code> (краще в KMS, не у .env)</li>
+</ul>
+<hr />
+<h2 id="7-secrets-management">7. Secrets Management<a class="headerlink" href="#7-secrets-management" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Prod/staging secrets <strong>не зберігати</strong> у <code>.env</code> у репозиторії.</li>
+<li>Використовувати:</li>
+<li>KMS (GCP/AWS/Azure) або</li>
+<li>менеджер секретів (Vault, Doppler, SSM Parameter Store тощо).</li>
+<li>Workers/API при старті:</li>
+<li>тягнуть секрети з KMS/secret manager;</li>
+<li>кешують лише в пам'яті (не логувати).</li>
+</ul>
+<p>Особливо чутливі:</p>
+<ul>
+<li>ключі Embassy Webhooks;</li>
+<li>wallet private keys / hot signer;</li>
+<li>JWT/Session secrets.</li>
+</ul>
+<hr />
+<h2 id="8-database-migrations">8. Database Migrations<a class="headerlink" href="#8-database-migrations" title="Permanent link">&para;</a></h2>
+<p>Посилання: <code>27_database_schema_migrations.md</code>.</p>
+<p>Правила:</p>
+<ol>
+<li>Міграції <strong>ніколи</strong> не змінюють/ламають дані під час prod розгортання без попередніх data-migrations.</li>
+<li><code>up</code>/<code>down</code> повинні бути ідемпотентними (DROP IF EXISTS / CREATE IF NOT EXISTS).</li>
+<li>Порядок виконання:</li>
+<li>local: розробник запускає всі <code>000XXX_*.sql</code> + <code>seeds.sql</code>;</li>
+<li>dev/staging/prod: CI/CD застосовує міграції у правильному порядку.</li>
+</ol>
+<hr />
+<h2 id="9-event-bus-outbox-pattern">9. Event Bus &amp; Outbox Pattern<a class="headerlink" href="#9-event-bus-outbox-pattern" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Event producer-и (API/Services) не відправляють події напряму в NATS у критичних шляхах — спочатку пишуть у <code>outbox_events</code>.</li>
+<li>Background worker:</li>
+<li>читає <code>outbox_events</code> з <code>processed=false</code>;</li>
+<li>публікує у NATS відповідний topic;</li>
+<li>позначає <code>processed=true</code>, <code>processed_at=NOW()</code>.</li>
+</ul>
+<p>Це зменшує ймовірність втрати подій при часткових збоях.</p>
+<hr />
+<h2 id="10-monitoring-logging">10. Monitoring &amp; Logging<a class="headerlink" href="#10-monitoring-logging" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 Метрики<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>API/Backend</strong>:</li>
+<li>latency per endpoint;</li>
+<li>error rate (5xx, 4xx);</li>
+<li>
+<p>rate limiting triggers.</p>
+</li>
+<li>
+<p><strong>DB</strong>:</p>
+</li>
+<li>connections;</li>
+<li>slow queries;</li>
+<li>
+<p>реплікація (lag).</p>
+</li>
+<li>
+<p><strong>NATS/Event Bus</strong>:</p>
+</li>
+<li>backlog per consumer;</li>
+<li>delivery errors;</li>
+<li>
+<p>redeliveries.</p>
+</li>
+<li>
+<p><strong>Agents</strong>:</p>
+</li>
+<li>кількість запусків;</li>
+<li>середня тривалість run;</li>
+<li>помилки агента (LLM/tool errors).</li>
+</ul>
+<h3 id="102">10.2 Логи<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<ul>
+<li>централізований збір (ELK / Loki / Cloud Logging);</li>
+<li>кореляційні ID:</li>
+<li><code>X-Request-ID</code> на кожен HTTP-запит;</li>
+<li>propagation у NATS payload (trace_id / correlation_id).</li>
+</ul>
+<hr />
+<h2 id="11-backups-restore">11. Backups &amp; Restore<a class="headerlink" href="#11-backups-restore" title="Permanent link">&para;</a></h2>
+<h3 id="111-backups">11.1 Backups<a class="headerlink" href="#111-backups" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Prod:</li>
+<li>щоденні повні snapshots;</li>
+<li>WAL / PITR (Point-In-Time Recovery) на 7–30 днів;</li>
+<li>Staging:</li>
+<li>щоденні або раз на 2–3 дні (за потреби).</li>
+</ul>
+<h3 id="112-restore-policy">11.2 Restore Policy<a class="headerlink" href="#112-restore-policy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>тестовий restore на окремий тимчасовий кластер мінімум раз на місяць;</li>
+<li>документований сценарій:</li>
+<li>відновлення в новий кластер;</li>
+<li>redirect трафіку (якщо потрібно).</li>
+</ul>
+<hr />
+<h2 id="12-rollout-strategies">12. Rollout Strategies<a class="headerlink" href="#12-rollout-strategies" title="Permanent link">&para;</a></h2>
+<h3 id="121-apibackend">12.1 API/Backend<a class="headerlink" href="#121-apibackend" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Canary</strong>:</li>
+<li>невеликий відсоток трафіку на новий реліз;</li>
+<li>моніторинг помилок/латентності;</li>
+<li>
+<p>поступове збільшення.</p>
+</li>
+<li>
+<p><strong>Blue-Green</strong>:</p>
+</li>
+<li>parallel stack (blue/green);</li>
+<li>перемикання через load balancer/DNS.</li>
+</ul>
+<h3 id="122-frontend">12.2 Frontend<a class="headerlink" href="#122-frontend" title="Permanent link">&para;</a></h3>
+<ul>
+<li>атомарний switch build'ів (immutable artifacts);</li>
+<li>rollback = переключення на попередній build.</li>
+</ul>
+<h3 id="123-feature-flags">12.3 Feature Flags<a class="headerlink" href="#123-feature-flags" title="Permanent link">&para;</a></h3>
+<ul>
+<li>складні зміни (особливо агенти, Gift Fabric, RWA) — за feature flags:</li>
+<li>flags зберігаються в БД або у спеціальному конфіг-сервісі;</li>
+<li>викочуються спочатку на dev/staging, потім для частини користувачів у prod.</li>
+</ul>
+<hr />
+<h2 id="13-cicd-pipeline-reference">13. CI/CD Pipeline (Reference)<a class="headerlink" href="#13-cicd-pipeline-reference" title="Permanent link">&para;</a></h2>
+<p>Псевдо-YAML для орієнтира:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">develop</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;v*&#39;</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build-and-test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v4</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;20&#39;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm ci</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run lint</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm test</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run build:web</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm run build:api</span>
+
+<span class="w">  </span><span class="nt">migrate-and-deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build-and-test</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run DB migrations</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">./scripts/migrate.sh up</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy API</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">./scripts/deploy_api.sh</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Web</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">./scripts/deploy_web.sh</span>
+</code></pre></div>
+
+<hr />
+<h2 id="14-cursor">14. Завдання для Cursor<a class="headerlink" href="#14-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior DevOps engineer. Set up deployment infrastructure using:
+- 25_deployment_infrastructure.md
+- 27_database_schema_migrations.md
+- 05_coding_standards.md
+
+Tasks:
+1) Create docker-compose.yml for local development (postgres, nats, minio).
+2) Create CI/CD pipeline configuration (GitHub Actions / GitLab CI).
+3) Create deployment scripts (migrate.sh, deploy_api.sh, deploy_web.sh).
+4) Set up environment variable templates (.env.example).
+5) Create monitoring dashboard configuration (Grafana / Prometheus).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="15">15. Результат<a class="headerlink" href="#15" title="Permanent link">&para;</a></h2>
+<p>Після впровадження цієї інфраструктури:</p>
+<ul>
+<li>чітко визначені середовища та процеси деплою;</li>
+<li>стандартизований CI/CD pipeline;</li>
+<li>готовність до масштабування та production deployment;</li>
+<li>моніторинг та логування для всіх компонентів;</li>
+<li>надійні backup/restore процеси.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

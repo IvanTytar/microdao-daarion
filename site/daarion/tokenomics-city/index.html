@@ -1,0 +1,1480 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/daarion/tokenomics-city/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>City Tokenomics - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#city-tokenomics-daarioncity-integration-ready" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              City Tokenomics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Загальний огляд токеноміки міста
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-daar-utility-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. DAAR — Utility Token
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. DAAR — Utility Token">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Використання
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenomics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tokenomics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-daarion-civic-token-identity-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. DAARION — Civic Token / Identity Token
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. DAARION — Civic Token / Identity Token">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Використання
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenomics_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tokenomics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-daar-daarion" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Рівні доступу за DAAR та DAARION
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Рівні доступу за DAAR та DAARION">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Звичайні користувачі / Покупці
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Постачальники / Вендори
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Створення платформ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Створення MicroDAO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-microdao-tokens-local-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 MicroDAO Tokens (Local Layer)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-microdao-daarioncity" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Ієрархія MicroDAO у DAARION.city
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Ієрархія MicroDAO у DAARION.city">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-daarioncity-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      A1 — DAARION.city (перше MicroDAO)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2 — Міські платформи (другий рівень)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      A3 — Публічні MicroDAO (третій рівень)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4f4-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      A4/F4 — Приватні MicroDAO (четвертий рівень)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-daarion-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Логіка доступів на основі DAARION (Framework)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Патерн розвитку токеноміки
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-daar-daarion-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Використання DAAR і DAARION у інтеграції MicroDAO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Інтеграція з іншими документами
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Підсумок
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-fees-costs-microdao-economics" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Fees &amp; Costs (MicroDAO Economics)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Fees & Costs (MicroDAO Economics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#city-fees-denominated-in-daar" class="md-nav__link">
+    <span class="md-ellipsis">
+      City Fees (denominated in DAAR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-staking-rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Staking &amp; Rewards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Staking & Rewards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#daar-staking-apr-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAAR Staking (APR: 20%)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#daarion-staking-apr-4-revenue-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAARION Staking (APR: 4% + revenue share)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-token-bridges-onboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Token Bridges &amp; Onboarding
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Token Bridges & Onboarding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primary-access-flow-onboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Access Flow (Onboarding)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-integration-points-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Integration Points (Architecture)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Integration Points (Architecture)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wallet-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wallet Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdp-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      PDP (Access Control)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dagi-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAGI Registry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-security-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Security Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-mvp-scope-required-for-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. MVP Scope (Required for Launch)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. MVP Scope (Required for Launch)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#must-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must-have
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional MVP+
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-changelog" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Changelog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Changelog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v100-2024-11-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.0.0 — 2024-11-14
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<blockquote>
+<p><strong>Цей документ є актуальною версією токеноміки міста.</strong><br />
+Усі попередні документи з токеноміки вважаються застарілими.</p>
+</blockquote>
+<h1 id="city-tokenomics-daarioncity-integration-ready">City Tokenomics — DAARION.city (Integration-Ready)<a class="headerlink" href="#city-tokenomics-daarioncity-integration-ready" title="Permanent link">&para;</a></h1>
+<p><strong>Цей документ є обов'язковим для додавання у репозиторій під час інтеграції MicroDAO у DAARION.city.</strong></p>
+<p>DAARION.city — це <strong>перше MicroDAO у мережі</strong> (A1-рівень), що очолюється системним агентом <strong>DAARWIZZ</strong>. Усі інші компоненти міської екосистеми — це наступні рівні MicroDAO-структури.</p>
+<hr />
+<h2 id="1">1. Загальний огляд токеноміки міста<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>Місто працює на <strong>двоєдиній моделі токенів</strong>:</p>
+<ul>
+<li><strong>DAAR</strong> — утиліті-токен (оплата сервісів, платформи, транзакції)</li>
+<li><strong>DAARION</strong> — civic / identity токен (громадянство, доступ, статус)</li>
+</ul>
+<p>Ця пара створює повноцінну економіку доступів та взаємодій.</p>
+<hr />
+<h2 id="2-daar-utility-token">2. DAAR — Utility Token<a class="headerlink" href="#2-daar-utility-token" title="Permanent link">&para;</a></h2>
+<h3 id="_1">Використання<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>оплата товарів та послуг</li>
+<li>взаємодія з міськими платформами (GreenFood, EnergyUnion, WaterUnion тощо)</li>
+<li>оплата агентів</li>
+<li>оплата створення та роботи microDAO</li>
+<li>внутрішні транзакції між користувачами та DAO</li>
+</ul>
+<p><strong>DAAR — енергія міської економіки.</strong></p>
+<h3 id="tokenomics">Tokenomics<a class="headerlink" href="#tokenomics" title="Permanent link">&para;</a></h3>
+<ul>
+<li>динамічний випуск</li>
+<li>джерело: DAARsales (USDT/POL → DAAR)</li>
+<li>комісія на транзакції DAAR: <strong>0.5% → DAO Share Pool</strong></li>
+<li>APR: <strong>20%</strong> (в стейкінгу)</li>
+</ul>
+<hr />
+<h2 id="3-daarion-civic-token-identity-token">3. DAARION — Civic Token / Identity Token<a class="headerlink" href="#3-daarion-civic-token-identity-token" title="Permanent link">&para;</a></h2>
+<h3 id="_2">Використання<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>підтвердження статусу громадянина міста</li>
+<li>доступ до глибинних рівнів інфраструктури</li>
+<li>ліцензійний ключ для створення платформ</li>
+<li>доступ до advanced API та інтеграцій</li>
+</ul>
+<p><strong>DAARION — статус, права і розширені можливості.</strong></p>
+<h3 id="tokenomics_1">Tokenomics<a class="headerlink" href="#tokenomics_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>стартова емісія: <strong>500 DAARION</strong></li>
+<li>дефляція: <strong>5% burn</strong> при продажу</li>
+<li>APR: <strong>4% + частка від комісій DAAR</strong></li>
+<li>джерело: DAARIONsales (100 DAAR → 1 DAARION)</li>
+</ul>
+<hr />
+<h2 id="4-daar-daarion">4. Рівні доступу за DAAR та DAARION<a class="headerlink" href="#4-daar-daarion" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 Звичайні користувачі / Покупці<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>доступ до платформ: <strong>лише наявність DAAR</strong></li>
+<li>DAARION не потрібен</li>
+</ul>
+<h3 id="42">4.2 Постачальники / Вендори<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ul>
+<li>доступ до роботи на платформах: <strong>0.01 DAARION у стейкінгу</strong></li>
+</ul>
+<h3 id="43">4.3 Створення платформ<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<ul>
+<li>право створити платформу: <strong>1 DAARION у стейкінгу</strong></li>
+</ul>
+<h3 id="44-microdao">4.4 Створення MicroDAO<a class="headerlink" href="#44-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>доступ: <strong>1 DAAR або 0.01 DAARION</strong></li>
+</ul>
+<hr />
+<h2 id="45-microdao-tokens-local-layer">4.5 MicroDAO Tokens (Local Layer)<a class="headerlink" href="#45-microdao-tokens-local-layer" title="Permanent link">&para;</a></h2>
+<p>Кожне microDAO має власні три токени, емітовані DAOFactory:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Function</th>
+<th>Activation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GOV</strong></td>
+<td>governance / voting key inside DAO</td>
+<td>cost: <strong>1 DAAR</strong></td>
+</tr>
+<tr>
+<td><strong>UTIL</strong></td>
+<td>внутрішня економіка DAO (операції, винагороди)</td>
+<td>cost: <strong>1 DAAR</strong></td>
+</tr>
+<tr>
+<td><strong>REP</strong></td>
+<td>репутаційний токен (невзаємозамінний)</td>
+<td>cost: <strong>1 DAAR</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Emission model:</strong>
+- DAO може емітувати будь-яку кількість, згідно з власною політикою
+- DAOFactory перевіряє баланс користувача (1 DAAR або 0.01 DAARION)
+- Емісія gas-free (off-chain), періодична синхронізація on-chain</p>
+<p><strong>Economic Flow Inside MicroDAO:</strong></p>
+<div class="codehilite"><pre><span></span><code>DAAR → eMINT GOV/UTIL/REP → DAO Operations → UTIL Rewards → TokenBridge → DAAR
+</code></pre></div>
+
+<hr />
+<h2 id="5-microdao-daarioncity">5. Ієрархія MicroDAO у DAARION.city<a class="headerlink" href="#5-microdao-daarioncity" title="Permanent link">&para;</a></h2>
+<p><strong>ДАЖЕСТВА МІСТА — ЦЕ ДЕРЕВО MICRODAO.</strong></p>
+<h3 id="a1-daarioncity-microdao"><strong>A1 — DAARION.city (перше MicroDAO)</strong><a class="headerlink" href="#a1-daarioncity-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>кореневе DAO міста</li>
+<li>очолюється агентом <strong>DAARWIZZ</strong></li>
+<li>керує реєстрами, платформами, правами доступу</li>
+</ul>
+<h3 id="a2"><strong>A2 — Міські платформи (другий рівень)</strong><a class="headerlink" href="#a2" title="Permanent link">&para;</a></h3>
+<p>Платформи є MicroDAO другого порядку.</p>
+<p>Поточний список:</p>
+<ul>
+<li><strong>Helion</strong> — енергетика</li>
+<li><strong>GreenFood ERP</strong> — агро/харчові продукти</li>
+<li><strong>Soul</strong> — соціальна система</li>
+<li><strong>Dario</strong> — міські сервіси</li>
+<li><strong>Nutra</strong> — здоровʼя і нутриція</li>
+<li><strong>WaterAGI</strong> — вода та очищення</li>
+</ul>
+<p>Кожна платформа має власних агентів.</p>
+<h3 id="a3-microdao"><strong>A3 — Публічні MicroDAO (третій рівень)</strong><a class="headerlink" href="#a3-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>не підпорядковуються платформам</li>
+<li>доступні для всіх резидентів</li>
+<li>можуть взаємодіяти з A1 та A2 через DAAR</li>
+</ul>
+<h3 id="a4f4-microdao"><strong>A4/F4 — Приватні MicroDAO (четвертий рівень)</strong><a class="headerlink" href="#a4f4-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>повна автономія</li>
+<li>не мають підлеглості іншим DAO</li>
+<li>доступні лише за запрошенням</li>
+</ul>
+<hr />
+<h2 id="6-daarion-framework">6. Логіка доступів на основі DAARION (Framework)<a class="headerlink" href="#6-daarion-framework" title="Permanent link">&para;</a></h2>
+<p><strong>Більше DAARION = більше можливостей</strong>, зокрема:</p>
+<ul>
+<li>доступ до інституційних функцій</li>
+<li>доступ до створення платформ</li>
+<li>доступ до глибоких API</li>
+<li>доступ до керування DAO високого рівня</li>
+<li>більший пріоритет у DAGI</li>
+</ul>
+<p>Це ядро формує модель: <strong>Civic Token → Access Tier → City Expansion</strong>.</p>
+<hr />
+<h2 id="7">7. Патерн розвитку токеноміки<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p>Система спроектована так, що нові рівні доступу та права можуть додаватися з розвитком:</p>
+<ul>
+<li>запуск нових платформ</li>
+<li>нові типи агентів</li>
+<li>DAO-функції наступних фаз</li>
+<li>нові MetaDAO рівні</li>
+</ul>
+<p>Токен DAARION — універсальний ключ для майбутньої інфраструктурної експансії.</p>
+<hr />
+<h2 id="8-daar-daarion-microdao">8. Використання DAAR і DAARION у інтеграції MicroDAO<a class="headerlink" href="#8-daar-daarion-microdao" title="Permanent link">&para;</a></h2>
+<p>При підключенні MicroDAO до DAARION.city ця сторінка повинна бути додана у розділ:</p>
+<div class="codehilite"><pre><span></span><code>docs/tokenomics/city-tokenomics.md
+</code></pre></div>
+
+<p>MicroDAO використовує ці правила для:</p>
+<ul>
+<li>валідації доступу користувачів</li>
+<li>роботи DAOFactory</li>
+<li>роботи агентів DAARWIZZ</li>
+<li>контролю доступу до платформ</li>
+<li>ліцензування сервісів</li>
+</ul>
+<p>DAARION.city — це <strong>кореневе MicroDAO (A1)</strong>, а вся міська екосистема — це дерево MicroDAO.</p>
+<hr />
+<h2 id="9">9. Інтеграція з іншими документами<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>DAARION_city_integration.md</code> — архітектура інтеграції</li>
+<li><code>50_daarion_city_website_integration.md</code> — інтеграція з сайтом</li>
+<li><code>32_policy_service_PDP_design.md</code> — PDP token-gating</li>
+<li><code>49_wallet_rwa_payouts_claims.md</code> — Wallet Service</li>
+</ul>
+<blockquote>
+<p><strong>Примітка:</strong> Попередній документ <code>tokenomics/README.md</code> перенесено в <code>docs/_archive/tokenomics_legacy_v0.md</code>. Вся актуальна інформація об'єднана в цьому канонічному документі.</p>
+</blockquote>
+<hr />
+<h2 id="10-cursor">10. Завдання для Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior blockchain/full-stack engineer. Implement City Tokenomics using:
+- docs/tokenomics/city-tokenomics.md (⭐ CANONICAL)
+- 32_policy_service_PDP_design.md
+- 49_wallet_rwa_payouts_claims.md
+
+Tasks:
+1) Implement access tier validation (DAAR ≥ 1.00 or DAARION ≥ 0.01 for MicroDAO creation).
+2) Implement platform creation access (DAARION ≥ 1.00 staked).
+3) Implement vendor access (DAARION ≥ 0.01 staked).
+4) Implement DAARION.city as A1-level MicroDAO (root DAO).
+5) Implement platform hierarchy (A2-level: Helion, GreenFood, Soul, Dario, Nutra, WaterAGI).
+6) Implement public MicroDAO (A3-level) and private MicroDAO (A4-level) access rules.
+7) Integrate DAARWIZZ agent as system agent for A1-level.
+8) Add DAAR/DAARION balance checks in PDP for all access levels.
+9) Implement tier-based access logic (more DAARION = more capabilities).
+10) Add platform licensing system (1 DAARION staked = platform creation right).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="11">11. Підсумок<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>DAAR</strong> = універсальна енергія економіки</li>
+<li><strong>DAARION</strong> = статус, рівні доступу, громадянство</li>
+<li>платформи належать рівню A2</li>
+<li>публічні MicroDAO — A3</li>
+<li>приватні MicroDAO — A4</li>
+<li>DAARION.city — перше, головне DAO (A1), центр усієї мережі</li>
+</ul>
+<p>Це формує стійку багаторівневу архітектуру міста та екосистеми MicroDAO.</p>
+<hr />
+<h2 id="12-fees-costs-microdao-economics">12. Fees &amp; Costs (MicroDAO Economics)<a class="headerlink" href="#12-fees-costs-microdao-economics" title="Permanent link">&para;</a></h2>
+<h3 id="city-fees-denominated-in-daar">City Fees (denominated in DAAR)<a class="headerlink" href="#city-fees-denominated-in-daar" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Створення microDAO</td>
+<td><strong>1 DAAR</strong></td>
+</tr>
+<tr>
+<td>Емісія GOV</td>
+<td><strong>1 DAAR</strong></td>
+</tr>
+<tr>
+<td>Емісія UTIL</td>
+<td><strong>1 DAAR</strong></td>
+</tr>
+<tr>
+<td>Емісія REP</td>
+<td><strong>1 DAAR</strong></td>
+</tr>
+<tr>
+<td>Підключення агента DAGI</td>
+<td><strong>0.25 DAAR</strong></td>
+</tr>
+<tr>
+<td>Реєстрація DAO у каталозі міста</td>
+<td><strong>0.05 DAAR</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>90% DAO / 10% City Rule:</strong> Діє для DePIN-DAO та DAO, що працюють з постійною DAGI-активністю.</p>
+<hr />
+<h2 id="13-staking-rewards">13. Staking &amp; Rewards<a class="headerlink" href="#13-staking-rewards" title="Permanent link">&para;</a></h2>
+<h3 id="daar-staking-apr-20">DAAR Staking (APR: 20%)<a class="headerlink" href="#daar-staking-apr-20" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Rewards → DAAR</li>
+<li>Смартконтракт: <code>APRStaking</code></li>
+</ul>
+<h3 id="daarion-staking-apr-4-revenue-share">DAARION Staking (APR: 4% + revenue share)<a class="headerlink" href="#daarion-staking-apr-4-revenue-share" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Rewards → DAAR</li>
+<li>Частка від DAAR-комісій (0.5%) розподіляється пропорційно до стейку DAARION</li>
+<li>Смартконтракт: <code>DAARDistributor</code></li>
+</ul>
+<hr />
+<h2 id="14-token-bridges-onboarding">14. Token Bridges &amp; Onboarding<a class="headerlink" href="#14-token-bridges-onboarding" title="Permanent link">&para;</a></h2>
+<h3 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>USDT/POL → DAAR → DAARION → DAO → DAGI → Rewards in DAAR
+</code></pre></div>
+
+<h3 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DAARsales</strong></td>
+<td>Купівля DAAR за USDT/POL</td>
+</tr>
+<tr>
+<td><strong>DAARIONsales</strong></td>
+<td>100 DAAR → 1 DAARION</td>
+</tr>
+<tr>
+<td><strong>DAOFactory</strong></td>
+<td>Створення MicroDAO</td>
+</tr>
+<tr>
+<td><strong>TokenBridge</strong></td>
+<td>UTIL ↔ DAAR обмін</td>
+</tr>
+<tr>
+<td><strong>DAGI Registry</strong></td>
+<td>Реєстрація DAO, агентів, знань</td>
+</tr>
+</tbody>
+</table>
+<h3 id="primary-access-flow-onboarding">Primary Access Flow (Onboarding)<a class="headerlink" href="#primary-access-flow-onboarding" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Balance Check</strong> — Wallet Agent перевіряє: ≥ 1 DAAR <strong>або</strong> ≥ 0.01 DAARION</li>
+<li><strong>Eligibility</strong> — <code>eligible_for_MicroDAO = true</code></li>
+<li><strong>DAO Creation (DAOFactory)</strong> — списується 1 DAAR, DAO отримує унікальний <code>dao_id</code></li>
+<li><strong>Token Activation</strong> — користувач може емітувати GOV / UTIL / REP (1 DAAR за кожен тип)</li>
+<li><strong>DAGI Sync</strong> — DAO реєструється у DAGI Registry</li>
+</ol>
+<hr />
+<h2 id="15-integration-points-architecture">15. Integration Points (Architecture)<a class="headerlink" href="#15-integration-points-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="wallet-service">Wallet Service<a class="headerlink" href="#wallet-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li>баланси DAAR / DAARION</li>
+<li>fee accounting (0.5%)</li>
+<li>DAOFactory calls</li>
+<li>staking</li>
+<li>token exchange</li>
+</ul>
+<h3 id="pdp-access-control">PDP (Access Control)<a class="headerlink" href="#pdp-access-control" title="Permanent link">&para;</a></h3>
+<ul>
+<li>наявність токенів</li>
+<li>права доступу до DAO</li>
+<li>gas-free стани</li>
+<li>DAO governance rules</li>
+</ul>
+<h3 id="agents">Agents<a class="headerlink" href="#agents" title="Permanent link">&para;</a></h3>
+<p><strong>Можуть:</strong>
+- працювати з UTIL
+- виконувати дії DAO
+- розподіляти REP
+- взаємодіяти з DAGI Registry</p>
+<p><strong>Не можуть:</strong>
+- змінювати баланси DAAR/DAARION
+- створювати DAO без користувача
+- змінювати тарифні плани</p>
+<h3 id="dagi-registry">DAGI Registry<a class="headerlink" href="#dagi-registry" title="Permanent link">&para;</a></h3>
+<ul>
+<li>DAO metadata</li>
+<li>Agent slots</li>
+<li>Knowledge mining rewards</li>
+<li>Off-chain/on-chain settlement</li>
+</ul>
+<hr />
+<h2 id="16-security-rules">16. Security Rules<a class="headerlink" href="#16-security-rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li>тільки Owner може виконувати DAOFactory</li>
+<li>DAAR/DAARION операції виконуються он-чейн</li>
+<li>UTIL/GOV/REP — off-chain з періодичною валідацією</li>
+<li>burn 5% DAARION при продажі — обов'язковий</li>
+<li>reentrancy guard</li>
+<li>мінімальна кількість GOV для голосування встановлюється DAO</li>
+</ul>
+<hr />
+<h2 id="17-mvp-scope-required-for-launch">17. MVP Scope (Required for Launch)<a class="headerlink" href="#17-mvp-scope-required-for-launch" title="Permanent link">&para;</a></h2>
+<h3 id="must-have">Must-have<a class="headerlink" href="#must-have" title="Permanent link">&para;</a></h3>
+<ul>
+<li>DAAR / DAARION баланс-чек</li>
+<li>DAOFactory (1 DAAR → create)</li>
+<li>eMINT GOV / UTIL / REP</li>
+<li>TokenBridge (UTIL ↔ DAAR)</li>
+<li>DAARsales, DAARIONsales</li>
+<li>Basic staking (DAAR, DAARION)</li>
+<li>PDP token-gating</li>
+<li>Wallet v1</li>
+</ul>
+<h3 id="optional-mvp">Optional MVP+<a class="headerlink" href="#optional-mvp" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Knowledge Mining Rewards</li>
+<li>REP reputation logic</li>
+<li>Multi-DAO bridges</li>
+</ul>
+<hr />
+<h2 id="18-changelog">18. Changelog<a class="headerlink" href="#18-changelog" title="Permanent link">&para;</a></h2>
+<h3 id="v100-2024-11-14">v1.0.0 — 2024-11-14<a class="headerlink" href="#v100-2024-11-14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Початкова версія токеноміки міста</li>
+<li>Додано DAAR та DAARION токени</li>
+<li>Додано ієрархію MicroDAO (A1-A4)</li>
+<li>Додано рівні доступу</li>
+<li>Додано GOV/UTIL/REP токени для microDAO</li>
+<li>Додано DAOFactory та TokenBridge</li>
+<li>Додано staking та rewards</li>
+<li>Додано security rules</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14<br />
+<em>Документ готовий до інтеграції у Cursor, GitHub або будь-який інший проект.</em></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

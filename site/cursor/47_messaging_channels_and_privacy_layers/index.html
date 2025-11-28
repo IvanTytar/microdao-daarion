@@ -1,0 +1,1384 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/47_messaging_channels_and_privacy_layers/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>47 — Messaging Channels & Privacy Layers (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#47-messaging-channels-privacy-layers-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              47 — Messaging Channels & Privacy Layers (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-messaging-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Messaging Entities
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-channel-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Channel Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Channel Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-direct" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 DIRECT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-team-public" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 TEAM PUBLIC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-team-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 TEAM PRIVATE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-confidential-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 CONFIDENTIAL CHANNEL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-channel-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Channel Schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-message-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Message Schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-e2ee-model-optional-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. E2EE Model (Optional Layer)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-confidential-mode-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Confidential Mode Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-acl-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. ACL Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. ACL Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-agent-visibility-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Agent Visibility Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Agent Visibility Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Дозволи:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-search-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Search Indexing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-message-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Message Lifecycle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Message Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Edit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Delete
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-retention-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Retention Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Retention Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-public" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Public
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Private
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidential" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confidential
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Channels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-attachments-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Attachments (Files)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-moderate-filter-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Moderate / Filter System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-chat-agent-llm-proxy-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Chat → Agent → LLM Proxy Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-chat-router-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Chat → Router Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-system-channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. System Channels
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-governance-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Governance Controls
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-observability-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Observability &amp; Telemetry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      22. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="47-messaging-channels-privacy-layers-microdao">47 — Messaging Channels &amp; Privacy Layers (MicroDAO)<a class="headerlink" href="#47-messaging-channels-privacy-layers-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Приватні та командні канали, конфіденційність, ACL, індексація, message lifetimes, agent visibility, редагування, модерація, шифрування</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ встановлює:</p>
+<ul>
+<li>архітектуру чатів та каналів,</li>
+<li>правила доступу (ACL),</li>
+<li>приватність і confidential mode,</li>
+<li>схему повідомлень,</li>
+<li>правила збереження / ретенції,</li>
+<li>індексацію (без plaintext),</li>
+<li>agent visibility,</li>
+<li>інтеграцію з tools, governance, PDP, LLM Proxy.</li>
+</ul>
+<p>Це основа всієї комунікаційної системи DAARION.city.</p>
+<hr />
+<h2 id="2-messaging-entities">2. Messaging Entities<a class="headerlink" href="#2-messaging-entities" title="Permanent link">&para;</a></h2>
+<p>DAARION має три типи комунікаційних просторів:</p>
+<ol>
+<li><strong>Direct Messages (DM)</strong></li>
+<li><strong>Team Channels (microDAO)</strong></li>
+<li><strong>System Channels</strong> (log streams, notifications)</li>
+</ol>
+<hr />
+<h2 id="3-channel-types">3. Channel Types<a class="headerlink" href="#3-channel-types" title="Permanent link">&para;</a></h2>
+<h3 id="31-direct">3.1 DIRECT<a class="headerlink" href="#31-direct" title="Permanent link">&para;</a></h3>
+<ul>
+<li>між двома користувачами</li>
+<li>ACL: <code>user A</code> + <code>user B</code></li>
+<li>агент має доступ тільки якщо дозволено вручну</li>
+</ul>
+<h3 id="32-team-public">3.2 TEAM PUBLIC<a class="headerlink" href="#32-team-public" title="Permanent link">&para;</a></h3>
+<ul>
+<li>доступні всій команді</li>
+<li>бачать усі користувачі + Agent Manager</li>
+</ul>
+<h3 id="33-team-private">3.3 TEAM PRIVATE<a class="headerlink" href="#33-team-private" title="Permanent link">&para;</a></h3>
+<ul>
+<li>обмежені <code>Owner/Guardian</code> та обрані учасники</li>
+<li>agents → <strong>no access by default</strong></li>
+</ul>
+<h3 id="34-confidential-channel">3.4 CONFIDENTIAL CHANNEL<a class="headerlink" href="#34-confidential-channel" title="Permanent link">&para;</a></h3>
+<p><strong>Найвищий рівень приватності:</strong></p>
+<ul>
+<li>plaintext не індексується</li>
+<li>plaintext не передається агентам</li>
+<li>plaintext не зберігається в logs</li>
+<li>LLM Proxy отримує тільки summary/embeddings</li>
+<li>Router не може виконувати vision-кроки</li>
+</ul>
+<hr />
+<h2 id="4-channel-schema">4. Channel Schema<a class="headerlink" href="#4-channel-schema" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">channels</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="k">type</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">       </span><span class="c1">-- direct, team_public, team_private, confidential</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_by</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="p">,</span>
+<span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="n">timestamptz</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-message-schema">5. Message Schema<a class="headerlink" href="#5-message-schema" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">channel_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">sender_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">sender_type</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">       </span><span class="c1">-- user|agent|system</span>
+<span class="w">  </span><span class="n">body_summary</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">      </span><span class="c1">-- plaintext summary (clean)</span>
+<span class="w">  </span><span class="n">body_embedding</span><span class="w"> </span><span class="n">vector</span><span class="p">,</span><span class="w">  </span><span class="c1">-- embedding</span>
+<span class="w">  </span><span class="n">body_raw</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">          </span><span class="c1">-- encrypted E2EE blob (optional)</span>
+<span class="w">  </span><span class="n">reply_to</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="p">,</span>
+<span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="n">timestamptz</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<p><strong>ВАЖЛИВО:</strong></p>
+<p><code>body_raw</code> ніколи не зберігається у plaintext, тільки як зашифрований blob (або порожнє поле в confidential mode).</p>
+<hr />
+<h2 id="6-e2ee-model-optional-layer">6. E2EE Model (Optional Layer)<a class="headerlink" href="#6-e2ee-model-optional-layer" title="Permanent link">&para;</a></h2>
+<p>E2EE може бути:</p>
+<ul>
+<li>увімкнений на канал,</li>
+<li>увімкнений користувачем,</li>
+<li>увімкнений командою.</li>
+</ul>
+<p>E2EE робить:</p>
+<ul>
+<li><code>body_raw</code> → AES-256-GCM</li>
+<li>Encryption keys → local device</li>
+<li>Server → бачить тільки ciphertext + summary/embeddings</li>
+</ul>
+<hr />
+<h2 id="7-confidential-mode-rules">7. Confidential Mode Rules<a class="headerlink" href="#7-confidential-mode-rules" title="Permanent link">&para;</a></h2>
+<p>Якщо канал має тип <code>confidential</code>:</p>
+<ul>
+<li><code>body_raw</code> → optional or must be encrypted</li>
+<li>не зберігається plaintext summary (тільки redacted summary)</li>
+<li>embeddings генеруються з redacted тексту</li>
+<li>агенти не бачать вміст</li>
+<li>LLM Proxy бачить тільки:</li>
+<li><code>summary</code></li>
+<li>high-level metadata</li>
+<li>vision заблокований</li>
+<li>tools категорії C/D → заблоковані</li>
+<li>Router автономія ↓</li>
+</ul>
+<hr />
+<h2 id="8-acl-model">8. ACL Model<a class="headerlink" href="#8-acl-model" title="Permanent link">&para;</a></h2>
+<p>У кожному каналі:</p>
+<div class="codehilite"><pre><span></span><code>ACL = { users: [...], agents: [...], roles: [...] }
+</code></pre></div>
+
+<h3 id="roles">Roles:<a class="headerlink" href="#roles" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Owner</li>
+<li>Guardian</li>
+<li>Member</li>
+<li>Guest</li>
+<li>Agent</li>
+</ul>
+<p>В ACL обов'язково зазначаються:</p>
+<ul>
+<li>хто може читати</li>
+<li>хто може писати</li>
+<li>хто може надсилати файли</li>
+<li>хто може переглядати історію</li>
+</ul>
+<p>Приклад ACL:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;read&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="s2">&quot;guardian&quot;</span><span class="p">,</span><span class="s2">&quot;member&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;write&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="s2">&quot;guardian&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;agents_allowed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ag_777&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="9-agent-visibility-rules">9. Agent Visibility Rules<a class="headerlink" href="#9-agent-visibility-rules" title="Permanent link">&para;</a></h2>
+<h3 id="default">Default:<a class="headerlink" href="#default" title="Permanent link">&para;</a></h3>
+<p>Агенти <strong>не мають доступу</strong> до каналів.</p>
+<h3 id="_1">Дозволи:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Owner/Guardian може додати агента до каналу</li>
+<li>Агент отримує:</li>
+<li>summaries</li>
+<li>embeddings</li>
+<li>metadata</li>
+<li>Не отримує:</li>
+<li>filesystem attachments</li>
+<li>raw plaintext</li>
+<li>vision data</li>
+<li>files &gt; 1MB</li>
+</ul>
+<hr />
+<h2 id="10-search-indexing">10. Search Indexing<a class="headerlink" href="#10-search-indexing" title="Permanent link">&para;</a></h2>
+<p>Система не індексує plaintext.</p>
+<p>Індекс формується із:</p>
+<ul>
+<li><code>body_summary</code> (redacted якщо confidential)</li>
+<li>embeddings</li>
+<li>metadata (sender, timestamps, channel)</li>
+</ul>
+<p>Search Engine використовує:</p>
+<ul>
+<li>vector search для semantic</li>
+<li>keyword index для metadata</li>
+</ul>
+<hr />
+<h2 id="11-message-lifecycle">11. Message Lifecycle<a class="headerlink" href="#11-message-lifecycle" title="Permanent link">&para;</a></h2>
+<h3 id="111-create">11.1 Create<a class="headerlink" href="#111-create" title="Permanent link">&para;</a></h3>
+<ul>
+<li>plaintext → sanitization</li>
+<li>summary → create</li>
+<li>embedding → create</li>
+<li>body_raw → E2EE або skip</li>
+<li>запис у DB</li>
+<li>подія <code>chat.message.created</code></li>
+</ul>
+<h3 id="112-edit">11.2 Edit<a class="headerlink" href="#112-edit" title="Permanent link">&para;</a></h3>
+<ul>
+<li>новий summary (raw не зберігається)</li>
+<li>подія <code>chat.message.updated</code></li>
+</ul>
+<h3 id="113-delete">11.3 Delete<a class="headerlink" href="#113-delete" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>body_summary = "[deleted]"</code></li>
+<li>embeddings → zero vector</li>
+<li>raw → purged</li>
+<li>подія <code>chat.message.deleted</code></li>
+</ul>
+<hr />
+<h2 id="12-retention-rules">12. Retention Rules<a class="headerlink" href="#12-retention-rules" title="Permanent link">&para;</a></h2>
+<h3 id="direct-messages">Direct Messages<a class="headerlink" href="#direct-messages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>30–180 днів</li>
+</ul>
+<h3 id="team-public">Team Public<a class="headerlink" href="#team-public" title="Permanent link">&para;</a></h3>
+<ul>
+<li>30–365 днів</li>
+</ul>
+<h3 id="team-private">Team Private<a class="headerlink" href="#team-private" title="Permanent link">&para;</a></h3>
+<ul>
+<li>90–365 днів</li>
+</ul>
+<h3 id="confidential">Confidential<a class="headerlink" href="#confidential" title="Permanent link">&para;</a></h3>
+<ul>
+<li>0–30 днів (політика команди)</li>
+</ul>
+<h3 id="system-channels">System Channels<a class="headerlink" href="#system-channels" title="Permanent link">&para;</a></h3>
+<ul>
+<li>90–365 днів</li>
+</ul>
+<hr />
+<h2 id="13-attachments-files">13. Attachments (Files)<a class="headerlink" href="#13-attachments-files" title="Permanent link">&para;</a></h2>
+<p>Дозволено, але залежно від каналу:</p>
+<table>
+<thead>
+<tr>
+<th>Тип каналу</th>
+<th>Макс розмір</th>
+<th>Зберігання</th>
+<th>Agent Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>direct</td>
+<td>10MB</td>
+<td>encrypted</td>
+<td>no</td>
+</tr>
+<tr>
+<td>team_public</td>
+<td>25MB</td>
+<td>encrypted</td>
+<td>summary only</td>
+</tr>
+<tr>
+<td>team_private</td>
+<td>25MB</td>
+<td>encrypted</td>
+<td>no</td>
+</tr>
+<tr>
+<td>confidential</td>
+<td>5MB</td>
+<td>encrypted</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-moderate-filter-system">14. Moderate / Filter System<a class="headerlink" href="#14-moderate-filter-system" title="Permanent link">&para;</a></h2>
+<p>Система фільтрує:</p>
+<ul>
+<li>небезпечні prompt-інструкції</li>
+<li>sensitive data → summary only</li>
+<li>файли з підозрілим MIME</li>
+<li>external email/password leaks</li>
+</ul>
+<p>AI Moderator генерує:</p>
+<ul>
+<li><code>message.flagged</code> події</li>
+<li>автоматичні warnings</li>
+</ul>
+<hr />
+<h2 id="15-chat-agent-llm-proxy-flow">15. Chat → Agent → LLM Proxy Flow<a class="headerlink" href="#15-chat-agent-llm-proxy-flow" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">User</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">CH</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Channel</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">AG</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Agent</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">GW</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Gateway</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">Proxy</span>
+
+<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">CH</span><span class="o">:</span><span class="w"> </span><span class="n">send</span><span class="w"> </span><span class="n">message</span>
+<span class="w">    </span><span class="n">CH</span><span class="o">-&gt;&gt;</span><span class="n">AG</span><span class="o">:</span><span class="w"> </span><span class="kr">notify</span><span class="w"> </span><span class="p">(</span><span class="nf">if</span><span class="w"> </span><span class="n">allowed</span><span class="p">)</span>
+<span class="w">    </span><span class="n">AG</span><span class="o">-&gt;&gt;</span><span class="n">GW</span><span class="o">:</span><span class="w"> </span><span class="n">llm</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="p">(</span><span class="n">summary</span><span class="w"> </span><span class="kr">only</span><span class="p">)</span>
+<span class="w">    </span><span class="n">GW</span><span class="o">-&gt;&gt;</span><span class="n">L</span><span class="o">:</span><span class="w"> </span><span class="n">sanitized</span><span class="w"> </span><span class="n">request</span>
+<span class="w">    </span><span class="n">L</span><span class="o">--&gt;&gt;</span><span class="n">AG</span><span class="o">:</span><span class="w"> </span><span class="kr">output</span>
+<span class="w">    </span><span class="n">AG</span><span class="o">--&gt;&gt;</span><span class="n">CH</span><span class="o">:</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="n">reply</span>
+</code></pre></div>
+
+<hr />
+<h2 id="16-chat-router-flow">16. Chat → Router Flow<a class="headerlink" href="#16-chat-router-flow" title="Permanent link">&para;</a></h2>
+<p>Router може запускати multi-step flows, але:</p>
+<ul>
+<li>тільки в каналах, що НЕ confidential</li>
+<li>тільки за дозволу каналу (<code>agents_allowed</code>)</li>
+<li>не більше 5 flows/hour/channel</li>
+</ul>
+<hr />
+<h2 id="17-system-channels">17. System Channels<a class="headerlink" href="#17-system-channels" title="Permanent link">&para;</a></h2>
+<p>Система має спеціальні канали:</p>
+<ul>
+<li><code>system.audit</code></li>
+<li><code>system.notifications</code></li>
+<li><code>system.rwa</code></li>
+<li><code>system.wallet</code></li>
+<li><code>system.payouts</code></li>
+<li><code>system.governance</code></li>
+</ul>
+<p>Ці канали:</p>
+<ul>
+<li>read-only</li>
+<li>plaintext → summary only</li>
+<li>доступні Owner/Guardian</li>
+<li>агенти не бачать</li>
+</ul>
+<hr />
+<h2 id="18-governance-controls">18. Governance Controls<a class="headerlink" href="#18-governance-controls" title="Permanent link">&para;</a></h2>
+<p>Governance може:</p>
+<ul>
+<li>визначати максимальні retention політики</li>
+<li>визначати ACL policy templates</li>
+<li>активувати/деактивувати confidential режим</li>
+<li>визначати, чи агенти можуть бачити summaries</li>
+<li>обмежувати індексацію</li>
+<li>встановлювати file limits</li>
+</ul>
+<hr />
+<h2 id="19-observability-telemetry">19. Observability &amp; Telemetry<a class="headerlink" href="#19-observability-telemetry" title="Permanent link">&para;</a></h2>
+<p>Метрики:</p>
+<ul>
+<li>messages/hour</li>
+<li>agent participation</li>
+<li>confidential ratio</li>
+<li>flagged messages</li>
+<li>search queries</li>
+</ul>
+<p>Логи без plaintext:</p>
+<ul>
+<li>channel actions</li>
+<li>ACL changes</li>
+<li>dangerous content flags</li>
+</ul>
+<hr />
+<h2 id="20-integration-with-other-docs">20. Integration with Other Docs<a class="headerlink" href="#20-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>04_ui_ux_onboarding_chat.md</code></li>
+<li><code>14_messenger_agent_module.md</code></li>
+<li><code>45_llm_proxy_and_multimodel_routing.md</code></li>
+<li><code>46_router_orchestrator_design.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+</ul>
+<hr />
+<h2 id="21-cursor">21. Завдання для Cursor<a class="headerlink" href="#21-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Messaging Channels &amp; Privacy Layers using:
+- 47_messaging_channels_and_privacy_layers.md
+- 04_ui_ux_onboarding_chat.md
+- 14_messenger_agent_module.md
+
+Tasks:
+1) Create Channel Schema (channels table: id, team_id, type, name, created_by, created_at, updated_at).
+2) Create Message Schema (messages table: id, channel_id, sender_id, sender_type, body_summary, body_embedding, body_raw, reply_to, created_at, updated_at).
+3) Implement Channel Types (DIRECT, TEAM PUBLIC, TEAM PRIVATE, CONFIDENTIAL CHANNEL).
+4) Add E2EE Model (optional layer, AES-256-GCM encryption, local device keys).
+5) Implement Confidential Mode Rules (no plaintext indexing, no agent access, LLM Proxy summary only, disable vision, disable category C/D tools).
+6) Create ACL Model (users, agents, roles: Owner, Guardian, Member, Guest, Agent).
+7) Implement Agent Visibility Rules (default no access, Owner/Guardian can add, summaries/embeddings only, no filesystem attachments, no raw plaintext, no vision data, no files &gt; 1MB).
+8) Add Search Indexing (no plaintext, body_summary + embeddings + metadata, vector search, keyword index).
+9) Implement Message Lifecycle (Create: sanitization, summary, embedding, E2EE; Edit: new summary; Delete: body_summary = &quot;[deleted]&quot;, zero vector, purge raw).
+10) Add Retention Rules (Direct Messages: 30-180 days, Team Public: 30-365 days, Team Private: 90-365 days, Confidential: 0-30 days, System Channels: 90-365 days).
+11) Implement Attachments (Files) (per channel type limits, encryption, agent access rules).
+12) Add Moderate / Filter System (dangerous prompts, sensitive data, suspicious MIME, email/password leaks, AI Moderator, message.flagged events).
+13) Implement Chat → Agent → LLM Proxy Flow (summary only, sanitized request).
+14) Add Chat → Router Flow (non-confidential only, agents_allowed permission, max 5 flows/hour/channel).
+15) Create System Channels (system.audit, system.notifications, system.rwa, system.wallet, system.payouts, system.governance).
+16) Add Governance Controls (retention policies, ACL templates, confidential mode activation, agent visibility, indexing limits, file limits).
+17) Add Observability &amp; Telemetry (metrics, logs without plaintext).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="22-summary">22. Summary<a class="headerlink" href="#22-summary" title="Permanent link">&para;</a></h2>
+<p>Messaging Layer у DAARION.city:</p>
+<ul>
+<li>багаторівневий</li>
+<li>масштабований</li>
+<li>заснований на приватності</li>
+<li>сумісний з confidential режимом</li>
+<li>не зберігає plaintext</li>
+<li>має ACL-per-channel</li>
+<li>повністю інтегрований з PDP, Agents, LLM Proxy</li>
+<li>гарантує приватність команд/користувачів</li>
+<li>безпечний для автоматизації через Router</li>
+</ul>
+<p>Це — <strong>комунікаційний шар DAARION OS</strong>.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

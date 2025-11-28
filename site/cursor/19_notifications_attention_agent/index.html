@@ -1,0 +1,891 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/19_notifications_attention_agent/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>19 — Notifications & Attention Agent (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#19-notifications-attention-agent-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              19 — Notifications & Attention Agent (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="19-notifications-attention-agent-microdao">19 — Notifications &amp; Attention Agent (MicroDAO)<a class="headerlink" href="#19-notifications-attention-agent-microdao" title="Permanent link">&para;</a></h1>
+<p>Агент уваги, тиші та інформаційного ритму</p>
+<p>Notifications &amp; Attention Agent (далі — Attention Agent) відповідає за <em>ритм сповіщень</em> та <em>інформаційну гігієну</em> в microDAO.<br />
+Його мета — захистити учасників від шуму та втоми, залишивши лише важливе.</p>
+<p>Це не "push-нотифікації".<br />
+Це <strong>агент управління увагою</strong> — частина "нервової системи" microDAO.</p>
+<hr />
+<h1 id="1">1. Призначення<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Attention Agent:</p>
+<ul>
+<li>фільтрує події,</li>
+<li>визначає важливість,</li>
+<li>блокує шум,</li>
+<li>формує дайджести,</li>
+<li>підсилює справді важливе,</li>
+<li>узгоджує ритм взаємодії між людьми та агентами.</li>
+</ul>
+<p>Він — аналог "ретикулярної формації" спільноти.</p>
+<hr />
+<h1 id="2">2. Проблеми, які він вирішує<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<ul>
+<li>надлишок сповіщень,</li>
+<li>інформаційне перевантаження,</li>
+<li>пропущені важливі оновлення,</li>
+<li>хаос у каналах,</li>
+<li>дублювання повідомлень,</li>
+<li>невчасні сигнали,</li>
+<li>втому від постійного ping.</li>
+</ul>
+<hr />
+<h1 id="3">3. Види уваги<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<p>Attention Agent працює з трьома видами уваги:</p>
+<ol>
+<li>
+<p><strong>Миттєва увага</strong><br />
+   Події, які вимагають негайної реакції.<br />
+   (блокер задачі, критична дія в governance, тривожний сигнал у роботах)</p>
+</li>
+<li>
+<p><strong>Периферійна увага</strong><br />
+   Події, важливі, але не термінові.<br />
+   (новий документ, оновлення задачі, рішення ритуалу узгодження)</p>
+</li>
+<li>
+<p><strong>Глибинна увага</strong><br />
+   Знання, що варто прочитати, але не зараз.<br />
+   (аналітика, звіти, огляди, Co-Memory оновлення)</p>
+</li>
+</ol>
+<hr />
+<h1 id="4-log-of-events">4. Модель даних (log of events)<a class="headerlink" href="#4-log-of-events" title="Permanent link">&para;</a></h1>
+<p>Attention Agent працює поверх подій (<code>events</code>):</p>
+<div class="codehilite"><pre><span></span><code><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="n">id</span><span class="p">,</span>
+<span class="n">team_id</span><span class="p">,</span>
+<span class="n">type</span><span class="p">,</span><span class="w">         </span><span class="o">//</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">task_update</span><span class="p">,</span><span class="w"> </span><span class="n">followup</span><span class="p">,</span><span class="w"> </span><span class="n">governance</span><span class="p">,</span><span class="w"> </span><span class="n">knowledge_update</span><span class="o">...</span>
+<span class="n">source</span><span class="p">,</span><span class="w">       </span><span class="o">//</span><span class="w"> </span><span class="n">messenger</span><span class="p">,</span><span class="w"> </span><span class="n">tasks</span><span class="p">,</span><span class="w"> </span><span class="n">governance</span><span class="p">,</span><span class="w"> </span><span class="n">agents</span><span class="o">...</span>
+<span class="n">payload</span><span class="p">,</span><span class="w">      </span><span class="o">//</span><span class="w"> </span><span class="n">JSON</span>
+<span class="n">ts</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Він визначає важливість і формує <em>streams of attention</em>.</p>
+<hr />
+<h1 id="5-attention-streams">5. Потоки уваги (Attention Streams)<a class="headerlink" href="#5-attention-streams" title="Permanent link">&para;</a></h1>
+<h3 id="51-high-attention-stream">5.1. High-Attention Stream<a class="headerlink" href="#51-high-attention-stream" title="Permanent link">&para;</a></h3>
+<ul>
+<li>критичні події,</li>
+<li>прямі звернення до користувача,</li>
+<li>блокери.</li>
+</ul>
+<h3 id="52-normal-stream">5.2. Normal Stream<a class="headerlink" href="#52-normal-stream" title="Permanent link">&para;</a></h3>
+<ul>
+<li>звичайні робочі оновлення.</li>
+</ul>
+<h3 id="53-low-attention-stream">5.3. Low-Attention Stream<a class="headerlink" href="#53-low-attention-stream" title="Permanent link">&para;</a></h3>
+<ul>
+<li>знання, аналітика, нові документи,</li>
+<li>загальні події.</li>
+</ul>
+<hr />
+<h1 id="6-attention-agent">6. Attention Agent — спроможності<a class="headerlink" href="#6-attention-agent" title="Permanent link">&para;</a></h1>
+<h2 id="61">6.1. Фільтрація шуму<a class="headerlink" href="#61" title="Permanent link">&para;</a></h2>
+<p>Він аналізує:</p>
+<ul>
+<li>дублікати,</li>
+<li>непотрібні @mention,</li>
+<li>спам дій від агентів,</li>
+<li>повторювані нагадування.</li>
+</ul>
+<p>Шум приглушується або згруповується.</p>
+<h2 id="62">6.2. Ранжування важливості<a class="headerlink" href="#62" title="Permanent link">&para;</a></h2>
+<p>Залежно від:</p>
+<ul>
+<li>ролі користувача,</li>
+<li>поточного контексту,</li>
+<li>активного проєкту,</li>
+<li>ритуалів узгодження,</li>
+<li>стану задач.</li>
+</ul>
+<h2 id="63">6.3. Дайджести<a class="headerlink" href="#63" title="Permanent link">&para;</a></h2>
+<p>Формує:</p>
+<ul>
+<li>огляд дня,</li>
+<li>огляд тижня,</li>
+<li>огляд проєкту,</li>
+<li>огляд каналу.</li>
+</ul>
+<h2 id="64">6.4. Інтелектуальні сигнали<a class="headerlink" href="#64" title="Permanent link">&para;</a></h2>
+<p>Наприклад:</p>
+<ul>
+<li>"Схоже, це важливо саме для тебе".</li>
+<li>"Цей документ стосується твого проєкту."</li>
+<li>"Тут задача, яку ти раніше коментував."</li>
+</ul>
+<h2 id="65">6.5. Таймінг<a class="headerlink" href="#65" title="Permanent link">&para;</a></h2>
+<p>Обирає правильний момент:</p>
+<ul>
+<li>не вночі,</li>
+<li>не в момент великого потоку,</li>
+<li>між подіями.</li>
+</ul>
+<h2 id="66">6.6. Підсилення важливого<a class="headerlink" href="#66" title="Permanent link">&para;</a></h2>
+<p>Якщо подія має високу важливість:</p>
+<ul>
+<li>підсвічується,</li>
+<li>виноситься у top stream,</li>
+<li>дублюється одноразово.</li>
+</ul>
+<hr />
+<h1 id="7">7. Інтеграція з агентами інших модулів<a class="headerlink" href="#7" title="Permanent link">&para;</a></h1>
+<h3 id="messenger-agent">Messenger Agent<a class="headerlink" href="#messenger-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>аналізує повідомлення,</li>
+<li>визначає важливі ключові слова.</li>
+</ul>
+<h3 id="projects-agent">Projects Agent<a class="headerlink" href="#projects-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>сигналить про дедлайни, блокери.</li>
+</ul>
+<h3 id="followups-agent">Followups Agent<a class="headerlink" href="#followups-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>генерує ритм.</li>
+</ul>
+<h3 id="governance-agent">Governance Agent<a class="headerlink" href="#governance-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>підсвічує ритуали узгодження.</li>
+</ul>
+<h3 id="memory-agent">Memory Agent<a class="headerlink" href="#memory-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>працює з подіями знань.</li>
+</ul>
+<hr />
+<h1 id="8-tools-runtime-core">8. Tools (для Runtime Core)<a class="headerlink" href="#8-tools-runtime-core" title="Permanent link">&para;</a></h1>
+<h3 id="81-classify_event">8.1. classify_event<a class="headerlink" href="#81-classify_event" title="Permanent link">&para;</a></h3>
+<p>Визначає важливість події.</p>
+<h3 id="82-filter_noise">8.2. filter_noise<a class="headerlink" href="#82-filter_noise" title="Permanent link">&para;</a></h3>
+<p>Зменшує шум, об'єднує дублікати.</p>
+<h3 id="83-build_digest">8.3. build_digest<a class="headerlink" href="#83-build_digest" title="Permanent link">&para;</a></h3>
+<p>Створює дайджест з групи подій.</p>
+<h3 id="84-get_user_attention_stream">8.4. get_user_attention_stream<a class="headerlink" href="#84-get_user_attention_stream" title="Permanent link">&para;</a></h3>
+<p>Повертає важливі події для конкретної людини.</p>
+<h3 id="85-suggest_timing">8.5. suggest_timing<a class="headerlink" href="#85-suggest_timing" title="Permanent link">&para;</a></h3>
+<p>Підбирає оптимальний час для сповіщення.</p>
+<h3 id="86-highlight_critical">8.6. highlight_critical<a class="headerlink" href="#86-highlight_critical" title="Permanent link">&para;</a></h3>
+<p>Позначає критичні події.</p>
+<hr />
+<h1 id="9-runtime-core-12">9. Інтеграція з Runtime Core (12)<a class="headerlink" href="#9-runtime-core-12" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">attentionAgentConfig</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ag_attention_core&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Attention Agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;attention_core&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">systemPrompt</span><span class="o">:</span><span class="w"> </span><span class="kt">systemAttentionPrompt</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">memoryScope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;classify_event&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;filter_noise&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;build_digest&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;get_user_attention_stream&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;suggest_timing&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;highlight_critical&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<hr />
+<h1 id="10-ui">10. UI — візуалізація уваги<a class="headerlink" href="#10-ui" title="Permanent link">&para;</a></h1>
+<h2 id="101-attention-panel">10.1. Панель уваги (Attention Panel)<a class="headerlink" href="#101-attention-panel" title="Permanent link">&para;</a></h2>
+<p>Правий сайдбар у будь-якому контексті:</p>
+<ul>
+<li>топ важливих подій,</li>
+<li>пропущені сигнали,</li>
+<li>критичні оновлення.</li>
+</ul>
+<h2 id="102-attention-hub">10.2. Центр уваги (Attention Hub)<a class="headerlink" href="#102-attention-hub" title="Permanent link">&para;</a></h2>
+<p>Окремий екран:</p>
+<ul>
+<li><code>/t/:teamId/attention</code></li>
+</ul>
+<p>Тут користувач бачить:</p>
+<ul>
+<li>"Важливе за сьогодні",</li>
+<li>"Критичне зараз",</li>
+<li>"Рекомендоване до перегляду".</li>
+</ul>
+<h2 id="103">10.3. Дайджести<a class="headerlink" href="#103" title="Permanent link">&para;</a></h2>
+<ul>
+<li>кнопка "Огляд дня",</li>
+<li>кнопка "Огляд тижня".</li>
+</ul>
+<h2 id="104">10.4. Налаштування уваги<a class="headerlink" href="#104" title="Permanent link">&para;</a></h2>
+<p>Користувач може обрати:</p>
+<ul>
+<li>рівень чутливості,</li>
+<li>типи подій,</li>
+<li>тихі години.</li>
+</ul>
+<hr />
+<h1 id="11-api">11. API<a class="headerlink" href="#11-api" title="Permanent link">&para;</a></h1>
+<h3 id="_1">Події<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><code>GET /events?team_id</code>
+<code>POST /events</code></p>
+<h3 id="attention-streams">Attention Streams<a class="headerlink" href="#attention-streams" title="Permanent link">&para;</a></h3>
+<p><code>GET /attention/stream?user_id</code>
+<code>POST /attention/digest_daily</code>
+<code>POST /attention/digest_weekly</code></p>
+<hr />
+<h1 id="12-cursor">12. Інструкції для Cursor<a class="headerlink" href="#12-cursor" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="n">Implement</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Notifications</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Attention</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">19</span><span class="n">_notifications_attention_agent</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">12</span><span class="n">_agent_runtime_core</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">13</span><span class="n">_agent_memory_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">14</span><span class="n">_messenger_agent_module</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">15</span><span class="n">_projects_agent_module</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">16</span><span class="n">_followups_reminders_agent</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="n">_agent_ui_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="n">_coding_standards</span><span class="o">.</span><span class="n">md</span>
+
+<span class="n">Tasks</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">backend</span><span class="w"> </span><span class="n">models</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">attention</span><span class="w"> </span><span class="n">streams</span><span class="o">.</span>
+
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">Implement</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="p">(</span><span class="n">recording</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">attention</span><span class="w"> </span><span class="n">streams</span><span class="w"> </span><span class="p">(</span><span class="n">filtering</span><span class="p">,</span><span class="w"> </span><span class="n">ranking</span><span class="p">)</span><span class="o">.</span>
+
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">Register</span><span class="w"> </span><span class="n">Attention</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">tools</span><span class="o">.</span>
+
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">UI</span><span class="p">:</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Right</span><span class="w"> </span><span class="n">sidebar</span><span class="w"> </span><span class="s2">&quot;Attention Panel&quot;</span><span class="w"> </span><span class="n">showing</span><span class="w"> </span><span class="n">prioritized</span><span class="w"> </span><span class="n">events</span><span class="o">.</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="err">`</span><span class="o">/</span><span class="n">t</span><span class="o">/</span><span class="p">:</span><span class="n">teamId</span><span class="o">/</span><span class="n">attention</span><span class="err">`</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="p">(</span><span class="n">Attention</span><span class="w"> </span><span class="n">Hub</span><span class="p">)</span><span class="o">.</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Configuration</span><span class="w"> </span><span class="n">modal</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">attention</span><span class="w"> </span><span class="n">levels</span><span class="o">.</span>
+
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">Integrate</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">Messenger</span><span class="p">,</span><span class="w"> </span><span class="n">Projects</span><span class="p">,</span><span class="w"> </span><span class="n">Followups</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Governance</span><span class="w"> </span><span class="n">Agents</span><span class="o">.</span>
+
+<span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">Implement</span><span class="w"> </span><span class="n">basic</span><span class="w"> </span><span class="n">digest</span><span class="w"> </span><span class="n">generation</span><span class="w"> </span><span class="p">(</span><span class="n">daily</span><span class="o">/</span><span class="n">weekly</span><span class="p">)</span><span class="o">.</span>
+
+<span class="n">Output</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">list</span>
+<span class="o">-</span><span class="w"> </span><span class="n">diff</span>
+<span class="o">-</span><span class="w"> </span><span class="n">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="13">13. Результат<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<p>Після впровадження цього модуля:</p>
+<ul>
+<li>спільнота перестає тонути в шумі,</li>
+<li>виникає природна структура уваги,</li>
+<li>критичні події не губляться,</li>
+<li>люди й агенти діють у правильному ритмі,</li>
+<li>інформаційне навантаження стає здоровим і екологічним.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1435 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/32_policy_service_PDP_design/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>32 — Policy Service PDP Design (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#32-policy-service-pdp-design-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              32 — Policy Service PDP Design (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pdp-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. PDP Formula
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pdp-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. PDP Inputs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pdp-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. PDP Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-internal-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Internal Modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Internal Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-module-role-resolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Module: Role Resolver
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-module-capability-resolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Module: Capability Resolver
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-module-entitlements" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Module: Entitlements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-module-quota-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Module: Quota Manager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-module-acl-resolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Module: ACL Resolver
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-module-confidential-mode-resolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Module: Confidential Mode Resolver
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-module-key-status-checker" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.7 Module: Key Status Checker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pdp-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. PDP Data Sources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. PDP Data Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-capability-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Capability Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-roleteam-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Role/Team Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-usage-metrics-per-teamuser" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Usage Metrics (Per Team/User)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-resource-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Resource Metadata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-pdp-cache-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. PDP Cache Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. PDP Cache Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-static-cache-long-term" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Static Cache (Long-term)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-dynamic-cache-short-term" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Dynamic Cache (Short-term)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-usage-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Usage Cache
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-pdp-decision-algorithm-pseudocode" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. PDP Decision Algorithm (Pseudocode)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-pdp-integration-with-api-gateway-pep" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. PDP Integration with API Gateway (PEP)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pdp-integration-with-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. PDP Integration with Agents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. PDP Integration with Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-agent-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Agent run
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-confidential-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Confidential-mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-pdp-integration-with-embassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. PDP Integration with Embassy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-pdp-integration-with-wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. PDP Integration with Wallet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-pdp-integration-with-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. PDP Integration with Governance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-pdp-logging-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. PDP Logging &amp; Audit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-pdp-performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. PDP Performance Targets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-pdp-failure-modes-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. PDP Failure Modes &amp; Recovery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. PDP Failure Modes & Recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-cache-corruption" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.1 Cache Corruption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-db-unavailable" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.2 DB Unavailable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-overloaded-pdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.3 Overloaded PDP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164-governance-hotfix" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.4 Governance Hotfix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Security Considerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="32-policy-service-pdp-design-microdao">32 — Policy Service PDP Design (MicroDAO)<a class="headerlink" href="#32-policy-service-pdp-design-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Архітектура Policy Decision Point (PDP), кешування, резолюція прав, квоти, інтеграція з API Gateway / Agents / Embassy</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>PDP — це центральний компонент авторизації платформи <strong>DAARION.city / microDAO / Embassy / Agents / Wallet</strong>.</p>
+<p>Він відповідає за:</p>
+<ul>
+<li>розв'язання прав доступу на основі:</li>
+<li>RBAC,</li>
+<li>Capability Bundles,</li>
+<li>Entitlements (плани),</li>
+<li>Stake (RINGK),</li>
+<li>ACL,</li>
+<li>Mode (public/confidential),</li>
+<li>Quotas,</li>
+<li>кешування конфігів доступів,</li>
+<li>видачу дозволу або заборони на кожну дію,</li>
+<li>роботу у high-load середовищах,</li>
+<li>інтеграцію з API Gateway (PEP),</li>
+<li>безпечну роботу з Agent Mesh, Embassy, Wallet, RWA.</li>
+</ul>
+<p>Це ключовий документ для розробників API, агентного шару та бекенду.</p>
+<hr />
+<h2 id="2-pdp-formula">2. PDP Formula<a class="headerlink" href="#2-pdp-formula" title="Permanent link">&para;</a></h2>
+<p>PDP приймає рішення за єдиною формулою:</p>
+<div class="codehilite"><pre><span></span><code>allow =
+  RBAC(role, action, resource)                   AND
+  Entitlement(plan, stake_RINGK)                 AND
+  Capability(key, action, resource)              AND
+  ACL(resource, subject)                         AND
+  Mode(resource_mode, subject_type)              AND
+  Quota(subject, action)                         AND
+  SecurityContext(subject, key_status)
+</code></pre></div>
+
+<p>Кожен блок працює незалежно.</p>
+<hr />
+<h2 id="3-pdp-inputs">3. PDP Inputs<a class="headerlink" href="#3-pdp-inputs" title="Permanent link">&para;</a></h2>
+<p>PDP приймає запит такого вигляду:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="w">             </span><span class="c1">// user | agent | integration | embassy</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task.create&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w">           </span><span class="c1">// або confidential</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ak_789&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2.3.4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ua&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1700000000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>PDP повинен дати відповідь:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>або:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quota_exceeded&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-pdp-architecture-overview">4. PDP Architecture Overview<a class="headerlink" href="#4-pdp-architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>                    ┌─────────────────────────┐
+                    │     Policy Registry      │
+                    │ (bundles, caps, plans)  │
+                    └───────────┬────────────┘
+                                │
+                     ┌──────────┴───────────┐
+                     │        PDP Core       │
+                     │  (decision engine)    │
+                     └──────────┬───────────┘
+                                │
+         ┌──────────────────────┼─────────────────────────┐
+         │                      │                         │
+     API Gateway (PEP)       Agent Mesh                Embassy
+</code></pre></div>
+
+<hr />
+<h2 id="5-internal-modules">5. Internal Modules<a class="headerlink" href="#5-internal-modules" title="Permanent link">&para;</a></h2>
+<h3 id="51-module-role-resolver">5.1 Module: Role Resolver<a class="headerlink" href="#51-module-role-resolver" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Визначає роль користувача в команді:</li>
+<li>Owner</li>
+<li>Guardian</li>
+<li>Member</li>
+<li>Visitor</li>
+</ul>
+<p>Запит у БД (кешований):</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">role</span><span class="p">,</span><span class="w"> </span><span class="n">viewer_type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">team_members</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">...</span>
+</code></pre></div>
+
+<h3 id="52-module-capability-resolver">5.2 Module: Capability Resolver<a class="headerlink" href="#52-module-capability-resolver" title="Permanent link">&para;</a></h3>
+<p>Для <code>key_id</code> PDP збирає:</p>
+<ul>
+<li>capabilities з <code>access_key_caps</code></li>
+<li>capabilities з <code>bundle.role.*</code></li>
+<li>capabilities з <code>bundle.plan.*</code></li>
+<li>capabilities з <code>bundle.agent.*</code></li>
+<li>capabilities з <code>bundle.platform.*</code> (для платформи)</li>
+</ul>
+<p>Фінальний набір — <strong>унія всіх capability-джерел</strong>.</p>
+<h3 id="53-module-entitlements">5.3 Module: Entitlements<a class="headerlink" href="#53-module-entitlements" title="Permanent link">&para;</a></h3>
+<p>План (<code>Freemium</code>, <code>Casual</code>, <code>Premium</code>, <code>Platformium</code>) → базові квоти:</p>
+<ul>
+<li>LLM-токени</li>
+<li>Agent runs</li>
+<li>Router invokes</li>
+<li>Embassy events</li>
+<li>Storage</li>
+<li>Wallet claims</li>
+</ul>
+<p>Далі застосовується stake-множник:</p>
+<div class="codehilite"><pre><span></span><code>effective_quota = base_quota × f(RINGK_staked)
+</code></pre></div>
+
+<h3 id="54-module-quota-manager">5.4 Module: Quota Manager<a class="headerlink" href="#54-module-quota-manager" title="Permanent link">&para;</a></h3>
+<p>Робить такі перевірки:</p>
+<ul>
+<li>usage &lt; effective_quota</li>
+<li>якщо usage близько до межі → warning-флаг</li>
+<li>якщо перевищено → deny</li>
+</ul>
+<h3 id="55-module-acl-resolver">5.5 Module: ACL Resolver<a class="headerlink" href="#55-module-acl-resolver" title="Permanent link">&para;</a></h3>
+<p>ACL ресурсу (якщо встановлено):</p>
+<ul>
+<li>список дозволених user_id/team_id,</li>
+<li>список заборонених user_id/team_id.</li>
+</ul>
+<h3 id="56-module-confidential-mode-resolver">5.6 Module: Confidential Mode Resolver<a class="headerlink" href="#56-module-confidential-mode-resolver" title="Permanent link">&para;</a></h3>
+<p>Важливо для каналів/чату:</p>
+<div class="codehilite"><pre><span></span><code>if resource.mode == confidential:
+    if subject.type == &#39;agent&#39;:
+        deny reading plaintext
+</code></pre></div>
+
+<p>Agents не бачать plaintext у confidential-режимі.</p>
+<h3 id="57-module-key-status-checker">5.7 Module: Key Status Checker<a class="headerlink" href="#57-module-key-status-checker" title="Permanent link">&para;</a></h3>
+<p>Перевіряє:</p>
+<ul>
+<li>чи активний ключ,</li>
+<li>чи не expired,</li>
+<li>чи не revoked,</li>
+<li>чи не over-rate-limit.</li>
+</ul>
+<hr />
+<h2 id="6-pdp-data-sources">6. PDP Data Sources<a class="headerlink" href="#6-pdp-data-sources" title="Permanent link">&para;</a></h2>
+<p>PDP отримує дані з:</p>
+<h3 id="61-capability-registry">6.1 Capability Registry<a class="headerlink" href="#61-capability-registry" title="Permanent link">&para;</a></h3>
+<p>Таблиці:</p>
+<ul>
+<li><code>capabilities</code></li>
+<li><code>bundles</code></li>
+<li><code>bundle_caps</code></li>
+<li><code>access_keys</code></li>
+<li><code>access_key_caps</code></li>
+</ul>
+<h3 id="62-roleteam-registry">6.2 Role/Team Registry<a class="headerlink" href="#62-roleteam-registry" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>team_members</code></li>
+<li><code>teams</code></li>
+</ul>
+<h3 id="63-usage-metrics-per-teamuser">6.3 Usage Metrics (Per Team/User)<a class="headerlink" href="#63-usage-metrics-per-teamuser" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>usage_agent_runs</code></li>
+<li><code>usage_llm_tokens</code></li>
+<li><code>usage_embassy_events</code></li>
+<li><code>usage_storage</code></li>
+<li><code>usage_router_invokes</code></li>
+<li><code>usage_wallet_tx</code></li>
+</ul>
+<p>(Можуть бути або materialized views, або окремі таблиці.)</p>
+<h3 id="64-resource-metadata">6.4 Resource Metadata<a class="headerlink" href="#64-resource-metadata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>channels</code></li>
+<li><code>projects</code></li>
+<li><code>tasks</code></li>
+<li><code>rwa_inventory</code></li>
+</ul>
+<hr />
+<h2 id="7-pdp-cache-design">7. PDP Cache Design<a class="headerlink" href="#7-pdp-cache-design" title="Permanent link">&para;</a></h2>
+<p>PDP має бути <strong>дуже швидким</strong>, тому більшість даних кешуються.</p>
+<h3 id="71-static-cache-long-term">7.1 Static Cache (Long-term)<a class="headerlink" href="#71-static-cache-long-term" title="Permanent link">&para;</a></h3>
+<p>Завантажується при старті PDP:</p>
+<ul>
+<li>capabilities list,</li>
+<li>bundles,</li>
+<li>bundle_caps.</li>
+</ul>
+<p>Оновлюється:</p>
+<ul>
+<li>при події <code>"governance.policy.updated"</code>.</li>
+</ul>
+<h3 id="72-dynamic-cache-short-term">7.2 Dynamic Cache (Short-term)<a class="headerlink" href="#72-dynamic-cache-short-term" title="Permanent link">&para;</a></h3>
+<p>Кешуються на 10–60 секунд:</p>
+<ul>
+<li>role for (user_id, team_id)</li>
+<li>caps for (key_id)</li>
+<li>quotas for (team_id)</li>
+<li>stake multipliers</li>
+</ul>
+<h3 id="73-usage-cache">7.3 Usage Cache<a class="headerlink" href="#73-usage-cache" title="Permanent link">&para;</a></h3>
+<p>Usage counter зберігається:</p>
+<ul>
+<li>у Redis або Memcache,</li>
+<li>синхронізується з БД регулярно.</li>
+</ul>
+<hr />
+<h2 id="8-pdp-decision-algorithm-pseudocode">8. PDP Decision Algorithm (Pseudocode)<a class="headerlink" href="#8-pdp-decision-algorithm-pseudocode" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pdp_decide</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c1"># 1) Key status</span>
+    <span class="k">if</span> <span class="n">key_is_invalid</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">key_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;key_invalid&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 2) Role</span>
+    <span class="n">role</span> <span class="o">=</span> <span class="n">get_role</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">team_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">role</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;no_role&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 3) Capability</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_capability</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">key_id</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">action</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;capability_missing&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 4) RBAC matrix</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rbac_allows</span><span class="p">(</span><span class="n">role</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">action</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;rbac_denied&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 5) ACL</span>
+    <span class="k">if</span> <span class="n">acl_blocks</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">subject</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;acl_block&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 6) Confidential mode</span>
+    <span class="k">if</span> <span class="n">is_confidential</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_agent</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">subject</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;chat.message.read&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;confidential_mode_restriction&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 7) Quotas</span>
+    <span class="k">if</span> <span class="n">exceeds_quota</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">action</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;quota_exceeded&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">allow</span><span class="p">()</span>
+</code></pre></div>
+
+<hr />
+<h2 id="9-pdp-integration-with-api-gateway-pep">9. PDP Integration with API Gateway (PEP)<a class="headerlink" href="#9-pdp-integration-with-api-gateway-pep" title="Permanent link">&para;</a></h2>
+<p>API Gateway виконує:</p>
+<ol>
+<li>Аутентифікацію</li>
+<li>Витяг ключа (user session / access key)</li>
+<li>Виклик PDP:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>POST /pdp/decide
+{
+  subject: {...},
+  team_id: &quot;...&quot;,
+  action: &quot;...&quot;,
+  resource: {...}
+}
+</code></pre></div>
+
+<ol>
+<li>Отримує відповідь allow/deny</li>
+<li>Продовжує або блокує запит</li>
+<li>Збирає usage (LLM tokens, bytes, etc.)</li>
+</ol>
+<hr />
+<h2 id="10-pdp-integration-with-agents">10. PDP Integration with Agents<a class="headerlink" href="#10-pdp-integration-with-agents" title="Permanent link">&para;</a></h2>
+<h3 id="101-agent-run">10.1 Agent run<a class="headerlink" href="#101-agent-run" title="Permanent link">&para;</a></h3>
+<p>Перед кожним <code>agent.run.invoke</code>:</p>
+<ul>
+<li>PDP перевіряє capability → <code>agent.run.invoke</code></li>
+<li>PDP перевіряє квоти → <code>agent_runs_per_day</code></li>
+</ul>
+<h3 id="102-tools">10.2 Tools<a class="headerlink" href="#102-tools" title="Permanent link">&para;</a></h3>
+<p>Кожен tool має окремий action:</p>
+<ul>
+<li><code>tool.browser</code></li>
+<li><code>tool.code</code></li>
+<li><code>tool.search</code></li>
+</ul>
+<p>Plugins:</p>
+<div class="codehilite"><pre><span></span><code>tool.&lt;plugin_name&gt;.invoke
+</code></pre></div>
+
+<h3 id="103-confidential-mode">10.3 Confidential-mode<a class="headerlink" href="#103-confidential-mode" title="Permanent link">&para;</a></h3>
+<p>Агенти отримують summary замість plaintext.</p>
+<hr />
+<h2 id="11-pdp-integration-with-embassy">11. PDP Integration with Embassy<a class="headerlink" href="#11-pdp-integration-with-embassy" title="Permanent link">&para;</a></h2>
+<p>Embassy keys використовують capabilities:</p>
+<ul>
+<li><code>embassy.rwa.claim</code></li>
+<li><code>embassy.energy.update</code></li>
+<li><code>embassy.intent.read</code></li>
+</ul>
+<p>При події:</p>
+<div class="codehilite"><pre><span></span><code>POST /embassy/rwa
+</code></pre></div>
+
+<p>API Gateway викликає PDP:</p>
+<div class="codehilite"><pre><span></span><code>authorize(embassy_key, action=embassy.rwa.claim)
+</code></pre></div>
+
+<p>PDP перевіряє:</p>
+<ul>
+<li>ключ дійсний,</li>
+<li>capability збігається,</li>
+<li>quota embassy events не перевищена,</li>
+<li>ACL платформи.</li>
+</ul>
+<hr />
+<h2 id="12-pdp-integration-with-wallet">12. PDP Integration with Wallet<a class="headerlink" href="#12-pdp-integration-with-wallet" title="Permanent link">&para;</a></h2>
+<p>Перед кожним:</p>
+<ul>
+<li><code>wallet.balance.view</code></li>
+<li><code>wallet.stake.ringk</code></li>
+<li><code>wallet.payout.claim</code></li>
+</ul>
+<p>PDP:</p>
+<ul>
+<li>перевіряє capability для користувача,</li>
+<li>перевіряє стейк (stake multipliers),</li>
+<li>перевіряє квоту на wallet tx,</li>
+<li>перевіряє ACL команди.</li>
+</ul>
+<hr />
+<h2 id="13-pdp-integration-with-governance">13. PDP Integration with Governance<a class="headerlink" href="#13-pdp-integration-with-governance" title="Permanent link">&para;</a></h2>
+<p>Після прийняття governance policy:</p>
+<p><code>governance.policy.updated</code></p>
+<p>PDP:</p>
+<ul>
+<li>скидає кеш bundles,</li>
+<li>оновлює entitlement-конфіги,</li>
+<li>застосовує stake multipliers,</li>
+<li>ідентифікає можливі конфлікти.</li>
+</ul>
+<hr />
+<h2 id="14-pdp-logging-audit">14. PDP Logging &amp; Audit<a class="headerlink" href="#14-pdp-logging-audit" title="Permanent link">&para;</a></h2>
+<p>Кожне рішення PDP опціонально логують:</p>
+<ul>
+<li>action,</li>
+<li>subject,</li>
+<li>team,</li>
+<li>result,</li>
+<li>latency,</li>
+<li>quotas status.</li>
+</ul>
+<p>Для chathistory-sensitive дій → minimal metadata.</p>
+<hr />
+<h2 id="15-pdp-performance-targets">15. PDP Performance Targets<a class="headerlink" href="#15-pdp-performance-targets" title="Permanent link">&para;</a></h2>
+<ul>
+<li>p95 latency &lt; 3 ms (кешований)</li>
+<li>p99 latency &lt; 8 ms</li>
+<li>5k–20k rps у проді</li>
+<li>1–3 GB RAM кешу достатньо</li>
+</ul>
+<hr />
+<h2 id="16-pdp-failure-modes-recovery">16. PDP Failure Modes &amp; Recovery<a class="headerlink" href="#16-pdp-failure-modes-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="161-cache-corruption">16.1 Cache Corruption<a class="headerlink" href="#161-cache-corruption" title="Permanent link">&para;</a></h3>
+<p>→ Reload from Policy Registry
+→ Governance Agent перевіряє consistency</p>
+<h3 id="162-db-unavailable">16.2 DB Unavailable<a class="headerlink" href="#162-db-unavailable" title="Permanent link">&para;</a></h3>
+<p>→ PDP переходить у fail-safe режим (deny critical ops, allow read-only)</p>
+<h3 id="163-overloaded-pdp">16.3 Overloaded PDP<a class="headerlink" href="#163-overloaded-pdp" title="Permanent link">&para;</a></h3>
+<p>→ Horizontal autoscaling
+→ Rate limit API upstream</p>
+<h3 id="164-governance-hotfix">16.4 Governance Hotfix<a class="headerlink" href="#164-governance-hotfix" title="Permanent link">&para;</a></h3>
+<p>→ Manual override policies
+→ Emergency shutdown of dangerous capabilities</p>
+<hr />
+<h2 id="17-security-considerations">17. Security Considerations<a class="headerlink" href="#17-security-considerations" title="Permanent link">&para;</a></h2>
+<ul>
+<li>PDP не довіряє API Gateway</li>
+<li>PDP не довіряє клієнту</li>
+<li>Кеш capabilities підписано</li>
+<li>Governance updates підписані</li>
+<li>Embassy events мають HMAC-підписи</li>
+<li>Confidential mode ніколи не віддає plaintext агенту</li>
+</ul>
+<hr />
+<h2 id="18-cursor">18. Завдання для Cursor<a class="headerlink" href="#18-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement Policy Decision Point (PDP) using:
+- 32_policy_service_PDP_design.md
+- 24_access_keys_capabilities_system.md
+- 31_governance_policies_for_capabilities_and_quotas.md
+
+Tasks:
+1) Create PDP service with decision engine.
+2) Implement internal modules (Role Resolver, Capability Resolver, Entitlements, Quota Manager, ACL Resolver, Confidential Mode Resolver, Key Status Checker).
+3) Implement caching layer (static cache, dynamic cache, usage cache).
+4) Create PDP decision algorithm.
+5) Integrate with API Gateway (PEP).
+6) Add PDP logging and audit.
+7) Implement failure modes and recovery.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="19-summary">19. Summary<a class="headerlink" href="#19-summary" title="Permanent link">&para;</a></h2>
+<p>PDP — основа безпеки та економічної стійкості міста:</p>
+<ul>
+<li>централізує право доступу,</li>
+<li>інтегрується з governance,</li>
+<li>застосовує квоти,</li>
+<li>керує usage,</li>
+<li>забезпечує ізоляцію агентів,</li>
+<li>гарантує E2EE-приватність,</li>
+<li>контролює Embassy/RWA/Wallet потоки,</li>
+<li>підтримує масштабованість і HA.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

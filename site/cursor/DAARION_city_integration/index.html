@@ -1,0 +1,1367 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/DAARION_city_integration/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>DAARION_city_integration.md - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#daarion_city_integrationmd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DAARION_city_integration.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-daarioncity-microdao-city-superdao-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Модель: DAARION.city = microDAO типу "city" + SuperDAO над іншими microDAO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Модель: DAARION.city = microDAO типу "city" + SuperDAO над іншими microDAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-teams-microdaos" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. Розширення teams / microdaos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. Ієрархія "місто → платформи → мікроDAO"
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-daarioncity" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Реєстр мешканців DAARION.city
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Реєстр мешканців DAARION.city">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Модель користувача
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-citizenship" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Громадянство (citizenship)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Членство в microDAO / платформах
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-daarioncity-dao-city-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. DAARION.city як суперDAO: city-level агенти
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Перетворення існуючих платформ на microDAO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Перетворення існуючих платформ на microDAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-greenfood-microdao-" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. GreenFood як microDAO-платформа
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. GreenFood як microDAO-платформа">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#greenfood-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Кроки перетворення GreenFood → microDAO:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-energyunion-microdao-" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. EnergyUnion як microDAO-платформа
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. EnergyUnion як microDAO-платформа">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#energyunion-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Кроки перетворення EnergyUnion → microDAO:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-city-level-co-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. City-level Co-Memory: загальні знання міста
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. City-level Co-Memory: загальні знання міста">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-city-knowledge-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. City Knowledge Spaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Політики відкритості
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-city-bridges-daarioncity-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. City Bridges: обмін подіями між DAARION.city і microDAO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. City Bridges: обмін подіями між DAARION.city і microDAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-city_event" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Формат city_event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-city-bridges-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. City Bridges Agent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Governance: трирівнева модель правил
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-ux-" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. UX-рівень: як користувач це відчуває
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cursor-implementation-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Задачі для Cursor (Implementation Plan)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Задачі для Cursor (Implementation Plan)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-daarioncity-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Базова інтеграція DAARION.city як microDAO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Реєстр мешканців
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-greenfood-energyunion" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Інтеграція платформ GreenFood та EnergyUnion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-city-co-memory-city-bridges" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4. City Co-Memory та City Bridges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Інструкція для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="daarion_city_integrationmd">DAARION_city_integration.md<a class="headerlink" href="#daarion_city_integrationmd" title="Permanent link">&para;</a></h1>
+<p>DAARION.city як суперDAO над microDAO та інтеграція існуючих платформ</p>
+<p>Цей документ описує, як:</p>
+<ol>
+<li>
+<p>DAARION.city розглядається як <strong>міське superDAO</strong>, побудоване на тих самих механізмах, що й microDAO.</p>
+</li>
+<li>
+<p>DAARION.city є <strong>реєстром мешканців</strong> та "над-організацією", яка об'єднує microDAO.</p>
+</li>
+<li>
+<p>Існуючі проєкти (наприклад, <strong>greenfood.live</strong>, <strong>EnergyUnion</strong>) стають <strong>розвиненими microDAO-платформами</strong>, а не окремими всесвітами.</p>
+</li>
+</ol>
+<p>Документ задає архітектурну модель і конкретні задачі для Cursor.</p>
+<hr />
+<h2 id="1-daarioncity-microdao-city-superdao-microdao">1. Модель: DAARION.city = microDAO типу "city" + SuperDAO над іншими microDAO<a class="headerlink" href="#1-daarioncity-microdao-city-superdao-microdao" title="Permanent link">&para;</a></h2>
+<h3 id="11-teams-microdaos">1.1. Розширення <code>teams</code> / <code>microdaos</code><a class="headerlink" href="#11-teams-microdaos" title="Permanent link">&para;</a></h3>
+<p>Базова сутність одна — <code>team</code>/<code>microdao</code>, але з типами:</p>
+<div class="codehilite"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">TeamType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;city&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;platform&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;community&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;guild&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;lab&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;personal&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>Приклади:</p>
+<ul>
+<li><code>DAARION.city</code> → <code>type = "city"</code> (city-level superDAO)</li>
+<li><code>GreenFood</code> → <code>type = "platform"</code> (eco/food marketplace)</li>
+<li><code>EnergyUnion</code> → <code>type = "platform"</code> (BioMiner + AI + DAO екосистема)</li>
+<li>Приватні microDAO → <code>type = "community"</code> або <code>personal</code>.</li>
+</ul>
+<h3 id="12-dao">1.2. Ієрархія "місто → платформи → мікроDAO"<a class="headerlink" href="#12-dao" title="Permanent link">&para;</a></h3>
+<p>Додаткова таблиця:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">city_links</span><span class="o">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">parent_team_id</span><span class="w">   </span><span class="c1">// зазвичай DAARION.city team_id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">child_team_id</span><span class="w">    </span><span class="c1">// microDAO або платформа</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">relation_type</span><span class="w">    </span><span class="c1">// &quot;platform&quot;, &quot;community&quot;, &quot;guild&quot;, &quot;adapter&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">created_at</span>
+</code></pre></div>
+
+<p>Інтерпретація:</p>
+<ul>
+<li>
+<p><code>DAARION.city</code> як <code>parent_team_id</code> для:</p>
+</li>
+<li>
+<p>платформ (GreenFood, EnergyUnion, інші платформи),</p>
+</li>
+<li>приватних microDAO, які бажають "приписатися" до міста.</li>
+</ul>
+<hr />
+<h2 id="2-daarioncity">2. Реєстр мешканців DAARION.city<a class="headerlink" href="#2-daarioncity" title="Permanent link">&para;</a></h2>
+<p>DAARION.city — це також <strong>місце реєстрації всіх мешканців</strong>.</p>
+<h3 id="21">2.1. Модель користувача<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">users</span><span class="o">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">city_handle</span><span class="w">        </span><span class="c1">// унікальний нік у DAARION.city</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">display_name</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">avatar_url</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">created_at</span>
+</code></pre></div>
+
+<h3 id="22-citizenship">2.2. Громадянство (citizenship)<a class="headerlink" href="#22-citizenship" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">citizenships</span><span class="o">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">user_id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">city_id</span><span class="w">            </span><span class="c1">// team_id DAARION.city</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;revoked&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">joined_at</span>
+</code></pre></div>
+
+<h3 id="23-microdao">2.3. Членство в microDAO / платформах<a class="headerlink" href="#23-microdao" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">memberships</span><span class="o">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">user_id</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">team_id</span><span class="w">            </span><span class="c1">// будь-який microDAO (включно з платформами)</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;member&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;guest&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">joined_at</span>
+</code></pre></div>
+
+<p>DAARION.city у цьому сенсі — просто <code>team</code> із <code>type="city"</code>, де всі громадяни мають запис <code>citizenship</code>, а членство в платформах і microDAO моделюється через <code>memberships</code>.</p>
+<hr />
+<h2 id="3-daarioncity-dao-city-level">3. DAARION.city як суперDAO: city-level агенти<a class="headerlink" href="#3-daarioncity-dao-city-level" title="Permanent link">&para;</a></h2>
+<p>DAARION.city має власний набір <strong>city-level agentів</strong>, які працюють поверх міських даних і child-microDAO:</p>
+<ul>
+<li><strong>City Governance Agent</strong> — міські правила, дух міста.</li>
+<li><strong>City Registry Agent</strong> — реєстр мешканців, громадянство.</li>
+<li><strong>City Bridges Agent</strong> — зв'язки між city ↔ платформи ↔ microDAO.</li>
+<li><strong>City Co-Memory Agent</strong> — загальноміський простір знань.</li>
+</ul>
+<p>Ці агенти використовують ті самі механізми, що й агенти microDAO, але їх <code>team_id</code> = <code>DAARION.city</code>.</p>
+<hr />
+<h2 id="4-microdao">4. Перетворення існуючих платформ на microDAO<a class="headerlink" href="#4-microdao" title="Permanent link">&para;</a></h2>
+<p>Мета: платформи <strong>greenfood.live</strong> та <strong>EnergyUnion</strong> стають microDAO-платформами в структурі DAARION.city.</p>
+<h3 id="41-greenfood-microdao-">4.1. GreenFood як microDAO-платформа<a class="headerlink" href="#41-greenfood-microdao-" title="Permanent link">&para;</a></h3>
+<p>Факти про платформу:</p>
+<ul>
+<li>GreenFood — еко-система для невеликих виробників та переробників органічної й домашньої продукції та вимогливих покупців.</li>
+<li>Підтримка блокчейн-технологій та внутрішня бартерна криптовалюта DAAR.</li>
+</ul>
+<h4 id="greenfood-microdao">Кроки перетворення GreenFood → microDAO:<a class="headerlink" href="#greenfood-microdao" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Створити запис <code>team</code></strong>:</p>
+</li>
+<li>
+<p><code>name = "GreenFood"</code></p>
+</li>
+<li><code>type = "platform"</code></li>
+<li>
+<p><code>slug = "greenfood"</code></p>
+</li>
+<li>
+<p><strong>Прив'язати до DAARION.city</strong>:</p>
+</li>
+<li>
+<p><code>city_links.insert(parent_team_id = daarion_city_id, child_team_id = greenfood_id, relation_type = "platform")</code></p>
+</li>
+<li>
+<p><strong>Задати blueprint GreenFood</strong>:</p>
+</li>
+<li>
+<p>агентська конфігурація:</p>
+<ul>
+<li>Marketplace/Orders Agent,</li>
+<li>Producers &amp; Buyers Agent,</li>
+<li>Eco/Quality Knowledge Agent,</li>
+<li>інтеграція з існуючим мобільним додатком / API (через Bridges Agent).</li>
+</ul>
+</li>
+<li>
+<p><strong>Bridges / adapters</strong>:</p>
+</li>
+<li>
+<p>Connector до існуючого GreenFood backend:</p>
+<ul>
+<li>products → проєкти/категорії/knowledge,</li>
+<li>orders → tasks / workflows,</li>
+<li>farmers → окремий тип учасників.</li>
+</ul>
+</li>
+<li>
+<p><strong>DAAR-валюта як доступ</strong>:</p>
+</li>
+<li>
+<p>трактувати DAAR-токени як внутрішні "ключі доступу/бартерні одиниці" у Governance/Access, а не як фінансові активи.</p>
+</li>
+</ol>
+<h3 id="42-energyunion-microdao-">4.2. EnergyUnion як microDAO-платформа<a class="headerlink" href="#42-energyunion-microdao-" title="Permanent link">&para;</a></h3>
+<p>Факти про платформу:</p>
+<ul>
+<li>ENERGY UNION BioMiner = платформа, що поєднує чисту енергію, AI та DAO в одній екосистемі.</li>
+<li>BioMiner конвертує біомасу в електроенергію для дата-центрів та AI-лабів, токени відкривають доступ до енергії (kWt), AI-обчислень (1T) та carbon+.</li>
+</ul>
+<h4 id="energyunion-microdao">Кроки перетворення EnergyUnion → microDAO:<a class="headerlink" href="#energyunion-microdao" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Створити <code>team</code></strong>:</p>
+</li>
+<li>
+<p><code>name = "EnergyUnion"</code></p>
+</li>
+<li><code>type = "platform"</code></li>
+<li>
+<p><code>slug = "energyunion"</code></p>
+</li>
+<li>
+<p><strong>Прив'язати до DAARION.city</strong>:</p>
+</li>
+<li>
+<p><code>city_links.insert(parent_team_id = daarion_city_id, child_team_id = energyunion_id, relation_type = "platform")</code></p>
+</li>
+<li>
+<p><strong>Blueprint EnergyUnion</strong>:</p>
+</li>
+<li>
+<p>агенти:</p>
+<ul>
+<li>Energy Sites &amp; BioMiner Agent (облік енергії, біомодулі),</li>
+<li>AI Power Agent (1T обчислення),</li>
+<li>kWt / 1T / carbon+ access-keys інтегровані в Governance &amp; Access (як символьні ключі ресурсу, не як фінансові інструменти).</li>
+</ul>
+</li>
+<li>
+<p><strong>Bridges / adapters</strong>:</p>
+</li>
+<li>
+<p>Connector до energyunion.io / EnergyUnion.AI API:</p>
+<ul>
+<li>energy production → knowledge/events,</li>
+<li>access tokens → capability keys у microDAO,</li>
+<li>DAO-логіка → DAO Agent (коли знадобиться).</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="5-city-level-co-memory">5. City-level Co-Memory: загальні знання міста<a class="headerlink" href="#5-city-level-co-memory" title="Permanent link">&para;</a></h2>
+<p>DAARION.city має власний <strong>Co-Memory</strong>, побудований на основі модуля 17.</p>
+<h3 id="51-city-knowledge-spaces">5.1. City Knowledge Spaces<a class="headerlink" href="#51-city-knowledge-spaces" title="Permanent link">&para;</a></h3>
+<p>Приклади city-spaces:</p>
+<ul>
+<li><code>City.Ecology</code></li>
+<li><code>City.Energy</code></li>
+<li><code>City.Food</code></li>
+<li><code>City.Governance</code></li>
+</ul>
+<p>Кожна платформа-microDAO може:</p>
+<ul>
+<li>
+<p>публікувати обрані факти/документи в City Co-Memory:</p>
+</li>
+<li>
+<p><code>publish_to_city_memory(team_id, space_id, fact_id/doc_id)</code></p>
+</li>
+<li>
+<p>читати загальноміський контекст:</p>
+</li>
+<li>
+<p><code>get_city_knowledge(space_id, query)</code>.</p>
+</li>
+</ul>
+<h3 id="52">5.2. Політики відкритості<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>Локальний Governance Agent платформи:</p>
+<ul>
+<li>
+<p>визначає, які дані:</p>
+</li>
+<li>
+<p>залишаються тільки в локальному Co-Memory,</p>
+</li>
+<li>можуть підніматися на рівень міста.</li>
+</ul>
+<hr />
+<h2 id="6-city-bridges-daarioncity-microdao">6. City Bridges: обмін подіями між DAARION.city і microDAO<a class="headerlink" href="#6-city-bridges-daarioncity-microdao" title="Permanent link">&para;</a></h2>
+<h3 id="61-city_event">6.1. Формат <code>city_event</code><a class="headerlink" href="#61-city_event" title="Permanent link">&para;</a></h3>
+<p>Спільний формат подій:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">city_event</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">source_team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">    </span><span class="c1">// хто ініціював (microDAO або платформа)</span>
+<span class="w">  </span><span class="nx">target_team_id?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">   </span><span class="c1">// куди адресовано (optionally)</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">              </span><span class="c1">// &quot;announcement&quot;, &quot;project_update&quot;, &quot;energy_event&quot;, &quot;market_update&quot;, ...</span>
+<span class="w">  </span><span class="nx">payload</span><span class="o">:</span><span class="w"> </span><span class="kt">Json</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">ts</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="62-city-bridges-agent">6.2. City Bridges Agent<a class="headerlink" href="#62-city-bridges-agent" title="Permanent link">&para;</a></h3>
+<p>Агент з <code>team_id = DAARION.city</code>:</p>
+<ul>
+<li>приймає <code>city_event</code> від microDAO,</li>
+<li>ретранслює (broadcast / специфічним платформам),</li>
+<li>взаємодіє з Attention Agent на міському рівні.</li>
+</ul>
+<hr />
+<h2 id="7-governance">7. Governance: трирівнева модель правил<a class="headerlink" href="#7-governance" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>City Governance (DAARION.city)</strong>:</p>
+</li>
+<li>
+<p>загальні принципи,</p>
+</li>
+<li>базові етичні стандарти,</li>
+<li>
+<p>міські ритуали узгодження.</p>
+</li>
+<li>
+<p><strong>Platform Governance</strong> (GreenFood, EnergyUnion):</p>
+</li>
+<li>
+<p>правила конкретної платформи,</p>
+</li>
+<li>
+<p>локальні символічні ключі доступу.</p>
+</li>
+<li>
+<p><strong>Local microDAO Governance</strong>:</p>
+</li>
+<li>
+<p>правила конкретної спільноти/групи.</p>
+</li>
+</ol>
+<p>DAO Agent і Wallet Agent можуть зʼявитися пізніше на міському шарі; наразі достатньо моделювати правила як політики доступу й ритуали узгодження без необхідної on-chain реалізації.</p>
+<hr />
+<h2 id="8-ux-">8. UX-рівень: як користувач це відчуває<a class="headerlink" href="#8-ux-" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Користувач реєструється в DAARION.city → отримує:</p>
+</li>
+<li>
+<p>міське громадянство,</p>
+</li>
+<li>
+<p>city-profile.</p>
+</li>
+<li>
+<p>У міському інтерфейсі:</p>
+</li>
+<li>
+<p>секція "Платформи":</p>
+<ul>
+<li>GreenFood, EnergyUnion, інші платформи → всі це microDAO типу <code>platform</code>;</li>
+</ul>
+</li>
+<li>
+<p>секція "Мої microDAO":</p>
+<ul>
+<li>приватні/ком'юніті DAO.</li>
+</ul>
+</li>
+<li>
+<p>Клік по платформі (GreenFood / EnergyUnion):</p>
+</li>
+<li>
+<p>відкривається Agent Hub цієї платформи (як microDAO),</p>
+</li>
+<li>
+<p>зі своїми агентами, каналами, проєктами.</p>
+</li>
+<li>
+<p>Зі свого приватного microDAO користувач може:</p>
+</li>
+<li>
+<p>"Підключитися до платформи GreenFood":</p>
+<ul>
+<li>створюється запис у <code>city_links</code> + налаштовуються Bridges + Governance/Access.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="9-cursor-implementation-plan">9. Задачі для Cursor (Implementation Plan)<a class="headerlink" href="#9-cursor-implementation-plan" title="Permanent link">&para;</a></h2>
+<h3 id="91-daarioncity-microdao">9.1. Базова інтеграція DAARION.city як microDAO<a class="headerlink" href="#91-daarioncity-microdao" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Додати поле <code>type</code> у <code>teams</code>:</p>
+</li>
+<li>
+<p><code>"city" | "platform" | "community" | "guild" | "lab" | "personal"</code>.</p>
+</li>
+<li>
+<p>Створити запис для DAARION.city:</p>
+</li>
+<li>
+<p><code>type = "city"</code>, <code>slug = "daarion"</code>.</p>
+</li>
+<li>
+<p>Створити таблицю <code>city_links</code>:</p>
+</li>
+<li>
+<p>parent/child team, relation_type.</p>
+</li>
+</ol>
+<h3 id="92">9.2. Реєстр мешканців<a class="headerlink" href="#92" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Створити таблиці:</p>
+</li>
+<li>
+<p><code>citizenships</code> (user ↔ city),</p>
+</li>
+<li>
+<p><code>memberships</code> (user ↔ team).</p>
+</li>
+<li>
+<p>Додати city-profile в UI:</p>
+</li>
+<li>
+<p>список платформ-microDAO,</p>
+</li>
+<li>список власних microDAO.</li>
+</ol>
+<h3 id="93-greenfood-energyunion">9.3. Інтеграція платформ GreenFood та EnergyUnion<a class="headerlink" href="#93-greenfood-energyunion" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Створити <code>team</code> для GreenFood та EnergyUnion з <code>type="platform"</code>.</p>
+</li>
+<li>
+<p>Створити <code>city_links</code> із <code>parent_team_id = daarion_city_id</code>.</p>
+</li>
+<li>
+<p>Додати базові Agent Hub / Agent Cards для цих платформ.</p>
+</li>
+<li>
+<p>Створити Bridges stubs:</p>
+</li>
+<li>
+<p><code>greenfood_connector_agent</code>,</p>
+</li>
+<li>
+<p><code>energyunion_connector_agent</code>,</p>
+<p>щоб пізніше інтегрувати їхні API (поки достатньо каркасу).</p>
+</li>
+</ol>
+<h3 id="94-city-co-memory-city-bridges">9.4. City Co-Memory та City Bridges<a class="headerlink" href="#94-city-co-memory-city-bridges" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Створити city-level Knowledge Space (<code>City.Global</code>).</p>
+</li>
+<li>
+<p>Додати API:</p>
+</li>
+<li>
+<p><code>POST /city/knowledge/publish</code>,</p>
+</li>
+<li>
+<p><code>POST /city/events</code>.</p>
+</li>
+<li>
+<p>Реалізувати City Bridges Agent:</p>
+</li>
+<li>
+<p>мінімально — логування <code>city_event</code>ів.</p>
+</li>
+</ol>
+<hr />
+<h2 id="10-cursor">10. Інструкція для Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Use DAARION_city_integration.md together with:
+
+- 12_agent_runtime_core.md
+- 14_messenger_agent_module.md
+- 15_projects_agent_module.md
+- 17_comemory_knowledge_space.md
+- 18_governance_access_agent.md
+- 20_integrations_bridges_agent.md
+- 22_operator_modes_and_system_agents.md
+- 23_domains_wallet_dao_deepdive.md
+- 10_agent_ui_system.md
+- 05_coding_standards.md
+
+Goal:
+
+Unify DAARION.city and all platforms as microDAO instances, with DAARION.city as a &quot;city&quot; type superDAO and GreenFood / EnergyUnion as &quot;platform&quot; type microDAO.
+
+Implement in stages:
+
+1) Team types + city_links hierarchy.
+
+2) Citizen registry (citizenships, memberships).
+
+3) DAARION.city as city-level microDAO with its own Agent Hub.
+
+4) GreenFood and EnergyUnion as platform-type microDAO.
+
+5) City Co-Memory and City Bridges minimal skeletons.
+
+For each step:
+
+- list changed files,
+- show diff,
+- provide a short summary.
+</code></pre></div>
+
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна архітектура інтеграції DAARION.city з microDAO</strong>, включаючи конкретні кроки перетворення GreenFood та EnergyUnion.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

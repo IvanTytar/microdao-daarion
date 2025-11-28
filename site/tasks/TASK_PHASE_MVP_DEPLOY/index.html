@@ -1,0 +1,1115 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_PHASE_MVP_DEPLOY/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK_PHASE_MVP_DEPLOY.md - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task_phase_mvp_deploymd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK_PHASE_MVP_DEPLOY.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Передумови
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Цільова архітектура прод-деплою
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Цільова архітектура прод-деплою">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. Сервер
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. Сервіси
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-dns-" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. DNS-конфігурація
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ssl-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. SSL / HTTPS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. SSL / HTTPS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-caddy" class="md-nav__link">
+    <span class="md-ellipsis">
+      ВАРІАНТ A — Caddy (найпростіший)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-nginx-certbot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ВАРІАНТ B — Nginx + Certbot (класика)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      ВАРІАНТ C — Traefik (якщо вже є в інфрі)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. ENV та секрети
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ENV та секрети">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-appenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. app.env (основні змінні)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Специфічні
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Міграції бази даних
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-docker-composeallyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Старт сервісів (docker-compose.all.yml)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-healthchecks-smoke-" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Healthchecks та smoke-тести
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Логи та моніторинг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Безпека (мінімум для MVP)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Команда для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task_phase_mvp_deploymd">TASK_PHASE_MVP_DEPLOY.md<a class="headerlink" href="#task_phase_mvp_deploymd" title="Permanent link">&para;</a></h1>
+<p>DAARION MVP — Production Deploy на домен daarion.space</p>
+<p>Цей таск готує <strong>повний прод-деплой DAARION MVP</strong> на домен:</p>
+<ul>
+<li><code>https://daarion.space</code> (landing / marketing або redirect)</li>
+<li><code>https://app.daarion.space</code> (MVP-продукт: microDAO + City + Agents)</li>
+</ul>
+<p>MVP уже реалізовано (Frontend, Agents Core, City Backend, Second Me).<br />
+Завдання цієї фази — <strong>перенести готовий стек на реальний сервер</strong>.</p>
+<hr />
+<h2 id="0">0. Передумови<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>PHASE 1–3</strong> завершені (як у звітах Cursor).</li>
+<li>Є <strong>готові docker-файли</strong>:</li>
+<li><code>docker-compose.all.yml</code> (23 services, port 80)</li>
+<li><code>infra/all-in-one-gateway/docker-compose.yml</code> (порт 8080, dev)</li>
+<li>скрипти <code>scripts/start-all.sh</code>, <code>scripts/stop-all.sh</code></li>
+<li>Є <strong>PostgreSQL</strong> та <strong>Redis</strong> (або будуть розгорнуті в цьому таску).</li>
+<li>Є <strong>VPS / dedicated server</strong> з Linux (Ubuntu 22.04 LTS або подібне).</li>
+<li>Домен <strong>daarion.space</strong> керується тобою (DNS-записи можна змінювати).</li>
+</ol>
+<hr />
+<h2 id="1-">1. Цільова архітектура прод-деплою<a class="headerlink" href="#1-" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1. Сервер<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>1× VPS:</li>
+<li>CPU: 4+ cores</li>
+<li>RAM: 16+ GB</li>
+<li>Disk: NVMe 256+ GB</li>
+<li>OS: Ubuntu 22.04 LTS</li>
+<li>Docker + Docker Compose встановлені.</li>
+</ul>
+<h3 id="12">1.2. Сервіси<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>Запускаються через <strong><code>docker-compose.all.yml</code></strong>:</p>
+<ul>
+<li>gateway / nginx (порт 80 всередині)</li>
+<li>frontend (Next.js build + nginx/static)</li>
+<li>microdao-api</li>
+<li>agents-service</li>
+<li>city-service</li>
+<li>secondme-service</li>
+<li>Postgres</li>
+<li>Redis</li>
+<li>NATS</li>
+<li>Prometheus + Grafana</li>
+<li>інші core-сервіси, вже визначені в цьому compose</li>
+</ul>
+<p><strong>Важливо:</strong> prod-деплой бере за основу саме <strong>docker-compose.all.yml</strong>, а не dev-варіанти.</p>
+<hr />
+<h2 id="2-dns-">2. DNS-конфігурація<a class="headerlink" href="#2-dns-" title="Permanent link">&para;</a></h2>
+<p>Налаштувати наступні DNS-записи:</p>
+<ol>
+<li><code>daarion.space</code> → A-запис на IP сервера.</li>
+<li><code>app.daarion.space</code> → A-запис на той самий IP сервера.</li>
+</ol>
+<p>Опційно:</p>
+<ul>
+<li><code>grafana.daarion.space</code> → для прямого доступу до Grafana (якщо потрібно).</li>
+<li><code>api.daarion.space</code> → якщо хочеш окремий субдомен під API (на майбутнє).</li>
+</ul>
+<hr />
+<h2 id="3-ssl-https">3. SSL / HTTPS<a class="headerlink" href="#3-ssl-https" title="Permanent link">&para;</a></h2>
+<p>Рекомендовано три варіанти (вибери один, реалізуй у таску):</p>
+<h3 id="a-caddy">ВАРІАНТ A — Caddy (найпростіший)<a class="headerlink" href="#a-caddy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Запустити Caddy як окремий контейнер / сервіс:</li>
+<li>слухає 80/443</li>
+<li>робить HTTPS-термінацію</li>
+<li>проксить на внутрішній gateway (порт 80 контейнерів Docker)</li>
+</ul>
+<p>Приклад <code>Caddyfile</code>:</p>
+<div class="codehilite"><pre><span></span><code>app.daarion.space {
+    reverse_proxy gateway-nginx:80
+}
+
+daarion.space {
+    redir https://app.daarion.space{uri}
+}
+</code></pre></div>
+
+<h3 id="b-nginx-certbot">ВАРІАНТ B — Nginx + Certbot (класика)<a class="headerlink" href="#b-nginx-certbot" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Зовнішній nginx на хості:</p>
+</li>
+<li>
+<p><code>server_name app.daarion.space</code></p>
+</li>
+<li>reverse_proxy → <code>127.0.0.1:8080</code> (або 80, залежно від композу)</li>
+<li>SSL-сертифікати через certbot.</li>
+</ul>
+<h3 id="c-traefik">ВАРІАНТ C — Traefik (якщо вже є в інфрі)<a class="headerlink" href="#c-traefik" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Traefik як edge router, видає HTTPS, роутить по labels.</li>
+</ul>
+<hr />
+<h2 id="4-env">4. ENV та секрети<a class="headerlink" href="#4-env" title="Permanent link">&para;</a></h2>
+<p>Створити <strong><code>env/</code> директорію</strong> у репозиторії або на сервері (не в git):</p>
+<div class="codehilite"><pre><span></span><code>env/
+  app.env
+  db.env
+  redis.env
+  nats.env
+  agents.env
+  city.env
+  secondme.env
+</code></pre></div>
+
+<h3 id="41-appenv">4.1. <code>app.env</code> (основні змінні)<a class="headerlink" href="#41-appenv" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">APP_ENV</span><span class="o">=</span><span class="n">production</span>
+<span class="n">APP_BASE_URL</span><span class="o">=</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">app</span><span class="p">.</span><span class="n">daarion</span><span class="p">.</span><span class="nf">space</span>
+
+<span class="n">DATABASE_URL</span><span class="o">=</span><span class="nl">postgres</span><span class="p">:</span><span class="o">//</span><span class="nl">daarion</span><span class="p">:</span><span class="o">********</span><span class="nv">@db</span><span class="err">:</span><span class="mi">5432</span><span class="o">/</span><span class="n">daarion</span>
+<span class="n">REDIS_URL</span><span class="o">=</span><span class="nl">redis</span><span class="p">:</span><span class="o">//</span><span class="nl">redis</span><span class="p">:</span><span class="mi">6379</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">NATS_URL</span><span class="o">=</span><span class="nl">nats</span><span class="p">:</span><span class="o">//</span><span class="nl">nats</span><span class="p">:</span><span class="mi">4222</span>
+
+<span class="n">JWT_SECRET</span><span class="o">=***************</span>
+<span class="n">ENCRYPTION_KEY</span><span class="o">=***********</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="n">якщо</span><span class="w"> </span><span class="n">використовується</span>
+</code></pre></div>
+
+<h3 id="42">4.2. Специфічні<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>SECONDME_AGENT_ID=ag_secondme_global</code></li>
+<li><code>CITY_DEFAULT_ROOMS=general,welcome,builders</code></li>
+<li><code>TELEMETRY_ENDPOINT</code> (якщо є)</li>
+<li><code>GF_SERVER_ROOT_URL</code> для Grafana (якщо публікуємо через <code>/grafana/</code>)</li>
+</ul>
+<p>У <code>docker-compose.all.yml</code>:</p>
+<ul>
+<li>підключити <code>.env</code> файли як <code>env_file:</code> до відповідних сервісів.</li>
+</ul>
+<hr />
+<h2 id="5">5. Міграції бази даних<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>На сервері:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/daarion<span class="w">   </span><span class="c1"># приклад шляху деплою</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>migrations-service
+<span class="c1"># або, якщо в тебе чистий psql:</span>
+psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-f<span class="w"> </span>migrations/010_create_city_backend.sql
+<span class="c1"># + попередні міграції 001..009</span>
+</code></pre></div>
+
+<p><strong>Вимога в таску:</strong>
+Описати в README:</p>
+<ul>
+<li>порядок запуску <strong>всіх</strong> міграцій (001–010)</li>
+<li>команду для re-run (idempotent)</li>
+</ul>
+<hr />
+<h2 id="6-docker-composeallyml">6. Старт сервісів (docker-compose.all.yml)<a class="headerlink" href="#6-docker-composeallyml" title="Permanent link">&para;</a></h2>
+<p>На сервері:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/opt/daarion
+cp<span class="w"> </span>env/app.env<span class="w"> </span>.env<span class="w">   </span><span class="c1"># якщо Docker Compose очікує .env</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>pull<span class="w">   </span><span class="c1"># якщо є образи в registry</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+
+<p>або, якщо образи збираються локально:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>build
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+
+<p><strong>Завдання в таску:</strong>
+Оновити <code>scripts/start-all.sh</code> і <code>scripts/stop-all.sh</code>, щоб вони:</p>
+<ul>
+<li>працювали в prod (з використанням правильного compose-файлу)</li>
+<li>логували в <code>/var/log/daarion/</code> (при потребі)</li>
+</ul>
+<hr />
+<h2 id="7-healthchecks-smoke-">7. Healthchecks та smoke-тести<a class="headerlink" href="#7-healthchecks-smoke-" title="Permanent link">&para;</a></h2>
+<p>Створити документ:</p>
+<p><code>docs/DEPLOY_SMOKETEST_CHECKLIST.md</code> з такими перевірками:</p>
+<ol>
+<li>
+<p><strong>API</strong></p>
+</li>
+<li>
+<p><code>GET https://app.daarion.space/api/health</code> → 200</p>
+</li>
+<li><code>GET https://app.daarion.space/api/city/rooms</code> → список дефолтних кімнат</li>
+<li>
+<p><code>GET https://app.daarion.space/api/secondme/profile</code> (якщо user авторизований)</p>
+</li>
+<li>
+<p><strong>Frontend</strong></p>
+</li>
+<li>
+<p>Відкрити <code>https://app.daarion.space</code> у браузері:</p>
+<ul>
+<li>сторінка логіну</li>
+<li>dashboard після входу</li>
+<li>Projects, Follow-ups, Settings</li>
+<li>City → Rooms, Presence, Second Me</li>
+</ul>
+</li>
+<li>
+<p><strong>WS</strong></p>
+</li>
+<li>
+<p>WebSocket підключення:</p>
+<ul>
+<li><code>/ws/channels/...</code></li>
+<li><code>/ws/city/rooms/{room_id}</code></li>
+<li><code>/ws/city/presence</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Second Me</strong></p>
+</li>
+<li>
+<p>У UI написати prompt → отримати відповідь.</p>
+</li>
+<li>
+<p><strong>Monitoring</strong></p>
+</li>
+<li>
+<p>Якщо Grafana/promo публікуються:</p>
+<ul>
+<li><code>https://app.daarion.space/grafana/</code></li>
+<li><code>https://app.daarion.space/prometheus/</code> (optional)</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="8">8. Логи та моніторинг<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>Оновити <code>docs/DEPLOYMENT_OVERVIEW.md</code>:</p>
+<ul>
+<li>
+<p>показати, де зберігаються логи:</p>
+</li>
+<li>
+<p><code>docker logs</code> (для кожного сервісу)</p>
+</li>
+<li>
+<p>опційно — volume з <code>/var/log/...</code></p>
+</li>
+<li>
+<p>описати:</p>
+</li>
+<li>
+<p>як дивитися Grafana dashboard</p>
+</li>
+<li>як перевіряти NATS (jetstream, lag)</li>
+<li>як перевіряти Redis (presence keys)</li>
+</ul>
+<hr />
+<h2 id="9-mvp">9. Безпека (мінімум для MVP)<a class="headerlink" href="#9-mvp" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Вимкнути:</p>
+</li>
+<li>
+<p>прямий доступ до Postgres ззовні</p>
+</li>
+<li>
+<p>прямий доступ до Redis/NATS ззовні</p>
+</li>
+<li>
+<p>Обмежити доступ до:</p>
+</li>
+<li>
+<p>Prometheus</p>
+</li>
+<li>
+<p>Grafana
+     (або за Basic Auth, або через окремий VPN)</p>
+</li>
+<li>
+<p>У <code>.env</code> не зберігати секрети в git.</p>
+</li>
+<li>
+<p>Оновити <code>PHASE_INFRA_READY.md</code> з прод-статусом.</p>
+</li>
+</ol>
+<hr />
+<h2 id="10-acceptance-criteria">10. Acceptance Criteria<a class="headerlink" href="#10-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Сервер</strong>: daarion.space резолвиться на IP VPS.</li>
+<li><strong>HTTPS</strong>: <code>https://app.daarion.space</code> відкривається без помилок сертифіката.</li>
+<li>
+<p><strong>MVP UX</strong>:</p>
+</li>
+<li>
+<p>користувач може зареєструватися / залогінитись</p>
+</li>
+<li>створити Team / Channel / Project / Follow-up</li>
+<li>зайти в City → Rooms, чат, presence</li>
+<li>
+<p>викликати Second Me</p>
+</li>
+<li>
+<p><strong>Сервіси живі</strong>: усі контейнері в <code>docker ps</code> — в статусі <code>healthy</code> / <code>up</code>.</p>
+</li>
+<li>
+<p><strong>Документація</strong>:</p>
+</li>
+<li>
+<p><code>DEPLOY_ON_SERVER.md</code> оновлено з урахуванням daarion.space</p>
+</li>
+<li><code>DEPLOY_SMOKETEST_CHECKLIST.md</code> існує і відповідає фактичному деплою.</li>
+</ol>
+<hr />
+<h2 id="11-cursor">11. Команда для Cursor<a class="headerlink" href="#11-cursor" title="Permanent link">&para;</a></h2>
+<p><strong>"Підготувати повний production deploy для DAARION MVP згідно TASK_PHASE_MVP_DEPLOY.md.
+Використовувати docker-compose.all.yml, домен daarion.space, субдомен app.daarion.space, HTTPS, міграції, Redis, NATS, City та Second Me."</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

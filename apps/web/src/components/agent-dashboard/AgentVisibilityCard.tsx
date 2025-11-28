@@ -2,13 +2,15 @@
 
 import { useState } from 'react';
 import { Eye, EyeOff, Users, Lock, Globe, Loader2 } from 'lucide-react';
-import { VisibilityScope, AgentVisibilityPayload } from '@/lib/types/agents';
+import { VisibilityScope } from '@/lib/types/agents';
+import { AgentVisibilityUpdate } from '@/lib/api/agents';
 
 interface AgentVisibilityCardProps {
   agentId: string;
+  isPublic: boolean;
   visibilityScope: VisibilityScope;
   isListedInDirectory: boolean;
-  onUpdate?: (payload: AgentVisibilityPayload) => Promise<void>;
+  onUpdate?: (payload: AgentVisibilityUpdate) => Promise<void>;
   readOnly?: boolean;
 }
 
@@ -35,15 +37,44 @@ const VISIBILITY_OPTIONS: { value: VisibilityScope; label: string; description: 
 
 export function AgentVisibilityCard({
   agentId,
+  isPublic,
   visibilityScope,
   isListedInDirectory,
   onUpdate,
   readOnly = false,
 }: AgentVisibilityCardProps) {
+  const [publicState, setPublicState] = useState(isPublic);
   const [scope, setScope] = useState<VisibilityScope>(visibilityScope);
   const [listed, setListed] = useState(isListedInDirectory);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const handlePublicToggle = async (checked: boolean) => {
+    if (readOnly || saving) return;
+    
+    setPublicState(checked);
+    setError(null);
+    
+    // If making private, also update scope
+    const newScope = checked ? scope : 'private';
+    if (!checked) {
+      setScope('private');
+      setListed(false);
+    }
+    
+    if (onUpdate) {
+      setSaving(true);
+      try {
+        await onUpdate({ is_public: checked, visibility_scope: newScope });
+      } catch (e) {
+        setError('Не вдалося зберегти');
+        setPublicState(isPublic);
+        setScope(visibilityScope);
+      } finally {
+        setSaving(false);
+      }
+    }
+  };
 
   const handleScopeChange = async (newScope: VisibilityScope) => {
     if (readOnly || saving) return;
@@ -51,20 +82,23 @@ export function AgentVisibilityCard({
     setScope(newScope);
     setError(null);
     
-    // If changing to non-global, auto-unlist from directory
-    const newListed = newScope === 'global' ? listed : false;
-    if (newScope !== 'global') {
+    // If changing to global, make public
+    const newPublic = newScope === 'global' ? true : publicState;
+    if (newScope === 'global') {
+      setPublicState(true);
+    } else if (newScope === 'private') {
+      setPublicState(false);
       setListed(false);
     }
     
     if (onUpdate) {
       setSaving(true);
       try {
-        await onUpdate({ visibility_scope: newScope, is_listed_in_directory: newListed });
+        await onUpdate({ is_public: newPublic, visibility_scope: newScope });
       } catch (e) {
         setError('Не вдалося зберегти');
         setScope(visibilityScope);
-        setListed(isListedInDirectory);
+        setPublicState(isPublic);
       } finally {
         setSaving(false);
       }
@@ -77,10 +111,11 @@ export function AgentVisibilityCard({
     setListed(checked);
     setError(null);
     
+    // is_listed_in_directory is tied to is_public in the backend
     if (onUpdate) {
       setSaving(true);
       try {
-        await onUpdate({ visibility_scope: scope, is_listed_in_directory: checked });
+        await onUpdate({ is_public: checked, visibility_scope: scope });
       } catch (e) {
         setError('Не вдалося зберегти');
         setListed(isListedInDirectory);
@@ -106,6 +141,40 @@ export function AgentVisibilityCard({
         </div>
       )}
 
+      {/* Public Citizen Toggle */}
+      <div className="mb-4 p-4 bg-white/5 border border-white/10 rounded-lg">
+        <label className="flex items-center justify-between cursor-pointer">
+          <div>
+            <div className="text-white font-medium flex items-center gap-2">
+              <Globe className="w-4 h-4 text-cyan-400" />
+              Публічний громадянин міста
+            </div>
+            <div className="text-xs text-white/50 mt-1">
+              {publicState
+                ? 'Агент видимий у /citizens та публічних сервісах'
+                : 'Агент прихований від публічного доступу'}
+            </div>
+          </div>
+          <div className="relative">
+            <input
+              type="checkbox"
+              checked={publicState}
+              onChange={(e) => handlePublicToggle(e.target.checked)}
+              disabled={readOnly || saving}
+              className="sr-only peer"
+            />
+            <div className={`w-11 h-6 rounded-full transition-colors ${
+              publicState ? 'bg-cyan-500' : 'bg-white/20'
+            } peer-focus:ring-2 peer-focus:ring-cyan-500/50`}>
+              <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+                publicState ? 'translate-x-5' : 'translate-x-0'
+              }`} />
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div className="text-sm text-white/50 mb-3">Режим видимості:</div>
       <div className="space-y-3">
         {VISIBILITY_OPTIONS.map((option) => (
           <button

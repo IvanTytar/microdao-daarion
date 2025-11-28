@@ -1,0 +1,1264 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_PHASE7_BACKEND_COMPLETION/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK_PHASE7_BACKEND_COMPLETION.md - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task_phase7_backend_completionmd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK_PHASE7_BACKEND_COMPLETION.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#phase-7-microdao-console-backend-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHASE 7 — microDAO Console Backend Completion
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PHASE 7 — microDAO Console Backend Completion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Вихідні умови (вважати, що вже є)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Database: верифікація та дрібний тюнінг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-repository-layer-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Repository layer для microDAO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Repository layer для microDAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Вважати, що вже є спільний модуль для БД
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Оголосити інтерфейс
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Members
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-treasury" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Treasury
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pydantic-models-modelspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Pydantic models — models.py
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-routes-rest-api-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Routes: REST API для microDAO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Routes: REST API для microDAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-auth-pdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Auth + PDP клієнти
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /microdao
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /microdao
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-microdaoslug" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /microdao/{slug}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-microdaoslug" class="md-nav__link">
+    <span class="md-ellipsis">
+      PUT /microdao/{slug}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-microdaoslug" class="md-nav__link">
+    <span class="md-ellipsis">
+      DELETE /microdao/{slug}
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-routes-members-treasury-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Routes: Members / Treasury / Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Routes: Members / Treasury / Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Members
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-treasury" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Treasury
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-nats-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. NATS Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Інтеграція в main.py
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Frontend: використати реальний бекенд
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-docker-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Docker / Scripts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task_phase7_backend_completionmd">TASK_PHASE7_BACKEND_COMPLETION.md<a class="headerlink" href="#task_phase7_backend_completionmd" title="Permanent link">&para;</a></h1>
+<h2 id="phase-7-microdao-console-backend-completion">PHASE 7 — microDAO Console Backend Completion<a class="headerlink" href="#phase-7-microdao-console-backend-completion" title="Permanent link">&para;</a></h2>
+<h3 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h3>
+<p>Доробити бекенд для <strong>microdao-service</strong> до production-ready стану:</p>
+<ul>
+<li>повний CRUD для microDAO;</li>
+<li>учасники (members) з ролями;</li>
+<li>проста казна (treasury) з балансами;</li>
+<li>налаштування (settings);</li>
+<li>PDP + Auth перевірки;</li>
+<li>базові NATS-події;</li>
+<li>інтеграція з існуючим фронтендом microDAO Console (MVP вже є).</li>
+</ul>
+<hr />
+<h2 id="0">0. Вихідні умови (вважати, що вже є)<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<p>З попереднього Phase 7 (MVP) вже створено:</p>
+<ul>
+<li><code>migrations/008_create_microdao_core.sql</code> (схема БД);</li>
+<li><code>services/microdao-service/main.py</code> (FastAPI-скелет, health endpoint);</li>
+<li><code>services/microdao-service/models.py</code> (базові Pydantic-схеми);</li>
+<li><code>services/microdao-service/requirements.txt</code>, <code>Dockerfile</code>;</li>
+<li>фронтенд:</li>
+<li><code>src/api/microdao.ts</code> (чернетка);</li>
+<li><code>src/features/microdao/MicrodaoListPage.tsx</code>;</li>
+<li><code>src/features/microdao/MicrodaoConsolePage.tsx</code> (MVP з tabs);</li>
+<li>інфраструктура:</li>
+<li><code>docker-compose.phase7.yml</code>;</li>
+<li><code>scripts/start-phase7.sh</code>, <code>scripts/stop-phase7.sh</code>.</li>
+</ul>
+<p>Цей таск ДОПОВНЮЄ вже створене, НЕ переписує з нуля.</p>
+<hr />
+<h2 id="1-database">1. Database: верифікація та дрібний тюнінг<a class="headerlink" href="#1-database" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Відкрити <code>migrations/008_create_microdao_core.sql</code> і переконатися, що там є таблиці:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="n">microdaos</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">external_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">slug</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">owner_user_id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">is_active</span><span class="w"> </span><span class="nb">boolean</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="n">microdao_members</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">microdao_id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">microdaos</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">role</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">        </span><span class="c1">-- &#39;owner&#39; | &#39;admin&#39; | &#39;member&#39; | &#39;guest&#39;</span>
+<span class="w">  </span><span class="n">joined_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="n">microdao_treasury</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">microdao_id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">microdaos</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">token_symbol</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">balance</span><span class="w"> </span><span class="nb">numeric</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="n">microdao_settings</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">microdao_id</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">microdaos</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">key</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">value</span><span class="w"> </span><span class="n">jsonb</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<ol>
+<li>Додати індекси, якщо їх ще немає:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">idx_microdao_members_user_id</span>
+<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">microdao_members</span><span class="p">(</span><span class="n">user_id</span><span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">idx_microdao_members_microdao_id_role</span>
+<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">microdao_members</span><span class="p">(</span><span class="n">microdao_id</span><span class="p">,</span><span class="w"> </span><span class="k">role</span><span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">idx_microdao_treasury_microdao_id</span>
+<span class="w">  </span><span class="k">on</span><span class="w"> </span><span class="n">microdao_treasury</span><span class="p">(</span><span class="n">microdao_id</span><span class="p">);</span>
+</code></pre></div>
+
+<ol>
+<li>Переконатися, що міграція <strong>застосована</strong> до dev-БД.</li>
+</ol>
+<hr />
+<h2 id="2-repository-layer-microdao">2. Repository layer для microDAO<a class="headerlink" href="#2-repository-layer-microdao" title="Permanent link">&para;</a></h2>
+<p>Створити/оновити <code>services/microdao-service/repository_microdao.py</code>:</p>
+<h3 id="21">2.1. Вважати, що вже є спільний модуль для БД<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>Подивитися, як це зроблено в <code>agents-service</code> / <code>messaging-service</code> (наприклад, <code>database.py</code> або <code>db.py</code> з <code>async_session</code> або <code>Pool</code>):</p>
+<ul>
+<li>використовувати <strong>той самий підхід</strong> (SQLAlchemy / asyncpg), НЕ вводити новий.</li>
+</ul>
+<h3 id="22">2.2. Оголосити інтерфейс<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>У <code>repository_microdao.py</code> реалізувати функції (асинхронні, якщо так прийнято):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Псевдо-інтерфейс, реалізувати згідно з існуючим стилем проєкту</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_microdao</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="n">slug</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MicrodaoRead</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">update_microdao</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MicrodaoUpdate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MicrodaoRead</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete_microdao</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_microdao_by_slug</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">slug</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MicrodaoRead</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_microdao_by_id</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MicrodaoRead</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_microdaos_for_user</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MicrodaoRead</span><span class="p">]:</span> <span class="o">...</span>
+</code></pre></div>
+
+<h3 id="23-members">2.3. Members<a class="headerlink" href="#23-members" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_members</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MicrodaoMember</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_member</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MicrodaoMember</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">remove_member</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">member_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+
+<p>Правила:</p>
+<ul>
+<li>при створенні microDAO — власник автоматично додається в <code>microdao_members</code> з <code>role='owner'</code>;</li>
+<li>при видаленні microDAO (<code>delete_microdao</code>) — або <code>is_active=false</code>, або м'яке видалення (краще <code>is_active=false</code>).</li>
+</ul>
+<h3 id="24-treasury">2.4. Treasury<a class="headerlink" href="#24-treasury" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_treasury_items</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">TreasuryItem</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">apply_treasury_delta</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="n">token_symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="n">Decimal</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreasuryItem</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+
+<ul>
+<li><code>delta</code> може бути додатним/від'ємним;</li>
+<li>гарантувати, що <code>balance</code> не йде в мінус без крайньої потреби (можна кидати помилку при <code>balance+delta &lt; 0</code>).</li>
+</ul>
+<h3 id="25-settings">2.5. Settings<a class="headerlink" href="#25-settings" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_settings</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">upsert_setting</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="n">uuid</span><span class="o">.</span><span class="n">UUID</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+
+<ul>
+<li>повернути <code>dict[key] = value</code> для фронтенду.</li>
+</ul>
+<hr />
+<h2 id="3-pydantic-models-modelspy">3. Pydantic models — models.py<a class="headerlink" href="#3-pydantic-models-modelspy" title="Permanent link">&para;</a></h2>
+<p>Оновити <code>services/microdao-service/models.py</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MicrodaoBase</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">slug</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MicrodaoCreate</span><span class="p">(</span><span class="n">MicrodaoBase</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MicrodaoUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MicrodaoRead</span><span class="p">(</span><span class="n">MicrodaoBase</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">external_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">owner_user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">is_active</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">updated_at</span><span class="p">:</span> <span class="n">datetime</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MicrodaoMember</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">role</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">joined_at</span><span class="p">:</span> <span class="n">datetime</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TreasuryItem</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">token_symbol</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">balance</span><span class="p">:</span> <span class="n">Decimal</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MicrodaoSettings</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span>
+</code></pre></div>
+
+<p>За потреби вирівняти з уже існуючими типами в проєкті.</p>
+<hr />
+<h2 id="4-routes-rest-api-microdao">4. Routes: REST API для microDAO<a class="headerlink" href="#4-routes-rest-api-microdao" title="Permanent link">&para;</a></h2>
+<p>Створити/оновити <code>services/microdao-service/routes_microdao.py</code>:</p>
+<h3 id="41-auth-pdp">4.1. Auth + PDP клієнти<a class="headerlink" href="#41-auth-pdp" title="Permanent link">&para;</a></h3>
+<p>Створити <code>auth_client.py</code>, <code>pdp_client.py</code> (або використати спільні з інших сервісів, якщо вони вже є).</p>
+<p>Мінімум:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_actor_identity</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActorIdentity</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_permission</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">resource</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># кинути HTTPException(403) якщо deny</span>
+</code></pre></div>
+
+<h3 id="42-endpoints">4.2. Endpoints<a class="headerlink" href="#42-endpoints" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MicrodaoCreate</span><span class="p">,</span> <span class="n">MicrodaoUpdate</span><span class="p">,</span> <span class="n">MicrodaoRead</span><span class="p">,</span> <span class="n">MicrodaoMember</span><span class="p">,</span> <span class="n">TreasuryItem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">repository_microdao</span> <span class="k">as</span> <span class="n">repo</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/microdao&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;microdao&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<h4 id="get-microdao">GET <code>/microdao</code><a class="headerlink" href="#get-microdao" title="Permanent link">&para;</a></h4>
+<p>Повертає всі microDAO, де actor є member:</p>
+<ul>
+<li><code>actor = get_actor_identity()</code></li>
+<li><code>repo.list_microdaos_for_user(db, actor.user_id)</code></li>
+</ul>
+<h4 id="post-microdao">POST <code>/microdao</code><a class="headerlink" href="#post-microdao" title="Permanent link">&para;</a></h4>
+<p>Створює новий microDAO:</p>
+<ul>
+<li>PDP: <code>action="MICRODAO_CREATE"</code></li>
+<li><code>owner_user_id = actor.user_id</code></li>
+<li>виклик <code>repo.create_microdao(...)</code></li>
+<li>автоматично створити запис в <code>microdao_members</code> з <code>role='owner'</code>.</li>
+</ul>
+<h4 id="get-microdaoslug">GET <code>/microdao/{slug}</code><a class="headerlink" href="#get-microdaoslug" title="Permanent link">&para;</a></h4>
+<ul>
+<li>знайти microDAO по <code>slug</code>;</li>
+<li>PDP: <code>action="MICRODAO_READ"</code>, <code>resource={"microdao_id": id}</code>;</li>
+<li>повернути <code>MicrodaoRead</code>.</li>
+</ul>
+<h4 id="put-microdaoslug">PUT <code>/microdao/{slug}</code><a class="headerlink" href="#put-microdaoslug" title="Permanent link">&para;</a></h4>
+<ul>
+<li>PDP: <code>action="MICRODAO_MANAGE"</code>;</li>
+<li>дозволити тільки owner/admin;</li>
+<li>оновити <code>name/description/is_active</code>.</li>
+</ul>
+<h4 id="delete-microdaoslug">DELETE <code>/microdao/{slug}</code><a class="headerlink" href="#delete-microdaoslug" title="Permanent link">&para;</a></h4>
+<ul>
+<li>PDP: <code>action="MICRODAO_MANAGE"</code>;</li>
+<li><code>is_active=false</code> (soft delete).</li>
+</ul>
+<hr />
+<h2 id="5-routes-members-treasury-settings">5. Routes: Members / Treasury / Settings<a class="headerlink" href="#5-routes-members-treasury-settings" title="Permanent link">&para;</a></h2>
+<h3 id="51-members">5.1. Members<a class="headerlink" href="#51-members" title="Permanent link">&para;</a></h3>
+<p>У <code>routes_members.py</code> (або в тому ж <code>routes_microdao.py</code>, якщо ти тримаєш все разом):</p>
+<div class="codehilite"><pre><span></span><code><span class="n">GET</span>    <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">members</span>
+<span class="n">POST</span>   <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">members</span>
+<span class="n">DELETE</span> <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">members</span><span class="o">/</span><span class="p">{</span><span class="n">member_id</span><span class="p">}</span>
+</code></pre></div>
+
+<p>Правила:</p>
+<ul>
+<li>тільки owner/admin можуть:</li>
+<li>додавати членів;</li>
+<li>видаляти членів;</li>
+<li>змінювати роль (якщо імплементуєш PATCH).</li>
+<li>простий body для POST:</li>
+<li><code>user_id: str</code></li>
+<li><code>role: str</code></li>
+</ul>
+<h3 id="52-treasury">5.2. Treasury<a class="headerlink" href="#52-treasury" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">GET</span>  <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">treasury</span>
+<span class="n">POST</span> <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">treasury</span>   <span class="c1"># delta operation</span>
+</code></pre></div>
+
+<ul>
+<li>PDP: <code>READ_TREASURY</code> для GET, <code>MANAGE_TREASURY</code> для POST.</li>
+</ul>
+<h3 id="53-settings">5.3. Settings<a class="headerlink" href="#53-settings" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">GET</span>  <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">settings</span>
+<span class="n">POST</span> <span class="o">/</span><span class="n">microdao</span><span class="o">/</span><span class="p">{</span><span class="n">slug</span><span class="p">}</span><span class="o">/</span><span class="n">settings</span>   <span class="c1"># { key, value }</span>
+</code></pre></div>
+
+<hr />
+<h2 id="6-nats-events">6. NATS Events<a class="headerlink" href="#6-nats-events" title="Permanent link">&para;</a></h2>
+<p>У <code>main.py</code> microdao-service або в окремому модулі:</p>
+<ul>
+<li>Підключитися до NATS (використати той самий клієнт, що в інших сервісах).</li>
+<li>Функція helper:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">publish_event</span><span class="p">(</span><span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+
+<p>Викликати:</p>
+<ul>
+<li>при <code>create_microdao</code>:</li>
+<li>subject: <code>microdao.event.created</code></li>
+<li>при <code>update_microdao</code>:</li>
+<li><code>microdao.event.updated</code></li>
+<li>при додаванні/видаленні члена:</li>
+<li><code>microdao.event.member_added</code></li>
+<li><code>microdao.event.member_removed</code></li>
+<li>при оновленні treasury:</li>
+<li><code>microdao.event.treasury_updated</code></li>
+</ul>
+<p>Payload мінімальний:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-mainpy">7. Інтеграція в main.py<a class="headerlink" href="#7-mainpy" title="Permanent link">&para;</a></h2>
+<p>Оновити <code>services/microdao-service/main.py</code>:</p>
+<ul>
+<li>створити <code>app = FastAPI(...)</code></li>
+<li>підключити <code>router</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">.routes_microdao</span><span class="w"> </span><span class="kn">import</span> <span class="n">router</span> <span class="k">as</span> <span class="n">microdao_router</span>
+<span class="n">app</span><span class="o">.</span><span class="n">include_router</span><span class="p">(</span><span class="n">microdao_router</span><span class="p">)</span>
+<span class="c1"># за потреби: members_router, treasury_router</span>
+</code></pre></div>
+
+<ul>
+<li>додати <code>/health</code> endpoint (якщо ще не зроблено).</li>
+</ul>
+<hr />
+<h2 id="8-frontend">8. Frontend: використати реальний бекенд<a class="headerlink" href="#8-frontend" title="Permanent link">&para;</a></h2>
+<p>Оновити <code>src/api/microdao.ts</code>:</p>
+<ul>
+<li><code>getMyMicrodaos() → GET /microdao</code></li>
+<li><code>getMicrodao(slug) → GET /microdao/{slug}</code></li>
+<li><code>createMicrodao(payload) → POST /microdao</code></li>
+<li><code>getMicrodaoMembers(slug) → GET /microdao/{slug}/members</code></li>
+<li><code>getMicrodaoTreasury(slug) → GET /microdao/{slug}/treasury</code></li>
+<li><code>getMicrodaoSettings(slug) → GET /microdao/{slug}/settings</code></li>
+</ul>
+<p>Потім оновити:</p>
+<ul>
+<li><code>MicrodaoListPage.tsx</code>:</li>
+<li>щоб брав дані з <code>getMyMicrodaos()</code>;</li>
+<li><code>MicrodaoConsolePage.tsx</code>:</li>
+<li>Overview → <code>getMicrodao(slug)</code>;</li>
+<li>Members tab → <code>getMicrodaoMembers(slug)</code>;</li>
+<li>Treasury tab → <code>getMicrodaoTreasury(slug)</code>.</li>
+</ul>
+<hr />
+<h2 id="9-docker-scripts">9. Docker / Scripts<a class="headerlink" href="#9-docker-scripts" title="Permanent link">&para;</a></h2>
+<p>Оновити (якщо потрібно):</p>
+<ul>
+<li><code>docker-compose.phase7.yml</code>:</li>
+<li>переконатися, що <code>microdao-service</code> піднятий і залежить від Postgres та auth/pdp;</li>
+<li><code>scripts/start-phase7.sh</code>:</li>
+<li>додати команду застосування міграції <code>008</code> (як це робиться для інших);</li>
+<li><code>scripts/stop-phase7.sh</code>:</li>
+<li>зупинити microdao-service і пов'язані сервіси.</li>
+</ul>
+<hr />
+<h2 id="10-acceptance-criteria">10. Acceptance Criteria<a class="headerlink" href="#10-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<p>Вважати завдання виконаним, якщо:</p>
+<ul>
+<li>[ ] <code>/microdao</code> повертає список microDAO, де actor є member;</li>
+<li>[ ] <code>/microdao</code> (POST) створює новий microDAO і додає owner в members;</li>
+<li>[ ] <code>/microdao/{slug}</code> повертає деталі microDAO;</li>
+<li>[ ] <code>/microdao/{slug}/members</code> повертає список учасників;</li>
+<li>[ ] <code>/microdao/{slug}/treasury</code> повертає список токенів;</li>
+<li>[ ] PDP блокує доступ до чужих microDAO (403);</li>
+<li>[ ] MicrodaoListPage показує <strong>реальні</strong> microDAO із БД;</li>
+<li>[ ] MicrodaoConsolePage показує <strong>реальні</strong> Overview/Members/Treasury без mock-даних;</li>
+<li>[ ] всі тести/линт проходять успішно.</li>
+</ul>
+<p>END OF TASK</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

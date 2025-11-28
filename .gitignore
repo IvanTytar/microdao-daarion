@@ -72,3 +72,20 @@ apps/web/node_modules/
 apps/web/.next/
 venv_models/
 models/
+
+# Large model files - NEVER commit
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.onnx
+*.mlmodel
+*.h5
+*.pkl
+*.pickle
+venv_models/
+models/
+*.model
+*.bundle
+*.dump

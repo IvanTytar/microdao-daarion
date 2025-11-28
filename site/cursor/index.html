@@ -1,0 +1,1839 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>MicroDAO — Документація для Cursor - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#microdao-cursor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MicroDAO — Документація для Cursor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Структура документації
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Структура документації">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#00_overview_microdaomd" class="md-nav__link">
+    <span class="md-ellipsis">
+      00_overview_microdao.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#01_product_brief_mvpmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      01_product_brief_mvp.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02_architecture_basicsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      02_architecture_basics.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03_api_core_snapshotmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      03_api_core_snapshot.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04_ui_ux_onboarding_chatmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      04_ui_ux_onboarding_chat.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05_coding_standardsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      05_coding_standards.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06_tasks_onboarding_mvpmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      06_tasks_onboarding_mvp.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07_testing_checklist_mvpmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      07_testing_checklist_mvp.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08_agent_first_onboardingmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      08_agent_first_onboarding.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09_evolutionary_agentmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      09_evolutionary_agent.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10_agent_ui_systemmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      10_agent_ui_system.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11_llm_integrationmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      11_llm_integration.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12_agent_runtime_coremd" class="md-nav__link">
+    <span class="md-ellipsis">
+      12_agent_runtime_core.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13_agent_memory_systemmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      13_agent_memory_system.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14_messenger_agent_modulemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      14_messenger_agent_module.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15_projects_agent_modulemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      15_projects_agent_module.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16_followups_reminders_agentmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      16_followups_reminders_agent.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17_comemory_knowledge_spacemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      17_comemory_knowledge_space.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18_governance_access_agentmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      18_governance_access_agent.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19_notifications_attention_agentmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      19_notifications_attention_agent.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20_integrations_bridges_agentmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      20_integrations_bridges_agent.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21_agent_only_interfacemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      21_agent_only_interface.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_operator_modes_and_system_agentsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      22_operator_modes_and_system_agents.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_agent_only_interface_tasksmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      22_agent_only_interface_tasks.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_domains_wallet_dao_deepdivemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      23_domains_wallet_dao_deepdive.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_agent_cards_and_consolemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      23_agent_cards_and_console.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24_agent_cards_tasksmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      24_agent_cards_tasks.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mvp-vertical-slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      MVP Vertical Slice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MVP Vertical Slice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp_vertical_slicemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      MVP_VERTICAL_SLICE.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#daarioncity-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAARION.city Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DAARION.city Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#daarion_city_integrationmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAARION_city_integration.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#daarion_city_platforms_catalogmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      DAARION_city_platforms_catalog.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-keys-capabilities-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Keys &amp; Capabilities System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Access Keys & Capabilities System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#24_access_keys_capabilities_systemmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      24_access_keys_capabilities_system.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28_flows_wallet_embassy_energy_unionmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      28_flows_wallet_embassy_energy_union.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-schema-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Schema &amp; Migrations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Schema & Migrations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#27_database_schema_migrationsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      27_database_schema_migrations.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment &amp; Infrastructure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment & Infrastructure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#25_deployment_infrastructuremd" class="md-nav__link">
+    <span class="md-ellipsis">
+      25_deployment_infrastructure.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security &amp; Audit
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security & Audit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#26_security_auditmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      26_security_audit.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-high-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scaling &amp; High Availability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scaling & High Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#29_scaling_and_high_availabilitymd" class="md-nav__link">
+    <span class="md-ellipsis">
+      29_scaling_and_high_availability.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimization-token-economics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization &amp; Token Economics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Optimization & Token Economics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30_cost_optimization_and_token_economics_infrastructuremd" class="md-nav__link">
+    <span class="md-ellipsis">
+      30_cost_optimization_and_token_economics_infrastructure.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#governance-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Governance &amp; Policies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Governance & Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31_governance_policies_for_capabilities_and_quotasmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      31_governance_policies_for_capabilities_and_quotas.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#policy-service-pdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Policy Service &amp; PDP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Policy Service & PDP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32_policy_service_pdp_designmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      32_policy_service_PDP_design.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-gateway-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Gateway &amp; Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Gateway & Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#33_api_gateway_security_and_pepmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      33_api_gateway_security_and_pep.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-services-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Services Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Internal Services Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#34_internal_services_architecturemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      34_internal_services_architecture.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Mesh
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Mesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#35_microdao_service_mesh_designmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      35_microdao_service_mesh_design.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-security-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Security &amp; Isolation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Security & Isolation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#36_agent_runtime_isolation_and_sandboxingmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      36_agent_runtime_isolation_and_sandboxing.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#37_agent_tools_and_plugins_specificationmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      37_agent_tools_and_plugins_specification.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#38_private_agents_lifecycle_and_managementmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      38_private_agents_lifecycle_and_management.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#39_private_agent_templates_and_behavior_profilesmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      39_private_agent_templates_and_behavior_profiles.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rwa-embassy-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      RWA &amp; Embassy Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RWA & Embassy Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#40_rwa_energy_food_water_flow_specsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      40_rwa_energy_food_water_flow_specs.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#governance-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Governance &amp; AI Agent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Governance & AI Agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41_ai_governance_agent_designmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      41_ai_governance_agent_design.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-streams-nats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Streams &amp; NATS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event Streams & NATS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#42_nats_event_streams_and_event_catalogmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      42_nats_event_streams_and_event_catalog.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43_database_events_outbox_designmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      43_database_events_outbox_design.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-quota-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage &amp; Quota Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage & Quota Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#44_usage_accounting_and_quota_enginemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      44_usage_accounting_and_quota_engine.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM &amp; Router
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LLM & Router">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#45_llm_proxy_and_multimodel_routingmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      45_llm_proxy_and_multimodel_routing.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46_router_orchestrator_designmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      46_router_orchestrator_design.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messaging-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messaging &amp; Privacy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messaging & Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#47_messaging_channels_and_privacy_layersmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      47_messaging_channels_and_privacy_layers.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48_teams_access_control_and_confidential_modemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      48_teams_access_control_and_confidential_mode.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wallet-rwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wallet &amp; RWA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wallet & RWA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#49_wallet_rwa_payouts_claimsmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      49_wallet_rwa_payouts_claims.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#website-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Website Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Website Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#50_daarion_city_website_integrationmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      50_daarion_city_website_integration.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenomics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tokenomics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tokenomics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tokenomicscity-tokenomicsmd-canonical" class="md-nav__link">
+    <span class="md-ellipsis">
+      tokenomics/city-tokenomics.md ⭐ CANONICAL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Як використовувати з Cursor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Як використовувати з Cursor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Початкове налаштування
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Початок роботи (MVP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Створення промптів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Перевірка коду
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Швидкий старт
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Важливі примітки
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Посилання на повну документацію
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="microdao-cursor">MicroDAO — Документація для Cursor<a class="headerlink" href="#microdao-cursor" title="Permanent link">&para;</a></h1>
+<p>Ця папка містить структуровану документацію для розробки MVP MicroDAO з використанням Cursor AI.</p>
+<h2 id="_1">Структура документації<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="00_overview_microdaomd">00_overview_microdao.md<a class="headerlink" href="#00_overview_microdaomd" title="Permanent link">&para;</a></h3>
+<p>Загальний огляд системи MicroDAO, ключові модулі та посилання на інші документи.</p>
+<p><strong>Коли використовувати:</strong> Для швидкого ознайомлення з проєктом.</p>
+<h3 id="01_product_brief_mvpmd">01_product_brief_mvp.md<a class="headerlink" href="#01_product_brief_mvpmd" title="Permanent link">&para;</a></h3>
+<p>Product Requirements для MVP: мета, персони, ключові сценарії, обсяг та межі.</p>
+<p><strong>Коли використовувати:</strong> Для розуміння бізнес-логіки та цілей MVP.</p>
+<h3 id="02_architecture_basicsmd">02_architecture_basics.md<a class="headerlink" href="#02_architecture_basicsmd" title="Permanent link">&para;</a></h3>
+<p>Технічна архітектура: стек, основні сервіси, дані та моделі, WebSockets, приватність.</p>
+<p><strong>Коли використовувати:</strong> Для розуміння технічної архітектури та інтеграцій.</p>
+<h3 id="03_api_core_snapshotmd">03_api_core_snapshot.md<a class="headerlink" href="#03_api_core_snapshotmd" title="Permanent link">&para;</a></h3>
+<p>Стисла витяжка з OpenAPI 3.1: всі ендпоїнти, необхідні для MVP, з прикладами запитів та відповідей.</p>
+<p><strong>Коли використовувати:</strong> При створенні API клієнтів та інтеграції з бекендом.</p>
+<h3 id="04_ui_ux_onboarding_chatmd">04_ui_ux_onboarding_chat.md<a class="headerlink" href="#04_ui_ux_onboarding_chatmd" title="Permanent link">&para;</a></h3>
+<p>UI/UX специфікація: онбординг, чат, публічний канал, стандарти дизайну, адаптивність.</p>
+<p><strong>Коли використовувати:</strong> При розробці UI компонентів та сторінок.</p>
+<h3 id="05_coding_standardsmd">05_coding_standards.md<a class="headerlink" href="#05_coding_standardsmd" title="Permanent link">&para;</a></h3>
+<p>Стандарти кодування: TypeScript правила, React патерни, обробка помилок, i18n, UI стандарти.</p>
+<p><strong>Коли використовувати:</strong> При написанні коду для забезпечення якості та узгодженості.</p>
+<h3 id="06_tasks_onboarding_mvpmd">06_tasks_onboarding_mvp.md<a class="headerlink" href="#06_tasks_onboarding_mvpmd" title="Permanent link">&para;</a></h3>
+<p>Технічні задачі для Cursor: детальні специфікації для кожної функції MVP з acceptance criteria.</p>
+<p><strong>Коли використовувати:</strong> Як "панель управління" розробкою — копіювати задачі в Cursor.</p>
+<h3 id="07_testing_checklist_mvpmd">07_testing_checklist_mvp.md<a class="headerlink" href="#07_testing_checklist_mvpmd" title="Permanent link">&para;</a></h3>
+<p>Тестовий чеклист: критичні E2E тести, тести чату, follow-ups, проєктів, агентів, обробка помилок.</p>
+<p><strong>Коли використовувати:</strong> При тестуванні та перевірці готовності MVP.</p>
+<h3 id="08_agent_first_onboardingmd">08_agent_first_onboarding.md<a class="headerlink" href="#08_agent_first_onboardingmd" title="Permanent link">&para;</a></h3>
+<p>Специфікація агентського онбордингу: діалоговий інтерфейс з агентом-провідником, state-machine, intent parser, повний сценарій діалогу.</p>
+<p><strong>Коли використовувати:</strong> При реалізації агентського онбордингу замість класичних форм/кроків.</p>
+<h3 id="09_evolutionary_agentmd">09_evolutionary_agent.md<a class="headerlink" href="#09_evolutionary_agentmd" title="Permanent link">&para;</a></h3>
+<p>Специфікація самонавчального еволюційного агента: 3-рівнева архітектура, Meta-Agent, feedback collector, pattern analyzer, версіонування, Train-to-Earn з DAGI.</p>
+<p><strong>Коли використовувати:</strong> При реалізації функцій самонавчання агента та еволюційного покращення.</p>
+<h3 id="10_agent_ui_systemmd">10_agent_ui_system.md<a class="headerlink" href="#10_agent_ui_systemmd" title="Permanent link">&para;</a></h3>
+<p>Повна специфікація агентського інтерфейсу: типи агентів, компоненти UI (Agent Bubble, Chat Window), інтеграція з каналами, сторінка агента з вкладками, взаємодія з подіями.</p>
+<p><strong>Коли використовувати:</strong> При реалізації агентського UI та інтеграції агента в інтерфейс MicroDAO.</p>
+<h3 id="11_llm_integrationmd">11_llm_integration.md<a class="headerlink" href="#11_llm_integrationmd" title="Permanent link">&para;</a></h3>
+<p>Інтеграція LLM (ChatGPT/OpenAI): архітектура, клієнт OpenAI, model router, інтеграція з Agent Chat, Onboarding, Evolutionary Agent, безпека, кешування, альтернативні провайдери.</p>
+<p><strong>Коли використовувати:</strong> При інтеграції LLM у систему агентів MicroDAO та налаштуванні backend-викликів.</p>
+<h3 id="12_agent_runtime_coremd">12_agent_runtime_core.md<a class="headerlink" href="#12_agent_runtime_coremd" title="Permanent link">&para;</a></h3>
+<p>Agent Runtime Core: інтерфейси агента (AgentConfig, AgentContext), життєвий цикл (runAgentTurn), інтеграція з пам'яттю та LLM, інструменти (Tools), адаптери, структура файлів.</p>
+<p><strong>Коли використовувати:</strong> При реалізації ядра runtime для агентів та створенні єдиної системи виконання для всіх типів агентів.</p>
+<h3 id="13_agent_memory_systemmd">13_agent_memory_system.md<a class="headerlink" href="#13_agent_memory_systemmd" title="Permanent link">&para;</a></h3>
+<p>Система пам'яті агентів: short-term, mid-term, long-term пам'ять, scopes (Personal/Channel/Team/Global), RAG (Retrieval-Augmented Generation), distillation jobs, інтеграція з еволюційним агентом.</p>
+<p><strong>Коли використовувати:</strong> При реалізації системи пам'яті для агентів, RAG, та інтеграції з Agent Runtime Core.</p>
+<h3 id="14_messenger_agent_modulemd">14_messenger_agent_module.md<a class="headerlink" href="#14_messenger_agent_modulemd" title="Permanent link">&para;</a></h3>
+<p>Агент-месенджер MicroDAO: агентське переосмислення месенджера, ролі агентів, функціональні спроможності, інтеграція з Runtime Core та пам'яттю, типові сценарії, реалізація tools.</p>
+<p><strong>Коли використовувати:</strong> При реалізації агентського модуля месенджера та інтеграції класичних функцій чату з агентською системою.</p>
+<h3 id="15_projects_agent_modulemd">15_projects_agent_module.md<a class="headerlink" href="#15_projects_agent_modulemd" title="Permanent link">&para;</a></h3>
+<p>Projects Agent Module: агент-проєктний менеджер, ролі (Projects Agent, Task Agent, Planning Agent), структура проєкту, модель задачі, авто-створення задач з діалогів, інтеграція з Runtime Core, пам'яттю та Messenger Agent, UI інтеграція.</p>
+<p><strong>Коли використовувати:</strong> При реалізації агентського модуля управління проєктами та задачами.</p>
+<h3 id="16_followups_reminders_agentmd">16_followups_reminders_agent.md<a class="headerlink" href="#16_followups_reminders_agentmd" title="Permanent link">&para;</a></h3>
+<p>Follow-ups &amp; Reminders Agent: агент-нагадувань та ритму роботи, ролі (Followup Agent, Personal Reminder Agent), фрази-тригери, інтеграція з Projects Agent, tools (create_followup, create_reminder, daily_digest), UI інтеграція.</p>
+<p><strong>Коли використовувати:</strong> При реалізації агентського модуля нагадувань, фоллоуапів та організації ритму роботи спільноти.</p>
+<h3 id="17_comemory_knowledge_spacemd">17_comemory_knowledge_space.md<a class="headerlink" href="#17_comemory_knowledge_spacemd" title="Permanent link">&para;</a></h3>
+<p>Co-Memory &amp; Knowledge Space: колективна пам'ять спільноти, структура знань (документи, факти, визначення), агенти (Memory Agent, Knowledge Curator, Knowledge Guide), RAG-пошук, життєвий цикл знань, інтеграція з DAGI.</p>
+<p><strong>Коли використовувати:</strong> При реалізації модуля колективної пам'яті, простору знань та RAG-системи для агентів.</p>
+<h3 id="18_governance_access_agentmd">18_governance_access_agent.md<a class="headerlink" href="#18_governance_access_agentmd" title="Permanent link">&para;</a></h3>
+<p>Governance &amp; Access Agent: агент правил, доступів та ритуалів спільноти, символічні ключі (Community Keys), ритуали узгодження, індекс довіри, інтеграція з RBAC та entitlements, без фінансової термінології.</p>
+<p><strong>Коли використовувати:</strong> При реалізації модуля управління правилами, доступами та колективними рішеннями спільноти.</p>
+<h3 id="19_notifications_attention_agentmd">19_notifications_attention_agent.md<a class="headerlink" href="#19_notifications_attention_agentmd" title="Permanent link">&para;</a></h3>
+<p>Notifications &amp; Attention Agent: агент уваги та інформаційної гігієни, фільтрація шуму, ранжування важливості, дайджести, потоки уваги (High/Normal/Low), інтеграція з усіма агентами, Attention Hub.</p>
+<p><strong>Коли використовувати:</strong> При реалізації модуля управління сповіщеннями, фільтрації шуму та забезпечення інформаційної гігієни в спільноті.</p>
+<h3 id="20_integrations_bridges_agentmd">20_integrations_bridges_agent.md<a class="headerlink" href="#20_integrations_bridges_agentmd" title="Permanent link">&para;</a></h3>
+<p>Integrations &amp; Bridges Agent: агент мостів та зовнішніх інтеграцій, месенджери (Telegram, Email), робочі інструменти (Calendar, GitHub), Cross-microDAO зв'язки, Web3-протоколи, Connector Agents, маршрутизація подій.</p>
+<p><strong>Коли використовувати:</strong> При реалізації модуля інтеграцій з зовнішніми платформами, месенджерами та інструментами, а також міжпросторових зв'язків між microDAO.</p>
+<h3 id="21_agent_only_interfacemd">21_agent_only_interface.md<a class="headerlink" href="#21_agent_only_interfacemd" title="Permanent link">&para;</a></h3>
+<p>Agent-Only Interface: агентська ОС замість класичного застосунку, layout (3 колонки), панель учасників (Люди/Агенти/Роботи), Agent Hub як стартовий екран, запрошення агентів, обмін ресурсами, MVP.</p>
+<p><strong>Коли використовувати:</strong> При реалізації агентського інтерфейсу та перетворенні MicroDAO на агентську операційну систему спільнот.</p>
+<h3 id="22_operator_modes_and_system_agentsmd">22_operator_modes_and_system_agents.md<a class="headerlink" href="#22_operator_modes_and_system_agentsmd" title="Permanent link">&para;</a></h3>
+<p>Operator Modes &amp; System Agents: приватні агенти, спільні агенти, операторські режими, DAO Agent, Wallet Agent, модель operatorMode, інтеграція з доступами та ключами, принципи безпеки.</p>
+<p><strong>Коли використовувати:</strong> При реалізації операторських режимів агентів, системних агентів (Personal, Team, Protocol) та інтеграції з Governance та Wallet Agent.</p>
+<h3 id="22_agent_only_interface_tasksmd">22_agent_only_interface_tasks.md<a class="headerlink" href="#22_agent_only_interface_tasksmd" title="Permanent link">&para;</a></h3>
+<p>Структурований список задач для реалізації Agent-Only Interface: 4 детальні задачі з специфікаціями, acceptance criteria та прикладами промптів для Cursor.</p>
+<p><strong>Коли використовувати:</strong> При поетапній реалізації Agent-Only Interface — давати Cursor по одній задачі за раз.</p>
+<h3 id="23_domains_wallet_dao_deepdivemd">23_domains_wallet_dao_deepdive.md<a class="headerlink" href="#23_domains_wallet_dao_deepdivemd" title="Permanent link">&para;</a></h3>
+<p>Domains, Wallet &amp; DAO Deep Dive: технічний дизайн доменної моделі з мульти-тенант роутінгом, OperatorMode guards, Wallet Agent протокол безпечного підпису, мінімальна реалізація DAO Agent, інтеграція компонентів.</p>
+<p><strong>Коли використовувати:</strong> При реалізації системних компонентів: доменна модель, обмеження операторських режимів, безпечний підпис, інтеграція з on-chain DAO.</p>
+<h3 id="23_agent_cards_and_consolemd">23_agent_cards_and_console.md<a class="headerlink" href="#23_agent_cards_and_consolemd" title="Permanent link">&para;</a></h3>
+<p>Agent Cards and Console: концепція "живих карток агентів", структура картки, Agent Console з 5 вкладками, метрики досвіду (1T, репутація), підключення до просторів, DAGI інтеграція, зберігання в microDAO.</p>
+<p><strong>Коли використовувати:</strong> При реалізації UI для агентів у форматі карток та повного інтерфейсу Agent Console.</p>
+<h3 id="24_agent_cards_tasksmd">24_agent_cards_tasks.md<a class="headerlink" href="#24_agent_cards_tasksmd" title="Permanent link">&para;</a></h3>
+<p>Структурований список задач для реалізації Agent Cards та Console: 4 детальні задачі (Cards Grid, Console UI, Experience Metrics, Connections Toggles).</p>
+<p><strong>Коли використовувати:</strong> При поетапній реалізації системи карток агентів — давати Cursor по одній задачі за раз.</p>
+<h2 id="mvp-vertical-slice">MVP Vertical Slice<a class="headerlink" href="#mvp-vertical-slice" title="Permanent link">&para;</a></h2>
+<h3 id="mvp_vertical_slicemd">MVP_VERTICAL_SLICE.md<a class="headerlink" href="#mvp_vertical_slicemd" title="Permanent link">&para;</a></h3>
+<p>Практичний план реалізації MVP для перших користувачів: послідовність етапів (Multi-Tenant + Agent Hub → Агенти → Agent Cards/Console → OperatorMode), приймальні критерії, що входить/не входить в MVP.</p>
+<p><strong>Коли використовувати:</strong> При початку реалізації — це основний документ для створення живого вертикального зрізу системи.</p>
+<h2 id="daarioncity-integration">DAARION.city Integration<a class="headerlink" href="#daarioncity-integration" title="Permanent link">&para;</a></h2>
+<h3 id="daarion_city_integrationmd">DAARION_city_integration.md<a class="headerlink" href="#daarion_city_integrationmd" title="Permanent link">&para;</a></h3>
+<p>Архітектура інтеграції міського рівня DAARION.city з microDAO: єдина модель (платформи = тип microDAO), спільна ідентичність, city-level Bridges Agent, City Co-Memory, трирівнева Governance, blueprints.</p>
+<p><strong>Коли використовувати:</strong> При інтеграції платформ DAARION.city з microDAO архітектурою та створенні міського шару над microDAO.</p>
+<h3 id="daarion_city_platforms_catalogmd">DAARION_city_platforms_catalog.md<a class="headerlink" href="#daarion_city_platforms_catalogmd" title="Permanent link">&para;</a></h3>
+<p>Каталог платформ екосистеми DAARION.city: опис домену кожної платформи, агентські модулі, ключі доступу, Embassy-інтеграція. Включає DAARION Core, DAARWIZZ, GREENFOOD, Energy Union, Water Union, Essence Stream.</p>
+<p><strong>Коли використовувати:</strong> При інтеграції конкретних платформ DAARION.city з microDAO, налаштуванні access keys та capabilities для платформ.</p>
+<h2 id="access-keys-capabilities-system">Access Keys &amp; Capabilities System<a class="headerlink" href="#access-keys-capabilities-system" title="Permanent link">&para;</a></h2>
+<h3 id="24_access_keys_capabilities_systemmd">24_access_keys_capabilities_system.md<a class="headerlink" href="#24_access_keys_capabilities_systemmd" title="Permanent link">&para;</a></h3>
+<p>Універсальна система ключів доступу та capability-механіка для microDAO/DAARION.city. Описує типи ключів (User Session, Agent Access, API Key, Embassy Key, Wallet Capability Key), Wallet Agent специфікацію, Embassy Module, runtime capability-check, інтеграцію з Governance Agent.</p>
+<p><strong>Коли використовувати:</strong> При реалізації системи авторизації, Wallet Agent, Embassy Module, та налаштуванні capabilities для різних типів доступу.</p>
+<h3 id="28_flows_wallet_embassy_energy_unionmd">28_flows_wallet_embassy_energy_union.md<a class="headerlink" href="#28_flows_wallet_embassy_energy_unionmd" title="Permanent link">&para;</a></h3>
+<p>Sequence-діаграми (Mermaid) ключових флоу для Access Keys &amp; Capabilities System: Login → Capability Token → Action, Agent Run, Stake RINGK → Payout Flow, Embassy Webhook → PDP → RWA Inventory, Energy Union → Embassy Oracle, Wallet Claim Flow, Outbox → NATS Delivery, Governance Flow. Містить опис кожного флоу, Threat Model Integration Points та ключові моменти.</p>
+<p><strong>Коли використовувати:</strong> При реалізації PDP/PEP, Embassy Gateway, Wallet Service та інтеграції з NATS JetStream для event-driven архітектури, тестуванні end-to-end сценаріїв, дебагу production issues.</p>
+<h2 id="database-schema-migrations">Database Schema &amp; Migrations<a class="headerlink" href="#database-schema-migrations" title="Permanent link">&para;</a></h2>
+<h3 id="27_database_schema_migrationsmd">27_database_schema_migrations.md<a class="headerlink" href="#27_database_schema_migrationsmd" title="Permanent link">&para;</a></h3>
+<p>Повна виробнича специфікація схеми бази даних microDAO/DAARION.city: всі таблиці по модулях (Users, Teams, RBAC, Channels, Messages, Projects, Agents, Wallet, Staking, Payouts, RWA, Embassy, Capability System, Audit, Outbox), порядок міграцій, naming-конвенції, seed-дані, інтеграція з Event Catalog, DevOps pipeline, rollback policy.</p>
+<p><strong>Коли використовувати:</strong> При створенні міграцій БД, плануванні схеми, інтеграції з Supabase/PostgreSQL, та як «джерело істини» для архітектури БД.</p>
+<h2 id="deployment-infrastructure">Deployment &amp; Infrastructure<a class="headerlink" href="#deployment-infrastructure" title="Permanent link">&para;</a></h2>
+<h3 id="25_deployment_infrastructuremd">25_deployment_infrastructure.md<a class="headerlink" href="#25_deployment_infrastructuremd" title="Permanent link">&para;</a></h3>
+<p>Deployment процес, середовища (local/dev/staging/prod), інфраструктура (Postgres, NATS, API Gateway, Frontend, Object Storage), CI/CD pipeline, конфігурація та environment variables, secrets management, моніторинг та логування, backups &amp; restore, rollout strategies, feature flags.</p>
+<p><strong>Коли використовувати:</strong> При налаштуванні інфраструктури, створенні CI/CD pipeline, deployment процесів, моніторингу та управлінні середовищами.</p>
+<h2 id="security-audit">Security &amp; Audit<a class="headerlink" href="#security-audit" title="Permanent link">&para;</a></h2>
+<h3 id="26_security_auditmd">26_security_audit.md<a class="headerlink" href="#26_security_auditmd" title="Permanent link">&para;</a></h3>
+<p>Безпековий чеклист для регулярного аудитування платформи: Identity &amp; Authentication, Authorization Layer (RBAC + Entitlements + Capabilities), Access Keys, Confidential Mode (E2EE), API Security, Web Client Security, Database Security, Secrets Management, Embassy &amp; Webhooks Security, Wallet &amp; Chain Security, RWA Security, Logging &amp; Audit Trail, Monitoring &amp; Alerting, Incident Response, Compliance.</p>
+<p><strong>Коли використовувати:</strong> При проведенні безпекового аудиту, перевірці впровадження security best practices, підготовці до production deployment, та регулярних security reviews.</p>
+<h2 id="scaling-high-availability">Scaling &amp; High Availability<a class="headerlink" href="#scaling-high-availability" title="Permanent link">&para;</a></h2>
+<h3 id="29_scaling_and_high_availabilitymd">29_scaling_and_high_availability.md<a class="headerlink" href="#29_scaling_and_high_availabilitymd" title="Permanent link">&para;</a></h3>
+<p>Масштабування, відмовостійкість, балансування навантаження, кластеризація сервісів: API Layer Scaling, Backend Domain Services Scaling, Agents Scaling, NATS JetStream Scaling &amp; HA, Postgres High Availability, Outbox Pattern Scaling, Embassy Scaling, Wallet Scaling &amp; RWA, Scaling Frontend, Failover Strategies, Disaster Recovery (DR), Benchmark Targets.</p>
+<p><strong>Коли використовувати:</strong> При проектуванні HA-архітектури, налаштуванні autoscaling, плануванні disaster recovery, та оптимізації продуктивності для production deployment.</p>
+<h2 id="cost-optimization-token-economics">Cost Optimization &amp; Token Economics<a class="headerlink" href="#cost-optimization-token-economics" title="Permanent link">&para;</a></h2>
+<h3 id="30_cost_optimization_and_token_economics_infrastructuremd">30_cost_optimization_and_token_economics_infrastructure.md<a class="headerlink" href="#30_cost_optimization_and_token_economics_infrastructuremd" title="Permanent link">&para;</a></h3>
+<p>Оптимізація витрат інфраструктури та зв'язок з токеномікою: основні центри витрат (LLM/AI/Agents, Compute, Storage, Observability), принципи оптимізації, зв'язок токенів (RINGK, 1T, KWT, DAAR/DAARION) з технічною економікою, технічні ліміти та Entitlements, Autoscaling vs. Cost Guards, LLM/Agents Cost Controls, RWA/Embassy обмеження, Wallet/Chain/Gas Optimization, Analytics для економіки, Governance Controls, практичні граничні значення для MVP.</p>
+<p><strong>Коли використовувати:</strong> При проектуванні системи квот та обмежень, інтеграції токеноміки з технічною інфраструктурою, створенні usage tracking та cost controls, налаштуванні governance для економічних політик.</p>
+<h2 id="governance-policies">Governance &amp; Policies<a class="headerlink" href="#governance-policies" title="Permanent link">&para;</a></h2>
+<h3 id="31_governance_policies_for_capabilities_and_quotasmd">31_governance_policies_for_capabilities_and_quotas.md<a class="headerlink" href="#31_governance_policies_for_capabilities_and_quotasmd" title="Permanent link">&para;</a></h3>
+<p>Політики DAO для управління доступами, квотами, використанням ресурсів: Actors (Governance Token Holders, Governance Agent, Capability Registry, Policy Service), типи політик (Capability, Plan &amp; Entitlement, Stake/RINGK, 1T Compute, KWT Energy, RWA Access, Governance Process), Governance Policy Lifecycle, Policy Structure, Policy Application Rules, Policy Registry, PDP Integration, Example Policies, Governance-Safe Defaults, Security Considerations, Audit &amp; Transparency, Governance Failover Procedures.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Governance Agent, створенні Policy Registry, інтеграції з PDP для управління capabilities та quotas, налаштуванні голосування та застосування політик.</p>
+<h2 id="policy-service-pdp">Policy Service &amp; PDP<a class="headerlink" href="#policy-service-pdp" title="Permanent link">&para;</a></h2>
+<h3 id="32_policy_service_pdp_designmd">32_policy_service_PDP_design.md<a class="headerlink" href="#32_policy_service_pdp_designmd" title="Permanent link">&para;</a></h3>
+<p>Архітектура Policy Decision Point (PDP): PDP Formula, PDP Inputs, Architecture Overview, Internal Modules (Role Resolver, Capability Resolver, Entitlements, Quota Manager, ACL Resolver, Confidential Mode Resolver, Key Status Checker), PDP Data Sources, PDP Cache Design (Static, Dynamic, Usage Cache), PDP Decision Algorithm, Integration with API Gateway (PEP), Agents, Embassy, Wallet, Governance, PDP Logging &amp; Audit, Performance Targets, Failure Modes &amp; Recovery, Security Considerations.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Policy Decision Point, проектуванні системи авторизації, інтеграції PDP з API Gateway, Agents, Embassy, Wallet, налаштуванні кешування та оптимізації продуктивності.</p>
+<h2 id="api-gateway-security">API Gateway &amp; Security<a class="headerlink" href="#api-gateway-security" title="Permanent link">&para;</a></h2>
+<h3 id="33_api_gateway_security_and_pepmd">33_api_gateway_security_and_pep.md<a class="headerlink" href="#33_api_gateway_security_and_pepmd" title="Permanent link">&para;</a></h3>
+<p>API Gateway Architecture та Policy Enforcement Point (PEP): High-level Architecture, Key Responsibilities (Authentication, Authorization, Key Lifecycle Management, Usage Accounting, Transport Security), Request Flow, Identity Sources (User, Agent, Embassy, Integration), Key Validation Pipeline, PDP Integration, Rate Limiting Layer (Global, Per-IP, Per-Key, Per-Action, Per-Team), Resource Context Extraction, Confidential Mode Enforcement, Embassy Webhook Security, Wallet API Security, Agent API Security, Quota Enforcement Integration, Logging Model, API Hardening, Error Model, Performance Targets, Failover &amp; Resilience.</p>
+<p><strong>Коли використовувати:</strong> При реалізації API Gateway, створенні PEP middleware, налаштуванні rate limiting, інтеграції з PDP, захисті Embassy webhooks, Wallet API, Agent API, та впровадженні безпекових guardrails.</p>
+<h2 id="internal-services-architecture">Internal Services Architecture<a class="headerlink" href="#internal-services-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="34_internal_services_architecturemd">34_internal_services_architecture.md<a class="headerlink" href="#34_internal_services_architecturemd" title="Permanent link">&para;</a></h3>
+<p>Архітектура внутрішніх сервісів: High-Level Service Landscape, Core Principles, Internal Services Overview (17 сервісів: User/Team, Messaging, Projects/Tasks, Agent Orchestrator, LLM Proxy, Router/Planner, Wallet, RWA Inventory, Embassy Gateway, Oracle Processor, Governance, Capability Registry, Usage, Outbox Worker, Telemetry, Auth/Session, File Storage), Dependency Graph, Internal API Standards, Horizontal Scaling Responsibilities, Event Streams (NATS Topics), Outbox Pattern, Cross-service Transaction Rules, Security Boundaries, Suggested Deployment Model, Failure Isolation, Minimal Monitoring Set.</p>
+<p><strong>Коли використовувати:</strong> При проектуванні backend-архітектури, визначенні відповідальності сервісів, плануванні мікросервісної архітектури, налаштуванні event-driven потоків, та організації взаємодії між сервісами.</p>
+<h2 id="service-mesh">Service Mesh<a class="headerlink" href="#service-mesh" title="Permanent link">&para;</a></h2>
+<h3 id="35_microdao_service_mesh_designmd">35_microdao_service_mesh_design.md<a class="headerlink" href="#35_microdao_service_mesh_designmd" title="Permanent link">&para;</a></h3>
+<p>MicroDAO Service Mesh: High-Level Mesh Architecture, Zero-Trust Model, Service Identity (mTLS), Service Registry, Internal Service-to-Service Traffic, Core Service Mesh Features (mTLS Encryption, Load Balancing, Retries, Circuit Breakers, Timeouts), Internal API Standard, PDP Integration, Mesh-Level Policies (Allow-lists, Deny-lists), Observability Model (Metrics, Tracing, Logs), Failover &amp; Resilience, Mesh Traffic Rules for Critical Services, Service Mesh Security, Deployment Model (Sidecar Mode, Node-agent Mode, Observability stack), Service Mesh Integration with Scaling, Message Patterns, Example Mesh Policy Config.</p>
+<p><strong>Коли використовувати:</strong> При налаштуванні service mesh, впровадженні zero-trust моделі, конфігурації mTLS, налаштуванні observability, та організації безпечної взаємодії між сервісами.</p>
+<h2 id="agent-security-isolation">Agent Security &amp; Isolation<a class="headerlink" href="#agent-security-isolation" title="Permanent link">&para;</a></h2>
+<h3 id="36_agent_runtime_isolation_and_sandboxingmd">36_agent_runtime_isolation_and_sandboxing.md<a class="headerlink" href="#36_agent_runtime_isolation_and_sandboxingmd" title="Permanent link">&para;</a></h3>
+<p>Безпечна ізоляція приватних агентів: Threat Model, Agent Runtime Architecture, Sandbox Security Model (Isolation Levels, Namespaces/cgroups, Banned syscalls), Network Policy (Default NO NETWORK, Allowed network flows), Agent Permissions &amp; PDP Integration, Tools Architecture (Types of Tools, Tool Execution Model, Tool Security Rules, Dangerous Tools), Agent Memory Model (No persistent state, Co-Memory Integration, Confidential Mode), Prompt Injection Protection, Runtime Limits (CPU, Memory, Timeout, Parallel Agents), File System Policy, Logging Policy, Chain-of-Thought Protection, Deny-List Rules, Escalation Prevention, Governance Hooks for Agents, Observability, Agent Cost Control, Failure Modes.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Agent Runtime, створенні sandbox-середовища, налаштуванні безпеки агентів, інтеграції з PDP для tool invocations, та впровадженні захисту від prompt injection та escalation.</p>
+<h3 id="37_agent_tools_and_plugins_specificationmd">37_agent_tools_and_plugins_specification.md<a class="headerlink" href="#37_agent_tools_and_plugins_specificationmd" title="Permanent link">&para;</a></h3>
+<p>Докладна специфікація інструментів агентів: Architectural Overview, Tool Security Categories (Category A — Safe Tools, Category B — Controlled Tools, Category C — Sensitive Tools, Category D — Critical Tools), Tool Capability Model, Tool Execution Contract, Tool Proxy Rules, Timeouts &amp; Limits per Category, Plugins API (Plugin Manifest, Plugin Execution Flow, Plugin Security Model), Built-in Tools (Core, Internal, Advanced, Platform), Platform Tool Contracts (GREENFOOD, EnergyUnion), Confidential Mode — Tool Restrictions, Error Model, Auditing &amp; Logging, Governance Hooks.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Tool Proxy, створенні інструментів для агентів, розробці Plugins API, інтеграції з платформами DAARION (GREENFOOD, EnergyUnion), та налаштуванні безпеки інструментів.</p>
+<h3 id="38_private_agents_lifecycle_and_managementmd">38_private_agents_lifecycle_and_management.md<a class="headerlink" href="#38_private_agents_lifecycle_and_managementmd" title="Permanent link">&para;</a></h3>
+<p>Життєвий цикл приватних агентів: What Is a Private Agent, Agent Types (User Agent, Team Agent, System Agent), Agent Creation Flow, Agent Schema (DB), Agent Initialization (Bootstrap), Agent Access Keys, Agent Configuration Model, Agent Update Flow, Agent Run Lifecycle (Start, Sandbox Spin-Up, Execute, Complete), Agent Memory Policy, Agent Logs, Agent Suspension, Agent Deletion Flow, Agent Versioning, Security - Critical Guarantees, Events Generated by Agent Lifecycle, Integration with PDP/PEP/Mesh/Tools.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Agent Orchestrator, створенні агентів, управлінні життєвим циклом агентів, налаштуванні конфігурації та безпеки агентів, та інтеграції з PDP/PEP для авторизації.</p>
+<h3 id="39_private_agent_templates_and_behavior_profilesmd">39_private_agent_templates_and_behavior_profiles.md<a class="headerlink" href="#39_private_agent_templates_and_behavior_profilesmd" title="Permanent link">&para;</a></h3>
+<p>Шаблони приватних агентів та поведінкові профілі: What is a Behavior Profile, Base Agent Templates (TEMPLATE_A: Assistant, TEMPLATE_B: Analyst, TEMPLATE_C: Operator, TEMPLATE_D: Autonomous Agent), Behavior Profiles (Advisor, Researcher, Project Manager, Automation Builder, Platform Integrator, Autonomous Planner), Behavior Profile Schema, Behavior Parameters (Autonomy Levels, Tone Controls, Output Controls), Tool Access by Profile, Confidential Mode Compatibility, Profile Switching Logic, Safe System Instructions, Governance-Level Restrictions, Security Behavior Controls, Profile Templates Examples.</p>
+<p><strong>Коли використовувати:</strong> При створенні шаблонів агентів, налаштуванні поведінкових профілів, визначенні рівнів автономії, контролі стилю/тону, та стандартизації поведінки агентів.</p>
+<h2 id="rwa-embassy-integration">RWA &amp; Embassy Integration<a class="headerlink" href="#rwa-embassy-integration" title="Permanent link">&para;</a></h2>
+<h3 id="40_rwa_energy_food_water_flow_specsmd">40_rwa_energy_food_water_flow_specs.md<a class="headerlink" href="#40_rwa_energy_food_water_flow_specsmd" title="Permanent link">&para;</a></h3>
+<p>Потоки RWA (Real-World Assets): Supported RWA Domains (Energy, Food, Water), Data Flow Overview, Embassy Integration (Authentication, HMAC validation), Oracle Payload Specification, RWA Inventory Table Schema, Processing Flow for Each Domain (ENERGY, FOOD, WATER), KWT / 1T Tokenization Rules, Wallet Integration, Governance-Controlled Parameters, Anomaly Detection &amp; Anti-Fraud, Oracle Processor Rules, Data Retention, Critical Security Rules, Example End-to-End Flow (Energy).</p>
+<p><strong>Коли використовувати:</strong> При реалізації Embassy webhook endpoints, Oracle Processor, RWA Inventory updates, Wallet integration для RWA payouts, інтеграції з платформами DAARION (GREENFOOD, EnergyUnion, WaterUnion), та налаштуванні безпеки RWA потоків.</p>
+<h2 id="governance-ai-agent">Governance &amp; AI Agent<a class="headerlink" href="#governance-ai-agent" title="Permanent link">&para;</a></h2>
+<h3 id="41_ai_governance_agent_designmd">41_ai_governance_agent_design.md<a class="headerlink" href="#41_ai_governance_agent_designmd" title="Permanent link">&para;</a></h3>
+<p>AI Governance Agent: Governance Model Overview, Governance Proposal Lifecycle, Governance Proposal Structure, Governance Agent Responsibilities (Validation, Voting Finalization, Applying Policy, Audit, Failure Recovery), Governance Agent Internal Architecture, Policy Validation Rules (Format, Capability, Plan/Entitlements, Stake-multiplier, Compute/1T, RWA policies), Voting Engine, Policy Applicator, Registry Integration (Capability, Quota, Stake, RWA), PDP Integration, Security Rules (Critical), Error Recovery, Transparency &amp; Audit, Governance Agent Runtime, Example Policy Application.</p>
+<p><strong>Коли використовувати:</strong> При реалізації AI Governance Agent, створенні системи голосування та застосування політик, інтеграції з Policy Registry та PDP, налаштуванні безпеки Governance Agent, та впровадженні механізмів аудиту та прозорості.</p>
+<h2 id="event-streams-nats">Event Streams &amp; NATS<a class="headerlink" href="#event-streams-nats" title="Permanent link">&para;</a></h2>
+<h3 id="42_nats_event_streams_and_event_catalogmd">42_nats_event_streams_and_event_catalog.md<a class="headerlink" href="#42_nats_event_streams_and_event_catalogmd" title="Permanent link">&para;</a></h3>
+<p>NATS Event Streams &amp; Event Catalog: JetStream Cluster Model, Event Categories Overview (13 груп подій), Stream Naming Convention, Topic Naming Convention, Event Envelope, Outbox Integration (Guaranteed Delivery), Stream-by-Stream Specification (13 стрімів: AGENT_RUN, CHAT, PROJECT, TASK, WALLET, STAKING, PAYOUT, EMBASSY, ORACLE, RWA, GOVERNANCE, USAGE, TELEMETRY), Retention Policies, Consumer Groups, Message Ordering, Security / ACL, Replay &amp; Recovery, NATS Integration with Mesh.</p>
+<p><strong>Коли використовувати:</strong> При налаштуванні NATS JetStream, створенні event streams, визначенні payload схем, конфігурації retention policies, налаштуванні consumer groups, впровадженні ACL та безпеки, та інтеграції з Outbox Worker.</p>
+<h3 id="43_database_events_outbox_designmd">43_database_events_outbox_design.md<a class="headerlink" href="#43_database_events_outbox_designmd" title="Permanent link">&para;</a></h3>
+<p>Database Events Outbox Design: Why Outbox Pattern Is Required, Outbox Table Schema, Outbox Event Insertion (atomic transaction), Outbox Worker Architecture, Worker Processing Loop, Deduplication (NATS header Nats-Msg-Id), Retry Strategy (exponential backoff, dead-letter condition), Batch Processing &amp; Throughput, Event Ordering Rules, Multi-Stream Routing, Failure Modes, Safety Guarantees (atomicity, consistency, at-least-once, no-loss, replayability), Event Consumer Rules, Operational Metrics, Backpressure Control, Batch Deletion / Archival, Example End-to-End Flow (Payout).</p>
+<p><strong>Коли використовувати:</strong> При реалізації Outbox Pattern, створенні таблиці outbox_events, розробці Outbox Worker, забезпеченні гарантій доставки подій, інтеграції з NATS JetStream, та налаштуванні retry/backoff механізмів.</p>
+<h2 id="usage-quota-management">Usage &amp; Quota Management<a class="headerlink" href="#usage-quota-management" title="Permanent link">&para;</a></h2>
+<h3 id="44_usage_accounting_and_quota_enginemd">44_usage_accounting_and_quota_engine.md<a class="headerlink" href="#44_usage_accounting_and_quota_enginemd" title="Permanent link">&para;</a></h3>
+<p>Usage Accounting &amp; Quota Engine: Usage Engine Architecture, Usage Metrics (Canonical List - LLM, Agents, Router, Embassy, RWA, Wallet, Storage), Quota Types (Hard quotas, Soft quotas, Compute cost ceilings), Quota Formula (base_quota(plan) × multiplier(stake)), Counters Storage Model (Redis fast counters, Postgres durable counters), Quota Engine Decision Logic, Warning Thresholds, Rate Limiting Integration, PDP Integration, Cost Accounting (1T Integration), Embassy/RWA Quotas, Agent Run Limits, Storage/Files Quotas, Wallet/Chain Quotas, Usage Correction / Reconciliation, Governance Controls, Abuse / Fraud Protection, Observability, Error Model, Example Scenarios.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Usage Engine, створенні системи обліку використання ресурсів, налаштуванні квот, інтеграції з PDP, контролі вартості, захисті від зловживань, та налаштуванні rate limiting.</p>
+<h2 id="llm-router">LLM &amp; Router<a class="headerlink" href="#llm-router" title="Permanent link">&para;</a></h2>
+<h3 id="45_llm_proxy_and_multimodel_routingmd">45_llm_proxy_and_multimodel_routing.md<a class="headerlink" href="#45_llm_proxy_and_multimodel_routingmd" title="Permanent link">&para;</a></h3>
+<p>LLM Proxy &amp; Multi-Model Routing: High-Level Architecture, Why Not Call LLM Directly, Core Responsibilities, Supported Model Types (Text, Vision, Embeddings, Code, Audio), Normalized Request Schema, Routing Modes (DIRECT, TIERED ROUTING, Specialized), Fallback Logic, Prompt Sanitization Layer, Confidential Mode, PDP Integration, Token Counting, Cost Calculation (1T Integration), Multi-Model Orchestration, Error Model, Retry / Timeouts, Model Selection Logic, Local Model Constraints, Autoscaling, Logging &amp; Monitoring, Safety / Guardrails, Example Complete Flow.</p>
+<p><strong>Коли використовувати:</strong> При реалізації LLM Proxy, налаштуванні маршрутизації моделей, інтеграції з різними LLM провайдерами, контролі вартості та токенів, впровадженні fallback логіки, та забезпеченні безпеки promptів.</p>
+<h3 id="46_router_orchestrator_designmd">46_router_orchestrator_design.md<a class="headerlink" href="#46_router_orchestrator_designmd" title="Permanent link">&para;</a></h3>
+<p>Router Orchestrator Design: High-Level Architecture, Input Specification, Router Modes (AUTO PLAN, STRUCTURED, HYBRID), State Machine Architecture (INIT, PLAN, EXECUTE_STEP, WAIT_TOOL, WAIT_AGENT, ERROR_RECOVERY, DONE), Step Engine (LLM, Tool, Agent, Platform, Branch, Parallel, Loop), Safety Limits, Cost Control, Confidential Mode, Tool Execution Flow, LLM Execution Flow, Subagent Execution Flow, Error Handling, Logging, Monitoring, Platform Tool Integration, Parallel Steps, Branch Logic, Loop Logic, Full Example Flow.</p>
+<p><strong>Коли використовувати:</strong> При реалізації DAARWIZZ Router, створенні multi-step orchestration, налаштуванні state machine, інтеграції з tools, agents, LLM Proxy, та контролі вартості та безпеки флоу.</p>
+<h2 id="messaging-privacy">Messaging &amp; Privacy<a class="headerlink" href="#messaging-privacy" title="Permanent link">&para;</a></h2>
+<h3 id="47_messaging_channels_and_privacy_layersmd">47_messaging_channels_and_privacy_layers.md<a class="headerlink" href="#47_messaging_channels_and_privacy_layersmd" title="Permanent link">&para;</a></h3>
+<p>Messaging Channels &amp; Privacy Layers: Messaging Entities (Direct Messages, Team Channels, System Channels), Channel Types (DIRECT, TEAM PUBLIC, TEAM PRIVATE, CONFIDENTIAL CHANNEL), Channel Schema, Message Schema, E2EE Model (Optional Layer), Confidential Mode Rules, ACL Model, Agent Visibility Rules, Search Indexing, Message Lifecycle (Create, Edit, Delete), Retention Rules, Attachments (Files), Moderate / Filter System, Chat → Agent → LLM Proxy Flow, Chat → Router Flow, System Channels, Governance Controls, Observability &amp; Telemetry.</p>
+<p><strong>Коли використовувати:</strong> При реалізації системи чатів та каналів, налаштуванні приватності та confidential mode, створенні ACL, інтеграції з агентами та LLM Proxy, та забезпеченні безпеки повідомлень.</p>
+<h3 id="48_teams_access_control_and_confidential_modemd">48_teams_access_control_and_confidential_mode.md<a class="headerlink" href="#48_teams_access_control_and_confidential_modemd" title="Permanent link">&para;</a></h3>
+<p>Teams Access Control &amp; Confidential Mode: Team (microDAO) Model, Team Roles (Owner, Guardian, Admin, Member, Guest, Agent), Role Capability Mapping, Team-Level ACL (Projects, Channels, Agents, Wallet, Embassy Data), Team States (active, locked, confidential, suspended, archived), Confidential Mode (LLM Proxy behavior, Agents restrictions, Messaging rules, Projects/Tasks rules, Wallet/RWA rules), Team Privacy Layers (open, restricted, private, confidential), Team Settings Schema, PDP Integration, Governance Controls, Membership Lifecycle (Create Team, Invite Member, Promote, Demote, Remove), Agent Integration Rules, Examples.</p>
+<p><strong>Коли використовувати:</strong> При реалізації системи доступів команд, налаштуванні ролей та ACL, впровадженні confidential mode, інтеграції з PDP, та управлінні членством у командах.</p>
+<h2 id="wallet-rwa">Wallet &amp; RWA<a class="headerlink" href="#wallet-rwa" title="Permanent link">&para;</a></h2>
+<h3 id="49_wallet_rwa_payouts_claimsmd">49_wallet_rwa_payouts_claims.md<a class="headerlink" href="#49_wallet_rwa_payouts_claimsmd" title="Permanent link">&para;</a></h3>
+<p>Wallet, RWA, Payouts &amp; Claims: Wallet Tokens (1T, KWT, RINGK, DAARION), Wallet Architecture, Wallet Schema (Balances, Transactions, Payouts), ACL Rules, RWA → Payout Formula (ENERGY → KWT, FOOD → 1T, WATER → 1T/KWT), Payout Lifecycle, Claim Lifecycle, Conversion Rules (KWT → 1T, DAARION → RINGK, RINGK → 1T impossible), Daily/Monthly Limits, Fraud Protection, Governance Controls, Integrations (NATS Events, Usage Engine, PDP), Transparency &amp; Logs, Example Scenarios.</p>
+<p><strong>Коли використовувати:</strong> При реалізації Wallet Service, створенні системи балансів та транзакцій, налаштуванні RWA нарахувань та payouts, інтеграції з Embassy/RWA/Outbox/NATS, та забезпеченні безпеки та прозорості економічної моделі.</p>
+<h2 id="website-integration">Website Integration<a class="headerlink" href="#website-integration" title="Permanent link">&para;</a></h2>
+<h3 id="50_daarion_city_website_integrationmd">50_daarion_city_website_integration.md<a class="headerlink" href="#50_daarion_city_website_integrationmd" title="Permanent link">&para;</a></h3>
+<p>DAARION.city Website Integration: Architecture Overview (Embedded Widget, iframe Embed, Full Redirect), DAARION.city as First MicroDAO (Team Setup, Public Channel Setup, City Agent Setup), Public Channel API (Get Channel Info, Get Messages, Post Message, Register as Viewer/Member), UI/UX for Website Integration (Embedded Widget Component, Widget Layout, Authentication Flow), SEO &amp; Metadata (Open Graph Tags, Twitter Cards, Structured Data), Security &amp; Privacy (CORS Configuration, Rate Limiting, Content Moderation), Analytics &amp; Tracking, Implementation Steps, Example Integration Code (Next.js Page, React Widget Component), Testing Checklist.</p>
+<p><strong>Коли використовувати:</strong> При інтеграції MicroDAO у офіційний сайт DAARION.city, створенні публічного каналу міста, вбудовуванні віджета на сайт, налаштуванні authentication flow для користувачів сайту, додаванні SEO метаданих та analytics tracking.</p>
+<h2 id="tokenomics">Tokenomics<a class="headerlink" href="#tokenomics" title="Permanent link">&para;</a></h2>
+<h3 id="tokenomicscity-tokenomicsmd-canonical">tokenomics/city-tokenomics.md ⭐ CANONICAL<a class="headerlink" href="#tokenomicscity-tokenomicsmd-canonical" title="Permanent link">&para;</a></h3>
+<p>City Tokenomics — DAARION.city (v1.0.0, status: canonical): DAAR (Utility Token), DAARION (Civic/Identity Token), Рівні доступу (Звичайні користувачі, Постачальники, Створення платформ, Створення MicroDAO), Ієрархія MicroDAO (A1: DAARION.city, A2: Міські платформи, A3: Публічні MicroDAO, A4: Приватні MicroDAO), MicroDAO Tokens (GOV, UTIL, REP), Fees &amp; Costs, Staking &amp; Rewards (DAAR: 20% APR, DAARION: 4% + revenue share), Token Bridges &amp; Onboarding, Integration Points (Wallet Service, PDP, Agents, DAGI Registry), Security Rules, MVP Scope.</p>
+<p><strong>Коли використовувати:</strong> При реалізації токеноміки DAARION.city, створенні DAOFactory, TokenBridge, інтеграції з Wallet Service, PDP token-gating, staking системи, валідації доступу користувачів, роботі агентів DAARWIZZ, контролі доступу до платформ, ліцензуванні сервісів, та реалізації багаторівневої архітектури міста.</p>
+<blockquote>
+<p><strong>Примітка:</strong> Це єдиний актуальний документ з токеноміки. Попередній <code>tokenomics/README.md</code> перенесено в <code>docs/_archive/tokenomics_legacy_v0.md</code>.</p>
+</blockquote>
+<h2 id="cursor">Як використовувати з Cursor<a class="headerlink" href="#cursor" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Початкове налаштування<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>Додай всю папку <code>docs/cursor/</code> в контекст Cursor або вкажи на конкретні файли при створенні промптів.</p>
+<h3 id="2-mvp">2. Початок роботи (MVP)<a class="headerlink" href="#2-mvp" title="Permanent link">&para;</a></h3>
+<p>Почни з <code>MVP_VERTICAL_SLICE.md</code> — це практичний план для створення першого живого зрізу системи.</p>
+<h3 id="2">2. Створення промптів<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>Використовуй формат з <code>06_tasks_onboarding_mvp.md</code>:</p>
+<div class="codehilite"><pre><span></span><code>You are a senior React/TypeScript engineer.
+
+Task: [Назва задачі з 06_tasks_onboarding_mvp.md]
+
+Context:
+<span class="k">-</span> Product brief: 01_product_brief_mvp.md
+<span class="k">-</span> API specs: 03_api_core_snapshot.md
+<span class="k">-</span> UI/UX: 04_ui_ux_onboarding_chat.md
+<span class="k">-</span> Coding standards: 05_coding_standards.md
+
+Please output:
+<span class="k">-</span> List of files to modify/create
+<span class="k">-</span> Code diff
+<span class="k">-</span> Short summary
+</code></pre></div>
+
+<h3 id="3">3. Перевірка коду<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>Після генерації коду перевіряй відповідність:
+- <code>05_coding_standards.md</code> — стандарти кодування
+- <code>07_testing_checklist_mvp.md</code> — тестові сценарії</p>
+<h2 id="_2">Швидкий старт<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Ознайомся з проєктом:</strong> <code>00_overview_microdao.md</code></li>
+<li><strong>Зрозумій бізнес-логіку:</strong> <code>01_product_brief_mvp.md</code></li>
+<li><strong>Вивчи архітектуру:</strong> <code>02_architecture_basics.md</code></li>
+<li><strong>Почни з онбордингу:</strong> </li>
+<li>Класичний: <code>06_tasks_onboarding_mvp.md</code> → Block A</li>
+<li>Агентський: <code>08_agent_first_onboarding.md</code></li>
+<li><strong>Тестуй:</strong> <code>07_testing_checklist_mvp.md</code></li>
+</ol>
+<h2 id="_3">Важливі примітки<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Всі API контракти беріть тільки з <code>03_api_core_snapshot.md</code></li>
+<li>Всі UI тексти беріть з <code>04_ui_ux_onboarding_chat.md</code></li>
+<li>Дотримуйтесь стандартів з <code>05_coding_standards.md</code></li>
+<li>Не вигадуйте нові API або UI елементи без узгодження</li>
+</ul>
+<h2 id="_4">Посилання на повну документацію<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Повна OpenAPI специфікація (за потреби)</li>
+<li>Data Model &amp; Event Catalog</li>
+<li>Tech Spec / Технічний опис MicroDAO</li>
+<li>UI/UX Specification — microdao (web)</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> MVP v1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-13</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1380 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/AGENT_HUB_UI_TASK/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK: Agent Hub UI — Agent Monitoring & Management Dashboard - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-agent-hub-ui-agent-monitoring-management-dashboard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK: Agent Hub UI — Agent Monitoring & Management Dashboard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliverables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deliverables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-frontend-components-srcfeaturesagent-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Frontend Components (src/features/agent-hub/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-backend-agents-service-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Backend: agents-service (NEW)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Backend: agents-service (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagentsagent_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agents/{agent_id}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-apiagentsagent_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      PUT /api/agents/{agent_id}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagentsagent_idmetricsrealtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agents/{agent_id}/metrics/realtime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagentsagent_idlogslimit50" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agents/{agent_id}/logs?limit=50
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ui-components-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. UI Components Detail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. UI Components Detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agentgallerytsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      AgentGallery.tsx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentcabinettsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      AgentCabinet.tsx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentchattsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      AgentChat.tsx
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-real-time-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Real-time Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Integration Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-mock-data-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Mock Data (Development)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-tech-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Tech Stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Database Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Routes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-implementation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Implementation Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Implementation Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-1-backend-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 1: Backend Foundation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-2-frontend-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 2: Frontend Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3-real-time-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 3: Real-time &amp; Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-4-polish-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 4: Polish &amp; Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-future-enhancements-phase-35" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Future Enhancements (Phase 3.5+)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-after-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start (After Implementation)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-agent-hub-ui-agent-monitoring-management-dashboard">TASK: Agent Hub UI — Agent Monitoring &amp; Management Dashboard<a class="headerlink" href="#task-agent-hub-ui-agent-monitoring-management-dashboard" title="Permanent link">&para;</a></h1>
+<p><strong>Priority:</strong> High (Parallel to Phase 3)<br />
+<strong>Estimated Time:</strong> 3-4 weeks<br />
+<strong>Dependencies:</strong> Phase 2 complete</p>
+<hr />
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Створити централізований UI для моніторингу та управління агентами в DAARION:
+- <strong>Agent Gallery</strong> — список всіх агентів з їх статусами
+- <strong>Agent Cabinet</strong> — детальна інформація про агента
+- <strong>Real-time monitoring</strong> — активність, метрики, логи
+- <strong>Agent Configuration</strong> — налаштування, інструкції, tools
+- <strong>Conversational Interface</strong> — прямий чат з агентом</p>
+<hr />
+<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Agent Hub UI (React)
+    ↓
+├─ Agent Gallery (список агентів)
+├─ Agent Cabinet (детальний dashboard)
+├─ Agent Chat (direct conversation)
+├─ Agent Metrics (real-time stats)
+└─ Agent Configuration (edit settings)
+    ↓
+Backend:
+├─ agents-service (агенти + blueprints)
+├─ agent-runtime (execution stats)
+├─ messaging-service (direct chat)
+└─ NATS (real-time events)
+</code></pre></div>
+
+<hr />
+<h2 id="deliverables">Deliverables<a class="headerlink" href="#deliverables" title="Permanent link">&para;</a></h2>
+<h3 id="1-frontend-components-srcfeaturesagent-hub">1. Frontend Components (src/features/agent-hub/)<a class="headerlink" href="#1-frontend-components-srcfeaturesagent-hub" title="Permanent link">&para;</a></h3>
+<p><strong>Structure:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">src</span><span class="o">/</span><span class="n">features</span><span class="o">/</span><span class="n">agent</span><span class="o">-</span><span class="n">hub</span><span class="o">/</span>
+<span class="w">  </span><span class="n">components</span><span class="o">/</span>
+<span class="w">    </span><span class="n">AgentGallery</span><span class="o">.</span><span class="n">tsx</span><span class="w">          </span><span class="c1"># Grid of agent cards</span>
+<span class="w">    </span><span class="n">AgentCard</span><span class="o">.</span><span class="n">tsx</span><span class="w">             </span><span class="c1"># Single agent preview</span>
+<span class="w">    </span><span class="n">AgentCabinet</span><span class="o">.</span><span class="n">tsx</span><span class="w">          </span><span class="c1"># Full agent dashboard</span>
+<span class="w">    </span><span class="n">AgentMetrics</span><span class="o">.</span><span class="n">tsx</span><span class="w">          </span><span class="c1"># Real-time metrics panel</span>
+<span class="w">    </span><span class="n">AgentLogs</span><span class="o">.</span><span class="n">tsx</span><span class="w">             </span><span class="c1"># Activity log stream</span>
+<span class="w">    </span><span class="n">AgentConfiguration</span><span class="o">.</span><span class="n">tsx</span><span class="w">    </span><span class="c1"># Edit agent settings</span>
+<span class="w">    </span><span class="n">AgentChat</span><span class="o">.</span><span class="n">tsx</span><span class="w">             </span><span class="c1"># Direct chat interface</span>
+<span class="w">    </span><span class="n">AgentToolsPanel</span><span class="o">.</span><span class="n">tsx</span><span class="w">       </span><span class="c1"># List of agent tools</span>
+<span class="w">  </span><span class="n">hooks</span><span class="o">/</span>
+<span class="w">    </span><span class="n">useAgents</span><span class="o">.</span><span class="n">ts</span><span class="w">              </span><span class="c1"># Fetch agents list</span>
+<span class="w">    </span><span class="n">useAgentDetails</span><span class="o">.</span><span class="n">ts</span><span class="w">        </span><span class="c1"># Fetch single agent</span>
+<span class="w">    </span><span class="n">useAgentMetrics</span><span class="o">.</span><span class="n">ts</span><span class="w">        </span><span class="c1"># Real-time metrics</span>
+<span class="w">    </span><span class="n">useAgentLogs</span><span class="o">.</span><span class="n">ts</span><span class="w">           </span><span class="c1"># Activity stream</span>
+<span class="w">    </span><span class="n">useDirectChat</span><span class="o">.</span><span class="n">ts</span><span class="w">          </span><span class="c1"># Direct chat with agent</span>
+<span class="w">  </span><span class="n">types</span><span class="o">/</span>
+<span class="w">    </span><span class="n">agent</span><span class="o">.</span><span class="n">ts</span><span class="w">                  </span><span class="c1"># TypeScript types</span>
+<span class="w">  </span><span class="n">AgentHubPage</span><span class="o">.</span><span class="n">tsx</span><span class="w">            </span><span class="c1"># Main hub page</span>
+</code></pre></div>
+
+<hr />
+<h3 id="2-backend-agents-service-new">2. Backend: agents-service (NEW)<a class="headerlink" href="#2-backend-agents-service-new" title="Permanent link">&para;</a></h3>
+<p><strong>Port:</strong> 7010<br />
+<strong>Purpose:</strong> Agent blueprints, configuration, metadata</p>
+<p><strong>Structure:</strong></p>
+<div class="codehilite"><pre><span></span><code>services/agents-service/
+  main.py
+  models.py
+  blueprints.py
+  config.yaml
+  requirements.txt
+  Dockerfile
+  README.md
+</code></pre></div>
+
+<p><strong>API:</strong></p>
+<h4 id="get-apiagents">GET /api/agents<a class="headerlink" href="#get-apiagents" title="Permanent link">&para;</a></h4>
+<p>List all agents:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sofia-Prime&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;avatar&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Project manager &amp; task organizer&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;task_mgmt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;summarization&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-01T00:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;last_active&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:00:00Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="get-apiagentsagent_id">GET /api/agents/{agent_id}<a class="headerlink" href="#get-apiagentsagent_id" title="Permanent link">&para;</a></h4>
+<p>Get agent details:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sofia-Prime&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;avatar&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;instructions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You are Sofia, a helpful assistant...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1-mini&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;projects.list&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;task.create&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;followup.create&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;total_messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_invocations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;avg_response_time_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2345</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;success_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.98</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;quiet_hours&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;22:00-08:00&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="put-apiagentsagent_id">PUT /api/agents/{agent_id}<a class="headerlink" href="#put-apiagentsagent_id" title="Permanent link">&para;</a></h4>
+<p>Update agent configuration:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;instructions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated instructions...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;projects.list&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;task.create&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="get-apiagentsagent_idmetricsrealtime">GET /api/agents/{agent_id}/metrics/realtime<a class="headerlink" href="#get-apiagentsagent_idmetricsrealtime" title="Permanent link">&para;</a></h4>
+<p>Real-time metrics (WebSocket or SSE):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;active_conversations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;messages_last_hour&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;avg_response_time_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2100</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;current_load&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normal&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="get-apiagentsagent_idlogslimit50">GET /api/agents/{agent_id}/logs?limit=50<a class="headerlink" href="#get-apiagentsagent_idlogslimit50" title="Permanent link">&para;</a></h4>
+<p>Activity logs:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;logs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;log-123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;message.sent&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;channel-uuid&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;content_preview&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Створила задачу &#39;Phase 3 testing&#39;&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2345</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tokens_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="3-ui-components-detail">3. UI Components Detail<a class="headerlink" href="#3-ui-components-detail" title="Permanent link">&para;</a></h3>
+<h4 id="agentgallerytsx">AgentGallery.tsx<a class="headerlink" href="#agentgallerytsx" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Grid layout (3-4 columns)</li>
+<li>Agent cards with:</li>
+<li>Avatar</li>
+<li>Name + status badge</li>
+<li>Short description</li>
+<li>Last active time</li>
+<li>Quick stats (messages, response time)</li>
+<li>Filter by:</li>
+<li>Status (active, paused, error)</li>
+<li>Kind (assistant, coordinator, specialist)</li>
+<li>MicroDAO</li>
+<li>Search by name</li>
+</ul>
+<p><strong>Wireframe:</strong></p>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────┐
+│  Agent Hub                    [+ New]   │
+├─────────────────────────────────────────┤
+│  [Filter: All] [Search: ...]            │
+├─────────────────────────────────────────┤
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐
+│  │ 👤 Sofia │  │ 👤 Alex  │  │ 👤 Eva   │
+│  │ ● Active │  │ ● Active │  │ ⏸ Paused │
+│  │ PM &amp; Org │  │ Tech     │  │ Research │
+│  │ 234 msgs │  │ 156 msgs │  │ 89 msgs  │
+│  └──────────┘  └──────────┘  └──────────┘
+</code></pre></div>
+
+<h4 id="agentcabinettsx">AgentCabinet.tsx<a class="headerlink" href="#agentcabinettsx" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Header:</li>
+<li>Avatar, name, status</li>
+<li>Quick actions (pause, edit, chat)</li>
+<li>Tabs:</li>
+<li><strong>Overview</strong>: Key stats + recent activity</li>
+<li><strong>Metrics</strong>: Real-time charts</li>
+<li><strong>Logs</strong>: Activity stream</li>
+<li><strong>Configuration</strong>: Edit settings</li>
+<li><strong>Chat</strong>: Direct conversation</li>
+</ul>
+<p><strong>Wireframe:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">┌─────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">  </span><span class="err">👤</span><span class="w"> </span><span class="n">Sofia</span><span class="o">-</span><span class="n">Prime</span><span class="w">            </span><span class="o">[</span><span class="n">Edit</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">Chat</span><span class="o">]</span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">●</span><span class="w"> </span><span class="n">Active</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">Last</span><span class="w"> </span><span class="nl">seen</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="n">m</span><span class="w"> </span><span class="n">ago</span><span class="w">          </span><span class="err">│</span>
+<span class="err">├─────────────────────────────────────────┤</span>
+<span class="err">│</span><span class="w">  </span><span class="o">[</span><span class="n">Overview</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">Metrics</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">Logs</span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="n">Config</span><span class="o">]</span><span class="w">  </span><span class="err">│</span>
+<span class="err">├─────────────────────────────────────────┤</span>
+<span class="err">│</span><span class="w">  </span><span class="err">📊</span><span class="w"> </span><span class="k">Statistics</span><span class="w"> </span><span class="p">(</span><span class="mi">24</span><span class="n">h</span><span class="p">)</span><span class="w">                    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="nl">Messages</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="w">  </span><span class="o">|</span><span class="w">  </span><span class="nl">Invocations</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="w">     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="nf">Avg</span><span class="w"> </span><span class="nl">Response</span><span class="p">:</span><span class="w"> </span><span class="mf">2.3</span><span class="n">s</span><span class="w">  </span><span class="o">|</span><span class="w">  </span><span class="nl">Success</span><span class="p">:</span><span class="w"> </span><span class="mi">98</span><span class="o">%</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                         </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">📝</span><span class="w"> </span><span class="n">Recent</span><span class="w"> </span><span class="n">Activity</span><span class="w">                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">34</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Replied</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">#general</span><span class="w">         </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">30</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Created</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="ss">&quot;Phase 3 test&quot;</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="mi">12</span><span class="err">:</span><span class="mi">25</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Summarized</span><span class="w"> </span><span class="n">meeting</span><span class="w"> </span><span class="n">notes</span><span class="w">    </span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────────┘</span>
+</code></pre></div>
+
+<h4 id="agentchattsx">AgentChat.tsx<a class="headerlink" href="#agentchattsx" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Direct 1-on-1 chat with agent</li>
+<li>Similar to Messenger UI</li>
+<li>Shows agent thinking/tools usage</li>
+<li>Context: "Direct conversation (not in channel)"</li>
+</ul>
+<hr />
+<h3 id="4-real-time-updates">4. Real-time Updates<a class="headerlink" href="#4-real-time-updates" title="Permanent link">&para;</a></h3>
+<p><strong>WebSocket endpoint:</strong> <code>ws://localhost:7010/ws/agents/{agent_id}</code></p>
+<p><strong>Events:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.message.sent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;channel-uuid&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content_preview&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Created task...&quot;</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.metrics.update&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;active_conversations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;messages_last_hour&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.status.changed&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;old_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;new_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;paused&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="5-integration-points">5. Integration Points<a class="headerlink" href="#5-integration-points" title="Permanent link">&para;</a></h3>
+<p><strong>With Phase 2:</strong>
+- Uses existing <code>messaging-service</code> for direct chat
+- Displays logs from <code>agent-runtime</code> invocations
+- Shows agent status from <code>agent-filter</code></p>
+<p><strong>With Phase 3:</strong>
+- Shows LLM usage (tokens, cost) from <code>llm-proxy</code>
+- Displays memory stats from <code>memory-orchestrator</code>
+- Lists available tools from <code>toolcore</code></p>
+<p><strong>With NATS:</strong>
+- Subscribes to <code>agent.*</code> events for real-time updates
+- Publishes <code>agent.config.updated</code> on changes</p>
+<hr />
+<h3 id="6-mock-data-development">6. Mock Data (Development)<a class="headerlink" href="#6-mock-data-development" title="Permanent link">&para;</a></h3>
+<p><strong>agents.mock.ts:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">mockAgents</span><span class="o">:</span><span class="w"> </span><span class="kt">Agent</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Sofia-Prime&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">avatar</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/avatars/sofia.png&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Project manager &amp; task organizer&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">capabilities</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;task_mgmt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;summarization&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;planning&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">microdao_id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2025-01-01T00:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">last_active</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">metrics</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">total_messages</span><span class="o">:</span><span class="w"> </span><span class="kt">1234</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">total_invocations</span><span class="o">:</span><span class="w"> </span><span class="kt">567</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">avg_response_time_ms</span><span class="o">:</span><span class="w"> </span><span class="kt">2345</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">success_rate</span><span class="o">:</span><span class="w"> </span><span class="kt">0.98</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;agent:alex&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Alex-Tech&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;specialist&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">avatar</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/avatars/alex.png&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Technical specialist for development tasks&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">capabilities</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code_review&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;debugging&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;documentation&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">microdao_id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2025-01-15T00:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">last_active</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T11:45:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">metrics</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">total_messages</span><span class="o">:</span><span class="w"> </span><span class="kt">856</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">total_invocations</span><span class="o">:</span><span class="w"> </span><span class="kt">423</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">avg_response_time_ms</span><span class="o">:</span><span class="w"> </span><span class="kt">3100</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">success_rate</span><span class="o">:</span><span class="w"> </span><span class="kt">0.96</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div>
+
+<hr />
+<h3 id="7-tech-stack">7. Tech Stack<a class="headerlink" href="#7-tech-stack" title="Permanent link">&para;</a></h3>
+<p><strong>Frontend:</strong>
+- React 18 + TypeScript
+- Tailwind CSS
+- React Query (TanStack Query)
+- React Router
+- WebSocket (for real-time)</p>
+<p><strong>Backend:</strong>
+- Python 3.11 + FastAPI
+- PostgreSQL (agents DB)
+- NATS (events)
+- Docker</p>
+<hr />
+<h3 id="8-database-schema">8. Database Schema<a class="headerlink" href="#8-database-schema" title="Permanent link">&para;</a></h3>
+<p><strong>agents table:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">agents</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">kind</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">  </span><span class="c1">-- assistant, coordinator, specialist</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="w">  </span><span class="c1">-- active, paused, error</span>
+<span class="w">    </span><span class="n">avatar</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">description</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">instructions</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">model</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tools</span><span class="w"> </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;[]&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">capabilities</span><span class="w"> </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">config</span><span class="w"> </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">microdao_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">updated_at</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">last_active</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_agents_microdao</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">agents</span><span class="p">(</span><span class="n">microdao_id</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_agents_status</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">agents</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
+</code></pre></div>
+
+<p><strong>agent_metrics table:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">agent_metrics</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">gen_random_uuid</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">agent_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">agents</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">event_type</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">  </span><span class="c1">-- message.sent, invocation, error</span>
+<span class="w">    </span><span class="n">channel_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">latency_ms</span><span class="w"> </span><span class="nb">FLOAT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tokens_used</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="p">,</span>
+<span class="w">    </span><span class="n">metadata</span><span class="w"> </span><span class="n">JSONB</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_metrics_agent_time</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">agent_metrics</span><span class="p">(</span><span class="n">agent_id</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="9-routes">9. Routes<a class="headerlink" href="#9-routes" title="Permanent link">&para;</a></h3>
+<p><strong>Frontend routes:</strong></p>
+<div class="codehilite"><pre><span></span><code>/agents                    → AgentGallery (list)
+/agents/:agentId           → AgentCabinet (dashboard)
+/agents/:agentId/chat      → AgentChat (direct conversation)
+/agents/:agentId/config    → AgentConfiguration (edit)
+</code></pre></div>
+
+<hr />
+<h3 id="10-acceptance-criteria">10. Acceptance Criteria<a class="headerlink" href="#10-acceptance-criteria" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Agent Gallery:</strong>
+- Shows all agents with status badges
+- Filter by status, kind, microDAO
+- Search by name
+- Responsive grid layout</p>
+<p>✅ <strong>Agent Cabinet:</strong>
+- Displays all agent details
+- Shows real-time metrics
+- Activity log stream
+- Configuration editor</p>
+<p>✅ <strong>Agent Chat:</strong>
+- Direct 1-on-1 conversation
+- Shows agent thinking/tools
+- Message history</p>
+<p>✅ <strong>Real-time Updates:</strong>
+- Metrics auto-refresh (WebSocket)
+- Activity log auto-updates
+- Status changes reflected immediately</p>
+<p>✅ <strong>Integration:</strong>
+- Works with Phase 2 (messaging, runtime)
+- Works with Phase 3 (LLM, memory, tools)
+- Uses NATS for events</p>
+<hr />
+<h3 id="11-implementation-steps">11. Implementation Steps<a class="headerlink" href="#11-implementation-steps" title="Permanent link">&para;</a></h3>
+<h4 id="week-1-backend-foundation">Week 1: Backend Foundation<a class="headerlink" href="#week-1-backend-foundation" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Create <code>agents-service</code> (FastAPI)</li>
+<li>Database schema + migrations</li>
+<li>Basic CRUD endpoints</li>
+<li>Mock agent blueprints</li>
+</ol>
+<h4 id="week-2-frontend-components">Week 2: Frontend Components<a class="headerlink" href="#week-2-frontend-components" title="Permanent link">&para;</a></h4>
+<ol>
+<li>AgentGallery + AgentCard</li>
+<li>AgentCabinet (layout + tabs)</li>
+<li>AgentMetrics panel</li>
+<li>AgentLogs stream</li>
+</ol>
+<h4 id="week-3-real-time-integration">Week 3: Real-time &amp; Integration<a class="headerlink" href="#week-3-real-time-integration" title="Permanent link">&para;</a></h4>
+<ol>
+<li>WebSocket for real-time updates</li>
+<li>Direct chat integration</li>
+<li>Configuration editor</li>
+<li>NATS events</li>
+</ol>
+<h4 id="week-4-polish-testing">Week 4: Polish &amp; Testing<a class="headerlink" href="#week-4-polish-testing" title="Permanent link">&para;</a></h4>
+<ol>
+<li>UI polish (animations, UX)</li>
+<li>Error handling</li>
+<li>E2E testing</li>
+<li>Documentation</li>
+</ol>
+<hr />
+<h3 id="12-future-enhancements-phase-35">12. Future Enhancements (Phase 3.5+)<a class="headerlink" href="#12-future-enhancements-phase-35" title="Permanent link">&para;</a></h3>
+<p>🔜 <strong>Agent creation wizard</strong>
+- GUI for creating new agents
+- Template selection
+- Tool assignment</p>
+<p>🔜 <strong>Agent analytics</strong>
+- Charts (messages over time)
+- Cost tracking
+- Performance insights</p>
+<p>🔜 <strong>Agent marketplace</strong>
+- Browse community agents
+- Install/deploy agents
+- Agent templates</p>
+<p>🔜 <strong>Multi-agent orchestration</strong>
+- Agent chains
+- Workflow builder
+- Agent collaboration</p>
+<hr />
+<h2 id="quick-start-after-implementation">Quick Start (After Implementation)<a class="headerlink" href="#quick-start-after-implementation" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Start agents-service</span>
+docker-compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.agents.yml<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Frontend dev</span>
+<span class="nb">cd</span><span class="w"> </span>node-network-app
+npm<span class="w"> </span>run<span class="w"> </span>dev
+
+<span class="c1"># Open</span>
+open<span class="w"> </span>http://localhost:8899/agents
+</code></pre></div>
+
+<hr />
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p><strong>After implementation, create:</strong>
+- <code>/docs/AGENT_HUB_SPEC.md</code> — Full specification
+- <code>/docs/AGENT_SERVICE_API.md</code> — API documentation
+- <code>/services/agents-service/README.md</code> — Service setup</p>
+<hr />
+<p><strong>Status:</strong> 📋 Spec Ready<br />
+<strong>Version:</strong> 1.0.0<br />
+<strong>Last Updated:</strong> 2025-11-24</p>
+<p><strong>READY TO BUILD!</strong> 🚀</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

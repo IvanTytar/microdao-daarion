@@ -1,0 +1,1228 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DEPLOY_ENV_CONFIG/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Environment Configuration для DAARION Production - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#environment-configuration-daarion-production" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Environment Configuration для DAARION Production
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    <span class="md-ellipsis">
+      📂 Структура ENV файлів
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔑 Генерація секретів
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#env_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 .env (Головний файл)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envappenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 env/app.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envdbenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      🗄️ env/db.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envredisenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 env/redis.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envnatsenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      📡 env/nats.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envagentsenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      🤖 env/agents.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envcityenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏙️ env/city.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envsecondmeenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧬 env/secondme.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envmonitoringenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 env/monitoring.env
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Security Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 Security Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-git-ignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Git Ignore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-backup-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Backup Secrets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotation-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Rotation Policy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Rotation Policy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Регулярно змінювати:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Процедура rotation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Deployment Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-env-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing ENV Config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: Service не бачить ENV змінні
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: Секрет не працює
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Наступні кроки
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="environment-configuration-daarion-production">Environment Configuration для DAARION Production<a class="headerlink" href="#environment-configuration-daarion-production" title="Permanent link">&para;</a></h1>
+<p><strong>Важливо:</strong> Ніколи не комітити реальні секрети в Git!</p>
+<hr />
+<h2 id="env">📂 Структура ENV файлів<a class="headerlink" href="#env" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>/opt/daarion/
+├── .env                    # Головний файл (використовується docker-compose)
+├── env/
+│   ├── app.env            # Загальні змінні застосунку
+│   ├── db.env             # PostgreSQL
+│   ├── redis.env          # Redis
+│   ├── nats.env           # NATS
+│   ├── agents.env         # Agents Service
+│   ├── city.env           # City Service
+│   ├── secondme.env       # Second Me Service
+│   └── monitoring.env     # Prometheus/Grafana
+└── .env.example           # Шаблон (в Git)
+</code></pre></div>
+
+<hr />
+<h2 id="_1">🔑 Генерація секретів<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># JWT Secret (64 символи)</span>
+openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span>
+
+<span class="c1"># Encryption Key (32 символи)</span>
+openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">16</span>
+
+<span class="c1"># Database Password</span>
+openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;=+/&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c1-25
+
+<span class="c1"># Registration Secret (для Matrix, Phase 4+)</span>
+openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">32</span>
+</code></pre></div>
+
+<hr />
+<h2 id="env_1">📝 .env (Головний файл)<a class="headerlink" href="#env_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># =============================================================================</span>
+<span class="c1"># DAARION Production Environment</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># Environment</span>
+<span class="n">APP_ENV</span><span class="o">=</span><span class="n">production</span>
+<span class="n">NODE_ENV</span><span class="o">=</span><span class="n">production</span>
+
+<span class="c1"># Domain</span>
+<span class="n">APP_BASE_URL</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">app</span><span class="o">.</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span>
+<span class="n">APP_DOMAIN</span><span class="o">=</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span>
+
+<span class="c1"># Database (PostgreSQL)</span>
+<span class="n">DATABASE_URL</span><span class="o">=</span><span class="n">postgresql</span><span class="p">:</span><span class="o">//</span><span class="n">daarion_user</span><span class="p">:</span><span class="n">CHANGE_ME_DB_PASSWORD</span><span class="err">@</span><span class="n">postgres</span><span class="p">:</span><span class="mi">5432</span><span class="o">/</span><span class="n">daarion</span>
+<span class="n">POSTGRES_USER</span><span class="o">=</span><span class="n">daarion_user</span>
+<span class="n">POSTGRES_PASSWORD</span><span class="o">=</span><span class="n">CHANGE_ME_DB_PASSWORD</span>
+<span class="n">POSTGRES_DB</span><span class="o">=</span><span class="n">daarion</span>
+
+<span class="c1"># Redis</span>
+<span class="n">REDIS_URL</span><span class="o">=</span><span class="n">redis</span><span class="p">:</span><span class="o">//</span><span class="n">redis</span><span class="p">:</span><span class="mi">6379</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">REDIS_PASSWORD</span><span class="o">=</span><span class="n">CHANGE_ME_REDIS_PASSWORD</span>
+
+<span class="c1"># NATS</span>
+<span class="n">NATS_URL</span><span class="o">=</span><span class="n">nats</span><span class="p">:</span><span class="o">//</span><span class="n">nats</span><span class="p">:</span><span class="mi">4222</span>
+<span class="n">NATS_CLUSTER_ID</span><span class="o">=</span><span class="n">daarion</span><span class="o">-</span><span class="n">cluster</span>
+
+<span class="c1"># Security</span>
+<span class="n">JWT_SECRET</span><span class="o">=</span><span class="n">CHANGE_ME_JWT_SECRET_64_CHARS</span>
+<span class="n">JWT_EXPIRY</span><span class="o">=</span><span class="mi">7</span><span class="n">d</span>
+<span class="n">ENCRYPTION_KEY</span><span class="o">=</span><span class="n">CHANGE_ME_ENCRYPTION_KEY_32_CHARS</span>
+
+<span class="c1"># Services URLs (internal)</span>
+<span class="n">AUTH_SERVICE_URL</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">auth</span><span class="o">-</span><span class="n">service</span><span class="p">:</span><span class="mi">7000</span>
+<span class="n">AGENTS_SERVICE_URL</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">agents</span><span class="o">-</span><span class="n">service</span><span class="p">:</span><span class="mi">7002</span>
+<span class="n">CITY_SERVICE_URL</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">city</span><span class="o">-</span><span class="n">service</span><span class="p">:</span><span class="mi">7001</span>
+<span class="n">SECONDME_SERVICE_URL</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">secondme</span><span class="o">-</span><span class="n">service</span><span class="p">:</span><span class="mi">7003</span>
+<span class="n">MICRODAO_SERVICE_URL</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">microdao</span><span class="o">-</span><span class="n">service</span><span class="p">:</span><span class="mi">7004</span>
+
+<span class="c1"># City Config</span>
+<span class="n">CITY_DEFAULT_ROOMS</span><span class="o">=</span><span class="n">general</span><span class="p">,</span><span class="n">welcome</span><span class="p">,</span><span class="n">builders</span>
+<span class="n">SECONDME_AGENT_ID</span><span class="o">=</span><span class="n">ag_secondme_global</span>
+
+<span class="c1"># Monitoring</span>
+<span class="n">PROMETHEUS_RETENTION</span><span class="o">=</span><span class="mi">15</span><span class="n">d</span>
+<span class="n">GRAFANA_ADMIN_PASSWORD</span><span class="o">=</span><span class="n">CHANGE_ME_GRAFANA_PASSWORD</span>
+
+<span class="c1"># Logging</span>
+<span class="n">LOG_LEVEL</span><span class="o">=</span><span class="n">info</span>
+<span class="n">LOG_FORMAT</span><span class="o">=</span><span class="n">json</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Advanced (Optional)</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># Rate Limiting</span>
+<span class="n">RATE_LIMIT_ENABLED</span><span class="o">=</span><span class="bp">true</span>
+<span class="n">RATE_LIMIT_MAX_REQUESTS</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">RATE_LIMIT_WINDOW_MS</span><span class="o">=</span><span class="mi">60000</span>
+
+<span class="c1"># CORS</span>
+<span class="n">CORS_ORIGINS</span><span class="o">=</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">app</span><span class="o">.</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">daarion</span><span class="o">.</span><span class="n">space</span>
+<span class="n">CORS_CREDENTIALS</span><span class="o">=</span><span class="bp">true</span>
+
+<span class="c1"># File Upload</span>
+<span class="n">MAX_FILE_SIZE</span><span class="o">=</span><span class="mi">10</span><span class="n">MB</span>
+<span class="n">UPLOAD_DIR</span><span class="o">=/</span><span class="n">data</span><span class="o">/</span><span class="n">uploads</span>
+
+<span class="c1"># Telemetry (Optional)</span>
+<span class="n">TELEMETRY_ENABLED</span><span class="o">=</span><span class="bp">false</span>
+<span class="n">SENTRY_DSN</span><span class="o">=</span>
+
+<span class="c1"># Feature Flags (MVP)</span>
+<span class="n">FEATURE_CITY_ROOMS</span><span class="o">=</span><span class="bp">true</span>
+<span class="n">FEATURE_SECOND_ME</span><span class="o">=</span><span class="bp">true</span>
+<span class="n">FEATURE_AGENTS</span><span class="o">=</span><span class="bp">true</span>
+<span class="n">FEATURE_MICRODAO</span><span class="o">=</span><span class="bp">true</span>
+<span class="n">FEATURE_MATRIX</span><span class="o">=</span><span class="bp">false</span>
+</code></pre></div>
+
+<hr />
+<h2 id="envappenv">🔐 env/app.env<a class="headerlink" href="#envappenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>Application<span class="w"> </span>Configuration
+APP_NAME=DAARION
+APP_VERSION=1.0.0
+APP_ENV=production
+APP_DEBUG=false
+
+APP_BASE_URL=https://app.daarion.space
+APP_DOMAIN=daarion.space
+
+#<span class="w"> </span>Security
+JWT_SECRET=<span class="cp">${</span><span class="n">JWT_SECRET</span><span class="cp">}</span>
+ENCRYPTION_KEY=<span class="cp">${</span><span class="n">ENCRYPTION_KEY</span><span class="cp">}</span>
+
+#<span class="w"> </span>Session
+SESSION_LIFETIME=604800
+SESSION_SECURE=true
+SESSION_SAME_SITE=strict
+</code></pre></div>
+
+<hr />
+<h2 id="envdbenv">🗄️ env/db.env<a class="headerlink" href="#envdbenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>PostgreSQL<span class="w"> </span>Configuration
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=daarion_user
+POSTGRES_PASSWORD=<span class="cp">${</span><span class="n">POSTGRES_PASSWORD</span><span class="cp">}</span>
+POSTGRES_DB=daarion
+
+#<span class="w"> </span>Connection<span class="w"> </span>Pool
+POSTGRES_POOL_MIN=2
+POSTGRES_POOL_MAX=10
+
+#<span class="w"> </span>Timeouts
+POSTGRES_CONNECT_TIMEOUT=10
+POSTGRES_STATEMENT_TIMEOUT=30000
+
+#<span class="w"> </span>SSL<span class="w"> </span>(Production)
+POSTGRES_SSL_MODE=prefer
+</code></pre></div>
+
+<hr />
+<h2 id="envredisenv">📦 env/redis.env<a class="headerlink" href="#envredisenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>Redis<span class="w"> </span>Configuration
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_PASSWORD=<span class="cp">${</span><span class="n">REDIS_PASSWORD</span><span class="cp">}</span>
+REDIS_DB=0
+
+#<span class="w"> </span>Connection
+REDIS_MAX_RETRIES=3
+REDIS_RETRY_DELAY=1000
+
+#<span class="w"> </span>Presence<span class="w"> </span>System
+PRESENCE_TTL=40
+PRESENCE_HEARTBEAT_INTERVAL=20
+</code></pre></div>
+
+<hr />
+<h2 id="envnatsenv">📡 env/nats.env<a class="headerlink" href="#envnatsenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="gh">#</span> NATS Configuration
+NATS_URL=nats://nats:4222
+NATS_CLUSTER_ID=daarion-cluster
+
+<span class="gh">#</span> JetStream
+NATS_JETSTREAM_ENABLED=true
+NATS_JETSTREAM_DOMAIN=daarion
+
+<span class="gh">#</span> Connection
+NATS_MAX_RECONNECTS=10
+NATS_RECONNECT_WAIT=2s
+</code></pre></div>
+
+<hr />
+<h2 id="envagentsenv">🤖 env/agents.env<a class="headerlink" href="#envagentsenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>Agents<span class="w"> </span>Service<span class="w"> </span>Configuration
+AGENTS_SERVICE_PORT=7002
+
+#<span class="w"> </span>Database
+DATABASE_URL=<span class="cp">${</span><span class="n">DATABASE_URL</span><span class="cp">}</span>
+
+#<span class="w"> </span>NATS
+NATS_URL=<span class="cp">${</span><span class="n">NATS_URL</span><span class="cp">}</span>
+
+#<span class="w"> </span>LLM<span class="w"> </span>Proxy<span class="w"> </span>(якщо<span class="w"> </span>є)
+LLM_PROXY_URL=http://llm-proxy:8000
+
+#<span class="w"> </span>Quotas
+AGENT_TOKENS_PER_MINUTE=10000
+AGENT_RUNS_PER_DAY=100
+AGENT_CONCURRENT_RUNS=5
+
+#<span class="w"> </span>Execution
+AGENT_TIMEOUT_SECONDS=30
+AGENT_MAX_TOKENS=2000
+</code></pre></div>
+
+<hr />
+<h2 id="envcityenv">🏙️ env/city.env<a class="headerlink" href="#envcityenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>City<span class="w"> </span>Service<span class="w"> </span>Configuration
+CITY_SERVICE_PORT=7001
+
+#<span class="w"> </span>Database
+DATABASE_URL=<span class="cp">${</span><span class="n">DATABASE_URL</span><span class="cp">}</span>
+
+#<span class="w"> </span>Redis<span class="w"> </span>(Presence)
+REDIS_URL=<span class="cp">${</span><span class="n">REDIS_URL</span><span class="cp">}</span>
+
+#<span class="w"> </span>Default<span class="w"> </span>Rooms
+CITY_DEFAULT_ROOMS=general,welcome,builders,science,energy
+
+#<span class="w"> </span>Presence
+PRESENCE_TTL=40
+PRESENCE_CLEANUP_INTERVAL=60
+</code></pre></div>
+
+<hr />
+<h2 id="envsecondmeenv">🧬 env/secondme.env<a class="headerlink" href="#envsecondmeenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>Second<span class="w"> </span>Me<span class="w"> </span>Service<span class="w"> </span>Configuration
+SECONDME_SERVICE_PORT=7003
+
+#<span class="w"> </span>Database
+DATABASE_URL=<span class="cp">${</span><span class="n">DATABASE_URL</span><span class="cp">}</span>
+
+#<span class="w"> </span>Agents<span class="w"> </span>Core<span class="w"> </span>Integration
+AGENTS_SERVICE_URL=<span class="cp">${</span><span class="n">AGENTS_SERVICE_URL</span><span class="cp">}</span>
+SECONDME_AGENT_ID=ag_secondme_global
+
+#<span class="w"> </span>Context
+SECONDME_CONTEXT_MESSAGES=10
+SECONDME_MAX_PROMPT_LENGTH=5000
+</code></pre></div>
+
+<hr />
+<h2 id="envmonitoringenv">📊 env/monitoring.env<a class="headerlink" href="#envmonitoringenv" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>Prometheus
+PROMETHEUS_PORT=9090
+PROMETHEUS_RETENTION=15d
+PROMETHEUS_SCRAPE_INTERVAL=15s
+
+#<span class="w"> </span>Grafana
+GF_SERVER_ROOT_URL=https://app.daarion.space/grafana/
+GF_SECURITY_ADMIN_USER=admin
+GF_SECURITY_ADMIN_PASSWORD=<span class="cp">${</span><span class="n">GRAFANA_ADMIN_PASSWORD</span><span class="cp">}</span>
+GF_AUTH_ANONYMOUS_ENABLED=false
+GF_USERS_ALLOW_SIGN_UP=false
+
+#<span class="w"> </span>Alerting<span class="w"> </span>(Optional)
+GF_SMTP_ENABLED=false
+</code></pre></div>
+
+<hr />
+<h2 id="security-best-practices">🔒 Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-permissions">1. Permissions<a class="headerlink" href="#1-permissions" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Встановити правильні permissions</span>
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/opt/daarion/.env
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/opt/daarion/env/*.env
+chown<span class="w"> </span>root:docker<span class="w"> </span>/opt/daarion/.env
+</code></pre></div>
+
+<h3 id="2-git-ignore">2. Git Ignore<a class="headerlink" href="#2-git-ignore" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span>В<span class="w"> </span><span class="p">.</span><span class="n">gitignore</span><span class="w"> </span>додати<span class="p">:</span>
+<span class="p">.</span><span class="n">env</span>
+<span class="n">env</span><span class="o">/*</span><span class="p">.</span><span class="n">env</span>
+<span class="sx">!env/*.env.example</span>
+</code></pre></div>
+
+<h3 id="3-backup-secrets">3. Backup Secrets<a class="headerlink" href="#3-backup-secrets" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Зберегти секрети в безпечному місці</span>
+<span class="c1"># Наприклад, в 1Password, Vault, або encrypted file</span>
+
+<span class="c1"># Backup command:</span>
+tar<span class="w"> </span>-czf<span class="w"> </span>daarion-secrets-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.tar.gz<span class="w"> </span>env/<span class="w"> </span>.env
+gpg<span class="w"> </span>--symmetric<span class="w"> </span>--cipher-algo<span class="w"> </span>AES256<span class="w"> </span>daarion-secrets-*.tar.gz
+rm<span class="w"> </span>daarion-secrets-*.tar.gz
+<span class="c1"># Зберегти .gpg файл у безпечному місці</span>
+</code></pre></div>
+
+<hr />
+<h2 id="rotation-policy">🔄 Rotation Policy<a class="headerlink" href="#rotation-policy" title="Permanent link">&para;</a></h2>
+<h3 id="_2">Регулярно змінювати:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>JWT_SECRET</strong>: кожні 90 днів</li>
+<li><strong>Database passwords</strong>: кожні 90 днів</li>
+<li><strong>Redis password</strong>: кожні 90 днів</li>
+<li><strong>Grafana admin password</strong>: кожні 30 днів</li>
+</ul>
+<h3 id="rotation">Процедура rotation:<a class="headerlink" href="#rotation" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Згенерувати новий секрет</li>
+<li>Оновити <code>.env</code> файл</li>
+<li>Перезапустити affected services:
+   <code>bash
+   docker compose -f docker-compose.all.yml restart auth-service</code></li>
+<li>Перевірити що все працює</li>
+<li>Видалити старий секрет з backup</li>
+</ol>
+<hr />
+<h2 id="deployment-checklist">📋 Deployment Checklist<a class="headerlink" href="#deployment-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Всі <code>CHANGE_ME_*</code> замінені на реальні секрети</li>
+<li>[ ] Секрети згенеровані через <code>openssl rand</code></li>
+<li>[ ] <code>.env</code> файл має permissions 600</li>
+<li>[ ] <code>.env</code> додано в <code>.gitignore</code></li>
+<li>[ ] Backup секретів створено та збережено в безпечному місці</li>
+<li>[ ] <code>APP_BASE_URL</code> вказує на правильний домен</li>
+<li>[ ] Database credentials унікальні та сильні</li>
+<li>[ ] JWT_SECRET має мінімум 64 символи</li>
+<li>[ ] Grafana admin password змінений з дефолтного</li>
+</ul>
+<hr />
+<h2 id="testing-env-config">🧪 Testing ENV Config<a class="headerlink" href="#testing-env-config" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірка що всі змінні завантажуються</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>config
+
+<span class="c1"># Перевірка конкретного сервісу</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>auth-service<span class="w"> </span>env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>JWT
+
+<span class="c1"># Debug mode (тільки на dev!)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>up<span class="w"> </span>auth-service
+<span class="c1"># Шукати в логах завантаження ENV</span>
+</code></pre></div>
+
+<hr />
+<h2 id="troubleshooting">🚨 Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="service-env">Проблема: Service не бачить ENV змінні<a class="headerlink" href="#service-env" title="Permanent link">&para;</a></h3>
+<p><strong>Рішення:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># В docker-compose.all.yml додати:</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">auth-service</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">env_file</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">env/app.env</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">APP_ENV=${APP_ENV}</span>
+</code></pre></div>
+
+<h3 id="_3">Проблема: Секрет не працює<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>Діагностика:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити що немає зайвих пробілів</span>
+cat<span class="w"> </span>.env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>JWT_SECRET<span class="w"> </span><span class="p">|</span><span class="w"> </span>od<span class="w"> </span>-c
+
+<span class="c1"># Перевірити що файл має Unix line endings</span>
+file<span class="w"> </span>.env
+</code></pre></div>
+
+<hr />
+<h2 id="_4">📚 Наступні кроки<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>➡️ <strong>Database Migrations</strong> (<code>docs/DEPLOY_MIGRATIONS.md</code>)</li>
+<li>➡️ <strong>Services Startup</strong> (<code>docs/DEPLOY_SERVICES.md</code>)</li>
+<li>➡️ <strong>Smoke Tests</strong> (<code>docs/DEPLOY_SMOKETEST_CHECKLIST.md</code>)</li>
+</ol>
+<hr />
+<p><strong>Статус:</strong> ✅ ENV Configuration Guide Complete<br />
+<strong>Версія:</strong> 1.0.0<br />
+<strong>Дата:</strong> 24 листопада 2025</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

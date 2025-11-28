@@ -1,0 +1,1054 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/22_agent_only_interface_tasks/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>22 — Agent-Only Interface Tasks (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#22-agent-only-interface-tasks-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              22 — Agent-Only Interface Tasks (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="22-agent-only-interface-tasks-microdao">22 — Agent-Only Interface Tasks (MicroDAO)<a class="headerlink" href="#22-agent-only-interface-tasks-microdao" title="Permanent link">&para;</a></h1>
+<p>Структурований список задач для реалізації Agent-Only Interface</p>
+<p>Цей документ містить детальні технічні задачі для поетапної реалізації агентського інтерфейсу MicroDAO. Кожну задачу можна давати Cursor окремо для поступової розробки.</p>
+<p><strong>Базовий документ:</strong> <code>21_agent_only_interface.md</code></p>
+<hr />
+<h1 id="task-1-ui-agents-list-people-agents-robots">Task 1 — UI-Agents-List (People / Agents / Robots панель)<a class="headerlink" href="#task-1-ui-agents-list-people-agents-robots" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Мета<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Зробити лівий блок "Учасники", де видно Людей, Агентів і (поки що) плейсхолдер Роботів. Клік по елементу відкриває відповідний чат/сторінку.</p>
+<h2 id="_2">Специфікація<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Розташування<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Лівий сайдбар, нижче/поруч з блоком "Простори (microDAO)".</li>
+<li>Заголовок: <code>Учасники</code>.</li>
+<li>
+<p>Вкладки або груповані секції:</p>
+</li>
+<li>
+<p><code>Люди</code></p>
+</li>
+<li><code>Агенти</code></li>
+<li><code>Роботи</code> (поки список порожній, з текстом "Скоро").</li>
+</ul>
+<h3 id="2">2. Дані<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>People:</p>
+</li>
+<li>
+<p><code>id</code>, <code>display_name</code>, <code>avatar_url</code>, <code>online_status</code>.</p>
+</li>
+<li>
+<p>Agents:</p>
+</li>
+<li>
+<p><code>id</code>, <code>name</code>, <code>role</code>, <code>avatar</code>, maybe <code>type</code> (system/custom).</p>
+</li>
+<li>
+<p>Robots:</p>
+</li>
+<li>
+<p>поки просто статичний текст: "Роботи поки не під'єднані".</p>
+</li>
+</ul>
+<p>На бекенді: можна зробити:</p>
+<ul>
+<li><code>GET /participants?team_id=...</code> → <code>{ people: [...], agents: [...] }</code>
+  або окремі запити <code>GET /members</code>, <code>GET /agents</code>.</li>
+</ul>
+<h3 id="3-ui-">3. UI-поведінка<a class="headerlink" href="#3-ui-" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Клік по Людині:</p>
+</li>
+<li>
+<p>відкриває DM-чат <code>/t/:teamId/dm/:userId</code>.</p>
+</li>
+<li>
+<p>Клік по Агенту:</p>
+</li>
+<li>
+<p>відкриває сторінку агента <code>/t/:teamId/agent/:agentId</code>
+    або агент-чат.</p>
+</li>
+<li>
+<p>Список скролиться, якщо елементів багато.</p>
+</li>
+</ul>
+<h3 id="4">4. Інтеграція з існуючим кодом<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Використати загальні компоненти <code>Sidebar</code>, <code>Avatar</code>, <code>ListItem</code>.</li>
+<li>Типи/інтерфейси привести до стандартів з <code>05_coding_standards.md</code>.</li>
+</ul>
+<h2 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ul>
+<li>У лівому сайдбарі є блок "Учасники" з секціями <code>Люди</code>, <code>Агенти</code>, <code>Роботи</code>.</li>
+<li>Для <code>Людей</code> і <code>Агентів</code> рендеряться реальні дані з API (або mock, якщо API ще нема).</li>
+<li>Клік по Людині відкриває приватний чат (навіть якщо поки stub).</li>
+<li>Клік по Агенту відкриває сторінку/чат агента.</li>
+<li>"Роботи" відображаються як порожній список з плейсхолдером.</li>
+</ul>
+<h2 id="cursor">Приклад промта для Cursor<a class="headerlink" href="#cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Implement the Participants panel (People / Agents / Robots) in the left sidebar using:
+
+<span class="k">-</span> 21_agent_only_interface.md
+<span class="k">-</span> 10_agent_ui_system.md
+<span class="k">-</span> 03_api_core_snapshot.md
+<span class="k">-</span> 05_coding_standards.md
+
+Deliverables:
+
+<span class="k">-</span> Sidebar section &quot;Учасники&quot; with groups: Люди, Агенти, Роботи.
+<span class="k">-</span> Click on a Person opens DM route <span class="sb">`/t/:teamId/dm/:userId`</span> (stub if needed).
+<span class="k">-</span> Click on an Agent opens <span class="sb">`/t/:teamId/agent/:agentId`</span>.
+
+Output: list of files + diff + summary.
+</code></pre></div>
+
+<hr />
+<h1 id="task-2-invite-agent-flow-web3-">Task 2 — Invite-Agent-Flow (модалка прав + web3-тригери)<a class="headerlink" href="#task-2-invite-agent-flow-web3-" title="Permanent link">&para;</a></h1>
+<h2 id="_3">Мета<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Дати можливість додавати агентів до каналів/чатів з налаштуванням прав. Web3 — на першому етапі Stub (просто підготувати місце для виклику Governance/Web3-агента).</p>
+<h2 id="_4">Специфікація<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">1. Де викликається<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>У header каналу/чату — кнопка <code>+ Додати учасника</code>.</li>
+<li>Доступна тільки для користувача з правами <code>admin</code>/<code>owner</code> (поки можна не перевіряти, просто буде кнопка).</li>
+</ul>
+<h3 id="2_1">2. Модалка<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Заголовок: "Додати учасника".</li>
+<li>
+<p>Tabs:</p>
+</li>
+<li>
+<p><code>Люди</code></p>
+</li>
+<li><code>Агенти</code></li>
+<li>Із них нас цікавить вкладка <code>Агенти</code>.</li>
+</ul>
+<h3 id="3">3. Вкладка "Агенти"<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Список доступних агентів з пошуком.</li>
+<li>По кліку на агента або чекбоксом обираємо 1–N агентів.</li>
+</ul>
+<h3 id="4_1">4. Налаштування прав<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Секція "Права в цьому каналі":</p>
+</li>
+<li>
+<p><code>[ ] Читати</code></p>
+</li>
+<li><code>[ ] Писати</code></li>
+<li><code>[ ] Створювати задачі / follow-ups</code></li>
+<li>За замовчуванням: <code>Читати</code> увімкнено, інші вимкнено.</li>
+</ul>
+<h3 id="5-api-entitlements">5. API / Entitlements<a class="headerlink" href="#5-api-entitlements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>On Submit:</p>
+</li>
+<li>
+<p><code>POST /entitlements</code> (або аналог) із даними:</p>
+<ul>
+<li><code>agent_id</code></li>
+<li><code>resource_kind: "channel"</code></li>
+<li><code>resource_id: channelId</code></li>
+<li><code>scopes: ["read", "write", "tasks"]</code> (залежить від чекбоксів)</li>
+</ul>
+</li>
+<li>
+<p>Web3 Stub:</p>
+</li>
+<li>
+<p>В коді робимо виклик функції <code>governance.issueAccessToken(...)</code> або логування TODO;</p>
+</li>
+<li>Реальної транзакції поки не робимо.</li>
+</ul>
+<h3 id="6-ux">6. UX<a class="headerlink" href="#6-ux" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Після успіху модалка закривається.</li>
+<li>У хедері каналу в списку учасників зʼявляється новий агент.</li>
+</ul>
+<h2 id="acceptance-criteria_1">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>У кожному каналі/чаті є кнопка "Додати учасника".</li>
+<li>В модалці є вкладка "Агенти" зі списком наявних агентів.</li>
+<li>Можна обрати агента, налаштувати права, натиснути "Запросити".</li>
+<li>На бекенді зберігаються entitlements (навіть якщо прості JSON у БД).</li>
+<li>Після додавання агент показується як учасник каналу.</li>
+<li>В коді є очевидний Stub для майбутньої web3 інтеграції.</li>
+</ul>
+<h2 id="cursor_1">Приклад промта для Cursor<a class="headerlink" href="#cursor_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Implement the &quot;Invite Agent&quot; flow for channels using:
+
+<span class="k">-</span> 21_agent_only_interface.md
+<span class="k">-</span> microdao — RBAC and Entitlements (MVP)
+<span class="k">-</span> 10_agent_ui_system.md
+<span class="k">-</span> 05_coding_standards.md
+
+Deliverables:
+
+1) &quot;Add participant&quot; button in channel header.
+2) Modal with tabs People / Agents, focusing on Agents tab.
+3) Permissions UI for agent (read / write / tasks).
+4) POST entitlements call to store agent-channel permissions (web3 as stub hook).
+
+Output: list of files + diff + summary.
+</code></pre></div>
+
+<hr />
+<h1 id="task-3-share-resource-flow-knowledge-space">Task 3 — Share-Resource-Flow (проєкт / БД / knowledge space)<a class="headerlink" href="#task-3-share-resource-flow-knowledge-space" title="Permanent link">&para;</a></h1>
+<h2 id="_5">Мета<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Реалізувати базову можливість "поділитися ресурсом" (спочатку — Проєктом), з видачею прав людям/агентам. БД / knowledge space можна підключати далі за тим самим патерном.</p>
+<h2 id="_6">Специфікація<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1-mvp">1. Ресурси для MVP<a class="headerlink" href="#1-mvp" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Почати з <code>Проєктів</code> (Projects Agent з документу 15).</li>
+<li>
+<p>Інтерфейс у правому сайдбарі для активного контексту:</p>
+</li>
+<li>
+<p>розділ "Проєкти цього контексту",</p>
+</li>
+<li>кожен проєкт має кнопку <code>⋯</code> → <code>Поділитися</code>.</li>
+</ul>
+<h3 id="2_2">2. Модалка "Поділитися проєктом"<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Заголовок: "Поділитися проєктом".</li>
+<li>
+<p>Tabs:</p>
+</li>
+<li>
+<p><code>Люди</code></p>
+</li>
+<li><code>Агенти</code></li>
+<li>Список одержувачів з пошуком.</li>
+</ul>
+<h3 id="3_1">3. Права доступу<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Радіо-кнопки або чекбокси:</p>
+</li>
+<li>
+<p><code>Тільки читати</code></p>
+</li>
+<li><code>Читати і оновлювати задачі</code></li>
+<li><code>Адмініструвати проєкт</code></li>
+<li>
+<p>Для MVP:</p>
+</li>
+<li>
+<p>мапимо на <code>["read"]</code>, <code>["read","write"]</code>, <code>["admin"]</code>.</p>
+</li>
+</ul>
+<h3 id="4-api-entitlements">4. API / Entitlements<a class="headerlink" href="#4-api-entitlements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>POST /entitlements</code>:</p>
+</li>
+<li>
+<p><code>resource_kind: "project"</code></p>
+</li>
+<li><code>resource_id: projectId</code></li>
+<li><code>subject_kind: "user" | "agent"</code></li>
+<li><code>subject_id: ...</code></li>
+<li>
+<p><code>scopes: [...]</code></p>
+</li>
+<li>
+<p>Web3 Stub:</p>
+</li>
+<li>
+<p>так само, як у Task 2 — залишити хук/функцію для майбутньої транзакції.</p>
+</li>
+</ul>
+<h3 id="5">5. Відображення<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>У правому сайдбарі для вибраного проєкту:</p>
+</li>
+<li>
+<p>короткий список: хто має доступ (іконки + тип: людина/агент).</p>
+</li>
+<li>посилання "Керувати доступами" (можна виводити ту ж саму модалку).</li>
+</ul>
+<h2 id="acceptance-criteria_2">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>У правому сайдбарі є список проєктів для контексту (навіть якщо один).</li>
+<li>Для кожного проєкту доступна дія "Поділитися".</li>
+<li>Модалка дозволяє вибрати людей/агентів і рівень доступу.</li>
+<li>Після підтвердження зʼявляються записи entitlements.</li>
+<li>У правій панелі видно, що проєкт поділено з конкретними субʼєктами.</li>
+</ul>
+<h2 id="cursor_2">Приклад промта для Cursor<a class="headerlink" href="#cursor_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">Implement</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="s">&quot;Share Project&quot;</span><span class="w"> </span><span class="nx">flow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">first</span><span class="w"> </span><span class="nx">Resource</span><span class="w"> </span><span class="nx">Sharing</span><span class="w"> </span><span class="nx">feature</span><span class="w"> </span><span class="nx">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">21</span><span class="nx">_agent_only_interface</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">15</span><span class="nx">_projects_agent_module</span><span class="p">.</span><span class="nx">md</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="nx">present</span><span class="p">)</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">microdao</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="nx">RBAC</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Entitlements</span><span class="w"> </span><span class="p">(</span><span class="nx">MVP</span><span class="p">)</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="nx">_coding_standards</span><span class="p">.</span><span class="nx">md</span>
+
+<span class="nx">Deliverables</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="nx">In</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">right</span><span class="w"> </span><span class="nx">sidebar</span><span class="p">,</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">projects</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">current</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span>
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="s">&quot;Share&quot;</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">project</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">opens</span><span class="w"> </span><span class="nx">modal</span><span class="p">.</span>
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="nx">Modal</span><span class="w"> </span><span class="nx">lets</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="nx">pick</span><span class="w"> </span><span class="nx">People</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">Agents</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">assign</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">level</span><span class="w"> </span><span class="p">(</span><span class="nx">read</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">read</span><span class="o">+</span><span class="nx">write</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">admin</span><span class="p">).</span>
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="nx">POST</span><span class="w"> </span><span class="nx">entitlements</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">persist</span><span class="w"> </span><span class="nx">access</span><span class="p">.</span>
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="nx">Show</span><span class="w"> </span><span class="nx">who</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">sidebar</span><span class="w"> </span><span class="p">(</span><span class="nx">avatars</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">type</span><span class="p">).</span>
+
+<span class="nx">Output</span><span class="p">:</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">diff</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">summary</span><span class="p">.</span>
+</code></pre></div>
+
+<hr />
+<h1 id="task-4-agent-hub-home">Task 4 — Agent-Hub-Home (стартовий екран "все через агента")<a class="headerlink" href="#task-4-agent-hub-home" title="Permanent link">&para;</a></h1>
+<h2 id="_7">Мета<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Зробити "Agent Hub" як домашню точку входу в microDAO: користувач відкриває <code>/t/:teamId/home</code> і бачить чат з головним агентом + базові віджети стану.</p>
+<h2 id="_8">Специфікація<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="1_2">1. Новий маршрут<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>GET /t/:teamId/home</code> (frontend route).</li>
+<li>Відображає <code>AgentHubPage</code>.</li>
+</ul>
+<h3 id="2-agenthubpage">2. AgentHubPage структура<a class="headerlink" href="#2-agenthubpage" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Верх:</p>
+</li>
+<li>
+<p>заголовок: <code>microDAO: {team.name}</code></p>
+</li>
+<li>
+<p>короткі віджети (можуть бути stub):</p>
+<ul>
+<li>"Учасники: X людей, Y агентів"</li>
+<li>"Активні проєкти: N"</li>
+</ul>
+</li>
+<li>
+<p>Центр:</p>
+</li>
+<li>
+<p>чат з головним агентом (Team Assistant або спеціальний OS Agent):</p>
+<ul>
+<li>використовує вже існуючий <code>AgentChatWindow</code>.</li>
+<li>агент_id береться з конфіг (наприклад, "team_assistant" для цієї команди).</li>
+</ul>
+</li>
+<li>
+<p>Праворуч:</p>
+</li>
+<li>
+<p>контекст (список проєктів / каналів / ресурсів — поки можна stub).</p>
+</li>
+</ul>
+<h3 id="3_2">3. Поведінка чату<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Перший запуск:</p>
+</li>
+<li>
+<p>агент вітається, якщо немає історії:</p>
+<blockquote>
+<p>"Привіт, це твій Agent Hub. Я допоможу керувати твоєю microDAO."</p>
+</blockquote>
+</li>
+<li>
+<p>Далі:</p>
+</li>
+<li>
+<p>користувач може написати запит, наприклад:</p>
+<ul>
+<li>"Покажи активні проєкти"</li>
+<li>"Відкрий канал #dev-mvp"</li>
+<li>"Хочу створити новий проєкт"</li>
+<li>Поки що можна зробити stub-відповіді, якщо Projects/Messenger Agents ще не реалізовані.</li>
+</ul>
+</li>
+</ul>
+<h3 id="4_2">4. Навігація<a class="headerlink" href="#4_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Кнопка/посилання "Головна" у лівому сайдбарі веде на <code>/t/:teamId/home</code>.</li>
+<li>Після успішного онбордингу (з <code>08_agent_first_onboarding.md</code>) редірект також може йти на Agent Hub.</li>
+</ul>
+<h2 id="acceptance-criteria_3">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Існує маршрут <code>/t/:teamId/home</code>, який рендерить Agent Hub.</li>
+<li>У центрі — робочий чат з Team Assistant (через <code>/agents/{id}/chat</code> endpoint).</li>
+<li>У сайдбарі є посилання "Головна" / "Agent Hub", що веде на цей екран.</li>
+<li>Якщо історії немає — агент показує вітальний меседж.</li>
+<li>Екран виглядає як "головна консоль" microDAO, а не просто черговий канал.</li>
+</ul>
+<h2 id="cursor_3">Приклад промта для Cursor<a class="headerlink" href="#cursor_3" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>Implement the Agent Hub Home screen using:
+
+<span class="k">-</span> 21_agent_only_interface.md
+<span class="k">-</span> 10_agent_ui_system.md
+<span class="k">-</span> 11_llm_integration.md
+<span class="k">-</span> 12_agent_runtime_core.md
+<span class="k">-</span> 05_coding_standards.md
+
+Deliverables:
+
+1) New route <span class="sb">`/t/:teamId/home`</span> rendering AgentHubPage.
+2) AgentHubPage:
+   <span class="k">-</span> header with team name and basic stats (stub).
+   <span class="k">-</span> central chat with Team Assistant agent (AgentChatWindow).
+   <span class="k">-</span> optional right sidebar context (stub).
+3) &quot;Home / Agent Hub&quot; entry in left sidebar that routes to <span class="sb">`/t/:teamId/home`</span>.
+
+Output: list of files + diff + summary.
+</code></pre></div>
+
+<hr />
+<h1 id="_9">Порядок виконання задач<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h1>
+<p>Рекомендований порядок реалізації:</p>
+<ol>
+<li><strong>Task 1</strong> — UI-Agents-List (базова структура учасників)</li>
+<li><strong>Task 4</strong> — Agent-Hub-Home (стартовий екран)</li>
+<li><strong>Task 2</strong> — Invite-Agent-Flow (додавання агентів до каналів)</li>
+<li><strong>Task 3</strong> — Share-Resource-Flow (поділ ресурсів)</li>
+</ol>
+<p>Альтернативний порядок (якщо потрібно спочатку базовий функціонал):</p>
+<ol>
+<li><strong>Task 4</strong> — Agent-Hub-Home</li>
+<li><strong>Task 1</strong> — UI-Agents-List</li>
+<li><strong>Task 2</strong> — Invite-Agent-Flow</li>
+<li><strong>Task 3</strong> — Share-Resource-Flow</li>
+</ol>
+<hr />
+<h1 id="_10">Залежності між задачами<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h1>
+<ul>
+<li><strong>Task 1</strong> не залежить від інших</li>
+<li><strong>Task 4</strong> може використовувати компоненти з Task 1</li>
+<li><strong>Task 2</strong> потребує Task 1 (список агентів)</li>
+<li><strong>Task 3</strong> потребує Task 2 (механізм entitlements)</li>
+</ul>
+<hr />
+<h1 id="_11">Загальні вимоги для всіх задач<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h1>
+<h2 id="_12">Технічні вимоги<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Дотримуватися <code>05_coding_standards.md</code></li>
+<li>Використовувати типи з <code>03_api_core_snapshot.md</code></li>
+<li>Інтегрувати з існуючими компонентами з <code>10_agent_ui_system.md</code></li>
+<li>Дотримуватися UI/UX з <code>04_ui_ux_onboarding_chat.md</code></li>
+</ul>
+<h2 id="_13">Тестування<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Кожна задача має мінімальні unit tests</li>
+<li>Перевірити наявність помилок TypeScript</li>
+<li>Перевірити відповідність acceptance criteria</li>
+</ul>
+<h2 id="_14">Документація<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Оновити <code>src/README.md</code> з описом нових компонентів</li>
+<li>Додати коментарі до складних частин коду</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>структурований список задач для Agent-Only Interface</strong>, готовий до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

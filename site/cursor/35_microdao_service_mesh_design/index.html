@@ -1,0 +1,1648 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/35_microdao_service_mesh_design/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>35 — MicroDAO Service Mesh Design (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#35-microdao-service-mesh-design-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              35 — MicroDAO Service Mesh Design (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-high-level-mesh-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. High-Level Mesh Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-zero-trust-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Zero-Trust Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Zero-Trust Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-trust-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Trust Boundaries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-service-identity-mtls" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Service Identity (mTLS)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-service-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Service Registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-internal-service-to-service-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Internal Service-to-Service Traffic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Internal Service-to-Service Traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Benefits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-core-service-mesh-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Core Service Mesh Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Core Service Mesh Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-mtls-encryption" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 mTLS Encryption
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-load-balancing-layer-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Load Balancing (Layer 7)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-retries" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Retries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-circuit-breakers" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Circuit Breakers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Timeouts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-internal-api-standard-mesh-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Internal API Standard (Mesh Requirements)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-pdp-integration-per-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. PDP Integration (per-service)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-mesh-level-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Mesh-Level Policies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Mesh-Level Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-allow-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Allow-lists
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-deny-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Deny-lists
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-observability-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Observability Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Observability Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Tracing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-failover-resilience" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Failover &amp; Resilience
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Failover & Resilience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-multi-zone-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 Multi-zone (Cloud)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-zonal-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Zonal Failover
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-service-healthchecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3 Service Healthchecks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-mesh-traffic-rules-for-critical-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Mesh Traffic Rules for Critical Services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Mesh Traffic Rules for Critical Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-wallet-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Wallet Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-embassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Embassy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-agent-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 Agent Orchestrator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134-routerdaarwizz" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4 Router/DAARWIZZ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-service-mesh-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Service Mesh Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Service Mesh Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-mtls-everywhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1 mTLS Everywhere
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-internal-service-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2 Internal Service Keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-no-direct-db-access-where-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.3 No direct DB access (where possible)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-network-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.4 Network Policies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-deployment-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Deployment Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Deployment Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-sidecar-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1 Sidecar Mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-node-agent-mode-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2 Node-agent Mode (Alternative)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-observability-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3 Observability stack
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-service-mesh-integration-with-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Service Mesh Integration with Scaling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Service Mesh Integration with Scaling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-auto-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.1 Auto-discovery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-load-aware-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.2 Load-aware routing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-autoscaling-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.3 Autoscaling Signals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-message-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Message Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Message Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-request-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1 Request-Response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-asynchronous-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2 Asynchronous Events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-long-running-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3 Long-running tasks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-example-mesh-policy-config-illustrative" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Example Mesh Policy Config (Illustrative)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="35-microdao-service-mesh-design-microdao">35 — MicroDAO Service Mesh Design (MicroDAO)<a class="headerlink" href="#35-microdao-service-mesh-design-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Арова архітектура сервіс-меш, резолюція сервісів, мережеві політики, zero-trust, observability, retries, autoscaling та інженерні стандарти для DAARION.city / microDAO</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>MicroDAO Service Mesh — це внутрішня мережна платформа, що забезпечує:</p>
+<ul>
+<li>безпечний виклик сервісів через <strong>zero-trust</strong> модель;</li>
+<li>внутрішнє балансування навантаження;</li>
+<li>автоматичне перез'єднання;</li>
+<li>контроль трафіку;</li>
+<li>observability (metrics / traces / logs);</li>
+<li>резолюцію сервісів та політики доступу;</li>
+<li>fault tolerance (retries, circuit breakers, rate limits).</li>
+</ul>
+<p>Цей документ — обов'язковий для:</p>
+<ul>
+<li>backend-інженерів,</li>
+<li>DevOps/SRE,</li>
+<li>авторів внутрішніх сервісів,</li>
+<li>security-аудиторів.</li>
+</ul>
+<hr />
+<h2 id="2-high-level-mesh-architecture">2. High-Level Mesh Architecture<a class="headerlink" href="#2-high-level-mesh-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>                           ┌────────────────────────────────┐
+                           │         API Gateway (PEP)      │
+                           └────────────────┬───────────────┘
+                                            │
+                         ┌──────────────────┴─────────────────┐
+                         │        SERVICE MESH FABRIC         │
+                         └─────────────┬─────────────┬────────┘
+                                       │             │
+                     ┌─────────────────┘             └──────────────────┐
+               Internal Services                                   System Services
+</code></pre></div>
+
+<p>Основу складають:</p>
+<ul>
+<li>Service Registry</li>
+<li>Sidecar Proxy (Envoy / Linkerd / Traefik Mesh)</li>
+<li>mTLS між сервісами</li>
+<li>Observability pipeline</li>
+<li>Traffic control (retries, timeouts, circuit breakers)</li>
+</ul>
+<hr />
+<h2 id="3-zero-trust-model">3. Zero-Trust Model<a class="headerlink" href="#3-zero-trust-model" title="Permanent link">&para;</a></h2>
+<p>Платформа працює за правилом:</p>
+<div class="codehilite"><pre><span></span><code>НІЯКІ ВНУТРІШНІ СЕРВІСИ НЕ ДОВІРЯЮТЬ ОДИН ОДНОМУ.
+</code></pre></div>
+
+<p>Тому кожен запит:</p>
+<ul>
+<li>автентифікується,</li>
+<li>авторизується через PDP,</li>
+<li>шифрується,</li>
+<li>логуються метадані.</li>
+</ul>
+<h3 id="31-trust-boundaries">3.1 Trust Boundaries<a class="headerlink" href="#31-trust-boundaries" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gateway → Services</td>
+<td>PDP enforced</td>
+</tr>
+<tr>
+<td>Service → Service</td>
+<td>mTLS + service identity</td>
+</tr>
+<tr>
+<td>Service → DB</td>
+<td>minimal DB roles</td>
+</tr>
+<tr>
+<td>Service → NATS</td>
+<td>per-stream permissions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-service-identity-mtls">4. Service Identity (mTLS)<a class="headerlink" href="#4-service-identity-mtls" title="Permanent link">&para;</a></h2>
+<p>Кожен сервіс отримує власну сертифікацію:</p>
+<div class="codehilite"><pre><span></span><code>CN = service_name
+SAN = service_name.namespace.svc
+</code></pre></div>
+
+<p>mTLS забезпечує:</p>
+<ul>
+<li>автентифікацію сервісу,</li>
+<li>заборону spoofing,</li>
+<li>шифрування трафіку.</li>
+</ul>
+<hr />
+<h2 id="5-service-registry">5. Service Registry<a class="headerlink" href="#5-service-registry" title="Permanent link">&para;</a></h2>
+<p>Mesh потребує <strong>централізованого каталогу сервісів</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wallet&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wallet.svc.cluster.local&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8081</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v1.4.0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;zone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eu-central-1&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>У cloud-середовищі це зазвичай:</p>
+<ul>
+<li>Kubernetes DNS,</li>
+<li>або Consul,</li>
+<li>або власний registry.</li>
+</ul>
+<hr />
+<h2 id="6-internal-service-to-service-traffic">6. Internal Service-to-Service Traffic<a class="headerlink" href="#6-internal-service-to-service-traffic" title="Permanent link">&para;</a></h2>
+<h3 id="61-pattern">6.1 Pattern<a class="headerlink" href="#61-pattern" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>serviceA → Envoy Sidecar → Mesh → Envoy Sidecar → serviceB
+</code></pre></div>
+
+<h3 id="62-benefits">6.2 Benefits<a class="headerlink" href="#62-benefits" title="Permanent link">&para;</a></h3>
+<ul>
+<li>automatic retries,</li>
+<li>circuit breaking,</li>
+<li>mTLS,</li>
+<li>observability,</li>
+<li>fine-grained routing,</li>
+<li>traffic shadowing.</li>
+</ul>
+<hr />
+<h2 id="7-core-service-mesh-features">7. Core Service Mesh Features<a class="headerlink" href="#7-core-service-mesh-features" title="Permanent link">&para;</a></h2>
+<h3 id="71-mtls-encryption">7.1 mTLS Encryption<a class="headerlink" href="#71-mtls-encryption" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Усі внутрішні запити шифровані.</li>
+<li>Certificates rotate every 12–48 hours.</li>
+</ul>
+<h3 id="72-load-balancing-layer-7">7.2 Load Balancing (Layer 7)<a class="headerlink" href="#72-load-balancing-layer-7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>round-robin,</li>
+<li>least_conn,</li>
+<li>locality-aware routing.</li>
+</ul>
+<h3 id="73-retries">7.3 Retries<a class="headerlink" href="#73-retries" title="Permanent link">&para;</a></h3>
+<ul>
+<li>max 3,</li>
+<li>exponential backoff,</li>
+<li>jitter.</li>
+</ul>
+<h3 id="74-circuit-breakers">7.4 Circuit Breakers<a class="headerlink" href="#74-circuit-breakers" title="Permanent link">&para;</a></h3>
+<p>При перевантаженні:</p>
+<ul>
+<li>mesh відкриває circuit → запити йдуть у failfast,</li>
+<li>після cooling-off — пробує відновити.</li>
+</ul>
+<h3 id="75-timeouts">7.5 Timeouts<a class="headerlink" href="#75-timeouts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>default timeout: 3 seconds,</li>
+<li>wallet, embassy: 1 second (short to avoid blocking),</li>
+<li>agent runs: 10–60 seconds (handled separately).</li>
+</ul>
+<hr />
+<h2 id="8-internal-api-standard-mesh-requirements">8. Internal API Standard (Mesh Requirements)<a class="headerlink" href="#8-internal-api-standard-mesh-requirements" title="Permanent link">&para;</a></h2>
+<p>Кожен сервіс має відповідати стандарту:</p>
+<ul>
+<li>JSON over HTTP (no gRPC unless planned),</li>
+<li><code>/internal/v1/&lt;service&gt;/&lt;operation&gt;</code>,</li>
+<li>атомарні операції,</li>
+<li>4xx для клієнтських помилок,</li>
+<li>5xx для сервісних.</li>
+</ul>
+<p>Приклад:</p>
+<div class="codehilite"><pre><span></span><code>POST /internal/v1/wallet/payout/claim
+POST /internal/v1/embassy/energy/update
+POST /internal/v1/agent/run
+</code></pre></div>
+
+<hr />
+<h2 id="9-pdp-integration-per-service">9. PDP Integration (per-service)<a class="headerlink" href="#9-pdp-integration-per-service" title="Permanent link">&para;</a></h2>
+<p>PEP живе тільки у API Gateway, але Services повинні:</p>
+<ol>
+<li>не довіряти payload, навіть після PDP → додаткова валідація;</li>
+<li>виконувати DB-level ACL checks;</li>
+<li>мутуючі операції мають виконуватись тільки через Gateway.</li>
+</ol>
+<p><strong>Жоден сервіс не приймає зовнішній трафік напряму.</strong></p>
+<hr />
+<h2 id="10-mesh-level-policies">10. Mesh-Level Policies<a class="headerlink" href="#10-mesh-level-policies" title="Permanent link">&para;</a></h2>
+<h3 id="101-allow-lists">10.1 Allow-lists<a class="headerlink" href="#101-allow-lists" title="Permanent link">&para;</a></h3>
+<p>Кожен сервіс може викликати тільки перелік інших сервісів:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Allowed to Call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Messaging</td>
+<td>Usage, Storage</td>
+</tr>
+<tr>
+<td>Agent Orchestrator</td>
+<td>LLM Proxy, Usage</td>
+</tr>
+<tr>
+<td>Embassy</td>
+<td>RWA, Usage</td>
+</tr>
+<tr>
+<td>Wallet</td>
+<td>Chain RPC, Usage</td>
+</tr>
+<tr>
+<td>Router</td>
+<td>Agent Orchestrator, LLM Proxy</td>
+</tr>
+<tr>
+<td>RWA</td>
+<td>Wallet, Usage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102-deny-lists">10.2 Deny-lists<a class="headerlink" href="#102-deny-lists" title="Permanent link">&para;</a></h3>
+<p>Забезпечує Zero-Trust:</p>
+<ul>
+<li>Messaging → No direct Wallet access</li>
+<li>Agents → No direct RWA access</li>
+<li>Embassy → No direct Wallet claim</li>
+<li>Router → No low-level DB access</li>
+</ul>
+<hr />
+<h2 id="11-observability-model">11. Observability Model<a class="headerlink" href="#11-observability-model" title="Permanent link">&para;</a></h2>
+<p>Mesh забезпечує повну видимість.</p>
+<h3 id="111-metrics">11.1 Metrics<a class="headerlink" href="#111-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li>latency (p50, p95, p99),</li>
+<li>HTTP codes,</li>
+<li>retry count,</li>
+<li>circuit breaker events,</li>
+<li>request sizes,</li>
+<li>traffic spikes.</li>
+</ul>
+<h3 id="112-tracing">11.2 Tracing<a class="headerlink" href="#112-tracing" title="Permanent link">&para;</a></h3>
+<p>Підтримується:</p>
+<ul>
+<li>OpenTelemetry,</li>
+<li>distributed tracing (trace_id, span_id),</li>
+<li>propagation через Gateway → Mesh → Services → DB → NATS.</li>
+</ul>
+<h3 id="113-logs">11.3 Logs<a class="headerlink" href="#113-logs" title="Permanent link">&para;</a></h3>
+<p>Збираються:</p>
+<ul>
+<li>access logs,</li>
+<li>error logs,</li>
+<li>mesh-level logs.</li>
+</ul>
+<hr />
+<h2 id="12-failover-resilience">12. Failover &amp; Resilience<a class="headerlink" href="#12-failover-resilience" title="Permanent link">&para;</a></h2>
+<h3 id="121-multi-zone-cloud">12.1 Multi-zone (Cloud)<a class="headerlink" href="#121-multi-zone-cloud" title="Permanent link">&para;</a></h3>
+<p>Mesh обирає найближчий healthy інстанс.</p>
+<h3 id="122-zonal-failover">12.2 Zonal Failover<a class="headerlink" href="#122-zonal-failover" title="Permanent link">&para;</a></h3>
+<p>При провалі зони:</p>
+<ul>
+<li>трафік автоматично перенаправляється в інші зони.</li>
+</ul>
+<h3 id="123-service-healthchecks">12.3 Service Healthchecks<a class="headerlink" href="#123-service-healthchecks" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>livenessProbe</code>: чи не висить процес.</li>
+<li><code>readinessProbe</code>: чи сервіс готовий приймати трафік.</li>
+</ul>
+<hr />
+<h2 id="13-mesh-traffic-rules-for-critical-services">13. Mesh Traffic Rules for Critical Services<a class="headerlink" href="#13-mesh-traffic-rules-for-critical-services" title="Permanent link">&para;</a></h2>
+<h3 id="131-wallet-service">13.1 Wallet Service<a class="headerlink" href="#131-wallet-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li>low timeout (1 sec)</li>
+<li>retries: 0 (щоб не дублювати транзакції)</li>
+<li>circuit-breaker sensitivity: high</li>
+</ul>
+<h3 id="132-embassy">13.2 Embassy<a class="headerlink" href="#132-embassy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>retries: 1</li>
+<li>timeout: 0.5 sec</li>
+<li>global rate limiting:</li>
+<li>embassy bursts можуть спричинити навантаження</li>
+</ul>
+<h3 id="133-agent-orchestrator">13.3 Agent Orchestrator<a class="headerlink" href="#133-agent-orchestrator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>long timeout (10–60 sec)</li>
+<li>retries: none (idempotency?)</li>
+<li>dedicated queue routing</li>
+</ul>
+<h3 id="134-routerdaarwizz">13.4 Router/DAARWIZZ<a class="headerlink" href="#134-routerdaarwizz" title="Permanent link">&para;</a></h3>
+<ul>
+<li>timeout: 5–15 sec</li>
+<li>retries: 1–2</li>
+<li>concurrency caps</li>
+</ul>
+<hr />
+<h2 id="14-service-mesh-security">14. Service Mesh Security<a class="headerlink" href="#14-service-mesh-security" title="Permanent link">&para;</a></h2>
+<h3 id="141-mtls-everywhere">14.1 mTLS Everywhere<a class="headerlink" href="#141-mtls-everywhere" title="Permanent link">&para;</a></h3>
+<ul>
+<li>між усіма сервісами обов'язково.</li>
+</ul>
+<h3 id="142-internal-service-keys">14.2 Internal Service Keys<a class="headerlink" href="#142-internal-service-keys" title="Permanent link">&para;</a></h3>
+<p>Кожен сервіс має:</p>
+<ul>
+<li><code>service_key</code>,</li>
+<li>capability:</li>
+</ul>
+<p><code>text
+  service.write.oracles
+  service.mint.payout
+  service.agent.run
+  service.read.usage</code></p>
+<ul>
+<li>PDP авторизація на рівні сервісів.</li>
+</ul>
+<h3 id="143-no-direct-db-access-where-possible">14.3 No direct DB access (where possible)<a class="headerlink" href="#143-no-direct-db-access-where-possible" title="Permanent link">&para;</a></h3>
+<p>Сервіси мають мінімальні ролі DB.</p>
+<h3 id="144-network-policies">14.4 Network Policies<a class="headerlink" href="#144-network-policies" title="Permanent link">&para;</a></h3>
+<p>Забороняють:</p>
+<ul>
+<li>доступ між сервісами, що не пов'язані функціонально,</li>
+<li>будь-які вихідні запити (egress) без дозволу.</li>
+</ul>
+<hr />
+<h2 id="15-deployment-model">15. Deployment Model<a class="headerlink" href="#15-deployment-model" title="Permanent link">&para;</a></h2>
+<h3 id="151-sidecar-mode">15.1 Sidecar Mode<a class="headerlink" href="#151-sidecar-mode" title="Permanent link">&para;</a></h3>
+<p>Рекомендовано:</p>
+<ul>
+<li>Envoy sidecar у кожному pod,</li>
+<li>mesh контролер керує routing tables.</li>
+</ul>
+<h3 id="152-node-agent-mode-alternative">15.2 Node-agent Mode (Alternative)<a class="headerlink" href="#152-node-agent-mode-alternative" title="Permanent link">&para;</a></h3>
+<ul>
+<li>не потрібні sidecars,</li>
+<li>менше накладних витрат,</li>
+<li>простіше управління.</li>
+</ul>
+<h3 id="153-observability-stack">15.3 Observability stack<a class="headerlink" href="#153-observability-stack" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Prometheus,</li>
+<li>Grafana,</li>
+<li>Loki (або Cloud Logging),</li>
+<li>Jaeger / Tempo.</li>
+</ul>
+<hr />
+<h2 id="16-service-mesh-integration-with-scaling">16. Service Mesh Integration with Scaling<a class="headerlink" href="#16-service-mesh-integration-with-scaling" title="Permanent link">&para;</a></h2>
+<h3 id="161-auto-discovery">16.1 Auto-discovery<a class="headerlink" href="#161-auto-discovery" title="Permanent link">&para;</a></h3>
+<p>Нові інстанси автоматично реєструються.</p>
+<h3 id="162-load-aware-routing">16.2 Load-aware routing<a class="headerlink" href="#162-load-aware-routing" title="Permanent link">&para;</a></h3>
+<p>Mesh відправляє запити на:</p>
+<ul>
+<li>найменш завантажені інстанси,</li>
+<li>локальні (в межах зони).</li>
+</ul>
+<h3 id="163-autoscaling-signals">16.3 Autoscaling Signals<a class="headerlink" href="#163-autoscaling-signals" title="Permanent link">&para;</a></h3>
+<p>Mesh збирає:</p>
+<ul>
+<li>CPU,</li>
+<li>memory,</li>
+<li>request rate,</li>
+<li>errors,</li>
+<li>queue depth (for agents).</li>
+</ul>
+<hr />
+<h2 id="17-message-patterns">17. Message Patterns<a class="headerlink" href="#17-message-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="171-request-response">17.1 Request-Response<a class="headerlink" href="#171-request-response" title="Permanent link">&para;</a></h3>
+<p>Звичайні виклики:</p>
+<ul>
+<li>Messaging</li>
+<li>Projects</li>
+<li>Wallet reads</li>
+</ul>
+<h3 id="172-asynchronous-events">17.2 Asynchronous Events<a class="headerlink" href="#172-asynchronous-events" title="Permanent link">&para;</a></h3>
+<p>Через NATS:</p>
+<ul>
+<li>payouts,</li>
+<li>RWA updates,</li>
+<li>agent events</li>
+</ul>
+<h3 id="173-long-running-tasks">17.3 Long-running tasks<a class="headerlink" href="#173-long-running-tasks" title="Permanent link">&para;</a></h3>
+<p>Через Agent Orchestrator:</p>
+<ul>
+<li>LLM chain-of-thought,</li>
+<li>multi-step flows.</li>
+</ul>
+<hr />
+<h2 id="18-example-mesh-policy-config-illustrative">18. Example Mesh Policy Config (Illustrative)<a class="headerlink" href="#18-example-mesh-policy-config-illustrative" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># service: wallet</span>
+<span class="nt">allow</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usage</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chain_rpc</span>
+<span class="nt">deny</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">messaging</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">router</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embassy</span>
+
+<span class="nt">timeouts</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">request</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+
+<span class="nt">retries</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">mTLS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># service: embassy</span>
+<span class="nt">allow</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rwa</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usage</span>
+<span class="nt">deny</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wallet</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agent</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">router</span>
+
+<span class="nt">mTLS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span>
+<span class="nt">rate_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500/min</span>
+</code></pre></div>
+
+<hr />
+<h2 id="19-integration-with-other-docs">19. Integration with Other Docs<a class="headerlink" href="#19-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>34_internal_services_architecture.md</code></li>
+<li><code>33_api_gateway_security_and_pep.md</code></li>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>29_scaling_and_high_availability.md</code></li>
+<li><code>26_security_audit.md</code></li>
+</ul>
+<hr />
+<h2 id="20-cursor">20. Завдання для Cursor<a class="headerlink" href="#20-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior DevOps/SRE engineer. Implement Service Mesh using:
+- 35_microdao_service_mesh_design.md
+- 34_internal_services_architecture.md
+- 29_scaling_and_high_availability.md
+
+Tasks:
+1) Set up Service Registry (Kubernetes DNS or Consul).
+2) Configure mTLS for all services.
+3) Implement Envoy sidecar proxies (or node-agent mode).
+4) Set up mesh-level policies (allow-lists, deny-lists).
+5) Configure retries, timeouts, circuit breakers.
+6) Integrate with observability stack (Prometheus, Grafana, Loki, Jaeger).
+7) Set up health checks for all services.
+8) Configure load balancing and failover.
+9) Implement network policies for zero-trust.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="21-summary">21. Summary<a class="headerlink" href="#21-summary" title="Permanent link">&para;</a></h2>
+<p>MicroDAO Service Mesh забезпечує:</p>
+<ul>
+<li>захищені зв'язки між сервісами,</li>
+<li>шифрування всього внутрішнього трафіку,</li>
+<li>централізоване управління політиками,</li>
+<li>fault tolerance,</li>
+<li>трасування,</li>
+<li>динамічну маршрутизацію,</li>
+<li>стійкість до збоїв.</li>
+</ul>
+<p>Це «нервова система» DAARION.city, яка дозволяє системі масштабуватися й залишатися безпечною при зростанні навантаження та сервісів.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

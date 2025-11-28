@@ -1,0 +1,1372 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DEPLOY_SMOKETEST_CHECKLIST/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>DAARION MVP — Smoke Test Checklist - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#daarion-mvp-smoke-test-checklist" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DAARION MVP — Smoke Test Checklist
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-flight-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Pre-flight Check
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-api-health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌐 1. API Health Checks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 1. API Health Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-gateway-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Gateway Health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-city-service-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 City Service Health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-agents-service-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Agents Service Health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-second-me-service-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Second Me Service Health
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-city-rooms-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏙️ 2. City Rooms API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏙️ 2. City Rooms API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-get-city-rooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Get City Rooms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-get-room-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Get Room Details
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-city-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 City Feed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-second-me-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧬 3. Second Me API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧬 3. Second Me API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-second-me-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Second Me Profile (потрібна авторизація)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-second-me-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Second Me History
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-frontend-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      🖥️ 4. Frontend Tests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 4. Frontend Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-homepage-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Homepage Load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-loginregister-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Login/Register Page
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-city-rooms-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 City Rooms Page
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-room-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Room View
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-second-me-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Second Me Page
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-websocket-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔌 5. WebSocket Tests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 5. WebSocket Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-city-room-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 City Room WebSocket
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-presence-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Presence WebSocket
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-functional-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 6. Functional Tests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 6. Functional Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-send-message-to-room-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Send Message to Room (Mock)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-second-me-invoke-mock" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Second Me Invoke (Mock)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-monitoring-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 7. Monitoring &amp; Logs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 7. Monitoring & Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-docker-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Docker Logs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-database-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Database Connection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-redis-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Redis Connection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-nats-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 NATS Connection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-security-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 8. Security Checks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 8. Security Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-https-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 HTTPS Certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-http-to-https-redirect" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 HTTP to HTTPS Redirect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-security-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Security Headers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-exposed-services-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Exposed Services Check
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-performance-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 9. Performance Baseline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 9. Performance Baseline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-response-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Response Times
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-resource-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Resource Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Final Score
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Notes &amp; Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="daarion-mvp-smoke-test-checklist">DAARION MVP — Smoke Test Checklist<a class="headerlink" href="#daarion-mvp-smoke-test-checklist" title="Permanent link">&para;</a></h1>
+<p><strong>Мета:</strong> Швидка перевірка що всі критичні компоненти працюють після deployment.<br />
+<strong>Час виконання:</strong> ~15 хвилин</p>
+<hr />
+<h2 id="pre-flight-check">✅ Pre-flight Check<a class="headerlink" href="#pre-flight-check" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Всі Docker containers запущені: <code>docker ps | grep daarion</code></li>
+<li>[ ] HTTPS працює: <code>curl -I https://app.daarion.space</code></li>
+<li>[ ] DNS resolution OK: <code>dig app.daarion.space +short</code></li>
+</ul>
+<hr />
+<h2 id="1-api-health-checks">🌐 1. API Health Checks<a class="headerlink" href="#1-api-health-checks" title="Permanent link">&para;</a></h2>
+<h3 id="11-gateway-health">1.1 Gateway Health<a class="headerlink" href="#11-gateway-health" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://app.daarion.space/health
+<span class="c1"># Очікуємо: HTTP/2 200</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="12-city-service-health">1.2 City Service Health<a class="headerlink" href="#12-city-service-health" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/city/health
+<span class="c1"># Очікуємо: {&quot;status&quot;: &quot;healthy&quot;, &quot;service&quot;: &quot;city-service&quot;}</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="13-agents-service-health">1.3 Agents Service Health<a class="headerlink" href="#13-agents-service-health" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/agents/health
+<span class="c1"># Очікуємо: {&quot;status&quot;: &quot;healthy&quot;, &quot;service&quot;: &quot;agents-service&quot;, ...}</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="14-second-me-service-health">1.4 Second Me Service Health<a class="headerlink" href="#14-second-me-service-health" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/secondme/health
+<span class="c1"># Очікуємо: {&quot;status&quot;: &quot;healthy&quot;, &quot;service&quot;: &quot;secondme-service&quot;}</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="2-city-rooms-api">🏙️ 2. City Rooms API<a class="headerlink" href="#2-city-rooms-api" title="Permanent link">&para;</a></h2>
+<h3 id="21-get-city-rooms">2.1 Get City Rooms<a class="headerlink" href="#21-get-city-rooms" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/city/rooms<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+<span class="c1"># Очікуємо: масив з 5 дефолтних кімнат (general, welcome, builders, science, energy)</span>
+</code></pre></div>
+
+<p><strong>Очікуваний output:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;General&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Головна кімната міста...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;members_online&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;</span><span class="kc">nu</span><span class="err">mber&gt;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="err">...</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌<br />
+<strong>Members online count:</strong> <strong><em>_</em></strong></p>
+<hr />
+<h3 id="22-get-room-details">2.2 Get Room Details<a class="headerlink" href="#22-get-room-details" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/city/rooms/room_city_general<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+<span class="c1"># Очікуємо: деталі кімнати + messages + online_members</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌<br />
+<strong>Messages count:</strong> <strong><em>_</em></strong></p>
+<hr />
+<h3 id="23-city-feed">2.3 City Feed<a class="headerlink" href="#23-city-feed" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/city/feed<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+<span class="c1"># Очікуємо: масив подій (мінімум 1 system event)</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="3-second-me-api">🧬 3. Second Me API<a class="headerlink" href="#3-second-me-api" title="Permanent link">&para;</a></h2>
+<h3 id="31-second-me-profile">3.1 Second Me Profile (потрібна авторизація)<a class="headerlink" href="#31-second-me-profile" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Mock user для тестування</span>
+curl<span class="w"> </span>https://app.daarion.space/secondme/profile
+<span class="c1"># Очікуємо: профіль з total_interactions, agent_id</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="32-second-me-history">3.2 Second Me History<a class="headerlink" href="#32-second-me-history" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>https://app.daarion.space/secondme/history
+<span class="c1"># Очікуємо: [] (порожній масив для нового користувача)</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="4-frontend-tests">🖥️ 4. Frontend Tests<a class="headerlink" href="#4-frontend-tests" title="Permanent link">&para;</a></h2>
+<h3 id="41-homepage-load">4.1 Homepage Load<a class="headerlink" href="#41-homepage-load" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Відкрити <code>https://app.daarion.space</code> в браузері</p>
+<p><strong>Перевірити:</strong>
+- [ ] Сторінка завантажується без помилок
+- [ ] Немає console errors (F12 → Console)
+- [ ] Немає mixed content warnings
+- [ ] CSS та JS завантажуються коректно</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="42-loginregister-page">4.2 Login/Register Page<a class="headerlink" href="#42-loginregister-page" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Перейти на сторінку логіну/реєстрації</p>
+<p><strong>Перевірити:</strong>
+- [ ] Форма відображається коректно
+- [ ] Inputs працюють
+- [ ] Validation працює</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="43-city-rooms-page">4.3 City Rooms Page<a class="headerlink" href="#43-city-rooms-page" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Перейти на <code>/city/rooms</code></p>
+<p><strong>Перевірити:</strong>
+- [ ] Список кімнат завантажується
+- [ ] Видно 5 дефолтних кімнат
+- [ ] Online count відображається
+- [ ] Можна клікнути на кімнату</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="44-room-view">4.4 Room View<a class="headerlink" href="#44-room-view" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Відкрити конкретну кімнату <code>/city/rooms/room_city_general</code></p>
+<p><strong>Перевірити:</strong>
+- [ ] Повідомлення завантажуються
+- [ ] Online members відображаються
+- [ ] Input для нових повідомлень працює</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="45-second-me-page">4.5 Second Me Page<a class="headerlink" href="#45-second-me-page" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Перейти на <code>/secondme</code></p>
+<p><strong>Перевірити:</strong>
+- [ ] Сторінка завантажується
+- [ ] Chat interface відображається
+- [ ] Input працює
+- [ ] Profile stats показуються</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="5-websocket-tests">🔌 5. WebSocket Tests<a class="headerlink" href="#5-websocket-tests" title="Permanent link">&para;</a></h2>
+<h3 id="51-city-room-websocket">5.1 City Room WebSocket<a class="headerlink" href="#51-city-room-websocket" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Відкрити DevTools → Network → WS filter, відкрити кімнату</p>
+<p><strong>Перевірити:</strong>
+- [ ] WebSocket connection встановлено
+- [ ] URL: <code>wss://app.daarion.space/ws/city/rooms/{room_id}</code>
+- [ ] Connection status: Connected (101 Switching Protocols)
+- [ ] Heartbeat працює (якщо реалізовано)</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="52-presence-websocket">5.2 Presence WebSocket<a class="headerlink" href="#52-presence-websocket" title="Permanent link">&para;</a></h3>
+<p><strong>Дія:</strong> Відкрити будь-яку сторінку з PresenceBar</p>
+<p><strong>Перевірити:</strong>
+- [ ] WebSocket connection до <code>/ws/city/presence</code>
+- [ ] Heartbeat надсилається кожні 20 секунд
+- [ ] Online count оновлюється</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="6-functional-tests">🧪 6. Functional Tests<a class="headerlink" href="#6-functional-tests" title="Permanent link">&para;</a></h2>
+<h3 id="61-send-message-to-room-mock">6.1 Send Message to Room (Mock)<a class="headerlink" href="#61-send-message-to-room-mock" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Потрібна авторизація, або використати mock user_id</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>https://app.daarion.space/city/rooms/room_city_general/messages<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;body&quot;: &quot;Test message from smoke test&quot;}&#39;</span>
+
+<span class="c1"># Очікуємо: 200 або 401 (якщо потрібна авторизація)</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="62-second-me-invoke-mock">6.2 Second Me Invoke (Mock)<a class="headerlink" href="#62-second-me-invoke-mock" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Викликати Second Me</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>https://app.daarion.space/secondme/invoke<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;prompt&quot;: &quot;Hello, Second Me!&quot;}&#39;</span>
+
+<span class="c1"># Очікуємо: response з reply, tokens_used, latency_ms</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌<br />
+<strong>Response time:</strong> <strong><em>_</em></strong> ms</p>
+<hr />
+<h2 id="7-monitoring-logs">📊 7. Monitoring &amp; Logs<a class="headerlink" href="#7-monitoring-logs" title="Permanent link">&para;</a></h2>
+<h3 id="71-docker-logs">7.1 Docker Logs<a class="headerlink" href="#71-docker-logs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити що немає критичних помилок</span>
+docker<span class="w"> </span>logs<span class="w"> </span>daarion-gateway<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span>
+docker<span class="w"> </span>logs<span class="w"> </span>daarion-city-service<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span>
+docker<span class="w"> </span>logs<span class="w"> </span>daarion-agents-service<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span>
+</code></pre></div>
+
+<p><strong>Перевірити:</strong>
+- [ ] Немає ERROR рівня логів (допустимі тільки WARN)
+- [ ] Сервіси стартували успішно
+- [ ] З'єднання з БД встановлені</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="72-database-connection">7.2 Database Connection<a class="headerlink" href="#72-database-connection" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити що БД доступна</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT COUNT(*) FROM city_rooms;&quot;</span>
+
+<span class="c1"># Очікуємо: 5 (дефолтні кімнати)</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="73-redis-connection">7.3 Redis Connection<a class="headerlink" href="#73-redis-connection" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити Redis</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>redis<span class="w"> </span>redis-cli<span class="w"> </span>PING
+<span class="c1"># Очікуємо: PONG</span>
+
+<span class="c1"># Перевірити presence keys (якщо хтось онлайн)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>redis<span class="w"> </span>redis-cli<span class="w"> </span>KEYS<span class="w"> </span><span class="s2">&quot;presence:user:*&quot;</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="74-nats-connection">7.4 NATS Connection<a class="headerlink" href="#74-nats-connection" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити NATS</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>nats<span class="w"> </span>nats<span class="w"> </span>server<span class="w"> </span>info
+<span class="c1"># Очікуємо: статус server, connections, etc.</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="8-security-checks">🔒 8. Security Checks<a class="headerlink" href="#8-security-checks" title="Permanent link">&para;</a></h2>
+<h3 id="81-https-certificate">8.1 HTTPS Certificate<a class="headerlink" href="#81-https-certificate" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити SSL certificate</span>
+<span class="nb">echo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>s_client<span class="w"> </span>-servername<span class="w"> </span>app.daarion.space<span class="w"> </span>-connect<span class="w"> </span>app.daarion.space:443<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-dates
+
+<span class="c1"># Перевірити issuer</span>
+<span class="nb">echo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>s_client<span class="w"> </span>-servername<span class="w"> </span>app.daarion.space<span class="w"> </span>-connect<span class="w"> </span>app.daarion.space:443<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-issuer
+</code></pre></div>
+
+<p><strong>Перевірити:</strong>
+- [ ] Certificate валідний
+- [ ] Expiry date &gt; 30 днів
+- [ ] Issuer: Let's Encrypt або інший trusted CA</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="82-http-to-https-redirect">8.2 HTTP to HTTPS Redirect<a class="headerlink" href="#82-http-to-https-redirect" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити редірект</span>
+curl<span class="w"> </span>-I<span class="w"> </span>http://app.daarion.space
+<span class="c1"># Очікуємо: 301 або 308 redirect на https://</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="83-security-headers">8.3 Security Headers<a class="headerlink" href="#83-security-headers" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://app.daarion.space<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;Strict-Transport-Security|X-Content-Type-Options|X-Frame-Options&quot;</span>
+</code></pre></div>
+
+<p><strong>Перевірити наявність:</strong>
+- [ ] <code>Strict-Transport-Security</code>
+- [ ] <code>X-Content-Type-Options: nosniff</code>
+- [ ] <code>X-Frame-Options: DENY</code></p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="84-exposed-services-check">8.4 Exposed Services Check<a class="headerlink" href="#84-exposed-services-check" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити що БД не доступна ззовні</span>
+nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>app.daarion.space
+<span class="c1"># Очікуємо: closed або filtered</span>
+
+<span class="c1"># Перевірити Redis</span>
+nmap<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span><span class="w"> </span>app.daarion.space
+<span class="c1"># Очікуємо: closed або filtered</span>
+</code></pre></div>
+
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="9-performance-baseline">🎯 9. Performance Baseline<a class="headerlink" href="#9-performance-baseline" title="Permanent link">&para;</a></h2>
+<h3 id="91-response-times">9.1 Response Times<a class="headerlink" href="#91-response-times" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Homepage</span>
+<span class="nb">time</span><span class="w"> </span>curl<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;Total: %{time_total}s\n&quot;</span><span class="w"> </span>https://app.daarion.space/
+
+<span class="c1"># API endpoint</span>
+<span class="nb">time</span><span class="w"> </span>curl<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;Total: %{time_total}s\n&quot;</span><span class="w"> </span>https://app.daarion.space/city/rooms
+</code></pre></div>
+
+<p><strong>Записати baseline:</strong>
+- Homepage: <strong><em>_</em></strong> s
+- City Rooms API: <strong><em>_</em></strong> s</p>
+<p><strong>Очікувані значення:</strong>
+- &lt; 1s для Homepage
+- &lt; 0.5s для API</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h3 id="92-resource-usage">9.2 Resource Usage<a class="headerlink" href="#92-resource-usage" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Docker stats</span>
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}&quot;</span>
+</code></pre></div>
+
+<p><strong>Перевірити:</strong>
+- [ ] CPU usage &lt; 50% на всіх контейнерах
+- [ ] Memory usage в межах allocated limits</p>
+<p><strong>Результат:</strong> [ ] ✅ / [ ] ❌</p>
+<hr />
+<h2 id="final-score">🎉 Final Score<a class="headerlink" href="#final-score" title="Permanent link">&para;</a></h2>
+<p><strong>Total checks:</strong> <strong><em>_</em></strong> / <strong><em>_</em></strong><br />
+<strong>Pass rate:</strong> <strong><em>_</em></strong> %</p>
+<p><strong>Status:</strong> [ ] ✅ READY FOR PRODUCTION / [ ] ❌ ISSUES FOUND</p>
+<hr />
+<h2 id="notes-issues">📝 Notes &amp; Issues<a class="headerlink" href="#notes-issues" title="Permanent link">&para;</a></h2>
+<p>Записати всі знайдені проблеми:</p>
+<ol>
+<li>
+<hr />
+</li>
+<li>
+<hr />
+</li>
+<li>
+<hr />
+</li>
+</ol>
+<hr />
+<h2 id="next-steps">📚 Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Якщо всі тести пройдені:
+1. ➡️ Створити production backup
+2. ➡️ Налаштувати моніторинг alerts
+3. ➡️ Документувати runbook для operations
+4. ➡️ Повідомити команду про готовність</p>
+<p>Якщо є проблеми:
+1. ➡️ Зафіксувати issues в tracker
+2. ➡️ Prioritize critical vs non-critical
+3. ➡️ Fix &amp; re-run smoke tests</p>
+<hr />
+<p><strong>Виконано:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><em> (дата/час)<br />
+<strong>Виконавець:</strong> <strong><em>_</em></strong><strong><em>_</em></strong></em> (ім'я)<br />
+<strong>Версія:</strong> 1.0.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

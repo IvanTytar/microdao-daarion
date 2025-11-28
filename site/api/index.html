@@ -1,0 +1,2166 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/api/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>API Reference — DAARION.city & MicroDAO - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference-daarioncity-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference — DAARION.city & MicroDAO
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-wallet-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Wallet API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Wallet API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-get-balances" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Get Balances
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-check-token-eligibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Check Token Eligibility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-stake-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Stake Tokens
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-get-payouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Get Payouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-claim-payout" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Claim Payout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-daofactory-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. DAOFactory API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. DAOFactory API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-create-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Create MicroDAO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-mint-gov-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Mint GOV Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mint-util-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Mint UTIL Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-mint-rep-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Mint REP Token
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-registry-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Registry API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Registry API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-register-dao-in-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Register DAO in Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-register-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Register Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-register-platform-a2" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Register Platform (A2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-vendorplatform-registration-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Vendor/Platform Registration API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Vendor/Platform Registration API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-register-vendor" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Register Vendor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-get-platform-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Get Platform Info
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-token-gated-access-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Token-Gated Access API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Token-Gated Access API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-check-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Check Access
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-public-channel-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Public Channel API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Public Channel API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-get-public-channel-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Get Public Channel Info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-get-public-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Get Public Messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-post-message-authenticated" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Post Message (Authenticated)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-join-public-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Join Public Channel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-tokenbridge-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. TokenBridge API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. TokenBridge API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-exchange-util-daar" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Exchange UTIL → DAAR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-daarsales-daarionsales-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. DAARsales / DAARIONsales API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. DAARsales / DAARIONsales API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-buy-daar" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Buy DAAR
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-exchange-daar-daarion" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Exchange DAAR → DAARION
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-pdp-check-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. PDP Check API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. PDP Check API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-check-access-pdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Check Access (PDP)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-agent-runtime-router-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Agent Runtime / Router API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Agent Runtime / Router API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-run-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Run Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-get-agent-run-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Get Agent Run Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-router-invoke-daarwizz" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Router Invoke (DAARWIZZ)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-get-router-run-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4 Get Router Run Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-system-events-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. System Events API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. System Events API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-subscribe-to-events-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 Subscribe to Events (WebSocket)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-get-event-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Get Event History
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-error-responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Error Responses
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Error Responses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-error-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard Error Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-error-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Error Codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Rate Limiting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Rate Limiting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Limits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-endpoint-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-Endpoint Limits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-changelog" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Changelog
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Changelog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v110-2024-11-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.1.0 — 2024-11-14
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v100-2024-11-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.0.0 — 2024-11-14
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<blockquote>
+<p><strong>Цей документ є актуальною API специфікацією для DAARION.city &amp; MicroDAO.</strong><br />
+Повна версія API з усіма ендпоінтами. Для MVP-версії див. <code>api-mvp.md</code>.</p>
+</blockquote>
+<h1 id="api-reference-daarioncity-microdao">API Reference — DAARION.city &amp; MicroDAO<a class="headerlink" href="#api-reference-daarioncity-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Мінімальний набір MVP-ендпоінтів для інтеграції з DAARION.city</em></p>
+<hr />
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>Цей документ описує мінімальний набір API endpoints для:</p>
+<ul>
+<li><strong>Wallet Service</strong> — баланси, транзакції, staking, payouts</li>
+<li><strong>DAOFactory</strong> — створення MicroDAO, емісія GOV/UTIL/REP</li>
+<li><strong>Registry</strong> — реєстрація DAO, агентів, платформ</li>
+<li><strong>Vendor/Platform Registration</strong> — реєстрація вендорів та платформ</li>
+<li><strong>Token-Gated Access</strong> — перевірки DAAR/DAARION</li>
+<li><strong>Public Channel</strong> — для інтеграції з сайтом</li>
+<li><strong>PDP Check</strong> — Policy Decision Point endpoint</li>
+<li><strong>Agent Runtime / Router</strong> — запуск агентів та роутера</li>
+<li><strong>System Events</strong> — WebSocket підписка на події</li>
+</ul>
+<p><strong>Base URL:</strong> <code>https://api.microdao.xyz/v1</code></p>
+<p><strong>Authentication:</strong> Bearer Token (JWT)</p>
+<hr />
+<h2 id="2-wallet-api">2. Wallet API<a class="headerlink" href="#2-wallet-api" title="Permanent link">&para;</a></h2>
+<h3 id="21-get-balances">2.1 Get Balances<a class="headerlink" href="#21-get-balances" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /wallet/balances</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;balances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAAR&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100.50&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;staked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;50.00&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.5&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;staked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RINGK&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;staked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="22-check-token-eligibility">2.2 Check Token Eligibility<a class="headerlink" href="#22-check-token-eligibility" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /wallet/eligibility?action={action}</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Query Parameters:</strong>
+- <code>action</code>: <code>dao.create</code> | <code>vendor.register</code> | <code>platform.create</code></p>
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;eligible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;balance(DAAR) &gt;= 1.00&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">100.50</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.5</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="23-stake-tokens">2.3 Stake Tokens<a class="headerlink" href="#23-stake-tokens" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /wallet/stake</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;symbol&quot;: &quot;DAARION&quot;,</span>
+<span class="err">  &quot;amount&quot;: &quot;1.0&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;staked&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_staked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="24-get-payouts">2.4 Get Payouts<a class="headerlink" href="#24-get-payouts" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /wallet/payouts?status={status}</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Query Parameters:</strong>
+- <code>status</code>: <code>generated</code> | <code>claimed</code> | <code>failed</code></p>
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;payouts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KWT&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;250.00&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;rwa_ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rwa_456&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generated&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="25-claim-payout">2.5 Claim Payout<a class="headerlink" href="#25-claim-payout" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /wallet/payouts/{payoutId}/claim</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;payout_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;claimed_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:05:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;new_balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KWT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;250.00&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="3-daofactory-api">3. DAOFactory API<a class="headerlink" href="#3-daofactory-api" title="Permanent link">&para;</a></h2>
+<h3 id="31-create-microdao">3.1 Create MicroDAO<a class="headerlink" href="#31-create-microdao" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /dao/create</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;name&quot;: &quot;My MicroDAO&quot;,</span>
+<span class="err">  &quot;type&quot;: &quot;community&quot;,  // community | personal</span>
+<span class="err">  &quot;mode&quot;: &quot;public&quot;,     // public | confidential</span>
+<span class="err">  &quot;payment_token&quot;: &quot;DAAR&quot;  // DAAR | DAARION</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>PDP Check:</strong>
+- Перевіряє <code>balance(DAAR) &gt;= 1.00</code> або <code>balance(DAARION) &gt;= 0.01</code>
+- Списує 1 DAAR (або еквівалент в DAARION)</p>
+<p><strong>Response 201:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My MicroDAO&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-microdao&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;community&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A3&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// A3 (public) or A4 (private)</span>
+<span class="w">  </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="32-mint-gov-token">3.2 Mint GOV Token<a class="headerlink" href="#32-mint-gov-token" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /dao/{daoId}/tokens/mint</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;token_type&quot;: &quot;GOV&quot;,</span>
+<span class="err">  &quot;amount&quot;: &quot;1000&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>PDP Check:</strong>
+- Перевіряє <code>balance(DAAR) &gt;= 1.00</code>
+- Списує 1 DAAR</p>
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GOV&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_456&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="33-mint-util-token">3.3 Mint UTIL Token<a class="headerlink" href="#33-mint-util-token" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /dao/{daoId}/tokens/mint</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;token_type&quot;: &quot;UTIL&quot;,</span>
+<span class="err">  &quot;amount&quot;: &quot;5000&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>PDP Check:</strong>
+- Перевіряє <code>balance(DAAR) &gt;= 1.00</code>
+- Списує 1 DAAR</p>
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UTIL&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_789&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="34-mint-rep-token">3.4 Mint REP Token<a class="headerlink" href="#34-mint-rep-token" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /dao/{daoId}/tokens/mint</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;token_type&quot;: &quot;REP&quot;,</span>
+<span class="err">  &quot;amount&quot;: &quot;1&quot;,</span>
+<span class="err">  &quot;recipient_id&quot;: &quot;u_123&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>PDP Check:</strong>
+- Перевіряє <code>balance(DAAR) &gt;= 1.00</code>
+- Списує 1 DAAR</p>
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;REP&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;recipient_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_012&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-registry-api">4. Registry API<a class="headerlink" href="#4-registry-api" title="Permanent link">&para;</a></h2>
+<h3 id="41-register-dao-in-registry">4.1 Register DAO in Registry<a class="headerlink" href="#41-register-dao-in-registry" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /registry/dao/register</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;dao_id&quot;: &quot;dao_123&quot;,</span>
+<span class="err">  &quot;name&quot;: &quot;My MicroDAO&quot;,</span>
+<span class="err">  &quot;type&quot;: &quot;community&quot;,</span>
+<span class="err">  &quot;level&quot;: &quot;A3&quot;,</span>
+<span class="err">  &quot;metadata&quot;: {</span>
+<span class="err">    &quot;description&quot;: &quot;Description of DAO&quot;,</span>
+<span class="err">    &quot;tags&quot;: [&quot;tech&quot;, &quot;community&quot;]</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 201:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registry_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reg_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registered_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="42-register-agent">4.2 Register Agent<a class="headerlink" href="#42-register-agent" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /registry/agent/register</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;agent_id&quot;: &quot;agent_123&quot;,</span>
+<span class="err">  &quot;dao_id&quot;: &quot;dao_123&quot;,</span>
+<span class="err">  &quot;name&quot;: &quot;Team Assistant&quot;,</span>
+<span class="err">  &quot;role&quot;: &quot;team_assistant&quot;,</span>
+<span class="err">  &quot;capabilities&quot;: [</span>
+<span class="err">    &quot;agent.run.invoke&quot;,</span>
+<span class="err">    &quot;chat.message.send&quot;,</span>
+<span class="err">    &quot;project.task.create&quot;</span>
+<span class="err">  ]</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 201:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registry_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reg_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registered_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="43-register-platform-a2">4.3 Register Platform (A2)<a class="headerlink" href="#43-register-platform-a2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /registry/platform/register</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;platform_code&quot;: &quot;greenfood&quot;,</span>
+<span class="err">  &quot;name&quot;: &quot;GREENFOOD&quot;,</span>
+<span class="err">  &quot;dao_id&quot;: &quot;dao_789&quot;,</span>
+<span class="err">  &quot;level&quot;: &quot;A2&quot;,</span>
+<span class="err">  &quot;metadata&quot;: {</span>
+<span class="err">    &quot;domain&quot;: &quot;агро/харчові продукти&quot;,</span>
+<span class="err">    &quot;owner&quot;: &quot;GREENFOOD microDAO&quot;</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>PDP Check:</strong>
+- Перевіряє <code>staked(DAARION) &gt;= 1.00</code>
+- Перевіряє роль Owner або Guardian</p>
+<p><strong>Response 201:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registry_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reg_789&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_789&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registered_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-vendorplatform-registration-api">5. Vendor/Platform Registration API<a class="headerlink" href="#5-vendorplatform-registration-api" title="Permanent link">&para;</a></h2>
+<h3 id="51-register-vendor">5.1 Register Vendor<a class="headerlink" href="#51-register-vendor" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /platforms/{platformCode}/vendors/register</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;vendor_name&quot;: &quot;My Farm&quot;,</span>
+<span class="err">  &quot;vendor_type&quot;: &quot;producer&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>PDP Check:</strong>
+- Перевіряє <code>staked(DAARION) &gt;= 0.01</code>
+- Перевіряє доступ до платформи</p>
+<p><strong>Response 201:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vendor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vendor_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registered_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="52-get-platform-info">5.2 Get Platform Info<a class="headerlink" href="#52-get-platform-info" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /platforms/{platformCode}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GREENFOOD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_789&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;агро/харчові продукти&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GREENFOOD microDAO&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="6-token-gated-access-api">6. Token-Gated Access API<a class="headerlink" href="#6-token-gated-access-api" title="Permanent link">&para;</a></h2>
+<h3 id="61-check-access">6.1 Check Access<a class="headerlink" href="#61-check-access" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /access/check</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;action&quot;: &quot;dao.create&quot;,</span>
+<span class="err">  &quot;resource&quot;: &quot;dao&quot;,</span>
+<span class="err">  &quot;context&quot;: {</span>
+<span class="err">    &quot;dao_level&quot;: &quot;A3&quot;</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;balance(DAAR) &gt;= 1.00&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;checked_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response 403:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insufficient_balance&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.005</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-public-channel-api">7. Public Channel API<a class="headerlink" href="#7-public-channel-api" title="Permanent link">&para;</a></h2>
+<h3 id="71-get-public-channel-info">7.1 Get Public Channel Info<a class="headerlink" href="#71-get-public-channel-info" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /channels/{slug}/public</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city-general&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Загальний канал міста&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Публічний канал для обговорення міських питань&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;member_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_public&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION.city&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="72-get-public-messages">7.2 Get Public Messages<a class="headerlink" href="#72-get-public-messages" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /channels/{slug}/public/messages?limit=50&amp;before={message_id}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg_123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_456&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Олександр&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;avatar_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Привіт, місто!&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;reactions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;pagination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;has_more&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;next_cursor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg_124&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="73-post-message-authenticated">7.3 Post Message (Authenticated)<a class="headerlink" href="#73-post-message-authenticated" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /channels/{slug}/public/messages</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;body&quot;: &quot;Повідомлення від користувача&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 201:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg_125&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_789&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Марія&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Повідомлення від користувача&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:05:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="74-join-public-channel">7.4 Join Public Channel<a class="headerlink" href="#74-join-public-channel" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /channels/{slug}/public/join</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;email&quot;: &quot;user@example.com&quot;,</span>
+<span class="err">  &quot;name&quot;: &quot;Ім&#39;я Користувача&quot;,</span>
+<span class="err">  &quot;viewer_type&quot;: &quot;member&quot;  // member | visitor</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_789&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jwt-token&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;membership&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;member&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;viewer_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;member&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="8-tokenbridge-api">8. TokenBridge API<a class="headerlink" href="#8-tokenbridge-api" title="Permanent link">&para;</a></h2>
+<h3 id="81-exchange-util-daar">8.1 Exchange UTIL → DAAR<a class="headerlink" href="#81-exchange-util-daar" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /bridge/exchange</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;from_token&quot;: &quot;UTIL&quot;,</span>
+<span class="err">  &quot;to_token&quot;: &quot;DAAR&quot;,</span>
+<span class="err">  &quot;amount&quot;: &quot;100&quot;,</span>
+<span class="err">  &quot;dao_id&quot;: &quot;dao_123&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.85</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;from&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UTIL&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;to&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAAR&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;85&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_345&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="9-daarsales-daarionsales-api">9. DAARsales / DAARIONsales API<a class="headerlink" href="#9-daarsales-daarionsales-api" title="Permanent link">&para;</a></h2>
+<h3 id="91-buy-daar">9.1 Buy DAAR<a class="headerlink" href="#91-buy-daar" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /sales/daar/buy</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;amount_usdt&quot;: &quot;100&quot;,</span>
+<span class="err">  &quot;payment_method&quot;: &quot;USDT&quot;  // USDT | POL</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;daar_received&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_678&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;new_balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200.50&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="92-exchange-daar-daarion">9.2 Exchange DAAR → DAARION<a class="headerlink" href="#92-exchange-daar-daarion" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /sales/daarion/exchange</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;daar_amount&quot;: &quot;100&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;daarion_received&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;exchange_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;transaction_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tx_901&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;new_balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.5&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="10-pdp-check-api">10. PDP Check API<a class="headerlink" href="#10-pdp-check-api" title="Permanent link">&para;</a></h2>
+<h3 id="101-check-access-pdp">10.1 Check Access (PDP)<a class="headerlink" href="#101-check-access-pdp" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /pdp/check</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;subject&quot;: {</span>
+<span class="err">    &quot;id&quot;: &quot;u_123&quot;,</span>
+<span class="err">    &quot;type&quot;: &quot;user&quot;  // user | agent | integration | embassy</span>
+<span class="err">  },</span>
+<span class="err">  &quot;team_id&quot;: &quot;t_456&quot;,</span>
+<span class="err">  &quot;action&quot;: &quot;dao.create&quot;,</span>
+<span class="err">  &quot;resource&quot;: {</span>
+<span class="err">    &quot;id&quot;: &quot;dao_001&quot;,</span>
+<span class="err">    &quot;team_id&quot;: &quot;t_456&quot;,</span>
+<span class="err">    &quot;mode&quot;: &quot;public&quot;</span>
+<span class="err">  },</span>
+<span class="err">  &quot;key_id&quot;: &quot;ak_789&quot;,</span>
+<span class="err">  &quot;context&quot;: {</span>
+<span class="err">    &quot;ip&quot;: &quot;1.2.3.4&quot;,</span>
+<span class="err">    &quot;ua&quot;: &quot;Mozilla/5.0&quot;,</span>
+<span class="err">    &quot;timestamp&quot;: 1700000000</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;checked_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response 403:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;allow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insufficient_balance&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;DAARION&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.005</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="11-agent-runtime-router-api">11. Agent Runtime / Router API<a class="headerlink" href="#11-agent-runtime-router-api" title="Permanent link">&para;</a></h2>
+<h3 id="111-run-agent">11.1 Run Agent<a class="headerlink" href="#111-run-agent" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /agent/run</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;agent_id&quot;: &quot;agent_123&quot;,</span>
+<span class="err">  &quot;input&quot;: &quot;Створи задачу з обговорення в каналі #general&quot;,</span>
+<span class="err">  &quot;context&quot;: {</span>
+<span class="err">    &quot;team_id&quot;: &quot;t_456&quot;,</span>
+<span class="err">    &quot;channel_id&quot;: &quot;c_789&quot;,</span>
+<span class="err">    &quot;confidential&quot;: false</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;run_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="112-get-agent-run-status">11.2 Get Agent Run Status<a class="headerlink" href="#112-get-agent-run-status" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /agent/run/{runId}/status</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;run_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;completed&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Задачу створено успішно&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;completed_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:05Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="113-router-invoke-daarwizz">11.3 Router Invoke (DAARWIZZ)<a class="headerlink" href="#113-router-invoke-daarwizz" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /router/invoke</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;input&quot;: &quot;Підготуй звіт по проєкту за останній місяць&quot;,</span>
+<span class="err">  &quot;goal&quot;: &quot;Generate monthly project report&quot;,</span>
+<span class="err">  &quot;constraints&quot;: {</span>
+<span class="err">    &quot;max_cost&quot;: &quot;10.0&quot;,</span>
+<span class="err">    &quot;max_steps&quot;: 10</span>
+<span class="err">  },</span>
+<span class="err">  &quot;context&quot;: {</span>
+<span class="err">    &quot;team_id&quot;: &quot;t_456&quot;,</span>
+<span class="err">    &quot;agent_run_id&quot;: &quot;ar_777&quot;,</span>
+<span class="err">    &quot;confidential&quot;: false</span>
+<span class="err">  },</span>
+<span class="err">  &quot;mode&quot;: &quot;auto&quot;,  // auto | structured | hybrid</span>
+<span class="err">  &quot;tools&quot;: [&quot;math&quot;, &quot;project&quot;, &quot;llm&quot;]</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;router_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;planning&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;plan&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;project&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get_project_summary&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_001&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llm&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generate_report&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;template&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;monthly_report&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="114-get-router-run-status">11.4 Get Router Run Status<a class="headerlink" href="#114-get-router-run-status" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /router/run/{runId}/status</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;router_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;done&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;report_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;steps_completed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cost&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.5&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;completed_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:15Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="12-system-events-api">12. System Events API<a class="headerlink" href="#12-system-events-api" title="Permanent link">&para;</a></h2>
+<h3 id="121-subscribe-to-events-websocket">12.1 Subscribe to Events (WebSocket)<a class="headerlink" href="#121-subscribe-to-events-websocket" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /events/subscribe?streams={streams}</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Upgrade: websocket</span>
+</code></pre></div>
+
+<p><strong>Query Parameters:</strong>
+- <code>streams</code>: Comma-separated list of streams (e.g., <code>dao,wallet,agent</code>)</p>
+<p><strong>WebSocket Messages:</strong></p>
+<p><strong>Event: <code>dao.created</code></strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao.created&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My MicroDAO&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;community&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A3&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_abc&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Event: <code>vendor.registered</code></strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_124&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:05:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;platform&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vendor.registered&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;vendor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vendor_789&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;vendor_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Farm&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;vendor_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;producer&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_def&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Event: <code>platform.created</code></strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_125&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:10:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;platform&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;platform.created&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GREENFOOD&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_789&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A2&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;platform_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_ghi&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Event: <code>agent.run.started</code></strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_126&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:15:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.run.started&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;run_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;input&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Створи задачу&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_456&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c_789&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_jkl&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Event: <code>wallet.payout.generated</code></strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_127&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:20:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wallet&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wallet.payout.generated&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;payout_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KWT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;250.00&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;rwa_ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rwa_789&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_mno&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="122-get-event-history">12.2 Get Event History<a class="headerlink" href="#122-get-event-history" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /events/history?stream={stream}&amp;limit=50&amp;before={event_id}</span>
+<span class="err">Authorization: Bearer {token}</span>
+</code></pre></div>
+
+<p><strong>Query Parameters:</strong>
+- <code>stream</code>: Event stream name (e.g., <code>dao</code>, <code>wallet</code>, <code>agent</code>)
+- <code>limit</code>: Number of events to return (default: 50)
+- <code>before</code>: Event ID to start from (cursor pagination)</p>
+<p><strong>Response 200:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao.created&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;pagination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;has_more&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;next_cursor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_124&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="13-error-responses">13. Error Responses<a class="headerlink" href="#13-error-responses" title="Permanent link">&para;</a></h2>
+<h3 id="standard-error-format">Standard Error Format<a class="headerlink" href="#standard-error-format" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;insufficient_balance&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Insufficient DAAR balance. Required: 1.00, Current: 0.50&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;DAAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="common-error-codes">Common Error Codes<a class="headerlink" href="#common-error-codes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>insufficient_balance</code> — недостатній баланс токенів</li>
+<li><code>access_denied</code> — доступ заборонено (PDP)</li>
+<li><code>invalid_token</code> — невалідний токен</li>
+<li><code>quota_exceeded</code> — перевищено квоту</li>
+<li><code>resource_not_found</code> — ресурс не знайдено</li>
+<li><code>rate_limit_exceeded</code> — перевищено rate limit</li>
+</ul>
+<hr />
+<h2 id="14-rate-limiting">14. Rate Limiting<a class="headerlink" href="#14-rate-limiting" title="Permanent link">&para;</a></h2>
+<h3 id="global-limits">Global Limits<a class="headerlink" href="#global-limits" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Guest (read-only):</strong> 100 requests/minute</li>
+<li><strong>Authenticated (write):</strong> 30 requests/minute</li>
+<li><strong>Join requests:</strong> 5 requests/hour per IP</li>
+</ul>
+<h3 id="per-endpoint-limits">Per-Endpoint Limits<a class="headerlink" href="#per-endpoint-limits" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Wallet operations:</strong> 10 requests/minute</li>
+<li><strong>DAOFactory:</strong> 5 requests/hour</li>
+<li><strong>Registry:</strong> 20 requests/minute</li>
+</ul>
+<hr />
+<h2 id="15-integration-with-other-docs">15. Integration with Other Docs<a class="headerlink" href="#15-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ інтегрується з:</p>
+<ul>
+<li><code>pdp_access.md</code> — PDP та система доступів</li>
+<li><code>tokenomics/city-tokenomics.md</code> — токеноміка та правила</li>
+<li><code>agents.md</code> — агенти та їх права</li>
+<li><code>microdao-architecture.md</code> — архітектура A1-A4</li>
+<li><code>microdao-admin-console.md</code> — адмін-панель для всіх MicroDAO</li>
+<li><code>superdao-federation.md</code> — SuperDAO та федерації</li>
+<li><code>integration-daarion.md</code> — інтеграція з сайтом</li>
+</ul>
+<hr />
+<h2 id="16-changelog">16. Changelog<a class="headerlink" href="#16-changelog" title="Permanent link">&para;</a></h2>
+<h3 id="v110-2024-11-14">v1.1.0 — 2024-11-14<a class="headerlink" href="#v110-2024-11-14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Додано PDP Check API</li>
+<li>Додано Agent Runtime / Router API (stub)</li>
+<li>Додано System Events API (WebSocket subscribe, event history)</li>
+<li>Додано події: dao.created, vendor.registered, platform.created, agent.run.started, wallet.payout.generated</li>
+</ul>
+<h3 id="v100-2024-11-14">v1.0.0 — 2024-11-14<a class="headerlink" href="#v100-2024-11-14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Початкова версія API специфікації</li>
+<li>Додано Wallet API (баланси, staking, payouts)</li>
+<li>Додано DAOFactory API (створення DAO, емісія GOV/UTIL/REP)</li>
+<li>Додано Registry API (реєстрація DAO, агентів, платформ)</li>
+<li>Додано Vendor/Platform Registration API</li>
+<li>Додано Token-Gated Access API</li>
+<li>Додано Public Channel API</li>
+<li>Додано TokenBridge API</li>
+<li>Додано DAARsales/DAARIONsales API</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14<br />
+<em>Документ готовий до інтеграції у Cursor, GitHub або будь-який інший проект.</em></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

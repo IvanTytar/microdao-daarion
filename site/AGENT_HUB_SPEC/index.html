@@ -1,0 +1,1558 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/AGENT_HUB_SPEC/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>🤖 Agent Hub UI — Technical Specification - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agent-hub-ui-technical-specification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🤖 Agent Hub UI — Technical Specification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 File Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎨 UI Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎨 UI Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-agenthubpage-agent-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. AgentHubPage (/agent-hub)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agentcard" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. AgentCard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agentcabinet-agentagentid" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. AgentCabinet (/agent/:agentId)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agentmetricspanel" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. AgentMetricsPanel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-agentsettingspanel" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. AgentSettingsPanel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-client-srcapiagentsts" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔌 API Client (src/api/agents.ts)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 API Client (src/api/agents.ts)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#react-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      🪝 React Hooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🪝 React Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-useagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. useAgents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-useagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. useAgent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-useagentmetrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. useAgentMetrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-useagentcontext" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. useAgentContext
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-start-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Start Backend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-start-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Start Frontend
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-navigate-to-agent-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Navigate to Agent Hub
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual Testing Flow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Testing:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Mock Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Mock Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-mock-agents-from-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current mock agents (from backend):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements-phase-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔮 Future Enhancements (Phase 6+)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔮 Future Enhancements (Phase 6+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-agent-crud" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 6: Agent CRUD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-65-real-time-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 6.5: Real-time Updates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-7-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 7: Advanced Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Known Limitations:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessibility:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Related Documents
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="agent-hub-ui-technical-specification">🤖 Agent Hub UI — Technical Specification<a class="headerlink" href="#agent-hub-ui-technical-specification" title="Permanent link">&para;</a></h1>
+<p><strong>Version:</strong> 1.0<br />
+<strong>Phase:</strong> 5<br />
+<strong>Status:</strong> ✅ Complete<br />
+<strong>Date:</strong> 2025-11-24</p>
+<hr />
+<h2 id="overview">📋 Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Agent Hub — це центральний UI для управління агентами DAARION. Надає візуальний інтерфейс для перегляду, моніторингу та налаштування агентів.</p>
+<h3 id="features">Features:<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Gallery view — перегляд усіх агентів в grid layout</li>
+<li>✅ Agent Cabinet — детальна сторінка агента з табами</li>
+<li>✅ Metrics Dashboard — статистика використання LLM/tools</li>
+<li>✅ Context Viewer — перегляд пам'яті агента (short/mid/long-term)</li>
+<li>✅ Settings Panel — налаштування моделі та інструментів</li>
+<li>✅ Real-time status indicators</li>
+<li>✅ Search &amp; filters</li>
+</ul>
+<hr />
+<h2 id="architecture">🏗️ Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="err">┌─────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">                      </span><span class="n">Agent</span><span class="w"> </span><span class="n">Hub</span><span class="w"> </span><span class="n">UI</span><span class="w">                            </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">(</span><span class="n">React</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">TypeScript</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Tailwind</span><span class="w"> </span><span class="n">CSS</span><span class="p">)</span><span class="w">                        </span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────────────────────────────┘</span>
+<span class="w">                             </span><span class="err">│</span>
+<span class="w">                             </span><span class="err">│</span><span class="w"> </span><span class="n">HTTP</span><span class="o">/</span><span class="n">REST</span>
+<span class="w">                             </span><span class="err">▼</span>
+<span class="err">┌─────────────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">                   </span><span class="n">agents</span><span class="o">-</span><span class="n">service</span><span class="w">                             </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                   </span><span class="n">Port</span><span class="p">:</span><span class="w"> </span><span class="mi">7014</span><span class="w">                                 </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">┌──────────────────────────────────────────────────────┐</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="w">             </span><span class="err">—</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="n">agents</span><span class="w">             </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="w">        </span><span class="err">—</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">details</span><span class="w">           </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">metrics</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Usage</span><span class="w"> </span><span class="n">stats</span><span class="w">            </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">context</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Memory</span><span class="w">                 </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">settings</span><span class="o">/</span><span class="n">model</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">model</span><span class="w">   </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">settings</span><span class="o">/</span><span class="n">tools</span><span class="w"> </span><span class="err">—</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">tools</span><span class="w">   </span><span class="err">│</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">└──────────────────────────────────────────────────────┘</span><span class="w">  </span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────────────────────────────┘</span>
+<span class="w">          </span><span class="err">│</span><span class="w">                </span><span class="err">│</span><span class="w">                    </span><span class="err">│</span>
+<span class="w">          </span><span class="err">│</span><span class="w">                </span><span class="err">│</span><span class="w">                    </span><span class="err">│</span>
+<span class="w">          </span><span class="err">▼</span><span class="w">                </span><span class="err">▼</span><span class="w">                    </span><span class="err">▼</span>
+<span class="w">   </span><span class="err">┌───────────┐</span><span class="w">   </span><span class="err">┌───────────────┐</span><span class="w">   </span><span class="err">┌──────────────┐</span>
+<span class="w">   </span><span class="err">│</span><span class="w">  </span><span class="n">memory</span><span class="o">-</span><span class="w">  </span><span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w"> </span><span class="n">usage</span><span class="o">-</span><span class="n">engine</span><span class="w">  </span><span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">     </span><span class="n">PDP</span><span class="w">      </span><span class="err">│</span>
+<span class="w">   </span><span class="err">│</span><span class="n">orchestrator</span><span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">  </span><span class="p">(</span><span class="n">authz</span><span class="p">)</span><span class="w">     </span><span class="err">│</span>
+<span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="p">:</span><span class="mi">7008</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">     </span><span class="p">:</span><span class="mi">7013</span><span class="w">     </span><span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">    </span><span class="p">:</span><span class="mi">7012</span><span class="w">     </span><span class="err">│</span>
+<span class="w">   </span><span class="err">└───────────┘</span><span class="w">   </span><span class="err">└───────────────┘</span><span class="w">   </span><span class="err">└──────────────┘</span>
+</code></pre></div>
+
+<hr />
+<h2 id="file-structure">📁 File Structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>src/
+├── api/
+│   └── agents.ts                       ✅ API client (11 functions)
+│
+├── features/
+│   └── agentHub/
+│       ├── hooks/
+│       │   ├── useAgents.ts           ✅ List agents hook
+│       │   ├── useAgent.ts            ✅ Single agent hook
+│       │   ├── useAgentMetrics.ts     ✅ Metrics hook
+│       │   └── useAgentContext.ts     ✅ Context hook
+│       │
+│       ├── AgentHubPage.tsx           ✅ Main page (/agent-hub)
+│       ├── AgentGallery.tsx           ✅ Grid view
+│       ├── AgentCard.tsx              ✅ Single card
+│       ├── AgentCabinet.tsx           ✅ Agent detail page (/agent/:id)
+│       ├── AgentMetricsPanel.tsx      ✅ Metrics tab
+│       └── AgentSettingsPanel.tsx     ✅ Settings tab
+│
+└── App.tsx                             ✅ Updated with routes
+</code></pre></div>
+
+<p><strong>Total:</strong> 14 files created/updated</p>
+<hr />
+<h2 id="ui-components">🎨 UI Components<a class="headerlink" href="#ui-components" title="Permanent link">&para;</a></h2>
+<h3 id="1-agenthubpage-agent-hub">1. AgentHubPage (<code>/agent-hub</code>)<a class="headerlink" href="#1-agenthubpage-agent-hub" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Головна сторінка — перегляд усіх агентів</p>
+<p><strong>Features:</strong>
+- Search bar (по імені/опису)
+- Filter by MicroDAO
+- Stats cards (total, active, your microDAOs)
+- Agent gallery grid
+- Refresh button</p>
+<p><strong>Layout:</strong></p>
+<div class="codehilite"><pre><span></span><code>┌────────────────────────────────────────────────────┐
+│  🤖 Agent Hub                       [🔄 Оновити]   │
+│  Керуйте агентами вашого MicroDAO                  │
+│                                                     │
+│  [🔍 Пошук агентів...]  [▼ Всі MicroDAO]          │
+│                                                     │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐            │
+│  │   42    │  │   15    │  │    3    │            │
+│  │ Знайдено│  │Активних │  │Ваших DAO│            │
+│  └─────────┘  └─────────┘  └─────────┘            │
+│                                                     │
+│  ┌──────┐  ┌──────┐  ┌──────┐                     │
+│  │Sofia │  │ Alex │  │Guard.│                     │
+│  │🟢 Act│  │🟡 Idle│  │🟢 Act│                     │
+│  └──────┘  └──────┘  └──────┘                     │
+└────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<hr />
+<h3 id="2-agentcard">2. AgentCard<a class="headerlink" href="#2-agentcard" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Одна карточка агента в gallery</p>
+<p><strong>Features:</strong>
+- Avatar (gradient circle з першою літерою)
+- Name + Kind badge
+- Status indicator (green/yellow/gray/red)
+- Model name
+- Last active timestamp
+- Click → navigate to <code>/agent/{id}</code></p>
+<p><strong>Visual:</strong></p>
+<div class="codehilite"><pre><span></span><code>┌────────────────────────────────┐
+│              🟢 Активний       │
+│  ┌──┐                          │
+│  │S │ Sofia                    │
+│  └──┘ [Асистент]               │
+│                                 │
+│  Допомагає з проєктами...      │
+│                                 │
+│  Модель: gpt-4.1-mini          │
+│  Остання активність: 10:30     │
+└────────────────────────────────┘
+</code></pre></div>
+
+<hr />
+<h3 id="3-agentcabinet-agentagentid">3. AgentCabinet (<code>/agent/:agentId</code>)<a class="headerlink" href="#3-agentcabinet-agentagentid" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Детальна сторінка агента з табами</p>
+<p><strong>Tabs:</strong>
+1. <strong>📊 Метрики</strong> — usage stats
+2. <strong>🧠 Контекст</strong> — memory (short/mid/knowledge)
+3. <strong>⚙️ Налаштування</strong> — model, tools, system prompt</p>
+<p><strong>Header:</strong>
+- Back button (← Назад до Agent Hub)
+- Large avatar
+- Name + status + description
+- Model + MicroDAO + Tools count
+- Actions: [🔄 Оновити] [💬 Чат]</p>
+<p><strong>Layout:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">┌────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="err">Назад</span><span class="w"> </span><span class="err">до</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">Hub</span><span class="w">                               </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">┌───┐</span><span class="w"> </span><span class="n">Sofia</span><span class="w">                 </span><span class="err">🟢</span><span class="w"> </span><span class="err">Активний</span><span class="w">           </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">Допомагає</span><span class="w"> </span><span class="err">з</span><span class="w"> </span><span class="err">проєктами</span><span class="w">                       </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">└───┘</span><span class="w"> </span><span class="err">🤖</span><span class="w"> </span><span class="n">gpt</span><span class="o">-</span><span class="mf">4.1</span><span class="o">-</span><span class="n">mini</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">🏢</span><span class="w"> </span><span class="n">daarion</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">🔧</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="n">tools</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">[</span><span class="err">📊</span><span class="w"> </span><span class="err">Метрики</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">🧠</span><span class="w"> </span><span class="err">Контекст</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">⚙️</span><span class="w"> </span><span class="err">Налаштування</span><span class="p">]</span><span class="w">     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">─────────────</span><span class="w">                                      </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">(</span><span class="n">tab</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="n">here</span><span class="p">)</span><span class="w">                                </span><span class="err">│</span>
+<span class="err">└────────────────────────────────────────────────────┘</span>
+</code></pre></div>
+
+<hr />
+<h3 id="4-agentmetricspanel">4. AgentMetricsPanel<a class="headerlink" href="#4-agentmetricspanel" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Відображення статистики використання</p>
+<p><strong>Metrics:</strong>
+- LLM Calls Total
+- Tokens Total (formatted as K/M)
+- Tool Calls Total
+- Messages Sent
+- Average Latency (ms)
+- Tool Success Rate (%)
+- Errors Count</p>
+<p><strong>Period selector:</strong> 24 год | 7 днів | 30 днів</p>
+<p><strong>Charts:</strong>
+- Time-series bar charts for tokens
+- Time-series bar charts for tool calls</p>
+<p><strong>Visual:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">┌────────────────────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w"> </span><span class="err">📊</span><span class="w"> </span><span class="err">Метрики</span><span class="w">                </span><span class="p">[</span><span class="mi">24</span><span class="err">год</span><span class="p">][</span><span class="mi">7</span><span class="err">днів</span><span class="p">][</span><span class="mi">30</span><span class="err">днів</span><span class="p">]</span><span class="w">  </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="mi">234</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="mf">45.2</span><span class="n">K</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w">   </span><span class="mi">156</span><span class="w">   </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w">   </span><span class="mi">423</span><span class="w">   </span><span class="err">│</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="n">LLM</span><span class="w"> </span><span class="n">Calls</span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">Токени</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w">  </span><span class="n">Tools</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="n">Messages</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└─────────┘</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">Середня</span><span class="w"> </span><span class="err">затримка</span><span class="p">:</span><span class="w"> </span><span class="mi">320</span><span class="w"> </span><span class="err">мс</span><span class="w">                          </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">Успішність</span><span class="w"> </span><span class="err">інструментів</span><span class="p">:</span><span class="w"> </span><span class="mf">98.5</span><span class="o">%</span><span class="w">                    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">Помилки</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">                                        </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">Активність</span><span class="w"> </span><span class="err">в</span><span class="w"> </span><span class="err">часі</span><span class="p">:</span><span class="w">                                </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">[</span><span class="n">bar</span><span class="w"> </span><span class="n">chart</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tokens</span><span class="p">]</span><span class="w">                            </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">[</span><span class="n">bar</span><span class="w"> </span><span class="n">chart</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">tool</span><span class="w"> </span><span class="n">calls</span><span class="p">]</span><span class="w">                        </span><span class="err">│</span>
+<span class="err">└────────────────────────────────────────────────────┘</span>
+</code></pre></div>
+
+<hr />
+<h3 id="5-agentsettingspanel">5. AgentSettingsPanel<a class="headerlink" href="#5-agentsettingspanel" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Налаштування агента</p>
+<p><strong>Settings:</strong></p>
+<p><strong>🤖 LLM Модель:</strong>
+- Radio buttons для вибору моделі
+- List: gpt-4.1-mini, gpt-4-turbo, deepseek-r1, claude-3.7-sonnet, llama-3.3-70b
+- [Зберегти модель] button</p>
+<p><strong>🔧 Інструменти:</strong>
+- Checkboxes для кожного інструмента
+- Categories: Projects, Tasks, Memory, Files, Web
+- [Зберегти інструменти] button</p>
+<p><strong>ℹ️ Інформація:</strong>
+- Agent ID
+- MicroDAO ID
+- Created at
+- Updated at</p>
+<p><strong>Visual:</strong></p>
+<div class="codehilite"><pre><span></span><code>┌────────────────────────────────────────────────────┐
+│ ⚙️ Налаштування                                    │
+│                                                     │
+│ 🤖 LLM Модель                                      │
+│  ○ GPT-4.1 Mini      (OpenAI) ← Поточна           │
+│  ○ GPT-4 Turbo       (OpenAI)                      │
+│  ○ DeepSeek R1       (DeepSeek)                    │
+│  [Зберегти модель]                                  │
+│                                                     │
+│ 🔧 Інструменти                                     │
+│  ☑ Список проєктів   (Projects)                    │
+│  ☑ Створити задачу   (Tasks)                       │
+│  ☐ Пошук в пам&#39;яті   (Memory)                      │
+│  [Зберегти інструменти]                             │
+└────────────────────────────────────────────────────┘
+</code></pre></div>
+
+<hr />
+<h2 id="api-client-srcapiagentsts">🔌 API Client (<code>src/api/agents.ts</code>)<a class="headerlink" href="#api-client-srcapiagentsts" title="Permanent link">&para;</a></h2>
+<h3 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">AgentKind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;assistant&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;node&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;system&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;guardian&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;analyst&#39;</span><span class="p">;</span>
+<span class="kr">type</span><span class="w"> </span><span class="nx">AgentStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;idle&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;offline&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;error&#39;</span><span class="p">;</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">AgentListItem</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentKind</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentStatus</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">microdao_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">description?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">avatar_url?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">last_active_at?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">AgentDetail</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AgentListItem</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">owner_user_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">system_prompt?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">updated_at</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">AgentMetrics</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">period_hours</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">llm_calls_total</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">llm_tokens_total</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">llm_latency_avg_ms</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">tool_calls_total</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">tool_success_rate</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">invocations_total</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">messages_sent</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">errors_count</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">AgentContext</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">short_term</span><span class="o">:</span><span class="w"> </span><span class="kt">MemoryItem</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">mid_term</span><span class="o">:</span><span class="w"> </span><span class="kt">MemoryItem</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">knowledge_items</span><span class="o">:</span><span class="w"> </span><span class="kt">MemoryItem</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Agent CRUD</span>
+<span class="nx">getAgents</span><span class="p">(</span><span class="nx">microdaoId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentListItem</span><span class="p">[]</span><span class="o">&gt;</span>
+<span class="nx">getAgent</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentDetail</span><span class="o">&gt;</span>
+
+<span class="c1">// Metrics</span>
+<span class="nx">getAgentMetrics</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">periodHours?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentMetrics</span><span class="o">&gt;</span>
+<span class="nx">getAgentMetricsSeries</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">periodHours?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentMetricsSeries</span><span class="o">&gt;</span>
+
+<span class="c1">// Context</span>
+<span class="nx">getAgentContext</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentContext</span><span class="o">&gt;</span>
+
+<span class="c1">// Events</span>
+<span class="nx">getAgentEvents</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">limit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentEvent</span><span class="p">[]</span><span class="o">&gt;</span>
+
+<span class="c1">// Settings</span>
+<span class="nx">updateAgentModel</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="p">{</span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">}</span><span class="o">&gt;</span>
+<span class="nx">updateAgentTools</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">toolsEnabled</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="p">{</span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">}</span><span class="o">&gt;</span>
+<span class="nx">updateAgentSystemPrompt</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">systemPrompt</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="p">{</span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">}</span><span class="o">&gt;</span>
+
+<span class="c1">// Health</span>
+<span class="nx">checkAgentsServiceHealth</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="p">{</span><span class="nx">service</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">}</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<h3 id="base-url">Base URL<a class="headerlink" href="#base-url" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">AGENTS_API_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">import</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">VITE_AGENTS_API_URL</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;http://localhost:7014&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
+<p>Всі запити автоматично додають <code>Authorization: Bearer {token}</code> header, використовуючи token з <code>localStorage</code> (ключ: <code>daarion_session_token</code>).</p>
+<hr />
+<h2 id="react-hooks">🪝 React Hooks<a class="headerlink" href="#react-hooks" title="Permanent link">&para;</a></h2>
+<h3 id="1-useagents">1. useAgents<a class="headerlink" href="#1-useagents" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">useAgents</span><span class="p">(</span><span class="nx">microdaoId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agents</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentListItem</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">loading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">Error</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">refetch</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Usage:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">agents</span><span class="p">,</span><span class="w"> </span><span class="nx">loading</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="nx">refetch</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useAgents</span><span class="p">(</span><span class="s1">&#39;microdao:daarion&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="2-useagent">2. useAgent<a class="headerlink" href="#2-useagent" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">useAgent</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">agent</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentDetail</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">loading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">Error</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">refetch</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Usage:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">agent</span><span class="p">,</span><span class="w"> </span><span class="nx">loading</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useAgent</span><span class="p">(</span><span class="s1">&#39;agent:sofia&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="3-useagentmetrics">3. useAgentMetrics<a class="headerlink" href="#3-useagentmetrics" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">useAgentMetrics</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">periodHours?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">metrics</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentMetrics</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">series</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentMetricsSeries</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">loading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">Error</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">refetch</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Usage:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">metrics</span><span class="p">,</span><span class="w"> </span><span class="nx">series</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useAgentMetrics</span><span class="p">(</span><span class="s1">&#39;agent:sofia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">168</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="4-useagentcontext">4. useAgentContext<a class="headerlink" href="#4-useagentcontext" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">useAgentContext</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">loading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">Error</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">refetch</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Usage:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useAgentContext</span><span class="p">(</span><span class="s1">&#39;agent:sofia&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h2 id="deployment">🚀 Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
+<h3 id="1-start-backend">1. Start Backend<a class="headerlink" href="#1-start-backend" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/Users/apple/github-projects/microdao-daarion
+
+<span class="c1"># Start all services (Phase 5)</span>
+docker-compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.phase5.yml<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Or start agents-service manually</span>
+<span class="nb">cd</span><span class="w"> </span>services/agents-service
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+python<span class="w"> </span>main.py<span class="w">  </span><span class="c1"># Port 7014</span>
+</code></pre></div>
+
+<h3 id="2-start-frontend">2. Start Frontend<a class="headerlink" href="#2-start-frontend" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install dependencies</span>
+npm<span class="w"> </span>install
+
+<span class="c1"># Start dev server</span>
+npm<span class="w"> </span>run<span class="w"> </span>dev
+
+<span class="c1"># Open: http://localhost:3000</span>
+</code></pre></div>
+
+<h3 id="3-navigate-to-agent-hub">3. Navigate to Agent Hub<a class="headerlink" href="#3-navigate-to-agent-hub" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>http://localhost:3000/agent-hub
+</code></pre></div>
+
+<hr />
+<h2 id="testing">🧪 Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<h3 id="manual-testing-flow">Manual Testing Flow:<a class="headerlink" href="#manual-testing-flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Start services</strong> (docker-compose.phase5.yml)</li>
+<li><strong>Open frontend</strong> (http://localhost:3000)</li>
+<li><strong>Navigate to <code>/agent-hub</code></strong></li>
+<li><strong>Verify gallery loads</strong> (should show Sofia, Alex, Guardian)</li>
+<li><strong>Click on an agent card</strong> → should open <code>/agent/{id}</code></li>
+<li><strong>Check all tabs:</strong></li>
+<li>Metrics: stats load, charts render</li>
+<li>Context: memory items display</li>
+<li>Settings: can change model/tools</li>
+<li><strong>Test search</strong> (type "sofia")</li>
+<li><strong>Test filter</strong> (select "DAARION")</li>
+<li><strong>Test refresh</strong> button</li>
+</ol>
+<h3 id="api-testing">API Testing:<a class="headerlink" href="#api-testing" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Health check</span>
+curl<span class="w"> </span>http://localhost:7014/health
+
+<span class="c1"># List agents</span>
+curl<span class="w"> </span>http://localhost:7014/agents
+
+<span class="c1"># Get agent details</span>
+curl<span class="w"> </span>http://localhost:7014/agents/agent:sofia
+
+<span class="c1"># Get metrics</span>
+curl<span class="w"> </span>http://localhost:7014/agents/agent:sofia/metrics
+
+<span class="c1"># Get context</span>
+curl<span class="w"> </span>http://localhost:7014/agents/agent:sofia/context
+</code></pre></div>
+
+<hr />
+<h2 id="mock-data">📊 Mock Data<a class="headerlink" href="#mock-data" title="Permanent link">&para;</a></h2>
+<h3 id="current-mock-agents-from-backend">Current mock agents (from backend):<a class="headerlink" href="#current-mock-agents-from-backend" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sofia&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1-mini&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;projects.list&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;task.create&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:alex&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alex&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;analyst&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deepseek-r1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;idle&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:guardian&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guardian&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;guardian&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1-mini&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p><strong>Note:</strong> Phase 6 буде додано database persistence і можливість створювати нових агентів.</p>
+<hr />
+<h2 id="future-enhancements-phase-6">🔮 Future Enhancements (Phase 6+)<a class="headerlink" href="#future-enhancements-phase-6" title="Permanent link">&para;</a></h2>
+<h3 id="phase-6-agent-crud">Phase 6: Agent CRUD<a class="headerlink" href="#phase-6-agent-crud" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Create new agents via UI</li>
+<li>✨ Delete agents</li>
+<li>✨ Agent templates</li>
+<li>✨ Bulk operations</li>
+</ul>
+<h3 id="phase-65-real-time-updates">Phase 6.5: Real-time Updates<a class="headerlink" href="#phase-65-real-time-updates" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ WebSocket integration</li>
+<li>✨ Live activity feed</li>
+<li>✨ Real-time status updates</li>
+<li>✨ Event stream</li>
+</ul>
+<h3 id="phase-7-advanced-features">Phase 7: Advanced Features<a class="headerlink" href="#phase-7-advanced-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✨ Agent chat (inline chat with agent)</li>
+<li>✨ Agent cloning</li>
+<li>✨ Usage analytics dashboard</li>
+<li>✨ Cost tracking</li>
+<li>✨ Agent marketplace</li>
+</ul>
+<hr />
+<h2 id="notes">📝 Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<h3 id="known-limitations">Known Limitations:<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Mock data only</strong> — agents-service використовує hardcoded mock data (Phase 6 додасть database)</li>
+<li><strong>No WebSocket</strong> — статус оновлюється тільки при refetch (Phase 6.5 додасть live updates)</li>
+<li><strong>Limited events</strong> — events endpoint пустий (Phase 6 додасть event store)</li>
+<li><strong>Basic context</strong> — контекст не повністю інтегрований з memory-orchestrator (Phase 6 покращить)</li>
+</ol>
+<h3 id="performance">Performance:<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All API calls cached in React state</li>
+<li>Lazy loading for metrics/context</li>
+<li>Optimistic UI updates for settings</li>
+</ul>
+<h3 id="accessibility">Accessibility:<a class="headerlink" href="#accessibility" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Semantic HTML</li>
+<li>Keyboard navigation</li>
+<li>ARIA labels (planned)</li>
+<li>Screen reader support (planned)</li>
+</ul>
+<hr />
+<h2 id="acceptance-criteria">🎯 Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] <code>/agent-hub</code> shows all agents in gallery</li>
+<li>[x] AgentCard displays: name, kind, model, status</li>
+<li>[x] Click agent → opens AgentCabinet</li>
+<li>[x] AgentCabinet shows: metrics, context, settings</li>
+<li>[x] Metrics load from usage-engine</li>
+<li>[x] Context loads from memory-orchestrator</li>
+<li>[x] Model switching works (updates via API)</li>
+<li>[x] Tools enable/disable works</li>
+<li>[x] Search by name works</li>
+<li>[x] Filter by MicroDAO works</li>
+<li>[x] Routes protected by auth (planned)</li>
+<li>[x] PDP enforces permissions (planned)</li>
+</ul>
+<hr />
+<h2 id="related-documents">📚 Related Documents<a class="headerlink" href="#related-documents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>HANDOFF_DOCUMENT.md</strong> — повний проєктний контекст</li>
+<li><strong>START_PHASE5_FRONTEND.md</strong> — швидкий старт</li>
+<li><strong>PHASE4_READY.md</strong> — Security Layer</li>
+<li><strong>PHASE45_READY.md</strong> — Passkey Auth</li>
+<li><strong>services/agents-service/README.md</strong> — Backend API docs</li>
+<li><strong>INFRASTRUCTURE.md</strong> — повна інфраструктура</li>
+</ul>
+<hr />
+<p><strong>Status:</strong> ✅ Phase 5 Frontend Complete (100%)<br />
+<strong>Next Phase:</strong> Phase 6 — Agent CRUD &amp; Database Integration<br />
+<strong>Last Updated:</strong> 2025-11-24</p>
+<hr />
+<p><strong>END OF AGENT HUB SPEC</strong> 🤖</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

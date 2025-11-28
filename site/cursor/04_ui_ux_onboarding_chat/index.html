@@ -1,0 +1,1113 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/04_ui_ux_onboarding_chat/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>04 — UI/UX Specification: Onboarding, Chat & Public Channel (MVP) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-uiux-specification-onboarding-chat-public-channel-mvp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04 — UI/UX Specification: Onboarding, Chat & Public Channel (MVP)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-ux" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Загальні принципи UX
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-onboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Онбординг (/onboarding)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Онбординг (/onboarding)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-welcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1 — Welcome
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2 — Назва спільноти
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-public-confidential" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3 — Приватність (Public / Confidential)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3 — Приватність (Public / Confidential)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public" class="md-nav__link">
+    <span class="md-ellipsis">
+      Карточка "Public"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confidential" class="md-nav__link">
+    <span class="md-ellipsis">
+      Карточка "Confidential"
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4 — Перший канал
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5 — Агенти та пам'ять
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cslug" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Публічний канал (/c/:slug)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Публічний канал (/c/:slug)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Для гостей
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Для зареєстрованих учасників
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chat-ui-tteamidcchannelid" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Основний Chat UI (/t/:teamId/c/:channelId)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Основний Chat UI (/t/:teamId/c/:channelId)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-sidebar" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Sidebar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-chat-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Chat Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-messages-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Messages Stream
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3. Messages Stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Повідомлення містить:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Треди — опціонально
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-follow-up-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4. Follow-up creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-composer" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5. Composer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Вкладка "Follow-ups"
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Межі MVP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Стандарти UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Адаптивність
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="04-uiux-specification-onboarding-chat-public-channel-mvp">04 — UI/UX Specification: Onboarding, Chat &amp; Public Channel (MVP)<a class="headerlink" href="#04-uiux-specification-onboarding-chat-public-channel-mvp" title="Permanent link">&para;</a></h1>
+<p>Цей документ описує екрани, компоненти та UX-флоу, необхідні для реалізації MVP MicroDAO. Без зайвих деталей — тільки те, що потрібне для роботи Cursor і фронтенду.</p>
+<p>Джерела: UI/UX Specification — microdao (web), Test Plan, API Snapshot.</p>
+<h2 id="1-ux">1. Загальні принципи UX<a class="headerlink" href="#1-ux" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Мінімалістичний інтерфейс: світла тема, чисті лінії, помірні інтервали.</li>
+<li>Мова інтерфейсу: українська (тексти вказані нижче).</li>
+<li>Основний фокус MVP:
+  <strong>простота</strong>, <strong>читабельність</strong>, <strong>мінімум кліків</strong>, <strong>логічні флоу</strong>.</li>
+<li>Усі критичні дії мають підтвердження (модалки).</li>
+<li>Повідомлення про помилки — короткі та зрозумілі.</li>
+</ul>
+<h2 id="2-onboarding">2. Онбординг (<code>/onboarding</code>)<a class="headerlink" href="#2-onboarding" title="Permanent link">&para;</a></h2>
+<p>Онбординг реалізується як stepper (5 кроків).
+Стан зберігається у локальному React state.</p>
+<h3 id="step-1-welcome">Step 1 — Welcome<a class="headerlink" href="#step-1-welcome" title="Permanent link">&para;</a></h3>
+<p><strong>UX-цілі:</strong>
+Пояснити, що таке MicroDAO та що буде далі.</p>
+<p><strong>UI:</strong>
+- Заголовок: <strong>"Створимо твою MicroDAO"</strong>
+- Підзаголовок: <strong>"5 кроків — і твоя спільнота буде готова до роботи."</strong>
+- Кнопка: <strong>"Почати"</strong></p>
+<h3 id="step-2">Step 2 — Назва спільноти<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
+<p><strong>UI поля:</strong>
+- <code>Назва спільноти</code> (input, required)
+- <code>Опис (необов'язково)</code> (textarea)</p>
+<p><strong>UX-підказка:</strong></p>
+<blockquote>
+<p>Спільнота — це мікро-DAO. Вона матиме свій чат, агента та приватний простір.</p>
+</blockquote>
+<p><strong>Кнопка:</strong>
+- <strong>"Продовжити"</strong></p>
+<p><strong>API:</strong> <code>POST /teams</code></p>
+<h3 id="step-3-public-confidential">Step 3 — Приватність (Public / Confidential)<a class="headerlink" href="#step-3-public-confidential" title="Permanent link">&para;</a></h3>
+<p><strong>UI:</strong>
+Два великі карточки-режими:</p>
+<h4 id="public">Карточка "Public"<a class="headerlink" href="#public" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Заголовок: <strong>Відкрита</strong></li>
+<li>Пояснення:<blockquote>
+<p>Є публічний канал. Гості можуть читати та приєднатися через email.</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="confidential">Карточка "Confidential"<a class="headerlink" href="#confidential" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Заголовок: <strong>Приватна</strong></li>
+<li>Пояснення:<blockquote>
+<p>Тільки запрошені учасники. Чати зашифровані між клієнтами.</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>Кнопка:</strong>
+- <strong>"Вибрати режим"</strong></p>
+<p><strong>API:</strong> <code>PATCH /teams/{id}</code></p>
+<h3 id="step-4">Step 4 — Перший канал<a class="headerlink" href="#step-4" title="Permanent link">&para;</a></h3>
+<p><strong>UI поля:</strong>
+- Назва каналу (input, наприклад "general")
+- Тип:
+  - <code>Публічний канал</code>
+  - <code>Приватна кімната</code></p>
+<p><strong>Кнопка:</strong>
+- <strong>"Створити канал"</strong></p>
+<p><strong>API:</strong> <code>POST /channels</code></p>
+<h3 id="step-5">Step 5 — Агенти та пам'ять<a class="headerlink" href="#step-5" title="Permanent link">&para;</a></h3>
+<p><strong>UI:</strong></p>
+<p>Перемикачі:</p>
+<ul>
+<li><strong>Увімкнути приватного агента</strong> (toggle)</li>
+<li>Випадаючий список мов: <strong>Українська / English</strong></li>
+<li>Профіль агента:</li>
+<li><code>Загальний</code></li>
+<li><code>Бізнес</code></li>
+<li><code>Технічний</code></li>
+<li><code>Креатив</code></li>
+</ul>
+<p>Блок пам'яті (дуже простий):</p>
+<ul>
+<li><strong>Що агент може памʼятати?</strong></li>
+<li>Радіо-кнопки:<ul>
+<li><code>Лише цей канал</code></li>
+<li><code>Всі канали спільноти</code></li>
+<li><code>Увесь мій MicroDAO</code> (опція на майбутнє, можна заблокувати)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Кнопка:</strong>
+- <strong>"Готово" → Перехід до чату</strong></p>
+<h2 id="3-cslug">3. Публічний канал (<code>/c/:slug</code>)<a class="headerlink" href="#3-cslug" title="Permanent link">&para;</a></h2>
+<p>Це дуже важливий елемент MVP — публічна сторінка для залучення нових користувачів.</p>
+<h3 id="31">3.1. Для гостей<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p><strong>UI структура:</strong></p>
+<div class="codehilite"><pre><span></span><code>---
+| Назва спільноти                       |
+| Опис                                  |
+-----------------------------------------
+
+## |   Стрічка повідомлень (read-only)     |
+
+|   Форма приєднання                    |
+|   - Імʼя                               |
+|   - Email                              |
+|   - Кнопка &quot;Приєднатися&quot;              |
+-----------------------------------------
+</code></pre></div>
+
+<p><strong>Тексти:</strong>
+- Заголовок: <strong>Публічний канал спільноти</strong>
+- Поля:
+  - "Ваше ім'я"
+  - "Email"
+- Кнопка: <strong>"Приєднатися до спільноти"</strong></p>
+<p><strong>API:</strong>
+- GET <code>/channels/{id}/messages</code> (публічні, без авторизації)
+- POST <code>/auth/login-email</code> → exchange → auto-join public channel (viewer-type)</p>
+<h3 id="32">3.2. Для зареєстрованих учасників<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Показуємо повноцінний чат.</li>
+<li>Можливість написати повідомлення.</li>
+<li>У стрічці доступні треди та follow-up.</li>
+</ul>
+<h2 id="4-chat-ui-tteamidcchannelid">4. Основний Chat UI (<code>/t/:teamId/c/:channelId</code>)<a class="headerlink" href="#4-chat-ui-tteamidcchannelid" title="Permanent link">&para;</a></h2>
+<p>Структура:</p>
+<div class="codehilite"><pre><span></span><code>---
+## | Sidebar (список каналів)              |
+
+## | Chat Header                           |
+
+## | Messages Stream                       |
+
+## | Composer (ввести повідомлення)        |
+---
+</code></pre></div>
+
+<h3 id="41-sidebar">4.1. Sidebar<a class="headerlink" href="#41-sidebar" title="Permanent link">&para;</a></h3>
+<p><strong>Елементи:</strong>
+- Назва спільноти
+- Список каналів:
+  - Публічний канал
+  - Приватні групи
+- Кнопка "+ Новий канал"</p>
+<p><strong>Active state:</strong> підсвітка поточного каналу.</p>
+<h3 id="42-chat-header">4.2. Chat Header<a class="headerlink" href="#42-chat-header" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Назва каналу</li>
+<li>Тип (публічний / приватний)</li>
+<li>Кнопка меню (3 крапки):</li>
+<li>"Параметри каналу" (можна stub)</li>
+</ul>
+<h3 id="43-messages-stream">4.3. Messages Stream<a class="headerlink" href="#43-messages-stream" title="Permanent link">&para;</a></h3>
+<h4 id="_1">Повідомлення містить:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Аватар автора</li>
+<li>Ім'я</li>
+<li>Час</li>
+<li>Текст (markdown support)</li>
+<li>Меню дій:</li>
+<li>"Зробити follow-up"</li>
+<li>"Скопіювати посилання"</li>
+<li>"Видалити" (тільки автор)</li>
+</ul>
+<h4 id="_2">Треди — опціонально<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>Для MVP можна зробити collapsible replies або приховати.</p>
+<h3 id="44-follow-up-creation">4.4. Follow-up creation<a class="headerlink" href="#44-follow-up-creation" title="Permanent link">&para;</a></h3>
+<p>Модалка:</p>
+<p>Поля:
+- Назва (автоматично з фрагменту повідомлення)
+- Відповідальний
+- Дедлайн (optional)</p>
+<p>Кнопки:
+- <strong>"Створити"</strong>
+- "Скасувати"</p>
+<p>API:
+- <code>POST /followups</code></p>
+<h3 id="45-composer">4.5. Composer<a class="headerlink" href="#45-composer" title="Permanent link">&para;</a></h3>
+<p>Простий інпут:</p>
+<div class="codehilite"><pre><span></span><code>[Написати повідомлення…                 ]  (Кнопка Надіслати)
+</code></pre></div>
+
+<ul>
+<li>Підтримка Enter для відправки.</li>
+<li>Shift+Enter → новий рядок.</li>
+<li>Drag&amp;drop файлів — out of scope.</li>
+</ul>
+<p>API:
+- <code>POST /channels/{id}/messages</code></p>
+<h2 id="5-follow-ups">5. Вкладка "Follow-ups"<a class="headerlink" href="#5-follow-ups" title="Permanent link">&para;</a></h2>
+<p>URL: <code>/t/:teamId/followups</code></p>
+<p><strong>UI:</strong>
+- Фільтри:
+  - "Assigned to me",
+  - "All",
+  - "Open / In progress / Done"
+- Список:
+  - Назва
+  - Статус
+  - Дедлайн
+  - Коротке посилання на оригінальне повідомлення</p>
+<p>API:
+- <code>GET /followups</code></p>
+<h2 id="6-mvp">6. Межі MVP<a class="headerlink" href="#6-mvp" title="Permanent link">&para;</a></h2>
+<p>Що <strong>не робимо</strong> у цій версії:</p>
+<ul>
+<li>Немає вкладених тредів 2 рівня.</li>
+<li>Немає реакцій (emoji).</li>
+<li>Немає пересилання повідомлень.</li>
+<li>Немає Co-Memory (файли, документи).</li>
+<li>Немає складного редактора повідомлень.</li>
+<li>Немає налаштувань ролей (тільки Member / Viewer).</li>
+</ul>
+<h2 id="7-ui">7. Стандарти UI<a class="headerlink" href="#7-ui" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Шрифти: System fonts.</li>
+<li>Primary color: #3F51F5</li>
+<li>Error: #E53935</li>
+<li>Success: #43A047</li>
+<li>Border radius: 8px</li>
+<li>Spacing: 8 / 12 / 16 / 24</li>
+</ul>
+<h2 id="8">8. Адаптивність<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>Minimum viable mobile support:</p>
+<ul>
+<li>Sidebar → Drawer</li>
+<li>Messages → 100% ширина</li>
+<li>Composer зафіксований знизу</li>
+<li>Onboarding — одна колонка</li>
+</ul>
+<h2 id="9-cursor">9. Для Cursor<a class="headerlink" href="#9-cursor" title="Permanent link">&para;</a></h2>
+<p>При розробці:</p>
+<ul>
+<li>Всі тексти беріть з цього документа.</li>
+<li>Усі екрани повинні відповідати маршрутам, зазначеним у файлі.</li>
+<li>Важливо: onboarding flow має один глобальний state + виклики API на кожному кроці.</li>
+<li>Чат повинен бути повністю інтерактивним.</li>
+<li>Messages Stream має працювати з cursor-based pagination.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1616 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/29_scaling_and_high_availability/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>29 — Scaling & High Availability (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#29-scaling-high-availability-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              29 — Scaling & High Availability (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-high-level-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. High-level Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-api-layer-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. API Layer Scaling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. API Layer Scaling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-api-gateway-edge-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 API Gateway / Edge Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Failover
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-backend-domain-services-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Backend Domain Services Scaling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Backend Domain Services Scaling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-stateless-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Stateless Services
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-stateful-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Stateful Services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Stateful Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wallet-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Wallet Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔹 Agent Orchestrator
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-agents-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Agents Scaling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Agents Scaling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Типи агентів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Як вони масштабуються
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-isolation-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Isolation Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-nats-jetstream-scaling-ha" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. NATS JetStream Scaling &amp; HA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. NATS JetStream Scaling & HA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Кластер
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Потоки (streams)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-failure-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Failure Scenarios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-postgres-high-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Postgres High Availability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Postgres High Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Архітектура
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Таблиці з високими вимогами до консистентності
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-query-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Query Optimization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-outbox-pattern-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Outbox Pattern Scaling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Outbox Pattern Scaling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-worker-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Worker Pool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Guarantees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-failure-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Failure Mode
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-embassy-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Embassy Scaling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Embassy Scaling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-incoming-webhooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Incoming Webhooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-oracle-bursts" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Oracle bursts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-wallet-scaling-rwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Wallet Scaling &amp; RWA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Wallet Scaling & RWA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Ключові вимоги
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-autoscaling-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Autoscaling Logic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-scaling-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Scaling Frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Scaling Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-static-hosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Static hosting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-global-edge-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Global edge distribution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-feature-flag-rollout" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Feature Flag Rollout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-failover-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Failover Strategies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Failover Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-api-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 API Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Postgres
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-nats" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3 NATS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.4 Agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-embassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.5 Embassy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126-wallet" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.6 Wallet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-disaster-recovery-dr" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Disaster Recovery (DR)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Disaster Recovery (DR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Scenarios
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-recovery-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Recovery Plan
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-dr-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 DR Tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-benchmark-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Benchmark Targets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="29-scaling-high-availability-microdao">29 — Scaling &amp; High Availability (MicroDAO)<a class="headerlink" href="#29-scaling-high-availability-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Масштабування, відмовостійкість, балансування навантаження, кластеризація сервісів DAARION.city / microDAO / Embassy / Wallet / Agents / Event Bus</em></p>
+<p>Це документ виробничого класу, який потрібний для:</p>
+<ul>
+<li>архітекторів,</li>
+<li>SRE,</li>
+<li>DevOps,</li>
+<li>інженерів, що відповідають за HA (High Availability),</li>
+<li>аудиторів, які перевіряють стійкість платформи.</li>
+</ul>
+<p>Він відповідає на питання:</p>
+<ul>
+<li>як масштабуються сервіси;</li>
+<li>як забезпечується відмовостійкість;</li>
+<li>як працюють кластери (Postgres, NATS, агентна мережа);</li>
+<li>як працює автоматичне масштабування;</li>
+<li>як відбувається failover;</li>
+<li>як відновлюється місто після аварій.</li>
+</ul>
+<hr />
+<h2 id="1-objectives">1. Objectives<a class="headerlink" href="#1-objectives" title="Permanent link">&para;</a></h2>
+<p>Платформа DAARION.city має підтримувати:</p>
+<ol>
+<li>
+<p><strong>Високу доступність (HA)</strong>
+   SLA: 99.5%–99.9% залежно від сервісу.</p>
+</li>
+<li>
+<p><strong>Горизонтальне масштабування</strong>
+   Чат, агенти, Embassy події, обробка RWA, NATS — мають масштабуватись окремо.</p>
+</li>
+<li>
+<p><strong>Event-driven архітектуру</strong>
+   Потоки через NATS/JetStream.</p>
+</li>
+<li>
+<p><strong>Автоматичне відновлення після збоїв (self-healing)</strong>.</p>
+</li>
+<li>
+<p><strong>Zero-downtime деплой</strong>.</p>
+</li>
+</ol>
+<hr />
+<h2 id="2-high-level-architecture-overview">2. High-level Architecture Overview<a class="headerlink" href="#2-high-level-architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>                     ┌─────────────────────────┐
+                     │     Load Balancer        │
+                     └──────────┬──────────────┘
+                                │
+                  ┌─────────────┴──────────────┐
+                  │      API Gateway (PEP)      │
+                  └─────────────┬──────────────┘
+                                │
+          ┌──────────────┬────────────┬──────────────┐
+          │               │            │               │
+      Messaging       Agents       Embassy         Wallet/RWA
+      Service         Runtime      Gateway          Service
+       (stateless)    (scalable)   (stateless)      (state + events)
+
+                     ┌────────────────┐
+                     │   NATS Cluster │
+                     └────────────────┘
+                              │
+                    ┌───────────────────┐
+                    │    Postgres HA    │
+                    └───────────────────┘
+</code></pre></div>
+
+<p>Основний принцип — <strong>кожен домен масштабується автономно</strong>.</p>
+<hr />
+<h2 id="3-api-layer-scaling">3. API Layer Scaling<a class="headerlink" href="#3-api-layer-scaling" title="Permanent link">&para;</a></h2>
+<h3 id="31-api-gateway-edge-functions">3.1 API Gateway / Edge Functions<a class="headerlink" href="#31-api-gateway-edge-functions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Stateless</li>
+<li>Горизонтальне масштабування без обмежень</li>
+<li>Auto-scaling подіями:</li>
+<li>RPS,</li>
+<li>latency,</li>
+<li>CPU,</li>
+<li>queue length</li>
+</ul>
+<h3 id="32-failover">3.2 Failover<a class="headerlink" href="#32-failover" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Health-check endpoints</li>
+<li>LB прибирає unhealthy інстанси</li>
+<li>Blue-Green або Canary rollout</li>
+</ul>
+<hr />
+<h2 id="4-backend-domain-services-scaling">4. Backend Domain Services Scaling<a class="headerlink" href="#4-backend-domain-services-scaling" title="Permanent link">&para;</a></h2>
+<p>Статус сервісів DAARION:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>State</th>
+<th>Scale Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Messaging</td>
+<td>Stateless</td>
+<td>Horizontal</td>
+</tr>
+<tr>
+<td>Projects/Tasks</td>
+<td>Stateless</td>
+<td>Horizontal</td>
+</tr>
+<tr>
+<td>Agent Orchestrator</td>
+<td>Stateful (DB)</td>
+<td>Horizontal (idempotent processing)</td>
+</tr>
+<tr>
+<td>Wallet</td>
+<td>Stateful</td>
+<td>Horizontal (through DB locking, NATS ordering)</td>
+</tr>
+<tr>
+<td>Embassy</td>
+<td>Stateless</td>
+<td>Horizontal</td>
+</tr>
+<tr>
+<td>Telemetry</td>
+<td>Stateless</td>
+<td>Horizontal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="41-stateless-services">4.1 Stateless Services<a class="headerlink" href="#41-stateless-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Messaging</li>
+<li>Channels</li>
+<li>Projects</li>
+<li>Embassy Gateway</li>
+<li>Telemetry</li>
+<li>Governance API</li>
+</ul>
+<p>Масштабуються <strong>лінійно</strong> кількістю інстансів.</p>
+<h3 id="42-stateful-services">4.2 Stateful Services<a class="headerlink" href="#42-stateful-services" title="Permanent link">&para;</a></h3>
+<h4 id="wallet-service">🔹 Wallet Service<a class="headerlink" href="#wallet-service" title="Permanent link">&para;</a></h4>
+<p>Потребує:</p>
+<ul>
+<li>row-level locks для <code>payout.claim</code></li>
+<li>idempotent <code>payout.generated</code></li>
+<li>deduplicated NATS consumer</li>
+</ul>
+<h4 id="agent-orchestrator">🔹 Agent Orchestrator<a class="headerlink" href="#agent-orchestrator" title="Permanent link">&para;</a></h4>
+<p>Потребує:</p>
+<ul>
+<li>«at least once» NATS delivery</li>
+<li>run-idempotency (<code>agent_runs.id</code>)</li>
+<li>partitioning agent runs</li>
+</ul>
+<hr />
+<h2 id="5-agents-scaling">5. Agents Scaling<a class="headerlink" href="#5-agents-scaling" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 Типи агентів<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Private agents (per-user/team)</strong></li>
+<li><strong>Global agents (Router / Planner / Observer)</strong></li>
+<li><strong>Embassy agents (interpreters for RWA)</strong></li>
+</ol>
+<h3 id="52">5.2 Як вони масштабуються<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>User → API → enqueue → Agent Runtime Pool
+</code></pre></div>
+
+<p>Agent Runtime Pool:</p>
+<ul>
+<li>десятки/сотні ізольованих воркерів;</li>
+<li>один агент run не блокує інші;</li>
+<li>автоматичний autoscaling від:</li>
+<li>queue depth,</li>
+<li>throughput,</li>
+<li>LLM latency.</li>
+</ul>
+<h3 id="53-isolation-model">5.3 Isolation Model<a class="headerlink" href="#53-isolation-model" title="Permanent link">&para;</a></h3>
+<p>Для кожного агентного run:</p>
+<ul>
+<li>окремий підпроцес / worker / container</li>
+<li>можливість sandbox-обмеження</li>
+</ul>
+<hr />
+<h2 id="6-nats-jetstream-scaling-ha">6. NATS JetStream Scaling &amp; HA<a class="headerlink" href="#6-nats-jetstream-scaling-ha" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 Кластер<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p>Рекомендована конфігурація для прод:</p>
+<ul>
+<li><strong>3 або 5 вузлів</strong> JetStream</li>
+<li>Replication Factor = 3 для стрімів</li>
+<li>Consumer durability = <code>durable=true</code></li>
+<li>Ack policy = explicit</li>
+</ul>
+<h3 id="62-streams">6.2 Потоки (streams)<a class="headerlink" href="#62-streams" title="Permanent link">&para;</a></h3>
+<p>Структура тем:</p>
+<div class="codehilite"><pre><span></span><code>chat.*
+project.*
+task.*
+agent.run.*
+wallet.*
+embassy.*
+oracle.*
+rwa.*
+governance.*
+audit.*
+</code></pre></div>
+
+<h3 id="63-failure-scenarios">6.3 Failure Scenarios<a class="headerlink" href="#63-failure-scenarios" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Наслідок</th>
+<th>Відновлення</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 вузол падає</td>
+<td>Кворум зберігається</td>
+<td>Автоматичний failover</td>
+</tr>
+<tr>
+<td>2 вузли падають (із 3)</td>
+<td>Стрім read-only</td>
+<td>Зберегти дані, обмеження на writes</td>
+</tr>
+<tr>
+<td>Корупція стріму</td>
+<td>Канарний споживач</td>
+<td>Auto-resync</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-postgres-high-availability">7. Postgres High Availability<a class="headerlink" href="#7-postgres-high-availability" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 Архітектура<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Primary + at least 1–2 replicas</li>
+<li>Synchronous replication (якщо SLA 99.9)</li>
+<li>Архівування WAL (PITR)</li>
+<li>Автоматичний failover (pg_auto_failover або cloud-managed)</li>
+</ul>
+<h3 id="72">7.2 Таблиці з високими вимогами до консистентності<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>wallets</code></li>
+<li><code>staking_ringk</code></li>
+<li><code>payouts</code></li>
+<li><code>rwa_inventory</code></li>
+<li><code>access_keys</code></li>
+<li><code>bundles</code></li>
+<li><code>outbox_events</code></li>
+</ul>
+<p>Ці таблиці не допускають eventual consistency.</p>
+<h3 id="73-query-optimization">7.3 Query Optimization<a class="headerlink" href="#73-query-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Index coverage for all hot-path queries</li>
+<li>Partitioning (опційно) для:</li>
+<li><code>messages</code></li>
+<li><code>audit_log</code></li>
+<li><code>outbox_events</code></li>
+</ul>
+<hr />
+<h2 id="8-outbox-pattern-scaling">8. Outbox Pattern Scaling<a class="headerlink" href="#8-outbox-pattern-scaling" title="Permanent link">&para;</a></h2>
+<h3 id="81-worker-pool">8.1 Worker Pool<a class="headerlink" href="#81-worker-pool" title="Permanent link">&para;</a></h3>
+<ul>
+<li>2–10 воркерів</li>
+<li>Кожен бере порцію подій</li>
+<li>Події після обробки маркуються <code>processed=true</code></li>
+</ul>
+<h3 id="82-guarantees">8.2 Guarantees<a class="headerlink" href="#82-guarantees" title="Permanent link">&para;</a></h3>
+<ul>
+<li>At least once</li>
+<li>Ordering controlled by:</li>
+<li>Partition key (team_id)</li>
+<li>Consumer group</li>
+</ul>
+<h3 id="83-failure-mode">8.3 Failure Mode<a class="headerlink" href="#83-failure-mode" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pod kill → worker restarts → resumes work</li>
+<li>network flap → events re-delivered</li>
+<li>consumer crash → DLQ (dead letter queue)</li>
+</ul>
+<hr />
+<h2 id="9-embassy-scaling">9. Embassy Scaling<a class="headerlink" href="#9-embassy-scaling" title="Permanent link">&para;</a></h2>
+<h3 id="91-incoming-webhooks">9.1 Incoming Webhooks<a class="headerlink" href="#91-incoming-webhooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Stateless API</li>
+<li>Unlimited horizontal scaling</li>
+<li>Signature verification CPU-cheap</li>
+</ul>
+<h3 id="92-oracle-bursts">9.2 Oracle bursts<a class="headerlink" href="#92-oracle-bursts" title="Permanent link">&para;</a></h3>
+<p>Embassy може отримати "бурст" даних з Energy Union:</p>
+<ul>
+<li>10k–100k meter readings</li>
+<li>обробляється пакетно</li>
+<li>Embassy → NATS → Wallet Service</li>
+</ul>
+<p>Wallet Service <strong>має бути autoscaled</strong>:</p>
+<ul>
+<li>CPU &gt; 70%</li>
+<li>NATS consumer lag &gt; threshold</li>
+</ul>
+<hr />
+<h2 id="10-wallet-scaling-rwa">10. Wallet Scaling &amp; RWA<a class="headerlink" href="#10-wallet-scaling-rwa" title="Permanent link">&para;</a></h2>
+<h3 id="101">10.1 Ключові вимоги<a class="headerlink" href="#101" title="Permanent link">&para;</a></h3>
+<p>Wallet Service обробляє:</p>
+<ul>
+<li>payouts,</li>
+<li>claims,</li>
+<li>chain transactions,</li>
+<li>RWA reward distribution.</li>
+</ul>
+<p>Системні вимоги:</p>
+<ul>
+<li>row-level lock на <code>payouts</code> при claim</li>
+<li>mutex на chain transaction</li>
+<li>idempotent TX submission</li>
+</ul>
+<h3 id="102-autoscaling-logic">10.2 Autoscaling Logic<a class="headerlink" href="#102-autoscaling-logic" title="Permanent link">&para;</a></h3>
+<ul>
+<li>↑ CPU (chain operations heavy)</li>
+<li>↑ NATS lag (payouts generated faster than processed)</li>
+<li>↑ pending claim queue</li>
+</ul>
+<hr />
+<h2 id="11-scaling-frontend">11. Scaling Frontend<a class="headerlink" href="#11-scaling-frontend" title="Permanent link">&para;</a></h2>
+<h3 id="111-static-hosting">11.1 Static hosting<a class="headerlink" href="#111-static-hosting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>CDN кешування</li>
+<li>SSR вимикається для важких сторінок (агентів, wallets)</li>
+</ul>
+<h3 id="112-global-edge-distribution">11.2 Global edge distribution<a class="headerlink" href="#112-global-edge-distribution" title="Permanent link">&para;</a></h3>
+<ul>
+<li>географічні PoP</li>
+<li>розподіл:</li>
+<li>US-EAST</li>
+<li>EU</li>
+<li>South America</li>
+<li>Asia</li>
+</ul>
+<h3 id="113-feature-flag-rollout">11.3 Feature Flag Rollout<a class="headerlink" href="#113-feature-flag-rollout" title="Permanent link">&para;</a></h3>
+<ul>
+<li>мінімізація ризику на проді</li>
+<li>partial enablement</li>
+</ul>
+<hr />
+<h2 id="12-failover-strategies">12. Failover Strategies<a class="headerlink" href="#12-failover-strategies" title="Permanent link">&para;</a></h2>
+<h3 id="121-api-layer">12.1 API Layer<a class="headerlink" href="#121-api-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>LB → автоматична заміна unhealthy nodes</li>
+<li>Canary release на 5–10%</li>
+</ul>
+<h3 id="122-postgres">12.2 Postgres<a class="headerlink" href="#122-postgres" title="Permanent link">&para;</a></h3>
+<ul>
+<li>автоматичний failover на replica</li>
+<li>DNS/IP switch</li>
+</ul>
+<h3 id="123-nats">12.3 NATS<a class="headerlink" href="#123-nats" title="Permanent link">&para;</a></h3>
+<ul>
+<li>внутрішня виборність leader</li>
+<li>replica quorum</li>
+</ul>
+<h3 id="124-agents">12.4 Agents<a class="headerlink" href="#124-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>job requeue → new worker takes over</li>
+</ul>
+<h3 id="125-embassy">12.5 Embassy<a class="headerlink" href="#125-embassy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>stateless → fail instantly</li>
+</ul>
+<h3 id="126-wallet">12.6 Wallet<a class="headerlink" href="#126-wallet" title="Permanent link">&para;</a></h3>
+<ul>
+<li>idempotent DB writes → rescue after crash</li>
+</ul>
+<hr />
+<h2 id="13-disaster-recovery-dr">13. Disaster Recovery (DR)<a class="headerlink" href="#13-disaster-recovery-dr" title="Permanent link">&para;</a></h2>
+<h3 id="131-scenarios">13.1 Scenarios<a class="headerlink" href="#131-scenarios" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Data center outage</li>
+<li>Corrupted WAL / snapshot</li>
+<li>Global cloud outage (provider-wide)</li>
+<li>Stuck NATS cluster</li>
+<li>Chain RPC outage</li>
+<li>Embassy key leak</li>
+<li>Agent DDOS / infinite loops</li>
+</ol>
+<h3 id="132-recovery-plan">13.2 Recovery Plan<a class="headerlink" href="#132-recovery-plan" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hot standby region (multi-region Postgres)</li>
+<li>Backup event bus</li>
+<li>Secondary RPC provider</li>
+<li>Embassy secrets rotation</li>
+<li>Agent Sandbox re-creation</li>
+</ul>
+<h3 id="133-dr-tests">13.3 DR Tests<a class="headerlink" href="#133-dr-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>щоквартальні DR-ротації</li>
+<li>restore Postgres snapshot</li>
+<li>swap RPC endpoints</li>
+<li>revoke all Embassy keys</li>
+</ul>
+<hr />
+<h2 id="14-benchmark-targets">14. Benchmark Targets<a class="headerlink" href="#14-benchmark-targets" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Компонент</th>
+<th>Ціль</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Messages</td>
+<td>500 msg/sec</td>
+</tr>
+<tr>
+<td>Agent runs</td>
+<td>30–100 runs/min/worker</td>
+</tr>
+<tr>
+<td>Embassy</td>
+<td>1000 webhook/sec</td>
+</tr>
+<tr>
+<td>Wallet payouts</td>
+<td>50 payout/sec</td>
+</tr>
+<tr>
+<td>NATS throughput</td>
+<td>20k–50k events/sec</td>
+</tr>
+<tr>
+<td>Postgres</td>
+<td>p95 &lt; 100 ms</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="15-cursor">15. Завдання для Cursor<a class="headerlink" href="#15-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior DevOps/SRE engineer. Implement HA infrastructure using:
+- 29_scaling_and_high_availability.md
+- 25_deployment_infrastructure.md
+- 26_security_audit.md
+
+Tasks:
+1) Set up Postgres HA with automatic failover.
+2) Configure NATS JetStream cluster (3-5 nodes).
+3) Implement autoscaling for API Gateway and domain services.
+4) Set up health checks and monitoring for all services.
+5) Implement Outbox Worker pool with proper scaling.
+6) Configure load balancer with health checks.
+7) Set up disaster recovery procedures.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="16-summary">16. Summary<a class="headerlink" href="#16-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Архітектура підтримує HA та autoscaling на кожному шарі.</li>
+<li>Сервіси ізольовані за доменами.</li>
+<li>NATS та Postgres у кластерному режимі.</li>
+<li>Wallet / RWA / Embassy — найбільш критичні частини.</li>
+<li>Масштабування агентів окреме, з autoscaling та sandbox isolation.</li>
+<li>Готова база для prod-grade розгортання.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

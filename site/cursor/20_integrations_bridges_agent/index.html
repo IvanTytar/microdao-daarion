@@ -1,0 +1,904 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/20_integrations_bridges_agent/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>20 — Integrations & Bridges Agent (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#20-integrations-bridges-agent-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              20 — Integrations & Bridges Agent (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="20-integrations-bridges-agent-microdao">20 — Integrations &amp; Bridges Agent (MicroDAO)<a class="headerlink" href="#20-integrations-bridges-agent-microdao" title="Permanent link">&para;</a></h1>
+<p>Агент мостів, міжпросторових зв'язків та зовнішньої взаємодії</p>
+<p>Integrations &amp; Bridges Agent — це модуль, який забезпечує обмін інформацією між microDAO та зовнішнім світом:
+іншими платформами, месенджерами, інструментами, сервісами, даними та іншими агентськими екосистемами.</p>
+<p>Це "протокольний шар" агентської ОС DAARION.city.</p>
+<hr />
+<h1 id="1">1. Призначення<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Bridges Agent виконує функції:</p>
+<ul>
+<li>інтеграції із зовнішніми платформами,</li>
+<li>маршрутизації даних,</li>
+<li>синхронізації контекстів,</li>
+<li>взаємодії між різними агентськими системами,</li>
+<li>побудови міжпросторових каналів (cross-microDAO),</li>
+<li>підключення до сторонніх інструментів (пошта, календар, API),</li>
+<li>реалізації безпечних каналів входу/виходу з екосистеми.</li>
+</ul>
+<p>Основна ідея — <strong>microDAO не живе в ізоляції, а існує у зв'язку зі світом</strong>.</p>
+<hr />
+<h1 id="2">2. Види інтеграцій<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h3 id="21">2.1. Месенджери та комунікаційні сервіси<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Telegram (вхідні повідомлення, вихідні, канали, боти)</li>
+<li>WhatsApp / Signal (через API-адаптери)</li>
+<li>Email</li>
+<li>SMS (опційно)</li>
+</ul>
+<h3 id="22">2.2. Робочі інструменти<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Google Calendar / iCal</li>
+<li>Google Drive / Dropbox (для файлів)</li>
+<li>GitHub (issues, PRs, CI)</li>
+<li>Notion / Confluence (документи)</li>
+</ul>
+<h3 id="23-api">2.3. API зовнішніх сервісів<a class="headerlink" href="#23-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Webhooks</li>
+<li>REST / GraphQL</li>
+<li>OAuth2 інтеграції</li>
+</ul>
+<h3 id="24-cross-microdao">2.4. Cross-microDAO зв'язки<a class="headerlink" href="#24-cross-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>"міст" між microDAO для:</p>
+</li>
+<li>
+<p>спільних агентів,</p>
+</li>
+<li>спільних проєктів,</li>
+<li>
+<p>спільної пам'яті,</p>
+</li>
+<li>
+<p>міжміські зв'язки DAARION.city.</p>
+</li>
+</ul>
+<h3 id="25-web3-">2.5. Web3-протоколи<a class="headerlink" href="#25-web3-" title="Permanent link">&para;</a></h3>
+<ul>
+<li>підписані повідомлення,</li>
+<li>capability-токени доступу,</li>
+<li>безпечна автентифікація.</li>
+</ul>
+<hr />
+<h1 id="3">3. Агенти інтеграцій<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<p>Модуль складається із під-агентів:</p>
+<h2 id="31-bridges-agent">3.1. Bridges Agent (основний)<a class="headerlink" href="#31-bridges-agent" title="Permanent link">&para;</a></h2>
+<p>Роль: <code>"bridges_core"</code></p>
+<p>Він:</p>
+<ul>
+<li>керує списком інтеграцій,</li>
+<li>маршрутизує дані між контекстами,</li>
+<li>керує підключенням зовнішніх API.</li>
+</ul>
+<h2 id="32-connector-agents">3.2. Connector Agents (адаптери)<a class="headerlink" href="#32-connector-agents" title="Permanent link">&para;</a></h2>
+<p>Ролі: <code>"telegram_connector"</code>, <code>"email_connector"</code>, <code>"calendar_connector"</code>, <code>"github_connector"</code> тощо.</p>
+<p>Кожен Connector:</p>
+<ul>
+<li>має свої ключі/аутентифікацію,</li>
+<li>вміє читати/писати події,</li>
+<li>перетворює зовнішній формат → внутрішній формат events у microDAO.</li>
+</ul>
+<h2 id="33-crossdao-agent">3.3. CrossDAO Agent<a class="headerlink" href="#33-crossdao-agent" title="Permanent link">&para;</a></h2>
+<p>Роль: <code>"crossdao_bridge"</code></p>
+<p>Відповідає за:</p>
+<ul>
+<li>між-microDAO синхронізацію,</li>
+<li>передачу фактів/документів,</li>
+<li>спільних агентів,</li>
+<li>правила та ритуали між DAO.</li>
+</ul>
+<hr />
+<h1 id="4">4. Модель інтеграції<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<h3 id="41">4.1. Таблиця інтеграцій<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p><code>integrations</code>:</p>
+<ul>
+<li>id  </li>
+<li>team_id  </li>
+<li>type (<code>telegram</code>, <code>email</code>, <code>calendar</code>, <code>github</code>, …)  </li>
+<li>config_json  </li>
+<li>status (<code>active</code>, <code>disabled</code>)  </li>
+<li>created_at  </li>
+</ul>
+<h3 id="42">4.2. Модель подій<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>Всі зовнішні події конвертуються у універсальний формат:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">event</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="n">id</span><span class="p">,</span>
+<span class="n">team_id</span><span class="p">,</span>
+<span class="n">source</span><span class="p">,</span><span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">telegram</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">github</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">...</span>
+<span class="n">type</span><span class="p">,</span><span class="w">          </span><span class="o">//</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">issue</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">calendar_update</span><span class="w"> </span><span class="o">...</span>
+<span class="n">payload</span><span class="p">,</span><span class="w">       </span><span class="o">//</span><span class="w"> </span><span class="n">JSON</span>
+<span class="n">ts</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Цей формат потім обробляється:</p>
+<ul>
+<li>Messenger Agent,</li>
+<li>Projects Agent,</li>
+<li>Followups Agent,</li>
+<li>Attention Agent,</li>
+<li>Memory Agent.</li>
+</ul>
+<hr />
+<h1 id="5">5. Основні сценарії<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
+<h3 id="51-telegram-microdao">5.1. Telegram → microDAO<a class="headerlink" href="#51-telegram-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>повідомлення з каналу/групи → вхідний event,</li>
+<li>Bridges Agent передає їх Messenger Agent'у,</li>
+<li>агент може відповідати назад у Telegram (якщо дозволено).</li>
+</ul>
+<h3 id="52-microdao-email">5.2. microDAO → Email<a class="headerlink" href="#52-microdao-email" title="Permanent link">&para;</a></h3>
+<ul>
+<li>агент може відправити email через Email Connector:</li>
+</ul>
+<p>"Сформуй лист-запит у партнерську організацію."</p>
+<h3 id="53-github-projects-agent">5.3. GitHub → Projects Agent<a class="headerlink" href="#53-github-projects-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>issue → створення задачі,</li>
+<li>PR → оновлення статусів,</li>
+<li>label changes → пріоритизація.</li>
+</ul>
+<h3 id="54-calendar-followups-agent">5.4. Calendar → Followups Agent<a class="headerlink" href="#54-calendar-followups-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>події календаря → нагадування,</li>
+<li>синхронізація дедлайнів.</li>
+</ul>
+<h3 id="55-cross-microdao">5.5. Cross-microDAO<a class="headerlink" href="#55-cross-microdao" title="Permanent link">&para;</a></h3>
+<ul>
+<li>передача фактів між двома DAO:</li>
+</ul>
+<p>"Поділись цим визначенням з іншим microDAO".</p>
+<ul>
+<li>спільна робота агента у двох DAO.</li>
+</ul>
+<hr />
+<h1 id="6-runtime-core-12">6. Інтеграція з Runtime Core (12)<a class="headerlink" href="#6-runtime-core-12" title="Permanent link">&para;</a></h1>
+<p>Основний агент:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">bridgesAgentConfig</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ag_bridges_core&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Bridges Agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;bridges_core&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">systemPrompt</span><span class="o">:</span><span class="w"> </span><span class="kt">systemBridgesPrompt</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">memoryScope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;sync_event&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;push_notification&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;pull_updates&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;register_integration&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;update_integration&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;disable_integration&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Адаптери — це окремі агенти з вузькими tools.</p>
+<hr />
+<h1 id="7-tools-runtime-core">7. Tools (для Runtime Core)<a class="headerlink" href="#7-tools-runtime-core" title="Permanent link">&para;</a></h1>
+<h3 id="71-register_integration">7.1. register_integration<a class="headerlink" href="#71-register_integration" title="Permanent link">&para;</a></h3>
+<p>Реєструє інтеграцію (тип, ключі доступу, конфіг).</p>
+<h3 id="72-update_integration">7.2. update_integration<a class="headerlink" href="#72-update_integration" title="Permanent link">&para;</a></h3>
+<p>Оновлює конфіг інтеграції.</p>
+<h3 id="73-disable_integration">7.3. disable_integration<a class="headerlink" href="#73-disable_integration" title="Permanent link">&para;</a></h3>
+<p>Вимикає інтеграцію.</p>
+<h3 id="74-sync_event">7.4. sync_event<a class="headerlink" href="#74-sync_event" title="Permanent link">&para;</a></h3>
+<p>Приймає подію від зовнішнього джерела і конвертує у внутрішню подію.</p>
+<h3 id="75-push_notification">7.5. push_notification<a class="headerlink" href="#75-push_notification" title="Permanent link">&para;</a></h3>
+<p>Відправляє повідомлення у зовнішній світ (Telegram, Email тощо).</p>
+<h3 id="76-pull_updates">7.6. pull_updates<a class="headerlink" href="#76-pull_updates" title="Permanent link">&para;</a></h3>
+<p>Регулярно опитує зовнішній сервіс (GitHub, Calendar).</p>
+<hr />
+<h1 id="8-ui">8. UI<a class="headerlink" href="#8-ui" title="Permanent link">&para;</a></h1>
+<h2 id="81-sidebar">8.1. Sidebar → Інтеграції<a class="headerlink" href="#81-sidebar" title="Permanent link">&para;</a></h2>
+<ul>
+<li>список інтеграцій,</li>
+<li>кнопка "Підключити інтеграцію".</li>
+</ul>
+<h2 id="82">8.2. Модалка підключення інтеграції<a class="headerlink" href="#82" title="Permanent link">&para;</a></h2>
+<ul>
+<li>вибір сервісу: Telegram / Email / Calendar / GitHub / Custom API,</li>
+<li>ввод даних підключення,</li>
+<li>тестування підключення,</li>
+<li>збереження.</li>
+</ul>
+<h2 id="83">8.3. Профіль інтеграції<a class="headerlink" href="#83" title="Permanent link">&para;</a></h2>
+<ul>
+<li>історія подій,</li>
+<li>статус,</li>
+<li>налаштування,</li>
+<li>кнопка "Вимкнути".</li>
+</ul>
+<h2 id="84-cross-microdao">8.4. Cross-microDAO панель<a class="headerlink" href="#84-cross-microdao" title="Permanent link">&para;</a></h2>
+<ul>
+<li>список підключених DAO,</li>
+<li>права та контексти,</li>
+<li>статуси синхронізації.</li>
+</ul>
+<hr />
+<h1 id="9-api">9. API<a class="headerlink" href="#9-api" title="Permanent link">&para;</a></h1>
+<h3 id="_1">Інтеграції<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p><code>GET /integrations?team_id</code>
+<code>POST /integrations</code>
+<code>PATCH /integrations/:id</code>
+<code>DELETE /integrations/:id</code></p>
+<h3 id="_2">Події<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><code>POST /integrations/events</code>
+<code>GET /events?team_id&amp;type=external</code></p>
+<h3 id="cross-dao">Cross-DAO<a class="headerlink" href="#cross-dao" title="Permanent link">&para;</a></h3>
+<p><code>POST /crossdao/share_fact</code>
+<code>POST /crossdao/share_document</code></p>
+<hr />
+<h1 id="10-cursor">10. Інструкції для Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="n">Implement</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Integrations</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Bridges</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">20</span><span class="n">_integrations_bridges_agent</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">12</span><span class="n">_agent_runtime_core</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">13</span><span class="n">_agent_memory_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">14</span><span class="n">_messenger_agent_module</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">15</span><span class="n">_projects_agent_module</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">16</span><span class="n">_followups_reminders_agent</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">17</span><span class="n">_comemory_knowledge_space</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">18</span><span class="n">_governance_access_agent</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">10</span><span class="n">_agent_ui_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="n">_coding_standards</span><span class="o">.</span><span class="n">md</span>
+
+<span class="n">Tasks</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">backend</span><span class="w"> </span><span class="n">models</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">integrations</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">external</span><span class="w"> </span><span class="n">events</span><span class="o">.</span>
+
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">Implement</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">listing</span><span class="p">,</span><span class="w"> </span><span class="n">creating</span><span class="p">,</span><span class="w"> </span><span class="n">updating</span><span class="p">,</span><span class="w"> </span><span class="n">disabling</span><span class="w"> </span><span class="n">integrations</span><span class="o">.</span>
+
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">Register</span><span class="w"> </span><span class="n">Bridges</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">connector</span><span class="w"> </span><span class="n">agents</span><span class="o">.</span>
+
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">Implement</span><span class="w"> </span><span class="n">adapters</span><span class="p">:</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Telegram</span><span class="w"> </span><span class="p">(</span><span class="n">stub</span><span class="p">)</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Email</span><span class="w"> </span><span class="p">(</span><span class="n">stub</span><span class="p">)</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Calendar</span><span class="w"> </span><span class="p">(</span><span class="n">stub</span><span class="p">)</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">GitHub</span><span class="w"> </span><span class="p">(</span><span class="n">stub</span><span class="p">)</span>
+
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">UI</span><span class="p">:</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Integrations</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sidebar</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Integration</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="n">modal</span>
+
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Integration</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="n">page</span>
+
+<span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">Implement</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="n">syncing</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="p">(</span><span class="n">sync_event</span><span class="w"> </span><span class="k">tool</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Messenger</span><span class="o">/</span><span class="n">Projects</span><span class="o">/</span><span class="n">Followups</span><span class="o">/</span><span class="n">Attention</span><span class="w"> </span><span class="n">Agents</span><span class="p">)</span>
+
+<span class="n">Output</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">modified</span><span class="w"> </span><span class="n">files</span>
+<span class="o">-</span><span class="w"> </span><span class="n">diff</span>
+<span class="o">-</span><span class="w"> </span><span class="n">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="11">11. Результат<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+<p>Після впровадження:</p>
+<ul>
+<li>microDAO стає мережевим вузлом,</li>
+<li>агенти можуть діяти в кількох просторах,</li>
+<li>знання й події можуть перетікати між DAO,</li>
+<li>зовнішні інструменти інтегруються легко та безпечно,</li>
+<li>DAARION.city отримує основу для єдиного агентського всесвіту.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

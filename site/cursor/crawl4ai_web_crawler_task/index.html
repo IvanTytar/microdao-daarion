@@ -1,0 +1,1192 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/crawl4ai_web_crawler_task/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Task: Web Crawler Service (crawl4ai) & Agent Tool Integration - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-web-crawler-service-crawl4ai-agent-tool-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task: Web Crawler Service (crawl4ai) & Agent Tool Integration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-web-crawler" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Сервіс Web Crawler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Сервіс Web Crawler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. Структура сервісу
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-post-apiwebscrape" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. Основний ендпоїнт: POST /api/web/scrape
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3. Додаткові ендпоїнти (опційно)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4. Обмеження та безпека
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-crawl4ai-crawl_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Обгортка над crawl4ai (crawl_client.py)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-rag-ingestion-docupserted" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Інтеграція з RAG-ingestion (doc.upserted)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Інтеграція з RAG-ingestion (doc.upserted)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-docupserted-" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Подія doc.upserted для веб-сторінок
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Підтримка у нормалізаторі
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-agent-tool-web_crawler" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Agent Tool: web_crawler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Agent Tool: web_crawler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Категорія безпеки
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-tool-requestresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Tool request/response контракт
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-pdp-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. PDP та quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bridges-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Інтеграція з Bridges Agent / іншими агентами
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Інтеграція з Bridges Agent / іншими агентами">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-bridges-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Bridges Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-team-assistant-research-" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Team Assistant / Research-агенти
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-confidential-mode-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Confidential mode та privacy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Логування та моніторинг
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-files-to-createmodify-suggested" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Files to create/modify (suggested)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Acceptance criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Інструкція для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-web-crawler-service-crawl4ai-agent-tool-integration">Task: Web Crawler Service (crawl4ai) &amp; Agent Tool Integration<a class="headerlink" href="#task-web-crawler-service-crawl4ai-agent-tool-integration" title="Permanent link">&para;</a></h1>
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Інтегрувати <strong>crawl4ai</strong> в агентську систему MicroDAO/DAARION як:</p>
+<ol>
+<li>Окремий бекенд-сервіс <strong>Web Crawler</strong>, який:</li>
+<li>вміє скрапити сторінки з JS (Playwright/Chromium),</li>
+<li>повертати структурований текст/HTML/метадані,</li>
+<li>(опційно) генерувати події <code>doc.upserted</code> для RAG-ingestion.</li>
+<li>Агентський <strong>tool</strong> <code>web_crawler</code>, який викликається через Tool Proxy і доступний агентам (Team Assistant, Bridges Agent, тощо) з урахуванням безпеки.</li>
+</ol>
+<p>Мета — дати агентам можливість читати зовнішні веб-ресурси (з обмеженнями) і, за потреби, індексувати їх у RAG.</p>
+<hr />
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Root: <code>microdao-daarion/</code>.</li>
+<li>Інфраструктура агентів та tools:</li>
+<li><code>docs/cursor/12_agent_runtime_core.md</code></li>
+<li><code>docs/cursor/13_agent_memory_system.md</code></li>
+<li><code>docs/cursor/37_agent_tools_and_plugins_specification.md</code></li>
+<li><code>docs/cursor/20_integrations_bridges_agent.md</code></li>
+<li>RAG-шар:</li>
+<li><code>docs/cursor/rag_gateway_task.md</code></li>
+<li><code>docs/cursor/rag_ingestion_worker_task.md</code></li>
+<li><code>docs/cursor/rag_ingestion_events_wave1_mvp_task.md</code></li>
+<li>Event Catalog / NATS:</li>
+<li><code>docs/cursor/42_nats_event_streams_and_event_catalog.md</code></li>
+<li><code>docs/cursor/43_database_events_outbox_design.md</code></li>
+</ul>
+<p>На сервері вже встановлено <code>crawl4ai[all]</code> та <code>playwright chromium</code>.</p>
+<hr />
+<h2 id="1-web-crawler">1. Сервіс Web Crawler<a class="headerlink" href="#1-web-crawler" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1. Структура сервісу<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>Створити новий Python-сервіс (подібно до інших внутрішніх сервісів):</p>
+<ul>
+<li>Директорія: <code>services/web-crawler/</code></li>
+<li>Файли (пропозиція):</li>
+<li><code>main.py</code> — entrypoint (FastAPI/uvicorn).</li>
+<li><code>api.py</code> — визначення HTTP-ендпоїнтів.</li>
+<li><code>crawl_client.py</code> — обгортка над crawl4ai.</li>
+<li><code>models.py</code> — Pydantic-схеми (request/response).</li>
+<li><code>config.py</code> — налаштування (timeouts, max_depth, allowlist доменів, тощо).</li>
+</ul>
+<p>Сервіс <strong>не</strong> має прямого UI; його викликають Tool Proxy / інші бекенд-сервіси.</p>
+<h3 id="12-post-apiwebscrape">1.2. Основний ендпоїнт: <code>POST /api/web/scrape</code><a class="headerlink" href="#12-post-apiwebscrape" title="Permanent link">&para;</a></h3>
+<p>Пропонований контракт:</p>
+<p><strong>Request JSON:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/article&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_...&quot;</span><span class="p">,</span><span class="w">        </span>
+<span class="w">  </span><span class="nt">&quot;max_depth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">                    </span>
+<span class="w">  </span><span class="nt">&quot;max_pages&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">                    </span>
+<span class="w">  </span><span class="nt">&quot;js_enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">                </span>
+<span class="w">  </span><span class="nt">&quot;timeout_seconds&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;user_agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MicroDAO-Crawler/1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span><span class="w">                </span>
+<span class="w">  </span><span class="nt">&quot;indexed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">                 </span>
+<span class="w">  </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;research&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;return_html&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">             </span>
+<span class="w">  </span><span class="nt">&quot;max_chars&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="w">                </span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response JSON (скорочено):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/article&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;final_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/article&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;... main extracted text ...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;html&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;html&gt;...&lt;/html&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example Article&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;keywords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/next&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Next&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;raw_size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;fetched_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-17T10:45:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Використати API/параметри crawl4ai для:</p>
+<ul>
+<li>рендеру JS (Playwright),</li>
+<li>витягання основного контенту (article/reader mode, якщо є),</li>
+<li>нормалізації тексту (видалення зайвого boilerplate).</li>
+</ul>
+<h3 id="13">1.3. Додаткові ендпоїнти (опційно)<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>POST /api/web/scrape_batch</code> — масовий скрап кількох URL (обмежений top-K).</li>
+<li><code>POST /api/web/crawl_site</code> — обхід сайту з <code>max_depth</code>/<code>max_pages</code> (для MVP можна не реалізовувати або залишити TODO).</li>
+<li><code>POST /api/web/scrape_and_ingest</code> — варіант, який одразу шле подію <code>doc.upserted</code> (див. розділ 3).</li>
+</ul>
+<h3 id="14">1.4. Обмеження та безпека<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>У <code>config.py</code> передбачити:</p>
+<ul>
+<li><code>MAX_DEPTH</code> (наприклад, 1–2 для MVP).</li>
+<li><code>MAX_PAGES</code> (наприклад, 3–5).</li>
+<li><code>MAX_CHARS</code>/<code>MAX_BYTES</code> (щоб не забивати памʼять).</li>
+<li>(Опційно) allowlist/denylist доменів для кожної команди/DAO.</li>
+<li>таймаут HTTP/JS-запиту.</li>
+</ul>
+<p>Логувати тільки мінімальний технічний контекст (URL, код статусу, тривалість), <strong>не</strong> зберігати повний HTML у логах.</p>
+<hr />
+<h2 id="2-crawl4ai-crawl_clientpy">2. Обгортка над crawl4ai (<code>crawl_client.py</code>)<a class="headerlink" href="#2-crawl4ai-crawl_clientpy" title="Permanent link">&para;</a></h2>
+<p>Створити модуль, який інкапсулює виклики crawl4ai, щоб API/деталі можна було змінювати централізовано.</p>
+<p>Приблизна логіка:</p>
+<ul>
+<li>функція <code>async def fetch_page(url: str, options: CrawlOptions) -&gt; CrawlResult</code>:</li>
+<li>налаштувати crawl4ai з Playwright (chromium),</li>
+<li>виконати рендер/збір контенту,</li>
+<li>повернути нормалізований результат: text, html (опційно), метадані, посилання.</li>
+</ul>
+<p>Обовʼязково:</p>
+<ul>
+<li>коректно обробляти помилки мережі, редіректи, 4xx/5xx;</li>
+<li>повертати <code>ok=false</code> + error message у HTTP-відповіді API.</li>
+</ul>
+<hr />
+<h2 id="3-rag-ingestion-docupserted">3. Інтеграція з RAG-ingestion (doc.upserted)<a class="headerlink" href="#3-rag-ingestion-docupserted" title="Permanent link">&para;</a></h2>
+<h3 id="31-docupserted-">3.1. Подія <code>doc.upserted</code> для веб-сторінок<a class="headerlink" href="#31-docupserted-" title="Permanent link">&para;</a></h3>
+<p>Після успішного скрапу, якщо <code>indexed=true</code>, Web Crawler може (в майбутньому або одразу) створювати подію:</p>
+<ul>
+<li><code>event</code>: <code>doc.upserted</code></li>
+<li><code>stream</code>: <code>STREAM_PROJECT</code> або спеціальний <code>STREAM_DOCS</code></li>
+</ul>
+<p>Payload (адаптований під RAG-дизайн):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;doc_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web::&lt;hash_of_url&gt;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web/https_example_com_article&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example Article&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;... main extracted text ...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/article&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;web&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;external&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;research&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;visibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;doc_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;indexed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;updated_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-17T10:45:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Цю подію можна:</p>
+<ol>
+<li>заповнити в таблицю outbox (див. <code>43_database_events_outbox_design.md</code>),</li>
+<li>з неї Outbox Worker відправить у NATS (JetStream),</li>
+<li><code>rag-ingest-worker</code> (згідно <code>rag_ingestion_events_wave1_mvp_task.md</code>) сприйме <code>doc.upserted</code> і проіндексує сторінку в Milvus/Neo4j.</li>
+</ol>
+<h3 id="32">3.2. Підтримка у нормалізаторі<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>У <code>services/rag-ingest-worker/pipeline/normalization.py</code> уже є/буде <code>normalize_doc_upserted</code>:</p>
+<ul>
+<li>для веб-сторінок <code>doc_type="web"</code> потрібно лише переконатися, що:</li>
+<li><code>source_type = "doc"</code> або <code>"web"</code> (на твій вибір, але консистентний),</li>
+<li>у <code>tags</code> включено <code>"web"</code>/<code>"external"</code>,</li>
+<li>у metadata є <code>url</code>.</li>
+</ul>
+<p>Якщо потрібно, можна додати просту гілку для <code>doc_type == "web"</code>.</p>
+<hr />
+<h2 id="4-agent-tool-web_crawler">4. Agent Tool: <code>web_crawler</code><a class="headerlink" href="#4-agent-tool-web_crawler" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1. Категорія безпеки<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>Відповідно до <code>37_agent_tools_and_plugins_specification.md</code>:</p>
+<ul>
+<li>Зовнішній інтернет — <strong>Category D — Critical Tools</strong> (<code>browser-full</code>, <code>external_api</code>).</li>
+<li>Новий інструмент:</li>
+<li>назва: <code>web_crawler</code>,</li>
+<li>capability: <code>tool.web_crawler.invoke</code>,</li>
+<li>категорія: <strong>D (Critical)</strong>,</li>
+<li>за замовчуванням <strong>вимкнений</strong> — вмикається Governance/адміністратором для конкретних MicroDAO.</li>
+</ul>
+<h3 id="42-tool-requestresponse">4.2. Tool request/response контракт<a class="headerlink" href="#42-tool-requestresponse" title="Permanent link">&para;</a></h3>
+<p>Tool Proxy викликає Web Crawler через HTTP.</p>
+<p><strong>Request від Agent Runtime до Tool Proxy:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web_crawler&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/article&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_chars&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;indexed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;agent_run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ar_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao_greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;channel_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ch_abc&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Tool Proxy далі робить HTTP-запит до <code>web-crawler</code> сервісу (<code>POST /api/web/scrape</code>).</p>
+<p><strong>Відповідь до агента (спрощена):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;ok&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example Article&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/article&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;snippet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Короткий уривок тексту...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;full_text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;... обрізаний до max_chars ...&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Для безпеки:</p>
+<ul>
+<li>у відповідь, яку бачить LLM/агент, повертати <strong>обмежений</strong> <code>full_text</code> (наприклад, 8–10k символів),</li>
+<li>якщо <code>full_text</code> занадто довгий — обрізати та явно це позначити.</li>
+</ul>
+<h3 id="43-pdp-quotas">4.3. PDP та quotas<a class="headerlink" href="#43-pdp-quotas" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Перед викликом Tool Proxy повинен викликати PDP:</li>
+<li><code>action = tool.web_crawler.invoke</code>,</li>
+<li><code>subject = agent_id</code>,</li>
+<li><code>resource = team_id</code>.</li>
+<li>Usage Service (див. 44_usage_accounting_and_quota_engine.md) може:</li>
+<li>рахувати кількість викликів <code>web_crawler</code>/день,</li>
+<li>обмежувати тривалість/обʼєм даних.</li>
+</ul>
+<hr />
+<h2 id="5-bridges-agent">5. Інтеграція з Bridges Agent / іншими агентами<a class="headerlink" href="#5-bridges-agent" title="Permanent link">&para;</a></h2>
+<h3 id="51-bridges-agent">5.1. Bridges Agent<a class="headerlink" href="#51-bridges-agent" title="Permanent link">&para;</a></h3>
+<p>Bridges Agent (<code>20_integrations_bridges_agent.md</code>) може використовувати <code>web_crawler</code> як один зі своїх tools:</p>
+<ul>
+<li>сценарій: "Підтяни останню версію документації з https://docs.example.com/... і збережи як doc у Co-Memory";</li>
+<li>Bridges Agent викликає tool <code>web_crawler</code>, отримує текст, створює внутрішній doc (через Projects/Co-Memory API) і генерує <code>doc.upserted</code>.</li>
+</ul>
+<h3 id="52-team-assistant-research-">5.2. Team Assistant / Research-агенти<a class="headerlink" href="#52-team-assistant-research-" title="Permanent link">&para;</a></h3>
+<p>Для окремих DAO можна дозволити:</p>
+<ul>
+<li><code>Team Assistant</code> викликає <code>web_crawler</code> для досліджень (наприклад, "знайди інформацію на сайті Мінекономіки про гранти"),</li>
+<li>але з жорсткими лімітами (whitelist доменів, rate limits).</li>
+</ul>
+<hr />
+<h2 id="6-confidential-mode-privacy">6. Confidential mode та privacy<a class="headerlink" href="#6-confidential-mode-privacy" title="Permanent link">&para;</a></h2>
+<p>Згідно з <code>47_messaging_channels_and_privacy_layers.md</code> та <code>48_teams_access_control_and_confidential_mode.md</code>:</p>
+<ul>
+<li>Якщо контекст агента <code>mode = confidential</code>:</li>
+<li>інструмент <code>web_crawler</code> <strong>не повинен</strong> отримувати confidential plaintext із внутрішніх повідомлень (тобто, у <code>args</code> не має бути фрагментів внутрішнього тексту);</li>
+<li>зазвичай достатньо лише URL.</li>
+<li>Якщо <code>indexed=true</code> та <code>mode=confidential</code> для веб-сторінки (рідкісний кейс):</li>
+<li>можна дозволити зберігати plaintext сторінки в RAG, оскільки це зовнішнє джерело;</li>
+<li>але варто позначати таку інформацію як <code>source_type="web_external"</code> і у PDP контролювати, хто може її читати.</li>
+</ul>
+<p>Для MVP в цій задачі достатньо:</p>
+<ul>
+<li>заборонити виклик <code>web_crawler</code> із confidential-контексту без явної конфігурації (тобто PDP повертає deny).</li>
+</ul>
+<hr />
+<h2 id="7">7. Логування та моніторинг<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p>Додати базове логування в Web Crawler:</p>
+<ul>
+<li>при кожному скрапі:</li>
+<li><code>team_id</code>,</li>
+<li><code>url</code>,</li>
+<li><code>status_code</code>,</li>
+<li><code>duration_ms</code>,</li>
+<li><code>bytes_downloaded</code>.</li>
+</ul>
+<p>Без збереження body/HTML у логах.</p>
+<p>За бажанням — контрприклад метрик:</p>
+<ul>
+<li><code>web_crawler_requests_total</code>,</li>
+<li><code>web_crawler_errors_total</code>,</li>
+<li><code>web_crawler_avg_duration_ms</code>.</li>
+</ul>
+<hr />
+<h2 id="8-files-to-createmodify-suggested">8. Files to create/modify (suggested)<a class="headerlink" href="#8-files-to-createmodify-suggested" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Назви/шляхи можна адаптувати до фактичної структури, важлива ідея.</p>
+</blockquote>
+<ul>
+<li><code>services/web-crawler/main.py</code></li>
+<li><code>services/web-crawler/api.py</code></li>
+<li><code>services/web-crawler/crawl_client.py</code></li>
+<li><code>services/web-crawler/models.py</code></li>
+<li>
+<p><code>services/web-crawler/config.py</code></p>
+</li>
+<li>
+<p>Tool Proxy / агентський runtime (Node/TS):</p>
+</li>
+<li>додати tool <code>web_crawler</code> у список інструментів (див. <code>37_agent_tools_and_plugins_specification.md</code>).</li>
+<li>
+<p>оновити Tool Proxy, щоб він міг робити HTTP-виклик до Web Crawler.</p>
+</li>
+<li>
+<p>Bridges/Team Assistant агенти:</p>
+</li>
+<li>
+<p>(опційно) додати <code>web_crawler</code> у їхні конфіги як доступний tool.</p>
+</li>
+<li>
+<p>RAG ingestion:</p>
+</li>
+<li>(опційно) оновити <code>rag-ingest-worker</code>/docs, щоб описати <code>doc_type="web"</code> у <code>doc.upserted</code> подіях.</li>
+</ul>
+<hr />
+<h2 id="9-acceptance-criteria">9. Acceptance criteria<a class="headerlink" href="#9-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Існує новий сервіс <code>web-crawler</code> з ендпоїнтом <code>POST /api/web/scrape</code>, який використовує crawl4ai+Playwright для скрапу сторінок.</li>
+<li>Ендпоїнт повертає текст/метадані у структурованому JSON, з обмеженнями по розміру.</li>
+<li>Заготовлена (або реалізована) інтеграція з Event Catalog через подію <code>doc.upserted</code> для <code>doc_type="web"</code> (indexed=true).</li>
+<li>У Tool Proxy зʼявився tool <code>web_crawler</code> (категорія D, capability <code>tool.web_crawler.invoke</code>) з чітким request/response контрактом.</li>
+<li>PDP/usage engine враховують новий tool (принаймні у вигляді basic перевірок/квот).</li>
+<li>Bridges Agent (або Team Assistant) може використати <code>web_crawler</code> для простого MVP-сценарію (наприклад: скрапнути одну сторінку і показати її summary користувачу).</li>
+<li>Конфіденційний режим враховано: у конфігурації за замовчуванням <code>web_crawler</code> недоступний у <code>confidential</code> каналах/командах.</li>
+</ol>
+<hr />
+<h2 id="10-cursor">10. Інструкція для Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer (Python + Node/TS) working on the DAARION/MicroDAO stack.
+
+Implement the Web Crawler service and agent tool integration using:
+- crawl4ai_web_crawler_task.md
+- 37_agent_tools_and_plugins_specification.md
+- 20_integrations_bridges_agent.md
+- rag_gateway_task.md
+- rag_ingestion_worker_task.md
+- 42_nats_event_streams_and_event_catalog.md
+
+Tasks:
+1) Create the `services/web-crawler` service (FastAPI or equivalent) with /api/web/scrape based on crawl4ai.
+2) Implement basic options: js_enabled, max_depth, max_pages, max_chars, timeouts.
+3) Add tool `web_crawler` to the Tool Proxy (category D, capability tool.web_crawler.invoke).
+4) Wire Tool Proxy → Web Crawler HTTP call with proper request/response mapping.
+5) (Optional but preferred) Implement doc.upserted emission for indexed=true pages (doc_type=&quot;web&quot;) via the existing outbox → NATS flow.
+6) Add a simple usage example in Bridges Agent or Team Assistant config (one agent that can use this tool in dev).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

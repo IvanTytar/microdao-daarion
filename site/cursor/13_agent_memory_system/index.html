@@ -1,0 +1,1485 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/13_agent_memory_system/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>13 — Agent Memory System (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#13-agent-memory-system-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              13 — Agent Memory System (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="13-agent-memory-system-microdao">13 — Agent Memory System (MicroDAO)<a class="headerlink" href="#13-agent-memory-system-microdao" title="Permanent link">&para;</a></h1>
+<p>Цей документ описує архітектуру памʼяті агентів у MicroDAO:</p>
+<ul>
+<li>
+<p>short-term, mid-term, long-term;</p>
+</li>
+<li>
+<p>персональна / командна / глобальна памʼять;</p>
+</li>
+<li>
+<p>Co-Memory та RAG;</p>
+</li>
+<li>
+<p>як памʼять інтегрується з Agent Runtime Core (12);</p>
+</li>
+<li>
+<p>як це використовувати для еволюційного агента (09).</p>
+</li>
+</ul>
+<hr />
+<h1 id="1">1. Цілі системи памʼяті<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<ol>
+<li>
+<p>Зробити агентів <strong>контекстними</strong>: вони памʼятають діалоги, рішення, факти.</p>
+</li>
+<li>
+<p>Розділити памʼять за часом і рівнем узагальнення:</p>
+</li>
+<li>
+<p>short-term → останні репліки;</p>
+</li>
+<li>
+<p>mid-term → сесії / таски / важливі обговорення;</p>
+</li>
+<li>
+<p>long-term → узагальнені знання про команду/проєкт.</p>
+</li>
+<li>
+<p>Дати можливість:</p>
+</li>
+<li>
+<p>переглядати памʼять,</p>
+</li>
+<li>
+<p>очищати її,</p>
+</li>
+<li>
+<p>контролювати, що саме зберігається.</p>
+</li>
+<li>
+<p>Готувати основу для DAGI та Train-to-Earn (агрегована колективна памʼять).</p>
+</li>
+</ol>
+<hr />
+<h1 id="2">2. Рівні памʼяті<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h2 id="21-short-term-memory-stm">2.1. Short-Term Memory (STM)<a class="headerlink" href="#21-short-term-memory-stm" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Останні N повідомлень (user ↔ агент) в поточному контексті (канал / чат).</p>
+</li>
+<li>
+<p>Зберігається як <code>AgentMessage</code> (див. 12_agent_runtime_core.md).</p>
+</li>
+<li>
+<p>Використовується <strong>в кожному запиті до LLM</strong>.</p>
+</li>
+</ul>
+<p>Приклад:</p>
+<ul>
+<li>
+<p>останні 20–50 повідомлень у каналі;</p>
+</li>
+<li>
+<p>спеціальні system-репліки (актуальні інструкції).</p>
+</li>
+</ul>
+<h2 id="22-mid-term-memory-mtm">2.2. Mid-Term Memory (MTM)<a class="headerlink" href="#22-mid-term-memory-mtm" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Важливі фрагменти діалогів, завдання, рішення, які стосуються:</p>
+</li>
+<li>
+<p>конкретних тасок,</p>
+</li>
+<li>
+<p>спринтів,</p>
+</li>
+<li>
+<p>обговорень проєктів.</p>
+</li>
+<li>
+<p>Може бути збережена як:</p>
+</li>
+<li>
+<p>підсумки сесій,</p>
+</li>
+<li>
+<p>«замітки агента»,</p>
+</li>
+<li>
+<p>структуровані записи (JSON).</p>
+</li>
+</ul>
+<p>Використання:</p>
+<ul>
+<li>
+<p>контекст для агентських звітів,</p>
+</li>
+<li>
+<p>нагадування про те, що команда домовилася зробити.</p>
+</li>
+</ul>
+<h2 id="23-long-term-memory-ltm">2.3. Long-Term Memory (LTM)<a class="headerlink" href="#23-long-term-memory-ltm" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Узагальнені факти про:</p>
+</li>
+<li>
+<p>команду,</p>
+</li>
+<li>
+<p>проєкти,</p>
+</li>
+<li>
+<p>стилі роботи,</p>
+</li>
+<li>
+<p>правила,</p>
+</li>
+<li>
+<p>терміни та словник.</p>
+</li>
+</ul>
+<p>Формат:</p>
+<ul>
+<li>
+<p>списки фактів (текстові),</p>
+</li>
+<li>
+<p>векторні ембедінги (для RAG).</p>
+</li>
+</ul>
+<p>Приклади фактів:</p>
+<ul>
+<li>
+<p>«Наш основний продукт — MicroDAO, ми фокусуємося на невеликих спільнотах.»</p>
+</li>
+<li>
+<p>«Для терміну "DAGI" ми маємо окремий опис, який завжди треба враховувати.»</p>
+</li>
+</ul>
+<hr />
+<h1 id="3-scopes">3. Простір памʼяті (Scopes)<a class="headerlink" href="#3-scopes" title="Permanent link">&para;</a></h1>
+<p>Памʼять розділяється за обсягом:</p>
+<ol>
+<li>
+<p><strong>Personal</strong>  </p>
+</li>
+<li>
+<p>пов'язана з конкретним користувачем (Personal Agent).</p>
+</li>
+<li>
+<p><strong>Channel</strong>  </p>
+</li>
+<li>
+<p>стосується конкретного каналу, де агент працює.</p>
+</li>
+<li>
+<p><strong>Team (microDAO)</strong>  </p>
+</li>
+<li>
+<p>загальна памʼять всієї спільноти.</p>
+</li>
+<li>
+<p><strong>Global / DAGI</strong>  </p>
+</li>
+<li>
+<p>узагальнені патерни, які можуть бути анонімізовано експортовані.</p>
+</li>
+</ol>
+<hr />
+<h1 id="4">4. Модель даних<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<h3 id="_1">Таблиці (логічно):<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>agent_memory_events</code>  </p>
+</li>
+<li>
+<p>id  </p>
+</li>
+<li>
+<p>agent_id  </p>
+</li>
+<li>
+<p>team_id  </p>
+</li>
+<li>
+<p>channel_id (optional)  </p>
+</li>
+<li>
+<p>user_id (optional)  </p>
+</li>
+<li>
+<p>scope: <code>short_term | mid_term | long_term</code>  </p>
+</li>
+<li>
+<p>kind: <code>message | fact | summary | note</code>  </p>
+</li>
+<li>
+<p>body: text/json  </p>
+</li>
+<li>
+<p>created_at</p>
+</li>
+<li>
+<p><code>agent_memory_facts_vector</code>  </p>
+</li>
+<li>
+<p>id  </p>
+</li>
+<li>
+<p>team_id  </p>
+</li>
+<li>
+<p>agent_id  </p>
+</li>
+<li>
+<p>fact_text  </p>
+</li>
+<li>
+<p>embedding (vector)  </p>
+</li>
+<li>
+<p>metadata (json)</p>
+</li>
+<li>
+<p><code>agent_memory_snapshots</code> (опціонально)  </p>
+</li>
+<li>
+<p>агреговані snapshot-и стану памʼяті.</p>
+</li>
+</ul>
+<hr />
+<h1 id="5-agentmemoryadapter">5. AgentMemoryAdapter (деталізація)<a class="headerlink" href="#5-agentmemoryadapter" title="Permanent link">&para;</a></h1>
+<p>Посилання на 12_agent_runtime_core.md:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentMemoryAdapter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">loadShortTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentMessage</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">loadLongTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">saveTurn</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span><span class="w"> </span><span class="nx">turn</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentMessage</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">appendFact</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span><span class="w"> </span><span class="nx">fact</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="51-loadshortterm">5.1. loadShortTerm<a class="headerlink" href="#51-loadshortterm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Витягує останні <code>N</code> подій типу <code>kind = 'message'</code> зі scope <code>short_term</code> для:</p>
+</li>
+<li>
+<p><code>agent_id</code>,</p>
+</li>
+<li>
+<p><code>team_id</code>,</p>
+</li>
+<li>
+<p><code>channel_id</code> (якщо є).</p>
+</li>
+</ul>
+<h3 id="52-loadlongterm">5.2. loadLongTerm<a class="headerlink" href="#52-loadlongterm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Витягує список текстових фактів зі scope <code>long_term</code> (через <code>agent_memory_events</code> з <code>kind = 'fact'</code>).</li>
+</ul>
+<h3 id="53-saveturn">5.3. saveTurn<a class="headerlink" href="#53-saveturn" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Записує повідомлення user/assistant як <code>message</code> (short-term).</p>
+</li>
+<li>
+<p>Якщо увімкнено автоматичне ущільнення памʼяті — може переносити деякі фрагменти в mid-term.</p>
+</li>
+</ul>
+<h3 id="54-appendfact">5.4. appendFact<a class="headerlink" href="#54-appendfact" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Додає факт у long-term (як <code>kind = 'fact'</code>).</p>
+</li>
+<li>
+<p>Додатково:</p>
+</li>
+<li>
+<p>рахує ембедінг (через окремий LLM/embedding API),</p>
+</li>
+<li>
+<p>зберігає в <code>agent_memory_facts_vector</code>.</p>
+</li>
+</ul>
+<hr />
+<h1 id="6-rag-retrieval-augmented-generation">6. RAG (Retrieval-Augmented Generation)<a class="headerlink" href="#6-rag-retrieval-augmented-generation" title="Permanent link">&para;</a></h1>
+<h3 id="61-retrieval">6.1. Retrieval<a class="headerlink" href="#61-retrieval" title="Permanent link">&para;</a></h3>
+<p>Коли агент отримує новий запит, перед викликом LLM:</p>
+<ol>
+<li>
+<p>Формує пошуковий запит (query) з тексту user.</p>
+</li>
+<li>
+<p>Шукає релевантні факти у:</p>
+</li>
+<li>
+<p><code>agent_memory_facts_vector</code>,</p>
+</li>
+<li>
+<p>(опційно) Co-Memory документів (файли, wiki).</p>
+</li>
+<li>
+<p>Обмежує контекст, наприклад Top-K = 5–10 фактів.</p>
+</li>
+</ol>
+<h3 id="62">6.2. Включення в промпт<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<p>Факти додаються в <code>LONG_TERM_MEMORY</code> (див. 12_agent_runtime_core.md):</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">memoryMsg</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">content</span><span class="o">:</span>
+<span class="w">    </span><span class="s2">&quot;LONG_TERM_MEMORY:\n&quot;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nx">retrievedFacts</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`- </span><span class="si">${</span><span class="nx">f</span><span class="p">.</span><span class="nx">text</span><span class="si">}</span><span class="sb">`</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">),</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<hr />
+<h1 id="7-compression-distillation">7. Перетікання памʼяті (compression / distillation)<a class="headerlink" href="#7-compression-distillation" title="Permanent link">&para;</a></h1>
+<p>Щоб памʼять не перетворювалась на хаос, потрібні періодичні "distillation jobs".</p>
+<h3 id="71-distillation-job">7.1. Distillation Job<a class="headerlink" href="#71-distillation-job" title="Permanent link">&para;</a></h3>
+<p>Раз на N повідомлень або раз на день для команди:</p>
+<ol>
+<li>
+<p>Беремо всі short-term повідомлення за певний період.</p>
+</li>
+<li>
+<p>Feed-имо їх у Meta-Agent (див. 09_evolutionary_agent.md).</p>
+</li>
+<li>
+<p>Отримуємо:</p>
+</li>
+<li>
+<p>конспект (summary),</p>
+</li>
+<li>
+<p>витяг корисних фактів,</p>
+</li>
+<li>
+<p>пропозиції правил.</p>
+</li>
+<li>
+<p>Записуємо:</p>
+</li>
+<li>
+<p>summary → mid-term,</p>
+</li>
+<li>
+<p>факти → long-term (appendFact),</p>
+</li>
+<li>
+<p>пропозиції → evolution suggestions.</p>
+</li>
+</ol>
+<h3 id="72">7.2. Видалення шуму<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<p>Після успішної дистиляції:</p>
+<ul>
+<li>
+<p>можна частину короткої памʼяті чистити;</p>
+</li>
+<li>
+<p>можна перевести непотрібні <code>message</code> у архів.</p>
+</li>
+</ul>
+<hr />
+<h1 id="8">8. Контроль з боку користувача<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
+<p>У UI потрібно дати користувачу можливість:</p>
+<ol>
+<li>
+<p>Переглядати памʼять (принаймні long-term):</p>
+</li>
+<li>
+<p>список фактів,</p>
+</li>
+<li>
+<p>розділений по каналах / темах.</p>
+</li>
+<li>
+<p>Видаляти факти:</p>
+</li>
+<li>
+<p>для конфіденційних даних,</p>
+</li>
+<li>
+<p>при помилках.</p>
+</li>
+<li>
+<p>Вимикати зберігання:</p>
+</li>
+<li>
+<p>«Не зберігати DM-переписку з агентом у довгострокову памʼять».</p>
+</li>
+<li>
+<p>Експортувати памʼять:</p>
+</li>
+<li>
+<p>для аудиту / переносу.</p>
+</li>
+</ol>
+<hr />
+<h1 id="9-memory-scopes-vs-agent-roles">9. Memory Scopes vs Agent Roles<a class="headerlink" href="#9-memory-scopes-vs-agent-roles" title="Permanent link">&para;</a></h1>
+<h3 id="guide-agent">Guide Agent (онбординг)<a class="headerlink" href="#guide-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>short-term: поточна сесія онбордингу;</p>
+</li>
+<li>
+<p>long-term: факти про те, як виглядає створена команда (не обовʼязково).</p>
+</li>
+</ul>
+<h3 id="team-assistant">Team Assistant<a class="headerlink" href="#team-assistant" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>short-term: останні діалоги в конкретному каналі;</p>
+</li>
+<li>
+<p>mid-term: summaries мітингів / сесій;</p>
+</li>
+<li>
+<p>long-term: знання про команду, процеси, словник.</p>
+</li>
+</ul>
+<h3 id="meta-agent">Meta-Agent<a class="headerlink" href="#meta-agent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>працює на mid-/long-term даних:</p>
+</li>
+<li>
+<p>аналізує їх,</p>
+</li>
+<li>
+<p>пропонує зміни в правилах,</p>
+</li>
+<li>
+<p>оновлює памʼять.</p>
+</li>
+</ul>
+<hr />
+<h1 id="10-adapter">10. Псевдокод реалізації Adapter'а<a class="headerlink" href="#10-adapter" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">PgAgentMemoryAdapter</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">AgentMemoryAdapter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">loadShortTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentMessage</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.agent.id</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">channel_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.channelId</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;short_term&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">orderBy</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">50</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">rows</span><span class="p">.</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">map</span><span class="p">(</span><span class="nx">rowToMessage</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">loadLongTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.agent.id</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;long_term&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;fact&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">orderBy</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">rows</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">body_text</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">saveTurn</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span><span class="w"> </span><span class="nx">turn</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentMessage</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.agent.id</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">channel_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.channelId</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;short_term&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">body_json</span><span class="o">:</span><span class="w"> </span><span class="kt">turn</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">appendFact</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span><span class="w"> </span><span class="nx">fact</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.agent.id</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;long_term&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;fact&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">body_text</span><span class="o">:</span><span class="w"> </span><span class="kt">fact</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// TODO: обчислити embedding та зберегти у agent_memory_facts_vector</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="11-rag-implementation">11. RAG Implementation<a class="headerlink" href="#11-rag-implementation" title="Permanent link">&para;</a></h1>
+<h2 id="111-embedding-generation">11.1. Embedding Generation<a class="headerlink" href="#111-embedding-generation" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">OpenAIEmbeddings</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;langchain/embeddings/openai&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">embeddings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">OpenAIEmbeddings</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">openAIApiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.OPENAI_API_KEY</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">generateEmbedding</span><span class="p">(</span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">number</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">embeddings</span><span class="p">.</span><span class="nx">embedQuery</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="112-vector-search">11.2. Vector Search<a class="headerlink" href="#112-vector-search" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">searchRelevantFacts</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">query</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">topK</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">Array</span><span class="o">&lt;</span><span class="p">{</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">}</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Генеруємо embedding для запиту</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">queryEmbedding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">generateEmbedding</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Шукаємо найближчі вектори (cosine similarity)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">$queryRaw</span><span class="sb">`</span>
+<span class="sb">    SELECT </span>
+<span class="sb">      fact_text,</span>
+<span class="sb">      1 - (embedding &lt;=&gt; </span><span class="si">${</span><span class="nx">queryEmbedding</span><span class="si">}</span><span class="sb">::vector) as similarity</span>
+<span class="sb">    FROM agent_memory_facts_vector</span>
+<span class="sb">    WHERE agent_id = </span><span class="si">${</span><span class="nx">agentId</span><span class="si">}</span>
+<span class="sb">      AND team_id = </span><span class="si">${</span><span class="nx">teamId</span><span class="si">}</span>
+<span class="sb">    ORDER BY similarity DESC</span>
+<span class="sb">    LIMIT </span><span class="si">${</span><span class="nx">topK</span><span class="si">}</span>
+<span class="sb">  `</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="kt">r.fact_text</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">r.similarity</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="113-integration-with-runagentturn">11.3. Integration with runAgentTurn<a class="headerlink" href="#113-integration-with-runagentturn" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runAgentTurn</span><span class="p">(</span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AgentTurnResult</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 1. Завантажуємо short-term пам&#39;ять</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">shortTerm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">loadShortTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 2. RAG: шукаємо релевантні факти</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">relevantFacts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">searchRelevantFacts</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">input</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">agent</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">teamId</span><span class="p">,</span>
+<span class="w">    </span><span class="mf">5</span>
+<span class="w">  </span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 3. Завантажуємо long-term (статичні факти)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">longTerm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">loadLongTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 4. Об&#39;єднуємо RAG-результати з long-term</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">allFacts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">...</span><span class="nx">relevantFacts</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">text</span><span class="p">),</span>
+<span class="w">    </span><span class="p">...</span><span class="nx">longTerm</span><span class="p">,</span>
+<span class="w">  </span><span class="p">];</span>
+
+<span class="w">  </span><span class="c1">// 5. Готуємо повідомлення для LLM</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">buildLLMMessages</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">shortTerm</span><span class="p">,</span><span class="w"> </span><span class="nx">allFacts</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// ... решта логіки</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="12-distillation-job-implementation">12. Distillation Job Implementation<a class="headerlink" href="#12-distillation-job-implementation" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">runDistillationJob</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">period</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">from</span><span class="o">:</span><span class="w"> </span><span class="kt">Date</span><span class="p">;</span><span class="w"> </span><span class="nx">to</span><span class="o">:</span><span class="w"> </span><span class="kt">Date</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 1. Збираємо всі short-term повідомлення за період</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;short_term&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">gte</span><span class="o">:</span><span class="w"> </span><span class="kt">period.from</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">lte</span><span class="o">:</span><span class="w"> </span><span class="kt">period.to</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">orderBy</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;asc&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// 2. Формуємо контекст для Meta-Agent</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">conversationLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="kt">m.body_json.role</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="kt">m.body_json.content</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="kt">m.created_at</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}));</span>
+
+<span class="w">  </span><span class="c1">// 3. Викликаємо Meta-Agent для аналізу</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">metaAgent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getMetaAgent</span><span class="p">(</span><span class="nx">agentId</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">analysis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">metaAgent</span><span class="p">.</span><span class="nx">analyze</span><span class="p">(</span><span class="nx">conversationLog</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 4. Зберігаємо результати</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">summary</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">teamId</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;mid_term&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;summary&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">body_text</span><span class="o">:</span><span class="w"> </span><span class="kt">analysis.summary</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">analysis</span><span class="p">.</span><span class="nx">facts</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">analysis</span><span class="p">.</span><span class="nx">facts</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">fact</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">analysis</span><span class="p">.</span><span class="nx">facts</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">teamId</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;long_term&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;fact&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">body_text</span><span class="o">:</span><span class="w"> </span><span class="kt">fact</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">      </span><span class="c1">// Генеруємо embedding та зберігаємо</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">embedding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">generateEmbedding</span><span class="p">(</span><span class="nx">fact</span><span class="p">);</span>
+<span class="w">      </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_facts_vector</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">teamId</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">fact_text</span><span class="o">:</span><span class="w"> </span><span class="kt">fact</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">embedding</span><span class="o">:</span><span class="w"> </span><span class="kt">embedding</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// 5. Очищаємо оброблені short-term повідомлення</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">deleteMany</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">team_id</span><span class="o">:</span><span class="w"> </span><span class="kt">teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;short_term&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">kind</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">gte</span><span class="o">:</span><span class="w"> </span><span class="kt">period.from</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">lte</span><span class="o">:</span><span class="w"> </span><span class="kt">period.to</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="13-database-schema">13. Database Schema<a class="headerlink" href="#13-database-schema" title="Permanent link">&para;</a></h1>
+<h2 id="131-agent_memory_events">13.1. agent_memory_events<a class="headerlink" href="#131-agent_memory_events" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">agent_memory_events</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">gen_random_uuid</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">agent_id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">agents</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">channel_id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">channels</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">scope</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="k">scope</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;short_term&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mid_term&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;long_term&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">kind</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">kind</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fact&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;summary&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;note&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">body_text</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">body_json</span><span class="w"> </span><span class="n">JSONB</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span>
+
+<span class="w">  </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_agent_team_scope</span><span class="w"> </span><span class="p">(</span><span class="n">agent_id</span><span class="p">,</span><span class="w"> </span><span class="n">team_id</span><span class="p">,</span><span class="w"> </span><span class="k">scope</span><span class="p">),</span>
+<span class="w">  </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_agent_channel</span><span class="w"> </span><span class="p">(</span><span class="n">agent_id</span><span class="p">,</span><span class="w"> </span><span class="n">channel_id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_created_at</span><span class="w"> </span><span class="p">(</span><span class="n">created_at</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h2 id="132-agent_memory_facts_vector">13.2. agent_memory_facts_vector<a class="headerlink" href="#132-agent_memory_facts_vector" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">vector</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">agent_memory_facts_vector</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">gen_random_uuid</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">agent_id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">agents</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">fact_text</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">  </span><span class="n">embedding</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="mi">1536</span><span class="p">),</span><span class="w"> </span><span class="c1">-- OpenAI ada-002 embedding size</span>
+<span class="w">  </span><span class="n">metadata</span><span class="w"> </span><span class="n">JSONB</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span>
+
+<span class="w">  </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_agent_team</span><span class="w"> </span><span class="p">(</span><span class="n">agent_id</span><span class="p">,</span><span class="w"> </span><span class="n">team_id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_embedding</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">ivfflat</span><span class="w"> </span><span class="p">(</span><span class="n">embedding</span><span class="w"> </span><span class="n">vector_cosine_ops</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h1 id="14-api-endpoints">14. API Endpoints<a class="headerlink" href="#14-api-endpoints" title="Permanent link">&para;</a></h1>
+<h2 id="141-get-agentsidmemory">14.1. GET /agents/{id}/memory<a class="headerlink" href="#141-get-agentsidmemory" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">getAgentMemory</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">agentId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="kt">scope</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">orderBy</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">take</span><span class="o">:</span><span class="w"> </span><span class="kt">parseInt</span><span class="p">(</span><span class="nx">limit</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kt">string</span><span class="p">),</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">scope</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">memory</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="142-delete-agentsidmemorymemoryid">14.2. DELETE /agents/{id}/memory/{memoryId}<a class="headerlink" href="#142-delete-agentsidmemorymemoryid" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">deleteMemoryItem</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">agentId</span><span class="p">,</span><span class="w"> </span><span class="nx">memoryId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">agent_memory_events</span><span class="p">.</span><span class="ow">delete</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">memoryId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">agent_id</span><span class="o">:</span><span class="w"> </span><span class="kt">agentId</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="143-post-agentsidmemorydistill">14.3. POST /agents/{id}/memory/distill<a class="headerlink" href="#143-post-agentsidmemorydistill" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">triggerDistillation</span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">agentId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">7</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span>
+<span class="w">  </span><span class="kr">from</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="kr">from</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">days</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">runDistillationJob</span><span class="p">(</span><span class="nx">agentId</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">teamId</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">from</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">to</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(),</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="15-09">15. Інтеграція з еволюційним агентом (09)<a class="headerlink" href="#15-09" title="Permanent link">&para;</a></h1>
+<p>Еволюційний агент:</p>
+<ul>
+<li>
+<p>читає <code>agent_memory_events</code> (особливо з негативним фідбеком),</p>
+</li>
+<li>
+<p>агрегує логи,</p>
+</li>
+<li>
+<p>робить distillation,</p>
+</li>
+<li>
+<p>створює пропозиції покращень.</p>
+</li>
+</ul>
+<p>Memory System → джерело для:</p>
+<ul>
+<li>
+<p>аналізу діалогів,</p>
+</li>
+<li>
+<p>виявлення патернів,</p>
+</li>
+<li>
+<p>побудови Train-to-Earn.</p>
+</li>
+</ul>
+<hr />
+<h1 id="16">16. Тестування<a class="headerlink" href="#16" title="Permanent link">&para;</a></h1>
+<h2 id="161-unit-tests">16.1. Unit Tests<a class="headerlink" href="#161-unit-tests" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;PgAgentMemoryAdapter&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should load short-term memory&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">adapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PgAgentMemoryAdapter</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createMockContext</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">adapter</span><span class="p">.</span><span class="nx">loadShortTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">messages</span><span class="p">).</span><span class="nx">toBeInstanceOf</span><span class="p">(</span><span class="nb">Array</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">messages</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBeLessThanOrEqual</span><span class="p">(</span><span class="mf">50</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should save turn to memory&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">adapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PgAgentMemoryAdapter</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createMockContext</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">turn</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Test message&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">adapter</span><span class="p">.</span><span class="nx">saveTurn</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">turn</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">adapter</span><span class="p">.</span><span class="nx">loadShortTerm</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">expect</span><span class="p">(</span><span class="nx">messages</span><span class="p">).</span><span class="nx">toContainEqual</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">expect</span><span class="p">.</span><span class="nx">objectContaining</span><span class="p">({</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Test message&quot;</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<hr />
+<h1 id="17-cursor">17. Завдання для Cursor<a class="headerlink" href="#17-cursor" title="Permanent link">&para;</a></h1>
+<p>Приклад промта:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">You</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">senior</span><span class="w"> </span><span class="nx">backend</span><span class="w"> </span><span class="nx">engineer</span><span class="p">.</span>
+
+<span class="nx">Implement</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Agent</span><span class="w"> </span><span class="nx">Memory</span><span class="w"> </span><span class="nx">System</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">MicroDAO</span><span class="w"> </span><span class="nx">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">13</span><span class="nx">_agent_memory_system</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">12</span><span class="nx">_agent_runtime_core</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">11</span><span class="nx">_llm_integration</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">09</span><span class="nx">_evolutionary_agent</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="nx">_coding_standards</span><span class="p">.</span><span class="nx">md</span>
+
+<span class="nx">Tasks</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="nx">Create</span><span class="w"> </span><span class="nx">tables</span><span class="p">:</span><span class="w"> </span><span class="nx">agent_memory_events</span><span class="p">,</span><span class="w"> </span><span class="nx">agent_memory_facts_vector</span><span class="p">.</span>
+
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="nx">Implement</span><span class="w"> </span><span class="nx">PgAgentMemoryAdapter</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">short</span><span class="o">-</span><span class="nx">term</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">long</span><span class="o">-</span><span class="nx">term</span><span class="p">.</span>
+
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="nx">Wire</span><span class="w"> </span><span class="nx">PgAgentMemoryAdapter</span><span class="w"> </span><span class="nx">into</span><span class="w"> </span><span class="nx">Agent</span><span class="w"> </span><span class="nx">Runtime</span><span class="w"> </span><span class="nx">Core</span><span class="p">.</span>
+
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">simple</span><span class="w"> </span><span class="nx">RAG</span><span class="w"> </span><span class="nx">retrieval</span><span class="w"> </span><span class="nx">step</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">facts</span><span class="p">.</span>
+
+<span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="nx">Expose</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">debug</span><span class="w"> </span><span class="nx">endpoint</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">inspect</span><span class="w"> </span><span class="nx">agent</span><span class="w"> </span><span class="nx">memory</span><span class="w"> </span><span class="p">(</span><span class="nx">GET</span><span class="w"> </span><span class="o">/</span><span class="nx">agents</span><span class="o">/</span><span class="p">{</span><span class="nx">id</span><span class="p">}</span><span class="o">/</span><span class="nx">memory</span><span class="p">).</span>
+
+<span class="nx">Output</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">modified</span><span class="w"> </span><span class="nx">files</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">diff</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="18">18. Результат<a class="headerlink" href="#18" title="Permanent link">&para;</a></h1>
+<p>Після впровадження цієї системи:</p>
+<ul>
+<li>
+<p>агенти MicroDAO мають справжню багаторівневу памʼять;</p>
+</li>
+<li>
+<p>можна керувати тим, що саме вони памʼятають;</p>
+</li>
+<li>
+<p>можна будувати RAG, еволюційний аналіз, Train-to-Earn;</p>
+</li>
+<li>
+<p>перехід до DAGI стає природним — через спільну колективну памʼять агентів.</p>
+</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна специфікація системи пам'яті агентів</strong>, готова до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

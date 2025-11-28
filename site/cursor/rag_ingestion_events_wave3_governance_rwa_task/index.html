@@ -1,0 +1,976 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/rag_ingestion_events_wave3_governance_rwa_task/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Task: RAG ingestion — Wave 3 (Governance, Votes, Rewards, Oracle/RWA) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-rag-ingestion-wave-3-governance-votes-rewards-oraclerwa" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task: RAG ingestion — Wave 3 (Governance, Votes, Rewards, Oracle/RWA)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-governance-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Governance &amp; proposals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Governance & proposals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-governanceproposalcreated-governanceproposalclosed" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. governance.proposal.created / governance.proposal.closed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-votes-rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Votes / Rewards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Votes / Rewards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-governancevotecast" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. governance.vote.cast
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rewards-payouts-payout-reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Rewards / payouts (payout.*, reward.*)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-oracle-rwa-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Oracle / RWA events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Oracle / RWA events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-raw-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Raw events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-aggregated-rag-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Aggregated RAG documents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rag-ingest-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Зміни в rag-ingest-worker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Зміни в rag-ingest-worker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-normalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Normalization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Routing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-neo4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Neo4j
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Тести
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acceptance criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-rag-ingestion-wave-3-governance-votes-rewards-oraclerwa">Task: RAG ingestion — Wave 3 (Governance, Votes, Rewards, Oracle/RWA)<a class="headerlink" href="#task-rag-ingestion-wave-3-governance-votes-rewards-oraclerwa" title="Permanent link">&para;</a></h1>
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Підключити <strong>третю хвилю</strong> подій до RAG-ingestion воркера:</p>
+<ul>
+<li>governance (proposals, decisions),</li>
+<li>голосування (votes),</li>
+<li>винагороди/пейаути (rewards/payouts),</li>
+<li>oracle/RWA-події (агреговані знання про енергію/їжу/воду).</li>
+</ul>
+<p>Wave 3 — це вже <strong>meta-рівень DAO</strong>: історія рішень, токен-економіка, агреговані показники.</p>
+<hr />
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Root: <code>microdao-daarion/</code>.</li>
+<li>RAG gateway: <code>docs/cursor/rag_gateway_task.md</code>.</li>
+<li>RAG ingestion worker: <code>docs/cursor/rag_ingestion_worker_task.md</code>.</li>
+<li>Попередні хвилі: </li>
+<li>Wave 1 (chat/docs/files): <code>docs/cursor/rag_ingestion_events_wave1_mvp_task.md</code>.</li>
+<li>Wave 2 (tasks/followups/meetings): <code>docs/cursor/rag_ingestion_events_wave2_workflows_task.md</code>.</li>
+<li>Event Catalog: <code>docs/cursor/42_nats_event_streams_and_event_catalog.md</code> (STREAM_GOVERNANCE, STREAM_RWA, STREAM_PAYOUT, STREAM_ORACLE, STREAM_USAGE).</li>
+<li>Governance/Tokenomics: </li>
+<li><code>docs/cursor/31_governance_policies_for_capabilities_and_quotas.md</code></li>
+<li><code>docs/cursor/49_wallet_rwa_payouts_claims.md</code></li>
+<li><code>docs/cursor/40_rwa_energy_food_water_flow_specs.md</code>.</li>
+</ul>
+<p>Головний принцип: <strong>не індексувати всі сирі події RWA/oracle</strong>, а працювати з узагальненими snapshot’ами / summary.</p>
+<hr />
+<h2 id="1-governance-proposals">1. Governance &amp; proposals<a class="headerlink" href="#1-governance-proposals" title="Permanent link">&para;</a></h2>
+<h3 id="11-governanceproposalcreated-governanceproposalclosed">1.1. <code>governance.proposal.created</code> / <code>governance.proposal.closed</code><a class="headerlink" href="#11-governanceproposalcreated-governanceproposalclosed" title="Permanent link">&para;</a></h3>
+<p>STREAM_GOVERNANCE, типи:</p>
+<ul>
+<li><code>governance.proposal.created</code></li>
+<li><code>governance.proposal.closed</code></li>
+</ul>
+<p>Рекомендований RAG-пейлоад:</p>
+<ul>
+<li><code>payload.proposal_id</code></li>
+<li><code>payload.team_id</code></li>
+<li><code>payload.title</code></li>
+<li><code>payload.body</code> (текст пропозиції)</li>
+<li><code>payload.author_user_id</code></li>
+<li><code>payload.status</code>: <code>open|passed|rejected|withdrawn</code></li>
+<li><code>payload.tags</code> (optional)</li>
+<li><code>payload.mode</code>: <code>public|confidential</code></li>
+<li><code>payload.indexed</code>: bool (за замовчуванням true для public DAO)</li>
+<li><code>payload.created_at</code>, <code>payload.closed_at</code></li>
+</ul>
+<p><strong>RAG-правила:</strong></p>
+<ul>
+<li>індексувати текст пропозиції (<code>title + body</code>) як <code>doc_type = "proposal"</code>;</li>
+<li><code>proposal.closed</code> оновлює статус у metadata (через upsert).</li>
+</ul>
+<p>Mapping → <code>IngestChunk</code>:</p>
+<ul>
+<li><code>source_type = "proposal"</code>.</li>
+<li><code>source_id = proposal_id</code>.</li>
+<li><code>text = title + short(body)</code> (обрізати або chunk-нути по 512–1024 символів).</li>
+<li><code>chunk_id = f"proposal:{team_id}:{proposal_id}:{chunk_index}"</code>.</li>
+<li><code>tags</code> = <code>payload.tags</code> + <code>status</code>.</li>
+<li><code>visibility = mode</code>.</li>
+</ul>
+<hr />
+<h2 id="2-votes-rewards">2. Votes / Rewards<a class="headerlink" href="#2-votes-rewards" title="Permanent link">&para;</a></h2>
+<h3 id="21-governancevotecast">2.1. <code>governance.vote.cast</code><a class="headerlink" href="#21-governancevotecast" title="Permanent link">&para;</a></h3>
+<p>Ці події важливі більше для <strong>графу/аналітики</strong>, ніж для Milvus.</p>
+<p>Рекомендація:</p>
+<ul>
+<li>У Milvus:</li>
+<li>не створювати окремих текстових чанків для кожного vote;</li>
+<li>натомість — мати summary-документ (наприклад, у Co-Memory) з підсумками голосування (окремий таск).</li>
+<li>У Neo4j:</li>
+<li>створювати ребра <code>(:User)-[:VOTED {choice, weight}]-&gt;(:Proposal)</code>.</li>
+</ul>
+<p>Пейлоад:</p>
+<ul>
+<li><code>payload.vote_id</code></li>
+<li><code>payload.team_id</code></li>
+<li><code>payload.proposal_id</code></li>
+<li><code>payload.user_id</code></li>
+<li><code>payload.choice</code>: <code>yes|no|abstain|...</code></li>
+<li><code>payload.weight</code>: число</li>
+<li><code>payload.ts</code></li>
+</ul>
+<h3 id="22-rewards-payouts-payout-reward">2.2. Rewards / payouts (<code>payout.*</code>, <code>reward.*</code>)<a class="headerlink" href="#22-rewards-payouts-payout-reward" title="Permanent link">&para;</a></h3>
+<p>STREAM_PAYOUT / STREAM_WALLET / STREAM_USAGE, події:</p>
+<ul>
+<li><code>payout.generated</code></li>
+<li><code>payout.claimed</code></li>
+<li>можливо <code>reward.assigned</code> (якщо буде виділена).</li>
+</ul>
+<p>Ідея для RAG:</p>
+<ul>
+<li>Не індексувати кожен payout як окремий chunk;</li>
+<li>натомість, періодично створювати (іншим сервісом) агреговані summary-документи:</li>
+<li>"Payout history for user X",</li>
+<li>"Rewards breakdown for project Y".</li>
+</ul>
+<p>У рамках цієї Wave 3 задачі:</p>
+<ul>
+<li>Забезпечити Neo4j-вузли/ребра:</li>
+<li><code>(:Payout)-[:TO_USER]-&gt;(:User)</code></li>
+<li><code>(:Payout)-[:FOR_TEAM]-&gt;(:MicroDAO)</code></li>
+<li><code>(:Payout)-[:RELATED_TO]-&gt;(:Project|:RWAObject)</code>.</li>
+</ul>
+<hr />
+<h2 id="3-oracle-rwa-events">3. Oracle / RWA events<a class="headerlink" href="#3-oracle-rwa-events" title="Permanent link">&para;</a></h2>
+<p>STREAM_RWA, STREAM_ORACLE, STREAM_EMBASSY — висока частота подій.</p>
+<h3 id="31-raw-events">3.1. Raw events<a class="headerlink" href="#31-raw-events" title="Permanent link">&para;</a></h3>
+<p>Сирі події (<code>rwa.inventory.updated</code>, <code>oracle.reading.published</code>, <code>embassy.energy.update</code>, ...) <strong>не повинні</strong> напряму летіти у Milvus як plain text — вони більше підходять для time-series/аналітики.</p>
+<h3 id="32-aggregated-rag-documents">3.2. Aggregated RAG documents<a class="headerlink" href="#32-aggregated-rag-documents" title="Permanent link">&para;</a></h3>
+<p>Підхід:</p>
+<ol>
+<li>Інший сервіс (або batch job) формує періодичні summary-документи, наприклад:</li>
+<li><code>rwa.daily_summary.created</code></li>
+<li><code>rwa.weekly_report.created</code></li>
+<li>Саме ці summary події підключаємо до RAG-ingestion як:</li>
+<li><code>source_type = "rwa_summary"</code> або <code>"oracle_summary"</code>.</li>
+<li>текст = короткий опис ("Станція EU-KYIV-01 згенерувала 1.2 MWh цього тижня..."),</li>
+<li>метадані: <code>site_id</code>, <code>domain</code>, <code>period_start</code>, <code>period_end</code>.</li>
+</ol>
+<p>У цій задачі достатньо:</p>
+<ul>
+<li>додати підтримку абстрактних подій типу <code>rwa.summary.created</code> в нормалізаторі;</li>
+<li><strong>не</strong> впроваджувати саму агрегацію (окрема Cursor-задача).</li>
+</ul>
+<hr />
+<h2 id="4-rag-ingest-worker">4. Зміни в <code>rag-ingest-worker</code><a class="headerlink" href="#4-rag-ingest-worker" title="Permanent link">&para;</a></h2>
+<h3 id="41-normalization">4.1. Normalization<a class="headerlink" href="#41-normalization" title="Permanent link">&para;</a></h3>
+<p>У <code>services/rag-ingest-worker/pipeline/normalization.py</code> додати:</p>
+<ul>
+<li><code>normalize_proposal_event(event: dict) -&gt; list[IngestChunk]</code></li>
+<li><code>normalize_rwa_summary_event(event: dict) -&gt; list[IngestChunk]</code></li>
+</ul>
+<p>Для votes/payouts тут достатньо повернути <code>[]</code> (оскільки вони йдуть у Neo4j без текстових чанків), але:</p>
+<ul>
+<li>додати в <code>index_neo4j.update_graph_for_event</code> розгалуження по <code>event_type</code> для створення відповідних вузлів/ребер.</li>
+</ul>
+<h3 id="42-routing">4.2. Routing<a class="headerlink" href="#42-routing" title="Permanent link">&para;</a></h3>
+<p>У <code>events/consumer.py</code> додати routing:</p>
+<ul>
+<li><code>"governance.proposal.created"</code>, <code>"governance.proposal.closed"</code> → <code>handle_proposal_event</code> → <code>normalize_proposal_event</code> → Milvus + Neo4j.</li>
+<li><code>"governance.vote.cast"</code> → тільки Neo4j (без Milvus), через <code>update_graph_for_event</code>.</li>
+<li><code>"payout.generated"</code>, <code>"payout.claimed"</code> → тільки Neo4j.</li>
+<li><code>"rwa.summary.created"</code> (або аналогічні) → <code>handle_rwa_summary_event</code> → <code>normalize_rwa_summary_event</code>.</li>
+</ul>
+<h3 id="43-neo4j">4.3. Neo4j<a class="headerlink" href="#43-neo4j" title="Permanent link">&para;</a></h3>
+<p>Розширити <code>pipeline/index_neo4j.py</code>:</p>
+<ul>
+<li>Governance:</li>
+<li><code>(:Proposal)</code> вузли з атрибутами <code>status</code>, <code>team_id</code>, <code>tags</code>.</li>
+<li><code>(:User)-[:VOTED {choice, weight}]-&gt;(:Proposal)</code>.</li>
+<li>Payouts/Rewards:</li>
+<li><code>(:Payout)</code> вузли.</li>
+<li><code>(:Payout)-[:TO_USER]-&gt;(:User)</code>.</li>
+<li><code>(:Payout)-[:FOR_TEAM]-&gt;(:MicroDAO)</code>.</li>
+<li>RWA/Oracle summaries:</li>
+<li><code>(:RWAObject {site_id})</code>.</li>
+<li><code>(:RWAObject)-[:HAS_SUMMARY]-&gt;(:RwaSummary {period_start, period_end})</code>.</li>
+</ul>
+<p>Усі операції — через <code>MERGE</code>, з <code>team_id</code>/<code>domain</code>/<code>visibility</code> у властивостях.</p>
+<hr />
+<h2 id="5">5. Тести<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>Unit-тести:</p>
+<ul>
+<li><code>normalize_proposal_event</code> — створює 1..N чанків із правильними <code>source_type</code>, <code>source_id</code>, <code>tags</code>, <code>visibility</code>.</li>
+<li><code>normalize_rwa_summary_event</code> — створює chunk з ключовими метаданими (<code>site_id</code>, <code>period</code>, <code>domain</code>).</li>
+</ul>
+<p>Інтеграційно:</p>
+<ul>
+<li>опублікувати <code>governance.proposal.created</code> + <code>governance.proposal.closed</code> → переконатися, що Milvus і Neo4j оновились;</li>
+<li>опублікувати кілька <code>governance.vote.cast</code> → перевірити граф голосувань у Neo4j;</li>
+<li>опублікувати <code>rwa.summary.created</code> → перевірити, що зʼявився RWASummary у Milvus + Neo4j.</li>
+</ul>
+<hr />
+<h2 id="acceptance-criteria">Acceptance criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>rag-ingest-worker</code> обробляє Wave 3 події в dev-конфігурації (governance, vote, payout, rwa/oracle summaries).</li>
+<li>Governance-пропозиції індексуються в Milvus як <code>doc_type = "proposal"</code> з коректними метаданими.</li>
+<li>Neo4j містить базовий governance-граф (Proposals, Votes, Payouts, RWAObjects).</li>
+<li>Oracle/RWA summary-події потрапляють у RAG як узагальнені знання, а не як сирі time-series.</li>
+<li>Ідемпотентність дотримана (replay тих самих подій не створює дублікатів).</li>
+<li>Цей файл (<code>docs/cursor/rag_ingestion_events_wave3_governance_rwa_task.md</code>) можна виконати через Cursor:</li>
+</ol>
+<p><code>bash
+   cursor task &lt; docs/cursor/rag_ingestion_events_wave3_governance_rwa_task.md</code></p>
+<p>і він слугує джерелом правди для Wave 3 RAG-ingestion.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

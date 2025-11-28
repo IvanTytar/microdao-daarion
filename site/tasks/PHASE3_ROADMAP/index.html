@@ -1,0 +1,1452 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/PHASE3_ROADMAP/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>PHASE 3 ROADMAP — Core Agent Services - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-3-roadmap-core-agent-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PHASE 3 ROADMAP — Core Agent Services
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phase-3-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Phase 3 Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Phase 3 Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-llm-proxy-service-2-weeks" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. LLM Proxy Service (2 weeks)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agent-memory-service-2-weeks" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Agent Memory Service (2 weeks)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tool-registry-service-15-weeks" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tool Registry Service (1.5 weeks)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent-blueprint-service-1-week" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Agent Blueprint Service (1 week)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-integration-updates-1-week" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Integration Updates (1 week)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      📅 Timeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📅 Timeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-1-2-llm-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 1-2: LLM Proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3-4-agent-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 3-4: Agent Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-5-6-tool-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 5-6: Tool Registry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-7-agent-blueprint-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 7: Agent Blueprint Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-8-integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 8: Integration &amp; Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llm-proxy-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM Proxy Testing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-memory-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Memory Testing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-registry-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Registry Testing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e2e-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      E2E Testing:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Acceptance Criteria
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Acceptance Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-complete-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3 Complete When:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Success Metrics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Dependencies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Services:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Services:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-enhancements-phase-35" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Optional Enhancements (Phase 3.5)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Optional Enhancements (Phase 3.5)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llm-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM Proxy:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Registry:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-after-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Quick Start (After Phase 2)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Quick Start (After Phase 2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-prepare-for-phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      To prepare for Phase 3:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-files-to-be-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Task Files (To Be Created)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎓 Architecture Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Architecture Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1 (Complete):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2 (Current):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3 (Target):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Current Status
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="phase-3-roadmap-core-agent-services">PHASE 3 ROADMAP — Core Agent Services<a class="headerlink" href="#phase-3-roadmap-core-agent-services" title="Permanent link">&para;</a></h1>
+<p><strong>After Phase 2 Agent Integration</strong></p>
+<p><strong>Status:</strong> 📋 Planning → ✅ SPEC READY<br />
+<strong>Master Task:</strong> <a href="../PHASE3_MASTER_TASK/">PHASE3_MASTER_TASK.md</a> ⭐<br />
+<strong>Summary:</strong> <a href="../../PHASE3_READY.md">PHASE3_READY.md</a><br />
+<strong>Priority:</strong> High<br />
+<strong>Estimated Time:</strong> 6-8 weeks<br />
+<strong>Dependencies:</strong> Phase 2 complete</p>
+<hr />
+<h2 id="goal">🎯 Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Replace Phase 2 stubs with production-ready services:
+- Real LLM Proxy (multi-provider routing)
+- Real Agent Memory (RAG + vector DB)
+- Tool Registry (agent actions)
+- Agent Blueprint Management (CRUD + versioning)</p>
+<hr />
+<h2 id="phase-3-components">📦 Phase 3 Components<a class="headerlink" href="#phase-3-components" title="Permanent link">&para;</a></h2>
+<h3 id="1-llm-proxy-service-2-weeks">1. LLM Proxy Service (2 weeks)<a class="headerlink" href="#1-llm-proxy-service-2-weeks" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Centralized LLM gateway with routing, rate limiting, cost tracking</p>
+<p><strong>Features:</strong>
+- Multi-provider support (OpenAI, Anthropic, DeepSeek, Local)
+- Model selection &amp; routing
+- Rate limiting per agent/microDAO
+- Cost tracking &amp; billing
+- Streaming support
+- Error handling &amp; retries
+- Prompt sanitization</p>
+<p><strong>API:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /internal/llm/proxy</span>
+<span class="err">{</span>
+<span class="err">  &quot;model&quot;: &quot;gpt-4&quot;,</span>
+<span class="err">  &quot;messages&quot;: [...],</span>
+<span class="err">  &quot;stream&quot;: false,</span>
+<span class="err">  &quot;max_tokens&quot;: 1000,</span>
+<span class="err">  &quot;agent_id&quot;: &quot;agent:sofia&quot;,</span>
+<span class="err">  &quot;microdao_id&quot;: &quot;microdao:daarion&quot;</span>
+<span class="err">}</span>
+
+<span class="err">GET /internal/llm/models</span>
+<span class="err">→ List available models</span>
+
+<span class="err">GET /internal/llm/usage?agent_id=agent:sofia&amp;period=30d</span>
+<span class="err">→ Usage statistics</span>
+</code></pre></div>
+
+<p><strong>Tech Stack:</strong>
+- FastAPI
+- httpx for provider calls
+- Redis for rate limiting
+- PostgreSQL for usage tracking</p>
+<p><strong>Files:</strong></p>
+<div class="codehilite"><pre><span></span><code>services/llm-proxy/
+├── main.py
+├── providers/
+│   ├── openai.py
+│   ├── anthropic.py
+│   ├── deepseek.py
+│   └── local.py
+├── routing.py
+├── rate_limiter.py
+├── cost_tracker.py
+├── models.py
+└── config.yaml
+</code></pre></div>
+
+<hr />
+<h3 id="2-agent-memory-service-2-weeks">2. Agent Memory Service (2 weeks)<a class="headerlink" href="#2-agent-memory-service-2-weeks" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Persistent memory + RAG for agents</p>
+<p><strong>Features:</strong>
+- Short-term memory (recent context)
+- Mid-term memory (session/task memory)
+- Long-term memory (knowledge base)
+- Vector search (RAG)
+- Memory indexing (from channel history)
+- Memory pruning (for cost/performance)
+- Per-agent &amp; per-microDAO isolation</p>
+<p><strong>API:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /internal/agent-memory/query</span>
+<span class="err">{</span>
+<span class="err">  &quot;agent_id&quot;: &quot;agent:sofia&quot;,</span>
+<span class="err">  &quot;microdao_id&quot;: &quot;microdao:daarion&quot;,</span>
+<span class="err">  &quot;query&quot;: &quot;What did we discuss about Phase 2?&quot;,</span>
+<span class="err">  &quot;k&quot;: 5,</span>
+<span class="err">  &quot;memory_types&quot;: [&quot;mid_term&quot;, &quot;long_term&quot;]</span>
+<span class="err">}</span>
+<span class="err">→ Top-k relevant memories</span>
+
+<span class="err">POST /internal/agent-memory/store</span>
+<span class="err">{</span>
+<span class="err">  &quot;agent_id&quot;: &quot;agent:sofia&quot;,</span>
+<span class="err">  &quot;microdao_id&quot;: &quot;microdao:daarion&quot;,</span>
+<span class="err">  &quot;memory_type&quot;: &quot;mid_term&quot;,</span>
+<span class="err">  &quot;content&quot;: {</span>
+<span class="err">    &quot;user_message&quot;: &quot;...&quot;,</span>
+<span class="err">    &quot;agent_reply&quot;: &quot;...&quot;,</span>
+<span class="err">    &quot;context&quot;: {...}</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+<span class="err">→ Store new memory</span>
+
+<span class="err">GET /internal/agent-memory/agents/{agent_id}/stats</span>
+<span class="err">→ Memory usage stats</span>
+</code></pre></div>
+
+<p><strong>Tech Stack:</strong>
+- FastAPI
+- PostgreSQL (structured memory)
+- Qdrant/Weaviate/ChromaDB (vector DB for RAG)
+- LangChain/LlamaIndex (RAG helpers)</p>
+<p><strong>Files:</strong></p>
+<div class="codehilite"><pre><span></span><code>services/agent-memory/
+├── main.py
+├── vector_store.py
+├── memory_manager.py
+├── rag_engine.py
+├── indexer.py
+├── models.py
+└── config.yaml
+</code></pre></div>
+
+<hr />
+<h3 id="3-tool-registry-service-15-weeks">3. Tool Registry Service (1.5 weeks)<a class="headerlink" href="#3-tool-registry-service-15-weeks" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Centralized tool definitions &amp; execution for agents</p>
+<p><strong>Features:</strong>
+- Tool catalog (list all available tools)
+- Tool execution (secure sandbox)
+- Tool permissions (agent → tool mapping)
+- Tool versioning
+- Execution logs &amp; auditing</p>
+<p><strong>Tools (initial set):</strong>
+- <code>create_task(channel_id, title, description)</code>
+- <code>create_followup(user_id, message_id, reminder_text, due_date)</code>
+- <code>search_docs(query)</code>
+- <code>create_project(microdao_id, name, description)</code>
+- <code>summarize_channel(channel_id, period)</code>
+- <code>send_notification(user_id, text)</code></p>
+<p><strong>API:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /internal/tools/catalog</span>
+<span class="err">→ List all tools</span>
+
+<span class="err">POST /internal/tools/execute</span>
+<span class="err">{</span>
+<span class="err">  &quot;tool_name&quot;: &quot;create_task&quot;,</span>
+<span class="err">  &quot;agent_id&quot;: &quot;agent:sofia&quot;,</span>
+<span class="err">  &quot;microdao_id&quot;: &quot;microdao:daarion&quot;,</span>
+<span class="err">  &quot;parameters&quot;: {</span>
+<span class="err">    &quot;channel_id&quot;: &quot;...&quot;,</span>
+<span class="err">    &quot;title&quot;: &quot;Review Phase 2&quot;,</span>
+<span class="err">    &quot;description&quot;: &quot;...&quot;</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+<span class="err">→ Execute tool, return result</span>
+
+<span class="err">GET /internal/tools/agents/{agent_id}/permissions</span>
+<span class="err">→ List tools agent can use</span>
+</code></pre></div>
+
+<p><strong>Tech Stack:</strong>
+- FastAPI
+- Dynamic tool loading (plugins)
+- Sandboxed execution (Docker/gVisor)
+- PostgreSQL (tool definitions, permissions, logs)</p>
+<p><strong>Files:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">services</span><span class="o">/</span><span class="k">tool</span><span class="o">-</span><span class="n">registry</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">main</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">catalog</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">executor</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">sandbox</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">permissions</span><span class="o">.</span><span class="n">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">tools</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">task_tools</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">project_tools</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">notification_tools</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">...</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+</code></pre></div>
+
+<hr />
+<h3 id="4-agent-blueprint-service-1-week">4. Agent Blueprint Service (1 week)<a class="headerlink" href="#4-agent-blueprint-service-1-week" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> CRUD + versioning for agent definitions</p>
+<p><strong>Features:</strong>
+- Create/Read/Update/Delete agent blueprints
+- Blueprint versioning
+- Blueprint templates (archetypes)
+- Blueprint validation
+- Blueprint inheritance</p>
+<p><strong>API:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /internal/agents/blueprints</span>
+<span class="err">→ List all blueprints</span>
+
+<span class="err">POST /internal/agents/blueprints</span>
+<span class="err">{</span>
+<span class="err">  &quot;code&quot;: &quot;sofia_prime_v2&quot;,</span>
+<span class="err">  &quot;name&quot;: &quot;Sofia Prime v2&quot;,</span>
+<span class="err">  &quot;model&quot;: &quot;gpt-4.1&quot;,</span>
+<span class="err">  &quot;instructions&quot;: &quot;...&quot;,</span>
+<span class="err">  &quot;capabilities&quot;: {...},</span>
+<span class="err">  &quot;tools&quot;: [&quot;create_task&quot;, &quot;summarize_channel&quot;]</span>
+<span class="err">}</span>
+<span class="err">→ Create blueprint</span>
+
+<span class="err">GET /internal/agents/blueprints/{blueprint_id}</span>
+<span class="err">→ Get blueprint</span>
+
+<span class="err">GET /internal/agents/{agent_id}/blueprint</span>
+<span class="err">→ Get blueprint for specific agent instance</span>
+
+<span class="err">PUT /internal/agents/blueprints/{blueprint_id}</span>
+<span class="err">→ Update blueprint (creates new version)</span>
+</code></pre></div>
+
+<p><strong>Tech Stack:</strong>
+- FastAPI
+- PostgreSQL (blueprints, versions)
+- YAML/JSON schema validation</p>
+<p><strong>Files:</strong></p>
+<div class="codehilite"><pre><span></span><code>services/agents-service/
+├── main.py
+├── blueprints/
+│   ├── crud.py
+│   ├── versioning.py
+│   ├── validation.py
+│   └── templates.py
+├── models.py
+└── config.yaml
+</code></pre></div>
+
+<hr />
+<h3 id="5-integration-updates-1-week">5. Integration Updates (1 week)<a class="headerlink" href="#5-integration-updates-1-week" title="Permanent link">&para;</a></h3>
+<p><strong>Update agent-runtime to use real services:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Before (Phase 2):</span>
+<span class="n">blueprint</span> <span class="o">=</span> <span class="k">await</span> <span class="n">load_agent_blueprint</span><span class="p">(</span><span class="n">agent_id</span><span class="p">)</span>  <span class="c1"># Mock</span>
+<span class="n">memory</span> <span class="o">=</span> <span class="k">await</span> <span class="n">query_memory</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># Stub</span>
+<span class="n">llm_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">generate_response</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># Stub</span>
+
+<span class="c1"># After (Phase 3):</span>
+<span class="n">blueprint</span> <span class="o">=</span> <span class="k">await</span> <span class="n">agents_service</span><span class="o">.</span><span class="n">get_blueprint</span><span class="p">(</span><span class="n">agent_id</span><span class="p">)</span>  <span class="c1"># Real</span>
+<span class="n">memory</span> <span class="o">=</span> <span class="k">await</span> <span class="n">memory_service</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># Real RAG</span>
+<span class="n">llm_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">llm_proxy</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># Real multi-provider</span>
+
+<span class="c1"># NEW: Tool usage</span>
+<span class="k">if</span> <span class="n">llm_suggests_tool_use</span><span class="p">:</span>
+    <span class="n">tool_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">tool_registry</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+    <span class="c1"># Add tool result to context, call LLM again</span>
+</code></pre></div>
+
+<hr />
+<h2 id="timeline">📅 Timeline<a class="headerlink" href="#timeline" title="Permanent link">&para;</a></h2>
+<h3 id="week-1-2-llm-proxy">Week 1-2: LLM Proxy<a class="headerlink" href="#week-1-2-llm-proxy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Week 1: Core routing + OpenAI provider</li>
+<li>Week 2: Multi-provider + rate limiting + cost tracking</li>
+</ul>
+<h3 id="week-3-4-agent-memory">Week 3-4: Agent Memory<a class="headerlink" href="#week-3-4-agent-memory" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Week 3: Vector store setup + basic RAG</li>
+<li>Week 4: Memory management + indexing</li>
+</ul>
+<h3 id="week-5-6-tool-registry">Week 5-6: Tool Registry<a class="headerlink" href="#week-5-6-tool-registry" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Week 5: Catalog + basic tools (task, followup)</li>
+<li>Week 6: Executor + permissions + sandboxing</li>
+</ul>
+<h3 id="week-7-agent-blueprint-service">Week 7: Agent Blueprint Service<a class="headerlink" href="#week-7-agent-blueprint-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li>CRUD + versioning + validation</li>
+</ul>
+<h3 id="week-8-integration-testing">Week 8: Integration &amp; Testing<a class="headerlink" href="#week-8-integration-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Update agent-runtime</li>
+<li>E2E testing</li>
+<li>Performance optimization</li>
+<li>Documentation</li>
+</ul>
+<hr />
+<h2 id="testing-strategy">🧪 Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="llm-proxy-testing">LLM Proxy Testing:<a class="headerlink" href="#llm-proxy-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Unit: Each provider (OpenAI, Anthropic, etc.)</li>
+<li>Integration: Rate limiting, cost tracking</li>
+<li>Load: 100 concurrent requests</li>
+<li>Failover: Provider unavailable scenarios</li>
+</ul>
+<h3 id="agent-memory-testing">Agent Memory Testing:<a class="headerlink" href="#agent-memory-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>RAG accuracy: Retrieve relevant memories</li>
+<li>Memory indexing: Auto-index from channels</li>
+<li>Vector search performance: &lt; 500ms</li>
+<li>Memory pruning: Clean old memories</li>
+</ul>
+<h3 id="tool-registry-testing">Tool Registry Testing:<a class="headerlink" href="#tool-registry-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tool execution: All tools work</li>
+<li>Permissions: Agent cannot use unauthorized tools</li>
+<li>Sandboxing: Tools cannot escape sandbox</li>
+<li>Audit logs: All executions logged</li>
+</ul>
+<h3 id="e2e-testing">E2E Testing:<a class="headerlink" href="#e2e-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>User asks agent to create task → Task created</li>
+<li>User asks agent to summarize → Summary posted</li>
+<li>Agent uses memory correctly in replies</li>
+<li>Multiple providers work (switch between OpenAI/DeepSeek)</li>
+</ul>
+<hr />
+<h2 id="acceptance-criteria">🎯 Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<h3 id="phase-3-complete-when">Phase 3 Complete When:<a class="headerlink" href="#phase-3-complete-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ LLM Proxy supports 3+ providers</li>
+<li>✅ Agent Memory RAG works (&lt; 500ms queries)</li>
+<li>✅ Tool Registry has 5+ working tools</li>
+<li>✅ Agent Blueprint CRUD works</li>
+<li>✅ agent-runtime integrated with all services</li>
+<li>✅ E2E: User → Agent (with tool use) → Result</li>
+<li>✅ Cost tracking shows LLM usage per agent</li>
+<li>✅ Memory usage shows per agent/microDAO</li>
+<li>✅ All services pass health checks</li>
+<li>✅ Documentation complete</li>
+</ul>
+<hr />
+<h2 id="success-metrics">📊 Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM response time</td>
+<td>&lt; 2s (non-streaming)</td>
+</tr>
+<tr>
+<td>Memory query time</td>
+<td>&lt; 500ms</td>
+</tr>
+<tr>
+<td>Tool execution time</td>
+<td>&lt; 3s</td>
+</tr>
+<tr>
+<td>E2E agent reply</td>
+<td>&lt; 5s (with tool use)</td>
+</tr>
+<tr>
+<td>LLM cost per request</td>
+<td>&lt; $0.05</td>
+</tr>
+<tr>
+<td>System uptime</td>
+<td>&gt; 99.5%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dependencies">🔗 Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<h3 id="external-services">External Services:<a class="headerlink" href="#external-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OpenAI API (for GPT-4)</li>
+<li>Anthropic API (for Claude, optional)</li>
+<li>DeepSeek API (optional)</li>
+<li>Qdrant/Weaviate (for vector DB)</li>
+</ul>
+<h3 id="internal-services">Internal Services:<a class="headerlink" href="#internal-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li>PostgreSQL (for all structured data)</li>
+<li>Redis (for rate limiting, caching)</li>
+<li>NATS (for events)</li>
+</ul>
+<hr />
+<h2 id="optional-enhancements-phase-35">💡 Optional Enhancements (Phase 3.5)<a class="headerlink" href="#optional-enhancements-phase-35" title="Permanent link">&para;</a></h2>
+<h3 id="llm-proxy">LLM Proxy:<a class="headerlink" href="#llm-proxy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Streaming SSE support</li>
+<li>Local model support (Ollama, vLLM)</li>
+<li>Prompt caching</li>
+<li>A/B testing for prompts</li>
+</ul>
+<h3 id="agent-memory">Agent Memory:<a class="headerlink" href="#agent-memory" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hierarchical memory (microDAO → team → agent)</li>
+<li>Memory sharing between agents</li>
+<li>Memory snapshots (save/restore agent state)</li>
+<li>Memory analytics dashboard</li>
+</ul>
+<h3 id="tool-registry">Tool Registry:<a class="headerlink" href="#tool-registry" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tool marketplace (community tools)</li>
+<li>Tool composition (chain tools)</li>
+<li>Visual tool builder</li>
+<li>Tool usage analytics</li>
+</ul>
+<hr />
+<h2 id="quick-start-after-phase-2">🚀 Quick Start (After Phase 2)<a class="headerlink" href="#quick-start-after-phase-2" title="Permanent link">&para;</a></h2>
+<h3 id="to-prepare-for-phase-3">To prepare for Phase 3:<a class="headerlink" href="#to-prepare-for-phase-3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Review Phase 3 roadmap</span>
+cat<span class="w"> </span>docs/tasks/PHASE3_ROADMAP.md
+
+<span class="c1"># 2. Set up external services</span>
+<span class="c1"># - Get OpenAI API key</span>
+<span class="c1"># - Set up Qdrant (Docker or cloud)</span>
+<span class="c1"># - Set up Redis</span>
+
+<span class="c1"># 3. Start with LLM Proxy</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>services/llm-proxy
+<span class="nb">cd</span><span class="w"> </span>services/llm-proxy
+<span class="c1"># Follow PHASE3_LLM_PROXY_TASK.md (to be created)</span>
+</code></pre></div>
+
+<hr />
+<h2 id="task-files-to-be-created">📝 Task Files (To Be Created)<a class="headerlink" href="#task-files-to-be-created" title="Permanent link">&para;</a></h2>
+<p>After Phase 2 complete, create detailed tasks:</p>
+<ol>
+<li><strong>TASK_PHASE3_LLM_PROXY.md</strong> (2 weeks)</li>
+<li><strong>TASK_PHASE3_AGENT_MEMORY.md</strong> (2 weeks)</li>
+<li><strong>TASK_PHASE3_TOOL_REGISTRY.md</strong> (1.5 weeks)</li>
+<li><strong>TASK_PHASE3_BLUEPRINT_SERVICE.md</strong> (1 week)</li>
+<li><strong>TASK_PHASE3_INTEGRATION.md</strong> (1 week)</li>
+</ol>
+<hr />
+<h2 id="architecture-evolution">🎓 Architecture Evolution<a class="headerlink" href="#architecture-evolution" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-complete">Phase 1 (Complete):<a class="headerlink" href="#phase-1-complete" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>User → Frontend → messaging-service → Matrix → Frontend
+</code></pre></div>
+
+<h3 id="phase-2-current">Phase 2 (Current):<a class="headerlink" href="#phase-2-current" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>User → Messenger → agent_filter → Router → agent-runtime (stub) → Reply
+</code></pre></div>
+
+<h3 id="phase-3-target">Phase 3 (Target):<a class="headerlink" href="#phase-3-target" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">User</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Messenger</span>
+<span class="w">    </span><span class="err">↓</span>
+<span class="n">agent_filter</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Router</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">agent</span><span class="o">-</span><span class="n">runtime</span>
+<span class="w">    </span><span class="err">↓</span>
+<span class="err">├─</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">Proxy</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="n">OpenAI</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Anthropic</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">DeepSeek</span><span class="p">]</span>
+<span class="err">├─</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">Memory</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="n">Vector</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">PostgreSQL</span><span class="p">]</span>
+<span class="err">├─</span><span class="w"> </span><span class="n">Tool</span><span class="w"> </span><span class="n">Registry</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Project</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Notification</span><span class="w"> </span><span class="n">tools</span><span class="p">]</span>
+<span class="err">└─</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">Blueprint</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="p">[</span><span class="n">Definitions</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Versions</span><span class="p">]</span>
+<span class="w">    </span><span class="err">↓</span>
+<span class="n">Reply</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="k">tool</span><span class="w"> </span><span class="n">results</span>
+</code></pre></div>
+
+<hr />
+<h2 id="current-status">✅ Current Status<a class="headerlink" href="#current-status" title="Permanent link">&para;</a></h2>
+<ul>
+<li>✅ Phase 1: Messenger Core (Complete)</li>
+<li>📋 Phase 2: Agent Integration (In Progress)</li>
+<li>📋 Phase 3: Core Services (This Roadmap)</li>
+<li>🔜 Phase 4: Advanced Features (TBD)</li>
+</ul>
+<hr />
+<p><strong>Ready for Phase 3?</strong></p>
+<p>First complete Phase 2, then return to this roadmap for detailed implementation tasks.</p>
+<hr />
+<p><strong>Version:</strong> 1.0.0<br />
+<strong>Date:</strong> 2025-11-24<br />
+<strong>Status:</strong> Planning</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

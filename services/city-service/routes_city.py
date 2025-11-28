@@ -147,35 +147,49 @@ async def list_agents(
 
 
 class AgentVisibilityPayload(BaseModel):
-    visibility_scope: str  # city, microdao, owner_only
-    is_listed_in_directory: bool = True
+    """Agent visibility update payload (Task 029)"""
+    is_public: bool
+    visibility_scope: Optional[str] = None  # 'global' | 'microdao' | 'private'
 
 
 @router.put("/agents/{agent_id}/visibility")
-async def update_agent_visibility(
+async def update_agent_visibility_endpoint(
     agent_id: str,
     payload: AgentVisibilityPayload
 ):
-    """Оновити налаштування видимості агента"""
+    """Оновити налаштування видимості агента (Task 029)"""
     try:
-        # Validate visibility_scope
-        if payload.visibility_scope not in ("city", "microdao", "owner_only"):
+        # Validate visibility_scope if provided
+        valid_scopes = ("global", "microdao", "private", "city", "owner_only")  # support legacy too
+        if payload.visibility_scope and payload.visibility_scope not in valid_scopes:
             raise HTTPException(
                 status_code=400, 
-                detail="visibility_scope must be one of: city, microdao, owner_only"
+                detail=f"visibility_scope must be one of: {', '.join(valid_scopes)}"
             )
         
+        # Normalize legacy values
+        scope = payload.visibility_scope
+        if scope == "city":
+            scope = "global"
+        elif scope == "owner_only":
+            scope = "private"
+        
         # Update in database
-        success = await repo_city.update_agent_visibility(
+        result = await repo_city.update_agent_visibility(
             agent_id=agent_id,
-            visibility_scope=payload.visibility_scope,
-            is_listed_in_directory=payload.is_listed_in_directory
+            is_public=payload.is_public,
+            visibility_scope=scope,
         )
         
-        if not success:
+        if not result:
             raise HTTPException(status_code=404, detail="Agent not found")
         
-        return {"status": "ok", "agent_id": agent_id}
+        return {
+            "status": "ok", 
+            "agent_id": agent_id,
+            "is_public": result.get("is_public"),
+            "visibility_scope": result.get("visibility_scope"),
+        }
     except HTTPException:
         raise
     except Exception as e:
@@ -1333,9 +1347,10 @@ async def get_agents_presence_snapshot():
 @router.get("/microdao", response_model=List[MicrodaoSummary])
 async def get_microdaos(
     district: Optional[str] = Query(None, description="Filter by district"),
-    is_public: Optional[bool] = Query(None, description="Filter by public status"),
+    is_public: Optional[bool] = Query(True, description="Filter by public status (default: True)"),
     is_platform: Optional[bool] = Query(None, description="Filter by platform status"),
     q: Optional[str] = Query(None, description="Search by name/description"),
+    include_all: bool = Query(False, description="Include non-public (admin only)"),
     limit: int = Query(50, le=100),
     offset: int = Query(0, ge=0)
 ):
@@ -1343,14 +1358,18 @@ async def get_microdaos(
     Отримати список MicroDAOs.
     
     - **district**: фільтр по дістрікту (Core, Energy, Green, Labs, etc.)
-    - **is_public**: фільтр по публічності
+    - **is_public**: фільтр по публічності (за замовчуванням True)
     - **is_platform**: фільтр по типу (платформа/дістрікт)
     - **q**: пошук по назві або опису
+    - **include_all**: включити всі (для адмінів)
     """
     try:
+        # If include_all is True (admin mode), don't filter by is_public
+        public_filter = None if include_all else is_public
+        
         daos = await repo_city.list_microdao_summaries(
             district=district,
-            is_public=is_public,
+            is_public=public_filter,
             is_platform=is_platform,
             q=q,
             limit=limit,
@@ -1474,4 +1493,107 @@ async def get_microdao_by_slug(slug: str):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Failed to get microdao")
+
+
+# =============================================================================
+# MicroDAO Visibility & Creation (Task 029)
+# =============================================================================
+
+class MicrodaoVisibilityPayload(BaseModel):
+    """MicroDAO visibility update payload"""
+    is_public: bool
+    is_platform: Optional[bool] = None
+
+
+@router.put("/microdao/{microdao_id}/visibility")
+async def update_microdao_visibility_endpoint(
+    microdao_id: str,
+    payload: MicrodaoVisibilityPayload
+):
+    """Оновити налаштування видимості MicroDAO (Task 029)"""
+    try:
+        result = await repo_city.update_microdao_visibility(
+            microdao_id=microdao_id,
+            is_public=payload.is_public,
+            is_platform=payload.is_platform,
+        )
+        
+        if not result:
+            raise HTTPException(status_code=404, detail="MicroDAO not found")
+        
+        return {
+            "status": "ok",
+            "microdao_id": result.get("id"),
+            "slug": result.get("slug"),
+            "is_public": result.get("is_public"),
+            "is_platform": result.get("is_platform"),
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update microdao visibility: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update visibility")
+
+
+class MicrodaoCreatePayload(BaseModel):
+    """Create MicroDAO from agent (orchestrator flow)"""
+    name: str
+    slug: str
+    description: Optional[str] = None
+    make_platform: bool = False
+    is_public: bool = True
+    parent_microdao_id: Optional[str] = None
+
+
+@router.post("/agents/{agent_id}/microdao", response_model=dict)
+async def create_microdao_for_agent_endpoint(
+    agent_id: str,
+    payload: MicrodaoCreatePayload
+):
+    """
+    Створити MicroDAO для агента (зробити його оркестратором).
+    
+    Цей endpoint:
+    1. Створює новий MicroDAO
+    2. Призначає агента оркестратором
+    3. Додає агента як члена DAO
+    4. Встановлює primary_microdao_id якщо порожній
+    """
+    try:
+        # Check if agent exists and is not archived
+        agent = await repo_city.get_agent_by_id(agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agent not found")
+        
+        # Check if slug is unique
+        existing = await repo_city.get_microdao_by_slug(payload.slug)
+        if existing:
+            raise HTTPException(status_code=400, detail=f"MicroDAO with slug '{payload.slug}' already exists")
+        
+        # Create MicroDAO
+        result = await repo_city.create_microdao_for_agent(
+            orchestrator_agent_id=agent_id,
+            name=payload.name,
+            slug=payload.slug,
+            description=payload.description,
+            make_platform=payload.make_platform,
+            is_public=payload.is_public,
+            parent_microdao_id=payload.parent_microdao_id,
+        )
+        
+        if not result:
+            raise HTTPException(status_code=500, detail="Failed to create MicroDAO")
+        
+        return {
+            "status": "ok",
+            "microdao": result,
+            "agent_id": agent_id,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to create microdao for agent {agent_id}: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Failed to create MicroDAO")
 

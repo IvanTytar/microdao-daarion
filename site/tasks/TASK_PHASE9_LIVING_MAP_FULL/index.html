@@ -1,0 +1,1249 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_PHASE9_LIVING_MAP_FULL/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK PHASE 9 — LIVING MAP (FULL STACK SERVICE) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-phase-9-living-map-full-stack-service" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK PHASE 9 — LIVING MAP (FULL STACK SERVICE)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Goals
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Architecture Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-new-service-living-map-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. New service: living-map-service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-data-sources-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Data sources (HTTP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-nats-subjects" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. NATS Subjects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-api-specification" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. API Specification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. API Specification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-get-living-maphealth" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. GET /living-map/health
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-get-living-mapsnapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. GET /living-map/snapshot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-get-living-mapentities" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. GET /living-map/entities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-get-living-mapentitiesid" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4. GET /living-map/entities/{id}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-get-living-maphistory" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5. GET /living-map/history
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-ws-living-mapstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6. WS /living-map/stream
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Database Schema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-implementation-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Implementation Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Implementation Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-files-to-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Files to create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-minimal-frontend-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Minimal frontend hook
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-security-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Security / Auth
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-todo-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. TODO Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-phase-9-living-map-full-stack-service">TASK PHASE 9 — LIVING MAP (FULL STACK SERVICE)<a class="headerlink" href="#task-phase-9-living-map-full-stack-service" title="Permanent link">&para;</a></h1>
+<p>Version: 1.0<br />
+Status: READY FOR IMPLEMENTATION<br />
+Scope: Backend + WebSocket + NATS + Minimal Frontend Hook</p>
+<h2 id="1-context">1. Context<a class="headerlink" href="#1-context" title="Permanent link">&para;</a></h2>
+<p>DAARION уже має:</p>
+<ul>
+<li>core сервіси:</li>
+<li><code>messaging-service</code> (Matrix-aware Messenger)</li>
+<li><code>agent-runtime</code>, <code>agent-filter</code>, <code>dagi-router</code></li>
+<li><code>llm-proxy</code>, <code>memory-orchestrator</code>, <code>toolcore</code></li>
+<li><code>auth-service</code>, <code>pdp-service</code>, <code>usage-engine</code></li>
+<li><code>agents-service</code> (Agent Hub + lifecycle)</li>
+<li><code>microdao-service</code> (microDAO Console)</li>
+<li><code>dao-service</code> (DAO Dashboard)</li>
+<li><code>city-service</code>, <code>space-service</code></li>
+<li>інфраструктуру:</li>
+<li>PostgreSQL</li>
+<li>NATS JetStream</li>
+<li>docker-compose для різних фаз</li>
+<li>WebSocket-потоки для окремих модулів</li>
+</ul>
+<p>Потрібен <strong>єдиний "Living Map" шар</strong>, який агрегує стан всієї мережі:</p>
+<ul>
+<li>City (microDAO, метрики)</li>
+<li>Space (DAO-планети, ноди)</li>
+<li>Nodes (ресурси, алерти)</li>
+<li>Agents (статус, використання)</li>
+<li>DAO (голосування, proposals)</li>
+<li>Messaging (активність каналів)</li>
+</ul>
+<p>і видає це:</p>
+<ul>
+<li>через <code>GET /living-map/snapshot</code> (full-state)</li>
+<li>через <code>GET /living-map/history</code> (event log)</li>
+<li>через <code>GET /living-map/entities</code> (каталог сутностей)</li>
+<li>через <code>WS /living-map/stream</code> (живий потік подій).</li>
+</ul>
+<p>Цей таск — <strong>backend + API + NATS + WS + базовий frontend hook</strong>.</p>
+<hr />
+<h2 id="2-goals">2. Goals<a class="headerlink" href="#2-goals" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Створити сервіс <code>living-map-service</code> (FastAPI), порт <code>7017</code>.</li>
+<li>Зібрати стан мережі з існуючих сервісів <strong>в один snapshot</strong>.</li>
+<li>Підписатися на ключові NATS-сабджекти й зберігати історію в <code>living_map_history</code>.</li>
+<li>Віддавати:</li>
+<li><code>snapshot</code> (HTTP)</li>
+<li><code>history</code> (HTTP)</li>
+<li><code>real-time stream</code> (WS).</li>
+<li>Додати мінімальну фронтенд-обгортку <code>useLivingMapFull</code> (React hook) для інтеграції з 2D/3D UI.</li>
+</ol>
+<hr />
+<h2 id="3-architecture-overview">3. Architecture Overview<a class="headerlink" href="#3-architecture-overview" title="Permanent link">&para;</a></h2>
+<h3 id="31-new-service-living-map-service">3.1. New service: <code>living-map-service</code><a class="headerlink" href="#31-new-service-living-map-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Stack: Python 3 + FastAPI + uvicorn</li>
+<li>Port: <code>7017</code></li>
+<li>Responsibilities:</li>
+<li>Агрегувати дані з:<ul>
+<li><code>city-service</code> (city snapshot)</li>
+<li><code>space-service</code> (planets/nodes/events)</li>
+<li><code>agents-service</code> (agents, metrics, events)</li>
+<li><code>microdao-service</code> (microDAOs)</li>
+<li><code>dao-service</code> (dao, proposals, votes)</li>
+<li><code>usage-engine</code> (LLM/tool usage summary)</li>
+</ul>
+</li>
+<li>Нормалізувати в <strong>єдину структуру сцени</strong>:<ul>
+<li><code>scene.layers.city</code></li>
+<li><code>scene.layers.space</code></li>
+<li><code>scene.layers.nodes</code></li>
+<li><code>scene.layers.agents</code></li>
+<li><code>scene.meta</code> (timestamps, version)</li>
+</ul>
+</li>
+<li>Підписуватись на NATS-subject'и й створювати event log.</li>
+<li>Видавати snapshot/history + WebSocket stream.</li>
+</ul>
+<h3 id="32-data-sources-http">3.2. Data sources (HTTP)<a class="headerlink" href="#32-data-sources-http" title="Permanent link">&para;</a></h3>
+<p>Очікувані існуючі/доступні ендпоінти (можна створити прості адаптери, якщо їх ще нема):</p>
+<ul>
+<li><code>city-service</code>:</li>
+<li><code>GET http://city-service:7001/api/city/snapshot</code></li>
+<li><code>space-service</code>:</li>
+<li><code>GET http://space-service:7002/api/space/scene</code> або окремо planets/nodes/events</li>
+<li><code>agents-service</code>:</li>
+<li><code>GET http://agents-service:7014/agents</code> (list)</li>
+<li><code>GET http://agents-service:7014/agents/metrics</code> (summary)</li>
+<li><code>microdao-service</code>:</li>
+<li><code>GET http://microdao-service:7015/microdaos</code> (list)</li>
+<li><code>dao-service</code>:</li>
+<li><code>GET http://dao-service:7016/dao</code> (list)</li>
+<li><code>GET http://dao-service:7016/dao/proposals/summary</code></li>
+<li><code>usage-engine</code>:</li>
+<li><code>GET http://usage-engine:7013/internal/usage/summary?period_hours=24</code></li>
+</ul>
+<p>Якщо чогось немає — зробити простий adapter/placeholder з mock даними всередині <code>living-map-service</code>.</p>
+<h3 id="33-nats-subjects">3.3. NATS Subjects<a class="headerlink" href="#33-nats-subjects" title="Permanent link">&para;</a></h3>
+<p>Потрібно підписатися на:</p>
+<ul>
+<li><code>city.event.*</code></li>
+<li><code>dao.event.*</code></li>
+<li><code>microdao.event.*</code></li>
+<li><code>node.metrics.*</code></li>
+<li><code>agent.event.*</code></li>
+<li><code>usage.llm.*</code></li>
+<li><code>usage.agent.*</code></li>
+<li><code>messaging.message.created</code></li>
+</ul>
+<p>(Якщо частина сабджектів ще не існує — підготувати consumer з graceful handling та вимкненими/placeholder subscriptions.)</p>
+<hr />
+<h2 id="4-api-specification">4. API Specification<a class="headerlink" href="#4-api-specification" title="Permanent link">&para;</a></h2>
+<h3 id="41-get-living-maphealth">4.1. <code>GET /living-map/health</code><a class="headerlink" href="#41-get-living-maphealth" title="Permanent link">&para;</a></h3>
+<p>Простий health-check.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;living-map-service&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="42-get-living-mapsnapshot">4.2. <code>GET /living-map/snapshot</code><a class="headerlink" href="#42-get-living-mapsnapshot" title="Permanent link">&para;</a></h3>
+<p>Агрегований стан усієї мережі.</p>
+<p>Response (спрощений приклад):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;generated_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;microdaos_total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;active_users&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;active_agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION City&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;nodes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;space&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;planets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao:daarion-core&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION CORE&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;orbits&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;node:gpu-1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;node:gpu-2&quot;</span><span class="p">],</span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;nodes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node:gpu-1&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NODE1&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.42</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.77</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.63</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;nodes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node:gpu-1&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.42</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.77</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;ram&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.63</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;net_in&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;net_out&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9876</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sofia&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;llm_calls_24h&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;tokens_24h&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45678</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;city-service&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;space-service&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;agents-service&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;microdao-service&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;dao-service&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;usage-engine&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="43-get-living-mapentities">4.3. <code>GET /living-map/entities</code><a class="headerlink" href="#43-get-living-mapentities" title="Permanent link">&para;</a></h3>
+<p>Плоский список сутностей з мінімальними даними для побудови legend/списків.</p>
+<p>Query params:</p>
+<ul>
+<li><code>type</code> (optional): <code>city|space|node|agent|dao|microdao|channel</code></li>
+<li><code>limit</code> (optional, default 100)</li>
+</ul>
+<p>Response:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION City&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;layer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;city&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao:daarion-core&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dao&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION CORE DAO&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;layer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;space&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="44-get-living-mapentitiesid">4.4. <code>GET /living-map/entities/{id}</code><a class="headerlink" href="#44-get-living-mapentitiesid" title="Permanent link">&para;</a></h3>
+<p>Детальний опис сутності (проксі до відповідного сервісу з нормалізацією).</p>
+<p>Response (узагальнений):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;layer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;raw or normalized fields&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="45-get-living-maphistory">4.5. <code>GET /living-map/history</code><a class="headerlink" href="#45-get-living-maphistory" title="Permanent link">&para;</a></h3>
+<p>Історія подій Living Map.</p>
+<p>Query params:</p>
+<ul>
+<li><code>since</code> (optional, ISO datetime)</li>
+<li><code>limit</code> (optional, default 200)</li>
+</ul>
+<p>Response:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt-uuid&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:30:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;event_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node.metrics.update&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;node_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node:gpu-1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;gpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="46-ws-living-mapstream">4.6. <code>WS /living-map/stream</code><a class="headerlink" href="#46-ws-living-mapstream" title="Permanent link">&para;</a></h3>
+<p>WebSocket-потік:</p>
+<ul>
+<li>
+<p>Типи повідомлень:</p>
+</li>
+<li>
+<p><code>snapshot</code> — повний стан (на підключення та за потреби)</p>
+</li>
+<li><code>event</code> — одинична подія</li>
+<li>Формат:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;event&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;event_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent.event.status&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-database-schema">5. Database Schema<a class="headerlink" href="#5-database-schema" title="Permanent link">&para;</a></h2>
+<p>Створити міграцію, наприклад: <code>migrations/010_create_living_map_tables.sql</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">living_map_history</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">gen_random_uuid</span><span class="p">(),</span>
+<span class="w">  </span><span class="k">timestamp</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">event_type</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">JSONB</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_living_map_history_timestamp</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">living_map_history</span><span class="w"> </span><span class="p">(</span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_living_map_history_event_type</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">living_map_history</span><span class="w"> </span><span class="p">(</span><span class="n">event_type</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h2 id="6-implementation-plan">6. Implementation Plan<a class="headerlink" href="#6-implementation-plan" title="Permanent link">&para;</a></h2>
+<h3 id="61-files-to-create">6.1. Files to create<a class="headerlink" href="#61-files-to-create" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>services/living-map-service/main.py</code></li>
+<li><code>services/living-map-service/models.py</code></li>
+<li><code>services/living-map-service/repository_history.py</code></li>
+<li><code>services/living-map-service/adapters/city_client.py</code></li>
+<li><code>services/living-map-service/adapters/space_client.py</code></li>
+<li><code>services/living-map-service/adapters/agents_client.py</code></li>
+<li><code>services/living-map-service/adapters/microdao_client.py</code></li>
+<li><code>services/living-map-service/adapters/dao_client.py</code></li>
+<li><code>services/living-map-service/adapters/usage_client.py</code></li>
+<li><code>services/living-map-service/nats_subscriber.py</code></li>
+<li><code>services/living-map-service/ws_stream.py</code></li>
+<li><code>services/living-map-service/Dockerfile</code></li>
+<li><code>services/living-map-service/requirements.txt</code></li>
+<li><code>docker-compose.phase9.yml</code> (або оновити загальний)</li>
+<li><code>scripts/start-phase9.sh</code></li>
+<li><code>scripts/stop-phase9.sh</code></li>
+<li><code>migrations/010_create_living_map_tables.sql</code></li>
+<li>
+<p>Frontend:</p>
+</li>
+<li>
+<p><code>src/features/livingMap/hooks/useLivingMapFull.ts</code></p>
+</li>
+</ul>
+<h3 id="62-minimal-frontend-hook">6.2. Minimal frontend hook<a class="headerlink" href="#62-minimal-frontend-hook" title="Permanent link">&para;</a></h3>
+<p><code>useLivingMapFull.ts</code>:</p>
+<ul>
+<li><code>GET /living-map/snapshot</code> → зберігає state</li>
+<li>Підключає WS <code>/living-map/stream</code></li>
+<li>При <code>kind=event</code> оновлює локальний state (immutable update)</li>
+<li>
+<p>Повертає:</p>
+</li>
+<li>
+<p><code>snapshot</code></p>
+</li>
+<li><code>events</code></li>
+<li><code>isLoading</code></li>
+<li><code>error</code></li>
+<li><code>connectionStatus</code></li>
+</ul>
+<hr />
+<h2 id="7-security-auth">7. Security / Auth<a class="headerlink" href="#7-security-auth" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Всі HTTP-ендпоінти:</p>
+</li>
+<li>
+<p>Перевірка JWT/Session через <code>auth-service</code> (ActorContext).</p>
+</li>
+<li>
+<p>Опціонально, <code>GET /living-map/snapshot</code> може мати:</p>
+</li>
+<li>
+<p><code>public_mode</code> (спрощений, анонімний)</p>
+</li>
+<li>або вимагати auth (рекомендовано).</li>
+<li>
+<p>WS:</p>
+</li>
+<li>
+<p><code>Authorization: Bearer &lt;token&gt;</code> у заголовках.</p>
+</li>
+<li>
+<p>NATS:</p>
+</li>
+<li>
+<p>лише internal subjects, використовувати існуючий NATS connection з параметрами як в інших сервісах.</p>
+</li>
+</ul>
+<hr />
+<h2 id="8-todo-checklist">8. TODO Checklist<a class="headerlink" href="#8-todo-checklist" title="Permanent link">&para;</a></h2>
+<p>Backend:</p>
+<ul>
+<li>[ ] Створити міграцію <code>010_create_living_map_tables.sql</code></li>
+<li>[ ] Створити <code>living-map-service</code> структуру</li>
+<li>[ ] Реалізувати адаптери до інших сервісів (з timeout/retry)</li>
+<li>[ ] Реалізувати <code>GET /living-map/health</code></li>
+<li>[ ] Реалізувати <code>GET /living-map/snapshot</code></li>
+<li>[ ] Реалізувати <code>GET /living-map/entities</code></li>
+<li>[ ] Реалізувати <code>GET /living-map/entities/{id}</code></li>
+<li>[ ] Реалізувати <code>GET /living-map/history</code></li>
+<li>[ ] Реалізувати <code>WS /living-map/stream</code></li>
+<li>[ ] Реалізувати <code>nats_subscriber.py</code> для key subjects</li>
+<li>[ ] Інтегрувати Auth/PDP (як у інших сервісах)</li>
+<li>[ ] Додати Dockerfile + requirements.txt</li>
+<li>[ ] Оновити docker-compose/script'и</li>
+<li>[ ] Додати базові unit tests (snapshot builder)</li>
+</ul>
+<p>Frontend:</p>
+<ul>
+<li>[ ] Створити <code>useLivingMapFull.ts</code></li>
+<li>[ ] Протестувати запит snapshot + WS stream (можна через тимчасовий debug-компонент)</li>
+</ul>
+<hr />
+<h2 id="9-acceptance-criteria">9. Acceptance Criteria<a class="headerlink" href="#9-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>docker-compose -f docker-compose.phase9.yml up -d</code> піднімає <code>living-map-service</code> без помилок.</li>
+<li><code>GET /living-map/health</code> повертає <code>status=ok</code>.</li>
+<li><code>GET /living-map/snapshot</code> повертає валідний JSON з <code>layers.city</code>, <code>layers.space</code>, <code>layers.nodes</code>, <code>layers.agents</code>.</li>
+<li><code>GET /living-map/history</code> повертає список подій, які приходять з NATS.</li>
+<li>
+<p><code>WS /living-map/stream</code> надсилає:</p>
+</li>
+<li>
+<p>при підключенні: <code>kind="snapshot"</code></p>
+</li>
+<li>далі: <code>kind="event"</code> при нових подіях.</li>
+<li><code>useLivingMapFull</code> успішно підключається до API+WS і оновлює локальний state без TypeScript помилок.</li>
+<li>Уся нова логіка проходить лінтер та тести.</li>
+</ol>
+<hr />
+<p>END OF TASK</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1686 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/PHASE2_MASTER_TASK/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK: PHASE 2 — AGENT INTEGRATION (agent_filter + Router + agent-runtime) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-phase-2-agent-integration-agent_filter-router-agent-runtime" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK: PHASE 2 — AGENT INTEGRATION (agent_filter + Router + agent-runtime)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-service-agent-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) SERVICE: agent-filter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1) SERVICE: agent-filter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#specs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specs:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specs:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modelspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      models.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rulespy" class="md-nav__link">
+    <span class="md-ellipsis">
+      rules.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      main.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      config.yaml:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      requirements.txt:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dockerfile:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readmemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      README.md:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nats-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      NATS Events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NATS Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-test-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add test endpoint:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update config:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-service-agent-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) SERVICE: agent-runtime
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3) SERVICE: agent-runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#specs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specs:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specs:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modelspy_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      models.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      llm_client.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messaging_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      messaging_client.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory_clientpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      memory_client.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mainpy_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      main.py:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      config.yaml:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirementstxt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      requirements.txt:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerfile_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dockerfile:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) DOCKER + COMPOSE
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      5) ACCEPTANCE CRITERIA
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-of-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      END OF TASK
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-phase-2-agent-integration-agent_filter-router-agent-runtime">TASK: PHASE 2 — AGENT INTEGRATION (agent_filter + Router + agent-runtime)<a class="headerlink" href="#task-phase-2-agent-integration-agent_filter-router-agent-runtime" title="Permanent link">&para;</a></h1>
+<p><strong>Goal:</strong>
+Активувати повний ланцюг агентних відповідей у Messenger:
+User → messaging-service → matrix-gateway → Matrix → NATS → agent_filter → DAGI Router → agent-runtime → LLM → messaging-service → Matrix → Frontend.</p>
+<p><strong>Deliverables:</strong>
+- <code>services/agent-filter/</code> (rules + NATS + internal API)
+- router extension (messaging.inbound → router.invoke.agent)
+- <code>services/agent-runtime/</code> (LLM + memory + posting to channel)
+- docker-compose integration
+- documentation updates</p>
+<hr />
+<h2 id="1-service-agent-filter">1) SERVICE: agent-filter<a class="headerlink" href="#1-service-agent-filter" title="Permanent link">&para;</a></h2>
+<p><strong>Create:</strong> <code>services/agent-filter/</code></p>
+<p><strong>Files:</strong>
+- <code>main.py</code>
+- <code>models.py</code>
+- <code>rules.py</code>
+- <code>config.yaml</code>
+- <code>Dockerfile</code>
+- <code>requirements.txt</code>
+- <code>README.md</code></p>
+<h3 id="specs">Specs:<a class="headerlink" href="#specs" title="Permanent link">&para;</a></h3>
+<h4 id="modelspy">models.py:<a class="headerlink" href="#modelspy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MessageCreatedEvent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">message_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">matrix_event_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sender_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sender_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;agent&quot;</span><span class="p">]</span>
+    <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FilterDecision</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">message_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">matrix_event_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">decision</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;allow&quot;</span><span class="p">,</span> <span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="s2">&quot;modify&quot;</span><span class="p">]</span>
+    <span class="n">target_agent_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rewrite_prompt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ChannelContext</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">visibility</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;public&quot;</span><span class="p">,</span> <span class="s2">&quot;private&quot;</span><span class="p">,</span> <span class="s2">&quot;microdao&quot;</span><span class="p">]</span>
+    <span class="n">allowed_agents</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">disabled_agents</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FilterContext</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">channel</span><span class="p">:</span> <span class="n">ChannelContext</span>
+    <span class="n">sender_is_owner</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">sender_is_admin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">sender_is_member</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">local_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+
+<h4 id="rulespy">rules.py:<a class="headerlink" href="#rulespy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageCreatedEvent</span><span class="p">,</span> <span class="n">FilterContext</span><span class="p">,</span> <span class="n">FilterDecision</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FilterRules</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;config.yaml&quot;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">][</span><span class="s1">&#39;quiet_hours&#39;</span><span class="p">][</span><span class="s1">&#39;start&#39;</span><span class="p">],</span> 
+            <span class="s2">&quot;%H:%M&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">][</span><span class="s1">&#39;quiet_hours&#39;</span><span class="p">][</span><span class="s1">&#39;end&#39;</span><span class="p">],</span> 
+            <span class="s2">&quot;%H:%M&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_agents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_agents&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_quiet_hours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">current_time</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_start</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_end</span><span class="p">:</span>
+            <span class="c1"># Overnight range (e.g., 23:00 - 07:00)</span>
+            <span class="k">return</span> <span class="n">current_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_start</span> <span class="ow">or</span> <span class="n">current_time</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_end</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_start</span> <span class="o">&lt;=</span> <span class="n">current_time</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet_hours_end</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">decide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">MessageCreatedEvent</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">FilterContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FilterDecision</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Baseline rules v1:</span>
+<span class="sd">        - Block agent→agent loops</span>
+<span class="sd">        - Map channel → allowed_agents</span>
+<span class="sd">        - Apply quiet_hours</span>
+<span class="sd">        - Return FilterDecision with decision + target_agent_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">base_decision</span> <span class="o">=</span> <span class="n">FilterDecision</span><span class="p">(</span>
+            <span class="n">channel_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+            <span class="n">message_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">message_id</span><span class="p">,</span>
+            <span class="n">matrix_event_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">matrix_event_id</span><span class="p">,</span>
+            <span class="n">microdao_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">,</span>
+            <span class="n">decision</span><span class="o">=</span><span class="s2">&quot;deny&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Rule 1: Block agent→agent loops</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">sender_type</span> <span class="o">==</span> <span class="s2">&quot;agent&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">base_decision</span>
+
+        <span class="c1"># Rule 2: Check if agent is disabled</span>
+        <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">disabled_agents</span><span class="p">:</span>
+            <span class="c1"># For now, deny if any disabled agents exist</span>
+            <span class="k">return</span> <span class="n">base_decision</span>
+
+        <span class="c1"># Rule 3: Find target agent</span>
+        <span class="n">target_agent_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">allowed_agents</span><span class="p">:</span>
+            <span class="n">target_agent_id</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">allowed_agents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">microdao_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_agents</span><span class="p">:</span>
+            <span class="n">target_agent_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_agents</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target_agent_id</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">base_decision</span>
+
+        <span class="c1"># Rule 4: Check quiet hours</span>
+        <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">local_time</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_quiet_hours</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">local_time</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span>
+                <span class="n">channel_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+                <span class="n">message_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">message_id</span><span class="p">,</span>
+                <span class="n">matrix_event_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">matrix_event_id</span><span class="p">,</span>
+                <span class="n">microdao_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">,</span>
+                <span class="n">decision</span><span class="o">=</span><span class="s2">&quot;modify&quot;</span><span class="p">,</span>
+                <span class="n">target_agent_id</span><span class="o">=</span><span class="n">target_agent_id</span><span class="p">,</span>
+                <span class="n">rewrite_prompt</span><span class="o">=</span><span class="s2">&quot;Відповідай стисло і тільки якщо запит важливий. Не ініціюй розмову сам.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Rule 5: Allow</span>
+        <span class="k">return</span> <span class="n">FilterDecision</span><span class="p">(</span>
+            <span class="n">channel_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+            <span class="n">message_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">message_id</span><span class="p">,</span>
+            <span class="n">matrix_event_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">matrix_event_id</span><span class="p">,</span>
+            <span class="n">microdao_id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">,</span>
+            <span class="n">decision</span><span class="o">=</span><span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+            <span class="n">target_agent_id</span><span class="o">=</span><span class="n">target_agent_id</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<h4 id="mainpy">main.py:<a class="headerlink" href="#mainpy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageCreatedEvent</span><span class="p">,</span> <span class="n">FilterDecision</span><span class="p">,</span> <span class="n">ChannelContext</span><span class="p">,</span> <span class="n">FilterContext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilterRules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;DAARION Agent Filter&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">)</span>
+
+<span class="c1"># Configuration</span>
+<span class="n">MESSAGING_SERVICE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MESSAGING_SERVICE_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;http://messaging-service:7004&quot;</span><span class="p">)</span>
+<span class="n">NATS_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;NATS_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;nats://nats:4222&quot;</span><span class="p">)</span>
+
+<span class="c1"># Rules engine</span>
+<span class="n">rules_engine</span> <span class="o">=</span> <span class="n">FilterRules</span><span class="p">(</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+
+<span class="c1"># NATS setup (mocked for now, replace with actual NATS client)</span>
+<span class="c1"># import nats</span>
+<span class="c1"># nc = None</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s2">&quot;startup&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">startup_event</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Agent Filter starting up...&quot;</span><span class="p">)</span>
+    <span class="c1"># nc = await nats.connect(NATS_URL)</span>
+    <span class="c1"># await subscribe_to_messaging_events()</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">mock_nats_listener</span><span class="p">())</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">mock_nats_listener</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mock NATS listener for testing&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mock NATS listener started (replace with actual NATS subscription)&quot;</span><span class="p">)</span>
+    <span class="c1"># In production:</span>
+    <span class="c1"># sub = await nc.subscribe(&quot;messaging.message.created&quot;)</span>
+    <span class="c1"># async for msg in sub.messages:</span>
+    <span class="c1">#     await handle_message_created(json.loads(msg.data.decode()))</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_message_created</span><span class="p">(</span><span class="n">event_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process incoming message.created events&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">MessageCreatedEvent</span><span class="p">(</span><span class="o">**</span><span class="n">event_data</span><span class="p">)</span>
+
+        <span class="c1"># Fetch channel context</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="k">await</span> <span class="n">fetch_channel_context</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">)</span>
+
+        <span class="c1"># Apply rules</span>
+        <span class="n">decision</span> <span class="o">=</span> <span class="n">rules_engine</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+
+        <span class="c1"># Publish decision to NATS</span>
+        <span class="k">await</span> <span class="n">publish_decision</span><span class="p">(</span><span class="n">decision</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decision: </span><span class="si">{</span><span class="n">decision</span><span class="o">.</span><span class="n">decision</span><span class="si">}</span><span class="s2"> for channel </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing message: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fetch_channel_context</span><span class="p">(</span><span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FilterContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch channel context from messaging-service&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MESSAGING_SERVICE_URL</span><span class="si">}</span><span class="s2">/internal/messaging/channels/</span><span class="si">{</span><span class="n">channel_id</span><span class="si">}</span><span class="s2">/context&quot;</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+            <span class="n">channel_ctx</span> <span class="o">=</span> <span class="n">ChannelContext</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FilterContext</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel_ctx</span><span class="p">,</span>
+                <span class="n">local_time</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">except</span> <span class="n">httpx</span><span class="o">.</span><span class="n">HTTPStatusError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HTTP error fetching context: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Return default context</span>
+        <span class="k">return</span> <span class="n">FilterContext</span><span class="p">(</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">ChannelContext</span><span class="p">(</span>
+                <span class="n">microdao_id</span><span class="o">=</span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+                <span class="n">visibility</span><span class="o">=</span><span class="s2">&quot;microdao&quot;</span>
+            <span class="p">),</span>
+            <span class="n">local_time</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching context: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FilterContext</span><span class="p">(</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">ChannelContext</span><span class="p">(</span>
+                <span class="n">microdao_id</span><span class="o">=</span><span class="s2">&quot;microdao:daarion&quot;</span><span class="p">,</span>
+                <span class="n">visibility</span><span class="o">=</span><span class="s2">&quot;microdao&quot;</span>
+            <span class="p">),</span>
+            <span class="n">local_time</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+        <span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">publish_decision</span><span class="p">(</span><span class="n">decision</span><span class="p">:</span> <span class="n">FilterDecision</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Publish decision to NATS&quot;&quot;&quot;</span>
+    <span class="c1"># In production:</span>
+    <span class="c1"># await nc.publish(&quot;agent.filter.decision&quot;, decision.json().encode())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Publishing decision: </span><span class="si">{</span><span class="n">decision</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;agent-filter&quot;</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/internal/agent-filter/test&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">FilterDecision</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_filter</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">MessageCreatedEvent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test endpoint for manual filtering&quot;&quot;&quot;</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="k">await</span> <span class="n">fetch_channel_context</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">channel_id</span><span class="p">)</span>
+    <span class="n">decision</span> <span class="o">=</span> <span class="n">rules_engine</span><span class="o">.</span><span class="n">decide</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decision</span>
+</code></pre></div>
+
+<h4 id="configyaml">config.yaml:<a class="headerlink" href="#configyaml" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">nats</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;nats://nats:4222&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">messaging_subject</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;messaging.message.created&quot;</span>
+<span class="w">  </span><span class="nt">decision_subject</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;agent.filter.decision&quot;</span>
+
+<span class="nt">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">quiet_hours</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">start</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;23:00&quot;</span>
+<span class="w">    </span><span class="nt">end</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;07:00&quot;</span>
+<span class="w">  </span><span class="nt">default_agents</span><span class="p">:</span>
+<span class="w">    </span><span class="s">&quot;microdao:daarion&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;agent:sofia&quot;</span>
+<span class="w">    </span><span class="s">&quot;microdao:7&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;agent:sofia&quot;</span>
+</code></pre></div>
+
+<h4 id="requirementstxt">requirements.txt:<a class="headerlink" href="#requirementstxt" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+httpx==0.25.1
+python-nats==2.6.0
+PyYAML==6.0.1
+</code></pre></div>
+
+<h4 id="dockerfile">Dockerfile:<a class="headerlink" href="#dockerfile" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;7005&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="readmemd">README.md:<a class="headerlink" href="#readmemd" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="gh"># Agent Filter Service</span>
+
+Security &amp; routing layer for DAARION agents in Messenger.
+
+<span class="gu">## Purpose</span>
+<span class="k">-</span><span class="w"> </span>Subscribe to NATS <span class="sb">`messaging.message.created`</span>
+<span class="k">-</span><span class="w"> </span>Apply filtering rules (permissions, content, timing)
+<span class="k">-</span><span class="w"> </span>Decide which agent should reply
+<span class="k">-</span><span class="w"> </span>Publish to <span class="sb">`agent.filter.decision`</span>
+
+<span class="gu">## Rules</span>
+<span class="k">1.</span> Block agent→agent loops
+<span class="k">2.</span> Map channels to allowed agents
+<span class="k">3.</span> Apply quiet hours (23:00–07:00)
+<span class="k">4.</span> Check disabled agents
+
+<span class="gu">## Running Locally</span>
+```bash
+pip install -r requirements.txt
+uvicorn main:app --reload --port 7005
+</code></pre></div>
+
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:7005/internal/agent-filter/test<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;channel_id&quot;: &quot;test-channel&quot;,</span>
+<span class="s1">    &quot;matrix_event_id&quot;: &quot;$event123&quot;,</span>
+<span class="s1">    &quot;sender_id&quot;: &quot;user:1&quot;,</span>
+<span class="s1">    &quot;sender_type&quot;: &quot;human&quot;,</span>
+<span class="s1">    &quot;microdao_id&quot;: &quot;microdao:daarion&quot;,</span>
+<span class="s1">    &quot;created_at&quot;: &quot;2025-11-24T10:00:00Z&quot;</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
+
+<h2 id="nats-events">NATS Events<a class="headerlink" href="#nats-events" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Subscribes to:</strong> <code>messaging.message.created</code></li>
+<li><strong>Publishes to:</strong> <code>agent.filter.decision</code></li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="o">---</span>
+
+<span class="c1">## 2) DAGI ROUTER EXTENSION</span>
+
+<span class="o">**</span><span class="n">Extend</span> <span class="n">existing</span> <span class="n">router</span> <span class="n">service</span><span class="p">:</span><span class="o">**</span>
+
+<span class="c1">### Add subscription:</span>
+
+<span class="err">```</span><span class="n">python</span>
+<span class="c1"># In router service (e.g., services/router/main.py)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FilterDecision</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">message_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">matrix_event_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">decision</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;allow&quot;</span><span class="p">,</span> <span class="s2">&quot;deny&quot;</span><span class="p">,</span> <span class="s2">&quot;modify&quot;</span><span class="p">]</span>
+    <span class="n">target_agent_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rewrite_prompt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AgentInvocation</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">entrypoint</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;channel_message&quot;</span><span class="p">,</span> <span class="s2">&quot;direct&quot;</span><span class="p">,</span> <span class="s2">&quot;cron&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;channel_message&quot;</span>
+    <span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_filter_decision</span><span class="p">(</span><span class="n">decision_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process agent.filter.decision events&quot;&quot;&quot;</span>
+    <span class="n">decision</span> <span class="o">=</span> <span class="n">FilterDecision</span><span class="p">(</span><span class="o">**</span><span class="n">decision_data</span><span class="p">)</span>
+
+    <span class="c1"># Only process &#39;allow&#39; decisions</span>
+    <span class="k">if</span> <span class="n">decision</span><span class="o">.</span><span class="n">decision</span> <span class="o">!=</span> <span class="s2">&quot;allow&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ignoring non-allow decision: </span><span class="si">{</span><span class="n">decision</span><span class="o">.</span><span class="n">decision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">decision</span><span class="o">.</span><span class="n">target_agent_id</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No target agent specified, ignoring&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Create AgentInvocation</span>
+    <span class="n">invocation</span> <span class="o">=</span> <span class="n">AgentInvocation</span><span class="p">(</span>
+        <span class="n">agent_id</span><span class="o">=</span><span class="n">decision</span><span class="o">.</span><span class="n">target_agent_id</span><span class="p">,</span>
+        <span class="n">entrypoint</span><span class="o">=</span><span class="s2">&quot;channel_message&quot;</span><span class="p">,</span>
+        <span class="n">payload</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;channel_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+            <span class="s2">&quot;message_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">message_id</span><span class="p">,</span>
+            <span class="s2">&quot;matrix_event_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">matrix_event_id</span><span class="p">,</span>
+            <span class="s2">&quot;microdao_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">,</span>
+            <span class="s2">&quot;rewrite_prompt&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">rewrite_prompt</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Publish to NATS</span>
+    <span class="k">await</span> <span class="n">publish_agent_invocation</span><span class="p">(</span><span class="n">invocation</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Routed to </span><span class="si">{</span><span class="n">invocation</span><span class="o">.</span><span class="n">agent_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">publish_agent_invocation</span><span class="p">(</span><span class="n">invocation</span><span class="p">:</span> <span class="n">AgentInvocation</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Publish to router.invoke.agent&quot;&quot;&quot;</span>
+    <span class="c1"># await nc.publish(&quot;router.invoke.agent&quot;, invocation.json().encode())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Publishing invocation: </span><span class="si">{</span><span class="n">invocation</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add to router startup</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_to_filter_decisions</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Subscribe to agent.filter.decision&quot;&quot;&quot;</span>
+    <span class="c1"># sub = await nc.subscribe(&quot;agent.filter.decision&quot;)</span>
+    <span class="c1"># async for msg in sub.messages:</span>
+    <span class="c1">#     await handle_filter_decision(json.loads(msg.data.decode()))</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<h3 id="add-test-endpoint">Add test endpoint:<a class="headerlink" href="#add-test-endpoint" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/internal/router/test-messaging&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">AgentInvocation</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_messaging_route</span><span class="p">(</span><span class="n">decision</span><span class="p">:</span> <span class="n">FilterDecision</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test endpoint for routing logic&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">decision</span><span class="o">.</span><span class="n">decision</span> <span class="o">!=</span> <span class="s2">&quot;allow&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">decision</span><span class="o">.</span><span class="n">target_agent_id</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Decision not routable&quot;</span><span class="p">)</span>
+
+    <span class="n">invocation</span> <span class="o">=</span> <span class="n">AgentInvocation</span><span class="p">(</span>
+        <span class="n">agent_id</span><span class="o">=</span><span class="n">decision</span><span class="o">.</span><span class="n">target_agent_id</span><span class="p">,</span>
+        <span class="n">entrypoint</span><span class="o">=</span><span class="s2">&quot;channel_message&quot;</span><span class="p">,</span>
+        <span class="n">payload</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;channel_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">channel_id</span><span class="p">,</span>
+            <span class="s2">&quot;message_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">message_id</span><span class="p">,</span>
+            <span class="s2">&quot;matrix_event_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">matrix_event_id</span><span class="p">,</span>
+            <span class="s2">&quot;microdao_id&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">microdao_id</span><span class="p">,</span>
+            <span class="s2">&quot;rewrite_prompt&quot;</span><span class="p">:</span> <span class="n">decision</span><span class="o">.</span><span class="n">rewrite_prompt</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">invocation</span>
+</code></pre></div>
+
+<h3 id="update-config">Update config:<a class="headerlink" href="#update-config" title="Permanent link">&para;</a></h3>
+<p>Create/update <code>router_config.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">messaging_inbound</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">source_subject</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;agent.filter.decision&quot;</span>
+<span class="w">  </span><span class="nt">target_subject</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;router.invoke.agent&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="3-service-agent-runtime">3) SERVICE: agent-runtime<a class="headerlink" href="#3-service-agent-runtime" title="Permanent link">&para;</a></h2>
+<p><strong>Create:</strong> <code>services/agent-runtime/</code></p>
+<p><strong>Files:</strong>
+- <code>main.py</code>
+- <code>models.py</code>
+- <code>llm_client.py</code>
+- <code>messaging_client.py</code>
+- <code>memory_client.py</code>
+- <code>config.yaml</code>
+- <code>Dockerfile</code>
+- <code>requirements.txt</code>
+- <code>README.md</code></p>
+<h3 id="specs_1">Specs:<a class="headerlink" href="#specs_1" title="Permanent link">&para;</a></h3>
+<h4 id="modelspy_1">models.py:<a class="headerlink" href="#modelspy_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AgentInvocation</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">entrypoint</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;channel_message&quot;</span><span class="p">,</span> <span class="s2">&quot;direct&quot;</span><span class="p">,</span> <span class="s2">&quot;cron&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;channel_message&quot;</span>
+    <span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AgentBlueprint</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">instructions</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">capabilities</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ChannelMessage</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">sender_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sender_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;agent&quot;</span><span class="p">]</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span>
+</code></pre></div>
+
+<h4 id="llm_clientpy">llm_client.py:<a class="headerlink" href="#llm_clientpy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">LLM_PROXY_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;LLM_PROXY_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;http://llm-proxy:7007&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate_response</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Call LLM Proxy to generate response&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">30.0</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">LLM_PROXY_URL</span><span class="si">}</span><span class="s2">/internal/llm/proxy&quot;</span><span class="p">,</span>
+                <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                    <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="n">messages</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">httpx</span><span class="o">.</span><span class="n">HTTPStatusError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LLM Proxy error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;Вибачте, не можу відповісти зараз. (LLM error)&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error calling LLM: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;Вибачте, сталася помилка. (Connection error)&quot;</span>
+</code></pre></div>
+
+<h4 id="messaging_clientpy">messaging_client.py:<a class="headerlink" href="#messaging_clientpy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChannelMessage</span>
+
+<span class="n">MESSAGING_SERVICE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MESSAGING_SERVICE_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;http://messaging-service:7004&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_channel_messages</span><span class="p">(</span><span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ChannelMessage</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch recent messages from channel&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MESSAGING_SERVICE_URL</span><span class="si">}</span><span class="s2">/internal/messaging/channels/</span><span class="si">{</span><span class="n">channel_id</span><span class="si">}</span><span class="s2">/messages&quot;</span><span class="p">,</span>
+                <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">ChannelMessage</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="p">)</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching messages: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">post_message</span><span class="p">(</span><span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Post agent reply to channel&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MESSAGING_SERVICE_URL</span><span class="si">}</span><span class="s2">/internal/agents/</span><span class="si">{</span><span class="n">agent_id</span><span class="si">}</span><span class="s2">/post-to-channel&quot;</span><span class="p">,</span>
+                <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;channel_id&quot;</span><span class="p">:</span> <span class="n">channel_id</span><span class="p">,</span>
+                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">text</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error posting message: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+<h4 id="memory_clientpy">memory_client.py:<a class="headerlink" href="#memory_clientpy" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">AGENT_MEMORY_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AGENT_MEMORY_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;http://agent-memory:7008&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">query_memory</span><span class="p">(</span><span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Query agent memory for relevant context&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">AGENT_MEMORY_URL</span><span class="si">}</span><span class="s2">/internal/agent-memory/query&quot;</span><span class="p">,</span>
+                <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;agent_id&quot;</span><span class="p">:</span> <span class="n">agent_id</span><span class="p">,</span>
+                    <span class="s2">&quot;microdao_id&quot;</span><span class="p">:</span> <span class="n">microdao_id</span><span class="p">,</span>
+                    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error querying memory: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</code></pre></div>
+
+<h4 id="mainpy_1">main.py:<a class="headerlink" href="#mainpy_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentInvocation</span><span class="p">,</span> <span class="n">AgentBlueprint</span><span class="p">,</span> <span class="n">ChannelMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">llm_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_response</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">messaging_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_channel_messages</span><span class="p">,</span> <span class="n">post_message</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">memory_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">query_memory</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;DAARION Agent Runtime&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s2">&quot;startup&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">startup_event</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Agent Runtime starting up...&quot;</span><span class="p">)</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">mock_nats_listener</span><span class="p">())</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">mock_nats_listener</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mock NATS listener (replace with actual subscription)&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mock NATS listener started&quot;</span><span class="p">)</span>
+    <span class="c1"># In production:</span>
+    <span class="c1"># sub = await nc.subscribe(&quot;router.invoke.agent&quot;)</span>
+    <span class="c1"># async for msg in sub.messages:</span>
+    <span class="c1">#     await handle_invocation(json.loads(msg.data.decode()))</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_invocation</span><span class="p">(</span><span class="n">invocation_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process agent invocation&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">invocation</span> <span class="o">=</span> <span class="n">AgentInvocation</span><span class="p">(</span><span class="o">**</span><span class="n">invocation_data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">invocation</span><span class="o">.</span><span class="n">entrypoint</span> <span class="o">!=</span> <span class="s2">&quot;channel_message&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ignoring non-channel_message invocation: </span><span class="si">{</span><span class="n">invocation</span><span class="o">.</span><span class="n">entrypoint</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Extract payload</span>
+        <span class="n">channel_id</span> <span class="o">=</span> <span class="n">invocation</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;channel_id&quot;</span><span class="p">)</span>
+        <span class="n">microdao_id</span> <span class="o">=</span> <span class="n">invocation</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;microdao_id&quot;</span><span class="p">)</span>
+        <span class="n">rewrite_prompt</span> <span class="o">=</span> <span class="n">invocation</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rewrite_prompt&quot;</span><span class="p">)</span>
+
+        <span class="c1"># 1. Load agent blueprint (mock for now)</span>
+        <span class="n">blueprint</span> <span class="o">=</span> <span class="k">await</span> <span class="n">load_agent_blueprint</span><span class="p">(</span><span class="n">invocation</span><span class="o">.</span><span class="n">agent_id</span><span class="p">)</span>
+
+        <span class="c1"># 2. Load channel history</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_channel_messages</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+        <span class="c1"># 3. Get last human message</span>
+        <span class="n">last_human_msg</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">msg</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span> <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">sender_type</span> <span class="o">==</span> <span class="s2">&quot;human&quot;</span><span class="p">),</span>
+            <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">last_human_msg</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No human message found, skipping&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># 4. Query memory</span>
+        <span class="n">memory_results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">query_memory</span><span class="p">(</span>
+            <span class="n">invocation</span><span class="o">.</span><span class="n">agent_id</span><span class="p">,</span>
+            <span class="n">microdao_id</span><span class="p">,</span>
+            <span class="n">last_human_msg</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 5. Build prompt</span>
+        <span class="n">system_prompt</span> <span class="o">=</span> <span class="n">blueprint</span><span class="o">.</span><span class="n">instructions</span>
+        <span class="k">if</span> <span class="n">rewrite_prompt</span><span class="p">:</span>
+            <span class="n">system_prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Additional instructions: </span><span class="si">{</span><span class="n">rewrite_prompt</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">llm_messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">}</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Add recent context</span>
+        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]:</span>
+            <span class="n">role</span> <span class="o">=</span> <span class="s2">&quot;assistant&quot;</span> <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">sender_type</span> <span class="o">==</span> <span class="s2">&quot;agent&quot;</span> <span class="k">else</span> <span class="s2">&quot;user&quot;</span>
+            <span class="n">llm_messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="n">role</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">content</span>
+            <span class="p">})</span>
+
+        <span class="c1"># Add memory context</span>
+        <span class="k">if</span> <span class="n">memory_results</span><span class="p">:</span>
+            <span class="n">memory_context</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">memory_results</span><span class="p">[:</span><span class="mi">3</span><span class="p">]])</span>
+            <span class="n">llm_messages</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Relevant knowledge:</span><span class="se">\n</span><span class="si">{</span><span class="n">memory_context</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">})</span>
+
+        <span class="c1"># 6. Generate response</span>
+        <span class="n">response_text</span> <span class="o">=</span> <span class="k">await</span> <span class="n">generate_response</span><span class="p">(</span><span class="n">blueprint</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">llm_messages</span><span class="p">)</span>
+
+        <span class="c1"># 7. Post to channel</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="k">await</span> <span class="n">post_message</span><span class="p">(</span><span class="n">invocation</span><span class="o">.</span><span class="n">agent_id</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">response_text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Agent </span><span class="si">{</span><span class="n">invocation</span><span class="o">.</span><span class="n">agent_id</span><span class="si">}</span><span class="s2"> replied successfully&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to post agent reply&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error handling invocation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">load_agent_blueprint</span><span class="p">(</span><span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AgentBlueprint</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load agent blueprint (mock for now)&quot;&quot;&quot;</span>
+    <span class="c1"># In production: GET /internal/agents/{agent_id}/blueprint</span>
+    <span class="k">return</span> <span class="n">AgentBlueprint</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Sofia-Prime&quot;</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">,</span>
+        <span class="n">instructions</span><span class="o">=</span><span class="s2">&quot;Ти Sofia, помічниця команди DAARION. Допомагай планувати, організовувати та підсумовувати роботу.&quot;</span>
+    <span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="s2">&quot;service&quot;</span><span class="p">:</span> <span class="s2">&quot;agent-runtime&quot;</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/internal/agent-runtime/test-channel&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_channel</span><span class="p">(</span><span class="n">invocation</span><span class="p">:</span> <span class="n">AgentInvocation</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test endpoint for manual invocation&quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="n">handle_invocation</span><span class="p">(</span><span class="n">invocation</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;processed&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<h4 id="configyaml_1">config.yaml:<a class="headerlink" href="#configyaml_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">nats</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;nats://nats:4222&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">invocation_subject</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;router.invoke.agent&quot;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">messaging</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://messaging-service:7004&quot;</span>
+<span class="w">  </span><span class="nt">agent_memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://agent-memory:7008&quot;</span>
+<span class="w">  </span><span class="nt">llm_proxy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://llm-proxy:7007&quot;</span>
+</code></pre></div>
+
+<h4 id="requirementstxt_1">requirements.txt:<a class="headerlink" href="#requirementstxt_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+httpx==0.25.1
+python-nats==2.6.0
+PyYAML==6.0.1
+</code></pre></div>
+
+<h4 id="dockerfile_1">Dockerfile:<a class="headerlink" href="#dockerfile_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;7006&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-docker-compose">4) DOCKER + COMPOSE<a class="headerlink" href="#4-docker-compose" title="Permanent link">&para;</a></h2>
+<p><strong>Create:</strong> <code>docker-compose.agents.yml</code></p>
+<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">agent-filter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./services/agent-filter</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MESSAGING_SERVICE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://messaging-service:7004</span>
+<span class="w">      </span><span class="nt">NATS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nats://nats:4222</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;7005:7005&quot;</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nats</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">messaging-service</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion</span>
+
+<span class="w">  </span><span class="nt">agent-runtime</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./services/agent-runtime</span>
+<span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">MESSAGING_SERVICE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://messaging-service:7004</span>
+<span class="w">      </span><span class="nt">AGENT_MEMORY_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://agent-memory:7008</span>
+<span class="w">      </span><span class="nt">LLM_PROXY_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://llm-proxy:7007</span>
+<span class="w">      </span><span class="nt">NATS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nats://nats:4222</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;7006:7006&quot;</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nats</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">messaging-service</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">daarion</span>
+
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">daarion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<p><strong>Update existing <code>docker-compose.messenger.yml</code> to include agents:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Add at the end</span>
+<span class="w">  </span><span class="nt">agent-filter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">extends</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-compose.agents.yml</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agent-filter</span>
+
+<span class="w">  </span><span class="nt">agent-runtime</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">extends</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker-compose.agents.yml</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agent-runtime</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-acceptance-criteria">5) ACCEPTANCE CRITERIA<a class="headerlink" href="#5-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<p><strong>Phase 2 Complete When:</strong></p>
+<ul>
+<li>✅ Human writes message in Messenger</li>
+<li>✅ messaging-service → matrix-gateway → Matrix works</li>
+<li>✅ Matrix webhook triggers messaging.message.created</li>
+<li>✅ agent_filter receives → outputs agent.filter.decision</li>
+<li>✅ Router receives → emits router.invoke.agent</li>
+<li>✅ agent-runtime receives → generates LLM answer</li>
+<li>✅ agent-runtime posts reply → messaging-service → Matrix → Messenger UI</li>
+<li>✅ Reply visible in Element + Messenger</li>
+<li>✅ E2E latency &lt; 5 seconds</li>
+</ul>
+<hr />
+<h2 id="end-of-task">END OF TASK<a class="headerlink" href="#end-of-task" title="Permanent link">&para;</a></h2>
+<p><strong>Implementation Order:</strong>
+1. agent-filter (1 week)
+2. Router extension (3 days)
+3. agent-runtime (2 weeks)
+4. Docker integration (2 days)
+5. Testing (3 days)</p>
+<p><strong>Total Estimated Time:</strong> 4 weeks</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

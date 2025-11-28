@@ -1,0 +1,1735 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/26_security_audit/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>26 — Security Audit Checklist (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#26-security-audit-checklist-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              26 — Security Audit Checklist (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-identity-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identity &amp; Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Identity & Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-integrations-webhooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Integrations / Webhooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-authorization-layer-rbac-entitlements-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Authorization Layer (RBAC + Entitlements + Capabilities)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Authorization Layer (RBAC + Entitlements + Capabilities)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 RBAC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-entitlements" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Entitlements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-capability-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Capability System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-access-keys-user-agent-integration-embassy" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Access Keys (User, Agent, Integration, Embassy)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Access Keys (User, Agent, Integration, Embassy)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Зберігання
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Політики
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Rate limiting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-confidential-mode-e2ee-like-messaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Confidential Mode (E2EE-Like Messaging)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Confidential Mode (E2EE-Like Messaging)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 На рівні каналів/команд
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Ключі шифрування
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-e2ee-threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 E2EE Threat Model
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-api-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. API Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. API Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-input-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Input validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Rate limiting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Common
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-web-client-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Web Client Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Web Client Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-token-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Token handling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-ui-level-attack-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 UI-level attack surface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Cache
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-database-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Database Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Database Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Структура
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Обмеження
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Політика доступу
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-backup-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Backup &amp; Restore
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Secrets Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Secrets Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Джерело
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-sensitive-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Sensitive secrets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Rotation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-embassy-module-webhooks-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Embassy Module &amp; Webhooks Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Embassy Module & Webhooks Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-inbound-webhooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Inbound Webhooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-outbound-webhooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Outbound Webhooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-oracle-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Oracle Input
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-wallet-chain-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Wallet &amp; Chain Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Wallet & Chain Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-signer" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Signer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-payouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Payouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-chain-rpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Chain RPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-rwa-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. RWA Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. RWA Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-data-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Data-level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-embassy-guarded-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Embassy-guarded actions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-logging-audit-trail" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Logging &amp; Audit Trail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Logging & Audit Trail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-audit-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 Audit Log
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-log-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2 Log integrity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-siem" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3 SIEM інтеграція
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-monitoring-alerting" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Monitoring &amp; Alerting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Monitoring & Alerting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Метрики
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Алерти
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-incident-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Incident Response
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Incident Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-playbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1 Playbooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2 Communication
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-compliance" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Compliance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1 Privacy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-data-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2 Data retention
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-legal" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3 Legal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-summary-security-audit-status-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Summary: Security Audit Status Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Результат
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="26-security-audit-checklist-microdao">26 — Security Audit Checklist (MicroDAO)<a class="headerlink" href="#26-security-audit-checklist-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Безпека інфраструктури, сервісів, вебклієнта, агентів, Embassy, access keys, токенів та даних</em></p>
+<p>Це документ для регулярного безпекового аудитування платформи <strong>DAARION.city / microDAO / Embassy / Agent Mesh / Wallet / RWA</strong>.</p>
+<p>Він структурований так, щоб аудитори, інженери, DevOps та SecOps могли пройтися checklist-пунктами і чітко виявити проблеми в:</p>
+<ul>
+<li>Auth / Identity;</li>
+<li>Access Keys &amp; Capability System;</li>
+<li>RBAC/Entitlements;</li>
+<li>Е2Е шифруванні повідомлень;</li>
+<li>Низькорівневій безпеці API, web, deployment;</li>
+<li>Embassy / Webhooks / Oracle-потоках;</li>
+<li>Wallet / Chain / Payouts;</li>
+<li>RWA flows;</li>
+<li>DB Security;</li>
+<li>Secrets Management;</li>
+<li>Logging/Audit/Compliance.</li>
+</ul>
+<p>Документ повністю відповідає архітектурі, яку ми вже побудували.</p>
+<hr />
+<h2 id="1-identity-authentication">1. Identity &amp; Authentication<a class="headerlink" href="#1-identity-authentication" title="Permanent link">&para;</a></h2>
+<h3 id="11-users">1.1 Users<a class="headerlink" href="#11-users" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Email-based auth, OTP / Magic Link використовують одноразові токени.</li>
+<li>[ ] Термін дії OTP ≤ 10 хв.</li>
+<li>[ ] Повторне використання OTP заблоковано.</li>
+<li>[ ] Blocklist для підозрілих IP/UA-фінгерпринтів.</li>
+<li>[ ] MFA можлива (на roadmap).</li>
+<li>[ ] Session cookies:</li>
+<li>[ ] <code>HttpOnly</code></li>
+<li>[ ] <code>Secure</code></li>
+<li>[ ] <code>SameSite=Strict</code> для prod</li>
+<li>[ ] Session TTL визначений (24–72 год), auto-refresh без надмірного продовження.</li>
+</ul>
+<h3 id="12-agents">1.2 Agents<a class="headerlink" href="#12-agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Приватні агенти НЕ використовують user-сесію.</li>
+<li>[ ] Кожен агент має свій <strong>Agent Access Key</strong> (<code>ak_*</code> з <code>subject_kind='agent'</code>).</li>
+<li>[ ] Немає можливості «перевтілюватися» в користувача.</li>
+<li>[ ] Rate limit для agent keys встановлений.</li>
+</ul>
+<h3 id="13-integrations-webhooks">1.3 Integrations / Webhooks<a class="headerlink" href="#13-integrations-webhooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Інтеграції без JWT. Тільки API Key + HMAC.</li>
+<li>[ ] Embassy Webhooks:</li>
+<li>[ ] Secret зберігається в KMS.</li>
+<li>[ ] Підпис запиту перевіряється (<code>X-Signature</code>).</li>
+<li>[ ] Replay protection: timestamp + max time drift &lt; 5 хв.</li>
+</ul>
+<hr />
+<h2 id="2-authorization-layer-rbac-entitlements-capabilities">2. Authorization Layer (RBAC + Entitlements + Capabilities)<a class="headerlink" href="#2-authorization-layer-rbac-entitlements-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="21-rbac">2.1 RBAC<a class="headerlink" href="#21-rbac" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Ролі існують: <code>Owner</code>, <code>Guardian</code>, <code>Member</code>, <code>Visitor</code>.</li>
+<li>[ ] Роль користувача залежить від <code>team_members.role</code>.</li>
+<li>[ ] Немає прямого доступу до таблиць без RBAC-check.</li>
+</ul>
+<h3 id="22-entitlements">2.2 Entitlements<a class="headerlink" href="#22-entitlements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>plan.Freemium</code>, <code>plan.Casual</code>, <code>plan.Premium</code>, <code>plan.Platformium</code>.</li>
+<li>[ ] Плани визначають квоти на:</li>
+<li>agent runs;</li>
+<li>router.invoke;</li>
+<li>message sends;</li>
+<li>wallet.payout.claim;</li>
+<li>[ ] Стейк RINGK коректно впливає на квоти (множники).</li>
+</ul>
+<h3 id="23-capability-system">2.3 Capability System<a class="headerlink" href="#23-capability-system" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Access Key має capabilities через:</li>
+<li>[ ] bundle.role.*</li>
+<li>[ ] bundle.plan.*</li>
+<li>[ ] bundle.agent.*</li>
+<li>[ ] власні capabilities (<code>access_key_caps</code>)</li>
+<li>[ ] Формула:</li>
+</ul>
+<p><code>text
+  allow = RBAC ∧ Entitlement ∧ Capability ∧ ACL ∧ Mode</code></p>
+<ul>
+<li>[ ] PDP працює централізовано.</li>
+<li>[ ] PEP на всіх API endpoints.</li>
+</ul>
+<hr />
+<h2 id="3-access-keys-user-agent-integration-embassy">3. Access Keys (User, Agent, Integration, Embassy)<a class="headerlink" href="#3-access-keys-user-agent-integration-embassy" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 Зберігання<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Secrets у KMS (не в базі).</li>
+<li>[ ] У таблиці <code>access_keys</code> зберігаються тільки metadata.</li>
+<li>[ ] Секрет видається один раз → не зберігається у plaintext.</li>
+</ul>
+<h3 id="32">3.2 Політики<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] TTL для ключів (default 30–90 днів).</li>
+<li>[ ] Mandatory rotation.</li>
+<li>[ ] Revoke → негайна інвалідація.</li>
+<li>[ ] <code>status</code> ∈ (<code>active</code>, <code>revoked</code>, <code>expired</code>).</li>
+</ul>
+<h3 id="33-rate-limiting">3.3 Rate limiting<a class="headerlink" href="#33-rate-limiting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Okta-like limit per key.</li>
+<li>[ ] DDOS запобігання (global rate limit + per-key).</li>
+</ul>
+<hr />
+<h2 id="4-confidential-mode-e2ee-like-messaging">4. Confidential Mode (E2EE-Like Messaging)<a class="headerlink" href="#4-confidential-mode-e2ee-like-messaging" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 На рівні каналів/команд<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Якщо <code>teams.mode='confidential'</code>:</li>
+<li>[ ] сервер не бачить plaintext у <code>messages.body</code> (тільки ciphertext).</li>
+<li>[ ] агенти не отримують plaintext — тільки:<ul>
+<li>embeddings;</li>
+<li>summary;</li>
+<li>обмежені метадані.</li>
+</ul>
+</li>
+</ul>
+<h3 id="42">4.2 Ключі шифрування<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Зберігаються виключно на клієнті.</li>
+<li>[ ] Rotate при:</li>
+<li>зміні складу команди;</li>
+<li>зміні owner/guardian;</li>
+<li>виході учасника.</li>
+</ul>
+<h3 id="43-e2ee-threat-model">4.3 E2EE Threat Model<a class="headerlink" href="#43-e2ee-threat-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Сервер не може дешифрувати повідомлення.</li>
+<li>[ ] Агенти працюють на «вивітрених» даних (privacy-preserving).</li>
+</ul>
+<hr />
+<h2 id="5-api-security">5. API Security<a class="headerlink" href="#5-api-security" title="Permanent link">&para;</a></h2>
+<h3 id="51-input-validation">5.1 Input validation<a class="headerlink" href="#51-input-validation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Валідація payload (Zod/JSON schema).</li>
+<li>[ ] Неможливо запостити чужий team_id/channel_id/task_id.</li>
+</ul>
+<h3 id="52-rate-limiting">5.2 Rate limiting<a class="headerlink" href="#52-rate-limiting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] per-IP</li>
+<li>[ ] per-user</li>
+<li>[ ] per-access-key</li>
+<li>[ ] per-endpoint (наприклад <code>/agent/run</code> має сильний ліміт)</li>
+</ul>
+<h3 id="53-common">5.3 Common<a class="headerlink" href="#53-common" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] CORS: origin whitelist</li>
+<li>[ ] TLS enforced</li>
+<li>[ ] Referrer policy: <code>strict-origin</code></li>
+<li>[ ] Headers:</li>
+<li>[ ] <code>X-Frame-Options: DENY</code></li>
+<li>
+<p>[ ] <code>Content-Security-Policy</code> мінімум:</p>
+<p><code>text
+default-src 'self';
+script-src 'self' 'unsafe-inline';
+connect-src 'self' https:;
+img-src 'self' data: https:;
+frame-ancestors 'none';</code></p>
+</li>
+<li>
+<p>[ ] Вимкнуто directory listing у CDN.</p>
+</li>
+</ul>
+<hr />
+<h2 id="6-web-client-security">6. Web Client Security<a class="headerlink" href="#6-web-client-security" title="Permanent link">&para;</a></h2>
+<h3 id="61-token-handling">6.1 Token handling<a class="headerlink" href="#61-token-handling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Немає зберігання секретів у localStorage.</li>
+<li>[ ] Capability-token не містить чутливих даних.</li>
+<li>[ ] Cookies: secure, httponly, samesite.</li>
+</ul>
+<h3 id="62-ui-level-attack-surface">6.2 UI-level attack surface<a class="headerlink" href="#62-ui-level-attack-surface" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] XSS захищено (React escaping).</li>
+<li>[ ] Посилання user-generated content: <code>rel="noopener noreferrer"</code>.</li>
+</ul>
+<h3 id="63-cache">6.3 Cache<a class="headerlink" href="#63-cache" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Disable caching of sensitive pages.</li>
+</ul>
+<hr />
+<h2 id="7-database-security">7. Database Security<a class="headerlink" href="#7-database-security" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 Структура<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Всі таблиці пройдені аудитом (див. <code>27_database_schema_migrations.md</code>).</li>
+<li>[ ] Поля з критичними даними не мають plaintext секретів.</li>
+</ul>
+<h3 id="72">7.2 Обмеження<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] CHECK / ENUM на:</li>
+<li>roles</li>
+<li>viewer_types</li>
+<li>message types</li>
+<li>task statuses</li>
+<li>wallet statuses</li>
+<li>access key statuses</li>
+<li>embassy platforms</li>
+<li>[ ] Foreign keys у всіх критичних зв'язках.</li>
+</ul>
+<h3 id="73">7.3 Політика доступу<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Web/API використовує RLS або server-side filters.</li>
+<li>[ ] Відсутня можливість запитів напряму «в сусідню команду».</li>
+</ul>
+<h3 id="74-backup-restore">7.4 Backup &amp; Restore<a class="headerlink" href="#74-backup-restore" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] PITR 7–30 днів для prod.</li>
+<li>[ ] Snapshot перед кожним релізом.</li>
+<li>[ ] Процедура restore протестована.</li>
+</ul>
+<hr />
+<h2 id="8-secrets-management">8. Secrets Management<a class="headerlink" href="#8-secrets-management" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1 Джерело<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Prod/Staging secrets в KMS або Vault.</li>
+<li>[ ] Немає <code>.env</code> у repo.</li>
+<li>[ ] Локальні <code>.env</code> окремо від production.</li>
+</ul>
+<h3 id="82-sensitive-secrets">8.2 Sensitive secrets<a class="headerlink" href="#82-sensitive-secrets" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Embassy secrets</li>
+<li>Wallet signer private key</li>
+<li>JWT secret</li>
+<li>Session secret</li>
+<li>RWA oracle secrets</li>
+</ul>
+<h3 id="83-rotation">8.3 Rotation<a class="headerlink" href="#83-rotation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Rotation policy існує.</li>
+<li>[ ] Auto-rotate для Embassy secrets мінімум раз на 30–60 днів.</li>
+</ul>
+<hr />
+<h2 id="9-embassy-module-webhooks-security">9. Embassy Module &amp; Webhooks Security<a class="headerlink" href="#9-embassy-module-webhooks-security" title="Permanent link">&para;</a></h2>
+<h3 id="91-inbound-webhooks">9.1 Inbound Webhooks<a class="headerlink" href="#91-inbound-webhooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Підпис перевіряється (<code>X-Signature</code>).</li>
+<li>[ ] Timestamp у тілі підпису.</li>
+<li>[ ] Maximum allowed skew &lt; 5 хв.</li>
+<li>[ ] Body hashing (HMAC_SHA256).</li>
+</ul>
+<h3 id="92-outbound-webhooks">9.2 Outbound Webhooks<a class="headerlink" href="#92-outbound-webhooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Retry з експоненційною затримкою.</li>
+<li>[ ] Dead-letter queue для NATS споживачів.</li>
+</ul>
+<h3 id="93-oracle-input">9.3 Oracle Input<a class="headerlink" href="#93-oracle-input" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Oracle events проходять PDP capability-check:</li>
+<li><code>embassy.energy.update</code></li>
+<li><code>embassy.rwa.claim</code></li>
+<li><code>embassy.intent.read</code></li>
+<li>[ ] Oracle payload має структуру з валідацією (не приймати довільний json).</li>
+</ul>
+<hr />
+<h2 id="10-wallet-chain-security">10. Wallet &amp; Chain Security<a class="headerlink" href="#10-wallet-chain-security" title="Permanent link">&para;</a></h2>
+<h3 id="101-signer">10.1 Signer<a class="headerlink" href="#101-signer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Wallet private key у KMS.</li>
+<li>[ ] Операції підпису — через офіційну KMS-операцію (не на сервері).</li>
+<li>[ ] Multi-sig або 4-eyes approval для критичних транзакцій.</li>
+</ul>
+<h3 id="102-payouts">10.2 Payouts<a class="headerlink" href="#102-payouts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>payout.generated</code> приходить лише з wallet service.</li>
+<li>[ ] claim → tx → підтвердження → оновлення БД.</li>
+<li>[ ] Rate limit на claim.</li>
+</ul>
+<h3 id="103-chain-rpc">10.3 Chain RPC<a class="headerlink" href="#103-chain-rpc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Використовувати приватні RPC endpoint-и.</li>
+<li>[ ] Логи RPC запитів не містять приватних ключів.</li>
+</ul>
+<hr />
+<h2 id="11-rwa-security">11. RWA Security<a class="headerlink" href="#11-rwa-security" title="Permanent link">&para;</a></h2>
+<h3 id="111-data-level">11.1 Data-level<a class="headerlink" href="#111-data-level" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] RWA inventory має типи:</li>
+<li><code>energy</code>, <code>food</code>, <code>water</code>, <code>essence</code>, <code>generic</code>.</li>
+<li>[ ] Кожен update — подія <code>rwa.inventory.updated</code>.</li>
+</ul>
+<h3 id="112-embassy-guarded-actions">11.2 Embassy-guarded actions<a class="headerlink" href="#112-embassy-guarded-actions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] тільки Embassy Keys з capability:</li>
+<li><code>rwa.inventory.update</code></li>
+<li><code>embassy.rwa.claim</code></li>
+<li><code>embassy.energy.update</code></li>
+</ul>
+<hr />
+<h2 id="12-logging-audit-trail">12. Logging &amp; Audit Trail<a class="headerlink" href="#12-logging-audit-trail" title="Permanent link">&para;</a></h2>
+<h3 id="121-audit-log">12.1 Audit Log<a class="headerlink" href="#121-audit-log" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Всі критичні дії пишуть у <code>audit_log</code>:</li>
+<li>access key created/revoked,</li>
+<li>agent run invoked,</li>
+<li>payout claimed,</li>
+<li>governance actions,</li>
+<li>embassy updates.</li>
+</ul>
+<h3 id="122-log-integrity">12.2 Log integrity<a class="headerlink" href="#122-log-integrity" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Логи доступні тільки admin/ops.</li>
+<li>[ ] Немає plaintext секретів.</li>
+</ul>
+<h3 id="123-siem">12.3 SIEM інтеграція<a class="headerlink" href="#123-siem" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Підтримується forwarding у ELK / Loki / Cloud Logging.</li>
+</ul>
+<hr />
+<h2 id="13-monitoring-alerting">13. Monitoring &amp; Alerting<a class="headerlink" href="#13-monitoring-alerting" title="Permanent link">&para;</a></h2>
+<h3 id="131">13.1 Метрики<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
+<ul>
+<li>API latency, error rate</li>
+<li>DB connections, slow queries</li>
+<li>NATS lag</li>
+<li>Agent run failures</li>
+<li>Embassy webhook failures</li>
+<li>Wallet TX errors</li>
+</ul>
+<h3 id="132">13.2 Алерти<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] high latency</li>
+<li>[ ] high error rate (&gt;2%)</li>
+<li>[ ] failed db migration</li>
+<li>[ ] stuck outbox events</li>
+<li>[ ] agent-run failure rate &gt; заданого порогу</li>
+<li>[ ] "Embassy webhook signature mismatch"</li>
+</ul>
+<hr />
+<h2 id="14-incident-response">14. Incident Response<a class="headerlink" href="#14-incident-response" title="Permanent link">&para;</a></h2>
+<h3 id="141-playbooks">14.1 Playbooks<a class="headerlink" href="#141-playbooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] DB corruption</li>
+<li>[ ] Chain stuck / RPC unreachable</li>
+<li>[ ] Embassy compromised key</li>
+<li>[ ] Access key leak</li>
+<li>[ ] Agent runaway (infinite loop / high cost)</li>
+<li>[ ] DDOS attack</li>
+<li>[ ] RWA incorrect oracle input</li>
+</ul>
+<h3 id="142-communication">14.2 Communication<a class="headerlink" href="#142-communication" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Responsible security officer визначено.</li>
+<li>[ ] Питання ескалації прописані.</li>
+</ul>
+<hr />
+<h2 id="15-compliance">15. Compliance<a class="headerlink" href="#15-compliance" title="Permanent link">&para;</a></h2>
+<h3 id="151-privacy">15.1 Privacy<a class="headerlink" href="#151-privacy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] PII зберігається encrypted-at-rest.</li>
+<li>[ ] Резидентські дані обмежені на команди.</li>
+<li>[ ] E2EE для confidential-каналів гарантує приватність.</li>
+</ul>
+<h3 id="152-data-retention">15.2 Data retention<a class="headerlink" href="#152-data-retention" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Логи зберігаються до 30–90 днів.</li>
+<li>[ ] Outbox events → 7 днів.</li>
+</ul>
+<h3 id="153-legal">15.3 Legal<a class="headerlink" href="#153-legal" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Webhooks &amp; Embassy: мінімізація PII.</li>
+<li>[ ] Wallet: відповідність нормам локальних регуляцій.</li>
+</ul>
+<hr />
+<h2 id="16-summary-security-audit-status-table">16. Summary: Security Audit Status Table<a class="headerlink" href="#16-summary-security-audit-status-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Категорія</th>
+<th>Статус</th>
+<th>Проблеми</th>
+<th>Пріоритет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity/Auth</td>
+<td>PASS / WARN / FAIL</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Access Keys</td>
+<td>PASS / WARN / FAIL</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>RBAC</td>
+<td>PASS</td>
+<td>…</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Capabilities</td>
+<td>PASS</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>E2EE</td>
+<td>…</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Embassy</td>
+<td>…</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Wallet</td>
+<td>…</td>
+<td>…</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>RWA</td>
+<td>…</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>…</td>
+<td>…</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Secrets</td>
+<td>…</td>
+<td>…</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Logs</td>
+<td>…</td>
+<td>…</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="17-cursor">17. Завдання для Cursor<a class="headerlink" href="#17-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior security engineer. Implement security measures based on:
+- 26_security_audit.md
+- 24_access_keys_capabilities_system.md
+- 25_deployment_infrastructure.md
+- 12_agent_runtime_core.md
+
+Tasks:
+1) Implement rate limiting middleware for API endpoints.
+2) Add input validation (Zod schemas) for all API endpoints.
+3) Implement security headers middleware (CSP, X-Frame-Options, etc.).
+4) Add audit logging for critical actions (access keys, payouts, governance).
+5) Implement secrets rotation policy.
+6) Add security monitoring alerts.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="18">18. Результат<a class="headerlink" href="#18" title="Permanent link">&para;</a></h2>
+<p>Після проходження цього чеклисту:</p>
+<ul>
+<li>виявлені всі критичні вразливості безпеки;</li>
+<li>впроваджені best practices для всіх компонентів системи;</li>
+<li>готовність до production deployment з точки зору безпеки;</li>
+<li>чітка політика incident response та compliance.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0 (для MVP → RC → PROD)<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

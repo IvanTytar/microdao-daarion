@@ -1,0 +1,1158 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/HELION-QUICKSTART/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Helion AI Agent - Quick Start Guide - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#helion-ai-agent-quick-start-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Helion AI Agent - Quick Start Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Основні функції
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Передумови
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Швидкий старт
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Швидкий старт">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-telegram" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Налаштування Telegram бота
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Налаштування environment variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-webhook-telegram" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Встановлення webhook для Telegram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dagi-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Запуск DAGI Stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Тестування бота
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Тестові запити
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Тестові запити">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для інвесторів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для інженерів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для новачків
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для DAO учасників
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Моніторинг
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Моніторинг">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Перевірка статусу
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Перегляд логів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Налаштування
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Налаштування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Зміна системного промпту
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Додавання нових режимів взаємодії
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Налаштування memory context
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐛 Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐛 Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Бот не відповідає
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-file-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      Помилка "prompt file not found"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Service недоступний
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Архітектура
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      📖 Додаткові ресурси
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      🆘 Підтримка
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="helion-ai-agent-quick-start-guide">Helion AI Agent - Quick Start Guide<a class="headerlink" href="#helion-ai-agent-quick-start-guide" title="Permanent link">&para;</a></h1>
+<p><strong>Helion</strong> — це AI-агент платформи Energy Union, який допомагає користувачам з технологіями EcoMiner/BioMiner, токеномікою (ENERGY, 1T, kWt, NFT) та DAO governance.</p>
+<h2 id="_1">🎯 Основні функції<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Технічна підтримка</strong>: специфікації EcoMiner, BioMiner, когенерація</li>
+<li><strong>Токеноміка</strong>: пояснення ENERGY, 1T, kWt токенів та NFT</li>
+<li><strong>DAO governance</strong>: правила голосування, ролі, механіки</li>
+<li><strong>Multi-mode адаптація</strong>: 9 режимів взаємодії (інвестор, інженер, новачок, тощо)</li>
+<li><strong>RAG верифікація</strong>: всі відповіді базуються на перевіреній базі знань</li>
+<li><strong>Compliance</strong>: 4-рівневий контроль доступу до інформації (R1-R4)</li>
+</ul>
+<h2 id="_2">📋 Передумови<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Docker та Docker Compose встановлені</li>
+<li>Telegram Bot Token (отриманий від @BotFather)</li>
+<li>DAGI Stack запущений (router, gateway, memory-service)</li>
+</ul>
+<h2 id="_3">🚀 Швидкий старт<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="1-telegram">1. Налаштування Telegram бота<a class="headerlink" href="#1-telegram" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Створіть бота через @BotFather в Telegram</span>
+<span class="c1"># Збережіть отриманий токен</span>
+</code></pre></div>
+
+<h3 id="2-environment-variables">2. Налаштування environment variables<a class="headerlink" href="#2-environment-variables" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Відредагуйте .env файл</span>
+nano<span class="w"> </span>.env
+</code></pre></div>
+
+<p>Додайте:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Helion Agent Configuration</span>
+<span class="nv">HELION_TELEGRAM_BOT_TOKEN</span><span class="o">=</span>ВАШ_ТОКЕН_ТУТ
+<span class="nv">HELION_NAME</span><span class="o">=</span>Helion
+<span class="nv">HELION_PROMPT_PATH</span><span class="o">=</span>./gateway-bot/helion_prompt.txt
+</code></pre></div>
+
+<h3 id="3-webhook-telegram">3. Встановлення webhook для Telegram<a class="headerlink" href="#3-webhook-telegram" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Замініть YOUR_BOT_TOKEN та YOUR_DOMAIN</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://api.telegram.org/botYOUR_BOT_TOKEN/setWebhook&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;url&quot;: &quot;https://YOUR_DOMAIN/helion/telegram/webhook&quot;,</span>
+<span class="s1">    &quot;allowed_updates&quot;: [&quot;message&quot;]</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
+
+<p>Для локального тестування використовуйте ngrok:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Запустіть ngrok</span>
+ngrok<span class="w"> </span>http<span class="w"> </span><span class="m">9300</span>
+
+<span class="c1"># Використовуйте ngrok URL для webhook</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://api.telegram.org/botYOUR_BOT_TOKEN/setWebhook&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;url&quot;: &quot;https://YOUR_NGROK_URL.ngrok.io/helion/telegram/webhook&quot;</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
+
+<h3 id="4-dagi-stack">4. Запуск DAGI Stack<a class="headerlink" href="#4-dagi-stack" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># З кореневої директорії проєкту</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Перевірка логів</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>gateway
+
+<span class="c1"># Перевірка здоров&#39;я</span>
+curl<span class="w"> </span>http://localhost:9300/health
+</code></pre></div>
+
+<p>Очікуваний результат:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;daarwizz&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARWIZZ&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;prompt_loaded&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;helion&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Helion&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;prompt_loaded&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-16T17:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="5">5. Тестування бота<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>Відкрийте свого бота в Telegram і надішліть повідомлення:</p>
+<div class="codehilite"><pre><span></span><code>Привіт! Що таке EcoMiner?
+</code></pre></div>
+
+<p>Helion має відповісти з технічними деталями про EcoMiner.</p>
+<h2 id="_4">🧪 Тестові запити<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">Для інвесторів<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Який ROI від EcoMiner?
+Які ризики інвестування в ENERGY токен?
+</code></pre></div>
+
+<h3 id="_6">Для інженерів<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Які технічні характеристики EcoMiner SES-77?
+Як працює когенерація в системі?
+</code></pre></div>
+
+<h3 id="_7">Для новачків<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Що таке Energy Union?
+Як почати користуватися платформою?
+</code></pre></div>
+
+<h3 id="dao">Для DAO учасників<a class="headerlink" href="#dao" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Як працює голосування в DAO?
+Які є ролі учасників?
+</code></pre></div>
+
+<h2 id="_8">📊 Моніторинг<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="_9">Перевірка статусу<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Gateway health</span>
+curl<span class="w"> </span>http://localhost:9300/health
+
+<span class="c1"># Router health</span>
+curl<span class="w"> </span>http://localhost:9102/health
+
+<span class="c1"># Memory service health</span>
+curl<span class="w"> </span>http://localhost:8000/health
+</code></pre></div>
+
+<h3 id="_10">Перегляд логів<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Всі сервіси</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f
+
+<span class="c1"># Тільки gateway</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>gateway
+
+<span class="c1"># Останні 100 рядків</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span><span class="w"> </span>gateway
+</code></pre></div>
+
+<h3 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Увійти в контейнер</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>dagi-gateway<span class="w"> </span>bash
+
+<span class="c1"># Перевірити файл промпту</span>
+cat<span class="w"> </span>/app/gateway-bot/helion_prompt.txt
+
+<span class="c1"># Перевірити env змінні</span>
+env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>HELION
+</code></pre></div>
+
+<h2 id="_11">🔧 Налаштування<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="_12">Зміна системного промпту<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Відредагуйте <code>gateway-bot/helion_prompt.txt</code></li>
+<li>Перезапустіть gateway:
+   <code>bash
+   docker-compose restart gateway</code></li>
+</ol>
+<h3 id="_13">Додавання нових режимів взаємодії<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>Helion автоматично адаптується до типу користувача. Для налаштування редагуйте <code>helion_prompt.txt</code>.</p>
+<h3 id="memory-context">Налаштування memory context<a class="headerlink" href="#memory-context" title="Permanent link">&para;</a></h3>
+<p>Memory зберігається автоматично через Memory Service. Налаштуйте ліміт історії:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># У http_api.py, функція helion_telegram_webhook</span>
+<span class="n">memory_context</span> <span class="o">=</span> <span class="k">await</span> <span class="n">memory_client</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span>
+    <span class="n">user_id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;tg:</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">agent_id</span><span class="o">=</span><span class="s2">&quot;helion&quot;</span><span class="p">,</span>
+    <span class="n">team_id</span><span class="o">=</span><span class="n">dao_id</span><span class="p">,</span>
+    <span class="n">channel_id</span><span class="o">=</span><span class="n">chat_id</span><span class="p">,</span>
+    <span class="n">limit</span><span class="o">=</span><span class="mi">10</span>  <span class="c1"># Змініть це значення</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h2 id="troubleshooting">🐛 Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="_14">Бот не відповідає<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Перевірте webhook встановлено:
+   <code>bash
+   curl "https://api.telegram.org/botYOUR_TOKEN/getWebhookInfo"</code></p>
+</li>
+<li>
+<p>Перевірте gateway запущено:
+   <code>bash
+   docker ps | grep dagi-gateway</code></p>
+</li>
+<li>
+<p>Перевірте логи:
+   <code>bash
+   docker-compose logs --tail=50 gateway</code></p>
+</li>
+</ol>
+<h3 id="prompt-file-not-found">Помилка "prompt file not found"<a class="headerlink" href="#prompt-file-not-found" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірте файл існує</span>
+ls<span class="w"> </span>-la<span class="w"> </span>gateway-bot/helion_prompt.txt
+
+<span class="c1"># Перевірте права доступу</span>
+chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>gateway-bot/helion_prompt.txt
+</code></pre></div>
+
+<h3 id="memory-service">Memory Service недоступний<a class="headerlink" href="#memory-service" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірте memory-service запущено</span>
+docker<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>memory-service
+
+<span class="c1"># Запустіть якщо потрібно</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>memory-service
+</code></pre></div>
+
+<h2 id="_15">📚 Архітектура<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>User (Telegram)
+      ↓
+Telegram Bot API (webhook)
+      ↓
+Gateway Service (/helion/telegram/webhook)
+      ↓
+Memory Service (отримання контексту)
+      ↓
+DAGI Router (обробка з Helion промптом)
+      ↓
+LLM Provider (Ollama/DeepSeek)
+      ↓
+Memory Service (збереження історії)
+      ↓
+Telegram Bot API (відправка відповіді)
+</code></pre></div>
+
+<h2 id="security">🔐 Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Токени</strong>: Ніколи не комітьте <code>.env</code> файл</li>
+<li><strong>Webhook</strong>: Використовуйте HTTPS в продакшені</li>
+<li><strong>Rate limiting</strong>: Налаштовано на рівні router</li>
+<li><strong>Compliance</strong>: 4-рівнева система доступу R1-R4</li>
+</ul>
+<h2 id="_16">📖 Додаткові ресурси<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../WARP.md">DAGI Stack Documentation</a></li>
+<li><a href="../router-config.yml">Router Configuration</a></li>
+<li><a href="../agents/">Agent Map</a></li>
+<li><a href="../gateway-bot/helion_prompt.txt">System Prompt</a></li>
+</ul>
+<h2 id="_17">🆘 Підтримка<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<ul>
+<li>GitHub Issues: <a href="https://github.com/IvanTytar/microdao-daarion/issues">IvanTytar/microdao-daarion</a></li>
+<li>Energy Union: energyunion.io</li>
+<li>DAARION.city ecosystem</li>
+</ul>
+<hr />
+<p><strong>Version</strong>: 1.0<br />
+<strong>Last Updated</strong>: 2025-01-16<br />
+<strong>Status</strong>: Production Ready ✅</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

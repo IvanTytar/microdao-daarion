@@ -1,0 +1,1329 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/greenfood/scaling_to_1000_agents/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Масштабування GREENFOOD до 1000+ агентів - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#greenfood-1000" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Масштабування GREENFOOD до 1000+ агентів
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Архітектурні виклики
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Архітектурні виклики">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Паралелізм та черги
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Державне управління (State Management)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. LLM інфраструктура
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. LLM інфраструктура">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-llm-horizontal-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Розподілені LLM (Horizontal Scaling)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Використання хмарних LLM для пікових навантажень
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Кешування відповідей LLM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Моніторинг та observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Моніторинг та observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-prometheus-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Метрики (Prometheus + Grafana)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-distributed-tracing-jaeger-tempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Distributed Tracing (Jaeger / Tempo)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-elk-stack-loki" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Логування (ELK Stack / Loki)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Ізоляція та безпека
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Ізоляція та безпека">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-circuit-breaker-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Circuit Breaker Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Sandbox для кожного агента
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Дані та API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Дані та API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-connection-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      A. Connection Pooling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-read-replicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      B. Read Replicas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      C. Кешування на рівні API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Орієнтовні потужності
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Орієнтовні потужності">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Поточна архітектура (13 агентів)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1000" class="md-nav__link">
+    <span class="md-ellipsis">
+      Для 1000 агентів
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Необхідна інфраструктура
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Орієнтовний бюджет
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ План масштабування
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ План масштабування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-proof-of-concept-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Proof of Concept (Current)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-production-ready-1-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Production Ready (1-3 місяці)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-scale-out-3-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Scale Out (3-6 місяців)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-enterprise-scale-6-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Enterprise Scale (6-12 місяців)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Швидкий старт для масштабування
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Швидкий старт для масштабування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Додай черги (швидко)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Додай моніторинг (швидко)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-load-balancer-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Додай load balancer для LLM (середньо)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Висновок
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="greenfood-1000">Масштабування GREENFOOD до 1000+ агентів<a class="headerlink" href="#greenfood-1000" title="Permanent link">&para;</a></h1>
+<p><strong>Поточний стан</strong>: 13 агентів, 4 crews<br />
+<strong>Мета</strong>: 1000+ паралельних агентів для сотень комітентів</p>
+<hr />
+<h2 id="_1">🎯 Архітектурні виклики<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. <strong>Паралелізм та черги</strong><a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><strong>Проблема</strong>: 1000 агентів = 1000+ одночасних LLM-викликів<br />
+<strong>Рішення</strong>:
+- <strong>Черги завдань</strong>: Redis Queue (RQ), Celery, або NATS JetStream
+- <strong>Rate limiting</strong>: Обмеження кількості одночасних запитів до LLM
+- <strong>Пріоритизація</strong>: VIP-клієнти → звичайні → фонові завдання</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Приклад з Celery</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">celery</span><span class="w"> </span><span class="kn">import</span> <span class="n">Celery</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s1">&#39;greenfood&#39;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s1">&#39;redis://localhost:6379&#39;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">task</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Високий пріоритет</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_urgent_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">):</span>
+    <span class="n">crew</span> <span class="o">=</span> <span class="n">GREENFOOD_CREWS</span><span class="p">[</span><span class="s2">&quot;fulfill_order&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">crew</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">task</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>  <span class="c1"># Низький пріоритет</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_analytics_report</span><span class="p">():</span>
+    <span class="n">crew</span> <span class="o">=</span> <span class="n">GREENFOOD_CREWS</span><span class="p">[</span><span class="s2">&quot;monthly_settlement&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">crew</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+</code></pre></div>
+
+<hr />
+<h3 id="2-state-management">2. <strong>Державне управління (State Management)</strong><a class="headerlink" href="#2-state-management" title="Permanent link">&para;</a></h3>
+<p><strong>Проблема</strong>: Кожен агент має контекст, пам'ять, стан діалогу<br />
+<strong>Рішення</strong>:
+- <strong>Redis</strong> для швидкого кешу (поточні діалоги, сесії)
+- <strong>PostgreSQL</strong> для персистентного стану (історія, транзакції)
+- <strong>Memory Service</strong> (вже є в проєкті!)</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Приклад збереження стану</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">redis</span><span class="w"> </span><span class="kn">import</span> <span class="n">Redis</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">redis_client</span> <span class="o">=</span> <span class="n">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">save_agent_state</span><span class="p">(</span><span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">redis_client</span><span class="o">.</span><span class="n">setex</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;agent:</span><span class="si">{</span><span class="n">agent_id</span><span class="si">}</span><span class="s2">:state&quot;</span><span class="p">,</span>
+        <span class="mi">3600</span><span class="p">,</span>  <span class="c1"># TTL 1 година</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_agent_state</span><span class="p">(</span><span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">redis_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;agent:</span><span class="si">{</span><span class="n">agent_id</span><span class="si">}</span><span class="s2">:state&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">if</span> <span class="n">state</span> <span class="k">else</span> <span class="p">{}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="3-llm">3. <strong>LLM інфраструктура</strong><a class="headerlink" href="#3-llm" title="Permanent link">&para;</a></h3>
+<p><strong>Проблема</strong>: Ollama на одній машині не витримає 1000 запитів/хв<br />
+<strong>Рішення</strong>:</p>
+<h4 id="a-llm-horizontal-scaling">A. Розподілені LLM (Horizontal Scaling)<a class="headerlink" href="#a-llm-horizontal-scaling" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># docker-compose для LLM кластера</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ollama-1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama/ollama</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OLLAMA_NUM_PARALLEL=4</span>
+
+<span class="w">  </span><span class="nt">ollama-2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama/ollama</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OLLAMA_NUM_PARALLEL=4</span>
+
+<span class="w">  </span><span class="nt">ollama-3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama/ollama</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OLLAMA_NUM_PARALLEL=4</span>
+
+<span class="w">  </span><span class="nt">llm-load-balancer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:alpine</span>
+<span class="w">    </span><span class="c1"># Балансування навантаження між ollama-1, 2, 3</span>
+</code></pre></div>
+
+<h4 id="b-llm">B. Використання хмарних LLM для пікових навантажень<a class="headerlink" href="#b-llm" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Гібридна стратегія</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_llm_provider</span><span class="p">(</span><span class="n">priority</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">priority</span> <span class="o">==</span> <span class="s2">&quot;urgent&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;cloud_deepseek&quot;</span>  <span class="c1"># Швидкий хмарний LLM</span>
+    <span class="k">elif</span> <span class="n">is_local_available</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;local_qwen3_8b&quot;</span>  <span class="c1"># Локальний Ollama</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;cloud_deepseek&quot;</span>  <span class="c1"># Fallback на хмару</span>
+</code></pre></div>
+
+<h4 id="c-llm">C. Кешування відповідей LLM<a class="headerlink" href="#c-llm" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_llm_response_cached</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="c1"># Кеш для повторюваних запитів</span>
+    <span class="n">cache_key</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agent_id</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="n">cached</span> <span class="o">=</span> <span class="n">redis_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;llm_cache:</span><span class="si">{</span><span class="n">cache_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cached</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cached</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">call_llm</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">agent_id</span><span class="p">)</span>
+    <span class="n">redis_client</span><span class="o">.</span><span class="n">setex</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;llm_cache:</span><span class="si">{</span><span class="n">cache_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+</code></pre></div>
+
+<hr />
+<h3 id="4-observability">4. <strong>Моніторинг та observability</strong><a class="headerlink" href="#4-observability" title="Permanent link">&para;</a></h3>
+<p><strong>Проблема</strong>: Як зрозуміти, що відбувається з 1000 агентами?<br />
+<strong>Рішення</strong>:</p>
+<h4 id="a-prometheus-grafana">A. Метрики (Prometheus + Grafana)<a class="headerlink" href="#a-prometheus-grafana" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">Gauge</span>
+
+<span class="n">agent_requests</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;greenfood_agent_requests&#39;</span><span class="p">,</span> <span class="s1">&#39;Запити до агентів&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;agent_id&#39;</span><span class="p">])</span>
+<span class="n">agent_latency</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">&#39;greenfood_agent_latency&#39;</span><span class="p">,</span> <span class="s1">&#39;Затримка агентів&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;agent_id&#39;</span><span class="p">])</span>
+<span class="n">active_agents</span> <span class="o">=</span> <span class="n">Gauge</span><span class="p">(</span><span class="s1">&#39;greenfood_active_agents&#39;</span><span class="p">,</span> <span class="s1">&#39;Активні агенти&#39;</span><span class="p">)</span>
+
+<span class="c1"># Використання</span>
+<span class="nd">@track_metrics</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">execute_agent</span><span class="p">(</span><span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">agent_requests</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">)</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">agent_latency</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">agent</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="b-distributed-tracing-jaeger-tempo">B. Distributed Tracing (Jaeger / Tempo)<a class="headerlink" href="#b-distributed-tracing-jaeger-tempo" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace</span>
+
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;fulfill_order&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fulfill_order</span><span class="p">(</span><span class="n">order_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;warehouse.reserve&quot;</span><span class="p">):</span>
+        <span class="n">warehouse_agent</span><span class="o">.</span><span class="n">reserve_items</span><span class="p">(</span><span class="n">order_data</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;logistics.create_route&quot;</span><span class="p">):</span>
+        <span class="n">logistics_agent</span><span class="o">.</span><span class="n">create_route</span><span class="p">(</span><span class="n">order_data</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="c-elk-stack-loki">C. Логування (ELK Stack / Loki)<a class="headerlink" href="#c-elk-stack-loki" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">structlog</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">structlog</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+    <span class="s2">&quot;agent_execution_started&quot;</span><span class="p">,</span>
+    <span class="n">agent_id</span><span class="o">=</span><span class="s2">&quot;warehouse_agent&quot;</span><span class="p">,</span>
+    <span class="n">task_id</span><span class="o">=</span><span class="s2">&quot;task_123&quot;</span><span class="p">,</span>
+    <span class="n">vendor_id</span><span class="o">=</span><span class="s2">&quot;vendor_456&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h3 id="5">5. <strong>Ізоляція та безпека</strong><a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p><strong>Проблема</strong>: Один збійний агент не має зупинити всю систему<br />
+<strong>Рішення</strong>:</p>
+<h4 id="a-circuit-breaker-pattern">A. Circuit Breaker Pattern<a class="headerlink" href="#a-circuit-breaker-pattern" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pybreaker</span><span class="w"> </span><span class="kn">import</span> <span class="n">CircuitBreaker</span>
+
+<span class="n">breaker</span> <span class="o">=</span> <span class="n">CircuitBreaker</span><span class="p">(</span><span class="n">fail_max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">timeout_duration</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+<span class="nd">@breaker</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">call_warehouse_agent</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="c1"># Якщо warehouse_agent падає 5 разів підряд,</span>
+    <span class="c1"># circuit breaker відкривається на 60 сек</span>
+    <span class="k">return</span> <span class="n">warehouse_agent</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="b-sandbox">B. Sandbox для кожного агента<a class="headerlink" href="#b-sandbox" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Docker container per agent instance</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> \
+  <span class="o">--</span><span class="n">memory</span><span class="o">=</span><span class="s2">&quot;512m&quot;</span> \
+  <span class="o">--</span><span class="n">cpus</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span> \
+  <span class="o">--</span><span class="n">name</span> <span class="n">agent_warehouse_001</span> \
+  <span class="n">greenfood</span><span class="o">/</span><span class="n">agent</span><span class="p">:</span><span class="n">latest</span> \
+  <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">greenfood</span><span class="o">.</span><span class="n">crew</span><span class="o">.</span><span class="n">warehouse_agent</span>
+</code></pre></div>
+
+<hr />
+<h3 id="6-api">6. <strong>Дані та API</strong><a class="headerlink" href="#6-api" title="Permanent link">&para;</a></h3>
+<p><strong>Проблема</strong>: 1000 агентів = тисячі запитів до БД/API<br />
+<strong>Рішення</strong>:</p>
+<h4 id="a-connection-pooling">A. Connection Pooling<a class="headerlink" href="#a-connection-pooling" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.pool</span><span class="w"> </span><span class="kn">import</span> <span class="n">QueuePool</span>
+
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span>
+    <span class="s2">&quot;postgresql://...&quot;</span><span class="p">,</span>
+    <span class="n">poolclass</span><span class="o">=</span><span class="n">QueuePool</span><span class="p">,</span>
+    <span class="n">pool_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">max_overflow</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h4 id="b-read-replicas">B. Read Replicas<a class="headerlink" href="#b-read-replicas" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># PostgreSQL з реплікацією</span>
+<span class="nt">primary</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-primary</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+
+<span class="nt">replicas</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-replica-1</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-replica-2</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+
+<span class="c1"># Читання з реплік, запис в primary</span>
+</code></pre></div>
+
+<h4 id="c-api">C. Кешування на рівні API<a class="headerlink" href="#c-api" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">cachetools</span><span class="w"> </span><span class="kn">import</span> <span class="n">TTLCache</span>
+
+<span class="n">api_cache</span> <span class="o">=</span> <span class="n">TTLCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="nd">@cached</span><span class="p">(</span><span class="n">cache</span><span class="o">=</span><span class="n">api_cache</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_product_catalog</span><span class="p">(</span><span class="n">vendor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Product</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">vendor_id</span><span class="o">=</span><span class="n">vendor_id</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></div>
+
+<hr />
+<h2 id="_2">📊 Орієнтовні потужності<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="13">Поточна архітектура (13 агентів)<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Throughput</strong>: ~10-20 задач/хв</li>
+<li><strong>Latency</strong>: 3-10 сек на задачу</li>
+<li><strong>Concurrent agents</strong>: 5-10</li>
+</ul>
+<h3 id="1000">Для 1000 агентів<a class="headerlink" href="#1000" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Throughput</strong>: 1000-5000 задач/хв</li>
+<li><strong>Latency</strong>: &lt;5 сек (95 percentile)</li>
+<li><strong>Concurrent agents</strong>: 500-1000</li>
+</ul>
+<h3 id="_3">Необхідна інфраструктура<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Компонент</th>
+<th>Мінімум</th>
+<th>Рекомендовано</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LLM Nodes</strong></td>
+<td>3x Ollama (RTX 4090)</td>
+<td>10x Ollama або хмара</td>
+</tr>
+<tr>
+<td><strong>Redis</strong></td>
+<td>1 instance (16GB RAM)</td>
+<td>Redis Cluster (64GB RAM)</td>
+</tr>
+<tr>
+<td><strong>PostgreSQL</strong></td>
+<td>1 primary + 1 replica</td>
+<td>1 primary + 3 replicas</td>
+</tr>
+<tr>
+<td><strong>Message Queue</strong></td>
+<td>NATS Core</td>
+<td>NATS JetStream Cluster</td>
+</tr>
+<tr>
+<td><strong>API Gateway</strong></td>
+<td>2 instances</td>
+<td>5+ instances (auto-scaling)</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Prometheus + Grafana</td>
+<td>Full observability stack</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">Орієнтовний бюджет<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>On-premise</strong>: $15,000-30,000 (обладнання) + $500-1000/міс (утримання)</li>
+<li><strong>Cloud</strong>: $2,000-5,000/міс (залежно від навантаження)</li>
+</ul>
+<hr />
+<h2 id="_5">🛠️ План масштабування<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-proof-of-concept-current">Phase 1: Proof of Concept (Current)<a class="headerlink" href="#phase-1-proof-of-concept-current" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ 13 агентів</li>
+<li>✅ 4 crews</li>
+<li>✅ Базова інтеграція з Router</li>
+<li><strong>Навантаження</strong>: 1-10 комітентів</li>
+</ul>
+<h3 id="phase-2-production-ready-1-3">Phase 2: Production Ready (1-3 місяці)<a class="headerlink" href="#phase-2-production-ready-1-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Черги завдань (Celery/NATS)</li>
+<li>[ ] Redis для стану</li>
+<li>[ ] Моніторинг (Prometheus)</li>
+<li>[ ] Circuit breakers</li>
+<li><strong>Навантаження</strong>: 10-50 комітентів, 100-200 задач/год</li>
+</ul>
+<h3 id="phase-3-scale-out-3-6">Phase 3: Scale Out (3-6 місяців)<a class="headerlink" href="#phase-3-scale-out-3-6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] LLM кластер (3-5 nodes)</li>
+<li>[ ] PostgreSQL реплікація</li>
+<li>[ ] API rate limiting</li>
+<li>[ ] Distributed tracing</li>
+<li><strong>Навантаження</strong>: 50-200 комітентів, 1000+ задач/год</li>
+</ul>
+<h3 id="phase-4-enterprise-scale-6-12">Phase 4: Enterprise Scale (6-12 місяців)<a class="headerlink" href="#phase-4-enterprise-scale-6-12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Auto-scaling (Kubernetes)</li>
+<li>[ ] Multi-region deployment</li>
+<li>[ ] Advanced caching (CDN, edge)</li>
+<li>[ ] ML для оптимізації маршрутизації</li>
+<li><strong>Навантаження</strong>: 200-1000 комітентів, 5000+ задач/год</li>
+</ul>
+<hr />
+<h2 id="_6">💡 Швидкий старт для масштабування<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">1. Додай черги (швидко)<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Install Redis</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>redis:alpine
+
+<span class="c1"># Install Celery</span>
+pip<span class="w"> </span>install<span class="w"> </span>celery<span class="w"> </span>redis
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># services/greenfood/tasks.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">celery</span><span class="w"> </span><span class="kn">import</span> <span class="n">Celery</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">services.greenfood.crew.greenfood_crews</span><span class="w"> </span><span class="kn">import</span> <span class="n">GREENFOOD_CREWS</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s1">&#39;greenfood&#39;</span><span class="p">,</span> <span class="n">broker</span><span class="o">=</span><span class="s1">&#39;redis://localhost:6379&#39;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">task</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">execute_crew_async</span><span class="p">(</span><span class="n">crew_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">crew</span> <span class="o">=</span> <span class="n">GREENFOOD_CREWS</span><span class="p">[</span><span class="n">crew_name</span><span class="p">]</span>
+    <span class="c1"># ... setup tasks ...</span>
+    <span class="k">return</span> <span class="n">crew</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="2">2. Додай моніторинг (швидко)<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Prometheus + Grafana</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>prometheus<span class="w"> </span>grafana
+</code></pre></div>
+
+<h3 id="3-load-balancer-llm">3. Додай load balancer для LLM (середньо)<a class="headerlink" href="#3-load-balancer-llm" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># nginx.conf</span>
+<span class="l l-Scalar l-Scalar-Plain">upstream ollama_backend {</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">least_conn;</span><span class="w">  </span><span class="c1"># Балансування по найменшому навантаженню</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">server ollama-1:11434;</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">server ollama-2:11434;</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">server ollama-3:11434;</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="_7">🎯 Висновок<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p><strong>Для 1000 агентів потрібно</strong>:
+1. ✅ Архітектура вже хороша (crewAI + модульність)
+2. ⏳ Додати черги та state management (1-2 тижні)
+3. ⏳ Масштабувати LLM інфраструктуру (2-4 тижні)
+4. ⏳ Додати observability (1-2 тижні)
+5. ⏳ Тестування під навантаженням (2-4 тижні)</p>
+<p><strong>Реальний термін до production-ready 1000 агентів: 2-3 місяці</strong></p>
+<hr />
+<p><em>Документ створено: 2025-11-18</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

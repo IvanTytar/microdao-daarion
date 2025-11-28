@@ -1,0 +1,1235 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DEPLOY_MIGRATIONS/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Database Migrations для DAARION Production - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#database-migrations-daarion-production" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Database Migrations для DAARION Production
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Список міграцій
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Початкове застосування міграцій
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Початкове застосування міграцій">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-psql-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Метод 1: Через psql (Рекомендовано для першого deploy)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-migration-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Метод 2: Через migration service (автоматизовано)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      📂 Структура міграцій
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Перевірка стану міграцій
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Перевірка стану міграцій">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-manual-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Метод 1: Manual check
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-via-migration-tracking-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Метод 2: Via migration tracking table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#re-run-idempotent" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Re-run міграцій (Idempotent)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Re-run міграцій (Idempotent)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#re-apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      Re-apply конкретної міграції:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-helper-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Migration Helper Script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔙 Rollback Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔙 Rollback Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Створення rollback файлів (для майбутнього):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollback_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Приклад rollback:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing міграцій
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing міграцій">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-deployment-testing-dev-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-deployment testing (на dev environment):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Моніторинг розміру БД
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Backup перед міграціями
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migration-fails-permission-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: Migration fails з permission error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-already-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: Table already exists
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foreign-key-constraint-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема: Foreign key constraint fails
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Post-migration Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Наступні кроки
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="database-migrations-daarion-production">Database Migrations для DAARION Production<a class="headerlink" href="#database-migrations-daarion-production" title="Permanent link">&para;</a></h1>
+<p><strong>База даних:</strong> PostgreSQL 15+<br />
+<strong>Міграції:</strong> 001 → 010</p>
+<hr />
+<h2 id="_1">📋 Список міграцій<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Файл</th>
+<th>Опис</th>
+<th>Залежності</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td><code>001_initial_schema.sql</code></td>
+<td>Базова схема (users, sessions)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>002</td>
+<td><code>002_teams_channels.sql</code></td>
+<td>Teams та Channels</td>
+<td>001</td>
+</tr>
+<tr>
+<td>003</td>
+<td><code>003_messages.sql</code></td>
+<td>Messaging система</td>
+<td>002</td>
+</tr>
+<tr>
+<td>004</td>
+<td><code>004_agents_core.sql</code></td>
+<td>Agents та blueprints</td>
+<td>001</td>
+</tr>
+<tr>
+<td>005</td>
+<td><code>005_agent_events.sql</code></td>
+<td>Agent lifecycle events</td>
+<td>004</td>
+</tr>
+<tr>
+<td>006</td>
+<td><code>006_passkeys.sql</code></td>
+<td>Passkey authentication</td>
+<td>001</td>
+</tr>
+<tr>
+<td>007</td>
+<td><code>007_api_keys.sql</code></td>
+<td>API keys management</td>
+<td>001</td>
+</tr>
+<tr>
+<td>008</td>
+<td><code>008_microdao_core.sql</code></td>
+<td>MicroDAO система</td>
+<td>001</td>
+</tr>
+<tr>
+<td>009</td>
+<td><code>009_dao_governance.sql</code></td>
+<td>DAO governance та voting</td>
+<td>008</td>
+</tr>
+<tr>
+<td>010</td>
+<td><code>010_create_city_backend.sql</code></td>
+<td>City Rooms + Second Me</td>
+<td>001</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">🚀 Початкове застосування міграцій<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-psql-deploy">Метод 1: Через psql (Рекомендовано для першого deploy)<a class="headerlink" href="#1-psql-deploy" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Підключитися до сервера</span>
+ssh<span class="w"> </span>user@daarion.space
+
+<span class="c1"># 2. Перейти в директорію проєкту</span>
+<span class="nb">cd</span><span class="w"> </span>/opt/daarion
+
+<span class="c1"># 3. Запустити PostgreSQL (якщо ще не запущений)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>postgres
+
+<span class="c1"># 4. Почекати поки PostgreSQL готовий</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span>pg_isready<span class="w"> </span>-U<span class="w"> </span>daarion_user
+
+<span class="c1"># 5. Застосувати міграції по порядку</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">001</span>..010<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Applying migration </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">...&quot;</span>
+<span class="w">  </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-f<span class="w"> </span>/migrations/<span class="si">${</span><span class="nv">i</span><span class="si">}</span>_*.sql
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ Migration </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2"> applied successfully&quot;</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;❌ Migration </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2"> failed!&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;🎉 All migrations applied successfully!&quot;</span>
+</code></pre></div>
+
+<h3 id="2-migration-service">Метод 2: Через migration service (автоматизовано)<a class="headerlink" href="#2-migration-service" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Якщо є окремий migrations service в docker-compose.all.yml:</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>migrations
+</code></pre></div>
+
+<hr />
+<h2 id="_3">📂 Структура міграцій<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>/opt/daarion/
+└── migrations/
+    ├── 001_initial_schema.sql
+    ├── 002_teams_channels.sql
+    ├── 003_messages.sql
+    ├── 004_agents_core.sql
+    ├── 005_agent_events.sql
+    ├── 006_passkeys.sql
+    ├── 007_api_keys.sql
+    ├── 008_microdao_core.sql
+    ├── 009_dao_governance.sql
+    └── 010_create_city_backend.sql
+</code></pre></div>
+
+<hr />
+<h2 id="_4">🔍 Перевірка стану міграцій<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1-manual-check">Метод 1: Manual check<a class="headerlink" href="#1-manual-check" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити які таблиці створені</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;\dt&quot;</span>
+
+<span class="c1"># Перевірити конкретну таблицю</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;\d city_rooms&quot;</span>
+
+<span class="c1"># Перевірити seed дані</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM city_rooms;&quot;</span>
+</code></pre></div>
+
+<h3 id="2-via-migration-tracking-table">Метод 2: Via migration tracking table<a class="headerlink" href="#2-via-migration-tracking-table" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Створити таблицю для tracking</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">CREATE TABLE IF NOT EXISTS schema_migrations (</span>
+<span class="s">  id SERIAL PRIMARY KEY,</span>
+<span class="s">  version TEXT NOT NULL UNIQUE,</span>
+<span class="s">  applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()</span>
+<span class="s">);</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Перевірити застосовані міграції</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM schema_migrations ORDER BY applied_at;&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="re-run-idempotent">🔄 Re-run міграцій (Idempotent)<a class="headerlink" href="#re-run-idempotent" title="Permanent link">&para;</a></h2>
+<p>Всі міграції мають бути <strong>idempotent</strong> (можна запускати декілька разів):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">-- Приклад з 010_create_city_backend.sql:</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">city_rooms</span><span class="w"> </span><span class="p">(...);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_city_rooms_slug</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">city_rooms</span><span class="p">(</span><span class="n">slug</span><span class="p">);</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">city_rooms</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">slug</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(...)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="re-apply">Re-apply конкретної міграції:<a class="headerlink" href="#re-apply" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Якщо потрібно перезастосувати (тільки якщо idempotent!)</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>&lt;<span class="w"> </span>migrations/010_create_city_backend.sql
+</code></pre></div>
+
+<hr />
+<h2 id="migration-helper-script">🛠️ Migration Helper Script<a class="headerlink" href="#migration-helper-script" title="Permanent link">&para;</a></h2>
+<p>Створити <code>scripts/migrate.sh</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+
+<span class="c1"># Кольори</span>
+<span class="nv">GREEN</span><span class="o">=</span><span class="s1">&#39;\033[0;32m&#39;</span>
+<span class="nv">RED</span><span class="o">=</span><span class="s1">&#39;\033[0;31m&#39;</span>
+<span class="nv">YELLOW</span><span class="o">=</span><span class="s1">&#39;\033[1;33m&#39;</span>
+<span class="nv">NC</span><span class="o">=</span><span class="s1">&#39;\033[0m&#39;</span><span class="w"> </span><span class="c1"># No Color</span>
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">YELLOW</span><span class="si">}</span><span class="s2">DAARION Database Migrations</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=======================================&quot;</span>
+
+<span class="c1"># Перевірка що PostgreSQL запущений</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Checking PostgreSQL status...&quot;</span>
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span>pg_isready<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RED</span><span class="si">}</span><span class="s2">❌ PostgreSQL is not ready!</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">✅ PostgreSQL is ready</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Застосування міграцій</span>
+<span class="nv">MIGRATION_DIR</span><span class="o">=</span><span class="s2">&quot;./migrations&quot;</span>
+<span class="nv">SUCCESS_COUNT</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">FAIL_COUNT</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">for</span><span class="w"> </span>migration<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span><span class="nv">$MIGRATION_DIR</span>/*.sql<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">filename</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$migration</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n</span><span class="si">${</span><span class="nv">YELLOW</span><span class="si">}</span><span class="s2">Applying </span><span class="nv">$filename</span><span class="s2">...</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$migration</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">✅ </span><span class="nv">$filename</span><span class="s2"> applied successfully</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="o">((</span>SUCCESS_COUNT++<span class="o">))</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">RED</span><span class="si">}</span><span class="s2">❌ </span><span class="nv">$filename</span><span class="s2"> failed!</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="o">((</span>FAIL_COUNT++<span class="o">))</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n=======================================&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">🎉 All migrations completed!</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Success: </span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="nv">$SUCCESS_COUNT</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Failed: </span><span class="si">${</span><span class="nv">RED</span><span class="si">}</span><span class="nv">$FAIL_COUNT</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<p>Використання:</p>
+<div class="codehilite"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/migrate.sh
+./scripts/migrate.sh
+</code></pre></div>
+
+<hr />
+<h2 id="rollback-strategy">🔙 Rollback Strategy<a class="headerlink" href="#rollback-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="rollback">Створення rollback файлів (для майбутнього):<a class="headerlink" href="#rollback" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>migrations/
+  ├── 010_create_city_backend.sql
+  └── 010_create_city_backend_rollback.sql
+</code></pre></div>
+
+<h3 id="rollback_1">Приклад rollback:<a class="headerlink" href="#rollback_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">-- 010_create_city_backend_rollback.sql</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">secondme_messages</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">secondme_sessions</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">city_feed_events</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">city_room_messages</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
+<span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">city_rooms</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
+</code></pre></div>
+
+<p><strong>Застосування rollback:</strong></p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>&lt;<span class="w"> </span>migrations/010_create_city_backend_rollback.sql
+</code></pre></div>
+
+<hr />
+<h2 id="testing">🧪 Testing міграцій<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<h3 id="pre-deployment-testing-dev-environment">Pre-deployment testing (на dev environment):<a class="headerlink" href="#pre-deployment-testing-dev-environment" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Backup поточної БД</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>daarion<span class="w"> </span>&gt;<span class="w"> </span>backup_before_migration.sql
+
+<span class="c1"># 2. Застосувати міграції</span>
+./scripts/migrate.sh
+
+<span class="c1"># 3. Перевірити що все працює</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT COUNT(*) FROM city_rooms;&quot;</span>
+
+<span class="c1"># 4. Якщо щось не так - rollback:</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>&lt;<span class="w"> </span>backup_before_migration.sql
+</code></pre></div>
+
+<hr />
+<h2 id="_5">📊 Моніторинг розміру БД<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Розмір БД</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT pg_size_pretty(pg_database_size(&#39;daarion&#39;));&quot;</span>
+
+<span class="c1"># Розмір таблиць</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">  SELECT </span>
+<span class="s2">    tablename,</span>
+<span class="s2">    pg_size_pretty(pg_total_relation_size(schemaname||&#39;.&#39;||tablename)) AS size</span>
+<span class="s2">  FROM pg_tables</span>
+<span class="s2">  WHERE schemaname = &#39;public&#39;</span>
+<span class="s2">  ORDER BY pg_total_relation_size(schemaname||&#39;.&#39;||tablename) DESC</span>
+<span class="s2">  LIMIT 10;</span>
+<span class="s2">  &quot;</span>
+
+<span class="c1"># Кількість записів</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">  SELECT </span>
+<span class="s2">    schemaname,</span>
+<span class="s2">    relname,</span>
+<span class="s2">    n_live_tup</span>
+<span class="s2">  FROM pg_stat_user_tables</span>
+<span class="s2">  ORDER BY n_live_tup DESC;</span>
+<span class="s2">  &quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="backup">🔒 Backup перед міграціями<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Автоматичний backup</span>
+<span class="nv">BACKUP_FILE</span><span class="o">=</span><span class="s2">&quot;backup_</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span><span class="s2">.sql&quot;</span>
+
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>daarion_user<span class="w"> </span>daarion<span class="w"> </span>&gt;<span class="w"> </span>/opt/daarion/backups/<span class="nv">$BACKUP_FILE</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Backup created: </span><span class="nv">$BACKUP_FILE</span><span class="s2">&quot;</span>
+
+<span class="c1"># Compress backup</span>
+gzip<span class="w"> </span>/opt/daarion/backups/<span class="nv">$BACKUP_FILE</span>
+</code></pre></div>
+
+<hr />
+<h2 id="troubleshooting">🚨 Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="migration-fails-permission-error">Проблема: Migration fails з permission error<a class="headerlink" href="#migration-fails-permission-error" title="Permanent link">&para;</a></h3>
+<p><strong>Рішення:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перевірити права користувача</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;\du daarion_user&quot;</span>
+
+<span class="c1"># Надати потрібні права</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.all.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>postgres<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;GRANT ALL PRIVILEGES ON DATABASE daarion TO daarion_user;&quot;</span>
+</code></pre></div>
+
+<h3 id="table-already-exists">Проблема: Table already exists<a class="headerlink" href="#table-already-exists" title="Permanent link">&para;</a></h3>
+<p><strong>Рішення:</strong>
+Переконатися що міграція використовує <code>CREATE TABLE IF NOT EXISTS</code></p>
+<h3 id="foreign-key-constraint-fails">Проблема: Foreign key constraint fails<a class="headerlink" href="#foreign-key-constraint-fails" title="Permanent link">&para;</a></h3>
+<p><strong>Рішення:</strong>
+Перевірити порядок міграцій — залежні таблиці мають створюватися після основних.</p>
+<hr />
+<h2 id="post-migration-checklist">✅ Post-migration Checklist<a class="headerlink" href="#post-migration-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Всі 10 міграцій застосовані успішно</li>
+<li>[ ] Seed дані створені (5 default city rooms)</li>
+<li>[ ] Індекси створені</li>
+<li>[ ] Foreign keys працюють</li>
+<li>[ ] Таблиця tracking міграцій оновлена</li>
+<li>[ ] Backup БД створено</li>
+<li>[ ] Логи міграцій збережені</li>
+<li>[ ] Performance перевірено (query plans)</li>
+</ul>
+<hr />
+<h2 id="_6">📚 Наступні кроки<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ol>
+<li>➡️ <strong>Services Startup</strong> (<code>docs/DEPLOY_SERVICES.md</code>)</li>
+<li>➡️ <strong>Smoke Tests</strong> (<code>docs/DEPLOY_SMOKETEST_CHECKLIST.md</code>)</li>
+<li>➡️ <strong>Monitoring Setup</strong> (<code>docs/DEPLOY_MONITORING.md</code>)</li>
+</ol>
+<hr />
+<p><strong>Статус:</strong> ✅ Migrations Guide Complete<br />
+<strong>Версія:</strong> 1.0.0<br />
+<strong>Дата:</strong> 24 листопада 2025</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

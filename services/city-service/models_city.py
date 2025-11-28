@@ -440,3 +440,29 @@ class MicrodaoOption(BaseModel):
     district: Optional[str] = None
     is_active: bool = True
 
+
+# =============================================================================
+# Visibility Updates (Task 029)
+# =============================================================================
+
+class AgentVisibilityUpdate(BaseModel):
+    """Update agent visibility settings"""
+    is_public: bool
+    visibility_scope: Optional[str] = None  # 'global' | 'microdao' | 'private'
+
+
+class MicrodaoVisibilityUpdate(BaseModel):
+    """Update MicroDAO visibility settings"""
+    is_public: bool
+    is_platform: Optional[bool] = None  # Upgrade to platform/district
+
+
+class MicrodaoCreateRequest(BaseModel):
+    """Request to create MicroDAO from agent (orchestrator flow)"""
+    name: str
+    slug: str
+    description: Optional[str] = None
+    make_platform: bool = False  # If true -> is_platform = true
+    is_public: bool = True
+    parent_microdao_id: Optional[str] = None
+

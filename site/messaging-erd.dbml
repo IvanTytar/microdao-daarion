@@ -1,0 +1,192 @@
+// DAARION Messaging + Agents + microDAO ERD
+// Format: dbdiagram.io (DBML)
+// Version: 1.0.0
+// Date: 2025-11-24
+
+// Use: https://dbdiagram.io/d
+// Paste this content to visualize
+
+Table users {
+  id uuid [pk]
+  external_id text [not null, unique, note: 'user:93']
+  matrix_id text [note: '@alice:matrix.daarion.city']
+  handle text [note: '@alice']
+  created_at timestamptz [default: `now()`]
+  
+  indexes {
+    external_id [unique]
+    matrix_id
+  }
+}
+
+Table microdaos {
+  id uuid [pk]
+  external_id text [not null, unique, note: 'microdao:7']
+  name text [not null]
+  owner_user_id uuid [not null, ref: > users.id]
+  created_at timestamptz [default: `now()`]
+  
+  indexes {
+    external_id [unique]
+    owner_user_id
+  }
+}
+
+Table microdao_members {
+  id uuid [pk]
+  microdao_id uuid [not null, ref: > microdaos.id]
+  user_id uuid [not null, ref: > users.id]
+  role text [not null, note: 'owner | admin | member | guest']
+  created_at timestamptz [default: `now()`]
+  
+  indexes {
+    (microdao_id, user_id) [unique]
+  }
+}
+
+Table agent_blueprints {
+  id uuid [pk]
+  code text [not null, unique, note: 'sofia_prime, node_agent']
+  description text
+  model text [not null, note: 'gpt-4.1, deepseek-r1']
+  capabilities jsonb [note: 'Tools, permissions, etc.']
+  
+  indexes {
+    code [unique]
+  }
+}
+
+Table agents {
+  id uuid [pk]
+  external_id text [not null, unique, note: 'agent:sofia']
+  name text [not null]
+  kind text [not null, note: 'system | assistant | node | quest']
+  microdao_id uuid [ref: > microdaos.id, note: 'Optional scope']
+  owner_user_id uuid [ref: > users.id, note: 'Optional owner']
+  matrix_id text [note: '@sofia:matrix.daarion.city']
+  blueprint_id uuid [not null, ref: > agent_blueprints.id]
+  created_at timestamptz [default: `now()`]
+  
+  indexes {
+    external_id [unique]
+    matrix_id
+    microdao_id
+    kind
+  }
+}
+
+Table channels {
+  id uuid [pk]
+  slug text [not null, note: 'Unique within microdao']
+  name text [not null]
+  microdao_id uuid [not null, ref: > microdaos.id]
+  team_id uuid [note: 'Optional team scope']
+  matrix_room_id text [not null, unique, note: '!room:matrix.daarion.city']
+  visibility text [not null, note: 'public | private | microdao']
+  created_by_user_id uuid [ref: > users.id]
+  created_by_agent_id uuid [ref: > agents.id]
+  created_at timestamptz [default: `now()`]
+  
+  indexes {
+    (slug, microdao_id) [unique]
+    matrix_room_id [unique]
+    microdao_id
+  }
+}
+
+Table channel_members {
+  id uuid [pk]
+  channel_id uuid [not null, ref: > channels.id]
+  member_user_id uuid [ref: > users.id, note: 'NULL if agent']
+  member_agent_id uuid [ref: > agents.id, note: 'NULL if user']
+  role text [not null, note: 'owner | admin | member | guest | agent']
+  joined_at timestamptz [default: `now()`]
+  left_at timestamptz [note: 'NULL if active']
+  
+  indexes {
+    (channel_id, member_user_id) [unique, note: 'User member']
+    (channel_id, member_agent_id) [unique, note: 'Agent member']
+    channel_id
+  }
+}
+
+Table messages {
+  id uuid [pk]
+  channel_id uuid [not null, ref: > channels.id]
+  matrix_event_id text [not null, unique, note: '$event:server']
+  sender_user_id uuid [ref: > users.id, note: 'NULL if agent']
+  sender_agent_id uuid [ref: > agents.id, note: 'NULL if user']
+  sender_type text [not null, note: 'human | agent']
+  content_preview text [not null, note: 'Truncated, full in Matrix']
+  created_at timestamptz [default: `now()`]
+  
+  indexes {
+    (channel_id, created_at) [note: 'Pagination']
+    matrix_event_id [unique]
+    sender_user_id
+    sender_agent_id
+  }
+}
+
+Table agent_sessions {
+  id uuid [pk]
+  agent_id uuid [not null, ref: > agents.id]
+  channel_id uuid [not null, ref: > channels.id]
+  started_at timestamptz [default: `now()`]
+  last_activity_at timestamptz
+  status text [not null, note: 'active | idle | closed']
+  
+  indexes {
+    (agent_id, channel_id)
+    status
+  }
+}
+
+// Matrix Integration (conceptual, not stored in DAARION DB)
+Table matrix_rooms {
+  room_id text [pk, note: '!room:matrix.daarion.city']
+  name text
+  topic text
+  note: 'Stored in Matrix Homeserver, referenced by channels.matrix_room_id'
+}
+
+Table matrix_events {
+  event_id text [pk, note: '$event:server']
+  room_id text [ref: > matrix_rooms.room_id]
+  sender text
+  type text
+  content jsonb
+  note: 'Stored in Matrix Homeserver, referenced by messages.matrix_event_id'
+}
+
+// Relationships Summary
+Ref: microdaos.owner_user_id > users.id [note: '1 user owns many microDAOs']
+Ref: microdao_members.microdao_id > microdaos.id [note: 'Many users in microDAO']
+Ref: microdao_members.user_id > users.id [note: 'Many microDAOs per user']
+
+Ref: agents.microdao_id > microdaos.id [note: 'Agent scoped to microDAO (optional)']
+Ref: agents.owner_user_id > users.id [note: 'User owns agent (optional)']
+Ref: agents.blueprint_id > agent_blueprints.id [note: 'Agent uses blueprint']
+
+Ref: channels.microdao_id > microdaos.id [note: 'Channel belongs to microDAO']
+Ref: channels.created_by_user_id > users.id [note: 'User created channel']
+Ref: channels.created_by_agent_id > agents.id [note: 'Agent created channel']
+
+Ref: channel_members.channel_id > channels.id [note: 'Members in channel']
+Ref: channel_members.member_user_id > users.id [note: 'User member']
+Ref: channel_members.member_agent_id > agents.id [note: 'Agent member']
+
+Ref: messages.channel_id > channels.id [note: 'Message in channel']
+Ref: messages.sender_user_id > users.id [note: 'User sent message']
+Ref: messages.sender_agent_id > agents.id [note: 'Agent sent message']
+
+Ref: agent_sessions.agent_id > agents.id [note: 'Agent session']
+Ref: agent_sessions.channel_id > channels.id [note: 'Session in channel']
+
+Ref: channels.matrix_room_id - matrix_rooms.room_id [note: 'Channel ↔ Matrix room']
+Ref: messages.matrix_event_id - matrix_events.event_id [note: 'Message ↔ Matrix event']
+
+
+
+
+

@@ -1,0 +1,1646 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/microdao/access-keys-capabilities/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>24 — Access Keys & Capabilities System (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#24-access-keys-capabilities-system-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              24 — Access Keys & Capabilities System (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Основні поняття
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Основні поняття">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-access-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Access Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-capability" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Capability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-capability-bundle-role-plan-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Capability Bundle (role / plan / template)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-allow" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Модель доступу (оновлена формула allow)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Типи ключів
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Типи ключів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-user-session-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 User Session Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-agent-access-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Agent Access Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-api-key-integration-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 API Key / Integration Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-embassy-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Embassy Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-wallet-capability-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Wallet Capability Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-wallet-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Wallet Agent: специфікація
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Wallet Agent: специфікація">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Призначення
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Основні флоу
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Дані (мінімум)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-embassy-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Embassy Module: специфікація
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Embassy Module: специфікація">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Призначення
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Ідентичності
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Події (канонічні акти)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-runtime-capability-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Runtime capability-check
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Runtime capability-check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Компоненти
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Кеш і формат токена
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Приклади перевірок
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-governance-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Інтеграція з Governance Agent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Дані та моделі (мінімальна схема)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Безпека
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-rbac-entitlements" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Інтеграція з RBAC &amp; Entitlements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-security-architecture-threat-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Інтеграція з Security Architecture &amp; Threat Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-data-model-event-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Інтеграція з Data Model &amp; Event Catalog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-sequence-" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Sequence-діаграми (ключові флоу)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Sequence-діаграми (ключові флоу)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-wallet-agent-login-access-key-capability-check-stake-ringk" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1 Wallet Agent: login → access key → capability-check → stake RINGK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-embassy-module-external-rwa-embassy-capability-check-internal-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2 Embassy Module: external RWA → Embassy → capability-check → internal events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-energy-union-meter-energy-union-embassy-payouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.3 Energy Union: meter → Energy Union → Embassy → payouts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Результат
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="24-access-keys-capabilities-system-microdao">24 — Access Keys &amp; Capabilities System (MicroDAO)<a class="headerlink" href="#24-access-keys-capabilities-system-microdao" title="Permanent link">&para;</a></h1>
+<p>Універсальна система ключів доступу та capability-механіка</p>
+<p>Цей документ описує універсальну систему ключів доступу (access keys) та capability-механіку для платформи <strong>microdao / DAARION.city</strong>:</p>
+<ul>
+<li>як видаються й перевіряються ключі;</li>
+<li>як описуються та застосовуються capabilities;</li>
+<li>як працюють <strong>Wallet Agent</strong> і <strong>Embassy Module</strong>;</li>
+<li>як система вбудовується в існуючі RBAC/Entitlements/Mode (public|confidential) та Governance.</li>
+</ul>
+<p>Ціль: єдиний шар авторизації для веб-клієнта, приватних агентів, API, інтеграцій та зовнішніх платформ.</p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ описує універсальну систему ключів доступу (access keys) та capability-механіку для платформи <strong>microdao / DAARION.city</strong>:</p>
+<ul>
+<li>як видаються й перевіряються ключі;</li>
+<li>як описуються та застосовуються capabilities;</li>
+<li>як працюють <strong>Wallet Agent</strong> і <strong>Embassy Module</strong>;</li>
+<li>як система вбудовується в існуючі RBAC/Entitlements/Mode (public|confidential) та Governance.</li>
+</ul>
+<p>Ціль: єдиний шар авторизації для веб-клієнта, приватних агентів, API, інтеграцій та зовнішніх платформ.</p>
+<hr />
+<h2 id="2">2. Основні поняття<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-access-key">2.1 Access Key<a class="headerlink" href="#21-access-key" title="Permanent link">&para;</a></h3>
+<p>Access Key — це матеріалізований «токен доступу» до певної області системи:</p>
+<ul>
+<li>має унікальний <code>key_id</code>;</li>
+<li>прив'язаний до <strong>суб'єкта</strong> (user / team / agent / external platform);</li>
+<li>має <strong>набір capabilities</strong>;</li>
+<li>має строк дії та статус (active / revoked / expired).</li>
+</ul>
+<p>Приклади:</p>
+<ul>
+<li>ключ API для інтеграції з GreenFood;</li>
+<li>ключ приватного агента до Co-Memory та Projects;</li>
+<li>ключ Embassy для міжплатформенної взаємодії.</li>
+</ul>
+<h3 id="22-capability">2.2 Capability<a class="headerlink" href="#22-capability" title="Permanent link">&para;</a></h3>
+<p>Capability — атомарне право <strong>на дію над ресурсом</strong>.</p>
+<p>Формат (концептуально):</p>
+<div class="codehilite"><pre><span></span><code>&lt;domain&gt;.&lt;resource&gt;.&lt;action&gt;[:&lt;scope&gt;]
+</code></pre></div>
+
+<p>Приклади:</p>
+<ul>
+<li><code>chat.message.send</code></li>
+<li><code>chat.channel.manage</code></li>
+<li><code>comemory.item.read:team</code></li>
+<li><code>projects.task.write</code></li>
+<li><code>wallet.balance.view</code></li>
+<li><code>wallet.stake.ringk</code></li>
+<li><code>governance.proposal.create</code></li>
+<li><code>energy.asset.read</code></li>
+<li><code>platform.greenfood.inventory.update</code></li>
+</ul>
+<h3 id="23-capability-bundle-role-plan-template">2.3 Capability Bundle (role / plan / template)<a class="headerlink" href="#23-capability-bundle-role-plan-template" title="Permanent link">&para;</a></h3>
+<p>Capability-набір:</p>
+<ul>
+<li>набір capabilities, який прив'язується до:</li>
+<li>ролі (<code>Owner</code>, <code>Guardian</code>, <code>Member</code>, <code>Visitor</code>);</li>
+<li>тарифного плану (Freemium / Casual / Premium / Platformium);</li>
+<li>конкретного access key (API-ключ, агент, інтеграція).</li>
+</ul>
+<hr />
+<h2 id="3-allow">3. Модель доступу (оновлена формула allow)<a class="headerlink" href="#3-allow" title="Permanent link">&para;</a></h2>
+<p>Базова формула авторизації:</p>
+<div class="codehilite"><pre><span></span><code>allow =
+  RBAC(role, action, resource)
+  ∧ Entitlement(plan, RINGK_staked)
+  ∧ Capability(key, action, resource)
+  ∧ ACL(resource)
+  ∧ Mode(public|confidential)
+</code></pre></div>
+
+<p>Тобто:</p>
+<ol>
+<li>Роль дозволяє дію (Owner/Guardian/Member/Visitor).</li>
+<li>План + стейк RINGK дають достатні ліміти/право (ентайтли).</li>
+<li>Ключ (user/agent/API) має відповідну capability.</li>
+<li>ACL ресурсу не забороняє (список дозволених/заборонених).</li>
+<li>Режим каналу/команди (public/confidential) не блокує дію.</li>
+</ol>
+<hr />
+<h2 id="4">4. Типи ключів<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41-user-session-key">4.1 User Session Key<a class="headerlink" href="#41-user-session-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Прив'язаний до користувача (<code>user_id</code>) і сесії (JWT / cookie).</li>
+<li>Використовується веб-клієнтом.</li>
+<li>Capabilities виводяться з ролі, ентайтлів і контексту (team, mode).</li>
+</ul>
+<h3 id="42-agent-access-key">4.2 Agent Access Key<a class="headerlink" href="#42-agent-access-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Прив'язаний до приватного агента (<code>ag_…</code>).</li>
+<li>Використовується при викликах <strong>Agent Mesh / Tooling API</strong>.</li>
+<li>Має обмежений набір capabilities:</li>
+<li><code>chat.message.read:scoped</code></li>
+<li><code>comemory.item.read:scoped</code></li>
+<li><code>followups.create</code></li>
+<li><code>projects.task.read/write</code> (за необхідності)</li>
+<li>Має обмеження за:</li>
+<li>токенами/хв;</li>
+<li>кількістю викликів;</li>
+<li>бюджетом 1T / KWT.</li>
+</ul>
+<h3 id="43-api-key-integration-key">4.3 API Key / Integration Key<a class="headerlink" href="#43-api-key-integration-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Прив'язаний до інтеграції (<code>integrations</code>).</li>
+<li>Наприклад: Notion, Slack, GreenFood, Energy Union, Water Union.</li>
+<li>Capabilities для зовнішнього сервісу:</li>
+<li><code>webhook.events.receive:team</code></li>
+<li><code>projects.task.sync</code></li>
+<li><code>rwa.energy.update</code></li>
+<li><code>platform.greenfood.sync</code></li>
+</ul>
+<h3 id="44-embassy-key">4.4 Embassy Key<a class="headerlink" href="#44-embassy-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ключ для <strong>Embassy Module</strong> — шлюз між DAARION.city та зовнішньою платформою/мережею.</li>
+<li>Додаткові властивості:</li>
+<li>mapping зовнішніх ідентичностей (external_id ↔ DID/user_id);</li>
+<li>whitelist дозволених типів актів (<code>intent.created</code>, <code>offer.published</code>, <code>gift.ack</code>, <code>rwa.claim</code> тощо);</li>
+<li>окремий журнал дій для аудиту.</li>
+</ul>
+<h3 id="45-wallet-capability-key">4.5 Wallet Capability Key<a class="headerlink" href="#45-wallet-capability-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Спеціальний ключ для <strong>Wallet Agent</strong>:</li>
+<li><code>wallet.balance.view</code></li>
+<li><code>wallet.tx.initiate</code></li>
+<li><code>wallet.tx.sign</code></li>
+<li><code>wallet.stake.ringk</code></li>
+<li><code>wallet.claim.rwa</code></li>
+<li>Може бути:</li>
+<li>нон-кастодіальний (підпис у клієнта, key лише для маршрутизації);</li>
+<li>кастодіальний (wallet service з 4-eyes контролем).</li>
+</ul>
+<hr />
+<h2 id="5-wallet-agent">5. Wallet Agent: специфікація<a class="headerlink" href="#5-wallet-agent" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 Призначення<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<p>Wallet Agent — це агент, який:</p>
+<ul>
+<li>показує баланси токенів (RINGK, 1T, KWT, DAAR, DAARION тощо);</li>
+<li>ініціює й перевіряє дії стейкінгу/unstake RINGK;</li>
+<li>показує історію payouts (1T/KWT);</li>
+<li>працює з RWA-сертифікатами (Energy, GREENFOOD тощо) через Embassy.</li>
+</ul>
+<h3 id="52">5.2 Основні флоу<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>View balances</strong></p>
+</li>
+<li>
+<p>Виклик: <code>/wallet/balances</code>.</p>
+</li>
+<li>Перевірка:</li>
+<li>RBAC: будь-який Member+ / Owner/Guardian.</li>
+<li>Capability: <code>wallet.balance.view</code>.</li>
+<li>
+<p>Mode: не залежить від public/confidential.</p>
+</li>
+<li>
+<p><strong>Stake RINGK</strong></p>
+</li>
+<li>
+<p>Виклик: <code>/staking/ringk</code> (<code>amount</code>).</p>
+</li>
+<li>Перевірка:</li>
+<li>RBAC: Member+.</li>
+<li>Capability: <code>wallet.stake.ringk</code>.</li>
+<li>Entitlements: перевірка мінімального стейку, lock-параметрів.</li>
+<li>
+<p>Governance: параметри стейку (lock_until, min_amount) беруться з onchain/DAO-конфігів.</p>
+</li>
+<li>
+<p><strong>Claim payouts (1T/KWT/RWA)</strong></p>
+</li>
+<li>
+<p>Флоу:</p>
+</li>
+<li>Wallet Agent читає <code>payouts</code>/<code>rwa_claims</code> з backend;</li>
+<li>ініціює підпис транзакції користувачем;</li>
+<li>виконує через onchain gateway/Embassy.</li>
+<li>Capabilities:</li>
+<li><code>wallet.payout.view</code></li>
+<li><code>wallet.payout.claim</code></li>
+<li><code>rwa.claim</code></li>
+</ol>
+<h3 id="53">5.3 Дані (мінімум)<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>wallets</code> (user_id ↔ address)</li>
+<li><code>staking_ringk</code></li>
+<li><code>payouts</code></li>
+<li><code>rwa_certificates</code> / <code>rwa_claims</code> (через Embassy)</li>
+</ul>
+<hr />
+<h2 id="6-embassy-module">6. Embassy Module: специфікація<a class="headerlink" href="#6-embassy-module" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 Призначення<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p>Embassy Module — шар інтеграції між:</p>
+<ul>
+<li>DAARION.city (місто агентів, microdao);</li>
+<li>зовнішніми платформами (GreenFood, Energy Union, інші RWA-ініціативи);</li>
+<li>публічними мережами (L2, marketplace, вузли взаємообміну).</li>
+</ul>
+<p>Він відповідає за:</p>
+<ul>
+<li>мапінг ідентичностей;</li>
+<li>валідацію актів взаємодії;</li>
+<li>трансформацію подій і capability-рівнів.</li>
+</ul>
+<h3 id="62">6.2 Ідентичності<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>resident_id</code> ↔ <code>user_id</code>/DID.</li>
+<li><code>district_id</code> ↔ team/microDAO.</li>
+<li><code>agent_id</code> ↔ citizen-agent.</li>
+<li><code>rwa_id</code> ↔ сертифікат дару/актив RWA.</li>
+</ul>
+<p>Embassy Key має capability-набори:</p>
+<ul>
+<li><code>embassy.intent.read/write</code></li>
+<li><code>embassy.rwa.claim</code></li>
+<li><code>embassy.energy.update</code></li>
+<li><code>embassy.audit.view</code></li>
+</ul>
+<h3 id="63">6.3 Події (канонічні акти)<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>intent.created</code></li>
+<li><code>offer.published</code></li>
+<li><code>gift.ack</code></li>
+<li><code>memory.update</code></li>
+<li><code>rwa.claim</code></li>
+<li><code>energy.update</code></li>
+</ul>
+<p>Embassy:</p>
+<ul>
+<li>приймає подію через webhook / шину (NATS);</li>
+<li>перевіряє capability Embassy Key;</li>
+<li>трансформує в внутрішні події (<code>reward.*</code>, <code>oracle.*</code>, <code>payout.*</code>).</li>
+</ul>
+<hr />
+<h2 id="7-runtime-capability-check">7. Runtime capability-check<a class="headerlink" href="#7-runtime-capability-check" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 Компоненти<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PDP</strong> (Policy Decision Point) — сервіс, який:</li>
+<li>приймає контекст запиту: <code>user_id / agent_id</code>, <code>team_id</code>, <code>resource</code>, <code>action</code>, <code>mode</code>, <code>key_id</code>;</li>
+<li>повертає <code>allow/deny</code> + причину.</li>
+<li><strong>PEP</strong> (Policy Enforcement Point):</li>
+<li>live у API-gateway і сервісах (Messaging, Projects, Wallet, Governance).</li>
+</ul>
+<h3 id="72">7.2 Кеш і формат токена<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Для кожного access key формується компактний «capability token»:</li>
+<li><code>sub</code> (user/agent/integration);</li>
+<li><code>team_scope</code>;</li>
+<li><code>caps</code> (список capability кодів або bitmap);</li>
+<li><code>exp</code>.</li>
+<li>Токен зберігається в Redis / in-memory кеші для швидкої перевірки.</li>
+</ul>
+<h3 id="73">7.3 Приклади перевірок<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Агент хоче прочитати Co-Memory:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>action = comemory.item.read
+resource = chat: c_123
+mode = confidential
+subject = ag_456
+key_id = ak_789
+
+→ RBAC: owner of agent = Member в team t_1
+→ Entitlements: план дозволяє приватні агенти
+→ Capability(ak_789): містить comemory.item.read:scoped
+→ ACL: чат дозволяє агентів
+→ Mode: confidential → E2EE, агент отримує лише векторні ознаки/summary
+
+→ allow
+</code></pre></div>
+
+<ol>
+<li>Зовнішній RWA-хаб оновлює енергетичний актив:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>action = energy.update
+subject = embassy_key ek_001
+→ Capability(ek_001): енергетичні оновлення дозволені для конкретного district_id
+→ Governance: політика для цього district_id активна
+
+→ allow
+</code></pre></div>
+
+<hr />
+<h2 id="8-governance-agent">8. Інтеграція з Governance Agent<a class="headerlink" href="#8-governance-agent" title="Permanent link">&para;</a></h2>
+<p>Governance Agent:</p>
+<ul>
+<li>має capability <code>governance.policy.manage</code> (тільки Owner/Guardian через DAO-процес);</li>
+<li>може:</li>
+<li>створювати/оновлювати <strong>capability bundles</strong>;</li>
+<li>прив'язувати bundles до ролей/планів/ключів;</li>
+<li>змінювати пороги доступу (напр. min RINGK stake для Premium/Platformium).</li>
+</ul>
+<p>Флоу:</p>
+<ol>
+<li>Створюється пропозиція (onchain / в DAO Service):</li>
+<li>змінити набір capabilities для <code>Platformium</code> плану;</li>
+<li>додати capability <code>platform.greenfood.inventory.update</code>.</li>
+<li>Пропозиція голосується токеном DAARION.</li>
+<li>Після прийняття Governance Agent:</li>
+<li>оновлює конфіг у Capability Registry;</li>
+<li>виконує міграцію активних access keys;</li>
+<li>логуються події <code>governance.policy.updated</code>.</li>
+</ol>
+<hr />
+<h2 id="9">9. Дані та моделі (мінімальна схема)<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<p>Таблиці (спрощений вигляд):</p>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">access_keys</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- ak_...</span>
+<span class="w">  </span><span class="n">subject_kind</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- user|agent|integration|embassy</span>
+<span class="w">  </span><span class="n">subject_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;revoked&#39;</span><span class="p">,</span><span class="s1">&#39;expired&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">expires_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">capabilities</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- cap_...</span>
+<span class="w">  </span><span class="n">code</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">         </span><span class="c1">-- chat.message.send, wallet.stake.ringk</span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">access_key_caps</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">key_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">access_keys</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">cap_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">capabilities</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">key_id</span><span class="p">,</span><span class="w"> </span><span class="n">cap_id</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bundles</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- bundle_...</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">         </span><span class="c1">-- e.g. &quot;role.Member&quot;, &quot;plan.Premium&quot;, &quot;agent.default&quot;</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bundle_caps</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">bundle_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">bundles</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">cap_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">capabilities</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">bundle_id</span><span class="p">,</span><span class="w"> </span><span class="n">cap_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<p>Access key може наслідувати capabilities з одного чи кількох bundles.</p>
+<hr />
+<h2 id="10">10. Безпека<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Мінімізований набір capabilities за замовчуванням (principle of least privilege).</li>
+<li>Для confidential-контенту:</li>
+<li>агенти не отримують plaintext без явної згоди;</li>
+<li>Embassy не передає контент, тільки агреговані/векторні дані.</li>
+<li>Всі access keys:</li>
+<li>зберігаються у зашифрованому вигляді (KMS);</li>
+<li>мають короткий час життя, періодичну ротацію;</li>
+<li>мають аудит використання (audit_log).</li>
+</ul>
+<hr />
+<h2 id="11-rbac-entitlements">11. Інтеграція з RBAC &amp; Entitlements<a class="headerlink" href="#11-rbac-entitlements" title="Permanent link">&para;</a></h2>
+<p>Посилання на документ: <code>microdao — RBAC і Entitlements (MVP).docx</code></p>
+<ol>
+<li>Розширена формула доступу (оновлює пункт 2 у RBAC-документі):</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>allow =
+  RBAC(role, action, resource)
+  ∧ Entitlement(plan, RINGK_staked)
+  ∧ Capability(key, action, resource)
+  ∧ ACL(resource)
+  ∧ Mode(public|confidential)
+</code></pre></div>
+
+<ol>
+<li>
+<p>Мапінг ролей з RBAC → capability bundles:</p>
+</li>
+<li>
+<p>з таблиць <code>team_members.role</code> (<code>Owner</code>, <code>Guardian</code>, <code>Member</code>) та viewer-type (<code>reader</code>, <code>commenter</code>, <code>contributor</code>) формуються стартові bundles:</p>
+</li>
+<li><code>bundle.role.Owner</code></li>
+<li><code>bundle.role.Guardian</code></li>
+<li><code>bundle.role.Member</code></li>
+<li><code>bundle.role.Visitor</code> (для гостя в public-каналах).</li>
+<li>
+<p>кожен bundle включає capabilities, що відповідають матрицям з розділу «4) Ресурси → дії (матриці)» RBAC-документу
+  (Community, Channels, Messages, Follow-ups, Projects, Tasks, Docs, Meetings).</p>
+</li>
+<li>
+<p>Мапінг Entitlements (плани + стейк RINGK):</p>
+</li>
+<li>
+<p>таблиці з Data Model:</p>
+</li>
+<li><code>wallets</code></li>
+<li><code>staking_ringk</code></li>
+<li>плани з RBAC-документу (<code>Freemium</code>, <code>Casual</code>, <code>Premium</code>, <code>Platformium</code>) задаються як:</li>
+<li><code>bundle.plan.Freemium</code></li>
+<li><code>bundle.plan.Casual</code></li>
+<li><code>bundle.plan.Premium</code></li>
+<li><code>bundle.plan.Platformium</code></li>
+<li>формула з RBAC → в capability-рівень:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>effective_quota = min(plan_quota × multiplier(RINGK_staked), hard_limit)
+</code></pre></div>
+
+<ul>
+<li>ліміти прив'язуються до capabilities на кшталт:</li>
+<li><code>chat.message.send</code></li>
+<li><code>agent.run.invoke</code></li>
+<li><code>router.invoke</code></li>
+<li><code>wallet.payout.claim</code></li>
+</ul>
+<hr />
+<h2 id="12-security-architecture-threat-model">12. Інтеграція з Security Architecture &amp; Threat Model<a class="headerlink" href="#12-security-architecture-threat-model" title="Permanent link">&para;</a></h2>
+<p>Посилання: <code>microdao — Security Architecture &amp; Threat Model (MVP).docx</code></p>
+<ol>
+<li>
+<p>Зберігання ключів:</p>
+</li>
+<li>
+<p>метадані ключа — в таблиці <code>access_keys</code> (див. розділ 13 нижче);</p>
+</li>
+<li>сам секрет (<code>secret</code>) зберігається зашифрованим (KMS/HSM), згідно з розділами про secrets у Security Architecture;</li>
+<li>
+<p>one-time reveal: після створення ключ не показується повторно.</p>
+</li>
+<li>
+<p>Транспорт і токени:</p>
+</li>
+<li>
+<p>веб-клієнт:</p>
+</li>
+<li>використовує сесію (<code>users</code> + сесійні токени на рівні Auth);</li>
+<li>capability-набір інкапсульовано в «capability token» (JWT/opaque), який несе:<ul>
+<li><code>sub</code> (u_/ag_/integr),</li>
+<li><code>team_id</code>,</li>
+<li>стиснений список <code>caps</code>.</li>
+</ul>
+</li>
+<li>API/Webhooks/Embassy:</li>
+<li>ключ передається в <code>Authorization: Bearer &lt;access_key_secret&gt;</code> або в окремому заголовку;</li>
+<li>
+<p>підпис вебхуків (Embassy) — HMAC, як у Security Architecture.</p>
+</li>
+<li>
+<p>Confidential-режим:</p>
+</li>
+<li>
+<p><code>teams.mode</code> ∈ (<code>public</code>, <code>confidential</code>);</p>
+</li>
+<li>для <code>mode='confidential'</code>:</li>
+<li>агенти з Agent Access Key не бачать <code>chat_message.body</code> у plaintext,</li>
+<li>доступ дається до:<ul>
+<li>агрегованих структур (<code>comemory_items</code>),</li>
+<li>embeddings/summary, сформованих локально або в E2EE-шарі;</li>
+</ul>
+</li>
+<li>
+<p>це наслідує E2EE-модель з Security-документу (сервер бачить мінімум метаданих).</p>
+</li>
+<li>
+<p>Threat model для access keys:</p>
+</li>
+<li>
+<p>нові активи:</p>
+</li>
+<li><code>access_keys</code>, <code>bundles</code>, capability-кеш;</li>
+<li>загрози:</li>
+<li>компрометація ключа, зловживання Embassy-ключем, масовий abuse agent-ключів;</li>
+<li>мітiгації:</li>
+<li>короткий <code>expires_at</code>, обов'язкова ротація;</li>
+<li>strict capabilities (least privilege);</li>
+<li>обов'язковий аудит через події <code>audit.event</code> і нові <code>access_key.*</code> (див. нижче).</li>
+</ol>
+<hr />
+<h2 id="13-data-model-event-catalog">13. Інтеграція з Data Model &amp; Event Catalog<a class="headerlink" href="#13-data-model-event-catalog" title="Permanent link">&para;</a></h2>
+<p>Посилання: <code>microdao — Data Model &amp; Event Catalog.docx</code></p>
+<ol>
+<li>Нові таблиці (додати в розділ DB-схеми, поруч із Wallet / Governance):</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">access_keys</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- ak_...</span>
+<span class="w">  </span><span class="n">subject_kind</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- &#39;user&#39; | &#39;agent&#39; | &#39;integration&#39; | &#39;embassy&#39;</span>
+<span class="w">  </span><span class="n">subject_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">   </span><span class="c1">-- u_/ag_/...</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">          </span><span class="c1">-- t_..., якщо scoped до команди</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;revoked&#39;</span><span class="p">,</span><span class="s1">&#39;expired&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">expires_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">last_used_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">capabilities</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- cap_...</span>
+<span class="w">  </span><span class="n">code</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span><span class="w">  </span><span class="c1">-- chat.message.send, wallet.stake.ringk, ...</span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">access_key_caps</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">key_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">access_keys</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">cap_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">capabilities</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">key_id</span><span class="p">,</span><span class="w"> </span><span class="n">cap_id</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bundles</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- bundle_...</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span><span class="w">  </span><span class="c1">-- role.Member / plan.Premium / agent.default</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bundle_caps</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">bundle_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">bundles</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">cap_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">capabilities</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">bundle_id</span><span class="p">,</span><span class="w"> </span><span class="n">cap_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li>конвенції ID узгоджуються з розділом «2) Конвенції»:</li>
+<li><code>ak_…</code> для access keys;</li>
+<li><code>cap_…</code> для capabilities;</li>
+<li>
+<p><code>bundle_…</code> для bundle-ів.</p>
+</li>
+<li>
+<p>Прив'язка до існуючих таблиць:</p>
+</li>
+<li>
+<p><code>access_keys.subject_id</code> → <code>users.id</code> / <code>agents.id</code> / <code>integrations.id</code> / Embassy-ідентифікатори (згідно з Data Model);</p>
+</li>
+<li>
+<p><code>access_keys.team_id</code> → <code>teams.id</code> (team як microDAO/платформа).</p>
+</li>
+<li>
+<p>Нові події для Event Catalog (розширення enum <code>topic</code>):</p>
+</li>
+</ul>
+<p>Додати в список <code>topic.enum</code>:</p>
+<div class="codehilite"><pre><span></span><code>&quot;access_key.created&quot;,
+&quot;access_key.revoked&quot;,
+&quot;access_key.used&quot;
+</code></pre></div>
+
+<p>та окремі <code>allOf</code>-entry з <code>$defs</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// envelope.topic = &quot;access_key.created&quot;</span>
+<span class="s">&quot;access_key_created&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s">&quot;subject_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s">&quot;subject_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="s">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;string&quot;</span><span class="p">,</span><span class="s">&quot;null&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;key_id&quot;</span><span class="p">,</span><span class="s">&quot;subject_kind&quot;</span><span class="p">,</span><span class="s">&quot;subject_id&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>аналогічні схеми для <code>access_key.revoked</code> і <code>access_key.used</code>
+(з полями <code>revoked_by</code>, <code>action</code>, <code>resource_kind</code>).</p>
+<ol>
+<li>
+<p>Зв'язок з уже наявними подіями:</p>
+</li>
+<li>
+<p><code>staking_ringk</code> + <code>payouts</code> вже мають події:</p>
+</li>
+<li><code>"staking.locked"</code></li>
+<li><code>"payout.generated"</code></li>
+<li><code>"rwa.inventory.updated"</code></li>
+<li>Wallet Agent та Embassy в sequence-діаграмах нижче використовують саме ці topic-и; capability-check визначає, хто має право ініціювати або читати ці події.</li>
+</ol>
+<hr />
+<h2 id="14-sequence-">14. Sequence-діаграми (ключові флоу)<a class="headerlink" href="#14-sequence-" title="Permanent link">&para;</a></h2>
+<h3 id="141-wallet-agent-login-access-key-capability-check-stake-ringk">14.1 Wallet Agent: login → access key → capability-check → stake RINGK<a class="headerlink" href="#141-wallet-agent-login-access-key-capability-check-stake-ringk" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">(</span><span class="n">browser</span><span class="p">)</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Auth</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Auth</span><span class="w"> </span><span class="n">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Gateway</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Policy</span><span class="w"> </span><span class="n">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Wallet</span><span class="w"> </span><span class="n">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">BUS</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">NATS</span><span class="w"> </span><span class="n">JetStream</span>
+
+<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">Auth</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">login</span><span class="w"> </span><span class="p">(</span><span class="n">email</span><span class="o">+</span><span class="n">code</span><span class="p">)</span>
+<span class="w">    </span><span class="n">Auth</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">Session</span><span class="w"> </span><span class="p">(</span><span class="n">JWT</span><span class="o">/</span><span class="n">cookie</span><span class="w"> </span><span class="err">з</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">capability</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">API</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">wallet</span><span class="o">/</span><span class="n">stake</span><span class="w"> </span><span class="p">{</span><span class="n">amount</span><span class="p">}</span>
+<span class="w">    </span><span class="n">API</span><span class="o">-&gt;&gt;</span><span class="n">PDP</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">authorize</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="o">=</span><span class="n">wallet</span><span class="o">.</span><span class="n">stake</span><span class="o">.</span><span class="n">ringk</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PDP</span><span class="o">--&gt;&gt;</span><span class="n">API</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">deny</span>
+
+<span class="w">    </span><span class="n">API</span><span class="o">-&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">create_stake_request</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span>
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">BUS</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="o">=</span><span class="s2">&quot;staking.locked&quot;</span><span class="w"> </span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">staking_id</span><span class="p">)</span>
+<span class="w">    </span><span class="n">API</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="n">OK</span><span class="w"> </span><span class="p">(</span><span class="n">stake</span><span class="w"> </span><span class="n">pending</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">BUS</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="err">після</span><span class="w"> </span><span class="err">ончейн</span><span class="o">-</span><span class="err">обробки</span><span class="p">)</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="o">=</span><span class="s2">&quot;payout.generated&quot;</span>
+<span class="w">    </span><span class="n">BUS</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">notification</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Wallet</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="p">(</span><span class="n">claim</span><span class="w"> </span><span class="n">available</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="142-embassy-module-external-rwa-embassy-capability-check-internal-events">14.2 Embassy Module: external RWA → Embassy → capability-check → internal events<a class="headerlink" href="#142-embassy-module-external-rwa-embassy-capability-check-internal-events" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Ext</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">External</span><span class="w"> </span><span class="n">RWA</span><span class="w"> </span><span class="n">Hub</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">GW</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Embassy</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="p">(</span><span class="n">HTTP</span><span class="o">/</span><span class="n">Webhook</span><span class="p">)</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Policy</span><span class="w"> </span><span class="n">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">BUS</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">NATS</span><span class="w"> </span><span class="n">JetStream</span>
+
+<span class="w">    </span><span class="n">Ext</span><span class="o">-&gt;&gt;</span><span class="n">GW</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">embassy</span><span class="o">/</span><span class="n">rwa</span><span class="w"> </span><span class="p">{</span><span class="n">inventory_update</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">access_key</span>
+<span class="w">    </span><span class="n">GW</span><span class="o">-&gt;&gt;</span><span class="n">PDP</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">authorize</span><span class="p">(</span><span class="n">embassy_key</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="o">=</span><span class="n">rwa</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">update</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PDP</span><span class="o">--&gt;&gt;</span><span class="n">GW</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">deny</span>
+
+<span class="w">    </span><span class="n">GW</span><span class="o">-&gt;&gt;</span><span class="n">BUS</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="o">=</span><span class="s2">&quot;rwa.inventory.updated&quot;</span><span class="w"> </span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">rwa_id</span><span class="p">,</span><span class="w"> </span><span class="n">delta</span><span class="p">)</span>
+<span class="w">    </span><span class="n">BUS</span><span class="o">--&gt;&gt;</span><span class="n">BUS</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">downstream</span><span class="w"> </span><span class="n">services</span><span class="w"> </span><span class="p">(</span><span class="n">Wallet</span><span class="o">/</span><span class="n">Gift</span><span class="w"> </span><span class="n">Fabric</span><span class="p">)</span><span class="w"> </span><span class="err">слухають</span><span class="w"> </span><span class="err">подію</span>
+</code></pre></div>
+
+<h3 id="143-energy-union-meter-energy-union-embassy-payouts">14.3 Energy Union: meter → Energy Union → Embassy → payouts<a class="headerlink" href="#143-energy-union-meter-energy-union-embassy-payouts" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Metering</span><span class="w"> </span><span class="n">Agent</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">EU</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Energy</span><span class="w"> </span><span class="n">Union</span><span class="w"> </span><span class="n">Backend</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Emb</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Embassy</span><span class="w"> </span><span class="n">Module</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Policy</span><span class="w"> </span><span class="n">Service</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">BUS</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">NATS</span><span class="w"> </span><span class="n">JetStream</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Wallet</span><span class="w"> </span><span class="n">Service</span>
+
+<span class="w">    </span><span class="n">M</span><span class="o">-&gt;&gt;</span><span class="nl">EU:</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="n">send</span><span class="w"> </span><span class="n">meter</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="p">(</span><span class="n">kWh</span><span class="p">)</span>
+<span class="w">    </span><span class="n">EU</span><span class="o">-&gt;&gt;</span><span class="nl">EU:</span><span class="w"> </span><span class="mh">2</span><span class="p">)</span><span class="w"> </span><span class="n">aggregate</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">validate</span>
+
+<span class="w">    </span><span class="n">EU</span><span class="o">-&gt;&gt;</span><span class="nl">Emb:</span><span class="w"> </span><span class="mh">3</span><span class="p">)</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">embassy</span><span class="o">/</span><span class="n">oracle</span><span class="w"> </span><span class="p">{</span><span class="n">site</span><span class="p">,</span><span class="w"> </span><span class="n">period</span><span class="p">,</span><span class="w"> </span><span class="n">kWh</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">access_key</span>
+<span class="w">    </span><span class="n">Emb</span><span class="o">-&gt;&gt;</span><span class="nl">PDP:</span><span class="w"> </span><span class="mh">4</span><span class="p">)</span><span class="w"> </span><span class="n">authorize</span><span class="p">(</span><span class="n">embassy_key</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="o">=</span><span class="n">oracle</span><span class="p">.</span><span class="n">reading</span><span class="p">.</span><span class="n">publish</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PDP</span><span class="o">--&gt;&gt;</span><span class="nl">Emb:</span><span class="w"> </span><span class="mh">5</span><span class="p">)</span><span class="w"> </span><span class="n">allow</span>
+
+<span class="w">    </span><span class="n">Emb</span><span class="o">-&gt;&gt;</span><span class="nl">BUS:</span><span class="w"> </span><span class="mh">6</span><span class="p">)</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="o">=</span><span class="s">&quot;oracle.reading.published&quot;</span>
+<span class="w">    </span><span class="n">BUS</span><span class="o">-&gt;&gt;</span><span class="nl">W:</span><span class="w"> </span><span class="mh">7</span><span class="p">)</span><span class="w"> </span><span class="n">consume</span><span class="w"> </span><span class="n">oracle</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">compute</span><span class="w"> </span><span class="n">payouts</span>
+<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="nl">BUS:</span><span class="w"> </span><span class="mh">8</span><span class="p">)</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="o">=</span><span class="s">&quot;payout.generated&quot;</span><span class="w"> </span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s">&quot;KWT&quot;</span><span class="o">/</span><span class="s">&quot;1T&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">BUS</span><span class="o">--&gt;&gt;</span><span class="nl">Users:</span><span class="w"> </span><span class="mh">9</span><span class="p">)</span><span class="w"> </span><span class="n">Wallet</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="err">показує</span><span class="w"> </span><span class="err">доступні</span><span class="w"> </span><span class="err">виплати</span>
+</code></pre></div>
+
+<hr />
+<h2 id="15-cursor">15. Завдання для Cursor<a class="headerlink" href="#15-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement the Access Keys &amp; Capabilities System using:
+- 24_access_keys_capabilities_system.md
+- 18_governance_access_agent.md
+- 23_domains_wallet_dao_deepdive.md
+- 05_coding_standards.md
+
+Tasks:
+1) Create database schema: access_keys, capabilities, access_key_caps, bundles, bundle_caps.
+2) Implement PDP (Policy Decision Point) service.
+3) Integrate PEP (Policy Enforcement Point) into API Gateway.
+4) Implement Wallet Agent endpoints with capability checks.
+5) Create Embassy Module stub with capability validation.
+6) Add capability-check middleware for all API endpoints.
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="16">16. Результат<a class="headerlink" href="#16" title="Permanent link">&para;</a></h2>
+<p>Після впровадження цієї системи:</p>
+<ul>
+<li>єдиний шар авторизації для всіх типів доступу (users, agents, integrations, platforms);</li>
+<li>чіткий контроль прав через capabilities;</li>
+<li>інтеграція з Wallet Agent та Embassy Module;</li>
+<li>підготовка до масштабування та додавання нових платформ.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

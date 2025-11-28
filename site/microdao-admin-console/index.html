@@ -1,0 +1,888 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/microdao-admin-console/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>MicroDAO Admin Console — Unified Admin UI Spec - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#microdao-admin-console-unified-admin-ui-spec" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MicroDAO Admin Console — Unified Admin UI Spec
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="microdao-admin-console-unified-admin-ui-spec">MicroDAO Admin Console — Unified Admin UI Spec<a class="headerlink" href="#microdao-admin-console-unified-admin-ui-spec" title="Permanent link">&para;</a></h1>
+<p><strong>Цей документ описує стандартизовану адмін-панель для всіх MicroDAO в екосистемі DAARION.city.</strong></p>
+<p>Адмінка має бути:</p>
+<ul>
+<li>однаково структурованою для A1, A2, A3, A4/F4 DAO,</li>
+<li>з обовʼязковою присутністю головного агента DAO на Overview-сторінці,</li>
+<li>розширюваною (можна додавати вкладки, але не прибирати базові),</li>
+<li>адаптивною (від A1 SuperDAO до маленького приватного DAO).</li>
+</ul>
+<hr />
+<h1 id="1">1. Цілі та принципи<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<ol>
+<li>
+<p><strong>Уніфікація</strong> — будь-яке MicroDAO має однакову логіку налаштувань.</p>
+</li>
+<li>
+<p><strong>Agent-first Admin</strong> — головний агент DAO присутній на кожній адмін-сторінці як помічник.</p>
+</li>
+<li>
+<p><strong>Role-aware</strong> — доступ до консолі залежить від ролі користувача (Owner/Admin тощо).</p>
+</li>
+<li>
+<p><strong>Safe-by-default</strong> — всі критичні дії проходять через PDP та підтвердження.</p>
+</li>
+<li>
+<p><strong>Composable</strong> — модулі адмінки можна вмикати/вимикати залежно від рівня DAO (A1/A2/A3/A4).</p>
+</li>
+</ol>
+<hr />
+<h1 id="2-">2. Доступ до адмін-панелі<a class="headerlink" href="#2-" title="Permanent link">&para;</a></h1>
+<p>Адмін-панель доступна за маршрутом:</p>
+<div class="codehilite"><pre><span></span><code>/dao/:dao_id/admin
+</code></pre></div>
+
+<p>Доступ мають користувачі з ролями:</p>
+<ul>
+<li><strong>Owner</strong></li>
+<li><strong>Admin</strong></li>
+</ul>
+<p>Опційно (тільки для читання):</p>
+<ul>
+<li><strong>Auditor / Observer</strong> (якщо така роль буде додана пізніше).</li>
+</ul>
+<p>Агенти можуть "бачити" адмін-панель через окремий API, але <strong>ніколи не відкривають її як UI</strong>.</p>
+<hr />
+<h1 id="3-layout">3. Загальний layout адмінки<a class="headerlink" href="#3-layout" title="Permanent link">&para;</a></h1>
+<p>Адмінка складається з трьох основних зон:</p>
+<ol>
+<li><strong>Header (верхня панель)</strong></li>
+<li><strong>Sidebar (ліва навігація)</strong></li>
+<li><strong>Main Content (центральна зона)</strong></li>
+</ol>
+<h2 id="31-header">3.1 Header<a class="headerlink" href="#31-header" title="Permanent link">&para;</a></h2>
+<p>Містить:</p>
+<ul>
+<li>Назву DAO: <code>DAO Name</code></li>
+<li>Рівень: <code>A1 / A2 / A3 / A4/F4</code></li>
+<li>Статус: <code>active | paused | archived | private</code></li>
+<li>Інформація про супідпорядкування:</li>
+<li>якщо <code>parent_dao_id != null</code>, показати: <code>Частина SuperDAO: &lt;Parent DAO Name&gt;</code></li>
+<li>якщо це A1: <code>SuperDAO Root (DAARION.city)</code></li>
+</ul>
+<p>Опційно:</p>
+<ul>
+<li>кнопка швидкого перемикання між DAO (для адмінів, що керують кількома DAO)</li>
+</ul>
+<h2 id="32-sidebar">3.2 Sidebar (навігація)<a class="headerlink" href="#32-sidebar" title="Permanent link">&para;</a></h2>
+<p>Базові розділи (обовʼязкові для всіх DAO):</p>
+<ol>
+<li><strong>Overview</strong></li>
+<li><strong>Members &amp; Roles</strong></li>
+<li><strong>Tokenomics &amp; Wallet</strong></li>
+<li><strong>Agents</strong></li>
+<li><strong>Integrations</strong></li>
+<li><strong>Settings</strong></li>
+<li><strong>Security &amp; Logs</strong></li>
+</ol>
+<p>Для A1/A2 можуть зʼявлятися додаткові вкладки (наприклад: <code>Platforms</code>, <code>Federation</code>, <code>City Config</code>).</p>
+<h2 id="33-main-content">3.3 Main Content (залежить від обраної вкладки)<a class="headerlink" href="#33-main-content" title="Permanent link">&para;</a></h2>
+<p>Основна зона використовується кожним розділом по-різному.</p>
+<hr />
+<h1 id="4-overview">4. Overview (головний екран адміна)<a class="headerlink" href="#4-overview" title="Permanent link">&para;</a></h1>
+<p><strong>Overview</strong> — це центральна точка входу для будь-якого адміна DAO.</p>
+<h2 id="41-dao">4.1 Блок "Головний агент DAO"<a class="headerlink" href="#41-dao" title="Permanent link">&para;</a></h2>
+<p>У верхній частині Overview <strong>завжди</strong> присутній блок із головним агентом DAO.</p>
+<ul>
+<li>Для A1: <strong>DAARWIZZ</strong></li>
+<li>Для A2-платформ: головний платформний агент, напр. <code>Helion.CoreAgent</code></li>
+<li>Для A3/A4: агент, обраний власником DAO (наприклад <code>Main DAO Agent</code>)</li>
+</ul>
+<p>Блок містить:</p>
+<ul>
+<li>аватар/іконку агента</li>
+<li>імʼя та короткий опис ролі</li>
+<li>статус (online / busy / maintenance)</li>
+<li>кнопку "Поставити запитання" або "Попросити рекомендацію"</li>
+</ul>
+<p>Головний агент може:</p>
+<ul>
+<li>показувати TODO для адміна ("налаштуйте ролі", "додайте інтеграцію").</li>
+<li>пояснювати налаштування адмінки простими словами.</li>
+</ul>
+<h2 id="42-dao-status-health">4.2 Стан DAO (Status &amp; Health)<a class="headerlink" href="#42-dao-status-health" title="Permanent link">&para;</a></h2>
+<p>Секція з основними метриками:</p>
+<ul>
+<li>кількість учасників DAO</li>
+<li>рівень DAO (A2/A3/A4)</li>
+<li>чи є DAO частиною SuperDAO (і якого)</li>
+<li>основні активні інтеграції</li>
+<li>стан токенів (базово: наявність DAAR/DAARION для роботи DAO)</li>
+</ul>
+<h2 id="43">4.3 Останні події<a class="headerlink" href="#43" title="Permanent link">&para;</a></h2>
+<p>Лог останніх важливих подій:</p>
+<ul>
+<li>зміни ролей</li>
+<li>включення/відключення агентів</li>
+<li>підключення інтеграцій</li>
+<li>спроби критичних дій (успішні/відхилені PDP)</li>
+</ul>
+<hr />
+<h1 id="5-members-roles">5. Members &amp; Roles<a class="headerlink" href="#5-members-roles" title="Permanent link">&para;</a></h1>
+<p>Розділ для управління учасниками DAO.</p>
+<p>Функції:</p>
+<ul>
+<li>перегляд списку учасників (імʼя, роль, статус)</li>
+<li>призначення/зміна ролей (Owner, Admin, Member, Guest)</li>
+<li>запрошення нових учасників (e-mail/handle/ID)</li>
+<li>видалення/бан учасників</li>
+</ul>
+<p>Особливості:</p>
+<ul>
+<li>лише <strong>Owner</strong> може передавати роль Owner іншому користувачу</li>
+<li>лише <strong>Owner/Admin</strong> можуть змінювати ролі інших</li>
+</ul>
+<p>У майбутньому тут може зʼявитися інтеграція з токенами репутації (REP).</p>
+<hr />
+<h1 id="6-tokenomics-wallet">6. Tokenomics &amp; Wallet<a class="headerlink" href="#6-tokenomics-wallet" title="Permanent link">&para;</a></h1>
+<p>Розділ для перегляду й управління економічною частиною DAO.</p>
+<p>Елементи:</p>
+<ul>
+<li>баланс DAAR / DAARION (для DAO, якщо це передбачено)</li>
+<li>індикатор відповідності токеноміці (чи достатньо DAAR/DAARION для поточних функцій)</li>
+<li>інформація про локальні токени DAO (якщо DAO використовує GOV/UTIL/REP)</li>
+</ul>
+<p>Обмеження:</p>
+<ul>
+<li>фінансові операції (перекази, стейкінг, виплати) мають відкривати окремий безпечний флоу, де всі дії проходять через Wallet Service + PDP.</li>
+<li>агенти можуть лише пропонувати дії ("запропонувати транзакцію"), але не виконувати їх самостійно.</li>
+</ul>
+<hr />
+<h1 id="7-agents">7. Agents<a class="headerlink" href="#7-agents" title="Permanent link">&para;</a></h1>
+<p>Розділ для управління агентами DAO.</p>
+<p>Елементи:</p>
+<ul>
+<li>список агентів DAO (назва, тип, статус, рівень доступу)</li>
+<li>позначка "Main Agent" (головний агент DAO)</li>
+<li>кнопки:</li>
+<li><strong>Додати агента</strong> (з каталогу типів або кастомний)</li>
+<li><strong>Увімкнути/вимкнути</strong> агента</li>
+<li><strong>Налаштувати</strong> (деталі поведінки, рівень автономії, дозволені дії)</li>
+</ul>
+<p>Обовʼязкові правила:</p>
+<ul>
+<li>головний агент DAO завжди має бути один</li>
+<li>вилучення головного агента має вимагати підтвердження та, можливо, участі A1 (для A2)-рівня DAO</li>
+<li>усі зміни конфігурації агентів логуються в Security &amp; Logs</li>
+</ul>
+<hr />
+<h1 id="8-integrations">8. Integrations<a class="headerlink" href="#8-integrations" title="Permanent link">&para;</a></h1>
+<p>Розділ для підключення зовнішніх сервісів та міських платформ.</p>
+<p>Приклади:</p>
+<ul>
+<li>інтеграція з GreenFood ERP</li>
+<li>інтеграція з Helion (енергетика)</li>
+<li>інтеграція з WaterAGI</li>
+<li>інтеграція з зовнішніми сервісами (наприклад, CRM/Notion/Jira у майбутньому)</li>
+</ul>
+<p>Механіка:</p>
+<ul>
+<li>список доступних інтеграцій (каталог)</li>
+<li>кнопка "Підключити"</li>
+<li>статус: <code>connected | disconnected | error</code></li>
+</ul>
+<p>Усі інтеграції мають описуватися як capability-keys для агентів.</p>
+<hr />
+<h1 id="9-settings">9. Settings<a class="headerlink" href="#9-settings" title="Permanent link">&para;</a></h1>
+<p>Розділ для налаштувань DAO.</p>
+<p>Параметри:</p>
+<ul>
+<li>назва DAO, опис, аватар/лого</li>
+<li>тип DAO: <code>platform | public | private</code></li>
+<li>рівень видимості (чисто для UI): <code>public catalog | invite-only</code></li>
+<li>налаштування онбордингу (чи можна подати заявку на вступ)</li>
+</ul>
+<p>Для A2/A3/A4 можуть бути додаткові поля.</p>
+<p>Зміна критичних налаштувань:</p>
+<ul>
+<li>вимагає підтвердження (наприклад, повторне введення пароля/підпису транзакції)</li>
+<li>логуються в Security &amp; Logs</li>
+</ul>
+<hr />
+<h1 id="10-security-logs">10. Security &amp; Logs<a class="headerlink" href="#10-security-logs" title="Permanent link">&para;</a></h1>
+<p>Розділ для аудиту дій.</p>
+<p>Містить:</p>
+<ul>
+<li>список останніх важливих дій (зміни ролей, агентів, налаштувань)</li>
+<li>логи спроб доступу</li>
+<li>результат перевірок PDP (allow/deny)</li>
+</ul>
+<p>Мета:</p>
+<ul>
+<li>прозорість</li>
+<li>можливість розслідування інцидентів</li>
+</ul>
+<hr />
+<h1 id="11-a1-a2-a3-a4">11. Специфіка для рівнів A1 / A2 / A3 / A4<a class="headerlink" href="#11-a1-a2-a3-a4" title="Permanent link">&para;</a></h1>
+<h2 id="111-a1-daarioncity">11.1 A1 (DAARION.city)<a class="headerlink" href="#111-a1-daarioncity" title="Permanent link">&para;</a></h2>
+<p>Додаткові розділи:</p>
+<ul>
+<li><strong>Federation / SuperDAO</strong> (коли буде описано)</li>
+<li><strong>City Config</strong> — міські політики, глобальні ліміти, токеноміка</li>
+</ul>
+<p>Головний агент: <strong>DAARWIZZ</strong> — завжди відображається на Overview.</p>
+<h2 id="112-a2">11.2 A2 (платформи)<a class="headerlink" href="#112-a2" title="Permanent link">&para;</a></h2>
+<p>Додаткові опції:</p>
+<ul>
+<li>керування продуктами/сервісами платформи</li>
+<li>керування вендорами</li>
+</ul>
+<p>Головний агент: головний агент відповідної платформи.</p>
+<h2 id="113-a3a4-dao">11.3 A3/A4 (публічні та приватні DAO)<a class="headerlink" href="#113-a3a4-dao" title="Permanent link">&para;</a></h2>
+<p>Стандартний набір вкладок, мінімалістичний:</p>
+<ul>
+<li>Overview, Members, Agents, Settings, Security</li>
+</ul>
+<p>Головний агент: вибирається засновником DAO.</p>
+<hr />
+<h1 id="12">12. Використання цього документа<a class="headerlink" href="#12" title="Permanent link">&para;</a></h1>
+<p>Ця специфікація використовується для:</p>
+<ul>
+<li>проектування UI/UX адмін-панелі для всіх MicroDAO</li>
+<li>уніфікації досвіду адміністрування в DAARION.city</li>
+<li>інтеграції агентів у адмінку (Agent-as-Admin-Assistant)</li>
+<li>узгодження між frontend/backend/архітекторами</li>
+</ul>
+<p>Будь-які зміни в ролях, аґентній архітектурі чи токеноміці мають синхронізуватися з цим документом, щоб адмінка залишалась єдиною для всієї екосистеми.</p>
+<hr />
+<h2 id="13-integration-with-other-docs">13. Integration with Other Docs<a class="headerlink" href="#13-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ інтегрується з:</p>
+<ul>
+<li><code>microdao-architecture.md</code> — архітектура A1-A4</li>
+<li><code>agents.md</code> — агенти та їх права</li>
+<li><code>pdp_access.md</code> — PDP та система доступів</li>
+<li><code>superdao-federation.md</code> — SuperDAO та федерації</li>
+<li><code>api.md</code> — API для адмін-консолі</li>
+<li><code>tokenomics/city-tokenomics.md</code> — токеноміка</li>
+</ul>
+<hr />
+<h2 id="14-changelog">14. Changelog<a class="headerlink" href="#14-changelog" title="Permanent link">&para;</a></h2>
+<h3 id="v100-2024-11-14">v1.0.0 — 2024-11-14<a class="headerlink" href="#v100-2024-11-14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Початкова версія специфікації MicroDAO Admin Console</li>
+<li>Додано структуру layout (Header, Sidebar, Main Content)</li>
+<li>Додано розділи: Overview, Members &amp; Roles, Tokenomics &amp; Wallet, Agents, Integrations, Settings, Security &amp; Logs</li>
+<li>Додано обов'язковий блок головного агента на Overview</li>
+<li>Додано специфіку для рівнів A1/A2/A3/A4</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14<br />
+<em>Документ готовий до інтеграції у Cursor, GitHub або будь-який інший проект.</em></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

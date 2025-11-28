@@ -1,0 +1,1595 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/PHASE4_DETAILED_PLAN/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>📋 PHASE 4: SECURITY LAYER — Детальний План - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phase-4-security-layer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              📋 PHASE 4: SECURITY LAYER — Детальний План
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 OVERVIEW
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliverables-40-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 DELIVERABLES (40+ files)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 DELIVERABLES (40+ files)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-auth-service-8-files-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. auth-service (8 files) ✅ COMPLETE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pdp-service-8-files-20-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. pdp-service (8 files) 🔄 20% COMPLETE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. pdp-service (8 files) 🔄 20% COMPLETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microdao-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      MicroDAO Policies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channel Policies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Policies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-usage-engine-8-files-0-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. usage-engine (8 files) 🔜 0% COMPLETE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. usage-engine (8 files) 🔜 0% COMPLETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llm-usage-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM Usage Event
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-usage-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool Usage Event
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-pep-integration-3-services-0-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. PEP Integration (3 services) 🔜 0% COMPLETE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. PEP Integration (3 services) 🔜 0% COMPLETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-messaging-service-pep" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 messaging-service PEP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-agent-runtime-pep" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 agent-runtime PEP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-toolcore-pep" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 toolcore PEP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-audit-log-1-migration-0-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Audit Log (1 migration) 🔜 0% COMPLETE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-infrastructure-3-files-0-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Infrastructure (3 files) 🔜 0% COMPLETE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Infrastructure (3 files) 🔜 0% COMPLETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-docker-composephase4yml" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 docker-compose.phase4.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-scriptsstart-phase4sh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 scripts/start-phase4.sh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-scriptsstop-phase4sh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 scripts/stop-phase4.sh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-documentation-4-files-0-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Documentation (4 files) 🔜 0% COMPLETE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Documentation (4 files) 🔜 0% COMPLETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-docsauth_service_specmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 docs/AUTH_SERVICE_SPEC.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-docspdp_specmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 docs/PDP_SPEC.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-docsusage_engine_specmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 docs/USAGE_ENGINE_SPEC.md
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-phase4_readymd" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 PHASE4_READY.md
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 IMPLEMENTATION ROADMAP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 IMPLEMENTATION ROADMAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-1-core-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 1: Core Services
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-2-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 2: Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-3-audit-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 3: Audit &amp; Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-4-documentation-polish" class="md-nav__link">
+    <span class="md-ellipsis">
+      Week 4: Documentation &amp; Polish
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 ACCEPTANCE CRITERIA
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 ACCEPTANCE CRITERIA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auth-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auth Service: ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdp-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      PDP Service: 🔜
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pep-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      PEP Integration: 🔜
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Engine: 🔜
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit Log: 🔜
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Infrastructure: 🔜
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-after-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 QUICK START (After Complete)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-phase-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔜 AFTER PHASE 4
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔜 AFTER PHASE 4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 5: Advanced Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-production-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 6: Production Hardening
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 RESOURCES
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="phase-4-security-layer">📋 PHASE 4: SECURITY LAYER — Детальний План<a class="headerlink" href="#phase-4-security-layer" title="Permanent link">&para;</a></h1>
+<p><strong>Мета:</strong> Повноцінний безпековий шар для DAARION<br />
+<strong>Термін:</strong> 4-6 тижнів (або 3-4 години automated)<br />
+<strong>Залежності:</strong> Phase 1-3 complete</p>
+<hr />
+<h2 id="overview">🎯 OVERVIEW<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Phase 4 додає критичну інфраструктуру безпеки:</p>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────┐
+│ SECURITY LAYER (Phase 4)                │
+├─────────────────────────────────────────┤
+│                                         │
+│  1. AUTH SERVICE                        │
+│     └─ Identity &amp; Sessions              │
+│                                         │
+│  2. PDP SERVICE (Policy Decision)       │
+│     └─ Centralized access control       │
+│                                         │
+│  3. PEP HOOKS (Policy Enforcement)      │
+│     └─ Enforce decisions in services    │
+│                                         │
+│  4. USAGE ENGINE                        │
+│     └─ Track LLM/Tools/Agent usage      │
+│                                         │
+│  5. AUDIT LOG                           │
+│     └─ Security events &amp; compliance     │
+│                                         │
+└─────────────────────────────────────────┘
+</code></pre></div>
+
+<hr />
+<h2 id="deliverables-40-files">📦 DELIVERABLES (40+ files)<a class="headerlink" href="#deliverables-40-files" title="Permanent link">&para;</a></h2>
+<h3 id="1-auth-service-8-files-complete">1. <strong>auth-service</strong> (8 files) ✅ COMPLETE<a class="headerlink" href="#1-auth-service-8-files-complete" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>services/auth-service/
+├── models.py              ✅ ActorIdentity, SessionToken, ApiKey
+├── actor_context.py       ✅ build_actor_context, require_actor
+├── routes_sessions.py     ✅ /auth/login, /me, /logout
+├── routes_api_keys.py     ✅ /auth/api-keys CRUD
+├── main.py                ✅ FastAPI app + DB tables
+├── requirements.txt       ✅
+├── Dockerfile             ✅
+└── README.md              ✅ Complete documentation
+</code></pre></div>
+
+<p><strong>Port:</strong> 7011<br />
+<strong>Status:</strong> ✅ Working<br />
+<strong>Features:</strong>
+- Mock login (3 test users)
+- Session tokens (7-day expiry)
+- API keys with optional expiration
+- ActorContext helper for other services</p>
+<hr />
+<h3 id="2-pdp-service-8-files-20-complete">2. <strong>pdp-service</strong> (8 files) 🔄 20% COMPLETE<a class="headerlink" href="#2-pdp-service-8-files-20-complete" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>services/pdp-service/
+├── models.py              ✅ PolicyRequest, PolicyDecision
+├── engine.py              🔜 Policy evaluation logic
+├── policy_store.py        🔜 Config-based policy storage
+├── main.py                🔜 FastAPI app
+├── config.yaml            🔜 microDAO/channel policies
+├── requirements.txt       🔜
+├── Dockerfile             🔜
+└── README.md              🔜 Complete documentation
+</code></pre></div>
+
+<p><strong>Port:</strong> 7012<br />
+<strong>Purpose:</strong> Centralized Policy Decision Point</p>
+<p><strong>Key Features:</strong>
+- Evaluate access requests (actor + action + resource)
+- Config-based policies (v1)
+- Support for:
+  - MicroDAO access (owner/admin/member)
+  - Channel access (SEND_MESSAGE, READ)
+  - Tool execution (EXEC_TOOL)
+  - Agent management (MANAGE)
+  - Usage viewing (VIEW_USAGE)</p>
+<p><strong>Policy Types:</strong></p>
+<h4 id="microdao-policies">MicroDAO Policies<a class="headerlink" href="#microdao-policies" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">microdao_policies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">microdao_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;microdao:daarion&quot;</span>
+<span class="w">    </span><span class="nt">owners</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;user:1&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">admins</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;user:1&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;user:93&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;user:*&quot;</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># All users</span>
+</code></pre></div>
+
+<h4 id="channel-policies">Channel Policies<a class="headerlink" href="#channel-policies" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">channel_policies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">channel_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;channel-uuid-123&quot;</span>
+<span class="w">    </span><span class="nt">microdao_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;microdao:daarion&quot;</span>
+<span class="w">    </span><span class="nt">allowed_roles</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;member&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;admin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;owner&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">blocked_users</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+</code></pre></div>
+
+<h4 id="tool-policies">Tool Policies<a class="headerlink" href="#tool-policies" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">tool_policies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tool_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;projects.list&quot;</span>
+<span class="w">    </span><span class="nt">allowed_agents</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;agent:sofia&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;agent:pm&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">allowed_user_roles</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;admin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;owner&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p><strong>Policy Evaluation Logic:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">PolicyRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolicyDecision</span><span class="p">:</span>
+    <span class="c1"># 1. System Admin bypass (careful!)</span>
+    <span class="k">if</span> <span class="s2">&quot;system_admin&quot;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">roles</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">permit</span><span class="p">(</span><span class="s2">&quot;system_admin&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 2. Resource-specific rules</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;microdao&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_microdao_owner</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">resource</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">permit</span><span class="p">(</span><span class="s2">&quot;microdao_owner&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_microdao_admin</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">resource</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">permit</span><span class="p">(</span><span class="s2">&quot;microdao_admin&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;read&quot;</span> <span class="ow">and</span> <span class="n">is_member</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">resource</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">permit</span><span class="p">(</span><span class="s2">&quot;member&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;not_authorized&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;channel&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_channel_member</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">resource</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;not_channel_member&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;send_message&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">is_blocked</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">resource</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;blocked&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">permit</span><span class="p">(</span><span class="s2">&quot;channel_member&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;tool&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">actor</span><span class="o">.</span><span class="n">actor_id</span> <span class="ow">in</span> <span class="n">tool</span><span class="o">.</span><span class="n">allowed_agents</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">permit</span><span class="p">(</span><span class="s2">&quot;allowed_agent&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;tool_not_allowed&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Default deny</span>
+    <span class="k">return</span> <span class="n">deny</span><span class="p">(</span><span class="s2">&quot;no_matching_policy&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<hr />
+<h3 id="3-usage-engine-8-files-0-complete">3. <strong>usage-engine</strong> (8 files) 🔜 0% COMPLETE<a class="headerlink" href="#3-usage-engine-8-files-0-complete" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">services</span><span class="o">/</span><span class="n">usage</span><span class="o">-</span><span class="n">engine</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">models</span><span class="p">.</span><span class="n">py</span><span class="w">              </span><span class="err">🔜</span><span class="w"> </span><span class="n">LlmUsageEvent</span><span class="p">,</span><span class="w"> </span><span class="n">ToolUsageEvent</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">collectors</span><span class="p">.</span><span class="n">py</span><span class="w">          </span><span class="err">🔜</span><span class="w"> </span><span class="n">NATS</span><span class="w"> </span><span class="n">listeners</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">aggregators</span><span class="p">.</span><span class="n">py</span><span class="w">         </span><span class="err">🔜</span><span class="w"> </span><span class="n">Aggregate</span><span class="w"> </span><span class="n">stats</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">reporters</span><span class="p">.</span><span class="n">py</span><span class="w">           </span><span class="err">🔜</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">endpoints</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="n">py</span><span class="w">                </span><span class="err">🔜</span><span class="w"> </span><span class="n">FastAPI</span><span class="w"> </span><span class="n">app</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">requirements</span><span class="p">.</span><span class="n">txt</span><span class="w">       </span><span class="err">🔜</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Dockerfile</span><span class="w">             </span><span class="err">🔜</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">README</span><span class="p">.</span><span class="n">md</span><span class="w">              </span><span class="err">🔜</span><span class="w"> </span><span class="n">Complete</span><span class="w"> </span><span class="n">documentation</span>
+</code></pre></div>
+
+<p><strong>Port:</strong> 7013<br />
+<strong>Purpose:</strong> Usage tracking &amp; billing foundation</p>
+<p><strong>NATS Subjects:</strong>
+- <code>usage.llm</code> — LLM calls (from llm-proxy)
+- <code>usage.tool</code> — Tool executions (from toolcore)
+- <code>usage.agent</code> — Agent invocations (from agent-runtime)</p>
+<p><strong>Events:</strong></p>
+<h4 id="llm-usage-event">LLM Usage Event<a class="headerlink" href="#llm-usage-event" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt-123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:34:56Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;actor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user:93&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;actor_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;human&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;microdao:7&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1-mini&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openai&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;prompt_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;completion_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1801</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2345</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;cost_usd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0234</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="tool-usage-event">Tool Usage Event<a class="headerlink" href="#tool-usage-event" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt-456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:35:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;actor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;actor_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projects.list&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;result_size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4567</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>API Endpoints:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /internal/usage/summary?microdao_id=microdao:7&amp;period=24h</span>
+<span class="err">→ Aggregate stats (tokens, calls, cost)</span>
+
+<span class="err">GET /internal/usage/agents?microdao_id=microdao:7&amp;period=7d</span>
+<span class="err">→ Top agents by usage</span>
+
+<span class="err">GET /internal/usage/models?period=24h</span>
+<span class="err">→ Model distribution</span>
+
+<span class="err">GET /internal/usage/costs?microdao_id=microdao:7&amp;period=30d</span>
+<span class="err">→ Cost breakdown</span>
+</code></pre></div>
+
+<p><strong>Database Tables:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">usage_llm</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">actor_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">agent_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">microdao_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">model</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">provider</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">prompt_tokens</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">completion_tokens</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">total_tokens</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">latency_ms</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">cost_usd</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">usage_tool</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">actor_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">agent_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">microdao_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tool_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">latency_ms</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">result_size_bytes</span><span class="w"> </span><span class="nb">INT</span>
+<span class="p">);</span>
+
+<span class="c1">-- Indexes for fast queries</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_usage_llm_microdao_time</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">usage_llm</span><span class="p">(</span><span class="n">microdao_id</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_usage_llm_agent</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">usage_llm</span><span class="p">(</span><span class="n">agent_id</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_usage_tool_microdao</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">usage_tool</span><span class="p">(</span><span class="n">microdao_id</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="4-pep-integration-3-services-0-complete">4. <strong>PEP Integration</strong> (3 services) 🔜 0% COMPLETE<a class="headerlink" href="#4-pep-integration-3-services-0-complete" title="Permanent link">&para;</a></h3>
+<h4 id="41-messaging-service-pep">4.1 messaging-service PEP<a class="headerlink" href="#41-messaging-service-pep" title="Permanent link">&para;</a></h4>
+<p><strong>File:</strong> <code>services/messaging-service/pep_middleware.py</code></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">auth_service_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_actor_context</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pdp_service_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">evaluate_policy</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_send_message_permission</span><span class="p">(</span>
+    <span class="n">actor_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">db_pool</span><span class="p">:</span> <span class="n">asyncpg</span><span class="o">.</span><span class="n">Pool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if actor can send message to channel&quot;&quot;&quot;</span>
+
+    <span class="c1"># 1. Get actor context</span>
+    <span class="n">actor</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_actor_context</span><span class="p">(</span><span class="n">actor_id</span><span class="p">,</span> <span class="n">db_pool</span><span class="p">)</span>
+
+    <span class="c1"># 2. Evaluate policy</span>
+    <span class="n">decision</span> <span class="o">=</span> <span class="k">await</span> <span class="n">evaluate_policy</span><span class="p">(</span>
+        <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;send_message&quot;</span><span class="p">,</span>
+        <span class="n">resource</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">channel_id</span><span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 3. Return decision</span>
+    <span class="k">return</span> <span class="n">decision</span><span class="o">.</span><span class="n">effect</span> <span class="o">==</span> <span class="s2">&quot;permit&quot;</span>
+</code></pre></div>
+
+<p><strong>Integration Points:</strong>
+- <code>POST /api/messaging/channels/{channel_id}/messages</code> — check before send
+- <code>POST /api/messaging/channels</code> — check MANAGE permission
+- <code>POST /api/messaging/channels/{channel_id}/members</code> — check INVITE permission</p>
+<h4 id="42-agent-runtime-pep">4.2 agent-runtime PEP<a class="headerlink" href="#42-agent-runtime-pep" title="Permanent link">&para;</a></h4>
+<p><strong>File:</strong> <code>services/agent-runtime/pep_client.py</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_tool_execution_permission</span><span class="p">(</span>
+    <span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">tool_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">microdao_id</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if agent can execute tool&quot;&quot;&quot;</span>
+
+    <span class="c1"># Build agent actor</span>
+    <span class="n">actor</span> <span class="o">=</span> <span class="n">ActorIdentity</span><span class="p">(</span>
+        <span class="n">actor_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span>
+        <span class="n">actor_type</span><span class="o">=</span><span class="s2">&quot;agent&quot;</span><span class="p">,</span>
+        <span class="n">microdao_ids</span><span class="o">=</span><span class="p">[</span><span class="n">microdao_id</span><span class="p">],</span>
+        <span class="n">roles</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;agent&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Evaluate</span>
+    <span class="n">decision</span> <span class="o">=</span> <span class="k">await</span> <span class="n">evaluate_policy</span><span class="p">(</span>
+        <span class="n">actor</span><span class="o">=</span><span class="n">actor</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;exec_tool&quot;</span><span class="p">,</span>
+        <span class="n">resource</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">tool_id</span><span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">decision</span><span class="o">.</span><span class="n">effect</span> <span class="o">==</span> <span class="s2">&quot;permit&quot;</span>
+</code></pre></div>
+
+<p><strong>Integration:</strong> Before calling toolcore in <code>handle_invocation()</code></p>
+<h4 id="43-toolcore-pep">4.3 toolcore PEP<a class="headerlink" href="#43-toolcore-pep" title="Permanent link">&para;</a></h4>
+<p><strong>Already has:</strong> <code>allowed_agents</code> in registry<br />
+<strong>Additional:</strong> Cross-check with PDP for user-initiated tool calls</p>
+<hr />
+<h3 id="5-audit-log-1-migration-0-complete">5. <strong>Audit Log</strong> (1 migration) 🔜 0% COMPLETE<a class="headerlink" href="#5-audit-log-1-migration-0-complete" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>migrations/004_create_security_audit.sql</code></p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">security_audit</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">gen_random_uuid</span><span class="p">(),</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">actor_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">actor_type</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">action</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">resource_type</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">resource_id</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">decision</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">  </span><span class="c1">-- permit/deny</span>
+<span class="w">    </span><span class="n">reason</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="n">JSONB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ip_address</span><span class="w"> </span><span class="n">INET</span><span class="p">,</span>
+<span class="w">    </span><span class="n">user_agent</span><span class="w"> </span><span class="nb">TEXT</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_audit_timestamp</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">security_audit</span><span class="p">(</span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_audit_actor</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">security_audit</span><span class="p">(</span><span class="n">actor_id</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_audit_decision</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">security_audit</span><span class="p">(</span><span class="n">decision</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_audit_resource</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">security_audit</span><span class="p">(</span><span class="n">resource_type</span><span class="p">,</span><span class="w"> </span><span class="n">resource_id</span><span class="p">);</span>
+</code></pre></div>
+
+<p><strong>PDP Integration:</strong>
+After every <code>evaluate()</code> call, write to audit log:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">log_audit_event</span><span class="p">(</span>
+    <span class="n">request</span><span class="p">:</span> <span class="n">PolicyRequest</span><span class="p">,</span>
+    <span class="n">decision</span><span class="p">:</span> <span class="n">PolicyDecision</span><span class="p">,</span>
+    <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write audit log entry&quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        INSERT INTO security_audit</span>
+<span class="s2">        (actor_id, actor_type, action, resource_type, resource_id, </span>
+<span class="s2">         decision, reason, context)</span>
+<span class="s2">        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor_id</span><span class="p">,</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor_type</span><span class="p">,</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">action</span><span class="p">,</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">decision</span><span class="o">.</span><span class="n">effect</span><span class="p">,</span>
+        <span class="n">decision</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">context</span> <span class="ow">or</span> <span class="p">{})</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p><strong>NATS Security Events:</strong>
+- <code>security.suspicious</code> — Publish on:
+  - Multiple deny events (&gt;5 in 1 min)
+  - Unusual tool execution attempts
+  - Privilege escalation attempts</p>
+<hr />
+<h3 id="6-infrastructure-3-files-0-complete">6. <strong>Infrastructure</strong> (3 files) 🔜 0% COMPLETE<a class="headerlink" href="#6-infrastructure-3-files-0-complete" title="Permanent link">&para;</a></h3>
+<h4 id="61-docker-composephase4yml">6.1 docker-compose.phase4.yml<a class="headerlink" href="#61-docker-composephase4yml" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">auth-service</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./services/auth-service</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;7011:7011&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgresql://...</span>
+
+<span class="w">  </span><span class="nt">pdp-service</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./services/pdp-service</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;7012:7012&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgresql://...</span>
+
+<span class="w">  </span><span class="nt">usage-engine</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./services/usage-engine</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;7013:7013&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgresql://...</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NATS_URL=nats://nats:4222</span>
+
+<span class="w">  </span><span class="c1"># + All Phase 3 services</span>
+<span class="w">  </span><span class="nt">llm-proxy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AUTH_SERVICE_URL=http://auth-service:7011</span>
+
+<span class="w">  </span><span class="c1"># etc...</span>
+</code></pre></div>
+
+<h4 id="62-scriptsstart-phase4sh">6.2 scripts/start-phase4.sh<a class="headerlink" href="#62-scriptsstart-phase4sh" title="Permanent link">&para;</a></h4>
+<h4 id="63-scriptsstop-phase4sh">6.3 scripts/stop-phase4.sh<a class="headerlink" href="#63-scriptsstop-phase4sh" title="Permanent link">&para;</a></h4>
+<hr />
+<h3 id="7-documentation-4-files-0-complete">7. <strong>Documentation</strong> (4 files) 🔜 0% COMPLETE<a class="headerlink" href="#7-documentation-4-files-0-complete" title="Permanent link">&para;</a></h3>
+<h4 id="71-docsauth_service_specmd">7.1 docs/AUTH_SERVICE_SPEC.md<a class="headerlink" href="#71-docsauth_service_specmd" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Actor model</li>
+<li>Session management</li>
+<li>API keys</li>
+<li>Integration guide</li>
+</ul>
+<h4 id="72-docspdp_specmd">7.2 docs/PDP_SPEC.md<a class="headerlink" href="#72-docspdp_specmd" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Policy model</li>
+<li>Evaluation logic</li>
+<li>Policy configuration</li>
+<li>Adding new rules</li>
+</ul>
+<h4 id="73-docsusage_engine_specmd">7.3 docs/USAGE_ENGINE_SPEC.md<a class="headerlink" href="#73-docsusage_engine_specmd" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Event model</li>
+<li>NATS integration</li>
+<li>Aggregation queries</li>
+<li>Billing foundation</li>
+</ul>
+<h4 id="74-phase4_readymd">7.4 PHASE4_READY.md<a class="headerlink" href="#74-phase4_readymd" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Overview</li>
+<li>Quick start</li>
+<li>Testing guide</li>
+<li>Production readiness</li>
+</ul>
+<hr />
+<h2 id="implementation-roadmap">📊 IMPLEMENTATION ROADMAP<a class="headerlink" href="#implementation-roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="week-1-core-services">Week 1: Core Services<a class="headerlink" href="#week-1-core-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ auth-service (complete)</li>
+<li>🔄 pdp-service (20% → 100%)</li>
+<li>🔜 usage-engine (0% → 100%)</li>
+</ul>
+<h3 id="week-2-integration">Week 2: Integration<a class="headerlink" href="#week-2-integration" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔜 PEP hooks (messaging-service)</li>
+<li>🔜 PEP hooks (agent-runtime)</li>
+<li>🔜 PEP hooks (toolcore)</li>
+</ul>
+<h3 id="week-3-audit-testing">Week 3: Audit &amp; Testing<a class="headerlink" href="#week-3-audit-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔜 Audit log migration</li>
+<li>🔜 Security events (NATS)</li>
+<li>🔜 E2E testing</li>
+</ul>
+<h3 id="week-4-documentation-polish">Week 4: Documentation &amp; Polish<a class="headerlink" href="#week-4-documentation-polish" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔜 All docs (4 files)</li>
+<li>🔜 docker-compose</li>
+<li>🔜 Scripts</li>
+<li>🔜 PHASE4_READY.md</li>
+</ul>
+<hr />
+<h2 id="acceptance-criteria">🎯 ACCEPTANCE CRITERIA<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<h3 id="auth-service">Auth Service: ✅<a class="headerlink" href="#auth-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Login works with mock users</li>
+<li>[x] Session tokens created &amp; validated</li>
+<li>[x] API keys CRUD functional</li>
+<li>[x] actor_context helper ready</li>
+</ul>
+<h3 id="pdp-service">PDP Service: 🔜<a class="headerlink" href="#pdp-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] /internal/pdp/evaluate works</li>
+<li>[ ] MicroDAO access rules</li>
+<li>[ ] Channel access rules</li>
+<li>[ ] Tool execution rules</li>
+<li>[ ] 10+ unit tests</li>
+</ul>
+<h3 id="pep-integration">PEP Integration: 🔜<a class="headerlink" href="#pep-integration" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] messaging-service blocks unauthorized sends</li>
+<li>[ ] agent-runtime checks tool permissions</li>
+<li>[ ] toolcore enforces allowed_agents</li>
+</ul>
+<h3 id="usage-engine">Usage Engine: 🔜<a class="headerlink" href="#usage-engine" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] usage.llm events collected</li>
+<li>[ ] usage.tool events collected</li>
+<li>[ ] /internal/usage/summary works</li>
+<li>[ ] Database tables created</li>
+</ul>
+<h3 id="audit-log">Audit Log: 🔜<a class="headerlink" href="#audit-log" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] security_audit table exists</li>
+<li>[ ] PDP writes every decision</li>
+<li>[ ] Can query last 100 events</li>
+<li>[ ] security.suspicious events published</li>
+</ul>
+<h3 id="infrastructure">Infrastructure: 🔜<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] docker-compose.phase4.yml works</li>
+<li>[ ] All services healthy</li>
+<li>[ ] Start/stop scripts functional</li>
+<li>[ ] Documentation complete</li>
+</ul>
+<hr />
+<h2 id="quick-start-after-complete">🚀 QUICK START (After Complete)<a class="headerlink" href="#quick-start-after-complete" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Start Phase 4</span>
+./scripts/start-phase4.sh
+
+<span class="c1"># 2. Test Auth</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:7011/auth/login<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;email&quot;: &quot;user@daarion.city&quot;}&#39;</span>
+
+<span class="c1"># 3. Test PDP</span>
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:7012/internal/pdp/evaluate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;actor&quot;: {...},</span>
+<span class="s1">    &quot;action&quot;: &quot;send_message&quot;,</span>
+<span class="s1">    &quot;resource&quot;: {&quot;type&quot;: &quot;channel&quot;, &quot;id&quot;: &quot;...&quot;}</span>
+<span class="s1">  }&#39;</span>
+
+<span class="c1"># 4. Check Usage</span>
+curl<span class="w"> </span>http://localhost:7013/internal/usage/summary?period<span class="o">=</span>24h
+
+<span class="c1"># 5. View Audit</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>daarion-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>daarion<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w"> </span><span class="s2">&quot;SELECT * FROM security_audit ORDER BY timestamp DESC LIMIT 10;&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="after-phase-4">🔜 AFTER PHASE 4<a class="headerlink" href="#after-phase-4" title="Permanent link">&para;</a></h2>
+<h3 id="phase-5-advanced-features">Phase 5: Advanced Features<a class="headerlink" href="#phase-5-advanced-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Real Passkey integration</li>
+<li>OAuth2 providers</li>
+<li>Advanced policy language (ABAC)</li>
+<li>Dynamic policy updates</li>
+<li>Cost allocation &amp; billing</li>
+<li>Security analytics dashboard</li>
+</ul>
+<h3 id="phase-6-production-hardening">Phase 6: Production Hardening<a class="headerlink" href="#phase-6-production-hardening" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Rate limiting (Redis)</li>
+<li>DDoS protection</li>
+<li>Penetration testing</li>
+<li>Security audit</li>
+<li>Compliance certification</li>
+</ul>
+<hr />
+<h2 id="resources">📚 RESOURCES<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p><strong>Specs:</strong>
+- Phase 4 Master Task (user-provided)
+- <a href="../PHASE4_STARTED.md">PHASE4_STARTED.md</a></p>
+<p><strong>Related:</strong>
+- <a href="../PHASE3_IMPLEMENTATION_COMPLETE.md">PHASE3_IMPLEMENTATION_COMPLETE.md</a>
+- <a href="../ALL_PHASES_STATUS.md">ALL_PHASES_STATUS.md</a></p>
+<p><strong>Standards:</strong>
+- RBAC (Role-Based Access Control)
+- ABAC (Attribute-Based Access Control)
+- OAuth 2.0 / OpenID Connect
+- Audit logging best practices</p>
+<hr />
+<p><strong>Status:</strong> 📋 Detailed Plan Complete<br />
+<strong>Next:</strong> Continue Implementation<br />
+<strong>Version:</strong> 1.0.0<br />
+<strong>Last Updated:</strong> 2025-11-24</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

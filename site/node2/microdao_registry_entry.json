@@ -1,0 +1,78 @@
+{
+  "microdao_id": "microdao-node2",
+  "name": "microdao-node2-agents",
+  "owner": "local_user",
+  "node_type": "agent-team",
+  "description": "Autonomous microDAO node with local agents, memory, and LLM inference",
+  "dependencies": {
+    "llm_provider": "swoper",
+    "vector": ["qdrant", "milvus"],
+    "graph": "neo4j",
+    "event_store": "jetstream"
+  },
+  "agents": [
+    {
+      "id": "agent-001",
+      "name": "DAO-Analyst",
+      "status": "active"
+    },
+    {
+      "id": "agent-002",
+      "name": "DAO-Researcher",
+      "status": "active"
+    }
+  ],
+  "memory": {
+    "qdrant": {
+      "url": "http://localhost:6333",
+      "path": "~/node2/qdrant/",
+      "use_case": "Fast RAG for local agents"
+    },
+    "milvus": {
+      "url": "http://localhost:19530",
+      "path": "~/node2/milvus/",
+      "use_case": "Heavy vector indexing for large memory"
+    },
+    "neo4j": {
+      "uri": "bolt://localhost:7687",
+      "http_url": "http://localhost:7474",
+      "path": "~/node2/neo4j/",
+      "use_case": "Relations between agents, tasks, data, tokens"
+    }
+  },
+  "event_store": {
+    "type": "jetstream",
+    "url": "nats://localhost:4222",
+    "path": "~/node2/events/",
+    "use_case": "Event history and audit trail"
+  },
+  "rag_router": {
+    "url": "http://localhost:9401",
+    "enabled": true,
+    "routing_rules": [
+      {
+        "condition": "query_type == 'graph_query'",
+        "target": "local.graph.neo4j"
+      },
+      {
+        "condition": "limit <= 50 && !filters",
+        "target": "local.memory.qdrant"
+      },
+      {
+        "condition": "limit > 50 || filters",
+        "target": "local.memory.milvus"
+      }
+    ]
+  },
+  "network": {
+    "nats_url": "nats://node1:4222",
+    "dagi_router_url": "http://node1:9102",
+    "sync_enabled": true
+  },
+  "status": "active",
+  "created_at": "2025-11-21T12:00:00Z",
+  "updated_at": "2025-11-21T12:00:00Z"
+}
+
+
+

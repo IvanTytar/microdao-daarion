@@ -1,0 +1,20 @@
+FROM ./qwen2.5-vl-32b-q4_k_m.gguf
+
+TEMPLATE """{{ if .System }}System: {{ .System }}
+
+{{ end }}{{ if .Prompt }}User: {{ .Prompt }}
+
+{{ end }}Assistant:"""
+
+PARAMETER stop "User:"
+PARAMETER stop "Assistant:"
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|endoftext|>"
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+PARAMETER num_ctx 131072
+PARAMETER num_predict 4096
+
+

@@ -1,69 +1,46 @@
-import type {
-  AgentMicrodaoMembership,
-  MicrodaoOption,
-} from "@/lib/microdao";
+/**
+ * MicroDAO API Client (Task 029)
+ */
 
-async function request<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
-  const res = await fetch(input, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init?.headers ?? {}),
-    },
+// =============================================================================
+// Types
+// =============================================================================
+
+export interface MicrodaoVisibilityUpdate {
+  is_public: boolean;
+  is_platform?: boolean;
+}
+
+export interface MicrodaoVisibilityResponse {
+  status: string;
+  microdao_id: string;
+  slug: string;
+  is_public: boolean;
+  is_platform: boolean;
+}
+
+// =============================================================================
+// API Functions
+// =============================================================================
+
+/**
+ * Update MicroDAO visibility settings
+ */
+export async function updateMicrodaoVisibility(
+  microdaoId: string,
+  data: MicrodaoVisibilityUpdate
+): Promise<MicrodaoVisibilityResponse> {
+  const res = await fetch(`/api/microdao/${encodeURIComponent(microdaoId)}/visibility`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
   });
 
-  const data = await res.json().catch(() => null);
+  const json = await res.json().catch(() => null);
 
   if (!res.ok) {
-    const message =
-      (data && (data.error || data.detail || data.message)) ||
-      "Request failed";
-    throw new Error(message);
+    throw new Error(json?.detail || json?.error || "Failed to update MicroDAO visibility");
   }
 
-  return data as T;
+  return json;
 }
-
-export async function fetchMicrodaoOptions(): Promise<MicrodaoOption[]> {
-  const data = await request<{ items?: MicrodaoOption[] }>(
-    "/api/microdao/options"
-  );
-  return data.items ?? [];
-}
-
-export async function assignAgentToMicrodao(
-  agentId: string,
-  payload: { microdao_id: string; role?: string; is_core?: boolean }
-): Promise<AgentMicrodaoMembership> {
-  return request<AgentMicrodaoMembership>(
-    `/api/agents/${encodeURIComponent(agentId)}/microdao-membership`,
-    {
-      method: "PUT",
-      body: JSON.stringify(payload),
-    }
-  );
-}
-
-export async function removeAgentFromMicrodao(
-  agentId: string,
-  microdaoId: string
-): Promise<void> {
-  const res = await fetch(
-    `/api/agents/${encodeURIComponent(
-      agentId
-    )}/microdao-membership/${encodeURIComponent(microdaoId)}`,
-    {
-      method: "DELETE",
-    }
-  );
-
-  if (!res.ok) {
-    const data = await res.json().catch(() => null);
-    const message =
-      (data && (data.error || data.detail || data.message)) ||
-      "Failed to remove MicroDAO membership";
-    throw new Error(message);
-  }
-}
-
-

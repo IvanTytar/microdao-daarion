@@ -1,0 +1,1251 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/14_messenger_agent_module/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>14 — Messenger Agent Module (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#14-messenger-agent-module-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              14 — Messenger Agent Module (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="14-messenger-agent-module-microdao">14 — Messenger Agent Module (MicroDAO)<a class="headerlink" href="#14-messenger-agent-module-microdao" title="Permanent link">&para;</a></h1>
+<p>Агентське переосмислення месенджера</p>
+<p>Цей документ описує, як класичний "месенджер" (Telegram/WhatsApp-подібний інтерфейс) реалізований у MicroDAO як <strong>агент-модуль</strong>, а не просто список чатів.</p>
+<hr />
+<h1 id="1">1. Ідея<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Замість "голої" стрічки чатів у MicroDAO є:</p>
+<ul>
+<li>
+<p><strong>Agent Messenger</strong> — підагент всередині microDAO, який:</p>
+</li>
+<li>
+<p>знає про всі чати, канали, DM;</p>
+</li>
+<li>
+<p>вміє показувати потрібні розмови за запитом користувача;</p>
+</li>
+<li>
+<p>вміє сам пропонувати релевантні чати;</p>
+</li>
+<li>
+<p>інтегрований з памʼяттю (13) і runtime (12);</p>
+</li>
+<li>
+<p>може працювати як "голосовий/текстовий UI" поверх звичайного месенджера.</p>
+</li>
+</ul>
+<p>Класичні фічі месенджера (чати, канали, DM, статуси, непрочитані, пошук) — описані як <strong>спроможності агента</strong>, а не просто як UI.</p>
+<hr />
+<h1 id="2">2. Ролі агентів у модулі месенджера<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h2 id="21-messenger-agent-core">2.1. Messenger Agent (core)<a class="headerlink" href="#21-messenger-agent-core" title="Permanent link">&para;</a></h2>
+<p>Роль: <code>"messenger_core"</code> (може бути профіль Team Assistant або окремий агент).</p>
+<p>Він:</p>
+<ul>
+<li>
+<p>знає структуру:</p>
+</li>
+<li>
+<p><code>teams</code> (microDAO),</p>
+</li>
+<li>
+<p><code>channels</code> (публічні/приватні),</p>
+</li>
+<li>
+<p><code>direct messages</code>,</p>
+</li>
+<li>
+<p><code>threads</code> (якщо ввімкнено),</p>
+</li>
+<li>
+<p>має доступ до:</p>
+</li>
+<li>
+<p>списку чатів,</p>
+</li>
+<li>
+<p>їхнього стану (непрочитані, muted, pinned),</p>
+</li>
+<li>
+<p>історії повідомлень (через Messaging Service / Memory).</p>
+</li>
+</ul>
+<h2 id="22-user-facing-agent">2.2. User-Facing Agent (асистент користувача)<a class="headerlink" href="#22-user-facing-agent" title="Permanent link">&para;</a></h2>
+<p>Користувач взаємодіє не з "меню чатів", а з агентом:</p>
+<ul>
+<li>
+<p>"Покажи мені всі непрочитані по проекту X"</p>
+</li>
+<li>
+<p>"Знайди переписку, де ми обговорювали токеноміку"</p>
+</li>
+<li>
+<p>"Підготуй резюме сьогоднішнього дня по всіх каналах"</p>
+</li>
+</ul>
+<p>User-facing агент делегує запити Messenger Agent'у.</p>
+<hr />
+<h1 id="3-messenger-agent">3. Функціональні спроможності Messenger Agent<a class="headerlink" href="#3-messenger-agent" title="Permanent link">&para;</a></h1>
+<h2 id="31">3.1. Базові (класичний месенджер)<a class="headerlink" href="#31" title="Permanent link">&para;</a></h2>
+<p>Під капотом елевантні фічі:</p>
+<ul>
+<li>
+<p>Список каналів і чатів:</p>
+</li>
+<li>
+<p>публічні канали,</p>
+</li>
+<li>
+<p>приватні канали,</p>
+</li>
+<li>
+<p>особисті чати (DM),</p>
+</li>
+<li>
+<p>системні / службові.</p>
+</li>
+<li>
+<p>Стани:</p>
+</li>
+<li>
+<p><code>unread_count</code>,</p>
+</li>
+<li>
+<p><code>muted</code>,</p>
+</li>
+<li>
+<p><code>pinned</code>,</p>
+</li>
+<li>
+<p><code>last_message</code> + <code>last_activity_at</code>.</p>
+</li>
+<li>
+<p>Повідомлення:</p>
+</li>
+<li>
+<p>текст,</p>
+</li>
+<li>
+<p>посилання,</p>
+</li>
+<li>
+<p>(пізніше) вкладення,</p>
+</li>
+<li>
+<p>реакції (on/off для MVP).</p>
+</li>
+<li>
+<p>Системні події:</p>
+</li>
+<li>
+<p>додавання/видалення учасників,</p>
+</li>
+<li>
+<p>зміна назви/іконки,</p>
+</li>
+<li>
+<p>інвайти.</p>
+</li>
+</ul>
+<p>Це реалізується Messaging Service (див. 02/03/04), але доступно агенту як "інструменти".</p>
+<h2 id="32">3.2. Розширені (агентські)<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p>Messenger Agent вміє:</p>
+<ol>
+<li>
+<p><strong>Фільтрувати чати:</strong></p>
+</li>
+<li>
+<p>за проектом,</p>
+</li>
+<li>
+<p>за учасником,</p>
+</li>
+<li>
+<p>за темою (через пошук + RAG).</p>
+</li>
+<li>
+<p><strong>Будувати "розумні папки":</strong></p>
+</li>
+<li>
+<p>"Сьогоднішні важливі розмови",</p>
+</li>
+<li>
+<p>"Все, де тебе тегнули",</p>
+</li>
+<li>
+<p>"Все, що стосується токеноміки/DAO".</p>
+</li>
+<li>
+<p><strong>Проводити огляди:</strong></p>
+</li>
+<li>
+<p>"Зроби щоденний дайджест по всіх каналах",</p>
+</li>
+<li>
+<p>"Поясни, що змінилось з учора".</p>
+</li>
+<li>
+<p><strong>Автоматично створювати follow-ups / задачі:</strong></p>
+</li>
+<li>
+<p>над певними патернами (наприклад, "зробимо", "потрібно", "до пʼятниці").</p>
+</li>
+</ol>
+<hr />
+<h1 id="4">4. Інтерфейс з точки зору користувача<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<h3 id="41-ui-sidebar">4.1. Класичний UI (sidebar + список чатів)<a class="headerlink" href="#41-ui-sidebar" title="Permanent link">&para;</a></h3>
+<p>Звичайний sidebar:</p>
+<ul>
+<li>
+<p>Канали,</p>
+</li>
+<li>
+<p>DM,</p>
+</li>
+<li>
+<p>Папки/фільтри (Unread, Mentions, Starred).</p>
+</li>
+</ul>
+<p>Але поверх нього — <strong>агентське поле запиту</strong>:</p>
+<blockquote>
+<p>"Напиши, що ти хочеш побачити"<br />
+(input зверху або окремий Agent Chat).</p>
+</blockquote>
+<p>Приклади:</p>
+<ul>
+<li>
+<p>"Покажи тільки непрочитані в робочих каналах"</p>
+</li>
+<li>
+<p>"Відфільтруй чати, де обговорюється MicroDAO MVP"</p>
+</li>
+<li>
+<p>"Покажи останні 10 повідомлень від Марії"</p>
+</li>
+</ul>
+<p>Агент відповідає:</p>
+<ul>
+<li>
+<p>або у вигляді пояснювальної репліки;</p>
+</li>
+<li>
+<p>або оновлює UI (відкриває/фільтрує потрібні чати).</p>
+</li>
+</ul>
+<h3 id="42">4.2. Повністю агентський режим<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>У майбутньому можливо:</p>
+<ul>
+<li>
+<p>взагалі без списку чатів;</p>
+</li>
+<li>
+<p>користувач спілкується з агентом:</p>
+</li>
+</ul>
+<blockquote>
+<p>"Що важливого в команді за сьогодні?"<br />
+"Покажи діалог з Ігорем, де ми обговорювали бюджети."<br />
+"Знайди канал, де ми домовлялись про токеноміку."</p>
+</blockquote>
+<hr />
+<h1 id="5-agent-runtime-core-12">5. Інтеграція з Agent Runtime Core (12)<a class="headerlink" href="#5-agent-runtime-core-12" title="Permanent link">&para;</a></h1>
+<p>Messenger Agent описується як звичайний агент:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">messengerAgentConfig</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ag_messenger_core&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;t_...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Messenger Core&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;team_assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">systemPrompt</span><span class="o">:</span><span class="w"> </span><span class="kt">systemMessengerPrompt</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">memoryScope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;list_channels&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;list_unread&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;search_messages&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;open_channel&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;get_daily_digest&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;create_followup_from_message&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Tools реалізуються через Messaging Service:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="kt">ToolRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">list_channels</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">list_unread</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">search_messages</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">open_channel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// повертає метаданні каналу</span>
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">get_daily_digest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Агент runtime (<code>runAgentTurn</code>) вирішує:</p>
+<ul>
+<li>
+<p>чи просто відповісти текстом,</p>
+</li>
+<li>
+<p>чи викликати tools,</p>
+</li>
+<li>
+<p>чи комбінувати.</p>
+</li>
+</ul>
+<hr />
+<h1 id="6-13">6. Інтеграція з памʼяттю (13)<a class="headerlink" href="#6-13" title="Permanent link">&para;</a></h1>
+<p>Messenger Agent:</p>
+<ul>
+<li>
+<p><strong>Short-term</strong> — поточний контекст каналу/діалогу.</p>
+</li>
+<li>
+<p><strong>Long-term</strong> — факти:</p>
+</li>
+<li>
+<p>які канали важливі для яких людей,</p>
+</li>
+<li>
+<p>які теми зʼявляються часто,</p>
+</li>
+<li>
+<p>які теги/поняття повʼязані з якими чатами.</p>
+</li>
+</ul>
+<p>Приклад фактів:</p>
+<ul>
+<li>
+<p>"Канал #governance використовується для голосувань DAO."</p>
+</li>
+<li>
+<p>"Канал #dev-mvp обговорює реалізацію MVP MicroDAO."</p>
+</li>
+</ul>
+<p>Це дозволяє агенту:</p>
+<ul>
+<li>
+<p>відповідати на питання типу:</p>
+</li>
+<li>
+<p>"Де обговорювати зміни в governance?"</p>
+</li>
+<li>
+<p>пропонувати:</p>
+</li>
+<li>
+<p>"Здається, обговорення токеноміки краще перенести в #tokenomics."</p>
+</li>
+</ul>
+<hr />
+<h1 id="7">7. Типові сценарії використання<a class="headerlink" href="#7" title="Permanent link">&para;</a></h1>
+<h3 id="1_1">Сценарій 1 — Новий учасник<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>Новачок пише агенту:</p>
+<blockquote>
+<p>"Я щойно приєднався. Де мені почитати, що тут відбувається?"</p>
+</blockquote>
+<p>Messenger Agent:</p>
+<ul>
+<li>
+<p>знаходить 2–3 ключові канали,</p>
+</li>
+<li>
+<p>дає короткі описи,</p>
+</li>
+<li>
+<p>пропонує їх відкрити.</p>
+</li>
+</ul>
+<h3 id="2_1">Сценарій 2 — Щоденний огляд<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>"Сформуй підсумок за день."</p>
+</blockquote>
+<p>Messenger Agent:</p>
+<ul>
+<li>
+<p>використовує <code>get_daily_digest</code> tool,</p>
+</li>
+<li>
+<p>збирає важливі повідомлення/канали,</p>
+</li>
+<li>
+<p>створює summary (через LLM),</p>
+</li>
+<li>
+<p>відправляє повідомлення у спеціальний канал або в DM.</p>
+</li>
+</ul>
+<h3 id="3">Сценарій 3 — Пошук контексту<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>"Знайди, де ми домовлялись про дедлайн запуску DAGI."</p>
+</blockquote>
+<p>Messenger Agent:</p>
+<ul>
+<li>
+<p>шукає в повідомленнях (Meilisearch + RAG),</p>
+</li>
+<li>
+<p>показує релевантні уривки,</p>
+</li>
+<li>
+<p>пропонує створити follow-up або задачу.</p>
+</li>
+</ul>
+<hr />
+<h1 id="8">8. Взаємодія з іншими агентами<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
+<ul>
+<li>
+<p><strong>Team Assistant</strong> може делегувати складні запити Messenger Agent'у.</p>
+</li>
+<li>
+<p><strong>Evolution Meta-Agent</strong> аналізує:</p>
+</li>
+<li>
+<p>які канали важливі;</p>
+</li>
+<li>
+<p>які патерни запитів до Messenger Agent'а повторюються;</p>
+</li>
+<li>
+<p>які нові "розумні фільтри" варто запропонувати.</p>
+</li>
+</ul>
+<hr />
+<h1 id="9-tools">9. Реалізація Tools<a class="headerlink" href="#9-tools" title="Permanent link">&para;</a></h1>
+<h2 id="91-list_channels">9.1. list_channels<a class="headerlink" href="#91-list_channels" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">list_channels</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">filter</span><span class="o">?:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;all&quot;</span><span class="p">;</span><span class="w"> </span><span class="nx">projectId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Channel</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">channels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">channels</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="p">...(</span><span class="nx">args</span><span class="p">.</span><span class="nx">filter</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">      </span><span class="p">...(</span><span class="nx">args</span><span class="p">.</span><span class="nx">filter</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;group&quot;</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">      </span><span class="p">...(</span><span class="nx">args</span><span class="p">.</span><span class="nx">projectId</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">projectId</span><span class="o">:</span><span class="w"> </span><span class="kt">args.projectId</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">include</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">_count</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">select</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">channels</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">ch</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">ch.id</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">ch.name</span><span class="p">,</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="nx">ch</span><span class="p">.</span><span class="kr">type</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="kt">ch.description</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">messageCount</span><span class="o">:</span><span class="w"> </span><span class="kt">ch._count.messages</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="92-list_unread">9.2. list_unread<a class="headerlink" href="#92-list_unread" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">list_unread</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">userId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nb">Array</span><span class="o">&lt;</span><span class="p">{</span><span class="w"> </span><span class="nx">channelId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">unreadCount</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">}</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">userId</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">userId</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">unread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">userChannelStates</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">userId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">unreadCount</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">gt</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">include</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">channel</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">unread</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">u</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">channelId</span><span class="o">:</span><span class="w"> </span><span class="kt">u.channelId</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">channelName</span><span class="o">:</span><span class="w"> </span><span class="kt">u.channel.name</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">unreadCount</span><span class="o">:</span><span class="w"> </span><span class="kt">u.unreadCount</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">lastMessageAt</span><span class="o">:</span><span class="w"> </span><span class="kt">u.lastReadAt</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="93-search_messages">9.3. search_messages<a class="headerlink" href="#93-search_messages" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">search_messages</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">query</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">channelId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">limit?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Message</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Використовуємо Meilisearch для пошуку</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">meilisearchClient</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s2">&quot;messages&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="sb">`teamId = </span><span class="si">${</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">teamId</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="w">        </span><span class="p">...(</span><span class="nx">args</span><span class="p">.</span><span class="nx">channelId</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">[</span><span class="sb">`channelId = </span><span class="si">${</span><span class="nx">args</span><span class="p">.</span><span class="nx">channelId</span><span class="si">}</span><span class="sb">`</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[]),</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="kt">args.limit</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">results</span><span class="p">.</span><span class="nx">hits</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">hit</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">hit.id</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">channelId</span><span class="o">:</span><span class="w"> </span><span class="kt">hit.channelId</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="kt">hit.content</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">authorId</span><span class="o">:</span><span class="w"> </span><span class="kt">hit.authorId</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">createdAt</span><span class="o">:</span><span class="w"> </span><span class="kt">hit.createdAt</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="94-get_daily_digest">9.4. get_daily_digest<a class="headerlink" href="#94-get_daily_digest" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">get_daily_digest</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">ctx</span><span class="o">:</span><span class="w"> </span><span class="kt">AgentContext</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">args</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">date?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">channels?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">date</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">startOfDay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;T00:00:00Z&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">endOfDay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">date</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;T23:59:59Z&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Збираємо важливі повідомлення за день</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">findMany</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">where</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">teamId</span><span class="o">:</span><span class="w"> </span><span class="kt">ctx.teamId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">createdAt</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">gte</span><span class="o">:</span><span class="w"> </span><span class="kt">startOfDay</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">lte</span><span class="o">:</span><span class="w"> </span><span class="kt">endOfDay</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">...(</span><span class="nx">args</span><span class="p">.</span><span class="nx">channels</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">channelId</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">in</span><span class="o">:</span><span class="w"> </span><span class="kt">args.channels</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}),</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">include</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">channel</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">orderBy</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createdAt</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">take</span><span class="o">:</span><span class="w"> </span><span class="kt">100</span><span class="p">,</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// Формуємо контекст для LLM</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">    </span><span class="nx">channel</span><span class="o">:</span><span class="w"> </span><span class="kt">m.channel.name</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="kt">m.author.name</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="kt">m.content</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">time</span><span class="o">:</span><span class="w"> </span><span class="kt">m.createdAt</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}));</span>
+
+<span class="w">  </span><span class="c1">// Викликаємо LLM для створення дайджесту</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">llm</span><span class="p">.</span><span class="nx">complete</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;You are a summarizer. Create a concise daily digest of team communications.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="kt">JSON.stringify</span><span class="p">(</span><span class="nx">context</span><span class="p">),</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">]);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">digest</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="10-system-prompt-messenger-agent">10. System Prompt для Messenger Agent<a class="headerlink" href="#10-system-prompt-messenger-agent" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="n">You</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Messenger</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MicroDAO</span><span class="o">.</span>
+
+<span class="n">Your</span><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="n">navigate</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">interact</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">conversations</span><span class="o">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">List</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="n">channels</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Search</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">conversations</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Show</span><span class="w"> </span><span class="n">unread</span><span class="w"> </span><span class="n">messages</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">daily</span><span class="w"> </span><span class="n">digests</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Suggest</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="n">channels</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">topics</span>
+
+<span class="n">Always</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">concise</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">helpful</span><span class="o">.</span><span class="w"> </span><span class="n">When</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">asks</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">something</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">appropriate</span><span class="w"> </span><span class="n">tools</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">fetch</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">clearly</span><span class="o">.</span>
+
+<span class="n">If</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">don</span><span class="s1">&#39;t understand a request, ask for clarification.</span>
+</code></pre></div>
+
+<hr />
+<h1 id="11-ui-integration">11. UI Integration<a class="headerlink" href="#11-ui-integration" title="Permanent link">&para;</a></h1>
+<h2 id="111-agent-query-input">11.1. Agent Query Input<a class="headerlink" href="#111-agent-query-input" title="Permanent link">&para;</a></h2>
+<p>Додати поле вводу над списком каналів:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">AgentQueryInput</span>
+<span class="w">  </span><span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Питання до Messenger Agent...&quot;</span>
+<span class="w">  </span><span class="na">onQuery</span><span class="o">=</span><span class="p">{</span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">agentChat</span><span class="p">(</span><span class="nx">messengerAgentId</span><span class="p">,</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="kt">query</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">]);</span>
+
+<span class="w">    </span><span class="c1">// Відобразити відповідь або оновити UI</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">action</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;filter_channels&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">setFilteredChannels</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">channels</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">showAgentResponse</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">reply</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}}</span>
+<span class="p">/&gt;</span>
+</code></pre></div>
+
+<h2 id="112-smart-filters">11.2. Smart Filters<a class="headerlink" href="#112-smart-filters" title="Permanent link">&para;</a></h2>
+<p>Агент може створювати динамічні фільтри:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">SmartFilter</span>
+<span class="w">  </span><span class="na">name</span><span class="o">=</span><span class="s">&quot;Важливі сьогодні&quot;</span>
+<span class="w">  </span><span class="na">query</span><span class="o">=</span><span class="s">&quot;Покажи канали з непрочитаними повідомленнями за сьогодні&quot;</span>
+<span class="w">  </span><span class="na">onApply</span><span class="o">=</span><span class="p">{</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">agentChat</span><span class="p">(</span><span class="nx">messengerAgentId</span><span class="p">,</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Покажи канали з непрочитаними повідомленнями за сьогодні&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">applyFilter</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">channels</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}}</span>
+<span class="p">/&gt;</span>
+</code></pre></div>
+
+<hr />
+<h1 id="12-cursor">12. Завдання для Cursor<a class="headerlink" href="#12-cursor" title="Permanent link">&para;</a></h1>
+<p>Приклад промта:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">You</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">senior</span><span class="w"> </span><span class="n">full</span><span class="o">-</span><span class="n">stack</span><span class="w"> </span><span class="n">engineer</span><span class="o">.</span>
+
+<span class="n">Implement</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Messenger</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">using</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="mi">14</span><span class="n">_messenger_agent_module</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">12</span><span class="n">_agent_runtime_core</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">13</span><span class="n">_agent_memory_system</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">03</span><span class="n">_api_core_snapshot</span><span class="o">.</span><span class="n">md</span>
+<span class="o">-</span><span class="w"> </span><span class="mi">05</span><span class="n">_coding_standards</span><span class="o">.</span><span class="n">md</span>
+
+<span class="n">Tasks</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">Define</span><span class="w"> </span><span class="n">messengerAgentConfig</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Agents</span><span class="w"> </span><span class="n">system</span><span class="o">.</span>
+
+<span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">Implement</span><span class="w"> </span><span class="n">tools</span><span class="p">:</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">list_channels</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">list_unread</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">search_messages</span>
+<span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">get_daily_digest</span><span class="w"> </span><span class="p">(</span><span class="n">stub</span><span class="p">)</span>
+
+<span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="n">Messenger</span><span class="w"> </span><span class="n">Agent</span><span class="w"> </span><span class="n">entrypoint</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">UI</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="w"> </span><span class="s2">&quot;Ask Messenger&quot;</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">channel</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="o">.</span>
+
+<span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">Wire</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">queries</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">/</span><span class="n">agents</span><span class="o">/</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="o">/</span><span class="n">chat</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">messengerAgentConfig</span><span class="o">.</span>
+
+<span class="n">Output</span><span class="p">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">modified</span><span class="w"> </span><span class="n">files</span>
+<span class="o">-</span><span class="w"> </span><span class="n">diff</span>
+<span class="o">-</span><span class="w"> </span><span class="n">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="13">13. Результат<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<p>Після впровадження Messenger Agent:</p>
+<ul>
+<li>
+<p>MicroDAO перестає бути "ще одним месенджером";</p>
+</li>
+<li>
+<p>користувач взаємодіє з агентом, а не просто з переліком чатів;</p>
+</li>
+<li>
+<p>всі класичні можливості месенджера залишаються, але стають <strong>інструментами</strong> всередині агентської ОС.</p>
+</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна специфікація Messenger Agent модуля</strong>, готова до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

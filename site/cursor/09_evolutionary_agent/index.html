@@ -1,0 +1,1075 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/09_evolutionary_agent/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>09 — Evolutionary Agent (Self-Improving AI) for MicroDAO - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#09-evolutionary-agent-self-improving-ai-for-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              09 — Evolutionary Agent (Self-Improving AI) for MicroDAO
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="09-evolutionary-agent-self-improving-ai-for-microdao">09 — Evolutionary Agent (Self-Improving AI) for MicroDAO<a class="headerlink" href="#09-evolutionary-agent-self-improving-ai-for-microdao" title="Permanent link">&para;</a></h1>
+<p>Цей документ описує архітектуру та принципи роботи самонавчального агента MicroDAO.<br />
+Агент вміє:</p>
+<ul>
+<li>аналізувати свої відповіді,</li>
+<li>виявляти помилки і прогалини,</li>
+<li>створювати пропозиції покращень,</li>
+<li>еволюціонувати через зміни правил, FAQ, мікро-навичок,</li>
+<li>вчитись на поведінці клієнтів та спільноти,</li>
+<li>надавати журнали змін (версії),</li>
+<li>взаємодіяти з DAGI через анонімізований Train-to-Earn.</li>
+</ul>
+<hr />
+<h1 id="1">1. Мета<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>Створити <strong>особистого eволюційного агента</strong> для кожної microDAO:</p>
+<ul>
+<li>приватного,</li>
+<li>адаптивного,</li>
+<li>підконтрольного користувачу,</li>
+<li>який стає розумнішим з часом,</li>
+<li>але не змінює глобальну LLM-модель,</li>
+<li>а накопичує <em>власний досвід</em>: правила, пам'ять, патерни, мікро-навички.</li>
+</ul>
+<p>Це перетворює microDAO на <strong>живий цифровий організм</strong>, який виростає з досвіду команди.</p>
+<hr />
+<h1 id="2-3">2. Архітектура (3 рівні мозку)<a class="headerlink" href="#2-3" title="Permanent link">&para;</a></h1>
+<p>Еволюційний агент складається з трьох шарів.</p>
+<h2 id="21-0-llm-frozen-model">2.1. Рівень 0 — Базова LLM (Frozen Model)<a class="headerlink" href="#21-0-llm-frozen-model" title="Permanent link">&para;</a></h2>
+<ul>
+<li>GPT/Claude/локальна модель.</li>
+<li>Не модифікується.</li>
+<li>Відповідає за мовні і логічні здібності.</li>
+</ul>
+<h2 id="22-1">2.2. Рівень 1 — Пам'ять та контекст<a class="headerlink" href="#22-1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Контекст сесій.</li>
+<li>Векторна пам'ять (Co-Memory microDAO).</li>
+<li>Профіль агента (тон, роль, лексика, мова).</li>
+<li>Налаштування приватності та доступу.</li>
+</ul>
+<p>Працює як «довгострокова кора».</p>
+<h2 id="23-2-meta-agent-self-improvement-layer">2.3. Рівень 2 — Meta-Agent (Self-Improvement Layer)<a class="headerlink" href="#23-2-meta-agent-self-improvement-layer" title="Permanent link">&para;</a></h2>
+<p>Це ядро еволюції.</p>
+<p>Включає:</p>
+<ul>
+<li>аналіз діалогів,</li>
+<li>фідбеки користувачів,</li>
+<li>пошук недоліків,</li>
+<li>генерацію покращень,</li>
+<li>контроль застосування,</li>
+<li>трекінг версій.</li>
+</ul>
+<hr />
+<h1 id="3-meta-agent">3. Компоненти Meta-Agent<a class="headerlink" href="#3-meta-agent" title="Permanent link">&para;</a></h1>
+<h2 id="31-feedback-collector">3.1. Feedback Collector<a class="headerlink" href="#31-feedback-collector" title="Permanent link">&para;</a></h2>
+<p>Збирає сигнали якості:</p>
+<ol>
+<li>
+<p>👍 / 👎</p>
+</li>
+<li>
+<p>Правки користувача (коли людина переписує відповідь)</p>
+</li>
+<li>
+<p>Маркери:</p>
+</li>
+<li>
+<p>«не по темі»</p>
+</li>
+<li>«неправильна відповідь»</li>
+<li>«занадто загально»</li>
+<li>
+<p>«довго»</p>
+</li>
+<li>
+<p>Explicit Correction<br />
+   Користувач каже:  </p>
+<blockquote>
+<p>«Замість цього говори так…»</p>
+</blockquote>
+</li>
+</ol>
+<p>Усе це зберігається як <em>мета-телеметрія</em>.</p>
+<hr />
+<h2 id="32-pattern-analyzer">3.2. Pattern Analyzer<a class="headerlink" href="#32-pattern-analyzer" title="Permanent link">&para;</a></h2>
+<p>Раз на N діалогів/годин agent запускає self-review job.</p>
+<p>Він виявляє:</p>
+<ul>
+<li>повторювані типи питань,</li>
+<li>категорії помилок,</li>
+<li>патерни, де агент слабкий,</li>
+<li>пропущені інструкції.</li>
+</ul>
+<hr />
+<h2 id="33-improvement-generator">3.3. Improvement Generator<a class="headerlink" href="#33-improvement-generator" title="Permanent link">&para;</a></h2>
+<p>Генерує пропозиції змін:</p>
+<p>Типи змін:</p>
+<ol>
+<li>
+<p>Нове правило (instruction)</p>
+</li>
+<li>
+<p>Новий шаблон відповіді</p>
+</li>
+<li>
+<p>FAQ-елементи</p>
+</li>
+<li>
+<p>Новий «skill»<br />
+   (регулярний патерн → мікро-інструмент / chain)</p>
+</li>
+<li>
+<p>Мета-тести<br />
+   (питання, з якими агент має справлятися)</p>
+</li>
+</ol>
+<p>Приклади:</p>
+<ul>
+<li>«Додавати приклади у відповідях команді design.»  </li>
+<li>«Уникай надто формального тону в каналi #marketing.»  </li>
+<li>«Коли питають про дедлайни — уточнюй контекст.»</li>
+</ul>
+<hr />
+<h2 id="34-user-approval-layer-manual-control">3.4. User Approval Layer (Manual Control)<a class="headerlink" href="#34-user-approval-layer-manual-control" title="Permanent link">&para;</a></h2>
+<p>Агент НІКОЛИ не застосовує зміни сам.</p>
+<p>Формує список пропозицій у вигляді:</p>
+<div class="codehilite"><pre><span></span><code>• Пропозиція №17
+Тип: Нове правило
+Текст: &quot;Якщо user → українська, відповідай українською.&quot;
+Джерело: 13 подібних ситуацій.
+[Прийняти] [Відхилити] [Редагувати]
+</code></pre></div>
+
+<p>Це ключова відмінність MicroDAO від централізованих систем:</p>
+<p><strong>користувач контролює еволюцію інтелекту.</strong></p>
+<hr />
+<h2 id="35-versioning-engine">3.5. Versioning Engine<a class="headerlink" href="#35-versioning-engine" title="Permanent link">&para;</a></h2>
+<p>Веде історію еволюції:</p>
+<ul>
+<li>v0 — чистий агент</li>
+<li>v1 — після перших 20 діалогів</li>
+<li>v2 — після 100 діалогів</li>
+<li>…</li>
+</ul>
+<p>Кожна версія містить:</p>
+<ul>
+<li>список правил,</li>
+<li>diff памʼяті,</li>
+<li>список навичок,</li>
+<li>історію змін.</li>
+</ul>
+<p>UI показує «дерево еволюції».</p>
+<hr />
+<h1 id="4-uiux">4. UI/UX модуля "Еволюція агента"<a class="headerlink" href="#4-uiux" title="Permanent link">&para;</a></h1>
+<h2 id="41-1">4.1. Вкладка 1 — Огляд<a class="headerlink" href="#41-1" title="Permanent link">&para;</a></h2>
+<p>Показує:</p>
+<ul>
+<li>версію агента,</li>
+<li>скільки правил застосовано,</li>
+<li>скільки покращень очікує.</li>
+</ul>
+<hr />
+<h2 id="42-2">4.2. Вкладка 2 — Памʼять<a class="headerlink" href="#42-2" title="Permanent link">&para;</a></h2>
+<p>Показує:</p>
+<ul>
+<li>які факти агент зберіг,</li>
+<li>що він знає про команду,</li>
+<li>ключові поняття та терміни.</li>
+</ul>
+<p>Кнопка:</p>
+<ul>
+<li>«Очистити коротку пам'ять»</li>
+<li>«Показати довгострокові факти»</li>
+</ul>
+<hr />
+<h2 id="43-3">4.3. Вкладка 3 — Самонавчання<a class="headerlink" href="#43-3" title="Permanent link">&para;</a></h2>
+<p>Перемикачі:</p>
+<ul>
+<li><code>[x] Самонавчання увімкнено</code></li>
+<li>Рівень:</li>
+<li><code>Базовий</code></li>
+<li><code>Розширений</code></li>
+<li>Джерела:</li>
+<li><code>[x] Діалоги в цій спільноті</code></li>
+<li><code>[ ] Всі мої microDAO</code></li>
+<li><code>[ ] Анонімізований внесок у DAGI (Train-to-Earn)</code></li>
+</ul>
+<hr />
+<h2 id="44-4-actionable-insights">4.4. Вкладка 4 — Пропозиції покращень (Actionable Insights)<a class="headerlink" href="#44-4-actionable-insights" title="Permanent link">&para;</a></h2>
+<p>Список:</p>
+<div class="codehilite"><pre><span></span><code>• Пропозиція №23
+Тип: FAQ
+Тема: «Як додати нового учасника?»
+Згенеровано: Meta-Agent
+→ [Прийняти] [Відхилити] [Редагувати]
+</code></pre></div>
+
+<hr />
+<h2 id="45-5-versions">4.5. Вкладка 5 — Журнал Еволюції (Versions)<a class="headerlink" href="#45-5-versions" title="Permanent link">&para;</a></h2>
+<p>Хронологічне дерево змін.</p>
+<hr />
+<h1 id="5">5. Логіка самонавчання (алгоритм)<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
+<h2 id="51-self-review">5.1. Тригер self-review<a class="headerlink" href="#51-self-review" title="Permanent link">&para;</a></h2>
+<p>Self-review запускається коли:</p>
+<ul>
+<li>кожні 50 повідомлень,</li>
+<li>або щогодини,</li>
+<li>або вручну.</li>
+</ul>
+<h2 id="52-self-review-pipeline">5.2. Self-review pipeline<a class="headerlink" href="#52-self-review-pipeline" title="Permanent link">&para;</a></h2>
+<ol>
+<li>витягує останні діалоги  </li>
+<li>фільтрує по негативних сигналах  </li>
+<li>кластеризує помилки  </li>
+<li>генерує пропозиції  </li>
+<li>оцінює важливість  </li>
+<li>показує користувачу для схвалення</li>
+</ol>
+<hr />
+<h1 id="6-api">6. API для еволюційного агента<a class="headerlink" href="#6-api" title="Permanent link">&para;</a></h1>
+<p>Додаємо нові ендпоїнти:</p>
+<h3 id="get-agentsidevolution">GET /agents/{id}/evolution<a class="headerlink" href="#get-agentsidevolution" title="Permanent link">&para;</a></h3>
+<p>Історія еволюції.</p>
+<h3 id="get-agentsidsuggestions">GET /agents/{id}/suggestions<a class="headerlink" href="#get-agentsidsuggestions" title="Permanent link">&para;</a></h3>
+<p>Список пропозицій meta-agent.</p>
+<h3 id="post-agentsidsuggestionssidaccept">POST /agents/{id}/suggestions/{sid}/accept<a class="headerlink" href="#post-agentsidsuggestionssidaccept" title="Permanent link">&para;</a></h3>
+<p>Застосувати пропозицію.</p>
+<h3 id="post-agentsidsuggestionssidreject">POST /agents/{id}/suggestions/{sid}/reject<a class="headerlink" href="#post-agentsidsuggestionssidreject" title="Permanent link">&para;</a></h3>
+<p>Відхилити.</p>
+<h3 id="post-agentsidsuggestionssidedit">POST /agents/{id}/suggestions/{sid}/edit<a class="headerlink" href="#post-agentsidsuggestionssidedit" title="Permanent link">&para;</a></h3>
+<p>Внести зміну вручну.</p>
+<h3 id="post-agentsidmemoryupdate">POST /agents/{id}/memory/update<a class="headerlink" href="#post-agentsidmemoryupdate" title="Permanent link">&para;</a></h3>
+<p>Оновити довгострокову памʼять агента.</p>
+<hr />
+<h1 id="7-train-to-earn">7. Як працює Train-to-Earn<a class="headerlink" href="#7-train-to-earn" title="Permanent link">&para;</a></h1>
+<p>Коли користувач вмикає цю опцію:</p>
+<ul>
+<li>meta-agent генерує анонімізовані патерни</li>
+<li>агрегує їх (без текстів, без персональних даних)</li>
+<li>відправляє в DAGI</li>
+<li>DAGI оцінює їхню цінність</li>
+<li>видає винагороду у вигляді 1T або іншого токена</li>
+<li>microDAO отримує reward</li>
+</ul>
+<p>Користувач бачить:</p>
+<div class="codehilite"><pre><span></span><code>Ми використали 3 нові патерни вашої спільноти.
+Винагорода: +17 1T
+</code></pre></div>
+
+<hr />
+<h1 id="8-mvp">8. MVP того, що реально зробити зараз<a class="headerlink" href="#8-mvp" title="Permanent link">&para;</a></h1>
+<h3 id="mvp-">MVP-версія:<a class="headerlink" href="#mvp-" title="Permanent link">&para;</a></h3>
+<ul>
+<li>збір фідбеків (👍/👎),</li>
+<li>ручний запуск self-review,</li>
+<li>генерація 1–3 пропозицій правил,</li>
+<li>вручну додане рев'ю у UI,</li>
+<li>зберігання версій у JSON.</li>
+</ul>
+<h3 id="_1">Наступні етапи:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>кластеризація помилок,</li>
+<li>автоматичні тест-кейси,</li>
+<li>DAGI-підключення,</li>
+<li>мікромоделі LoRA.</li>
+</ul>
+<hr />
+<h1 id="9-cursor">9. Завдання для Cursor (шаблон)<a class="headerlink" href="#9-cursor" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code><span class="nx">You</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">senior</span><span class="w"> </span><span class="nx">React</span><span class="o">/</span><span class="nx">TS</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">backend</span><span class="w"> </span><span class="nx">engineer</span><span class="p">.</span>
+
+<span class="nx">Implement</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="k">Self</span><span class="o">-</span><span class="nx">Improving</span><span class="w"> </span><span class="nx">Agent</span><span class="w"> </span><span class="nx">module</span><span class="w"> </span><span class="nx">using</span><span class="p">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="mi">09</span><span class="nx">_evolutionary_agent</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">*</span><span class="w"> </span><span class="mi">03</span><span class="nx">_api_core_snapshot</span><span class="p">.</span><span class="nx">md</span>
+<span class="o">*</span><span class="w"> </span><span class="mi">05</span><span class="nx">_coding_standards</span><span class="p">.</span><span class="nx">md</span>
+
+<span class="nx">Tasks</span><span class="p">:</span>
+
+<span class="mi">1</span><span class="p">.</span><span class="w"> </span><span class="nx">Create</span><span class="w"> </span><span class="nx">UI</span><span class="p">:</span><span class="w"> </span><span class="nx">Agent</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nx">Evolution</span><span class="w"> </span><span class="nx">tab</span><span class="p">.</span>
+<span class="mi">2</span><span class="p">.</span><span class="w"> </span><span class="nx">Show</span><span class="w"> </span><span class="nx">suggestions</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="p">(</span><span class="nx">stub</span><span class="w"> </span><span class="nx">data</span><span class="p">).</span>
+<span class="mi">3</span><span class="p">.</span><span class="w"> </span><span class="nx">Implement</span><span class="w"> </span><span class="nx">actions</span><span class="p">:</span><span class="w"> </span><span class="nx">accept</span><span class="o">/</span><span class="nx">reject</span><span class="o">/</span><span class="nx">edit</span><span class="w"> </span><span class="p">(</span><span class="nx">client</span><span class="o">-</span><span class="nx">only</span><span class="p">).</span>
+<span class="mi">4</span><span class="p">.</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="nx">version</span><span class="w"> </span><span class="nx">history</span><span class="w"> </span><span class="p">(</span><span class="nx">client</span><span class="o">-</span><span class="nx">only</span><span class="p">).</span>
+<span class="mi">5</span><span class="p">.</span><span class="w"> </span><span class="nx">Add</span><span class="w"> </span><span class="nx">feedback</span><span class="w"> </span><span class="nx">buttons</span><span class="w"> </span><span class="err">👍</span><span class="o">/</span><span class="err">👎</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">agent</span><span class="w"> </span><span class="nx">messages</span><span class="p">.</span>
+
+<span class="nx">Output</span><span class="p">:</span>
+
+<span class="o">*</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">files</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">diff</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">summary</span>
+</code></pre></div>
+
+<hr />
+<h1 id="10">10. Інтеграція з існуючим кодом<a class="headerlink" href="#10" title="Permanent link">&para;</a></h1>
+<h2 id="101-api">10.1. Використання API клієнтів<a class="headerlink" href="#101-api" title="Permanent link">&para;</a></h2>
+<p>Розширити існуючий <code>src/api/agents.ts</code> для підтримки нових ендпоїнтів:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Додати до agents.ts</span>
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">getAgentEvolution</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">apiClient</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="sb">`/agents/</span><span class="si">${</span><span class="nx">agentId</span><span class="si">}</span><span class="sb">/evolution`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">getAgentSuggestions</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">apiClient</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="sb">`/agents/</span><span class="si">${</span><span class="nx">agentId</span><span class="si">}</span><span class="sb">/suggestions`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">acceptSuggestion</span><span class="p">(</span><span class="nx">agentId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">suggestionId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">apiClient</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="sb">`/agents/</span><span class="si">${</span><span class="nx">agentId</span><span class="si">}</span><span class="sb">/suggestions/</span><span class="si">${</span><span class="nx">suggestionId</span><span class="si">}</span><span class="sb">/accept`</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="102-ui">10.2. Компоненти UI<a class="headerlink" href="#102-ui" title="Permanent link">&para;</a></h2>
+<p>Створити нову структуру:</p>
+<div class="codehilite"><pre><span></span><code>src/features/agent-evolution/
+  AgentEvolutionTab.tsx
+  SuggestionsList.tsx
+  VersionHistory.tsx
+  MemoryView.tsx
+  FeedbackButtons.tsx
+  hooks/
+    useAgentEvolution.ts
+    useSuggestions.ts
+</code></pre></div>
+
+<h2 id="103-state-management">10.3. State Management<a class="headerlink" href="#103-state-management" title="Permanent link">&para;</a></h2>
+<p>Використовувати React Query для кешування та синхронізації:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="kt">suggestions</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useQuery</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">queryKey</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;agent-suggestions&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">agentId</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">queryFn</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">getAgentSuggestions</span><span class="p">(</span><span class="nx">agentId</span><span class="p">),</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<hr />
+<h1 id="11">11. Типи даних<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+<h2 id="111-suggestion">11.1. Suggestion<a class="headerlink" href="#111-suggestion" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">Suggestion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;rule&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;faq&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;skill&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;template&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;feedback&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;pattern&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;explicit&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">examples</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">status</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;pending&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;accepted&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;rejected&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;edited&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">createdAt</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="112-agentversion">11.2. AgentVersion<a class="headerlink" href="#112-agentversion" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentVersion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">createdAt</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="kt">Rule</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">skills</span><span class="o">:</span><span class="w"> </span><span class="kt">Skill</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">memoryDiff</span><span class="o">:</span><span class="w"> </span><span class="kt">MemoryDiff</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">changes</span><span class="o">:</span><span class="w"> </span><span class="kt">Change</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="113-feedback">11.3. Feedback<a class="headerlink" href="#113-feedback" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">Feedback</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">messageId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;positive&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;negative&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;correction&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">content?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="c1">// для explicit correction</span>
+<span class="w">  </span><span class="nx">createdAt</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="12">12. Тестування<a class="headerlink" href="#12" title="Permanent link">&para;</a></h1>
+<h2 id="121-unit-tests">12.1. Unit Tests<a class="headerlink" href="#121-unit-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Тести для <code>FeedbackCollector</code></li>
+<li>Тести для <code>PatternAnalyzer</code></li>
+<li>Тести для <code>ImprovementGenerator</code></li>
+<li>Тести для парсингу фідбеків</li>
+</ul>
+<h2 id="122-integration-tests">12.2. Integration Tests<a class="headerlink" href="#122-integration-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Тестування повного циклу: фідбек → аналіз → пропозиція → застосування</li>
+<li>Тестування версіонування</li>
+<li>Тестування API інтеграції</li>
+</ul>
+<h2 id="123-e2e-tests">12.3. E2E Tests<a class="headerlink" href="#123-e2e-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Користувач ставить 👍 → з'являється пропозиція → приймає → агент оновлюється</li>
+<li>Перевірка відображення історії версій</li>
+<li>Перевірка UI вкладок еволюції</li>
+</ul>
+<hr />
+<h1 id="13">13. Безпека та приватність<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<h2 id="131">13.1. Контроль доступу<a class="headerlink" href="#131" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Тільки власник/адміністратор microDAO може застосовувати зміни</li>
+<li>Фідбек може залишати будь-який учасник</li>
+<li>Історія еволюції доступна тільки для адмінів</li>
+</ul>
+<h2 id="132-dagi">13.2. Анонімізація для DAGI<a class="headerlink" href="#132-dagi" title="Permanent link">&para;</a></h2>
+<p>Перед відправкою в DAGI:</p>
+<ul>
+<li>Видаляти персональні дані</li>
+<li>Видаляти конкретні тексти діалогів</li>
+<li>Залишати тільки патерни та структури</li>
+<li>Агрегувати дані</li>
+</ul>
+<h2 id="133">13.3. Валідація змін<a class="headerlink" href="#133" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Перевірка на шкідливий контент</li>
+<li>Перевірка на порушення правил спільноти</li>
+<li>Модерація перед застосуванням</li>
+</ul>
+<hr />
+<h1 id="14">14. Продуктивність<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
+<h2 id="141-self-review">14.1. Оптимізація self-review<a class="headerlink" href="#141-self-review" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Запускати в фоні</li>
+<li>Кешувати результати аналізу</li>
+<li>Обмежувати кількість одночасних аналізів</li>
+</ul>
+<h2 id="142">14.2. Оптимізація пам'яті<a class="headerlink" href="#142" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Архівувати старі версії</li>
+<li>Стискати дані</li>
+<li>Використовувати векторні БД для ефективного пошуку</li>
+</ul>
+<hr />
+<h1 id="15">15. Майбутні покращення<a class="headerlink" href="#15" title="Permanent link">&para;</a></h1>
+<h2 id="151">15.1. Розширений аналіз<a class="headerlink" href="#151" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Використання LLM для кластеризації помилок</li>
+<li>Автоматичне виявлення патернів</li>
+<li>Предиктивне покращення</li>
+</ul>
+<h2 id="152-lora-fine-tuning">15.2. LoRA Fine-tuning<a class="headerlink" href="#152-lora-fine-tuning" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Створення мікромоделей для конкретних спільнот</li>
+<li>Локальне навчання без зміни базової моделі</li>
+<li>Персоналізація на рівні моделі</li>
+</ul>
+<h2 id="153">15.3. Спільне навчання<a class="headerlink" href="#153" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Обмін анонімізованими патернами між microDAO</li>
+<li>Колективна еволюція</li>
+<li>Рейтинг найкращих практик</li>
+</ul>
+<hr />
+<h1 id="16">16. Результат<a class="headerlink" href="#16" title="Permanent link">&para;</a></h1>
+<p>Еволюційний агент стає серцем MicroDAO:<br />
+він вчиться, адаптується, росте — і належить спільноті.</p>
+<p>Кожна microDAO отримує унікального інтелектуального помічника, який:</p>
+<ul>
+<li>розуміє контекст спільноти,</li>
+<li>адаптується до стилю комунікації,</li>
+<li>покращується з часом,</li>
+<li>залишається під повним контролем користувача,</li>
+<li>може співпрацювати з глобальною мережею через DAGI.</li>
+</ul>
+<hr />
+<p><strong>Готово.</strong><br />
+Це <strong>повна специфікація еволюційного агента</strong>, готова до використання в Cursor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

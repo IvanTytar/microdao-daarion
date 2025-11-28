@@ -454,10 +454,46 @@ async def get_all_agents() -> List[dict]:
 
 async def update_agent_visibility(
     agent_id: str,
+    *,
+    is_public: bool,
+    visibility_scope: Optional[str] = None,
+) -> Optional[dict]:
+    """
+    Оновити налаштування видимості агента.
+    Returns updated agent data or None if not found.
+    """
+    pool = await get_pool()
+    
+    # Build dynamic update
+    set_parts = ["is_public = $2", "updated_at = NOW()"]
+    params = [agent_id, is_public]
+    
+    if visibility_scope is not None:
+        params.append(visibility_scope)
+        set_parts.append(f"visibility_scope = ${len(params)}")
+    
+    # Also update is_listed_in_directory based on is_public
+    set_parts.append("is_listed_in_directory = $2")  # same as is_public
+    
+    query = f"""
+        UPDATE agents
+        SET {', '.join(set_parts)}
+        WHERE id = $1
+          AND COALESCE(is_archived, false) = false
+          AND COALESCE(is_test, false) = false
+        RETURNING id, display_name, is_public, visibility_scope, is_listed_in_directory
+    """
+    
+    result = await pool.fetchrow(query, *params)
+    return dict(result) if result else None
+
+
+async def update_agent_visibility_legacy(
+    agent_id: str,
     visibility_scope: str,
     is_listed_in_directory: bool
 ) -> bool:
-    """Оновити налаштування видимості агента"""
+    """Legacy: Оновити налаштування видимості агента (backward compatibility)"""
     pool = await get_pool()
     
     query = """
@@ -1514,4 +1550,106 @@ async def get_node_by_id(node_id: str) -> Optional[dict]:
     
     row = await pool.fetchrow(query, node_id)
     return dict(row) if row else None
+
+
+# =============================================================================
+# MicroDAO Visibility & Creation (Task 029)
+# =============================================================================
+
+async def update_microdao_visibility(
+    microdao_id: str,
+    *,
+    is_public: bool,
+    is_platform: Optional[bool] = None,
+) -> Optional[dict]:
+    """
+    Оновити налаштування видимості MicroDAO.
+    Returns updated MicroDAO data or None if not found.
+    """
+    pool = await get_pool()
+    
+    set_parts = ["is_public = $2", "updated_at = NOW()"]
+    params = [microdao_id, is_public]
+    
+    if is_platform is not None:
+        params.append(is_platform)
+        set_parts.append(f"is_platform = ${len(params)}")
+    
+    query = f"""
+        UPDATE microdaos
+        SET {', '.join(set_parts)}
+        WHERE id = $1
+          AND COALESCE(is_archived, false) = false
+          AND COALESCE(is_test, false) = false
+        RETURNING id, slug, name, is_public, is_platform
+    """
+    
+    result = await pool.fetchrow(query, *params)
+    return dict(result) if result else None
+
+
+async def create_microdao_for_agent(
+    orchestrator_agent_id: str,
+    *,
+    name: str,
+    slug: str,
+    description: Optional[str] = None,
+    make_platform: bool = False,
+    is_public: bool = True,
+    parent_microdao_id: Optional[str] = None,
+) -> Optional[dict]:
+    """
+    Створює microDAO, прив'язує його до агента-оркестратора.
+    
+    1. INSERT новий microDAO
+    2. Додати агента в microdao_agents
+    3. Оновити агента: primary_microdao_id, is_orchestrator = true
+    4. Повернути створений microDAO
+    """
+    pool = await get_pool()
+    
+    import uuid
+    microdao_id = str(uuid.uuid4())
+    
+    async with pool.acquire() as conn:
+        async with conn.transaction():
+            # 1. Create microDAO
+            insert_dao_query = """
+                INSERT INTO microdaos (
+                    id, slug, name, description, 
+                    orchestrator_agent_id, is_public, is_platform, 
+                    parent_microdao_id, is_active, created_at
+                )
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, true, NOW())
+                RETURNING id, slug, name, description, is_public, is_platform
+            """
+            dao_row = await conn.fetchrow(
+                insert_dao_query,
+                microdao_id, slug, name, description,
+                orchestrator_agent_id, is_public, make_platform,
+                parent_microdao_id
+            )
+            
+            if not dao_row:
+                return None
+            
+            # 2. Add agent to microdao_agents as orchestrator
+            insert_member_query = """
+                INSERT INTO microdao_agents (microdao_id, agent_id, role, is_core, joined_at)
+                VALUES ($1, $2, 'orchestrator', true, NOW())
+                ON CONFLICT (microdao_id, agent_id) DO UPDATE SET role = 'orchestrator', is_core = true
+            """
+            await conn.execute(insert_member_query, microdao_id, orchestrator_agent_id)
+            
+            # 3. Update agent: set primary_microdao_id if empty, set is_orchestrator = true
+            update_agent_query = """
+                UPDATE agents
+                SET is_orchestrator = true,
+                    primary_microdao_id = COALESCE(primary_microdao_id, $2),
+                    updated_at = NOW()
+                WHERE id = $1
+            """
+            await conn.execute(update_agent_query, orchestrator_agent_id, microdao_id)
+            
+            return dict(dao_row)
 

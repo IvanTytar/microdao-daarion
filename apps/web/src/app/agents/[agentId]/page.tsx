@@ -11,12 +11,13 @@ import {
   AgentMetricsCard,
   AgentSystemPromptsCard,
   AgentPublicProfileCard,
-  AgentMicrodaoMembershipCard
+  AgentMicrodaoMembershipCard,
+  AgentVisibilityCard,
+  CreateMicrodaoCard
 } from '@/components/agent-dashboard';
-import { AgentVisibilityCard } from '@/components/agent-dashboard/AgentVisibilityCard';
 import { api, Agent, AgentInvokeResponse } from '@/lib/api';
-import { updateAgentVisibility } from '@/lib/api/agents';
-import { AgentVisibilityPayload, VisibilityScope, getNodeBadgeLabel } from '@/lib/types/agents';
+import { VisibilityScope, getNodeBadgeLabel } from '@/lib/types/agents';
+import { updateAgentVisibility, AgentVisibilityUpdate } from '@/lib/api/agents';
 import { Bot, Settings, FileText, Building2, Cpu, MessageSquare, BarChart3, Users, Globe, Lock, Eye, EyeOff, ChevronLeft, Loader2 } from 'lucide-react';
 
 // Tab types
@@ -359,7 +360,7 @@ export default function AgentConsolePage() {
               
               {/* Primary MicroDAO */}
               {profile?.primary_microdao_id && (
-                <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-4 mb-4">
+                <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-4">
                   <div className="text-sm text-cyan-400 mb-1">Primary MicroDAO</div>
                   <Link 
                     href={`/microdao/${profile.primary_microdao_slug}`}
@@ -369,26 +370,15 @@ export default function AgentConsolePage() {
                   </Link>
                 </div>
               )}
-              
-              {/* Orchestrator Actions */}
-              {profile?.is_orchestrator && (
-                <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-4">
-                  <div className="flex items-center gap-2 text-amber-400 mb-2">
-                    <Users className="w-4 h-4" />
-                    <span className="font-medium">Orchestrator Privileges</span>
-                  </div>
-                  <p className="text-white/50 text-sm mb-3">
-                    As an orchestrator, this agent can create and manage MicroDAOs.
-                  </p>
-                  <button
-                    disabled
-                    className="px-4 py-2 bg-amber-500/20 text-amber-400 rounded-lg text-sm opacity-50 cursor-not-allowed"
-                  >
-                    Create MicroDAO (Coming Soon)
-                  </button>
-                </div>
-              )}
             </div>
+            
+            {/* Create MicroDAO / Orchestrator Actions */}
+            <CreateMicrodaoCard
+              agentId={dashboard.profile.agent_id}
+              agentName={profile?.display_name || agentId}
+              isOrchestrator={profile?.is_orchestrator ?? false}
+              onCreated={refresh}
+            />
             
             <AgentMicrodaoMembershipCard
               agentId={dashboard.profile.agent_id}
@@ -415,9 +405,10 @@ export default function AgentConsolePage() {
             {/* Visibility Settings */}
             <AgentVisibilityCard
               agentId={dashboard.profile.agent_id}
-              visibilityScope={(dashboard.public_profile?.visibility_scope as VisibilityScope) || 'city'}
+              isPublic={profile?.is_public ?? false}
+              visibilityScope={(dashboard.public_profile?.visibility_scope as VisibilityScope) || 'global'}
               isListedInDirectory={dashboard.public_profile?.is_listed_in_directory ?? true}
-              onUpdate={async (payload: AgentVisibilityPayload) => {
+              onUpdate={async (payload: AgentVisibilityUpdate) => {
                 await updateAgentVisibility(dashboard.profile.agent_id, payload);
                 refresh();
               }}

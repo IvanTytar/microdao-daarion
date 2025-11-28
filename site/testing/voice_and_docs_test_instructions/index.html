@@ -1,0 +1,1092 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/testing/voice_and_docs_test_instructions/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Інструкції для тестування голосових повідомлень та PDF файлів - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pdf" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Інструкції для тестування голосових повідомлень та PDF файлів
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Що працює зараз
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Що працює зараз">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-stt" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Голосові повідомлення (STT)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. PDF Документи
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Як протестувати
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Як протестувати">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 1: Голосове повідомлення (українською)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 2: Голосове повідомлення (англійською)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-3-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 3: Довге голосове (&gt; 10 секунд)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-4-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 4: PDF документ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-5-pdf-docx-txt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test 5: Не-PDF документ (DOCX, TXT)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐛 Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐛 Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема 1: Бот не відповідає на голосове
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема 2: STT повертає пусту транскрипцію
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Проблема 3: Бот не реагує на PDF
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Логи для діагностики
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Логи для діагностики">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#telegram-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Telegram Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stt-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      STT Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parser-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parser Service
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Критерії успіху
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Критерії успіху">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Голосові повідомлення:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      PDF документи:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Наступні кроки
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Наступні кроки">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pdf-parser" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Інтеграція PDF з Parser (пріоритет 🔴)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. TTS інтеграція (пріоритет 🟡)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-stt" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Оптимізація STT (пріоритет 🟢)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="pdf">Інструкції для тестування голосових повідомлень та PDF файлів<a class="headerlink" href="#pdf" title="Permanent link">&para;</a></h1>
+<p><strong>Дата</strong>: 2025-11-18<br />
+<strong>Статус</strong>: ✅ Імплементовано</p>
+<hr />
+<h2 id="_1">✅ Що працює зараз<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1-stt">1. Голосові повідомлення (STT)<a class="headerlink" href="#1-stt" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Формати</strong>: voice, audio, video_note (кружечки)</li>
+<li><strong>Обробка</strong>: </li>
+<li>Telegram Gateway отримує голосове</li>
+<li>Завантажує через Local Telegram Bot API</li>
+<li>Відправляє на <code>dagi-stt:9000/stt</code> (Whisper)</li>
+<li>Отримує транскрибований текст</li>
+<li>Публікує в NATS як текстове повідомлення</li>
+<li>Router обробляє як звичайний текст</li>
+<li>Бот відповідає</li>
+</ul>
+<h3 id="2-pdf">2. PDF Документи<a class="headerlink" href="#2-pdf" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Формати</strong>: PDF (<code>application/pdf</code> або <code>.pdf</code>)</li>
+<li><strong>Обробка</strong>:</li>
+<li>Telegram Gateway отримує документ</li>
+<li>Перевіряє, чи це PDF</li>
+<li>Отримує <code>file_url</code> через Telegram API</li>
+<li>Публікує в NATS з <code>metadata.document</code></li>
+<li>Router може викликати Parser Service</li>
+<li>Бот відповідає результатом парсингу</li>
+</ul>
+<hr />
+<h2 id="_2">🧪 Як протестувати<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="test-1">Test 1: Голосове повідомлення (українською)<a class="headerlink" href="#test-1" title="Permanent link">&para;</a></h3>
+<p><strong>Кроки</strong>:
+1. Відкрити Telegram
+2. Знайти одного з ботів:
+   - <code>@DAARWIZZBot</code>
+   - <code>@energyunionBot</code> (Helion)
+   - <code>@greenfoodliveBot</code> (GREENFOOD)
+3. <strong>Натиснути мікрофон та записати</strong>: "Привіт, як справи?"
+4. Відправити</p>
+<p><strong>Очікуваний результат</strong>:</p>
+<div class="codehilite"><pre><span></span><code>Ти → 🎤 [Голосове 3 сек]
+Бот → 🎤 Обробляю голосове повідомлення...
+Бот → Привіт! У мене все добре, дякую що запитав. Чим можу допомогти?
+</code></pre></div>
+
+<p><strong>Логи</strong> (якщо щось не так):</p>
+<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;docker logs --tail 50 telegram-gateway | grep -E &#39;(🎤|voice|transcrib)&#39;&quot;</span>
+ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;docker logs --tail 20 dagi-stt | grep -E &#39;(POST|/stt)&#39;&quot;</span>
+</code></pre></div>
+
+<hr />
+<h3 id="test-2">Test 2: Голосове повідомлення (англійською)<a class="headerlink" href="#test-2" title="Permanent link">&para;</a></h3>
+<p><strong>Кроки</strong>:
+1. Записати голосове: "Hello, what can you do?"
+2. Відправити</p>
+<p><strong>Очікуваний результат</strong>:</p>
+<div class="codehilite"><pre><span></span><code>Ти → 🎤 [Голосове 2 сек]
+Бот → 🎤 Обробляю голосове повідомлення...
+Бот → Hello! I can help you with...
+</code></pre></div>
+
+<hr />
+<h3 id="test-3-10">Test 3: Довге голосове (&gt; 10 секунд)<a class="headerlink" href="#test-3-10" title="Permanent link">&para;</a></h3>
+<p><strong>Кроки</strong>:
+1. Записати довге голосове (15-30 сек)
+2. Розповісти про щось (проєкт, ідея, питання)
+3. Відправити</p>
+<p><strong>Очікуваний результат</strong>:
+- Транскрипція має зайняти 5-15 секунд
+- Бот має відповісти на основі транскрибованого тексту
+- Якщо &gt; 30 сек - можлива timeout помилка</p>
+<hr />
+<h3 id="test-4-pdf">Test 4: PDF документ<a class="headerlink" href="#test-4-pdf" title="Permanent link">&para;</a></h3>
+<p><strong>Кроки</strong>:
+1. Підготувати PDF файл (будь-який, &lt; 10 MB)
+2. Відправити як файл боту
+3. Дочекатися відповіді</p>
+<p><strong>Очікуваний результат</strong>:</p>
+<div class="codehilite"><pre><span></span><code>Ти → 📄 document.pdf (500 KB)
+Бот → 📄 Обробляю документ: document.pdf...
+Бот → [Результат парсингу або повідомлення що документ отримано]
+</code></pre></div>
+
+<p><strong>Примітка</strong>: Повна обробка PDF через Parser потребує додаткової інтеграції в <code>router_handler.py</code>.</p>
+<hr />
+<h3 id="test-5-pdf-docx-txt">Test 5: Не-PDF документ (DOCX, TXT)<a class="headerlink" href="#test-5-pdf-docx-txt" title="Permanent link">&para;</a></h3>
+<p><strong>Кроки</strong>:
+1. Відправити DOCX або TXT файл
+2. Дочекатися відповіді</p>
+<p><strong>Очікуваний результат</strong>:
+- Бот <strong>не</strong> має відповісти "Обробляю документ"
+- Документ має бути проігнорований (немає обробки)
+- Логи: <code>⏭️ Skipping non-PDF document</code></p>
+<hr />
+<h2 id="troubleshooting">🐛 Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="1">Проблема 1: Бот не відповідає на голосове<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><strong>Діагностика</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. Перевірити логи telegram-gateway</span>
+ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;docker logs --tail 100 telegram-gateway | grep -E &#39;(🎤|voice|ERROR)&#39;&quot;</span>
+
+<span class="c1"># 2. Перевірити чи працює STT</span>
+ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;docker ps | grep dagi-stt&quot;</span>
+ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;docker logs --tail 50 dagi-stt&quot;</span>
+
+<span class="c1"># 3. Тест STT вручну</span>
+ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;curl -X POST http://localhost:9000/stt -F &#39;file=@test_audio.ogg&#39;&quot;</span>
+</code></pre></div>
+
+<p><strong>Можливі причини</strong>:
+- STT сервіс не запущено
+- Помилка завантаження аудіо з Telegram
+- Timeout (файл занадто великий)
+- Формат аудіо не підтримується</p>
+<p><strong>Рішення</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Перезапустити STT</span>
+docker<span class="w"> </span>restart<span class="w"> </span>dagi-stt
+
+<span class="c1"># Перезапустити telegram-gateway</span>
+docker<span class="w"> </span>restart<span class="w"> </span>telegram-gateway
+</code></pre></div>
+
+<hr />
+<h3 id="2-stt">Проблема 2: STT повертає пусту транскрипцію<a class="headerlink" href="#2-stt" title="Permanent link">&para;</a></h3>
+<p><strong>Діагностика</strong>:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>dagi-stt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;transcrib\\|text&quot;</span>
+</code></pre></div>
+
+<p><strong>Можливі причини</strong>:
+- Занадто тихе/шумне аудіо
+- Дуже короткий файл (&lt; 1 сек)
+- Мова не підтримується</p>
+<p><strong>Рішення</strong>:
+- Говорити чіткіше та голосніше
+- Записувати мінімум 2-3 секунди
+- Використовувати українську/англійську</p>
+<hr />
+<h3 id="3-pdf">Проблема 3: Бот не реагує на PDF<a class="headerlink" href="#3-pdf" title="Permanent link">&para;</a></h3>
+<p><strong>Діагностика</strong>:</p>
+<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span>root@144.76.224.179<span class="w"> </span><span class="s2">&quot;docker logs --tail 100 telegram-gateway | grep -E &#39;(📄|document|pdf)&#39;&quot;</span>
+</code></pre></div>
+
+<p><strong>Можливі причини</strong>:
+- Файл занадто великий (&gt; 50 MB)
+- Не PDF формат
+- Router handler не обробляє документи</p>
+<p><strong>Рішення</strong>:
+- Перевірити <code>router_handler.py</code> для обробки <code>metadata.document</code>
+- Додати інтеграцію з Parser Service</p>
+<hr />
+<h2 id="_3">📊 Логи для діагностики<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="telegram-gateway">Telegram Gateway<a class="headerlink" href="#telegram-gateway" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Всі повідомлення</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span><span class="w"> </span>telegram-gateway
+
+<span class="c1"># Тільки voice/document</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">200</span><span class="w"> </span>telegram-gateway<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(🎤|📄|voice|document)&#39;</span>
+
+<span class="c1"># Помилки</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span><span class="w"> </span>telegram-gateway<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ERROR
+</code></pre></div>
+
+<h3 id="stt-service">STT Service<a class="headerlink" href="#stt-service" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Останні транскрипції</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span><span class="w"> </span>dagi-stt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(transcrib|POST /stt)&#39;</span>
+
+<span class="c1"># Помилки</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span><span class="w"> </span>dagi-stt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(ERROR|error|exception)&#39;</span>
+</code></pre></div>
+
+<h3 id="parser-service">Parser Service<a class="headerlink" href="#parser-service" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Останні парсинги</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">50</span><span class="w"> </span>dagi-parser<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(POST /ocr|parse)&#39;</span>
+
+<span class="c1"># Помилки</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span><span class="w"> </span>dagi-parser<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ERROR
+</code></pre></div>
+
+<hr />
+<h2 id="_4">✅ Критерії успіху<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">Голосові повідомлення:<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Бот відправляє "🎤 Обробляю голосове повідомлення..."</li>
+<li>[x] Транскрипція займає &lt; 10 сек (для 5-10 сек аудіо)</li>
+<li>[x] Бот відповідає на основі транскрибованого тексту</li>
+<li>[x] Підтримка української та англійської</li>
+</ul>
+<h3 id="pdf_1">PDF документи:<a class="headerlink" href="#pdf_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] Бот відправляє "📄 Обробляю документ: filename.pdf..."</li>
+<li>[x] Документ публікується в NATS з <code>metadata.document</code></li>
+<li>[ ] Router викликає Parser Service (потребує інтеграції)</li>
+<li>[ ] Бот повертає результат парсингу</li>
+</ul>
+<hr />
+<h2 id="_6">🚀 Наступні кроки<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="1-pdf-parser">1. Інтеграція PDF з Parser (пріоритет 🔴)<a class="headerlink" href="#1-pdf-parser" title="Permanent link">&para;</a></h3>
+<p>Додати в <code>router_handler.py</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># If event has document metadata</span>
+<span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">metadata</span> <span class="ow">and</span> <span class="s2">&quot;document&quot;</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">metadata</span><span class="p">:</span>
+    <span class="n">doc_info</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;document&quot;</span><span class="p">]</span>
+    <span class="c1"># Call Parser Service</span>
+    <span class="c1"># Return parsed result</span>
+</code></pre></div>
+
+<h3 id="2-tts">2. TTS інтеграція (пріоритет 🟡)<a class="headerlink" href="#2-tts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Додати опцію для голосових відповідей</li>
+<li>Користувач може отримувати відповідь голосом</li>
+</ul>
+<h3 id="3-stt">3. Оптимізація STT (пріоритет 🟢)<a class="headerlink" href="#3-stt" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Використовувати <code>tiny</code> або <code>base</code> модель Whisper</li>
+<li>Додати GPU підтримку</li>
+<li>Кешування для повторюваних фраз</li>
+</ul>
+<hr />
+<p><em>Тест створено: 2025-11-18</em><br />
+<em>Оновлено: після імплементації voice/document handlers</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

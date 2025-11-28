@@ -1,0 +1,1406 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/27_database_schema_migrations/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>27 — Database Schema & Migrations (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#27-database-schema-migrations-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              27 — Database Schema & Migrations (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-high-level-structure-of-the-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. High-level Structure of the Database
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. High-level Structure of the Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Домени:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Naming Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Naming Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Префікси ID:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snake_case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Таблиці у snake_case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Версії міграцій:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-full-schema-by-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Full Schema by Modules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Full Schema by Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-users-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Users &amp; Auth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-teams-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Teams / microDAO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-channels-messages-follow-ups-co-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Channels / Messages / Follow-ups / Co-Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-projects-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Projects / Tasks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-agents-tooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Agents / Tooling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-wallet-staking-payouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Wallet / Staking / Payouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-rwa-real-world-assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 RWA (Real-World Assets)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-embassy-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.8 Embassy Module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-capability-system-access-keys-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.9 Capability System (Access Keys / Bundles)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#410-audit-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.10 Audit &amp; Telemetry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#411-outbox-events-event-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.11 Outbox Events (Event Catalog)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-migration-order-critical" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Migration Order (Critical)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Migration Order (Critical)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#000001_initsql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000001_init.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000002_microdao_coresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000002_microdao_core.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000003_projects_taskssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000003_projects_tasks.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000004_agentssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000004_agents.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000005_wallet_staking_payoutssql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000005_wallet_staking_payouts.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000006_rwasql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000006_rwa.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000007_embassysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000007_embassy.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000008_access_keys_capabilitiessql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000008_access_keys_capabilities.sql
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#000009_audit_outboxsql" class="md-nav__link">
+    <span class="md-ellipsis">
+      000009_audit_outbox.sql
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-seed-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Seed Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Seed Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rbac-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      RBAC Roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capability-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capability bundles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial capabilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-integration-with-event-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Integration with Event Catalog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-local-staging-prod-migration-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Local / Staging / Prod Migration Process
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-rollback-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Rollback Policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Результат
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="27-database-schema-migrations-microdao">27 — Database Schema &amp; Migrations (MicroDAO)<a class="headerlink" href="#27-database-schema-migrations-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Повна виробнича специфікація</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Цей документ описує:</p>
+<ul>
+<li>повну схему бази даних microDAO / DAARION.city (всі таблиці);</li>
+<li>модулі: Messaging, Teams, RBAC, Projects, Docs/Co-Memory, Agents, Wallet, Staking, Payouts, Embassy, Capability System, RWA;</li>
+<li>порядок міграцій;</li>
+<li>правила naming-конвенцій;</li>
+<li>seed-дані для initial bootstrap;</li>
+<li>інтеграцію з Event Catalog;</li>
+<li>DevOps pipeline для застосування міграцій (local → staging → prod);</li>
+<li>rollback policy.</li>
+</ul>
+<p>Документ є «джерелом істини» для інженерів.</p>
+<hr />
+<h2 id="2-high-level-structure-of-the-database">2. High-level Structure of the Database<a class="headerlink" href="#2-high-level-structure-of-the-database" title="Permanent link">&para;</a></h2>
+<h3 id="_1">Домени:<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Auth / Users</li>
+<li>Teams (microDAO ядра)</li>
+<li>RBAC &amp; Roles</li>
+<li>Channels / Messages / Follow-ups / Co-Memory</li>
+<li>Projects / Tasks</li>
+<li>Agents / Agent Runs / Tooling</li>
+<li>Wallet / Staking / Payouts</li>
+<li>RWA (Real-World Assets)</li>
+<li>Embassy Module (Webhooks, External Identity, Oracles)</li>
+<li>Capability System (Access Keys, Bundles)</li>
+<li>Audit &amp; Telemetry</li>
+<li>Event Catalog Support (Outbox pattern)</li>
+</ol>
+<hr />
+<h2 id="3-naming-conventions">3. Naming Conventions<a class="headerlink" href="#3-naming-conventions" title="Permanent link">&para;</a></h2>
+<h3 id="id">Префікси ID:<a class="headerlink" href="#id" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>u_</code> — user</li>
+<li><code>t_</code> — team</li>
+<li><code>c_</code> — channel</li>
+<li><code>m_</code> — message</li>
+<li><code>f_</code> — followup</li>
+<li><code>doc_</code> — document</li>
+<li><code>p_</code> — project</li>
+<li><code>task_</code> — task</li>
+<li><code>ag_</code> — agent</li>
+<li><code>run_</code> — agent run</li>
+<li><code>ak_</code> — access key</li>
+<li><code>cap_</code> — capability</li>
+<li><code>bundle_</code> — capability bundle</li>
+<li><code>rwa_</code> — RWA certificate</li>
+<li><code>emb_</code> — embassy identity</li>
+<li><code>hook_</code> — webhook</li>
+<li><code>evt_</code> — outbox event</li>
+</ul>
+<h3 id="snake_case">Таблиці у snake_case<a class="headerlink" href="#snake_case" title="Permanent link">&para;</a></h3>
+<h3 id="_2">Версії міграцій:<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><code>000001_init.sql</code>, <code>000002_users_teams.sql</code>, <code>000003_rbac.sql</code> …</p>
+<hr />
+<h2 id="4-full-schema-by-modules">4. Full Schema by Modules<a class="headerlink" href="#4-full-schema-by-modules" title="Permanent link">&para;</a></h2>
+<p>Нижче — структурована схема по розділах.</p>
+<p>Це основа для міграцій (варіант C).</p>
+<hr />
+<h3 id="41-users-auth">4.1 Users &amp; Auth<a class="headerlink" href="#41-users-auth" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">           </span><span class="c1">-- u_...</span>
+<span class="w">  </span><span class="n">email</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">last_login_at</span><span class="w"> </span><span class="n">timestamptz</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">sessions</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">session_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">expires_at</span><span class="w"> </span><span class="n">timestamptz</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="42-teams-microdao">4.2 Teams / microDAO<a class="headerlink" href="#42-teams-microdao" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">teams</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">          </span><span class="c1">-- t_...</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">slug</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="k">mode</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="k">mode</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;public&#39;</span><span class="p">,</span><span class="s1">&#39;confidential&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">team_members</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">role</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">           </span><span class="c1">-- Owner | Guardian | Member</span>
+<span class="w">  </span><span class="n">viewer_type</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">    </span><span class="c1">-- reader | commenter | contributor</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">team_id</span><span class="p">,</span><span class="w"> </span><span class="n">user_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="43-channels-messages-follow-ups-co-memory">4.3 Channels / Messages / Follow-ups / Co-Memory<a class="headerlink" href="#43-channels-messages-follow-ups-co-memory" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">channels</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">            </span><span class="c1">-- c_...</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">           </span><span class="c1">-- m_...</span>
+<span class="w">  </span><span class="n">channel_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">channels</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">body</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">                     </span><span class="c1">-- plaintext or encrypted</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">metadata</span><span class="w"> </span><span class="n">jsonb</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">followups</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">           </span><span class="c1">-- f_...</span>
+<span class="w">  </span><span class="n">message_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">messages</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">type</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">                     </span><span class="c1">-- agent/tool/summary...</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">comemory_items</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">embeddings</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="mi">1536</span><span class="p">),</span>
+<span class="w">  </span><span class="n">summary</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">source_message</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="44-projects-tasks">4.4 Projects / Tasks<a class="headerlink" href="#44-projects-tasks" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">projects</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- p_...</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- task_...</span>
+<span class="w">  </span><span class="n">project_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">projects</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">assignee</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="45-agents-tooling">4.5 Agents / Tooling<a class="headerlink" href="#45-agents-tooling" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">agents</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">            </span><span class="c1">-- ag_...</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">config</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">agent_runs</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">            </span><span class="c1">-- run_...</span>
+<span class="w">  </span><span class="n">agent_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">agents</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">input</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="nb">text</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="46-wallet-staking-payouts">4.6 Wallet / Staking / Payouts<a class="headerlink" href="#46-wallet-staking-payouts" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">wallets</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">address</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">staking_ringk</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">amount</span><span class="w"> </span><span class="nb">numeric</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">lock_until</span><span class="w"> </span><span class="n">timestamptz</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">payouts</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="n">amount</span><span class="w"> </span><span class="nb">numeric</span><span class="p">,</span>
+<span class="w">  </span><span class="n">symbol</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">                </span><span class="c1">-- KWT, 1T, DAAR…</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="47-rwa-real-world-assets">4.7 RWA (Real-World Assets)<a class="headerlink" href="#47-rwa-real-world-assets" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">rwa_inventory</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">             </span><span class="c1">-- rwa_...</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">teams</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+<span class="w">  </span><span class="k">type</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">                       </span><span class="c1">-- energy/food/water/etc</span>
+<span class="w">  </span><span class="n">quantity</span><span class="w"> </span><span class="nb">numeric</span><span class="p">,</span>
+<span class="w">  </span><span class="n">metadata</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="48-embassy-module">4.8 Embassy Module<a class="headerlink" href="#48-embassy-module" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">embassy_identities</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">           </span><span class="c1">-- emb_...</span>
+<span class="w">  </span><span class="n">external_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">platform</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">                 </span><span class="c1">-- energy_union/greenfood/etc</span>
+<span class="w">  </span><span class="n">metadata</span><span class="w"> </span><span class="n">jsonb</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">embassy_webhooks</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">           </span><span class="c1">-- hook_...</span>
+<span class="w">  </span><span class="n">platform</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">secret</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">url</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">oracles</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">platform</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="49-capability-system-access-keys-bundles">4.9 Capability System (Access Keys / Bundles)<a class="headerlink" href="#49-capability-system-access-keys-bundles" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">access_keys</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- ak_...</span>
+<span class="w">  </span><span class="n">subject_kind</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- user/agent/integration/embassy</span>
+<span class="w">  </span><span class="n">subject_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span><span class="s1">&#39;revoked&#39;</span><span class="p">,</span><span class="s1">&#39;expired&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">expires_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="p">,</span>
+<span class="w">  </span><span class="n">last_used_at</span><span class="w"> </span><span class="n">timestamptz</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">capabilities</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- cap_...</span>
+<span class="w">  </span><span class="n">code</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">access_key_caps</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">key_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">access_keys</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">cap_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">capabilities</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">key_id</span><span class="p">,</span><span class="w"> </span><span class="n">cap_id</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bundles</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">        </span><span class="c1">-- bundle_...</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bundle_caps</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">bundle_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">bundles</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">cap_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">capabilities</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">bundle_id</span><span class="p">,</span><span class="w"> </span><span class="n">cap_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="410-audit-telemetry">4.10 Audit &amp; Telemetry<a class="headerlink" href="#410-audit-telemetry" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">audit_log</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">action</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">resource_kind</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">  </span><span class="k">data</span><span class="w"> </span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h3 id="411-outbox-events-event-catalog">4.11 Outbox Events (Event Catalog)<a class="headerlink" href="#411-outbox-events-event-catalog" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">outbox_events</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">          </span><span class="c1">-- evt_...</span>
+<span class="w">  </span><span class="n">topic</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">jsonb</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">processed</span><span class="w"> </span><span class="nb">boolean</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">false</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-migration-order-critical">5. Migration Order (Critical)<a class="headerlink" href="#5-migration-order-critical" title="Permanent link">&para;</a></h2>
+<h3 id="000001_initsql">000001_init.sql<a class="headerlink" href="#000001_initsql" title="Permanent link">&para;</a></h3>
+<p>Users, Sessions.</p>
+<h3 id="000002_microdao_coresql">000002_microdao_core.sql<a class="headerlink" href="#000002_microdao_coresql" title="Permanent link">&para;</a></h3>
+<p>Teams, Members, Channels, Messages, Follow-ups.</p>
+<h3 id="000003_projects_taskssql">000003_projects_tasks.sql<a class="headerlink" href="#000003_projects_taskssql" title="Permanent link">&para;</a></h3>
+<p>Projects, Tasks.</p>
+<h3 id="000004_agentssql">000004_agents.sql<a class="headerlink" href="#000004_agentssql" title="Permanent link">&para;</a></h3>
+<p>Agents, Agent Runs.</p>
+<h3 id="000005_wallet_staking_payoutssql">000005_wallet_staking_payouts.sql<a class="headerlink" href="#000005_wallet_staking_payoutssql" title="Permanent link">&para;</a></h3>
+<p>Wallet, Staking, Payouts.</p>
+<h3 id="000006_rwasql">000006_rwa.sql<a class="headerlink" href="#000006_rwasql" title="Permanent link">&para;</a></h3>
+<p>RWA Inventory.</p>
+<h3 id="000007_embassysql">000007_embassy.sql<a class="headerlink" href="#000007_embassysql" title="Permanent link">&para;</a></h3>
+<p>Embassy identities, Webhooks, Oracles.</p>
+<h3 id="000008_access_keys_capabilitiessql">000008_access_keys_capabilities.sql<a class="headerlink" href="#000008_access_keys_capabilitiessql" title="Permanent link">&para;</a></h3>
+<p>Access Keys, Capabilities, Bundles.</p>
+<h3 id="000009_audit_outboxsql">000009_audit_outbox.sql<a class="headerlink" href="#000009_audit_outboxsql" title="Permanent link">&para;</a></h3>
+<p>Audit Log + Outbox Events.</p>
+<hr />
+<h2 id="6-seed-data">6. Seed Data<a class="headerlink" href="#6-seed-data" title="Permanent link">&para;</a></h2>
+<h3 id="rbac-roles">RBAC Roles<a class="headerlink" href="#rbac-roles" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Owner, Guardian, Member, Visitor.</li>
+</ul>
+<h3 id="capability-bundles">Capability bundles<a class="headerlink" href="#capability-bundles" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>bundle.role.Owner</code></li>
+<li><code>bundle.role.Guardian</code></li>
+<li><code>bundle.role.Member</code></li>
+<li><code>bundle.role.Visitor</code></li>
+<li><code>bundle.plan.Freemium</code> / <code>Casual</code> / <code>Premium</code> / <code>Platformium</code></li>
+</ul>
+<h3 id="initial-capabilities">Initial capabilities<a class="headerlink" href="#initial-capabilities" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>chat.message.send</code></li>
+<li><code>chat.message.read</code></li>
+<li><code>wallet.balance.view</code></li>
+<li><code>wallet.stake.ringk</code></li>
+<li><code>router.invoke</code></li>
+<li><code>agent.run.invoke</code></li>
+<li><code>rwa.inventory.update</code></li>
+<li><code>embassy.rwa.claim</code></li>
+</ul>
+<hr />
+<h2 id="7-integration-with-event-catalog">7. Integration with Event Catalog<a class="headerlink" href="#7-integration-with-event-catalog" title="Permanent link">&para;</a></h2>
+<p>Всі важливі сутності пишуть події в <code>outbox_events</code>.</p>
+<p>Основні topics:</p>
+<ul>
+<li><code>chat.message.created</code></li>
+<li><code>project.created</code></li>
+<li><code>task.created</code></li>
+<li><code>agent.run.completed</code></li>
+<li><code>staking.locked</code></li>
+<li><code>payout.generated</code></li>
+<li><code>rwa.inventory.updated</code></li>
+<li><code>access_key.created</code></li>
+<li><code>access_key.revoked</code></li>
+<li><code>audit.event</code></li>
+</ul>
+<hr />
+<h2 id="8-local-staging-prod-migration-process">8. Local / Staging / Prod Migration Process<a class="headerlink" href="#8-local-staging-prod-migration-process" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>supabase db reset</code> (local only)</li>
+<li><code>supabase db push</code> → локальні міграції</li>
+<li>CI запускає <code>pg_prove</code> або <code>pgtap</code> (опційно)</li>
+<li>Staging застосовує ті ж міграції</li>
+<li>Prod застосовує з confirm gate</li>
+</ol>
+<hr />
+<h2 id="9-rollback-policy">9. Rollback Policy<a class="headerlink" href="#9-rollback-policy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Кожна міграція має <code>-- down</code> секцію з DROP TABLE IF EXISTS.</li>
+<li>Для критичних таблиць rollback дозволено тільки до staging, на prod — лише forward-fix.</li>
+<li>Outbox events не відкочуються.</li>
+<li>RWA-поведінка не rollback'иться ніколи.</li>
+</ul>
+<hr />
+<h2 id="10-cursor">10. Завдання для Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Generate SQL migration files based on:
+- 27_database_schema_migrations.md
+- 24_access_keys_capabilities_system.md
+- 02_architecture_basics.md
+- 05_coding_standards.md
+
+Tasks:
+1) Create migration files in order: 000001_init.sql through 000009_audit_outbox.sql
+2) Each migration should include:
+   - CREATE TABLE statements
+   - Indexes for foreign keys and frequently queried columns
+   - Constraints (CHECK, UNIQUE, FOREIGN KEY)
+   - Comments for each table/column
+3) Create seed data SQL file for initial capabilities and bundles
+4) Add rollback (-- down) sections for each migration
+
+Output:
+- list of migration files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="11">11. Результат<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p>Після створення цього документа:</p>
+<ul>
+<li>повна схема БД задокументована як «джерело істини»;</li>
+<li>чіткий порядок міграцій для послідовного застосування;</li>
+<li>готовність до генерації реальних SQL-файлів (варіант C);</li>
+<li>інтеграція з Event Catalog через Outbox pattern;</li>
+<li>чітка політика rollback для безпеки.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,954 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/services/SECOND_ME_SERVICE_SPEC/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>SECOND ME SERVICE SPEC (PORT 7003) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#second-me-service-spec-port-7003" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SECOND ME SERVICE SPEC (PORT 7003)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="second-me-service-spec-port-7003">SECOND ME SERVICE SPEC (PORT 7003)<a class="headerlink" href="#second-me-service-spec-port-7003" title="Permanent link">&para;</a></h1>
+<h1 id="version-100">Version: 1.0.0<a class="headerlink" href="#version-100" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="0-purpose">0. PURPOSE<a class="headerlink" href="#0-purpose" title="Permanent link">&para;</a></h2>
+<p><code>Second Me Service</code> — це сервіс створення та управління <strong>персональними цифровими двійниками</strong> користувачів та агентів у DAARION.city.</p>
+<p>Це ядро системи персоналізації:</p>
+<ul>
+<li>кожен користувач має SecondMe-профіль,</li>
+<li>SecondMe є persistent-пам'яттю,</li>
+<li>SecondMe може діяти як мультиагентний "асистент у тіні",</li>
+<li>SecondMe синхронізується з мультимодальністю (audio → текст, image → профіль),</li>
+<li>SecondMe допомагає іншим агентам (в т.ч. Метаморфу) адаптувати поведінку.</li>
+</ul>
+<p>SecondMe працює як:</p>
+<ul>
+<li>storage (пам'ять користувача),</li>
+<li>continuous learning module,</li>
+<li>персональна reasoning-прошивка.</li>
+</ul>
+<p>Порт сервісу: <strong>7003</strong>.</p>
+<hr />
+<h2 id="1-high-level-architecture">1. HIGH-LEVEL ARCHITECTURE<a class="headerlink" href="#1-high-level-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>      [ User ]
+      /  |   \
+Telegram Web  Matrix
+       \  |  /
+    [ DAGI Router ]
+           ↓
+   [ Second Me Service (7003) ]
+           ↓
+  [ Vector DB + Redis + Postgres ]
+           ↓
+       [ Agents ]
+</code></pre></div>
+
+<p>SecondMe Service перехоплює:</p>
+<ul>
+<li>історію взаємодії,</li>
+<li>мультимодальний контент (image/audio/doc),</li>
+<li>профіль користувача,</li>
+<li>поведінкові патерни.</li>
+</ul>
+<hr />
+<h2 id="2-core-responsibilities">2. CORE RESPONSIBILITIES<a class="headerlink" href="#2-core-responsibilities" title="Permanent link">&para;</a></h2>
+<h3 id="21-secondme">2.1. Профіль SecondMe<a class="headerlink" href="#21-secondme" title="Permanent link">&para;</a></h3>
+<p>Містить:</p>
+<ul>
+<li>user_id,</li>
+<li>персональні налаштування,</li>
+<li>пам'ять (context store),</li>
+<li>переваги, хобі, стилі,</li>
+<li>NFTs / achievements (майбутнє),</li>
+<li>зв'язки з microDAO.</li>
+</ul>
+<h3 id="22">2.2. Персональна пам'ять<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>SecondMe має 3 типи пам'яті:</p>
+<ol>
+<li><strong>Short-term</strong> (до 48 год, швидкий доступ)</li>
+<li><strong>Long-term</strong> (векторна пам'ять)</li>
+<li>
+<p><strong>Structured Memory</strong>:</p>
+</li>
+<li>
+<p>knowledge cards,</p>
+</li>
+<li>tasks,</li>
+<li>goals,</li>
+<li>архіви розмов.</li>
+</ol>
+<h3 id="23-learning-pipeline">2.3. Learning Pipeline<a class="headerlink" href="#23-learning-pipeline" title="Permanent link">&para;</a></h3>
+<p>SecondMe автоматично:</p>
+<ul>
+<li>аналізує повідомлення та файли,</li>
+<li>перетворює їх у structured facts,</li>
+<li>зберігає у векторну пам'ять,</li>
+<li>оновлює профіль (переваги/мету/поведінку),</li>
+<li>генерує особисті інсайти.</li>
+</ul>
+<h3 id="24-behavior-assistant">2.4. Behavior Assistant<a class="headerlink" href="#24-behavior-assistant" title="Permanent link">&para;</a></h3>
+<p>SecondMe допомагає іншим агентам:</p>
+<ul>
+<li>підказувати Helion/Helix, що знає про користувача,</li>
+<li>спрощує пояснення контексту,</li>
+<li>
+<p>додає пам'ять у DAGI Router подіями типу:</p>
+</li>
+<li>
+<p><code>user.context_update</code>,</p>
+</li>
+<li><code>user.preference_update</code>,</li>
+<li><code>user.knowledge_card</code>.</li>
+</ul>
+<hr />
+<h2 id="3-data-model-postgres-vector-db">3. DATA MODEL (Postgres + Vector DB)<a class="headerlink" href="#3-data-model-postgres-vector-db" title="Permanent link">&para;</a></h2>
+<h3 id="31-users">3.1. Users<a class="headerlink" href="#31-users" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">user_id</span><span class="w">       </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w">    </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">meta</span><span class="w">          </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">::</span><span class="n">jsonb</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h3 id="32-secondme-profile">3.2. SecondMe Profile<a class="headerlink" href="#32-secondme-profile" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">secondme_profile</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">user_id</span><span class="w">       </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">preferences</span><span class="w">   </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">::</span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">    </span><span class="n">traits</span><span class="w">        </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">::</span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">    </span><span class="n">skills</span><span class="w">        </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">::</span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">    </span><span class="n">settings</span><span class="w">      </span><span class="n">JSONB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="p">::</span><span class="n">jsonb</span><span class="p">,</span>
+<span class="w">    </span><span class="n">updated_at</span><span class="w">    </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h3 id="33-memory-short-term">3.3. Memory — Short Term<a class="headerlink" href="#33-memory-short-term" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">secondme_memory_short</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">memory_id</span><span class="w">     </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">user_id</span><span class="w">       </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">text</span><span class="w">          </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w">    </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h3 id="34-memory-long-term-vector-db">3.4. Memory — Long Term (Vector DB)<a class="headerlink" href="#34-memory-long-term-vector-db" title="Permanent link">&para;</a></h3>
+<p>Хоститься в твоєму VectorDB (8898).</p>
+<p>Документ:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mem123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;користувач любить працювати з GREENFOOD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;embedding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="mi">1024</span><span class="w"> </span><span class="kc">fl</span><span class="err">oa</span><span class="kc">ts</span><span class="err">...</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;preference&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-24T12:00:00Z&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-public-api-http">4. PUBLIC API (HTTP)<a class="headerlink" href="#4-public-api-http" title="Permanent link">&para;</a></h2>
+<h3 id="41-post-secondmeupdate_from_event">4.1. <code>POST /secondme/update_from_event</code><a class="headerlink" href="#41-post-secondmeupdate_from_event" title="Permanent link">&para;</a></h3>
+<p>Вхідна точка для DAGI Router.</p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;telegram&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u1&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;proj-greenfood&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;мені дуже подобається зелена аналітика&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;attachments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;images&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nt">&quot;audio&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;actions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;short_memory_added&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;long_memory_indexed&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;profile_trait_updated&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="42-get-secondmeprofileuser_id">4.2. <code>GET /secondme/profile/{user_id}</code><a class="headerlink" href="#42-get-secondmeprofileuser_id" title="Permanent link">&para;</a></h3>
+<p>Отримати повний профіль користувача.</p>
+<hr />
+<h3 id="43-get-secondmememoryuser_id">4.3. <code>GET /secondme/memory/{user_id}</code><a class="headerlink" href="#43-get-secondmememoryuser_id" title="Permanent link">&para;</a></h3>
+<p>Повертає коротку + довгу пам'ять.</p>
+<hr />
+<h3 id="44-post-secondmequery">4.4. <code>POST /secondme/query</code><a class="headerlink" href="#44-post-secondmequery" title="Permanent link">&para;</a></h3>
+<p>Пошук у пам'яті:</p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;що цей користувач любить робити?&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;користувач любить працювати з GREENFOOD&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.92</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="45-post-secondmesummarize">4.5. <code>POST /secondme/summarize</code><a class="headerlink" href="#45-post-secondmesummarize" title="Permanent link">&para;</a></h3>
+<p>Генерує персональний summary користувача для агентів:</p>
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Користувач працює над GREENFOOD, любить аналітику, часто дає задачі Helix.&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-agent-integration">5. AGENT INTEGRATION<a class="headerlink" href="#5-agent-integration" title="Permanent link">&para;</a></h2>
+<h3 id="51-helion-integration">5.1. Helion integration<a class="headerlink" href="#51-helion-integration" title="Permanent link">&para;</a></h3>
+<p>Helion отримує SecondMe-summary для:</p>
+<ul>
+<li>кращих відповідей,</li>
+<li>виконання задач з персональним контекстом.</li>
+</ul>
+<h3 id="52-helix-integration">5.2. Helix integration<a class="headerlink" href="#52-helix-integration" title="Permanent link">&para;</a></h3>
+<p>SecondMe → Helix:</p>
+<ul>
+<li>історія рішень користувача,</li>
+<li>технічні вподобання,</li>
+<li>деталі проектів користувача.</li>
+</ul>
+<h3 id="53-metamorph-integration">5.3. Metamorph integration<a class="headerlink" href="#53-metamorph-integration" title="Permanent link">&para;</a></h3>
+<p>SecondMe → Metamorph:</p>
+<ul>
+<li>персоналізація поведінки агентів,</li>
+<li>рекомендації по агентах, які потрібні користувачу.</li>
+</ul>
+<h3 id="54-geo-agent">5.4. Geo-agent<a class="headerlink" href="#54-geo-agent" title="Permanent link">&para;</a></h3>
+<p>Якщо користувач дає гео-події:</p>
+<ul>
+<li>SecondMe зберігає маршрути / активність,</li>
+<li>може допомагати City Service сортувати події.</li>
+</ul>
+<hr />
+<h2 id="6-learning-pipeline">6. LEARNING PIPELINE<a class="headerlink" href="#6-learning-pipeline" title="Permanent link">&para;</a></h2>
+<p>SecondMe обробляє кожну подію:</p>
+<ol>
+<li>
+<p><strong>Extract facts</strong>
+   Визначає, чи є текст чи медіа важливим для пам'яті.</p>
+</li>
+<li>
+<p><strong>Classify type</strong></p>
+</li>
+<li>
+<p>preference</p>
+</li>
+<li>skill</li>
+<li>long-term fact</li>
+<li>behavioural pattern</li>
+<li>
+<p>project affinity</p>
+</li>
+<li>
+<p><strong>Embed</strong></p>
+</li>
+<li>
+<p>створює embedding (через твою bge-m3 модель).</p>
+</li>
+<li>
+<p><strong>Index</strong></p>
+</li>
+<li>
+<p>зберігає у Vector DB.</p>
+</li>
+<li>
+<p><strong>Profile Update</strong></p>
+</li>
+<li>
+<p>якщо знайдені нові патерни → оновити SecondMe Profile.</p>
+</li>
+<li>
+<p><strong>Emit Events</strong>
+   Публікує в NATS:</p>
+</li>
+<li>
+<p><code>secondme.{user_id}.memory_added</code></p>
+</li>
+<li><code>secondme.{user_id}.profile_updated</code></li>
+</ol>
+<hr />
+<h2 id="7-interaction-with-dagi-router">7. INTERACTION WITH DAGI ROUTER<a class="headerlink" href="#7-interaction-with-dagi-router" title="Permanent link">&para;</a></h2>
+<p>DAGI Router повинен:</p>
+<ul>
+<li>при кожному <code>RouterEvent</code> викликати <code>POST /secondme/update_from_event</code>,</li>
+<li>
+<p>отримувати у відповідь:</p>
+</li>
+<li>
+<p>пам'ять-дії,</p>
+</li>
+<li>профільні зміни.</li>
+</ul>
+<p>SecondMe діє як <strong>фонова підсистема</strong>, що збагачує контекст.</p>
+<hr />
+<h2 id="8-project-bus-integration">8. PROJECT BUS INTEGRATION<a class="headerlink" href="#8-project-bus-integration" title="Permanent link">&para;</a></h2>
+<p>SecondMe може бути підписаним на:</p>
+<div class="codehilite"><pre><span></span><code>project.&lt;project_id&gt;.events
+project.&lt;project_id&gt;.chat.human
+</code></pre></div>
+
+<p>щоб вчитися на:</p>
+<ul>
+<li>командних подіях,</li>
+<li>рішеннях,</li>
+<li>поведінці користувача всередині проекту.</li>
+</ul>
+<hr />
+<h2 id="9-multimodal-support">9. MULTIMODAL SUPPORT<a class="headerlink" href="#9-multimodal-support" title="Permanent link">&para;</a></h2>
+<p>SecondMe працює з мультимодальністю:</p>
+<ul>
+<li>image → Vision-agent → SecondMe ("користувач показує X"),</li>
+<li>audio → STT → SecondMe (зберігає розмови і суть),</li>
+<li>docs → Doc-agent → SecondMe (пам'ятає PDF-документи користувача).</li>
+</ul>
+<hr />
+<h2 id="10-healthcheck-metrics">10. HEALTHCHECK &amp; METRICS<a class="headerlink" href="#10-healthcheck-metrics" title="Permanent link">&para;</a></h2>
+<h3 id="101-get-healthz">10.1. <code>GET /healthz</code><a class="headerlink" href="#101-get-healthz" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;uptime_seconds&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">21344</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="102-prometheus">10.2. Prometheus<a class="headerlink" href="#102-prometheus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>secondme_events_total</code></li>
+<li><code>memory_added_total</code></li>
+<li><code>profile_updates_total</code></li>
+<li><code>embedding_latency_ms_bucket</code></li>
+<li><code>vector_search_latency_ms_bucket</code></li>
+</ul>
+<hr />
+<h2 id="11-summary">11. SUMMARY<a class="headerlink" href="#11-summary" title="Permanent link">&para;</a></h2>
+<p>Second Me Service (7003):</p>
+<ul>
+<li>персональна пам'ять,</li>
+<li>особистісний профіль,</li>
+<li>обробка мультимодальних подій,</li>
+<li>забезпечує глибинну персоналізацію системи,</li>
+<li>розуміє контекст користувача,</li>
+<li>допомагає іншим агентам приймати кращі рішення,</li>
+<li>працює автономно, мовчки, але є ключовим "мозком користувача".</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

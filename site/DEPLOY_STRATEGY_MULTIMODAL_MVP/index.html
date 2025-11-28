@@ -1,0 +1,1292 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/DEPLOY_STRATEGY_MULTIMODAL_MVP/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>🚀 Deployment Strategy: MVP + Multimodal Integration - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployment-strategy-mvp-multimodal-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              🚀 Deployment Strategy: MVP + Multimodal Integration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Стратегічний Підхід
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Стратегічний Підхід">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decoupled-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Принцип: Decoupled Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Поточна Ситуація
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Поточна Ситуація">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Готово:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ В процесі:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❓ Невідомо:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Рекомендована Послідовність
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Рекомендована Послідовність">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-mvp-deploy-without-multimodal" class="md-nav__link">
+    <span class="md-ellipsis">
+      ЗАРАЗ: Phase 1 — MVP Deploy (WITHOUT Multimodal)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-multimodal-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      НАСТУПНИЙ КРОК: Phase 2 — Multimodal Preparation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-multimodal-deployment-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ПОТІМ: Phase 3 — Multimodal Deployment на НОДА1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-full-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      ФІНАЛ: Phase 4 — Full Integration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Dependency Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Dependency Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mvp-multimodal-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      MVP → Multimodal Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multimodal-infrastructure-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multimodal → Infrastructure Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risk-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Risk Matrix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Monitoring Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Monitoring Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-metrics-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Metrics (для кожної Phase)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Decision Points
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Decision Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-mvp-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Після Phase 1 (MVP Deploy):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-multimodal-prep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Після Phase 2 (Multimodal Prep):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-multimodal-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Після Phase 3 (Multimodal Deploy):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-plan-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Execution Plan Summary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Execution Plan Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#week-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      ЦЯ НЕДІЛЯ (Week 48):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#week-49" class="md-nav__link">
+    <span class="md-ellipsis">
+      НАСТУПНИЙ ТИЖДЕНЬ (Week 49):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#50" class="md-nav__link">
+    <span class="md-ellipsis">
+      ТИЖДЕНЬ 50:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#51-52" class="md-nav__link">
+    <span class="md-ellipsis">
+      ТИЖДЕНЬ 51-52:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Success Criteria (Загальні)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#long-term-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔮 Long-term Vision
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔮 Long-term Vision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-2026-distributed-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q1 2026: Distributed Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-2026-auto-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q2 2026: Auto-scaling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-2026-advanced-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      Q3 2026: Advanced AI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="deployment-strategy-mvp-multimodal-integration">🚀 Deployment Strategy: MVP + Multimodal Integration<a class="headerlink" href="#deployment-strategy-mvp-multimodal-integration" title="Permanent link">&para;</a></h1>
+<p><strong>Версія:</strong> 1.0.0<br />
+<strong>Дата:</strong> 25 листопада 2025<br />
+<strong>Мета:</strong> Безпечна інтеграція MVP (Phase 1-3) та Multimodal системи</p>
+<hr />
+<h2 id="_1">🎯 Стратегічний Підхід<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="decoupled-deployment">Принцип: <strong>Decoupled Deployment</strong><a class="headerlink" href="#decoupled-deployment" title="Permanent link">&para;</a></h3>
+<p>MVP та Multimodal — <strong>окремі системи</strong>, які інтегруються поступово.</p>
+<div class="codehilite"><pre><span></span><code>PHASE 1: MVP Deploy (Phase 1-3) ✅ ЗАРАЗ
+  ├── Agents Service
+  ├── City Service
+  ├── Second Me
+  └── MicroDAO Service
+
+PHASE 2: Multimodal Preparation ⏳ НАСТУПНИЙ КРОК
+  ├── Router v2.0 (multimodal support)
+  ├── Telegram Gateway Enhanced
+  └── API унификація
+
+PHASE 3: Multimodal Deployment 🔮 ПОТІМ
+  ├── STT Service
+  ├── OCR Service
+  ├── Web Search
+  └── Vector DB
+
+PHASE 4: Full Integration 🔮 ФІНАЛ
+  └── MVP ↔ Multimodal ↔ DAGI Stack
+</code></pre></div>
+
+<hr />
+<h2 id="_2">📊 Поточна Ситуація<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">✅ Готово:<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>MVP код (Phase 1-3) готовий на НОДА2</li>
+<li>Міграції БД 007-010 створені</li>
+<li>Docker Compose з MVP сервісами</li>
+<li>Multimodal сервіси працюють на НОДА2 (STT, OCR, Web Search, Vector DB)</li>
+</ul>
+<h3 id="_4">⚠️ В процесі:<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Router v1.1.0 multimodal API (в доках, поки не deployed)</li>
+<li>Telegram Gateway Enhanced (в доках, поки не deployed)</li>
+<li>Multimodal документація завантажується</li>
+</ul>
+<h3 id="_5">❓ Невідомо:<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Стан production БД на НОДА1</li>
+<li>Чи є конфлікти в існуючому Router/Gateway</li>
+<li>Повний обсяг змін в multimodal системі</li>
+</ul>
+<hr />
+<h2 id="_6">🎯 Рекомендована Послідовність<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-mvp-deploy-without-multimodal"><strong>ЗАРАЗ: Phase 1 — MVP Deploy (WITHOUT Multimodal)</strong><a class="headerlink" href="#phase-1-mvp-deploy-without-multimodal" title="Permanent link">&para;</a></h3>
+<p><strong>Що робимо:</strong>
+1. Deploy MVP сервісів (Agents, City, Second Me, MicroDAO) на НОДА1
+2. Інтегрувати з <strong>існуючим</strong> Router/Gateway (без multimodal)
+3. Перевірити що все працює стабільно
+4. Моніторити 48 годин</p>
+<p><strong>Що НЕ робимо:</strong>
+- ❌ Не чіпаємо Router (залишаємо поточну версію)
+- ❌ Не змінюємо Telegram Gateway
+- ❌ Не інтегруємо STT/OCR/Web Search
+- ❌ Не переносимо multimodal сервіси на НОДА1</p>
+<p><strong>Переваги:</strong>
+- ✅ Мінімальний ризик
+- ✅ MVP працює незалежно
+- ✅ Легко rollback
+- ✅ Існуюча система не постраждає</p>
+<p><strong>Документація:</strong>
+- <code>DEPLOY_MVP_NODE1_COMPREHENSIVE_ANALYSIS.md</code> (створено вище)</p>
+<hr />
+<h3 id="phase-2-multimodal-preparation"><strong>НАСТУПНИЙ КРОК: Phase 2 — Multimodal Preparation</strong><a class="headerlink" href="#phase-2-multimodal-preparation" title="Permanent link">&para;</a></h3>
+<p><strong>Коли:</strong> Після успішного MVP deployment + 48 годин стабільності</p>
+<p><strong>Що робимо:</strong>
+1. <strong>Аналіз multimodal документації</strong> (коли завантажиться)
+2. <strong>Створення Router v2.0</strong> з multimodal API
+3. <strong>Створення unified API</strong> для STT/OCR/Web Search/Vector DB
+4. <strong>Тестування на НОДА2</strong> (dev environment)
+5. <strong>Документування змін</strong> та API contracts</p>
+<p><strong>Що створюємо:</strong>
+- <code>services/router-v2/</code> (новий Router з multimodal)
+- <code>services/multimodal-gateway/</code> (unified API для всіх multimodal)
+- <code>docs/MULTIMODAL_API_SPEC.md</code> (API специфікація)
+- <code>docs/ROUTER_V2_MIGRATION.md</code> (план міграції)</p>
+<p><strong>Критерії готовності:</strong>
+- [ ] Router v2.0 працює на НОДА2
+- [ ] Multimodal Gateway працює на НОДА2
+- [ ] Всі API тести пройдені
+- [ ] Документація повна
+- [ ] Rollback plan готовий</p>
+<hr />
+<h3 id="phase-3-multimodal-deployment-1"><strong>ПОТІМ: Phase 3 — Multimodal Deployment на НОДА1</strong><a class="headerlink" href="#phase-3-multimodal-deployment-1" title="Permanent link">&para;</a></h3>
+<p><strong>Коли:</strong> Після Phase 2 + approval</p>
+<p><strong>Що робимо:</strong>
+1. <strong>Deploy Router v2.0</strong> на НОДА1 (side-by-side з v1.0)
+2. <strong>Deploy Multimodal Gateway</strong> на НОДА1
+3. <strong>Перенести multimodal сервіси</strong> з НОДА2 на НОДА1 (або залишити розподіленими)
+4. <strong>Поступове переключення</strong> (canary deployment)
+5. <strong>Моніторинг + rollback готовність</strong></p>
+<p><strong>Етапи переключення:</strong>
+1. 10% трафіку → Router v2.0 (1 година)
+2. 50% трафіку → Router v2.0 (6 годин)
+3. 100% трафіку → Router v2.0 (24 години)
+4. Видалити Router v1.0 (якщо стабільно)</p>
+<p><strong>Rollback:</strong>
+- Переключити трафік назад на Router v1.0
+- Зупинити multimodal сервіси
+- Система повертається до Phase 1 стану</p>
+<hr />
+<h3 id="phase-4-full-integration"><strong>ФІНАЛ: Phase 4 — Full Integration</strong><a class="headerlink" href="#phase-4-full-integration" title="Permanent link">&para;</a></h3>
+<p><strong>Коли:</strong> Після Phase 3 + 1 тиждень стабільності</p>
+<p><strong>Що робимо:</strong>
+1. <strong>Інтегрувати MVP ↔ Multimodal:</strong>
+   - City Service → Web Search (для пошуку в кімнатах)
+   - Agents Service → STT/OCR (для voice/image commands)
+   - Second Me → Vector DB (для semantic memory)</p>
+<ol>
+<li><strong>Telegram Gateway Enhanced:</strong></li>
+<li>Voice messages → STT → Agents</li>
+<li>Photos → OCR/Vision → Agents</li>
+<li>
+<p>Documents → Parser → Knowledge Base</p>
+</li>
+<li>
+<p><strong>Frontend Enhancement:</strong></p>
+</li>
+<li>Upload voice → STT</li>
+<li>Upload image → OCR/Vision</li>
+<li>Semantic search в City</li>
+</ol>
+<p><strong>Acceptance Criteria:</strong>
+- [ ] Telegram bot приймає voice/photo/documents
+- [ ] Frontend має multimodal UI
+- [ ] City має semantic search
+- [ ] Second Me використовує Vector DB
+- [ ] All services stable 99.9% uptime</p>
+<hr />
+<h2 id="dependency-analysis">🔍 Dependency Analysis<a class="headerlink" href="#dependency-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="mvp-multimodal-dependencies">MVP → Multimodal Dependencies<a class="headerlink" href="#mvp-multimodal-dependencies" title="Permanent link">&para;</a></h3>
+<p><strong>Agents Service:</strong>
+- <strong>Потребує:</strong> LLM Proxy (існуючий), NATS (існуючий)
+- <strong>Може використати:</strong> STT (опційно), OCR (опційно), Vector DB (опційно)
+- <strong>Блокер:</strong> Немає</p>
+<p><strong>City Service:</strong>
+- <strong>Потребує:</strong> PostgreSQL (існуючий), Redis (існуючий), NATS (існуючий)
+- <strong>Може використати:</strong> Web Search (опційно для пошуку), Vector DB (опційно)
+- <strong>Блокер:</strong> Немає</p>
+<p><strong>Second Me:</strong>
+- <strong>Потребує:</strong> Agents Service (буде deployed), PostgreSQL
+- <strong>Може використати:</strong> Vector DB (для довгої пам'яті)
+- <strong>Блокер:</strong> Agents Service (тому Second Me в Phase 3)</p>
+<p><strong>MicroDAO Service:</strong>
+- <strong>Потребує:</strong> PostgreSQL, Auth Service (існуючий)
+- <strong>Може використати:</strong> DAO Service (існуючий, опційно)
+- <strong>Блокер:</strong> Немає</p>
+<h3 id="multimodal-infrastructure-dependencies">Multimodal → Infrastructure Dependencies<a class="headerlink" href="#multimodal-infrastructure-dependencies" title="Permanent link">&para;</a></h3>
+<p><strong>Router v2.0:</strong>
+- <strong>Потребує:</strong> Multimodal Gateway, LLM Proxy, існуючий Router v1.0 (для fallback)
+- <strong>Блокер:</strong> Multimodal Gateway має бути готовий</p>
+<p><strong>Telegram Gateway Enhanced:</strong>
+- <strong>Потребує:</strong> Router v2.0, STT Service, OCR Service
+- <strong>Блокер:</strong> Router v2.0</p>
+<p><strong>STT/OCR/Web Search/Vector DB:</strong>
+- <strong>Потребує:</strong> Тільки базову інфраструктуру (Docker, Network)
+- <strong>Блокер:</strong> Немає (можуть працювати автономно)</p>
+<hr />
+<h2 id="risk-matrix">🚨 Risk Matrix<a class="headerlink" href="#risk-matrix" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Probability</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MVP deployment breaks existing DAGI</strong></td>
+<td>Low</td>
+<td>High</td>
+<td>Staged deployment, health checks, rollback</td>
+</tr>
+<tr>
+<td><strong>DB migrations fail</strong></td>
+<td>Medium</td>
+<td>High</td>
+<td>Backup before, test on staging, rollback SQL</td>
+</tr>
+<tr>
+<td><strong>Router v2.0 не сумісний з v1.0</strong></td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Side-by-side deployment, gradual switch</td>
+</tr>
+<tr>
+<td><strong>Multimodal сервіси споживають багато ресурсів</strong></td>
+<td>High</td>
+<td>Medium</td>
+<td>Start on NODE2, monitor, scale on NODE1</td>
+</tr>
+<tr>
+<td><strong>Nginx config помилка</strong></td>
+<td>Low</td>
+<td>High</td>
+<td>Test config, backup old, gradual reload</td>
+</tr>
+<tr>
+<td><strong>Network issues між NODE1 ↔ NODE2</strong></td>
+<td>Medium</td>
+<td>Low</td>
+<td>Fallback to local, health checks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="monitoring-strategy">📈 Monitoring Strategy<a class="headerlink" href="#monitoring-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="key-metrics-phase">Key Metrics (для кожної Phase)<a class="headerlink" href="#key-metrics-phase" title="Permanent link">&para;</a></h3>
+<p><strong>Phase 1 (MVP):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">-</span> http_requests_total{service=&quot;agents&quot;}
+<span class="k">-</span> http_requests_total{service=&quot;city&quot;}
+<span class="k">-</span> active_connections{service=&quot;city&quot;}
+<span class="k">-</span> db_connections{service=&quot;agents&quot;}
+<span class="k">-</span> websocket_connections{service=&quot;city&quot;}
+</code></pre></div>
+
+<p><strong>Phase 3 (Multimodal):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="o">-</span><span class="w"> </span><span class="nx">multimodal_requests_total</span><span class="p">{</span><span class="k">type</span><span class="p">=</span><span class="s">&quot;stt&quot;</span><span class="p">}</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">multimodal_requests_total</span><span class="p">{</span><span class="k">type</span><span class="p">=</span><span class="s">&quot;ocr&quot;</span><span class="p">}</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">multimodal_latency_seconds</span><span class="p">{</span><span class="k">type</span><span class="p">=</span><span class="s">&quot;web_search&quot;</span><span class="p">}</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">router_v2_requests_total</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">router_v2_fallback_total</span><span class="w"> </span><span class="p">(</span><span class="nx">до</span><span class="w"> </span><span class="nx">v1</span><span class="m m-Double">.0</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Alerts:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MVP Services Down</span>
+<span class="w">  </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">up{service=~&quot;agents|city|secondme&quot;} == 0</span>
+<span class="w">  </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2m</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">High Latency</span>
+<span class="w">  </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http_request_duration_seconds{quantile=&quot;0.95&quot;} &gt; 5</span>
+<span class="w">  </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5m</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Router Fallback Rate High</span>
+<span class="w">  </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rate(router_v2_fallback_total[5m]) &gt; 0.1</span>
+<span class="w">  </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5m</span>
+</code></pre></div>
+
+<hr />
+<h2 id="decision-points">🎯 Decision Points<a class="headerlink" href="#decision-points" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-mvp-deploy">Після Phase 1 (MVP Deploy):<a class="headerlink" href="#phase-1-mvp-deploy" title="Permanent link">&para;</a></h3>
+<p><strong>Питання:</strong> Чи готові до Phase 2?</p>
+<p><strong>Критерії:</strong>
+- [ ] MVP сервіси healthy 48 годин без перерв
+- [ ] Немає критичних помилок в логах
+- [ ] Existing DAGI Stack працює стабільно
+- [ ] Performance metrics в нормі
+- [ ] Multimodal документація повністю завантажена</p>
+<p><strong>Якщо НІ → зупинитися, debugати, стабілізувати</strong></p>
+<hr />
+<h3 id="phase-2-multimodal-prep">Після Phase 2 (Multimodal Prep):<a class="headerlink" href="#phase-2-multimodal-prep" title="Permanent link">&para;</a></h3>
+<p><strong>Питання:</strong> Чи готові deploy multimodal на production?</p>
+<p><strong>Критерії:</strong>
+- [ ] Router v2.0 протестований на NODE2
+- [ ] API contracts задокументовані
+- [ ] Performance тести пройдені
+- [ ] Rollback plan готовий
+- [ ] Team готова до deployment</p>
+<p><strong>Якщо НІ → продовжити тестування на NODE2</strong></p>
+<hr />
+<h3 id="phase-3-multimodal-deploy">Після Phase 3 (Multimodal Deploy):<a class="headerlink" href="#phase-3-multimodal-deploy" title="Permanent link">&para;</a></h3>
+<p><strong>Питання:</strong> Чи готові до Full Integration?</p>
+<p><strong>Критерії:</strong>
+- [ ] Multimodal сервіси stable 1 тиждень
+- [ ] Router v2.0 обробляє 100% без fallback
+- [ ] Resource usage прийнятний
+- [ ] No regressions в MVP або DAGI</p>
+<p><strong>Якщо НІ → optimize, tune, monitor</strong></p>
+<hr />
+<h2 id="execution-plan-summary">📝 Execution Plan Summary<a class="headerlink" href="#execution-plan-summary" title="Permanent link">&para;</a></h2>
+<h3 id="week-48"><strong>ЦЯ НЕДІЛЯ (Week 48):</strong><a class="headerlink" href="#week-48" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ MVP Deploy на НОДА1 (Phase 1)</li>
+<li>✅ Smoke tests</li>
+<li>📊 Monitor 48 годин</li>
+</ul>
+<h3 id="week-49"><strong>НАСТУПНИЙ ТИЖДЕНЬ (Week 49):</strong><a class="headerlink" href="#week-49" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📖 Аналіз multimodal документації (коли завантажиться)</li>
+<li>🔧 Створення Router v2.0 (Phase 2)</li>
+<li>🧪 Тестування на НОДА2</li>
+</ul>
+<h3 id="50"><strong>ТИЖДЕНЬ 50:</strong><a class="headerlink" href="#50" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🚀 Multimodal Deploy на НОДА1 (Phase 3)</li>
+<li>📊 Canary deployment (10% → 50% → 100%)</li>
+</ul>
+<h3 id="51-52"><strong>ТИЖДЕНЬ 51-52:</strong><a class="headerlink" href="#51-52" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔗 Full Integration (Phase 4)</li>
+<li>📈 Performance tuning</li>
+<li>📝 Documentation updates</li>
+</ul>
+<hr />
+<h2 id="success-criteria">✅ Success Criteria (Загальні)<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
+<p><strong>MVP+Multimodal вважається успішно deployed якщо:</strong></p>
+<ol>
+<li>✅ Всі MVP сервіси працюють стабільно</li>
+<li>✅ Multimodal сервіси інтегровані</li>
+<li>✅ Router v2.0 обробляє всі типи запитів</li>
+<li>✅ Telegram bot приймає voice/photo/text</li>
+<li>✅ Frontend має multimodal UI</li>
+<li>✅ Uptime &gt; 99.5% за останні 7 днів</li>
+<li>✅ Немає критичних issues</li>
+<li>✅ Performance metrics в SLA</li>
+<li>✅ Документація актуальна</li>
+<li>✅ Team може підтримувати систему</li>
+</ol>
+<hr />
+<h2 id="long-term-vision">🔮 Long-term Vision<a class="headerlink" href="#long-term-vision" title="Permanent link">&para;</a></h2>
+<h3 id="q1-2026-distributed-architecture">Q1 2026: Distributed Architecture<a class="headerlink" href="#q1-2026-distributed-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li>NODE1 (Production) — MVP + Multimodal</li>
+<li>NODE2 (Dev + AI Lab) — Experimental models</li>
+<li>NODE3 (Federation) — Matrix + City Federation</li>
+</ul>
+<h3 id="q2-2026-auto-scaling">Q2 2026: Auto-scaling<a class="headerlink" href="#q2-2026-auto-scaling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kubernetes deployment</li>
+<li>Horizontal Pod Autoscaling</li>
+<li>Multi-region (EU + US)</li>
+</ul>
+<h3 id="q3-2026-advanced-ai">Q3 2026: Advanced AI<a class="headerlink" href="#q3-2026-advanced-ai" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Multi-agent orchestration</li>
+<li>Chain-of-thought reasoning</li>
+<li>Long-term memory (Vector DB clusters)</li>
+</ul>
+<hr />
+<p><strong>Документ створено:</strong> Cursor AI Assistant<br />
+<strong>Для проєкту:</strong> MicroDAO DAARION<br />
+<strong>Останнє оновлення:</strong> 2025-11-25<br />
+<strong>Статус:</strong> Ready for Execution — Phase 1 (MVP Deploy)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1559 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/33_api_gateway_security_and_pep/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>33 — API Gateway Security & PEP (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#33-api-gateway-security-pep-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              33 — API Gateway Security & PEP (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. High-level Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-key-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Key Responsibilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Key Responsibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-authorization-pep" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Authorization (PEP)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-key-lifecycle-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Key Lifecycle Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-usage-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Usage Accounting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-transport-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Transport Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Request Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-identity-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Identity Sources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Identity Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-user-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 User Identity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-agent-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Agent Identity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-embassy-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Embassy Identity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-integration-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Integration Keys
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-key-validation-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Key Validation Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-pdp-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. PDP Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. PDP Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-hard-deny-reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Hard-deny reasons:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-rate-limiting-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Rate Limiting Layer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Rate Limiting Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-global-per-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Global (per environment)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-per-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Per IP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-per-key-access_key_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Per KEY (access_key_id)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-per-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Per ACTION
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-per-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 Per TEAM
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-resource-context-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Resource Context Extraction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-confidential-mode-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Confidential Mode Enforcement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-embassy-webhook-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Embassy Webhook Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Embassy Webhook Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Gateway виконує:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Відмова у разі:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-wallet-api-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Wallet API Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-agent-api-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Agent API Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-quota-enforcement-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Quota Enforcement Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-logging-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Logging Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-api-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. API Hardening
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. API Hardening">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.1 Headers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-disable-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.2 Disable methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-payload-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.3 Payload limits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-error-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Error Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Performance Targets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-failover-resilience" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Failover &amp; Resilience
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      22. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="33-api-gateway-security-pep-microdao">33 — API Gateway Security &amp; PEP (MicroDAO)<a class="headerlink" href="#33-api-gateway-security-pep-microdao" title="Permanent link">&para;</a></h1>
+<p><em>API Gateway Architecture, Policy Enforcement Point (PEP), Rate Limiting, Key Validation, PDP Integration, Embassy/Webhook Security, Usage Accounting</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>API Gateway — це <strong>єдина точка входу</strong> для всіх зовнішніх та внутрішніх HTTP-запитів у DAARION.city:</p>
+<ul>
+<li>web-клієнтів (user/browser),</li>
+<li>приватних агентів,</li>
+<li>Embassy інтеграцій,</li>
+<li>mobile/desktop клієнтів,</li>
+<li>сторонніх сервісів DAARION-платформ.</li>
+</ul>
+<p>Цей документ описує:</p>
+<ul>
+<li>архітектуру Gateway,</li>
+<li>логіку Policy Enforcement Point (PEP),</li>
+<li>інтеграцію з PDP,</li>
+<li>rate limiting на кожному рівні,</li>
+<li>захист API keys, агентів, Embassy,</li>
+<li>audit/logging/usage,</li>
+<li>безпекові guardrails.</li>
+</ul>
+<hr />
+<h2 id="2-high-level-architecture">2. High-level Architecture<a class="headerlink" href="#2-high-level-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>                          ┌──────────────────────────┐
+                          │      Load Balancer        │
+                          └─────────────┬────────────┘
+                                        │
+                           ┌────────────┴────────────┐
+                           │     API Gateway (PEP)    │
+                           └────────────┬────────────┘
+                                        │
+          ┌──────────────┬──────────────┼──────────────┬───────────────┐
+          │              │              │              │                │
+       Core API       Agent API     Embassy API    Wallet API       Webhooks
+</code></pre></div>
+
+<p>Gateway = PEP (Policy Enforcement Point) + Key Validator + Rate Limiter + Router + Logging Engine.</p>
+<hr />
+<h2 id="3-key-responsibilities">3. Key Responsibilities<a class="headerlink" href="#3-key-responsibilities" title="Permanent link">&para;</a></h2>
+<h3 id="31-authentication">3.1 Authentication<a class="headerlink" href="#31-authentication" title="Permanent link">&para;</a></h3>
+<ul>
+<li>User session tokens (cookies).</li>
+<li>Access Keys (user/agent/integration).</li>
+<li>Embassy HMAC signatures.</li>
+<li>Internal service JWT (якщо потрібно).</li>
+</ul>
+<h3 id="32-authorization-pep">3.2 Authorization (PEP)<a class="headerlink" href="#32-authorization-pep" title="Permanent link">&para;</a></h3>
+<ul>
+<li>виклик PDP для кожного action:</li>
+</ul>
+<p><code>text
+  action = &lt;resource&gt;.&lt;operation&gt;</code></p>
+<ul>
+<li>PDP повертає allow/deny.</li>
+</ul>
+<h3 id="33-key-lifecycle-management">3.3 Key Lifecycle Management<a class="headerlink" href="#33-key-lifecycle-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li>дієвість,</li>
+<li>TTL,</li>
+<li>rotation,</li>
+<li>revocation,</li>
+<li>rate limiting.</li>
+</ul>
+<h3 id="34-usage-accounting">3.4 Usage Accounting<a class="headerlink" href="#34-usage-accounting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>лічильники:</li>
+<li>LLM tokens,</li>
+<li>agent runs,</li>
+<li>router invokes,</li>
+<li>storage size,</li>
+<li>embassy events,</li>
+<li>wallet tx.</li>
+</ul>
+<h3 id="35-transport-security">3.5 Transport Security<a class="headerlink" href="#35-transport-security" title="Permanent link">&para;</a></h3>
+<ul>
+<li>TLS termination,</li>
+<li>CORS,</li>
+<li>header hardening.</li>
+</ul>
+<hr />
+<h2 id="4-request-flow">4. Request Flow<a class="headerlink" href="#4-request-flow" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Client</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">G</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="p">(</span><span class="n">PEP</span><span class="p">)</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">PDP</span>
+<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kr">Service</span>
+
+<span class="w">    </span><span class="n">C</span><span class="o">-&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">HTTP</span><span class="w"> </span><span class="n">request</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">extract</span><span class="w"> </span><span class="n">identity</span><span class="w"> </span><span class="p">(</span><span class="n">session</span><span class="o">/</span><span class="n">key</span><span class="p">)</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="kr">validate</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">signature</span><span class="o">/</span><span class="n">ttl</span><span class="o">/</span><span class="n">status</span>
+<span class="w">    </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">PDP</span><span class="o">:</span><span class="w"> </span><span class="n">authorization</span><span class="p">(</span><span class="n">action</span><span class="p">,</span><span class="w"> </span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="n">resource</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PDP</span><span class="o">--&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">allow</span><span class="o">/</span><span class="n">deny</span>
+<span class="w">    </span><span class="n">alt</span><span class="w"> </span><span class="n">deny</span>
+<span class="w">        </span><span class="n">G</span><span class="o">--&gt;&gt;</span><span class="n">C</span><span class="o">:</span><span class="w"> </span><span class="mi">403</span><span class="w"> </span><span class="n">Forbidden</span>
+<span class="w">    </span><span class="n">else</span><span class="w"> </span><span class="n">allow</span>
+<span class="w">        </span><span class="n">G</span><span class="o">-&gt;&gt;</span><span class="n">S</span><span class="o">:</span><span class="w"> </span><span class="n">forward</span><span class="w"> </span><span class="n">request</span>
+<span class="w">        </span><span class="n">S</span><span class="o">--&gt;&gt;</span><span class="n">G</span><span class="o">:</span><span class="w"> </span><span class="n">response</span>
+<span class="w">        </span><span class="n">G</span><span class="o">--&gt;&gt;</span><span class="n">C</span><span class="o">:</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="n">response</span>
+<span class="w">    </span><span class="kd">end</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-identity-sources">5. Identity Sources<a class="headerlink" href="#5-identity-sources" title="Permanent link">&para;</a></h2>
+<h3 id="51-user-identity">5.1 User Identity<a class="headerlink" href="#51-user-identity" title="Permanent link">&para;</a></h3>
+<p>Отримується з:</p>
+<ul>
+<li>session cookie,</li>
+<li>або user access key.</li>
+</ul>
+<h3 id="52-agent-identity">5.2 Agent Identity<a class="headerlink" href="#52-agent-identity" title="Permanent link">&para;</a></h3>
+<ul>
+<li>кожен агент має <code>ak_*</code> key:</li>
+</ul>
+<p><code>text
+  subject_kind = "agent"
+  subject_id = "ag_*"</code></p>
+<h3 id="53-embassy-identity">5.3 Embassy Identity<a class="headerlink" href="#53-embassy-identity" title="Permanent link">&para;</a></h3>
+<p>Webhook-платформи не використовують JWT/keys, тільки:</p>
+<ul>
+<li>HMAC signature,</li>
+<li>timestamp,</li>
+<li>platform_id.</li>
+</ul>
+<p>API Gateway перевіряє:</p>
+<div class="codehilite"><pre><span></span><code>valid_signature AND timestamp &lt; skew_limit
+</code></pre></div>
+
+<h3 id="54-integration-keys">5.4 Integration Keys<a class="headerlink" href="#54-integration-keys" title="Permanent link">&para;</a></h3>
+<p>Треті сторони:</p>
+<ul>
+<li>access_key з capability: <code>integration.*</code></li>
+</ul>
+<hr />
+<h2 id="6-key-validation-pipeline">6. Key Validation Pipeline<a class="headerlink" href="#6-key-validation-pipeline" title="Permanent link">&para;</a></h2>
+<p>Перед PDP-викликом Gateway перевіряє:</p>
+<ol>
+<li><strong>isAccessKeyPresent</strong></li>
+<li><strong>isKnownKeyFormat</strong> (ak_xxx)</li>
+<li><strong>isKeyActive (status=='active')</strong></li>
+<li><strong>notExpired (expires_at &gt; now)</strong></li>
+<li><strong>notRevoked</strong></li>
+<li><strong>rateLimitPerKey</strong></li>
+<li><strong>IP throttling</strong></li>
+<li><strong>geo restrictions</strong> (опційно)</li>
+<li><strong>isAllowedSubjectType</strong> (user/agent/integration/embassy)</li>
+</ol>
+<p>У разі невідповідності — <strong>403 Forbidden</strong>.</p>
+<hr />
+<h2 id="7-pdp-integration">7. PDP Integration<a class="headerlink" href="#7-pdp-integration" title="Permanent link">&para;</a></h2>
+<p>Gateway формує PDP-запит:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task.create&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;p_44&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;t_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ak_777&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>PDP відповідає:</p>
+<div class="codehilite"><pre><span></span><code>allow / deny
+reason
+quota_status
+</code></pre></div>
+
+<h3 id="71-hard-deny-reasons">7.1 Hard-deny reasons:<a class="headerlink" href="#71-hard-deny-reasons" title="Permanent link">&para;</a></h3>
+<ul>
+<li>key_invalid</li>
+<li>capability_missing</li>
+<li>rbac_denied</li>
+<li>acl_block</li>
+<li>confidential_restriction</li>
+<li>quota_exceeded</li>
+</ul>
+<hr />
+<h2 id="8-rate-limiting-layer">8. Rate Limiting Layer<a class="headerlink" href="#8-rate-limiting-layer" title="Permanent link">&para;</a></h2>
+<p>Gateway має багаторівневий rate limiting.</p>
+<h3 id="81-global-per-environment">8.1 Global (per environment)<a class="headerlink" href="#81-global-per-environment" title="Permanent link">&para;</a></h3>
+<p>Наприклад:</p>
+<div class="codehilite"><pre><span></span><code>1000 req/sec (dev)
+5000 req/sec (staging)
+20000 req/sec (prod)
+</code></pre></div>
+
+<h3 id="82-per-ip">8.2 Per IP<a class="headerlink" href="#82-per-ip" title="Permanent link">&para;</a></h3>
+<p>Запобігає DDOS:</p>
+<div class="codehilite"><pre><span></span><code>100 req/min
+</code></pre></div>
+
+<h3 id="83-per-key-access_key_id">8.3 Per KEY (access_key_id)<a class="headerlink" href="#83-per-key-access_key_id" title="Permanent link">&para;</a></h3>
+<p>Важливо для:</p>
+<ul>
+<li>agent keys,</li>
+<li>integration keys,</li>
+<li>embassy keys.</li>
+</ul>
+<p>Наприклад:</p>
+<div class="codehilite"><pre><span></span><code>50 req/min for Freemium
+200 req/min for Premium
+1000 req/min for Platformium
+</code></pre></div>
+
+<h3 id="84-per-action">8.4 Per ACTION<a class="headerlink" href="#84-per-action" title="Permanent link">&para;</a></h3>
+<p>Деякі дії дорогі:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Ліміт</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>agent.run.invoke</td>
+<td>10/min</td>
+</tr>
+<tr>
+<td>router.invoke</td>
+<td>30/min</td>
+</tr>
+<tr>
+<td>wallet.payout.claim</td>
+<td>2/min</td>
+</tr>
+<tr>
+<td>embassy.rwa.claim</td>
+<td>120/min</td>
+</tr>
+<tr>
+<td>chat.message.send</td>
+<td>300/min</td>
+</tr>
+</tbody>
+</table>
+<h3 id="85-per-team">8.5 Per TEAM<a class="headerlink" href="#85-per-team" title="Permanent link">&para;</a></h3>
+<p>Для захисту БД.</p>
+<hr />
+<h2 id="9-resource-context-extraction">9. Resource Context Extraction<a class="headerlink" href="#9-resource-context-extraction" title="Permanent link">&para;</a></h2>
+<p>Gateway визнає ресурс з URL.</p>
+<p>Приклади:</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Resource</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST /tasks</td>
+<td>project_id=payload</td>
+<td>task.create</td>
+</tr>
+<tr>
+<td>POST /messages</td>
+<td>channel_id=payload</td>
+<td>chat.message.send</td>
+</tr>
+<tr>
+<td>POST /wallet/stake</td>
+<td>team_id=user.team</td>
+<td>wallet.stake.ringk</td>
+</tr>
+<tr>
+<td>POST /embassy/rwa</td>
+<td>platform=header</td>
+<td>embassy.rwa.claim</td>
+</tr>
+<tr>
+<td>POST /agent/run</td>
+<td>agent_id</td>
+<td>agent.run.invoke</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-confidential-mode-enforcement">10. Confidential Mode Enforcement<a class="headerlink" href="#10-confidential-mode-enforcement" title="Permanent link">&para;</a></h2>
+<p>Gateway застосовує <strong>PEP-level enforcement</strong>:</p>
+<div class="codehilite"><pre><span></span><code>if resource.mode == confidential:
+    if subject.kind == &quot;agent&quot;:
+        if action in [&quot;chat.message.read&quot;]:
+            deny
+</code></pre></div>
+
+<p>Усі інші повідомлення:</p>
+<ul>
+<li>plaintext → не передається агенту,</li>
+<li>агент отримує <code>summary</code>, <code>embeddings</code>, <code>role</code>.</li>
+</ul>
+<hr />
+<h2 id="11-embassy-webhook-security">11. Embassy Webhook Security<a class="headerlink" href="#11-embassy-webhook-security" title="Permanent link">&para;</a></h2>
+<p>Для платформи (EnergyUnion, GREENFOOD, Water Union):</p>
+<h3 id="111-gateway">11.1 Gateway виконує:<a class="headerlink" href="#111-gateway" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Перевірка HMAC:</li>
+</ol>
+<p><code>text
+   HMAC(key=emb_secret, body)</code></p>
+<ol>
+<li>Перевірка <code>X-Timestamp</code>:</li>
+</ol>
+<p><code>text
+   |client_ts - server_ts| &lt; 5 min</code></p>
+<ol>
+<li>Формування PDP-запиту:</li>
+</ol>
+<p><code>text
+   action = embassy.energy.update
+   subject_kind = embassy
+   subject_id = emb_&lt;platform&gt;</code></p>
+<ol>
+<li>Quota-check (events per day)</li>
+<li>Forward до Embassy Service</li>
+</ol>
+<h3 id="112">11.2 Відмова у разі:<a class="headerlink" href="#112" title="Permanent link">&para;</a></h3>
+<ul>
+<li>HMAC mismatch</li>
+<li>expired timestamp</li>
+<li>excess quota</li>
+<li>revoked embassy key</li>
+</ul>
+<hr />
+<h2 id="12-wallet-api-security">12. Wallet API Security<a class="headerlink" href="#12-wallet-api-security" title="Permanent link">&para;</a></h2>
+<p>Wallet endpoints — найбільш критичні.</p>
+<p>Gateway виконує:</p>
+<ol>
+<li>PDP:</li>
+<li><code>wallet.stake.ringk</code></li>
+<li><code>wallet.payout.claim</code></li>
+<li><code>wallet.balance.view</code></li>
+<li>Rate limiting (дуже низький)</li>
+<li>Additional anti-fraud rules:</li>
+<li>geo-check (опційно)</li>
+<li>user consistency (IP fingerprint)</li>
+<li>DB-level locking (handled by wallet service)</li>
+<li>Chain RPC protection (delayed retry, jitter)</li>
+</ol>
+<hr />
+<h2 id="13-agent-api-security">13. Agent API Security<a class="headerlink" href="#13-agent-api-security" title="Permanent link">&para;</a></h2>
+<p>Агенти — потенційно небезпечний трафік.</p>
+<p>Gateway блокує:</p>
+<ol>
+<li>розширені network operations (якщо немає capability)</li>
+<li>небезпечні MIME-types</li>
+<li>надмірно великі payloads (&gt;512KB)</li>
+<li>токсичні параметри (regex sanitize)</li>
+<li>DoS через parallel agent runs</li>
+</ol>
+<p>Агентні ключі мають capability:</p>
+<ul>
+<li><code>agent.run.invoke</code></li>
+<li><code>tool.*</code></li>
+<li><code>router.invoke</code></li>
+</ul>
+<hr />
+<h2 id="14-quota-enforcement-integration">14. Quota Enforcement Integration<a class="headerlink" href="#14-quota-enforcement-integration" title="Permanent link">&para;</a></h2>
+<p>Після дозволу PDP, Gateway викликає:</p>
+<ul>
+<li><code>usage.increment(team_id, action, units)</code></li>
+</ul>
+<p>Приклад:</p>
+<ul>
+<li>для LLM tokens → units = tokens</li>
+<li>для agent-run → units = 1</li>
+<li>для wallet claim → units = 1</li>
+<li>для Embassy event → units = 1</li>
+</ul>
+<p>Якщо usage впритул → soft-limit → warning header.</p>
+<hr />
+<h2 id="15-logging-model">15. Logging Model<a class="headerlink" href="#15-logging-model" title="Permanent link">&para;</a></h2>
+<p>Gateway пише логи:</p>
+<ul>
+<li>request_id</li>
+<li>subject_id</li>
+<li>key_id</li>
+<li>action</li>
+<li>team_id</li>
+<li>latency</li>
+<li>status</li>
+<li>quota_status</li>
+<li>PDP result</li>
+<li>IP/UA</li>
+</ul>
+<p>Логи <strong>не містять plaintext</strong> чату.</p>
+<hr />
+<h2 id="16-api-hardening">16. API Hardening<a class="headerlink" href="#16-api-hardening" title="Permanent link">&para;</a></h2>
+<p>Gateway застосовує:</p>
+<h3 id="161-headers">16.1 Headers<a class="headerlink" href="#161-headers" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>X-Frame-Options: DENY</code></li>
+<li><code>X-Content-Type-Options: nosniff</code></li>
+<li><code>Referrer-Policy: strict-origin-when-cross-origin</code></li>
+<li><code>Content-Security-Policy: frame-ancestors 'none'; script-src 'self' 'unsafe-inline'</code></li>
+</ul>
+<h3 id="162-disable-methods">16.2 Disable methods<a class="headerlink" href="#162-disable-methods" title="Permanent link">&para;</a></h3>
+<ul>
+<li>TRACE</li>
+<li>OPTIONS (лише preflight)</li>
+<li>CONNECT</li>
+</ul>
+<h3 id="163-payload-limits">16.3 Payload limits<a class="headerlink" href="#163-payload-limits" title="Permanent link">&para;</a></h3>
+<ul>
+<li>max JSON body size (0.5–2 MB)</li>
+<li>timeouts (3–5 сек)</li>
+</ul>
+<hr />
+<h2 id="17-error-model">17. Error Model<a class="headerlink" href="#17-error-model" title="Permanent link">&para;</a></h2>
+<p>Gateway повертає стандартизовані помилки:</p>
+<table>
+<thead>
+<tr>
+<th>Код</th>
+<th>Статус</th>
+<th>Причина</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401</td>
+<td>unauthenticated</td>
+<td>no session/key</td>
+</tr>
+<tr>
+<td>403</td>
+<td>forbidden</td>
+<td>PDP deny</td>
+</tr>
+<tr>
+<td>429</td>
+<td>rate_limited</td>
+<td>too many requests</td>
+</tr>
+<tr>
+<td>400</td>
+<td>invalid_payload</td>
+<td>schema mismatch</td>
+</tr>
+<tr>
+<td>500</td>
+<td>internal_error</td>
+<td>unexpected</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="18-performance-targets">18. Performance Targets<a class="headerlink" href="#18-performance-targets" title="Permanent link">&para;</a></h2>
+<ul>
+<li>p95 &lt; 10 ms (навіть з PDP)</li>
+<li>p99 &lt; 25 ms</li>
+<li>20k rps sustained</li>
+<li>zero-downtime redeploy</li>
+</ul>
+<hr />
+<h2 id="19-failover-resilience">19. Failover &amp; Resilience<a class="headerlink" href="#19-failover-resilience" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Retry PDP з exponential backoff.</li>
+<li>Circuit-breaker:</li>
+<li>PDP недоступний → deny non-critical ops.</li>
+<li>Horizontal autoscaling.</li>
+<li>Canary deployments.</li>
+</ul>
+<hr />
+<h2 id="20-integration-with-other-docs">20. Integration with Other Docs<a class="headerlink" href="#20-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>32_policy_service_PDP_design.md</code></li>
+<li><code>31_governance_policies_for_capabilities_and_quotas.md</code></li>
+<li><code>26_security_audit.md</code></li>
+<li><code>24_access_keys_capabilities_system.md</code></li>
+<li><code>25_deployment_infrastructure.md</code></li>
+<li><code>29_scaling_and_high_availability.md</code></li>
+</ul>
+<hr />
+<h2 id="21-cursor">21. Завдання для Cursor<a class="headerlink" href="#21-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior backend engineer. Implement API Gateway / PEP using:
+- 33_api_gateway_security_and_pep.md
+- 32_policy_service_PDP_design.md
+- 24_access_keys_capabilities_system.md
+
+Tasks:
+1) Create API Gateway service with PEP middleware.
+2) Implement key validation pipeline.
+3) Integrate with PDP for authorization.
+4) Implement multi-level rate limiting (global, per-IP, per-key, per-action, per-team).
+5) Add Embassy webhook security (HMAC, timestamp validation).
+6) Implement Wallet API security (anti-fraud, rate limiting).
+7) Add Agent API security (payload validation, DoS protection).
+8) Implement quota enforcement integration.
+9) Add logging and audit.
+10) Implement API hardening (headers, payload limits, timeouts).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="22-summary">22. Summary<a class="headerlink" href="#22-summary" title="Permanent link">&para;</a></h2>
+<p>API Gateway / PEP — це:</p>
+<ul>
+<li>єдина точка контролю доступів,</li>
+<li>захист від зловживань,</li>
+<li>інтеграція з PDP,</li>
+<li>enforcement квот,</li>
+<li>захист Embassy та вебхуків,</li>
+<li>критичний елемент Wallet/Chain безпеки,</li>
+<li>потужний rate limiting,</li>
+<li>основа для agent-безпеки,</li>
+<li>фундамент всієї системи авторизації DAARION.city.</li>
+</ul>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

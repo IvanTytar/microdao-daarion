@@ -1,0 +1,1064 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/services/AGENTS_SERVICE_SPEC/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>AGENTS SERVICE SPEC (PORT 7002) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agents-service-spec-port-7002" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AGENTS SERVICE SPEC (PORT 7002)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="agents-service-spec-port-7002">AGENTS SERVICE SPEC (PORT 7002)<a class="headerlink" href="#agents-service-spec-port-7002" title="Permanent link">&para;</a></h1>
+<h1 id="version-100">Version: 1.0.0<a class="headerlink" href="#version-100" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="0-purpose">0. PURPOSE<a class="headerlink" href="#0-purpose" title="Permanent link">&para;</a></h2>
+<p><code>Agents Service</code> — це центральний сервіс текстових агентів DAGI:</p>
+<ul>
+<li>надає API для виклику Helion, Helix, Metamorph та інших текстових агентів;</li>
+<li>інтегрується з DAGI Router / ProjectBus / Mesh Directory;</li>
+<li>застосовує:</li>
+<li>Agent Registry,</li>
+<li>Context Router,</li>
+<li>Silence Policy,</li>
+<li>Throttling,</li>
+<li>TeamDefinition/ProjectBus контекст.</li>
+</ul>
+<p>Це логічний "Runtime осередок" для текстової частини DAGI.</p>
+<p>Порт за замовчуванням (NODE1/NODE2): <strong>7002</strong>.</p>
+<hr />
+<h2 id="1-high-level-architecture">1. HIGH-LEVEL ARCHITECTURE<a class="headerlink" href="#1-high-level-architecture" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>[ Gateway (Telegram/Web/Matrix/...) ]
+         ↓
+  [ DAGI Router (gateway.daarion.city) ]
+         ↓
+    [ Agents Service (7002) ]
+         ↓
+   [ LLM Providers / Swapper / DAGI Mesh ]
+</code></pre></div>
+
+<p>Agents Service отримує <strong>RouterEvent-like</strong> запити від DAGI Router (або внутрішніх сервісів) та:</p>
+<ol>
+<li>Визначає, які агенти доступні (через AgentRegistry + Mesh Directory + TeamDefinition).</li>
+<li>Обирає найвідповіднішого/декількох (Context Router).</li>
+<li>Перевіряє Silence Policy.</li>
+<li>Застосовує throttling.</li>
+<li>Викликає відповідний LLM / backend агента.</li>
+<li>Повертає відповідь + metadata.</li>
+</ol>
+<hr />
+<h2 id="2-dependencies">2. DEPENDENCIES<a class="headerlink" href="#2-dependencies" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1. Внутрішні модулі<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>Agents Service використовує:</p>
+<ul>
+<li><code>configs/AGENT_REGISTRY.yaml</code></li>
+<li><code>configs/AGENT_REGISTRY_SCHEMA.yaml</code></li>
+<li><code>services/agent_registry_loader.py</code></li>
+<li><code>services/agent_context_router.py</code></li>
+<li><code>services/agent_silence_policy.py</code></li>
+<li><code>services/agent_throttle.py</code></li>
+<li><code>services/agent_mesh_directory.py</code></li>
+<li><code>configs/team_definition.yaml</code></li>
+<li><code>configs/project_bus_config.yaml</code></li>
+</ul>
+<h3 id="22">2.2. Зовнішні сервіси<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>LLM Provider / Swapper Service</strong> (NODE1/NODE2)</li>
+<li>
+<p><strong>NATS</strong> (або інший event-bus) для:</p>
+</li>
+<li>
+<p>ProjectBus,</p>
+</li>
+<li>Mesh Directory,</li>
+<li>M2M-комунікації між агентами.</li>
+<li>
+<p><strong>PostgreSQL / Redis</strong> (опційно) для:</p>
+</li>
+<li>
+<p>кешу відповідей,</p>
+</li>
+<li>logging / traces.</li>
+</ul>
+<hr />
+<h2 id="3-configuration">3. CONFIGURATION<a class="headerlink" href="#3-configuration" title="Permanent link">&para;</a></h2>
+<p>ENV-змінні:</p>
+<div class="codehilite"><pre><span></span><code>AGENTS_SERVICE_PORT=7002
+
+AGENT_REGISTRY_PATH=configs/AGENT_REGISTRY.yaml
+AGENT_REGISTRY_SCHEMA_PATH=configs/AGENT_REGISTRY_SCHEMA.yaml
+
+TEAM_DEFINITION_PATH=configs/team_definition.yaml
+PROJECT_BUS_CONFIG_PATH=configs/project_bus_config.yaml
+
+MESH_DIRECTORY_MODE=inprocess   # &quot;inprocess&quot; | &quot;nats&quot; | &quot;http&quot;
+MESH_DIRECTORY_NATS_SUBJECT_BASE=agent.directory
+
+LLM_PROVIDER_BASE_URL=http://localhost:8890  # або інший super-service/swapper
+
+AGENT_THROTTLE_LIMIT_PER_MINUTE=3
+AGENT_THROTTLE_WINDOW_SECONDS=60
+</code></pre></div>
+
+<hr />
+<h2 id="4-public-api-http">4. PUBLIC API (HTTP)<a class="headerlink" href="#4-public-api-http" title="Permanent link">&para;</a></h2>
+<h3 id="41-post-agentsinvoke">4.1. <code>POST /agents/invoke</code><a class="headerlink" href="#41-post-agentsinvoke" title="Permanent link">&para;</a></h3>
+<p>Основний endpoint для DAGI Router та внутрішніх сервісів.</p>
+<p><strong>Request:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tg:123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;telegram&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chat&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;group&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alex&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;team-daariandao-core&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;proj-daariandao&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;helix, перевір api&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;attachments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;images&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;docs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;audio&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;geo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nt">&quot;tables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;reply_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;confidential_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;force_agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">          </span><span class="c1">// якщо заповнено, обійти context router</span>
+<span class="w">    </span><span class="nt">&quot;allow_panel_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">        </span><span class="c1">// дозволити кільком агентам відповісти</span>
+<span class="w">    </span><span class="nt">&quot;max_agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">                  </span><span class="c1">// верхня межа для panel-режиму</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response (успішний сценарій):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;replies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_helix&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ось аналіз API ...&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HELIX_ENGINEER_MODEL&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tokens_in&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tokens_out&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">900</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;proj-daariandao&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;team-daariandao-core&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;reply_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;panel&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response (ніхто не має відповідати):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;silent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no_agent_or_policy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;project_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;proj-daariandao&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;team-daariandao-core&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response (throttling):</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;throttled&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rate_limit&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_helion&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="42-get-agentsregistry">4.2. <code>GET /agents/registry</code><a class="headerlink" href="#42-get-agentsregistry" title="Permanent link">&para;</a></h3>
+<p>Повертає список агентів (тільки для адміністраторів / системних агентів):</p>
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_helion&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Helion&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HELION_TEXT_MODEL&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;допоможи&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;поясни&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;modalities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Головний асистент DAARION.&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h3 id="43-get-agentsinstances">4.3. <code>GET /agents/instances</code><a class="headerlink" href="#43-get-agentsinstances" title="Permanent link">&para;</a></h3>
+<p>Проксі до Mesh Directory (видно інстанси):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;instances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_helion&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;instance_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ag_helion@noda1-01&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;node_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NODA1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;project_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;proj-daariandao&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao-root&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;last_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1732450200.123</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-internal-logic">5. INTERNAL LOGIC<a class="headerlink" href="#5-internal-logic" title="Permanent link">&para;</a></h2>
+<h3 id="51-pipeline-agentsinvoke">5.1. Pipeline для <code>/agents/invoke</code><a class="headerlink" href="#51-pipeline-agentsinvoke" title="Permanent link">&para;</a></h3>
+<p>Покроковий алгоритм:</p>
+<ol>
+<li>
+<p><strong>Parse event</strong></p>
+</li>
+<li>
+<p>прийняти <code>event</code> (RouterEvent-сумісний payload),</p>
+</li>
+<li>
+<p>витягнути <code>project_id</code>, <code>team_id</code>, <code>chat.id</code>.</p>
+</li>
+<li>
+<p><strong>Load TeamDefinition</strong></p>
+</li>
+<li>
+<p>знайти команду по <code>team_id</code> (або по <code>project_id</code> → команди, які працюють у цьому проекті),</p>
+</li>
+<li>
+<p>зчитати <code>reply_mode</code>:</p>
+<ul>
+<li><code>single</code> / <code>panel</code> / <code>silent</code>,</li>
+<li><code>max_agents_per_message</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Load AgentRegistry &amp; MeshDirectory</strong></p>
+</li>
+<li>
+<p>завантажити список агентів із registry,</p>
+</li>
+<li>
+<p>для кожного, хто в TeamDefinition:</p>
+<ul>
+<li>перевірити, чи є онлайн інстанси (Mesh Directory).</li>
+</ul>
+</li>
+<li>
+<p><strong>Context Router</strong></p>
+</li>
+<li>
+<p>побудувати <code>AgentDescriptor</code> для кожного доступного агента (з skills, priority),</p>
+</li>
+<li>
+<p>викликати <code>select_best_agent(event, descriptors)</code>:</p>
+<ul>
+<li>для <code>single</code>: обрати 1,</li>
+<li>для <code>panel</code>: обрати до <code>max_agents_per_message</code>,</li>
+<li>для <code>silent</code>: можна одразу повернути <code>status: silent</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Silence Policy</strong> (per-agent)
+   Для кожного кандидата:</p>
+</li>
+<li>
+<p><code>should_agent_reply(agent_id, event)</code>:</p>
+<ul>
+<li>прямі згадки,</li>
+<li>команди,</li>
+<li>приватні чати,</li>
+<li>контекстна релевантність.</li>
+</ul>
+</li>
+</ol>
+<p>Якщо жоден не проходить → <code>status: silent</code>.</p>
+<ol>
+<li>
+<p><strong>Throttling</strong> (per-agent, per-chat)
+   Для кожного, хто пройшов silence policy:</p>
+</li>
+<li>
+<p><code>throttle.can_reply(agent_id, chat_id)</code>:</p>
+<ul>
+<li>якщо ні → позначити <code>throttled</code>,</li>
+<li>якщо хоча б один агент може відповідати → продовжуємо.</li>
+</ul>
+</li>
+<li>
+<p><strong>Invoke agents (LLM Provider)</strong>
+   Для кожного дозволеного агента:</p>
+</li>
+<li>
+<p>сформувати system prompt (на основі <code>AGENT_REGISTRY</code>, ролі, skills),</p>
+</li>
+<li>сформувати user/context prompt (із події),</li>
+<li>
+<p>відправити в LLM Provider / Swapper Service:</p>
+<ul>
+<li><code>POST /llm/invoke</code> (або NATS subject <code>llm.invoke</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>Aggregate response</strong></p>
+</li>
+<li>
+<p>зібрати <code>replies</code> (до N агентів),</p>
+</li>
+<li>зібрати <code>meta</code> (latency, tokens),</li>
+<li>повернути у DAGI Router HTTP-відповідь.</li>
+</ol>
+<hr />
+<h2 id="6-integration-with-dagi-router">6. INTEGRATION WITH DAGI ROUTER<a class="headerlink" href="#6-integration-with-dagi-router" title="Permanent link">&para;</a></h2>
+<h3 id="61-dagi-router">6.1. З боку DAGI Router<a class="headerlink" href="#61-dagi-router" title="Permanent link">&para;</a></h3>
+<p>При текстовій гілці (без мультимодальності):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># dagi_router.py (схематично)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;http://agents-service:7002/agents/invoke&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">router_event_dict</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;force_agent_id&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;allow_panel_mode&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;max_agents&quot;</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>Router далі:</p>
+<ul>
+<li>бере <code>resp["replies"]</code>,</li>
+<li>конвертує в повідомлення для Gateway (Telegram/Web/Matrix),</li>
+<li>застосовує свої policy (наприклад, фільтрацію ненормативу, якщо треба).</li>
+</ul>
+<hr />
+<h2 id="7-nats-project-bus-integration">7. NATS / PROJECT BUS INTEGRATION<a class="headerlink" href="#7-nats-project-bus-integration" title="Permanent link">&para;</a></h2>
+<p>Agents Service також:</p>
+<ol>
+<li>
+<p>Слухає ProjectBus:</p>
+</li>
+<li>
+<p><code>project.&lt;project_id&gt;.chat.mixed</code> (через DAGI Router),</p>
+</li>
+<li>
+<p><code>project.&lt;project_id&gt;.tasks</code> (можна робити автоматичну обробку задач).</p>
+</li>
+<li>
+<p>Може публікувати події:</p>
+</li>
+<li>
+<p><code>project.&lt;project_id&gt;.agents</code> (наприклад, "Helix взяв task t123"),</p>
+</li>
+<li><code>project.&lt;project_id&gt;.m2m.*</code> (M2M/R2D2 комунікація).</li>
+</ol>
+<p>Це дозволяє:</p>
+<ul>
+<li>агентам працювати в командах,</li>
+<li>не тільки як chatbot, а як учасники mesh-процесів.</li>
+</ul>
+<hr />
+<h2 id="8-healthcheck-metrics">8. HEALTHCHECK &amp; METRICS<a class="headerlink" href="#8-healthcheck-metrics" title="Permanent link">&para;</a></h2>
+<h3 id="81-healthcheck">8.1. Healthcheck<a class="headerlink" href="#81-healthcheck" title="Permanent link">&para;</a></h3>
+<p><code>GET /healthz</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registry_loaded&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mesh_directory_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inprocess&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;uptime_seconds&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12345</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="82-prometheus">8.2. Prometheus метрики<a class="headerlink" href="#82-prometheus" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>agents_invocations_total{agent_id, project_id, status}</code></li>
+<li><code>agents_throttled_total{agent_id}</code></li>
+<li><code>agents_silent_decisions_total{reason}</code></li>
+<li><code>agents_llm_latency_ms_bucket{agent_id, le=...}</code></li>
+</ul>
+<hr />
+<h2 id="9-logging">9. LOGGING<a class="headerlink" href="#9-logging" title="Permanent link">&para;</a></h2>
+<p>Кожен виклик <code>/agents/invoke</code> логувати:</p>
+<ul>
+<li><code>event_id</code>, <code>source</code>, <code>chat.id</code>, <code>project_id</code>, <code>team_id</code>,</li>
+<li>кандидатів агентів + scores (debug-level),</li>
+<li>остаточно обраних агентів,</li>
+<li>статус: <code>ok</code> / <code>silent</code> / <code>throttled</code> / <code>error</code>,</li>
+<li>latency LLM.</li>
+</ul>
+<p>Формат: JSON-лог для подальшого аналізу (ELK / Loki / Grafana).</p>
+<hr />
+<h2 id="10-test-plan-short">10. TEST PLAN (SHORT)<a class="headerlink" href="#10-test-plan-short" title="Permanent link">&para;</a></h2>
+<p>Unit-тести (pytest):</p>
+<ol>
+<li>
+<p><code>test_single_agent_selection()</code></p>
+</li>
+<li>
+<p>один агент у команді, простий текст, немає throttling → відповідає.</p>
+</li>
+<li>
+<p><code>test_panel_mode_two_agents()</code></p>
+</li>
+<li>
+<p><code>reply_mode: panel</code>, <code>max_agents_per_message: 2</code>,</p>
+</li>
+<li>
+<p>питання, релевантне Helix і Guardian → відповідають двоє.</p>
+</li>
+<li>
+<p><code>test_silence_policy_mentions()</code></p>
+</li>
+<li>
+<p>повідомлення без згадок і без ключових слів → <code>status: silent</code>.</p>
+</li>
+<li>
+<p><code>test_throttling_per_agent()</code></p>
+</li>
+<li>
+<p>4 виклики поспіль у межах 60 сек,</p>
+</li>
+<li><code>limit_per_minute=3</code>,</li>
+<li>
+<p>4-й → <code>status: throttled</code>.</p>
+</li>
+<li>
+<p><code>test_team_definition_loading()</code></p>
+</li>
+<li>
+<p>агрегація команд з <code>team_definition.yaml</code>,</p>
+</li>
+<li>мапінг на project_id.</li>
+</ol>
+<hr />
+<h2 id="11-summary">11. SUMMARY<a class="headerlink" href="#11-summary" title="Permanent link">&para;</a></h2>
+<p>Agents Service (7002) — це:</p>
+<ul>
+<li>офіційний текстовий runtime DAGI,</li>
+<li>точка входу для Helion/Helix/Metamorph та інших текстових агентів,</li>
+<li>
+<p>шар, який:</p>
+</li>
+<li>
+<p>"бачить" всю конфігурацію агентів (Registry),</p>
+</li>
+<li>"бачить" живі інстанси (Mesh Directory),</li>
+<li>враховує TeamDefinition/ProjectBus,</li>
+<li>контролює поведінку агентів у чатах (silence/panel/throttle).</li>
+</ul>
+<p>Після реалізації цього сервісу DAGI Router зможе:</p>
+<ul>
+<li>делегувати всю текстову логіку в єдиний, стандартизований компонент,</li>
+<li>який легко масштабувати між НОДА1/НОДА2 і далі.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

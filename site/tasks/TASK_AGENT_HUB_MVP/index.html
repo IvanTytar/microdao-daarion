@@ -1,0 +1,1065 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_AGENT_HUB_MVP/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK: Implement Agent Hub (Team Assistant) using existing Messenger as core - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-implement-agent-hub-team-assistant-using-existing-messenger-as-core" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK: Implement Agent Hub (Team Assistant) using existing Messenger as core
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-frontend-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1) Frontend structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1) Frontend structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Layout (3-колонковий)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layout (3-колонковий)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#left-agentsidebar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Left (AgentSidebar):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#center" class="md-nav__link">
+    <span class="md-ellipsis">
+      Center:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#right-agentcontextpanel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Right (AgentContextPanel):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-backend-agent-hub-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      2) Backend: Agent Hub API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2) Backend: Agent Hub API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoints:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Endpoints:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagent-hubagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agent-hub/agents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagent-hubagentsagentidsummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agent-hub/agents/{agentId}/summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-apiagent-hubagentsagentidcontext" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /api/agent-hub/agents/{agentId}/context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-apiagent-hubagentsagentidensure-direct-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /api/agent-hub/agents/{agentId}/ensure-direct-channel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-frontend-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      3) Frontend wiring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3) Frontend wiring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#useagentsts" class="md-nav__link">
+    <span class="md-ellipsis">
+      useAgents.ts:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useagenthubstatets" class="md-nav__link">
+    <span class="md-ellipsis">
+      useAgentHubState.ts:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agenthubpagetsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      AgentHubPage.tsx:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-reuse-messenger-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      4) Reuse Messenger components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5) Навігація
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6) Документація
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acceptance Criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-implement-agent-hub-team-assistant-using-existing-messenger-as-core">TASK: Implement Agent Hub (Team Assistant) using existing Messenger as core<a class="headerlink" href="#task-implement-agent-hub-team-assistant-using-existing-messenger-as-core" title="Permanent link">&para;</a></h1>
+<p><strong>Goal:</strong>
+Створити головний "Agent Hub" інтерфейс (Team Assistant), який:
+- показує список microDAO / команд / агентів,
+- дозволяє вибрати агента й говорити з ним (на основі Messenger),
+- показує контекст (проєкти, задачі, квести, стан агента),
+- стане <code>/home</code> для користувача.</p>
+<p><strong>Constraints:</strong>
+- Використати існуючий Messenger (channels, messages, WS) як ядро для чату.
+- Не дублювати логіку відправки/отримання повідомлень.
+- Agent Hub = надбудова над Messenger + Agents + Projects (stub).</p>
+<hr />
+<h2 id="1-frontend-structure">1) Frontend structure<a class="headerlink" href="#1-frontend-structure" title="Permanent link">&para;</a></h2>
+<p><strong>Create feature:</strong></p>
+<div class="codehilite"><pre><span></span><code>src/features/agent-hub/
+  AgentHubPage.tsx
+  components/
+    AgentSidebar.tsx
+    AgentList.tsx
+    AgentListItem.tsx
+    AgentSummaryCard.tsx
+    AgentContextPanel.tsx
+    AgentStatusBadge.tsx
+  hooks/
+    useAgents.ts
+    useAgentHubState.ts
+  api/
+    getAgents.ts
+    getAgentSummary.ts
+    getAgentContext.ts
+</code></pre></div>
+
+<p><strong>Route:</strong>
+- Додати <code>/hub</code> або <code>/home</code>:
+  <code>tsx
+  &lt;Route path="/hub" element={&lt;AgentHubPage /&gt;} /&gt;</code></p>
+<h3 id="layout-3-">Layout (3-колонковий)<a class="headerlink" href="#layout-3-" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>┌──────────────────┬────────────────────────────┬───────────────────┐
+│ Left:            │ Center:                    │ Right:            │
+│ Agents sidebar   │ Chat (Messenger embed)     │ Context panel     │
+└──────────────────┴────────────────────────────┴───────────────────┘
+</code></pre></div>
+
+<h4 id="left-agentsidebar">Left (AgentSidebar):<a class="headerlink" href="#left-agentsidebar" title="Permanent link">&para;</a></h4>
+<ul>
+<li>список:</li>
+<li>"My microDAO"</li>
+<li>"My agents"</li>
+<li>"System agents"</li>
+<li>кожен агент: name, kind, microDAO badge, status badge.</li>
+<li>фільтр/пошук.</li>
+</ul>
+<h4 id="center">Center:<a class="headerlink" href="#center" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Вбудований Messenger:</li>
+<li>Reuse MessengerPage components:<ul>
+<li>ChannelHeader</li>
+<li>MessageList</li>
+<li>MessageComposer</li>
+</ul>
+</li>
+<li>Але:<ul>
+<li>працюємо з "direct" або "agent-specific" channel.</li>
+</ul>
+</li>
+<li>При виборі агента:</li>
+<li>якщо ще немає direct channel з цим агентом:<ul>
+<li>викликати backend:
+  <code>http
+  POST /api/messaging/channels
+  {
+    "name": "DM with Sofia-Prime",
+    "type": "direct",
+    "agent_id": "&lt;agent_id&gt;"
+  }</code></li>
+<li>запамʼятати channel_id.</li>
+</ul>
+</li>
+<li>якщо є → просто підключити Messenger до цього channel_id.</li>
+</ul>
+<h4 id="right-agentcontextpanel">Right (AgentContextPanel):<a class="headerlink" href="#right-agentcontextpanel" title="Permanent link">&para;</a></h4>
+<ul>
+<li>картка обраного агента:</li>
+<li>імʼя, архетип, модель, microDAO.</li>
+<li>статус: active/idle, останній reply.</li>
+<li>блок "Active projects" (stub):</li>
+<li>отримати з <code>/api/agent-hub/agents/{id}/context</code></li>
+<li>список 3–5 проєктів/тасок (можна поки мок).</li>
+<li>блок "Capabilities":</li>
+<li>список інструментів агента (з blueprint):<ul>
+<li>"Can manage tasks"</li>
+<li>"Can summarise channels"</li>
+<li>"Can create follow-ups"</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="2-backend-agent-hub-api">2) Backend: Agent Hub API<a class="headerlink" href="#2-backend-agent-hub-api" title="Permanent link">&para;</a></h2>
+<p><strong>New service or extend existing agents-service:</strong></p>
+<p><code>services/agents-service/</code> (якщо вже є, розширити)</p>
+<h3 id="endpoints">Endpoints:<a class="headerlink" href="#endpoints" title="Permanent link">&para;</a></h3>
+<h4 id="get-apiagent-hubagents">GET /api/agent-hub/agents<a class="headerlink" href="#get-apiagent-hubagents" title="Permanent link">&para;</a></h4>
+<p>→ список агентів для поточного користувача:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sofia-Prime&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4.1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;avatar_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h4 id="get-apiagent-hubagentsagentidsummary">GET /api/agent-hub/agents/{agentId}/summary<a class="headerlink" href="#get-apiagent-hubagentsagentidsummary" title="Permanent link">&para;</a></h4>
+<p>→ коротке резюме:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agent:sofia&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sofia-Prime&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;microdao_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microdao:7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;specialization&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Team Assistant / PM&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Допомагає планувати, підсумовувати, слідкує за задачами.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;last_activity_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;stats&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;messages_last_24h&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="get-apiagent-hubagentsagentidcontext">GET /api/agent-hub/agents/{agentId}/context<a class="headerlink" href="#get-apiagent-hubagentsagentidcontext" title="Permanent link">&para;</a></h4>
+<p>→ контекст:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;projects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Messenger v1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;City Dashboard&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;followups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Перевірити NATS інтеграцію&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;due_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="post-apiagent-hubagentsagentidensure-direct-channel">POST /api/agent-hub/agents/{agentId}/ensure-direct-channel<a class="headerlink" href="#post-apiagent-hubagentsagentidensure-direct-channel" title="Permanent link">&para;</a></h4>
+<p>Body: <code>{}</code></p>
+<p>Behavior:
+- знайти чи існує direct channel між user та agent:
+  <code>sql
+  SELECT FROM channels WHERE kind='direct' AND user_id=... AND agent_id=...</code>
+- якщо не існує:
+  - створити в messaging-service:
+    <code>http
+    POST /internal/messaging/channels
+    {
+      "name": "DM with Sofia-Prime",
+      "kind": "direct",
+      "microdao_id": "&lt;current microdao&gt;",
+      "participants": ["user:...", "agent:sofia"]
+    }</code>
+  - повернути channel_id.
+- якщо існує → повернути channel_id.</p>
+<hr />
+<h2 id="3-frontend-wiring">3) Frontend wiring<a class="headerlink" href="#3-frontend-wiring" title="Permanent link">&para;</a></h2>
+<h3 id="useagentsts">useAgents.ts:<a class="headerlink" href="#useagentsts" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>GET /api/agent-hub/agents</code></li>
+<li>зберігати список агентів + loading/error.</li>
+</ul>
+<h3 id="useagenthubstatets">useAgentHubState.ts:<a class="headerlink" href="#useagenthubstatets" title="Permanent link">&para;</a></h3>
+<ul>
+<li>стан:</li>
+<li><code>selectedAgentId</code></li>
+<li><code>selectedChannelId</code></li>
+<li>методи:</li>
+<li><code>selectAgent(agentId)</code>:<ul>
+<li>викликати <code>/api/agent-hub/agents/{agentId}/ensure-direct-channel</code></li>
+<li>зберегти channelId</li>
+</ul>
+</li>
+<li><code>selectChannel(channelId)</code></li>
+</ul>
+<h3 id="agenthubpagetsx">AgentHubPage.tsx:<a class="headerlink" href="#agenthubpagetsx" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Layout на 3 колонки.</li>
+<li>Зліва: AgentSidebar (list, onSelect → selectAgent).</li>
+<li>Центр:</li>
+<li>якщо selectedChannelId:<ul>
+<li>рендер Messenger core:
+  <code>tsx
+  &lt;MessengerChannelView channelId={selectedChannelId} /&gt;</code>
+(створити обгортку над існуючими компонентами Messenger, яка приймає channelId як проп).</li>
+</ul>
+</li>
+<li>Праворуч: AgentContextPanel (summary + context для selectedAgent).</li>
+</ul>
+<hr />
+<h2 id="4-reuse-messenger-components">4) Reuse Messenger components<a class="headerlink" href="#4-reuse-messenger-components" title="Permanent link">&para;</a></h2>
+<p><strong>Створити lightweight обгортку:</strong></p>
+<p><code>src/features/messenger/components/MessengerChannelView.tsx</code></p>
+<p>Яка:
+- приймає <code>channelId</code> як проп,
+- внутрішньо використовує:
+  - <code>useMessages(channelId)</code>
+  - <code>useMessagingWebSocket(channelId)</code>
+  - <code>MessageList</code>
+  - <code>MessageComposer</code>
+  - <code>ChannelHeader</code> (можна переоприділити title під імʼя агента).</p>
+<p>Це дозволяє:
+- зберегти один стек логіки для Messenger,
+- використовувати його і в <code>/messenger</code>, і в <code>/hub</code>.</p>
+<hr />
+<h2 id="5">5) Навігація<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>Додати кнопку/посилання:
+- з Onboarding (PortalScene) → редірект у <code>/hub</code> замість <code>/city</code> або як додаткову опцію.
+- з <code>/city-v2</code> HUD: кнопка "Agent Hub" → <code>/hub</code>.
+- з <code>/messenger</code>: кнопка "Open Agent Hub" → <code>/hub</code>.</p>
+<hr />
+<h2 id="6">6) Документація<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<p>Додати:
+- <code>docs/AGENT_HUB_MVP.md</code>:
+  - опис ролі Agent Hub,
+  - API endpoints,
+  - UX flow (вибір агента → відкриття каналу → контекст справа),
+  - як це повʼязано з agent-runtime (Phase 2).</p>
+<hr />
+<h2 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ul>
+<li>✅ Route <code>/hub</code> відкривається без помилок.</li>
+<li>✅ В AgentSidebar видно список агентів для поточного користувача.</li>
+<li>✅ При виборі агента створюється (або знаходиться) direct channel, відкривається чат (Messenger components).</li>
+<li>✅ Праворуч показується хоча б stub-контекст (projects/followups з мокових даних).</li>
+<li>✅ Агент, підʼєднаний через Phase 2 (agent_filter + router + runtime), може відповідати в direct channel з Agent Hub.</li>
+</ul>
+<hr />
+<p><strong>Version:</strong> 1.0.0<br />
+<strong>Date:</strong> 2025-11-24<br />
+<strong>Priority:</strong> High<br />
+<strong>Estimated Time:</strong> 2 weeks<br />
+<strong>Dependencies:</strong> TASK_PHASE2_AGENT_INTEGRATION.md (recommended but not blocking for UI)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1133 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/AGENTS_TOOLS_AND_MONITORING_REPORT/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Звіт про інструменти агентів та моніторинг DAGI - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dagi" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Звіт про інструменти агентів та моніторинг DAGI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Інструменти пошуку в інтернеті
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Інструменти пошуку в інтернеті">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Поточний стан
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Доступні інструменти в системі
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Доступні інструменти в системі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-devtools-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. DevTools Agent
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tokenomicsadvisor-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. TokenomicsAdvisor Agent
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Рекомендації для додавання пошуку
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎨 Мультимодальні інструменти
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎨 Мультимодальні інструменти">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✅ Доступні мультимодальні можливості
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Доступні мультимодальні можливості">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Обробка зображень (Vision)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-audio" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Обробка голосових повідомлень (Audio)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-vision-encoder-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Vision Encoder (Embeddings)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-swapper-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Спеціалізовані моделі (Swapper Service)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Стан мультимодальності по агентах
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dagi_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 DAGI Моніторинг
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 DAGI Моніторинг">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Поточний стан
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Поточний стан">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prometheus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grafana
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Налаштовані метрики
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Чи відображаються зміни в реальному часі?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Посилання для моніторингу
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Посилання для моніторингу">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Локальний доступ (на сервері)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Публічний доступ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Рекомендації
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Рекомендації">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Додати інструменти пошуку
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Виправити моніторинг
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Розширити мультимодальність
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="dagi">Звіт про інструменти агентів та моніторинг DAGI<a class="headerlink" href="#dagi" title="Permanent link">&para;</a></h1>
+<p><strong>Дата:</strong> 2025-11-21<br />
+<strong>Сервер:</strong> Node #1 (144.76.224.179)</p>
+<h2 id="_1">🔍 Інструменти пошуку в інтернеті<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">Поточний стан<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>❌ Інструменти пошуку НЕ налаштовані для агентів</strong></p>
+<p>Перевірка показала:
+- CrewAI backend (<code>dagi-crewai</code>) не містить інструментів пошуку (SerperDevTool, DuckDuckGoSearchRun, тощо)
+- В <code>router-config.yml</code> немає конфігурації інструментів пошуку для агентів
+- Агенти <code>daarwizz</code> та <code>helion</code> не мають доступу до інструментів пошуку</p>
+<h3 id="_3">Доступні інструменти в системі<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h4 id="1-devtools-agent">1. DevTools Agent<a class="headerlink" href="#1-devtools-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <code>fs_read</code> - Читання файлів</li>
+<li>✅ <code>fs_write</code> - Запис файлів</li>
+<li>✅ <code>run_tests</code> - Запуск тестів</li>
+<li>✅ <code>git_diff</code> - Git diff</li>
+<li>✅ <code>git_commit</code> - Git commit</li>
+</ul>
+<h4 id="2-tokenomicsadvisor-agent">2. TokenomicsAdvisor Agent<a class="headerlink" href="#2-tokenomicsadvisor-agent" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <code>simulate_token_flow</code> - Симуляція потоків токенів</li>
+<li>✅ <code>calculate_thresholds</code> - Розрахунок порогів</li>
+<li>✅ <code>analyze_proposal</code> - Аналіз пропозицій</li>
+<li>✅ <code>predict_rwa_effects</code> - Прогнозування ефектів RWA</li>
+<li>✅ <code>query_tokenomics_docs</code> - Запити до документів токеноміки</li>
+<li>✅ <code>generate_policy_report</code> - Генерація звітів про політики</li>
+</ul>
+<h3 id="_4">Рекомендації для додавання пошуку<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Додати SerperDevTool або DuckDuckGoSearchRun до CrewAI</strong>
+   ```python
+   from crewai_tools import SerperDevTool, DuckDuckGoSearchRun</li>
+</ol>
+<p>search_tool = SerperDevTool()  # або DuckDuckGoSearchRun()
+   ```</p>
+<ol>
+<li><strong>Налаштувати для агентів в router-config.yml</strong>
+   <code>yaml
+   agents:
+     daarwizz:
+       tools:
+         - id: web_search
+           type: crewai
+           description: "Пошук в інтернеті"
+     helion:
+       tools:
+         - id: web_search
+           type: crewai
+           description: "Пошук в інтернеті"</code></li>
+</ol>
+<hr />
+<h2 id="_5">🎨 Мультимодальні інструменти<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">✅ Доступні мультимодальні можливості<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h4 id="1-vision">1. Обробка зображень (Vision)<a class="headerlink" href="#1-vision" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <strong>Swapper Service - vision-8b</strong> (Qwen3-VL 8B)</li>
+<li>Модель: <code>specialist_vision_8b</code></li>
+<li>Використання: Обробка фото через Telegram</li>
+<li>Агенти: <code>daarwizz</code>, <code>helion</code></li>
+<li>Статус: ✅ Працює</li>
+</ul>
+<h4 id="2-audio">2. Обробка голосових повідомлень (Audio)<a class="headerlink" href="#2-audio" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <strong>STT Service</strong> (Speech-to-Text)</li>
+<li>Порт: 9000</li>
+<li>Використання: Розпізнавання голосових повідомлень</li>
+<li>Агенти: <code>daarwizz</code>, <code>helion</code></li>
+<li>Статус: ✅ Працює</li>
+</ul>
+<h4 id="3-vision-encoder-embeddings">3. Vision Encoder (Embeddings)<a class="headerlink" href="#3-vision-encoder-embeddings" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <strong>Vision Encoder Service</strong> (OpenCLIP ViT-L/14)</li>
+<li>Порт: 8001</li>
+<li>Використання: Генерація embeddings для тексту та зображень</li>
+<li>Статус: ✅ Налаштовано</li>
+</ul>
+<h4 id="4-swapper-service">4. Спеціалізовані моделі (Swapper Service)<a class="headerlink" href="#4-swapper-service" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <code>vision-8b</code> - Обробка зображень</li>
+<li>✅ <code>math-7b</code> - Математичні розрахунки</li>
+<li>✅ <code>structured-fc-3b</code> - Function calling та JSON</li>
+<li>✅ <code>rag-mini-4b</code> - RAG запити</li>
+</ul>
+<h3 id="_7">Стан мультимодальності по агентах<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Агент</th>
+<th>Фото</th>
+<th>Голос</th>
+<th>Документи</th>
+<th>RAG</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>daarwizz</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>helion</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>devtools</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>greenfood</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>tokenomics-advisor</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dagi_1">📊 DAGI Моніторинг<a class="headerlink" href="#dagi_1" title="Permanent link">&para;</a></h2>
+<h3 id="_8">Поточний стан<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="prometheus">Prometheus<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h4>
+<ul>
+<li>✅ <strong>Статус:</strong> Healthy</li>
+<li>✅ <strong>Порт:</strong> 9090</li>
+<li>✅ <strong>URL:</strong> http://144.76.224.179:9090</li>
+<li>⚠️ <strong>Проблеми:</strong> Деякі targets показують <code>down</code>:</li>
+<li><code>gateway</code> - down</li>
+<li><code>router</code> - down</li>
+<li><code>stt-service</code> - down</li>
+<li><code>neo4j_exporter</code> - down</li>
+</ul>
+<h4 id="grafana">Grafana<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h4>
+<ul>
+<li>⚠️ <strong>Статус:</strong> Restarting (проблеми з плагіном neo4j-datasource)</li>
+<li>✅ <strong>Порт:</strong> 3000</li>
+<li>✅ <strong>URL:</strong> http://144.76.224.179:3000</li>
+<li>⚠️ <strong>Проблема:</strong> Плагін <code>neo4j-datasource</code> не знайдено (404)</li>
+</ul>
+<h3 id="_9">Налаштовані метрики<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>Prometheus збирає метрики з:
+- ✅ <code>dagi-router</code> (9102)
+- ✅ <code>telegram-gateway</code> (8000)
+- ✅ <code>dagi-gateway</code> (9300)
+- ✅ <code>dagi-rbac</code> (9200)
+- ✅ <code>dagi-crewai</code> (9010)
+- ✅ <code>dagi-parser</code> (9400)
+- ✅ <code>dagi-vision-encoder</code> (8001)
+- ✅ <code>dagi-devtools</code> (8008)
+- ✅ <code>dagi-stt</code> (9000)
+- ✅ <code>dagi-tts</code> (9101)
+- ✅ <code>dagi-qdrant</code> (6333)
+- ✅ <code>nats</code> (8222)
+- ✅ <code>postgres</code> (5432)</p>
+<h3 id="_10">Чи відображаються зміни в реальному часі?<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><strong>⚠️ Частково</strong></p>
+<p><strong>Проблеми:</strong>
+1. Деякі сервіси не експортують метрики (<code>/metrics</code> endpoint)
+2. Grafana перезапускається через проблеми з плагінами
+3. Не всі targets доступні для Prometheus</p>
+<p><strong>Що працює:</strong>
+- ✅ Prometheus збирає метрики з доступних сервісів
+- ✅ Метрики оновлюються з інтервалом 10-30 секунд
+- ✅ Router та Gateway мають health endpoints</p>
+<p><strong>Що потрібно виправити:</strong>
+1. Додати <code>/metrics</code> endpoints до всіх сервісів
+2. Виправити Grafana (видалити проблемний плагін або встановити правильний)
+3. Перевірити доступність targets для Prometheus</p>
+<hr />
+<h2 id="_11">🔗 Посилання для моніторингу<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="_12">Локальний доступ (на сервері)<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Prometheus:</strong> http://localhost:9090</li>
+<li><strong>Grafana:</strong> http://localhost:3000</li>
+<li><strong>Router Health:</strong> http://localhost:9102/health</li>
+<li><strong>Gateway Health:</strong> http://localhost:9300/health</li>
+<li><strong>Router Providers:</strong> http://localhost:9102/providers</li>
+<li><strong>Router Routing:</strong> http://localhost:9102/routing</li>
+</ul>
+<h3 id="_13">Публічний доступ<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Prometheus:</strong> http://144.76.224.179:9090</li>
+<li><strong>Grafana:</strong> http://144.76.224.179:3000</li>
+<li><strong>Gateway Health:</strong> https://gateway.daarion.city/health</li>
+</ul>
+<hr />
+<h2 id="_14">📝 Рекомендації<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. Додати інструменти пошуку<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Інтегрувати SerperDevTool або DuckDuckGoSearchRun в CrewAI</li>
+<li>Налаштувати для агентів <code>daarwizz</code> та <code>helion</code></li>
+<li>Додати конфігурацію в <code>router-config.yml</code></li>
+</ul>
+<h3 id="2">2. Виправити моніторинг<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Додати <code>/metrics</code> endpoints до всіх сервісів</li>
+<li>Виправити Grafana (видалити проблемний плагін)</li>
+<li>Перевірити доступність всіх targets</li>
+</ul>
+<h3 id="3">3. Розширити мультимодальність<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Додати обробку відео</li>
+<li>Додати TTS (Text-to-Speech) для голосових відповідей</li>
+<li>Розширити підтримку документів (docx, xlsx, тощо)</li>
+</ul>
+<hr />
+<p><strong>Останнє оновлення:</strong> 2025-11-21<br />
+<strong>Статус:</strong> ⚠️ Потребує уваги (інструменти пошуку та моніторинг)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1405 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/tasks/TASK_PHASE_CITY_BACKEND_FINISHER/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>TASK_PHASE_CITY_BACKEND_FINISHER.md - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task_phase_city_backend_finishermd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TASK_PHASE_CITY_BACKEND_FINISHER.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. База / припущення
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-backend-city" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Структура Backend-модулів City
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. PostgreSQL: нові таблиці
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PostgreSQL: нові таблиці">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-city_rooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Таблиця city_rooms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-city_room_messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Таблиця city_room_messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-city_feed_events" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Таблиця city_feed_events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-secondme_sessions-second-me" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Таблиця secondme_sessions (історія Second Me)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-redis-presence-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Redis: Presence System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Redis: Presence System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redis-" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redis-клієнт
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-http-api-city-rooms-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. HTTP API — City Rooms / Feed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HTTP API — City Rooms / Feed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-routes_citypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Маршрути (routes_city.py)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Маршрути (routes_city.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-cityrooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /city/rooms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-cityrooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /city/rooms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-cityroomsroom_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /city/rooms/{room_id}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-cityroomsroom_idmessages" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /city/rooms/{room_id}/messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-cityfeed" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /city/feed
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-websocket-city-rooms-presence" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. WebSocket — City Rooms + Presence
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. WebSocket — City Rooms + Presence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-city-rooms-ws-ws_citypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 City Rooms WS (ws_city.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-presence-ws-wscitypresence" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Presence WS (/ws/city/presence)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-backend-second-me" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Backend для Second Me
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Backend для Second Me">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-service-logic-secondme-serviceservice_secondmepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Service logic (secondme-service/service_secondme.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-api-routes_secondmepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 API (routes_secondme.py)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 API (routes_secondme.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-secondmeinvoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST /secondme/invoke
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-secondmehistory" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /secondme/history
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-agents-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Інтеграція з Agents Core
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Конфігурація (ENV)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Acceptance Criteria
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Acceptance Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-public-rooms" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Public Rooms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-presence" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Presence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-second-me" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Second Me
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-city-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 City Home
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Команда до Cursor
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task_phase_city_backend_finishermd">TASK_PHASE_CITY_BACKEND_FINISHER.md<a class="headerlink" href="#task_phase_city_backend_finishermd" title="Permanent link">&para;</a></h1>
+<p>DAARION CITY — Backend Completion for Phase 3 (MVP)</p>
+<p>Цей таск <strong>закриває City Backend</strong> до рівня, коли MVP можна деплоїти на сервер (daarion.space) і реально користуватись:</p>
+<ul>
+<li>Public Rooms (міські кімнати)</li>
+<li>Presence System (онлайн-статуси)</li>
+<li>Second Me (персональний агент MVP)</li>
+<li>City Home інтеграція (дані для дашборду міста)</li>
+</ul>
+<p>Фронтенд уже реалізований (CityRoomsPage, SecondMePage, PresenceBar тощо),<br />
+цей таск — про <strong>backend-реалізацію API + WS + Redis + DB + інтеграцію з Agents Core</strong>.</p>
+<hr />
+<h2 id="0">0. База / припущення<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Primary DB: <strong>PostgreSQL</strong> (той самий, що й для microdao).  </li>
+<li>Cache / presence: <strong>Redis</strong> (ok додати новий контейнер або використовувати існуючий).  </li>
+<li>Message bus: <strong>NATS JetStream</strong> (вже є для Agents Core).  </li>
+<li>HTTP API gateway: уже налаштований (<code>/api/...</code>, <code>/ws/...</code>), ти додаєш нові маршрути.  </li>
+<li>Існує <strong>Agents Core</strong> з endpoints <code>/agents/{id}/invoke</code> і NATS-темами <code>agents.invoke</code> / <code>agents.reply</code>.</li>
+</ol>
+<hr />
+<h2 id="1-backend-city">1. Структура Backend-модулів City<a class="headerlink" href="#1-backend-city" title="Permanent link">&para;</a></h2>
+<p>Створити (або доповнити, якщо частково вже є):</p>
+<div class="codehilite"><pre><span></span><code>services/
+  city-service/
+    __init__.py
+    models.py
+    schemas.py
+    routes_city.py
+    ws_city.py
+    presence.py
+    feed.py
+    rooms.py
+    repo.py
+  secondme-service/
+    __init__.py
+    models.py
+    schemas.py
+    routes_secondme.py
+    service_secondme.py
+  common/
+    redis_client.py      # якщо ще немає
+</code></pre></div>
+
+<p>І підключити:</p>
+<ul>
+<li><code>routes_city.py</code> і <code>routes_secondme.py</code> до основного <code>main.py</code> (або відповідного API-aggregator service).</li>
+<li><code>ws_city.py</code> — до WebSocket router'а (<code>/ws/...</code>).</li>
+</ul>
+<hr />
+<h2 id="2-postgresql">2. PostgreSQL: нові таблиці<a class="headerlink" href="#2-postgresql" title="Permanent link">&para;</a></h2>
+<h3 id="21-city_rooms">2.1 Таблиця <code>city_rooms</code><a class="headerlink" href="#21-city_rooms" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">city_rooms</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- room_id, напр. &quot;room_city_general&quot;</span>
+<span class="w">  </span><span class="n">slug</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span><span class="w">        </span><span class="c1">-- &quot;general&quot;, &quot;science&quot;</span>
+<span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">               </span><span class="c1">-- &quot;General&quot;, &quot;Science&quot;</span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">is_default</span><span class="w"> </span><span class="nb">boolean</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">false</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">created_by</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="w">              </span><span class="c1">-- user_id (u_*)</span>
+<span class="p">);</span>
+<span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">ix_city_rooms_slug</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">city_rooms</span><span class="p">(</span><span class="n">slug</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="22-city_room_messages">2.2 Таблиця <code>city_room_messages</code><a class="headerlink" href="#22-city_room_messages" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">city_room_messages</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- ksuid/ulid, префікс m_city_</span>
+<span class="w">  </span><span class="n">room_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">city_rooms</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">author_user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">         </span><span class="c1">-- u_*</span>
+<span class="w">  </span><span class="n">author_agent_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">        </span><span class="c1">-- ag_*</span>
+<span class="w">  </span><span class="n">body</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+<span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">ix_city_room_messages_room_time</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">city_room_messages</span><span class="p">(</span><span class="n">room_id</span><span class="p">,</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">desc</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="23-city_feed_events">2.3 Таблиця <code>city_feed_events</code><a class="headerlink" href="#23-city_feed_events" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">city_feed_events</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- evt_city_*</span>
+<span class="w">  </span><span class="n">kind</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">               </span><span class="c1">-- &#39;room_message&#39;,&#39;agent_reply&#39;,&#39;system&#39;</span>
+<span class="w">  </span><span class="n">room_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">city_rooms</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">agent_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">jsonb</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+<span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">ix_city_feed_time</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">city_feed_events</span><span class="p">(</span><span class="n">created_at</span><span class="w"> </span><span class="k">desc</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="24-secondme_sessions-second-me">2.4 Таблиця <code>secondme_sessions</code> (історія Second Me)<a class="headerlink" href="#24-secondme_sessions-second-me" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">secondme_sessions</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- smsess_*</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">            </span><span class="c1">-- u_*</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">secondme_messages</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">              </span><span class="c1">-- smmsg_*</span>
+<span class="w">  </span><span class="n">session_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">secondme_sessions</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">cascade</span><span class="p">,</span>
+<span class="w">  </span><span class="n">user_id</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="k">role</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="k">role</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span><span class="s1">&#39;assistant&#39;</span><span class="p">)),</span>
+<span class="w">  </span><span class="n">content</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="n">timestamptz</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+<span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">ix_secondme_messages_session_time</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">secondme_messages</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span><span class="w"> </span><span class="n">created_at</span><span class="w"> </span><span class="k">desc</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Для MVP: можна використовувати <strong>одну активну session per user</strong> (останню).</p>
+<hr />
+<h2 id="3-redis-presence-system">3. Redis: Presence System<a class="headerlink" href="#3-redis-presence-system" title="Permanent link">&para;</a></h2>
+<p>Використати Redis як KV-store для онлайн-присутності:</p>
+<ul>
+<li>key: <code>presence:user:{user_id}</code> → value: <code>"online"</code></li>
+<li>TTL: 40 секунд</li>
+<li>WS heartbeat кожні 20 секунд оновлює TTL</li>
+</ul>
+<h3 id="redis-">Redis-клієнт<a class="headerlink" href="#redis-" title="Permanent link">&para;</a></h3>
+<p><code>common/redis_client.py</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aioredis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="n">_redis</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_redis</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">aioredis</span><span class="o">.</span><span class="n">Redis</span><span class="p">:</span>
+    <span class="k">global</span> <span class="n">_redis</span>
+    <span class="k">if</span> <span class="n">_redis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_redis</span> <span class="o">=</span> <span class="k">await</span> <span class="n">aioredis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;REDIS_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;redis://redis:6379/0&quot;</span><span class="p">),</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+            <span class="n">decode_responses</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_redis</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-http-api-city-rooms-feed">4. HTTP API — City Rooms / Feed<a class="headerlink" href="#4-http-api-city-rooms-feed" title="Permanent link">&para;</a></h2>
+<h3 id="41-routes_citypy">4.1 Маршрути (routes_city.py)<a class="headerlink" href="#41-routes_citypy" title="Permanent link">&para;</a></h3>
+<p>Base prefix: <strong><code>/city</code></strong>.</p>
+<h4 id="get-cityrooms">GET <code>/city/rooms</code><a class="headerlink" href="#get-cityrooms" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Повертає список всіх кімнат.</li>
+<li>Query params: (optional) <code>limit</code>, <code>offset</code>.</li>
+<li>Response:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;General&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Головна кімната міста&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;members_online&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;last_event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-11-23T10:15:00Z&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p><code>members_online</code> рахувати через Redis:</p>
+<ul>
+<li>keys: <code>presence:user:*</code> → map users → rooms (див. нижче в Presence).</li>
+</ul>
+<p>Для MVP можна:</p>
+<ul>
+<li>рахувати <code>members_online</code> приблизно: число унікальних <code>presence:user:*</code> (спрощено),</li>
+<li>або додати key <code>presence:room:{room_id}</code> (більш точно).</li>
+</ul>
+<h4 id="post-cityrooms">POST <code>/city/rooms</code><a class="headerlink" href="#post-cityrooms" title="Permanent link">&para;</a></h4>
+<p>Body:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Science&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;science&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Наукова кімната&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Генерує <code>id = room_city_{slug}</code>.</li>
+<li>Створює запис у <code>city_rooms</code>.</li>
+<li>Віддає створену кімнату.</li>
+</ul>
+<h4 id="get-cityroomsroom_id">GET <code>/city/rooms/{room_id}</code><a class="headerlink" href="#get-cityroomsroom_id" title="Permanent link">&para;</a></h4>
+<p>Returns:</p>
+<ul>
+<li>room meta</li>
+<li>останні 50 повідомлень</li>
+<li>приблизний <code>members_online</code></li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;room&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;General&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Головна кімната міста&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;m_city_...&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;author_user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;author_agent_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Привіт місто!&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;members_online&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="post-cityroomsroom_idmessages">POST <code>/city/rooms/{room_id}/messages</code><a class="headerlink" href="#post-cityroomsroom_idmessages" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Body:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Текст повідомлення&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Запис у <code>city_room_messages</code>.</li>
+<li>Запис у <code>city_feed_events</code> з kind = <code>"room_message"</code>.</li>
+<li>Публікація WS event (див. WS нижче).</li>
+<li>Повертає створене повідомлення.</li>
+</ul>
+<h4 id="get-cityfeed">GET <code>/city/feed</code><a class="headerlink" href="#get-cityfeed" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Повертає останні N (наприклад, 20) подій:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;evt_city_...&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_message&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_general&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Текст...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;snippet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-websocket-city-rooms-presence">5. WebSocket — City Rooms + Presence<a class="headerlink" href="#5-websocket-city-rooms-presence" title="Permanent link">&para;</a></h2>
+<h3 id="51-city-rooms-ws-ws_citypy">5.1 City Rooms WS (<code>ws_city.py</code>)<a class="headerlink" href="#51-city-rooms-ws-ws_citypy" title="Permanent link">&para;</a></h3>
+<p>Шлях (через already existing WS server):</p>
+<div class="codehilite"><pre><span></span><code>/ws/city/rooms/{room_id}
+</code></pre></div>
+
+<p>Події (JSON):</p>
+<ul>
+<li>Вхідні від клієнта:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.join&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_general&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.leave&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room_city_general&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.message.send&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>Вихідні до клієнтів:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.message&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.join&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.leave&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;room.presence&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>При <code>room.message.send</code>:</p>
+<ol>
+<li>зберегти в DB (<code>city_room_messages</code>)</li>
+<li>зберегти в <code>city_feed_events</code></li>
+<li>розіслати WS подію <code>room.message</code> усім підписникам</li>
+</ol>
+<h3 id="52-presence-ws-wscitypresence">5.2 Presence WS (<code>/ws/city/presence</code>)<a class="headerlink" href="#52-presence-ws-wscitypresence" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Вхідні:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;presence.heartbeat&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>Обробка:</p>
+<ol>
+<li><code>SETEX presence:user:u_123 "online" 40</code></li>
+<li>broadcast (опційно) <code>presence.update</code>:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;presence.update&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;u_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;online&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<ol>
+<li>
+<p>Періодично (background task, наприклад кожні 30 сек):</p>
+</li>
+<li>
+<p>сканувати <code>presence:user:*</code>,</p>
+</li>
+<li>якщо TTL минув (Redis сам видаляє keys), ws-клієнтам можна розіслати <code>presence.update</code> зі статусом <code>"offline"</code> (або робити lazy-оновлення при наступних запитах).</li>
+</ol>
+<hr />
+<h2 id="6-backend-second-me">6. Backend для Second Me<a class="headerlink" href="#6-backend-second-me" title="Permanent link">&para;</a></h2>
+<h3 id="61-service-logic-secondme-serviceservice_secondmepy">6.1 Service logic (<code>secondme-service/service_secondme.py</code>)<a class="headerlink" href="#61-service-logic-secondme-serviceservice_secondmepy" title="Permanent link">&para;</a></h3>
+<p>Функції:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_or_create_session</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SecondMeSession</span><span class="p">:</span>
+    <span class="c1"># бере останню сесію або створює нову</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_last_messages</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">SecondMeMessage</span><span class="p">]:</span>
+    <span class="c1"># повертає останні 5 повідомлень з secondme_messages</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">invoke_second_me</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SecondMeMessage</span><span class="p">:</span>
+    <span class="c1"># 1. get_or_create_session</span>
+    <span class="c1"># 2. зберегти user-повідомлення</span>
+    <span class="c1"># 3. зібрати короткий контекст (останні N повідомлень)</span>
+    <span class="c1"># 4. викликати Agents Core:</span>
+    <span class="c1">#    POST /agents/{second_me_agent_id}/invoke</span>
+    <span class="c1">#    або NATS publish agents.invoke</span>
+    <span class="c1"># 5. зберегти assistant-відповідь</span>
+    <span class="c1"># 6. повернути відповідь</span>
+</code></pre></div>
+
+<p><code>second_me_agent_id</code> поки можна:</p>
+<ul>
+<li>або hardcode (один глобальний Second Me agent),</li>
+<li>або зберігати у таблиці <code>users</code> / <code>agents</code> як поле.</li>
+</ul>
+<p>Для MVP — допустимо hardcode у конфігу.</p>
+<h3 id="62-api-routes_secondmepy">6.2 API (<code>routes_secondme.py</code>)<a class="headerlink" href="#62-api-routes_secondmepy" title="Permanent link">&para;</a></h3>
+<h4 id="post-secondmeinvoke">POST <code>/secondme/invoke</code><a class="headerlink" href="#post-secondmeinvoke" title="Permanent link">&para;</a></h4>
+<p>Body:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>З HTTP-контексту брати <code>user_id</code> (із JWT).
+Викликати <code>invoke_second_me</code>, повернути:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;reply&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Текст відповіді&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;history&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="get-secondmehistory">GET <code>/secondme/history</code><a class="headerlink" href="#get-secondmehistory" title="Permanent link">&para;</a></h4>
+<p>Query: (optional) <code>limit</code>, default 5.
+Повернути:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-agents-core">7. Інтеграція з Agents Core<a class="headerlink" href="#7-agents-core" title="Permanent link">&para;</a></h2>
+<p>Для Second Me використати стандартний шлях:</p>
+<ul>
+<li>або <strong>HTTP-level</strong>:</li>
+</ul>
+<p><code>text
+  POST /agents/{second_me_agent_id}/invoke
+  {
+    "input": "...prompt+context...",
+    "context": { "user_id": "...", "kind": "secondme" }
+  }</code></p>
+<ul>
+<li>або <strong>NATS</strong> (якщо вже зручно):</li>
+</ul>
+<p><code>json
+  {
+    "event": "agents.invoke",
+    "agent_id": "ag_secondme",
+    "payload": {
+      "input": "...", 
+      "user_id": "u_123",
+      "source": "secondme"
+    }
+  }</code></p>
+<p>Для MVP допустимо використати HTTP-виклик до Agents Core service.</p>
+<hr />
+<h2 id="8-env">8. Конфігурація (ENV)<a class="headerlink" href="#8-env" title="Permanent link">&para;</a></h2>
+<p>Додати змінні:</p>
+<div class="codehilite"><pre><span></span><code>REDIS_URL=redis://redis:6379/0
+SECONDME_AGENT_ID=ag_secondme_global
+CITY_DEFAULT_ROOMS=general,welcome,builders
+</code></pre></div>
+
+<p>При старті <code>city-service</code>:</p>
+<ul>
+<li>
+<p>якщо <code>CITY_DEFAULT_ROOMS</code> порожній → створити дефолтні кімнати:</p>
+</li>
+<li>
+<p><code>room_city_general</code> ("General")</p>
+</li>
+<li><code>room_city_welcome</code> ("Welcome")</li>
+<li><code>room_city_builders</code> ("Builders")</li>
+</ul>
+<hr />
+<h2 id="9-acceptance-criteria">9. Acceptance Criteria<a class="headerlink" href="#9-acceptance-criteria" title="Permanent link">&para;</a></h2>
+<h3 id="91-public-rooms">9.1 Public Rooms<a class="headerlink" href="#91-public-rooms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>GET /city/rooms</code> повертає список кімнат.</li>
+<li><code>POST /city/rooms</code> створює кімнату, видно в фронтенді.</li>
+<li><code>GET /city/rooms/{room_id}</code> повертає кімнату та останні повідомлення.</li>
+<li>
+<p><code>POST /city/rooms/{room_id}/messages</code>:</p>
+</li>
+<li>
+<p>зберігає повідомлення в DB,</p>
+</li>
+<li>відправляє WS-івент <code>room.message</code>,</li>
+<li>додає запис у <code>city_feed_events</code>.</li>
+</ul>
+<h3 id="92-presence">9.2 Presence<a class="headerlink" href="#92-presence" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>при підключенні фронтенду до <code>/ws/city/presence</code> і надсиланні <code>presence.heartbeat</code>:</p>
+</li>
+<li>
+<p>Redis має ключ <code>presence:user:&lt;user_id&gt;</code> із TTL ~40с;</p>
+</li>
+<li>
+<p>інші клієнти отримують <code>presence.update</code> (online).</p>
+</li>
+<li>
+<p>при припиненні heartbeat ключ зникає → статус offline (або lazily оновлюється).</p>
+</li>
+</ul>
+<h3 id="93-second-me">9.3 Second Me<a class="headerlink" href="#93-second-me" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>POST /secondme/invoke</code>:</p>
+</li>
+<li>
+<p>робить виклик до Agents Core,</p>
+</li>
+<li>повертає текст відповіді,</li>
+<li>
+<p>історія зберігається у <code>secondme_messages</code>.</p>
+</li>
+<li>
+<p><code>GET /secondme/history</code> повертає останні N записів.</p>
+</li>
+</ul>
+<h3 id="94-city-home">9.4 City Home<a class="headerlink" href="#94-city-home" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>GET /city/feed</code> повертає події (room messages мінімум).</li>
+<li>Frontend City Home (вже реалізований) отримує всі необхідні дані через API.</li>
+</ul>
+<hr />
+<h2 id="10-cursor">10. Команда до Cursor<a class="headerlink" href="#10-cursor" title="Permanent link">&para;</a></h2>
+<p><strong>"Реалізувати backend для City MVP згідно TASK_PHASE_CITY_BACKEND_FINISHER.md.
+Створити city-service (rooms, feed, presence) та secondme-service.
+Інтегрувати з Redis (presence) та Agents Core (Second Me).
+Не змінювати існуючий фронтенд, тільки підключити API."</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

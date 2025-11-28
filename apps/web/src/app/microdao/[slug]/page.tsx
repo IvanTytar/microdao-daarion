@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useMicrodaoDetail } from "@/hooks/useMicrodao";
 import { DISTRICT_COLORS } from "@/lib/microdao";
+import { MicrodaoVisibilityCard } from "@/components/microdao/MicrodaoVisibilityCard";
 import { ChevronLeft, Users, MessageSquare, Crown, Building2, Globe, Lock, Layers, BarChart3, Bot } from "lucide-react";
 
 export default function MicrodaoDetailPage() {
@@ -370,6 +371,20 @@ export default function MicrodaoDetailPage() {
             </div>
           </div>
         </section>
+
+        {/* Visibility Settings (only for orchestrator) */}
+        {orchestrator && (
+          <MicrodaoVisibilityCard
+            microdaoId={microdao.id}
+            isPublic={microdao.is_public}
+            isPlatform={microdao.is_platform}
+            isOrchestrator={true}  // TODO: check if current user is orchestrator
+            onUpdated={() => {
+              // Refresh the page data
+              window.location.reload();
+            }}
+          />
+        )}
       </div>
     </div>
   );

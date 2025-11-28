@@ -1,0 +1,1578 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/50_daarion_city_website_integration/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>50 — DAARION.city Website Integration (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#50-daarioncity-website-integration-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              50 — DAARION.city Website Integration (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose &amp; Scope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Architecture Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-high-level-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 High-Level Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-integration-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Integration Modes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-daarioncity-as-first-microdao" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. DAARION.city as First MicroDAO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. DAARION.city as First MicroDAO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-team-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Team Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-public-channel-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Public Channel Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-city-agent-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 City Agent Setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-public-channel-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Public Channel API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Public Channel API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-get-public-channel-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Get Public Channel Info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-get-public-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Get Public Messages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-post-message-authenticated" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Post Message (Authenticated)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-register-as-viewermember" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Register as Viewer/Member
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-uiux-for-website-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. UI/UX for Website Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. UI/UX for Website Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-embedded-widget-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Embedded Widget Component
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-widget-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Widget Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Authentication Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-seo-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. SEO &amp; Metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. SEO & Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-open-graph-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Open Graph Tags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-twitter-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Twitter Cards
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-structured-data-json-ld" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Structured Data (JSON-LD)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-security-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Security &amp; Privacy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Security & Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-cors-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 CORS Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Rate Limiting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-content-moderation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Content Moderation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-analytics-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Analytics &amp; Tracking
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Analytics & Tracking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-events-to-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Events to Track
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-integration-with-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Integration with Analytics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-implementation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Implementation Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Implementation Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-backend-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Backend Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: API Endpoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-frontend-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Frontend Widget
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-website-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Website Integration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-example-integration-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Example Integration Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Example Integration Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-nextjs-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Next.js Page
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-react-widget-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 React Widget Component
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Testing Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Testing Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-backend-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Backend Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-frontend-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Frontend Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Integration Tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-integration-with-other-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Integration with Other Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-cursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Завдання для Cursor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="50-daarioncity-website-integration-microdao">50 — DAARION.city Website Integration (MicroDAO)<a class="headerlink" href="#50-daarioncity-website-integration-microdao" title="Permanent link">&para;</a></h1>
+<p><em>Специфікація інтеграції MicroDAO у офіційний сайт DAARION.city як перший публічний MicroDAO</em></p>
+<hr />
+<h2 id="1-purpose-scope">1. Purpose &amp; Scope<a class="headerlink" href="#1-purpose-scope" title="Permanent link">&para;</a></h2>
+<p>Документ визначає:</p>
+<ul>
+<li>як вбудовувати MicroDAO у офіційний сайт DAARION.city,</li>
+<li>API для публічного каналу міста,</li>
+<li>UI/UX для публічного каналу на сайті,</li>
+<li>Authentication flow для користувачів сайту,</li>
+<li>SEO та метадані для публічного каналу,</li>
+<li>Embedding/iframe інтеграцію (опційно),</li>
+<li>Analytics та tracking.</li>
+</ul>
+<p>Це перша інтеграція MicroDAO у зовнішній сайт.</p>
+<hr />
+<h2 id="2-architecture-overview">2. Architecture Overview<a class="headerlink" href="#2-architecture-overview" title="Permanent link">&para;</a></h2>
+<h3 id="21-high-level-integration">2.1 High-Level Integration<a class="headerlink" href="#21-high-level-integration" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>DAARION.city Website (Next.js/React)
+     ↓
+  Public Channel Embed
+     ↓
+  MicroDAO API Gateway
+     ↓
+  MicroDAO Backend Services
+</code></pre></div>
+
+<h3 id="22-integration-modes">2.2 Integration Modes<a class="headerlink" href="#22-integration-modes" title="Permanent link">&para;</a></h3>
+<p><strong>Mode 1: Embedded Widget (Recommended)</strong>
+- MicroDAO публічний канал вбудовується як React компонент на сайті
+- Використовує MicroDAO API напряму
+- Повний контроль над UI/UX</p>
+<p><strong>Mode 2: iframe Embed</strong>
+- MicroDAO публічний канал відкривається в iframe
+- Простіша інтеграція, менше контролю
+- Використовується для швидкого прототипування</p>
+<p><strong>Mode 3: Full Redirect</strong>
+- Посилання з сайту веде на окрему сторінку MicroDAO
+- Найпростіша реалізація
+- Втрачається контекст сайту</p>
+<hr />
+<h2 id="3-daarioncity-as-first-microdao">3. DAARION.city as First MicroDAO<a class="headerlink" href="#3-daarioncity-as-first-microdao" title="Permanent link">&para;</a></h2>
+<h3 id="31-team-setup">3.1 Team Setup<a class="headerlink" href="#31-team-setup" title="Permanent link">&para;</a></h3>
+<p>DAARION.city має бути створений як перший MicroDAO:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">teams</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">name</span><span class="p">,</span>
+<span class="w">  </span><span class="n">slug</span><span class="p">,</span>
+<span class="w">  </span><span class="k">type</span><span class="p">,</span>
+<span class="w">  </span><span class="k">mode</span><span class="p">,</span>
+<span class="w">  </span><span class="n">description</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span>
+<span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s1">&#39;daarion-city&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;DAARION.city&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;daarion&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;city&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;public&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;Офіційна спільнота міста DAARION&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">NOW</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h3 id="32-public-channel-setup">3.2 Public Channel Setup<a class="headerlink" href="#32-public-channel-setup" title="Permanent link">&para;</a></h3>
+<p>Створюється публічний канал для міста:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">channels</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">title</span><span class="p">,</span>
+<span class="w">  </span><span class="n">slug</span><span class="p">,</span>
+<span class="w">  </span><span class="k">type</span><span class="p">,</span>
+<span class="w">  </span><span class="n">is_public</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span>
+<span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s1">&#39;daarion-city-general&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;daarion-city&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;Загальний канал міста&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;general&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;public&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="k">true</span><span class="p">,</span>
+<span class="w">  </span><span class="n">NOW</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<h3 id="33-city-agent-setup">3.3 City Agent Setup<a class="headerlink" href="#33-city-agent-setup" title="Permanent link">&para;</a></h3>
+<p>Створюється міський агент:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">agents</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">team_id</span><span class="p">,</span>
+<span class="w">  </span><span class="n">name</span><span class="p">,</span>
+<span class="w">  </span><span class="k">role</span><span class="p">,</span>
+<span class="w">  </span><span class="n">system_prompt</span><span class="p">,</span>
+<span class="w">  </span><span class="n">memory_scope</span><span class="p">,</span>
+<span class="w">  </span><span class="n">created_at</span>
+<span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s1">&#39;daarion-city-agent&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;daarion-city&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;Міський Асистент&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;team_assistant&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;Ти — міський асистент DAARION.city. Допомагаєш мешканцям та гостям міста.&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;team&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">NOW</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-public-channel-api">4. Public Channel API<a class="headerlink" href="#4-public-channel-api" title="Permanent link">&para;</a></h2>
+<h3 id="41-get-public-channel-info">4.1 Get Public Channel Info<a class="headerlink" href="#41-get-public-channel-info" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /api/v1/channels/{slug}/public</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city-general&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Загальний канал міста&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Публічний канал для обговорення міських питань&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;member_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">567</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_public&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion-city&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION.city&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;daarion&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="42-get-public-messages">4.2 Get Public Messages<a class="headerlink" href="#42-get-public-messages" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">GET /api/v1/channels/{slug}/public/messages?limit=50&amp;before={message_id}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg-123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;sender&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user-456&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Олександр&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;avatar_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Привіт, місто!&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;reactions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;pagination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;has_more&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;next_cursor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg-124&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="43-post-message-authenticated">4.3 Post Message (Authenticated)<a class="headerlink" href="#43-post-message-authenticated" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /api/v1/channels/{slug}/public/messages</span>
+<span class="err">Authorization: Bearer {token}</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;body&quot;: &quot;Повідомлення від користувача&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<h3 id="44-register-as-viewermember">4.4 Register as Viewer/Member<a class="headerlink" href="#44-register-as-viewermember" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">POST /api/v1/channels/{slug}/public/join</span>
+<span class="err">Content-Type: application/json</span>
+
+<span class="err">{</span>
+<span class="err">  &quot;email&quot;: &quot;user@example.com&quot;,</span>
+<span class="err">  &quot;name&quot;: &quot;Ім&#39;я Користувача&quot;,</span>
+<span class="err">  &quot;viewer_type&quot;: &quot;member&quot; | &quot;visitor&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<p><strong>Response:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user-789&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jwt-token&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;membership&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;member&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;viewer_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;member&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-uiux-for-website-integration">5. UI/UX for Website Integration<a class="headerlink" href="#5-uiux-for-website-integration" title="Permanent link">&para;</a></h2>
+<h3 id="51-embedded-widget-component">5.1 Embedded Widget Component<a class="headerlink" href="#51-embedded-widget-component" title="Permanent link">&para;</a></h3>
+<p><strong>React Component:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">MicroDAOChannelEmbed</span>
+<span class="w">  </span><span class="na">channelSlug</span><span class="o">=</span><span class="s">&quot;general&quot;</span>
+<span class="w">  </span><span class="na">teamSlug</span><span class="o">=</span><span class="s">&quot;daarion&quot;</span>
+<span class="w">  </span><span class="na">apiUrl</span><span class="o">=</span><span class="s">&quot;https://api.microdao.xyz/v1&quot;</span>
+<span class="w">  </span><span class="na">theme</span><span class="o">=</span><span class="s">&quot;light&quot;</span>
+<span class="w">  </span><span class="na">showHeader</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span>
+<span class="w">  </span><span class="na">allowJoin</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span>
+<span class="p">/&gt;</span>
+</code></pre></div>
+
+<p><strong>Props:</strong>
+- <code>channelSlug</code>: slug каналу
+- <code>teamSlug</code>: slug команди
+- <code>apiUrl</code>: URL API Gateway
+- <code>theme</code>: "light" | "dark"
+- <code>showHeader</code>: показувати заголовок каналу
+- <code>allowJoin</code>: дозволити реєстрацію з віджета</p>
+<h3 id="52-widget-layout">5.2 Widget Layout<a class="headerlink" href="#52-widget-layout" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">┌─────────────────────────────────────┐</span>
+<span class="err">│</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Загальний</span><span class="w"> </span><span class="n">канал</span><span class="w"> </span><span class="n">міста</span><span class="w">             </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="n">DAARION</span><span class="p">.</span><span class="n">city</span><span class="w">                        </span><span class="err">│</span>
+<span class="err">├─────────────────────────────────────┤</span>
+<span class="err">│</span><span class="w">                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">[</span><span class="n">Messages</span><span class="w"> </span><span class="n">List</span><span class="p">]</span><span class="w">                    </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">┌───────────────────────────────┐</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="p">[</span><span class="n">Input</span><span class="w"> </span><span class="n">Field</span><span class="p">]</span><span class="w">        </span><span class="p">[</span><span class="n">Send</span><span class="p">]</span><span class="w">   </span><span class="err">│</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="err">└───────────────────────────────┘</span><span class="w"> </span><span class="err">│</span>
+<span class="err">│</span><span class="w">                                     </span><span class="err">│</span>
+<span class="err">│</span><span class="w">  </span><span class="p">[</span><span class="n">Join</span><span class="w"> </span><span class="n">Button</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">authenticated</span><span class="p">)</span><span class="err">│</span>
+<span class="err">└─────────────────────────────────────┘</span>
+</code></pre></div>
+
+<h3 id="53-authentication-flow">5.3 Authentication Flow<a class="headerlink" href="#53-authentication-flow" title="Permanent link">&para;</a></h3>
+<p><strong>Step 1: Guest View</strong>
+- Користувач бачить повідомлення (read-only)
+- Кнопка "Приєднатися до обговорення"</p>
+<p><strong>Step 2: Join Modal</strong>
+- Форма: Email, Ім'я, Тип участі (Member/Visitor)
+- Відправка запиту на <code>/api/v1/channels/{slug}/public/join</code>
+- Отримання JWT токену</p>
+<p><strong>Step 3: Authenticated View</strong>
+- Користувач може писати повідомлення
+- Відображається його профіль
+- Доступ до повної функціональності каналу</p>
+<hr />
+<h2 id="6-seo-metadata">6. SEO &amp; Metadata<a class="headerlink" href="#6-seo-metadata" title="Permanent link">&para;</a></h2>
+<h3 id="61-open-graph-tags">6.1 Open Graph Tags<a class="headerlink" href="#61-open-graph-tags" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:title&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Загальний канал міста DAARION.city&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Публічний канал для обговорення міських питань&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;website&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:url&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;https://daarion.city/channel/general&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:image&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;https://daarion.city/og-image.png&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+
+<h3 id="62-twitter-cards">6.2 Twitter Cards<a class="headerlink" href="#62-twitter-cards" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;twitter:card&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;summary_large_image&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;twitter:title&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Загальний канал міста DAARION.city&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;twitter:description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Публічний канал для обговорення міських питань&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;twitter:image&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;https://daarion.city/twitter-image.png&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+
+<h3 id="63-structured-data-json-ld">6.3 Structured Data (JSON-LD)<a class="headerlink" href="#63-structured-data-json-ld" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.org&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DiscussionForumPosting&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;headline&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Загальний канал міста DAARION.city&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Публічний канал для обговорення міських питань&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Organization&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DAARION.city&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;datePublished&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-14T10:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7-security-privacy">7. Security &amp; Privacy<a class="headerlink" href="#7-security-privacy" title="Permanent link">&para;</a></h2>
+<h3 id="71-cors-configuration">7.1 CORS Configuration<a class="headerlink" href="#71-cors-configuration" title="Permanent link">&para;</a></h3>
+<p>API Gateway має дозволяти запити з <code>https://daarion.city</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">corsOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">origin</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s1">&#39;https://daarion.city&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;https://www.daarion.city&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="w"> </span><span class="c1">// для розробки</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">credentials</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;PUT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;DELETE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;OPTIONS&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">allowedHeaders</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h3 id="72-rate-limiting">7.2 Rate Limiting<a class="headerlink" href="#72-rate-limiting" title="Permanent link">&para;</a></h3>
+<p>Публічний канал має обмеження:</p>
+<ul>
+<li><strong>Guest (read-only):</strong> 100 requests/minute</li>
+<li><strong>Authenticated (write):</strong> 30 messages/minute</li>
+<li><strong>Join requests:</strong> 5 requests/hour per IP</li>
+</ul>
+<h3 id="73-content-moderation">7.3 Content Moderation<a class="headerlink" href="#73-content-moderation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Автоматична модерація через Agent</li>
+<li>Фільтрація спаму</li>
+<li>Блокування токсичного контенту</li>
+<li>Можливість скарг від користувачів</li>
+</ul>
+<hr />
+<h2 id="8-analytics-tracking">8. Analytics &amp; Tracking<a class="headerlink" href="#8-analytics-tracking" title="Permanent link">&para;</a></h2>
+<h3 id="81-events-to-track">8.1 Events to Track<a class="headerlink" href="#81-events-to-track" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">AnalyticsEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;channel_view&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">channel_slug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;message_sent&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">channel_slug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">user_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;join_clicked&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">channel_slug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;join_completed&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">channel_slug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">viewer_type</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;widget_loaded&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">channel_slug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">load_time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+
+<h3 id="82-integration-with-analytics">8.2 Integration with Analytics<a class="headerlink" href="#82-integration-with-analytics" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Google Analytics 4</li>
+<li>Plausible Analytics (privacy-friendly)</li>
+<li>Custom analytics endpoint</li>
+</ul>
+<hr />
+<h2 id="9-implementation-steps">9. Implementation Steps<a class="headerlink" href="#9-implementation-steps" title="Permanent link">&para;</a></h2>
+<h3 id="step-1-backend-setup">Step 1: Backend Setup<a class="headerlink" href="#step-1-backend-setup" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Створити DAARION.city team у БД</li>
+<li>Створити публічний канал</li>
+<li>Створити міського агента</li>
+<li>Налаштувати CORS для <code>daarion.city</code></li>
+<li>Додати rate limiting для публічного каналу</li>
+</ol>
+<h3 id="step-2-api-endpoints">Step 2: API Endpoints<a class="headerlink" href="#step-2-api-endpoints" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>GET /api/v1/channels/{slug}/public</code> — інформація про канал</li>
+<li><code>GET /api/v1/channels/{slug}/public/messages</code> — повідомлення</li>
+<li><code>POST /api/v1/channels/{slug}/public/messages</code> — надіслати повідомлення</li>
+<li><code>POST /api/v1/channels/{slug}/public/join</code> — приєднатися</li>
+</ol>
+<h3 id="step-3-frontend-widget">Step 3: Frontend Widget<a class="headerlink" href="#step-3-frontend-widget" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Створити React компонент <code>MicroDAOChannelEmbed</code></li>
+<li>Інтегрувати з API</li>
+<li>Додати authentication flow</li>
+<li>Додати real-time оновлення (WebSocket/SSE)</li>
+</ol>
+<h3 id="step-4-website-integration">Step 4: Website Integration<a class="headerlink" href="#step-4-website-integration" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Додати компонент на сторінку <code>daarion.city/channel/general</code></li>
+<li>Налаштувати SEO метадані</li>
+<li>Додати analytics tracking</li>
+<li>Тестування на production</li>
+</ol>
+<hr />
+<h2 id="10-example-integration-code">10. Example Integration Code<a class="headerlink" href="#10-example-integration-code" title="Permanent link">&para;</a></h2>
+<h3 id="101-nextjs-page">10.1 Next.js Page<a class="headerlink" href="#101-nextjs-page" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// pages/channel/[slug].tsx</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">MicroDAOChannelEmbed</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@/components/MicroDAOChannelEmbed&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">Head</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;next/head&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">ChannelPage</span><span class="p">({</span><span class="w"> </span><span class="nx">channelSlug</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">Head</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span><span class="nx">Загальний</span><span class="w"> </span><span class="nx">канал</span><span class="w"> </span><span class="nx">міста</span><span class="w"> </span><span class="nx">DAARION</span><span class="p">.</span><span class="nx">city</span><span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">meta</span><span class="w"> </span><span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span><span class="w"> </span><span class="na">content</span><span class="o">=</span><span class="s">&quot;Публічний канал для обговорення міських питань&quot;</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">        </span><span class="p">{</span><span class="cm">/* Open Graph tags */</span><span class="p">}</span>
+<span class="w">        </span><span class="p">{</span><span class="cm">/* Twitter Cards */</span><span class="p">}</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">Head</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;container mx-auto py-8&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">MicroDAOChannelEmbed</span>
+<span class="w">          </span><span class="na">channelSlug</span><span class="o">=</span><span class="p">{</span><span class="nx">channelSlug</span><span class="p">}</span>
+<span class="w">          </span><span class="na">teamSlug</span><span class="o">=</span><span class="s">&quot;daarion&quot;</span>
+<span class="w">          </span><span class="na">apiUrl</span><span class="o">=</span><span class="p">{</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NEXT_PUBLIC_MICRODAO_API_URL</span><span class="p">}</span>
+<span class="w">          </span><span class="na">theme</span><span class="o">=</span><span class="s">&quot;light&quot;</span>
+<span class="w">          </span><span class="na">showHeader</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span>
+<span class="w">          </span><span class="na">allowJoin</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span>
+<span class="w">        </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="102-react-widget-component">10.2 React Widget Component<a class="headerlink" href="#102-react-widget-component" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// components/MicroDAOChannelEmbed.tsx</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useState</span><span class="p">,</span><span class="w"> </span><span class="nx">useEffect</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useChannelMessages</span><span class="p">,</span><span class="w"> </span><span class="nx">useJoinChannel</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@/hooks/useMicroDAO&#39;</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">MicroDAOChannelEmbed</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">channelSlug</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">teamSlug</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">apiUrl</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">theme</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">showHeader</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">allowJoin</span>
+<span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">isAuthenticated</span><span class="p">,</span><span class="w"> </span><span class="nx">setIsAuthenticated</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">messages</span><span class="p">,</span><span class="w"> </span><span class="nx">loadMore</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useChannelMessages</span><span class="p">(</span><span class="nx">channelSlug</span><span class="p">,</span><span class="w"> </span><span class="nx">apiUrl</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">join</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useJoinChannel</span><span class="p">(</span><span class="nx">channelSlug</span><span class="p">,</span><span class="w"> </span><span class="nx">apiUrl</span><span class="p">);</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">handleJoin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">viewerType</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">join</span><span class="p">(</span><span class="nx">email</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">viewerType</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">access_token</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;microdao_token&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">access_token</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">setIsAuthenticated</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="sb">`microdao-widget theme-</span><span class="si">${</span><span class="nx">theme</span><span class="si">}</span><span class="sb">`</span><span class="p">}&gt;</span>
+<span class="w">      </span><span class="p">{</span><span class="nx">showHeader</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;widget-header&quot;</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="err">#</span><span class="w"> </span><span class="nx">Загальний</span><span class="w"> </span><span class="nx">канал</span><span class="w"> </span><span class="nx">міста</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="nx">DAARION</span><span class="p">.</span><span class="nx">city</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">)}</span>
+
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;messages-list&quot;</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">{</span><span class="nx">messages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">msg</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">Message</span><span class="w"> </span><span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">msg</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="w"> </span><span class="na">message</span><span class="o">=</span><span class="p">{</span><span class="nx">msg</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">        </span><span class="p">))}</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="w">      </span><span class="p">{</span><span class="nx">isAuthenticated</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">MessageInput</span><span class="w"> </span><span class="na">channelSlug</span><span class="o">=</span><span class="p">{</span><span class="nx">channelSlug</span><span class="p">}</span><span class="w"> </span><span class="na">apiUrl</span><span class="o">=</span><span class="p">{</span><span class="nx">apiUrl</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="nx">allowJoin</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">JoinButton</span><span class="w"> </span><span class="na">onJoin</span><span class="o">=</span><span class="p">{</span><span class="nx">handleJoin</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">      </span><span class="p">)}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="11-testing-checklist">11. Testing Checklist<a class="headerlink" href="#11-testing-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="111-backend-tests">11.1 Backend Tests<a class="headerlink" href="#111-backend-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Публічний канал створено для DAARION.city</li>
+<li>[ ] API endpoints повертають коректні дані</li>
+<li>[ ] CORS налаштовано правильно</li>
+<li>[ ] Rate limiting працює</li>
+<li>[ ] Authentication flow працює</li>
+</ul>
+<h3 id="112-frontend-tests">11.2 Frontend Tests<a class="headerlink" href="#112-frontend-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Widget завантажується на сайті</li>
+<li>[ ] Повідомлення відображаються коректно</li>
+<li>[ ] Join flow працює</li>
+<li>[ ] Real-time оновлення працюють</li>
+<li>[ ] Responsive design на мобільних</li>
+</ul>
+<h3 id="113-integration-tests">11.3 Integration Tests<a class="headerlink" href="#113-integration-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] SEO метадані відображаються</li>
+<li>[ ] Analytics tracking працює</li>
+<li>[ ] Content moderation працює</li>
+<li>[ ] Error handling коректний</li>
+</ul>
+<hr />
+<h2 id="12-integration-with-other-docs">12. Integration with Other Docs<a class="headerlink" href="#12-integration-with-other-docs" title="Permanent link">&para;</a></h2>
+<p>Цей документ доповнює:</p>
+<ul>
+<li><code>DAARION_city_integration.md</code> — загальна архітектура DAARION.city</li>
+<li><code>47_messaging_channels_and_privacy_layers.md</code> — архітектура каналів</li>
+<li><code>04_ui_ux_onboarding_chat.md</code> — UI/UX специфікація</li>
+<li><code>03_api_core_snapshot.md</code> — API контракти</li>
+</ul>
+<hr />
+<h2 id="13-cursor">13. Завдання для Cursor<a class="headerlink" href="#13-cursor" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>You are a senior full-stack engineer. Implement DAARION.city website integration using:
+- 50_daarion_city_website_integration.md
+- DAARION_city_integration.md
+- 47_messaging_channels_and_privacy_layers.md
+- 03_api_core_snapshot.md
+
+Tasks:
+1) Create DAARION.city team in database (type=&#39;city&#39;, slug=&#39;daarion&#39;, mode=&#39;public&#39;).
+2) Create public channel for DAARION.city (slug=&#39;general&#39;, type=&#39;public&#39;, is_public=true).
+3) Create city agent for DAARION.city (role=&#39;team_assistant&#39;, memory_scope=&#39;team&#39;).
+4) Implement Public Channel API endpoints:
+   - GET /api/v1/channels/{slug}/public (channel info)
+   - GET /api/v1/channels/{slug}/public/messages (messages with pagination)
+   - POST /api/v1/channels/{slug}/public/messages (send message, authenticated)
+   - POST /api/v1/channels/{slug}/public/join (register as viewer/member)
+5) Configure CORS for daarion.city domain.
+6) Add rate limiting for public channel (guest: 100 req/min, authenticated: 30 msg/min, join: 5 req/hour).
+7) Create React component MicroDAOChannelEmbed (props: channelSlug, teamSlug, apiUrl, theme, showHeader, allowJoin).
+8) Implement authentication flow (guest view → join modal → authenticated view).
+9) Add real-time updates (WebSocket/SSE for new messages).
+10) Add SEO metadata (Open Graph, Twitter Cards, JSON-LD).
+11) Add analytics tracking (channel_view, message_sent, join_clicked, join_completed, widget_loaded).
+12) Add content moderation (spam filter, toxic content detection, user reports).
+
+Output:
+- list of modified files
+- diff
+- summary
+</code></pre></div>
+
+<hr />
+<h2 id="14-summary">14. Summary<a class="headerlink" href="#14-summary" title="Permanent link">&para;</a></h2>
+<p>Інтеграція MicroDAO у офіційний сайт DAARION.city:</p>
+<ul>
+<li>DAARION.city стає першим MicroDAO типу "city"</li>
+<li>Публічний канал вбудовується на сайт як React компонент</li>
+<li>API endpoints для публічного каналу</li>
+<li>Authentication flow для користувачів сайту</li>
+<li>SEO та метадані для публічного каналу</li>
+<li>Analytics та tracking</li>
+<li>Security (CORS, rate limiting, content moderation)</li>
+</ul>
+<p>Це перша інтеграція MicroDAO у зовнішній сайт, яка стане основою для подальших інтеграцій з іншими платформами.</p>
+<hr />
+<p><strong>Версія:</strong> 1.0<br />
+<strong>Останнє оновлення:</strong> 2024-11-14</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1083 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/rag_ingestion_worker_task/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>Task: RAG ingestion worker (events → Milvus + Neo4j) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-rag-ingestion-worker-events-milvus-neo4j" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task: RAG ingestion worker (events → Milvus + Neo4j)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-level design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-level design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-service-placement-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Service placement &amp; structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-event-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Event sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalized-documentchunk-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normalized document/chunk model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-milvus-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embedding &amp; Milvus indexing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Embedding & Milvus indexing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Embedding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-milvus-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Milvus indexing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neo4j-graph-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neo4j graph updates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idempotency-reindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Idempotency &amp; reindex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Idempotency & reindex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-idempotent-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Idempotent semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reindex-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Reindex API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring &amp; logging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-to-createmodify-suggested" class="md-nav__link">
+    <span class="md-ellipsis">
+      Files to create/modify (suggested)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acceptance criteria
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="task-rag-ingestion-worker-events-milvus-neo4j">Task: RAG ingestion worker (events → Milvus + Neo4j)<a class="headerlink" href="#task-rag-ingestion-worker-events-milvus-neo4j" title="Permanent link">&para;</a></h1>
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Design and scaffold a <strong>RAG ingestion worker</strong> that:</p>
+<ul>
+<li>Сonsumes domain events (messages, docs, files, RWA updates) from the existing event stream.</li>
+<li>Transforms them into normalized chunks/documents.</li>
+<li>Indexes them into <strong>Milvus</strong> (vector store) and <strong>Neo4j</strong> (graph store).</li>
+<li>Works <strong>idempotently</strong> and supports <code>reindex(team_id)</code>.</li>
+</ul>
+<p>This worker complements the <code>rag-gateway</code> service (see <code>docs/cursor/rag_gateway_task.md</code>) by keeping its underlying stores up-to-date.</p>
+<blockquote>
+<p>IMPORTANT: This task is about architecture, data flow and scaffolding. Concrete model choices and full schemas can be refined later.</p>
+</blockquote>
+<hr />
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Project root: <code>microdao-daarion/</code>.</li>
+<li>Planned/implemented RAG layer: see <code>docs/cursor/rag_gateway_task.md</code>.</li>
+<li>Existing docs:</li>
+<li><code>docs/cursor/42_nats_event_streams_and_event_catalog.md</code> – event stream &amp; catalog.</li>
+<li><code>docs/cursor/34_internal_services_architecture.md</code> – internal services &amp; topology.</li>
+</ul>
+<p>We assume there is (or will be):</p>
+<ul>
+<li>An event bus (likely NATS) with domain events such as:</li>
+<li><code>message.created</code></li>
+<li><code>doc.upsert</code></li>
+<li><code>file.uploaded</code></li>
+<li><code>rwa.energy.update</code>, <code>rwa.food.update</code>, etc.</li>
+<li>A Milvus cluster instance.</li>
+<li>A Neo4j instance.</li>
+</ul>
+<p>The ingestion worker must <strong>not</strong> be called directly by agents. It is a back-office service that feeds RAG stores for the <code>rag-gateway</code>.</p>
+<hr />
+<h2 id="high-level-design">High-level design<a class="headerlink" href="#high-level-design" title="Permanent link">&para;</a></h2>
+<h3 id="1-service-placement-structure">1. Service placement &amp; structure<a class="headerlink" href="#1-service-placement-structure" title="Permanent link">&para;</a></h3>
+<p>Create a new service (or extend RAG-gateway repo structure) under, for example:</p>
+<ul>
+<li><code>services/rag-ingest-worker/</code></li>
+</ul>
+<p>Suggested files:</p>
+<ul>
+<li><code>main.py</code> — entrypoint (CLI or long-running process).</li>
+<li><code>config.py</code> — environment/config loader (event bus URL, Milvus/Neo4j URLs, batch sizes, etc.).</li>
+<li><code>events/consumer.py</code> — NATS (or other) consumer logic.</li>
+<li><code>pipeline/normalization.py</code> — turn events into normalized documents/chunks.</li>
+<li><code>pipeline/embedding.py</code> — embedding model client/wrapper.</li>
+<li><code>pipeline/index_milvus.py</code> — Milvus upsert logic.</li>
+<li><code>pipeline/index_neo4j.py</code> — Neo4j graph updates.</li>
+<li><code>api.py</code> — optional HTTP API for:</li>
+<li><code>POST /ingest/one</code> – ingest single payload for debugging.</li>
+<li><code>POST /ingest/reindex/{team_id}</code> – trigger reindex job.</li>
+<li><code>GET /health</code> – health check.</li>
+</ul>
+<h3 id="2-event-sources">2. Event sources<a class="headerlink" href="#2-event-sources" title="Permanent link">&para;</a></h3>
+<p>The worker should subscribe to a <strong>small set of core event types</strong> (names to be aligned with the actual Event Catalog):</p>
+<ul>
+<li><code>message.created</code> — messages in chats/channels (Telegram, internal UI, etc.).</li>
+<li><code>doc.upsert</code> — wiki/docs/specs updates.</li>
+<li><code>file.uploaded</code> — files (PDF, images) that have parsed text.</li>
+<li><code>rwa.*</code> — events related to energy/food/water assets (optional, for later).</li>
+</ul>
+<p>Implementation details:</p>
+<ul>
+<li>Use NATS (or another broker) subscription patterns from <code>docs/cursor/42_nats_event_streams_and_event_catalog.md</code>.</li>
+<li>Each event should carry at least:</li>
+<li><code>event_type</code></li>
+<li><code>team_id</code> / <code>dao_id</code></li>
+<li><code>user_id</code></li>
+<li><code>channel_id</code> / <code>project_id</code> (if applicable)</li>
+<li><code>payload</code> with text/content and metadata.</li>
+</ul>
+<hr />
+<h2 id="normalized-documentchunk-model">Normalized document/chunk model<a class="headerlink" href="#normalized-documentchunk-model" title="Permanent link">&para;</a></h2>
+<p>Define a common internal model for what is sent to Milvus/Neo4j, e.g. <code>IngestChunk</code>:</p>
+<p>Fields (minimum):</p>
+<ul>
+<li><code>chunk_id</code> — deterministic ID (e.g. hash of (team_id, source_type, source_id, chunk_index)).</li>
+<li><code>team_id</code> / <code>dao_id</code>.</li>
+<li><code>project_id</code> (optional).</li>
+<li><code>channel_id</code> (optional).</li>
+<li><code>agent_id</code> (who generated it, if any).</li>
+<li><code>source_type</code> — <code>"message" | "doc" | "file" | "wiki" | "rwa" | ...</code>.</li>
+<li><code>source_id</code> — e.g. message ID, doc ID, file ID.</li>
+<li><code>text</code> — the chunk content.</li>
+<li><code>tags</code> — list of tags (topic, domain, etc.).</li>
+<li><code>visibility</code> — <code>"public" | "confidential"</code>.</li>
+<li><code>created_at</code> — timestamp.</li>
+</ul>
+<p>Responsibilities:</p>
+<ul>
+<li><code>pipeline/normalization.py</code>:</li>
+<li>For each event type, map event payload → one or more <code>IngestChunk</code> objects.</li>
+<li>Handle splitting of long texts into smaller chunks if needed.</li>
+</ul>
+<hr />
+<h2 id="embedding-milvus-indexing">Embedding &amp; Milvus indexing<a class="headerlink" href="#embedding-milvus-indexing" title="Permanent link">&para;</a></h2>
+<h3 id="1-embedding">1. Embedding<a class="headerlink" href="#1-embedding" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create an embedding component (<code>pipeline/embedding.py</code>) that:</li>
+<li>Accepts <code>IngestChunk</code> objects.</li>
+<li>Supports batch processing.</li>
+<li>
+<p>Uses either:</p>
+<ul>
+<li>Existing LLM proxy/embedding service (preferred), or</li>
+<li>Direct model (e.g. local <code>bge-m3</code>, <code>gte-large</code>, etc.).</li>
+</ul>
+</li>
+<li>
+<p>Each chunk after embedding should have vector + metadata per schema in <code>rag_gateway_task</code>.</p>
+</li>
+</ul>
+<h3 id="2-milvus-indexing">2. Milvus indexing<a class="headerlink" href="#2-milvus-indexing" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>pipeline/index_milvus.py</code> should:</li>
+<li>Upsert chunks into Milvus.</li>
+<li>Ensure <strong>idempotency</strong> using <code>chunk_id</code> as primary key.</li>
+<li>
+<p>Store metadata:</p>
+<ul>
+<li><code>team_id</code>, <code>project_id</code>, <code>channel_id</code>, <code>agent_id</code>,</li>
+<li><code>source_type</code>, <code>source_id</code>,</li>
+<li><code>visibility</code>, <code>tags</code>, <code>created_at</code>,</li>
+<li><code>embed_model</code> version.</li>
+</ul>
+</li>
+<li>
+<p>Consider using one Milvus collection with a partition key (<code>team_id</code>), or per-DAO collections — but keep code flexible.</p>
+</li>
+</ul>
+<hr />
+<h2 id="neo4j-graph-updates">Neo4j graph updates<a class="headerlink" href="#neo4j-graph-updates" title="Permanent link">&para;</a></h2>
+<p><code>pipeline/index_neo4j.py</code> should:</p>
+<ul>
+<li>For events that carry structural information (e.g. project uses resource, doc mentions topic):</li>
+<li>Create or update nodes: <code>User</code>, <code>MicroDAO</code>, <code>Project</code>, <code>Channel</code>, <code>Topic</code>, <code>Resource</code>, <code>File</code>, <code>RWAObject</code>, <code>Doc</code>.</li>
+<li>
+<p>Create relationships such as:</p>
+<ul>
+<li><code>(:User)-[:MEMBER_OF]-&gt;(:MicroDAO)</code></li>
+<li><code>(:Agent)-[:SERVES]-&gt;(:MicroDAO|:Project)</code></li>
+<li><code>(:Doc)-[:MENTIONS]-&gt;(:Topic)</code></li>
+<li><code>(:Project)-[:USES]-&gt;(:Resource)</code></li>
+</ul>
+</li>
+<li>
+<p>All nodes/edges must include:</p>
+</li>
+<li><code>team_id</code> / <code>dao_id</code></li>
+<li>
+<p><code>visibility</code> when it matters</p>
+</li>
+<li>
+<p>Operations should be <strong>upserts</strong> (MERGE) to avoid duplicates.</p>
+</li>
+</ul>
+<hr />
+<h2 id="idempotency-reindex">Idempotency &amp; reindex<a class="headerlink" href="#idempotency-reindex" title="Permanent link">&para;</a></h2>
+<h3 id="1-idempotent-semantics">1. Idempotent semantics<a class="headerlink" href="#1-idempotent-semantics" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use deterministic <code>chunk_id</code> for Milvus records.</li>
+<li>Use Neo4j <code>MERGE</code> for nodes/edges based on natural keys (e.g. <code>(team_id, source_type, source_id, chunk_index)</code>).</li>
+<li>Replaying the same events should not corrupt or duplicate data.</li>
+</ul>
+<h3 id="2-reindex-api">2. Reindex API<a class="headerlink" href="#2-reindex-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Provide a simple HTTP or CLI interface to:</p>
+</li>
+<li>
+<p><code>POST /ingest/reindex/{team_id}</code> — schedule or start reindex for a team/DAO.</p>
+</li>
+<li>
+<p>Reindex strategy:</p>
+</li>
+<li>
+<p>Read documents/messages from source-of-truth (DB or event replay).</p>
+</li>
+<li>Rebuild chunks and embeddings.</li>
+<li>Upsert into Milvus &amp; Neo4j (idempotently).</li>
+</ul>
+<p>Implementation details (can be left as TODOs if missing backends):</p>
+<ul>
+<li>If there is no easy historic source yet, stub the reindex endpoint with clear TODO and logging.</li>
+</ul>
+<hr />
+<h2 id="monitoring-logging">Monitoring &amp; logging<a class="headerlink" href="#monitoring-logging" title="Permanent link">&para;</a></h2>
+<p>Add basic observability:</p>
+<ul>
+<li>Structured logs for:</li>
+<li>Each event type ingested.</li>
+<li>Number of chunks produced.</li>
+<li>Latency for embedding and indexing.</li>
+<li>(Optional) Metrics counters/gauges:</li>
+<li><code>ingest_events_total</code></li>
+<li><code>ingest_chunks_total</code></li>
+<li><code>ingest_errors_total</code></li>
+</ul>
+<hr />
+<h2 id="files-to-createmodify-suggested">Files to create/modify (suggested)<a class="headerlink" href="#files-to-createmodify-suggested" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Adjust exact paths if needed.</p>
+</blockquote>
+<ul>
+<li><code>services/rag-ingest-worker/main.py</code></li>
+<li>
+<p>Parse config, connect to event bus, start consumers.</p>
+</li>
+<li>
+<p><code>services/rag-ingest-worker/config.py</code></p>
+</li>
+<li>
+<p>Environment variables: <code>EVENT_BUS_URL</code>, <code>MILVUS_URL</code>, <code>NEO4J_URL</code>, <code>EMBEDDING_SERVICE_URL</code>, etc.</p>
+</li>
+<li>
+<p><code>services/rag-ingest-worker/events/consumer.py</code></p>
+</li>
+<li>
+<p>NATS (or chosen bus) subscription logic.</p>
+</li>
+<li>
+<p><code>services/rag-ingest-worker/pipeline/normalization.py</code></p>
+</li>
+<li>
+<p>Functions <code>normalize_message_created(event)</code>, <code>normalize_doc_upsert(event)</code>, <code>normalize_file_uploaded(event)</code>.</p>
+</li>
+<li>
+<p><code>services/rag-ingest-worker/pipeline/embedding.py</code></p>
+</li>
+<li>
+<p><code>embed_chunks(chunks: List[IngestChunk]) -&gt; List[VectorChunk]</code>.</p>
+</li>
+<li>
+<p><code>services/rag-ingest-worker/pipeline/index_milvus.py</code></p>
+</li>
+<li>
+<p><code>upsert_chunks_to_milvus(chunks: List[VectorChunk])</code>.</p>
+</li>
+<li>
+<p><code>services/rag-ingest-worker/pipeline/index_neo4j.py</code></p>
+</li>
+<li>
+<p><code>update_graph_for_event(event, chunks: List[IngestChunk])</code>.</p>
+</li>
+<li>
+<p>Optional: <code>services/rag-ingest-worker/api.py</code></p>
+</li>
+<li>
+<p>FastAPI app with:</p>
+<ul>
+<li><code>GET /health</code></li>
+<li><code>POST /ingest/one</code></li>
+<li><code>POST /ingest/reindex/{team_id}</code></li>
+</ul>
+</li>
+<li>
+<p>Integration docs:</p>
+</li>
+<li>Reference <code>docs/cursor/rag_gateway_task.md</code> and <code>docs/cursor/42_nats_event_streams_and_event_catalog.md</code> where appropriate.</li>
+</ul>
+<hr />
+<h2 id="acceptance-criteria">Acceptance criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<ol>
+<li>A new <code>rag-ingest-worker</code> (or similarly named) module/service exists under <code>services/</code> with:</li>
+<li>Clear directory structure (<code>events/</code>, <code>pipeline/</code>, <code>config.py</code>, <code>main.py</code>).</li>
+<li>
+<p>Stubs or initial implementations for consuming events and indexing to Milvus/Neo4j.</p>
+</li>
+<li>
+<p>A normalized internal model (<code>IngestChunk</code> or equivalent) is defined and used across pipelines.</p>
+</li>
+<li>
+<p>Milvus indexing code:</p>
+</li>
+<li>Uses idempotent upserts keyed by <code>chunk_id</code>.</li>
+<li>
+<p>Stores metadata compatible with the RAG-gateway schema.</p>
+</li>
+<li>
+<p>Neo4j update code:</p>
+</li>
+<li>Uses MERGE for nodes/relationships.</li>
+<li>
+<p>Encodes <code>team_id</code>/<code>dao_id</code> and privacy where relevant.</p>
+</li>
+<li>
+<p>Idempotency strategy and <code>reindex(team_id)</code> path are present in code (even if reindex is initially a stub with TODO).</p>
+</li>
+<li>
+<p>Basic logging is present for ingestion operations.</p>
+</li>
+<li>
+<p>This file (<code>docs/cursor/rag_ingestion_worker_task.md</code>) can be executed by Cursor as:</p>
+</li>
+</ol>
+<p><code>bash
+   cursor task &lt; docs/cursor/rag_ingestion_worker_task.md</code></p>
+<p>and Cursor will use it as the single source of truth for implementing/refining the ingestion worker.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>

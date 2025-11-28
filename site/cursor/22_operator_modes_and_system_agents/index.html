@@ -1,0 +1,981 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://IvanTytar.github.io/microdao-daarion/cursor/22_operator_modes_and_system_agents/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+    
+    
+      
+        <title>22 — Operator Modes & System Agents (MicroDAO) - DAARION Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#22-operator-modes-system-agents-microdao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DAARION Documentation" class="md-header__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DAARION Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              22 — Operator Modes & System Agents (MicroDAO)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DAARION Documentation" class="md-nav__button md-logo" aria-label="DAARION Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    DAARION Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/getting-started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public/daiS_daos_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DAIS & DAOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Internal
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Internal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Infra
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infra
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/INFRA_AUTOMATION_PACK_V1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infra Automation Pack v1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/monitoring_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/infra/nodes_registry_v0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes Registry v0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Specs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/matrix_presence_aggregator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix Presence Aggregator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/city_map_spec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    City Map Spec
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/specs/node_join_protocol_draft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Join Protocol (Draft)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="22-operator-modes-system-agents-microdao">22 — Operator Modes &amp; System Agents (MicroDAO)<a class="headerlink" href="#22-operator-modes-system-agents-microdao" title="Permanent link">&para;</a></h1>
+<p>Приватні агенти, агент-спільноти, операторські режими, агент DAO і агент-гаманець</p>
+<p>Цей документ визначає системну архітектуру внутрішніх агентів MicroDAO, їхні операторські режими, взаємодію з доступами, правилами, ключами та внутрішньою криптографією спільноти.</p>
+<p>Документ узгоджений із попередніми специфікаціями (12–20).</p>
+<hr />
+<h1 id="1">1. Основні типи системних агентів<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<p>MicroDAO має три фундаментальні типи агентів:</p>
+<ul>
+<li><strong>особисті агенти</strong> (Personal Agents),</li>
+<li><strong>агенти спільноти</strong> (Team Agents / Shared Agents),</li>
+<li><strong>агенти-протоколісти</strong> (System Protocol Agents):<br />
+  DAO Agent, Wallet Agent, Bridges Agent, Governance Agent тощо.</li>
+</ul>
+<p>Кожен тип має свою власну памʼять, права доступу та операторські можливості.</p>
+<hr />
+<h1 id="2-personal-agent">2. Особистий агент (Personal Agent)<a class="headerlink" href="#2-personal-agent" title="Permanent link">&para;</a></h1>
+<h3 id="21">2.1. Призначення<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>Особистий агент — це "внутрішній супутник" людини в екосистемі microDAO:</p>
+<ul>
+<li>знає особистий контекст,</li>
+<li>веде особистий Co-Memory простір,</li>
+<li>допомагає у приватних нотатках, документах, нагадуваннях,</li>
+<li>працює як приватний інтерфейс до DAGI,</li>
+<li>не має доступу до командних просторів, якщо не надано спеціальний дозвіл.</li>
+</ul>
+<h3 id="22">2.2. Права<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>Особистий агент оперує винятково у:</p>
+<ul>
+<li><code>personal_space</code>,</li>
+<li>особистих документах,</li>
+<li>особистих навчальних даних,</li>
+<li>особистих локальних задачах.</li>
+</ul>
+<p>Доступи до спільних проектів даються явно через Governance/Access Agent у вигляді entitlements.</p>
+<h3 id="23">2.3. Операторський режим<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p>Особистий агент може бути оператором <strong>лише в особистому просторі</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">operatorMode</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">enabled</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;personal&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">allowedTools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;create_personal_note&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;create_personal_task&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;personal_digest&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;organize_notes&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">schedule</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*/20 * * * *&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// кожні 20 хвилин (приклад)</span>
+<span class="w">  </span><span class="nx">maxActionsPerHour</span><span class="o">:</span><span class="w"> </span><span class="kt">10</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h1 id="3-teamshared-agent">3. Спільний агент (Team/Shared Agent)<a class="headerlink" href="#3-teamshared-agent" title="Permanent link">&para;</a></h1>
+<h3 id="31">3.1. Призначення<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>Це агенти:</p>
+<ul>
+<li>Team Assistant,</li>
+<li>Messenger Agent,</li>
+<li>Projects Agent,</li>
+<li>Followups Agent,</li>
+<li>Memory Agent,</li>
+<li>Attention Agent,</li>
+<li>Knowledge Guide,</li>
+<li>Bridges Agent,</li>
+<li>Governance Agent.</li>
+</ul>
+<p>Вони працюють на рівні microDAO (колективний простір).</p>
+<h3 id="32">3.2. Права<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>Спільні агенти можуть отримувати доступ до:</p>
+<ul>
+<li>каналів,</li>
+<li>проектів,</li>
+<li>документів Knowledge Space,</li>
+<li>ритуалів узгодження,</li>
+<li>Co-Memory microDAO.</li>
+</ul>
+<p>Доступи обмежуються entitlements — кожен агент бачить лише те, що дозволено.</p>
+<h3 id="33">3.3. Операторські повноваження<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>Командні агенти можуть працювати як "оператори" на рівні спільноти:</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">operatorMode</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">enabled</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;team&quot;</span><span class="p">,</span><span class="s2">&quot;project&quot;</span><span class="p">,</span><span class="s2">&quot;channel&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">allowedTools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;summarize_project&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;daily_digest&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;check_task_status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;highlight_critical&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;sync_event&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">schedule</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;0 * * * *&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// щогодини</span>
+<span class="w">  </span><span class="nx">maxActionsPerHour</span><span class="o">:</span><span class="w"> </span><span class="kt">30</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Операторські дії <strong>завжди логуються</strong> в Co-Memory.</p>
+<hr />
+<h1 id="4-protocol-agents-dao-agent-wallet-agent">4. Protocol Agents: DAO Agent і Wallet Agent<a class="headerlink" href="#4-protocol-agents-dao-agent-wallet-agent" title="Permanent link">&para;</a></h1>
+<p>Ці агенти не є "учасниками" в комунікації, а швидше <strong>протокольними модулями</strong>.</p>
+<hr />
+<h1 id="41-dao-agent">4.1. DAO Agent<a class="headerlink" href="#41-dao-agent" title="Permanent link">&para;</a></h1>
+<p>Роль: <code>"dao_protocol_agent"</code></p>
+<h3 id="_1">Призначення<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>DAO Agent відповідає за:</p>
+<ul>
+<li>зв'язок із зовнішнім DAO-протоколом (якщо microDAO його має),</li>
+<li>синхронізацію правил із контрактами,</li>
+<li>оновлення локальних правил на основі зовнішніх церемоній,</li>
+<li>відправку ритуалів узгодження в DAO-контракт (якщо дозволено).</li>
+</ul>
+<h3 id="tools">Інтерфейс (tools)<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="s2">&quot;sync_policies_onchain&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;fetch_dao_proposals&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;submit_ritual_to_dao&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;resolve_dao_result&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h3 id="-">Оператор-режим<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
+<p>DAO Agent завжди працює <strong>строго у командному масштабі</strong> і лише за дозволами Governance Agent.</p>
+<hr />
+<h1 id="42-wallet-agent">4.2. Wallet Agent<a class="headerlink" href="#42-wallet-agent" title="Permanent link">&para;</a></h1>
+<p>Роль: <code>"wallet_interface_agent"</code></p>
+<h3 id="_2">Призначення<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Wallet Agent — це <strong>інтерфейс</strong> між microDAO/агентами та:</p>
+<ul>
+<li>криптографічним підписом,</li>
+<li>зовнішніми гаманцями користувачів,</li>
+<li>фізичними ключами (Tangem-подібні),</li>
+<li>системою capability-доступів.</li>
+</ul>
+<p>Wallet Agent <strong>не зберігає приватні ключі</strong>.</p>
+<p>Він:</p>
+<ul>
+<li>
+<p>формує пояснення:</p>
+</li>
+<li>
+<p>"що саме підписується",</p>
+</li>
+<li>"чому це потрібно",</li>
+<li>
+<p>"які наслідки";</p>
+</li>
+<li>
+<p>відправляє payload на зовнішній Signer;</p>
+</li>
+<li>отримує підписаний результат і повертає агенту, що ініціював дію.</li>
+</ul>
+<h3 id="tools_1">Tools<a class="headerlink" href="#tools_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">tools</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="s2">&quot;prepare_signature_payload&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;request_signature&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;verify_signature&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;get_wallet_state&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<hr />
+<h1 id="5-operatormode">5. Модель operatorMode<a class="headerlink" href="#5-operatormode" title="Permanent link">&para;</a></h1>
+<p>Операторський режим є <strong>частиною конфігурації кожного агента</strong>.</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">OperatorModeConfig</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">enabled</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">scopes</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;personal&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;team&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;project&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s2">&quot;channel&quot;</span><span class="p">)[];</span>
+<span class="w">  </span><span class="nx">allowedTools</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+<span class="w">  </span><span class="nx">schedule?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">         </span><span class="c1">// CRON або natural language</span>
+<span class="w">  </span><span class="nx">maxActionsPerHour?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>У <code>AgentConfig</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AgentConfig</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">operatorMode?</span><span class="o">:</span><span class="w"> </span><span class="kt">OperatorModeConfig</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="51-scopes">5.1. Scopes<a class="headerlink" href="#51-scopes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>"personal"</code> — особистий простір користувача;</li>
+<li><code>"team"</code> — командний рівень microDAO;</li>
+<li><code>"project"</code> — окремий проєкт;</li>
+<li><code>"channel"</code> — конкретний канал/чат.</li>
+</ul>
+<h3 id="52">5.2. Режими<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<p>Типовий розподіл:</p>
+<table>
+<thead>
+<tr>
+<th>Тип агента</th>
+<th>operatorMode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Personal Agent</td>
+<td>personal</td>
+</tr>
+<tr>
+<td>Team Assistant</td>
+<td>team</td>
+</tr>
+<tr>
+<td>Projects Agent</td>
+<td>team,project</td>
+</tr>
+<tr>
+<td>Followups Agent</td>
+<td>team,project</td>
+</tr>
+<tr>
+<td>Memory Agent</td>
+<td>team</td>
+</tr>
+<tr>
+<td>Attention Agent</td>
+<td>team</td>
+</tr>
+<tr>
+<td>Governance Agent</td>
+<td>team</td>
+</tr>
+<tr>
+<td>Wallet Agent</td>
+<td>team (тільки з дозволом)</td>
+</tr>
+<tr>
+<td>DAO Agent</td>
+<td>team (тільки з дозволом)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-operatormode">5.3. Принципи безпеки operatorMode<a class="headerlink" href="#53-operatormode" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Усі операторські дії логуються</strong>.</li>
+<li><strong>Жоден агент не може діяти поза своїми scopes</strong>.</li>
+<li><strong>Усі небезпечні дії потребують підтвердження Governance Agent</strong>.</li>
+<li><strong>Wallet Agent не може діяти без підтвердження людини</strong>.</li>
+<li><strong>OperatorMode можна вимкнути</strong> для будь-якого агента в налаштуваннях microDAO.</li>
+</ol>
+<hr />
+<h1 id="6">6. Модель системних агентів у БД<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
+<h3 id="system_agents">Таблиця <code>system_agents</code><a class="headerlink" href="#system_agents" title="Permanent link">&para;</a></h3>
+<ul>
+<li>id</li>
+<li>team_id</li>
+<li>type (<code>personal</code>, <code>team</code>, <code>protocol</code>)</li>
+<li>role</li>
+<li>operator_enabled</li>
+<li>config_json (включає operatorMode)</li>
+<li>created_at</li>
+</ul>
+<h3 id="agent_permissions">Таблиця <code>agent_permissions</code><a class="headerlink" href="#agent_permissions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>id</li>
+<li>agent_id</li>
+<li>resource_kind</li>
+<li>resource_id</li>
+<li>scopes (json array)</li>
+<li>created_at</li>
+</ul>
+<h3 id="operator_logs">Таблиця <code>operator_logs</code><a class="headerlink" href="#operator_logs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>id</li>
+<li>agent_id</li>
+<li>action</li>
+<li>payload_json</li>
+<li>context</li>
+<li>created_at</li>
+</ul>
+<hr />
+<h1 id="7-governance-agent">7. Інтеграція з доступами та ключами (Governance Agent)<a class="headerlink" href="#7-governance-agent" title="Permanent link">&para;</a></h1>
+<p>OperatorMode завжди працює у звʼязці з:</p>
+<ul>
+<li>entitlements,</li>
+<li>symbolic keys,</li>
+<li>governance_policies.</li>
+</ul>
+<p>Наприклад:</p>
+<ul>
+<li>Personal Agent має ключ рівня <code>personal-scope</code>.</li>
+<li>Projects Agent має ключ <code>project-operator</code>.</li>
+<li>DAO Agent має ключ <code>protocol-access</code>, який Governance Agent може видати або анулювати.</li>
+</ul>
+<hr />
+<h1 id="8-ui-">8. UI-інтеграція<a class="headerlink" href="#8-ui-" title="Permanent link">&para;</a></h1>
+<h3 id="81">8.1. Сторінка Агентів<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<p>У профілі агента:</p>
+<ul>
+<li>
+<p>показати блок <strong>"Режим оператора"</strong>:</p>
+</li>
+<li>
+<p>увімкнено/вимкнено,</p>
+</li>
+<li>дозволені дії,</li>
+<li>сфери дії,</li>
+<li>розклад.</li>
+</ul>
+<h3 id="82-microdao">8.2. Налаштування microDAO<a class="headerlink" href="#82-microdao" title="Permanent link">&para;</a></h3>
+<p>Окремий розділ:</p>
+<ul>
+<li>
+<p>"Системні агенти"</p>
+</li>
+<li>
+<p>Personal Agent (індивідуальний)</p>
+</li>
+<li>Team Agents (список)</li>
+<li>Protocol Agents</li>
+</ul>
+<h3 id="83">8.3. Журнал операторських дій<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<ul>
+<li>список автоматичних дій агентів,</li>
+<li>фільтри: агент → проєкт → тип дії.</li>
+</ul>
+<hr />
+<h1 id="9-cursor">9. Інструкції для Cursor<a class="headerlink" href="#9-cursor" title="Permanent link">&para;</a></h1>
+<p>Приклад:</p>
+<div class="codehilite"><pre><span></span><code>Implement Operator Modes &amp; System Agents using:
+
+<span class="k">-</span> 22_operator_modes_and_system_agents.md
+<span class="k">-</span> 12_agent_runtime_core.md
+<span class="k">-</span> 18_governance_access_agent.md
+<span class="k">-</span> microdao — RBAC and Entitlements (MVP)
+<span class="k">-</span> 10_agent_ui_system.md
+<span class="k">-</span> 05_coding_standards.md
+
+Tasks:
+
+1) Extend AgentConfig with operatorMode field.
+
+2) Add operatorMode guards to runAgentTurn().
+
+3) Create database tables:
+
+   <span class="k">-</span> system_agents
+   <span class="k">-</span> agent_permissions
+   <span class="k">-</span> operator_logs
+
+4) Implement API:
+
+   <span class="k">-</span> GET/POST/PATCH /agents/:id/operator_mode
+   <span class="k">-</span> GET /agents/:id/operator_logs
+
+5) Create UI:
+
+   <span class="k">-</span> Agent profile: Operator Mode section.
+   <span class="k">-</span> System Agents page.
+   <span class="k">-</span> Operator Logs page.
+
+Output:
+
+<span class="k">-</span> list of files
+<span class="k">-</span> diff
+<span class="k">-</span> summary
+</code></pre></div>
+
+<hr />
+<h1 id="10">10. Результат<a class="headerlink" href="#10" title="Permanent link">&para;</a></h1>
+<p>Після впровадження цього модуля:</p>
+<ul>
+<li>приватні агенти можуть працювати як персональні оператори;</li>
+<li>командні агенти можуть працювати як "ритуальні організатори" microDAO;</li>
+<li>DAO Agent та Wallet Agent стають безпечними протокольними модулями;</li>
+<li>усі дії мають чіткі межі, правила і логування;</li>
+<li>система стає самокерованою, але контрольованою через дух спільноти.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      
+    
+  </body>
+</html>
