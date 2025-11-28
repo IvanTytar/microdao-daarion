@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const CITY_API_BASE_URL = process.env.CITY_API_BASE_URL || "http://localhost:7001";
+const CITY_API_BASE_URL = process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_URL || "http://daarion-city-service:7001";
 
 export async function GET(
   req: NextRequest,

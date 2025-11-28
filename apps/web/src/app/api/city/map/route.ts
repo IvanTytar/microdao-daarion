@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const CITY_SERVICE_URL = process.env.CITY_SERVICE_URL || "http://localhost:7001";
+const CITY_SERVICE_URL = process.env.INTERNAL_API_URL || process.env.CITY_SERVICE_URL || "http://daarion-city-service:7001";
 
 export async function GET(req: NextRequest) {
   try {
