@@ -6,7 +6,7 @@
 import { HomeNode, AgentStatus } from './agents';
 
 // Re-export HomeNode for backward compatibility
-export { HomeNode };
+export type { HomeNode };
 
 // =============================================================================
 // Public Citizen Summary (for /citizens list)
