@@ -1,137 +1,136 @@
 import asyncio
 import os
+import json
 import asyncpg
-from typing import List, Dict, Any, Set
+from datetime import datetime
 
 # Configuration
-SYSTEM_CANDIDATE_KINDS = {'infra', 'router', 'monitor', 'system'}
-SYSTEM_CANDIDATE_NAMES = {
-    'daarwizz', 'helion', 'greenfood', 'clan', 'druid', 'eonarch', 'soul', 'yaromir', 'core-monitor',
-    'sofia', 'exor', 'faye', 'helix', 'iris'
-}
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://daarion:daarion@localhost:5432/daarion")
+REPORT_DIR = "docs/internal/clean"
+REPORT_FILE = os.path.join(REPORT_DIR, "DATA_CLEANUP_REPORT.md")
 
-async def get_db_connection():
-    url = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/daarion")
-    return await asyncpg.connect(url)
+SYSTEM_CANDIDATE_KINDS = ['infra', 'router', 'monitor', 'system']
+SYSTEM_CANDIDATE_NAMES = [
+    'daarwizz', 'helion', 'greenfood', 'clan', 'druid', 'eonarch', 'soul', 
+    'yaromir', 'core-monitor', 'exor', 'faye', 'helix', 'iris', 'sofia'
+]
 
-async def fetch_all(conn, query):
-    records = await conn.fetch(query)
-    return [dict(r) for r in records]
-
-async def scan_entities():
-    conn = await get_db_connection()
+async def main():
+    print(f"Connecting to DB...")
+    # Use provided URL or default local
     try:
-        # 1. Fetch Nodes
-        # Note: node_registry is usually a separate service/db, but we might have cached nodes in node_cache table
-        # or we assume known nodes. For this script, let's query node_cache if available or just use hardcoded known nodes for validation
-        # Actually user said "Source of truth по нодах: node_registry". Assuming we can query node_registry.nodes table if it's in the same DB 
-        # or use node_cache table which we used in previous tasks.
-        # Let's try to fetch from node_cache table.
+        conn = await asyncpg.connect(DATABASE_URL)
+    except Exception as e:
+        print(f"Failed to connect to DB: {e}")
+        return
+    
+    try:
+        print("Fetching data...")
+        
+        # 1. Nodes
         try:
-            nodes = await fetch_all(conn, "SELECT node_id, node_name, status FROM node_cache")
+            nodes = await conn.fetch("SELECT id, name, hostname, roles FROM node_registry.nodes")
         except asyncpg.UndefinedTableError:
-            print("Warning: node_cache table not found. Using empty list for nodes.")
+            print("Warning: node_registry.nodes table not found. Using empty list.")
             nodes = []
             
-        known_node_ids = {n['node_id'] for n in nodes}
-        # Add hardcoded known nodes just in case cache is empty
-        known_node_ids.update({'node-1-hetzner-gex44', 'node-2-macbook-m4max'})
-
-        # 2. Fetch Agents
-        agents = await fetch_all(conn, """
-            SELECT id, display_name, slug, node_id, kind, is_test, deleted_at 
-            FROM agents 
-            WHERE deleted_at IS NULL
+        node_ids = {str(n['id']) for n in nodes}
+        
+        # 2. MicroDAOs
+        # Check if table is microdao or microdaos
+        try:
+            table_name = "microdaos"
+            await conn.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
+        except asyncpg.UndefinedTableError:
+            table_name = "microdao"
+        
+        print(f"Using microdao table: {table_name}")
+        
+        microdaos = await conn.fetch(f"""
+            SELECT m.id, m.slug, m.name, COUNT(ma.agent_id) as agent_count
+            FROM {table_name} m
+            LEFT JOIN microdao_agents ma ON ma.microdao_id = m.id
+            GROUP BY m.id, m.slug, m.name
         """)
-
-        # 3. Fetch MicroDAOs
-        microdaos = await fetch_all(conn, """
-            SELECT id, name, slug, is_test, deleted_at 
-            FROM microdaos 
-            WHERE deleted_at IS NULL
+        
+        # 3. Agents
+        agents = await conn.fetch("""
+            SELECT a.id, a.display_name, a.kind, a.node_id, a.slug, a.is_public,
+                   (SELECT COUNT(*) FROM microdao_agents ma WHERE ma.agent_id = a.id) as microdao_count
+            FROM agents a
         """)
         
-        # 4. Fetch MicroDAO Agents
-        memberships = await fetch_all(conn, "SELECT agent_id, microdao_id FROM microdao_agents")
-        
-        # Process Data
-        agent_microdao_map = {}
-        for m in memberships:
-            agent_id = m['agent_id']
-            if agent_id not in agent_microdao_map:
-                agent_microdao_map[agent_id] = set()
-            agent_microdao_map[agent_id].add(m['microdao_id'])
+        # Analyze Agents
+        agent_report = []
+        for a in agents:
+            agent_id = str(a['id'])
+            node_id = a['node_id']
             
-        microdao_agent_count = {}
-        for m in memberships:
-            md_id = m['microdao_id']
-            microdao_agent_count[md_id] = microdao_agent_count.get(md_id, 0) + 1
-
-        # Generate Report
-        report_lines = []
-        report_lines.append("# Data Cleanup Report")
-        report_lines.append(f"Generated at: {asyncio.get_event_loop().time()}") # Placeholder for time
-        
-        report_lines.append("\n## Nodes Summary")
-        for node_id in known_node_ids:
-            report_lines.append(f"- {node_id}")
-
-        report_lines.append("\n## Agents Analysis")
-        report_lines.append("| ID | Name | Node | Kind | MicroDAOs | Is Orphan | System Candidate | Is Test |")
-        report_lines.append("|---|---|---|---|---|---|---|---|")
-        
-        orphan_count = 0
-        
-        for agent in agents:
-            a_id = agent['id']
-            name = agent['display_name']
-            node = agent['node_id']
-            kind = agent['kind']
-            slug = agent.get('slug')
-            
-            has_valid_node = node in known_node_ids
-            dao_count = len(agent_microdao_map.get(a_id, []))
-            has_membership = dao_count > 0
-            
-            is_orphan = not has_valid_node or not has_membership
-            if is_orphan:
-                orphan_count += 1
+            has_valid_node = node_id in node_ids if node_id else False
+            # If no nodes found at all, we assume valid node check is skipped or failed
+            if not nodes:
+                has_valid_node = True
                 
-            is_system = (kind in SYSTEM_CANDIDATE_KINDS) or \
-                        (name.lower() in SYSTEM_CANDIDATE_NAMES) or \
-                        (slug and slug.lower() in SYSTEM_CANDIDATE_NAMES)
-                        
-            report_lines.append(
-                f"| {a_id} | {name} | {node} | {kind} | {dao_count} | {is_orphan} | {is_system} | {agent['is_test']} |"
-            )
-
-        report_lines.append("\n## MicroDAO Summary")
-        report_lines.append("| ID | Name | Slug | Agent Count | Suspicious (0 agents) | Is Test |")
-        report_lines.append("|---|---|---|---|---|---|")
-        
-        for md in microdaos:
-            md_id = md['id']
-            count = microdao_agent_count.get(md_id, 0)
-            is_suspicious = count == 0
-            report_lines.append(
-                f"| {md_id} | {md['name']} | {md['slug']} | {count} | {is_suspicious} | {md['is_test']} |"
-            )
-
-        # Output
-        report_content = "\n".join(report_lines)
-        print(report_content)
-        
-        os.makedirs("docs/internal/clean", exist_ok=True)
-        with open("docs/internal/clean/DATA_CLEANUP_REPORT.md", "w") as f:
-            f.write(report_content)
+            has_microdao_membership = a['microdao_count'] > 0
+            is_orphan = not has_valid_node or not has_microdao_membership
             
-        print(f"\nReport saved to docs/internal/clean/DATA_CLEANUP_REPORT.md")
-        print(f"Total agents: {len(agents)}")
-        print(f"Orphan agents found: {orphan_count}")
-
+            display_name = a['display_name'] or ''
+            slug = a['slug'] or ''
+            
+            is_system_candidate = (
+                a['kind'] in SYSTEM_CANDIDATE_KINDS or 
+                any(name in display_name.lower() for name in SYSTEM_CANDIDATE_NAMES) or
+                any(name in slug.lower() for name in SYSTEM_CANDIDATE_NAMES)
+            )
+            
+            agent_report.append({
+                "id": agent_id,
+                "name": display_name,
+                "slug": slug,
+                "kind": a['kind'],
+                "node_id": node_id,
+                "has_valid_node": has_valid_node,
+                "microdao_count": a['microdao_count'],
+                "is_orphan": is_orphan,
+                "is_system_candidate": is_system_candidate
+            })
+            
+        # Generate Report
+        os.makedirs(REPORT_DIR, exist_ok=True)
+        
+        with open(REPORT_FILE, "w") as f:
+            f.write(f"# Data Cleanup Report\n")
+            f.write(f"Generated at: {datetime.now()}\n\n")
+            
+            f.write("## Nodes Summary\n")
+            f.write("| ID | Name | Hostname | Roles |\n")
+            f.write("|---|---|---|---|\n")
+            for n in nodes:
+                f.write(f"| {n['id']} | {n['name']} | {n['hostname']} | {n['roles']} |\n")
+            f.write("\n")
+            
+            f.write("## MicroDAO Summary\n")
+            f.write("| Name | Slug | Agents Count | Suspicious (0 agents) |\n")
+            f.write("|---|---|---|---|\n")
+            for m in microdaos:
+                suspicious = "⚠️ YES" if m['agent_count'] == 0 else "NO"
+                f.write(f"| {m['name']} | {m['slug']} | {m['agent_count']} | {suspicious} |\n")
+            f.write("\n")
+            
+            f.write("## Agents by Node\n")
+            f.write("| ID | Name | Slug | Kind | Node | Valid Node? | MicroDAOs | Orphan? | System? |\n")
+            f.write("|---|---|---|---|---|---|---|---|---|\n")
+            for a in agent_report:
+                orphan_mark = "⚠️ YES" if a['is_orphan'] else "NO"
+                system_mark = "✅ YES" if a['is_system_candidate'] else "NO"
+                valid_node_mark = "✅" if a['has_valid_node'] else "❌"
+                
+                f.write(f"| {a['id']} | {a['name']} | {a['slug']} | {a['kind']} | {a['node_id']} | {valid_node_mark} | {a['microdao_count']} | {orphan_mark} | {system_mark} |\n")
+        
+        print(f"Report generated: {REPORT_FILE}")
+        
     finally:
         await conn.close()
 
 if __name__ == "__main__":
-    asyncio.run(scan_entities())
-
+    asyncio.run(main())
