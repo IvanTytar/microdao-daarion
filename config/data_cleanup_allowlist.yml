@@ -3,25 +3,39 @@ nodes:
   - node-2-macbook-m4max
 
 microdao:
-  - core-operations
-  - daarion-dao
-  - developer-hub
-  - energy-union
-  - greenfood-coop
-  - clan-network
-  - druid-labs
-  - soul-district
-  - eonarch-vision
-
-agents:
-  - daarwizz
-  - helion
-  - greenfood
-  - clan
+  # Real MicroDAOs with agents
+  - daarion
   - druid
   - eonarch
+  - greenfood
+  - energy-union
   - soul
+  - clan
   - yaromir
+  - nutra
+  
+  # System/Empty MicroDAOs (keep for now)
+  - operations
+  - developers
+  - finance
+  - research
+  - marketing
+  - security
+  - vision
+
+agents:
+  # Orchestrators
+  - daarwizz
+  - helion
+  - soul-bot
+  - greenfood-bot
+  - clan-bot
+  - druid
+  - eonarch
+  - yaromir
+  - nutra-bot
+  
+  # Key Agents
   - exor
   - faye
   - helix
