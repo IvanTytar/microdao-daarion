@@ -233,6 +233,8 @@ class MicrodaoBadge(BaseModel):
     name: str
     slug: Optional[str] = None
     role: Optional[str] = None  # orchestrator, member, etc.
+    is_public: bool = True
+    is_platform: bool = False
 
 
 class AgentSummary(BaseModel):
@@ -251,11 +253,12 @@ class AgentSummary(BaseModel):
     node_label: Optional[str] = None  # "НОДА1" / "НОДА2"
     home_node: Optional[HomeNodeView] = None
     
-    # Visibility
-    visibility_scope: str = "city"  # city, microdao, owner_only
+    # Visibility & roles
+    visibility_scope: str = "city"  # global, microdao, private
     is_listed_in_directory: bool = True
     is_system: bool = False
-    is_public: bool = False  # backward compatibility
+    is_public: bool = False
+    is_orchestrator: bool = False  # Can create/manage microDAOs
     
     # MicroDAO
     primary_microdao_id: Optional[str] = None
@@ -354,12 +357,27 @@ class MicrodaoSummary(BaseModel):
     name: str
     description: Optional[str] = None
     district: Optional[str] = None
+    
+    # Visibility & type
+    is_public: bool = True
+    is_platform: bool = False  # Is a platform/district
+    is_active: bool = True
+    
+    # Orchestrator
     orchestrator_agent_id: Optional[str] = None
-    is_active: bool
+    orchestrator_agent_name: Optional[str] = None
+    
+    # Hierarchy
+    parent_microdao_id: Optional[str] = None
+    parent_microdao_slug: Optional[str] = None
+    
+    # Stats
     logo_url: Optional[str] = None
-    agents_count: int
-    rooms_count: int
-    channels_count: int
+    member_count: int = 0  # alias for agents_count
+    agents_count: int = 0  # backward compatibility
+    room_count: int = 0  # alias for rooms_count
+    rooms_count: int = 0  # backward compatibility
+    channels_count: int = 0
 
 
 class MicrodaoChannelView(BaseModel):
@@ -385,13 +403,25 @@ class MicrodaoDetail(BaseModel):
     name: str
     description: Optional[str] = None
     district: Optional[str] = None
+    
+    # Visibility & type
+    is_public: bool = True
+    is_platform: bool = False
+    is_active: bool = True
+    
+    # Orchestrator
     orchestrator_agent_id: Optional[str] = None
     orchestrator_display_name: Optional[str] = None
-    is_active: bool
-    is_public: bool
+    
+    # Hierarchy
+    parent_microdao_id: Optional[str] = None
+    parent_microdao_slug: Optional[str] = None
+    child_microdaos: List["MicrodaoSummary"] = []
+    
+    # Content
     logo_url: Optional[str] = None
-    agents: List[MicrodaoAgentView]
-    channels: List[MicrodaoChannelView]
+    agents: List[MicrodaoAgentView] = []
+    channels: List[MicrodaoChannelView] = []
     public_citizens: List[MicrodaoCitizenView] = []
 
 

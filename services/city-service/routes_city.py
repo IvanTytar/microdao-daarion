@@ -68,7 +68,9 @@ class MicrodaoMembershipPayload(BaseModel):
 async def list_agents(
     kind: Optional[str] = Query(None, description="Filter by agent kind"),
     node_id: Optional[str] = Query(None, description="Filter by node_id"),
-    visibility_scope: Optional[str] = Query(None, description="Filter by visibility: city, microdao, owner_only"),
+    microdao_id: Optional[str] = Query(None, description="Filter by microDAO id"),
+    is_public: Optional[bool] = Query(None, description="Filter by public status"),
+    visibility_scope: Optional[str] = Query(None, description="Filter by visibility: global, microdao, private"),
     include_system: bool = Query(True, description="Include system agents"),
     limit: int = Query(100, le=200),
     offset: int = Query(0, ge=0)
@@ -78,6 +80,8 @@ async def list_agents(
         kinds_list = [kind] if kind else None
         agents, total = await repo_city.list_agent_summaries(
             node_id=node_id,
+            microdao_id=microdao_id,
+            is_public=is_public,
             visibility_scope=visibility_scope,
             kinds=kinds_list,
             include_system=include_system,
@@ -126,6 +130,7 @@ async def list_agents(
                 is_listed_in_directory=agent.get("is_listed_in_directory", True),
                 is_system=agent.get("is_system", False),
                 is_public=agent.get("is_public", False),
+                is_orchestrator=agent.get("is_orchestrator", False),
                 primary_microdao_id=agent.get("primary_microdao_id"),
                 primary_microdao_name=agent.get("primary_microdao_name"),
                 primary_microdao_slug=agent.get("primary_microdao_slug"),
@@ -1320,6 +1325,8 @@ async def get_agents_presence_snapshot():
 @router.get("/microdao", response_model=List[MicrodaoSummary])
 async def get_microdaos(
     district: Optional[str] = Query(None, description="Filter by district"),
+    is_public: Optional[bool] = Query(None, description="Filter by public status"),
+    is_platform: Optional[bool] = Query(None, description="Filter by platform status"),
     q: Optional[str] = Query(None, description="Search by name/description"),
     limit: int = Query(50, le=100),
     offset: int = Query(0, ge=0)
@@ -1328,10 +1335,19 @@ async def get_microdaos(
     Отримати список MicroDAOs.
     
     - **district**: фільтр по дістрікту (Core, Energy, Green, Labs, etc.)
+    - **is_public**: фільтр по публічності
+    - **is_platform**: фільтр по типу (платформа/дістрікт)
     - **q**: пошук по назві або опису
     """
     try:
-        daos = await repo_city.get_microdaos(district=district, q=q, limit=limit, offset=offset)
+        daos = await repo_city.list_microdao_summaries(
+            district=district,
+            is_public=is_public,
+            is_platform=is_platform,
+            q=q,
+            limit=limit,
+            offset=offset
+        )
         
         result = []
         for dao in daos:
@@ -1341,10 +1357,17 @@ async def get_microdaos(
                 name=dao["name"],
                 description=dao.get("description"),
                 district=dao.get("district"),
-                orchestrator_agent_id=dao.get("orchestrator_agent_id"),
+                is_public=dao.get("is_public", True),
+                is_platform=dao.get("is_platform", False),
                 is_active=dao.get("is_active", True),
+                orchestrator_agent_id=dao.get("orchestrator_agent_id"),
+                orchestrator_agent_name=dao.get("orchestrator_agent_name"),
+                parent_microdao_id=dao.get("parent_microdao_id"),
+                parent_microdao_slug=dao.get("parent_microdao_slug"),
                 logo_url=dao.get("logo_url"),
+                member_count=dao.get("member_count", 0),
                 agents_count=dao.get("agents_count", 0),
+                room_count=dao.get("room_count", 0),
                 rooms_count=dao.get("rooms_count", 0),
                 channels_count=dao.get("channels_count", 0)
             ))
@@ -1405,16 +1428,31 @@ async def get_microdao_by_slug(slug: str):
                 primary_room_slug=citizen.get("public_primary_room_slug")
             ))
         
+        # Build child microDAOs list
+        child_microdaos = []
+        for child in dao.get("child_microdaos", []):
+            child_microdaos.append(MicrodaoSummary(
+                id=child["id"],
+                slug=child["slug"],
+                name=child["name"],
+                is_public=child.get("is_public", True),
+                is_platform=child.get("is_platform", False)
+            ))
+        
         return MicrodaoDetail(
             id=dao["id"],
             slug=dao["slug"],
             name=dao["name"],
             description=dao.get("description"),
             district=dao.get("district"),
+            is_public=dao.get("is_public", True),
+            is_platform=dao.get("is_platform", False),
+            is_active=dao.get("is_active", True),
             orchestrator_agent_id=dao.get("orchestrator_agent_id"),
             orchestrator_display_name=dao.get("orchestrator_display_name"),
-            is_active=dao.get("is_active", True),
-            is_public=dao.get("is_public", True),
+            parent_microdao_id=dao.get("parent_microdao_id"),
+            parent_microdao_slug=dao.get("parent_microdao_slug"),
+            child_microdaos=child_microdaos,
             logo_url=dao.get("logo_url"),
             agents=agents,
             channels=channels,

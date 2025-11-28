@@ -295,6 +295,8 @@ async def get_rooms_for_map() -> List[dict]:
 async def list_agent_summaries(
     *,
     node_id: Optional[str] = None,
+    microdao_id: Optional[str] = None,
+    is_public: Optional[bool] = None,
     visibility_scope: Optional[str] = None,
     listed_only: Optional[bool] = None,
     kinds: Optional[List[str]] = None,
@@ -321,6 +323,14 @@ async def list_agent_summaries(
     if node_id:
         params.append(node_id)
         where_clauses.append(f"a.node_id = ${len(params)}")
+    
+    if microdao_id:
+        params.append(microdao_id)
+        where_clauses.append(f"EXISTS (SELECT 1 FROM microdao_agents ma WHERE ma.agent_id = a.id AND ma.microdao_id = ${len(params)})")
+    
+    if is_public is not None:
+        params.append(is_public)
+        where_clauses.append(f"COALESCE(a.is_public, false) = ${len(params)}")
     
     if visibility_scope:
         params.append(visibility_scope)
@@ -359,6 +369,7 @@ async def list_agent_summaries(
             COALESCE(a.is_listed_in_directory, true) AS is_listed_in_directory,
             COALESCE(a.is_system, false) AS is_system,
             COALESCE(a.is_public, false) AS is_public,
+            COALESCE(a.is_orchestrator, false) AS is_orchestrator,
             a.primary_microdao_id,
             pm.name AS primary_microdao_name,
             pm.slug AS primary_microdao_slug,
@@ -1246,17 +1257,26 @@ async def get_microdaos(district: Optional[str] = None, q: Optional[str] = None,
           m.name,
           m.description,
           m.district,
-          m.owner_agent_id as orchestrator_agent_id,
+          COALESCE(m.orchestrator_agent_id, m.owner_agent_id) as orchestrator_agent_id,
+          oa.display_name as orchestrator_agent_name,
           m.is_active,
+          COALESCE(m.is_public, true) as is_public,
+          COALESCE(m.is_platform, false) as is_platform,
+          m.parent_microdao_id,
+          pm.slug as parent_microdao_slug,
           m.logo_url,
           COUNT(DISTINCT ma.agent_id) AS agents_count,
+          COUNT(DISTINCT ma.agent_id) AS member_count,
           COUNT(DISTINCT mc.id) AS channels_count,
-          COUNT(DISTINCT CASE WHEN mc.kind = 'city_room' THEN mc.id END) AS rooms_count
+          COUNT(DISTINCT CASE WHEN mc.kind = 'city_room' THEN mc.id END) AS rooms_count,
+          COUNT(DISTINCT CASE WHEN mc.kind = 'city_room' THEN mc.id END) AS room_count
         FROM microdaos m
         LEFT JOIN microdao_agents ma ON ma.microdao_id = m.id
         LEFT JOIN microdao_channels mc ON mc.microdao_id = m.id
+        LEFT JOIN agents oa ON COALESCE(m.orchestrator_agent_id, m.owner_agent_id) = oa.id
+        LEFT JOIN microdaos pm ON m.parent_microdao_id = pm.id
         WHERE {where_sql}
-        GROUP BY m.id
+        GROUP BY m.id, oa.display_name, pm.slug
         ORDER BY m.name
         LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
     """
@@ -1267,6 +1287,93 @@ async def get_microdaos(district: Optional[str] = None, q: Optional[str] = None,
     
     rows = await pool.fetch(query, *params)
     return [dict(row) for row in rows]
+
+
+async def list_microdao_summaries(
+    *,
+    is_public: Optional[bool] = None,
+    is_platform: Optional[bool] = None,
+    district: Optional[str] = None,
+    q: Optional[str] = None,
+    limit: int = 50,
+    offset: int = 0
+) -> List[dict]:
+    """
+    Unified method to list microDAOs.
+    Wraps get_microdaos with additional filtering.
+    """
+    pool = await get_pool()
+    
+    params = []
+    where_clauses = [
+        "COALESCE(m.is_archived, false) = false",
+        "COALESCE(m.is_test, false) = false",
+        "m.deleted_at IS NULL",
+        "m.is_active = true"
+    ]
+    
+    if is_public is not None:
+        params.append(is_public)
+        where_clauses.append(f"COALESCE(m.is_public, true) = ${len(params)}")
+    
+    if is_platform is not None:
+        params.append(is_platform)
+        where_clauses.append(f"COALESCE(m.is_platform, false) = ${len(params)}")
+    
+    if district:
+        params.append(district)
+        where_clauses.append(f"m.district = ${len(params)}")
+        
+    if q:
+        params.append(f"%{q}%")
+        where_clauses.append(f"(m.name ILIKE ${len(params)} OR m.description ILIKE ${len(params)})")
+        
+    where_sql = " AND ".join(where_clauses)
+    
+    query = f"""
+        SELECT
+          m.id,
+          m.slug,
+          m.name,
+          m.description,
+          m.district,
+          COALESCE(m.orchestrator_agent_id, m.owner_agent_id) as orchestrator_agent_id,
+          oa.display_name as orchestrator_agent_name,
+          m.is_active,
+          COALESCE(m.is_public, true) as is_public,
+          COALESCE(m.is_platform, false) as is_platform,
+          m.parent_microdao_id,
+          pm.slug as parent_microdao_slug,
+          m.logo_url,
+          COUNT(DISTINCT ma.agent_id) AS agents_count,
+          COUNT(DISTINCT ma.agent_id) AS member_count,
+          COUNT(DISTINCT mc.id) AS channels_count,
+          COUNT(DISTINCT CASE WHEN mc.kind = 'city_room' THEN mc.id END) AS rooms_count,
+          COUNT(DISTINCT CASE WHEN mc.kind = 'city_room' THEN mc.id END) AS room_count
+        FROM microdaos m
+        LEFT JOIN microdao_agents ma ON ma.microdao_id = m.id
+        LEFT JOIN microdao_channels mc ON mc.microdao_id = m.id
+        LEFT JOIN agents oa ON COALESCE(m.orchestrator_agent_id, m.owner_agent_id) = oa.id
+        LEFT JOIN microdaos pm ON m.parent_microdao_id = pm.id
+        WHERE {where_sql}
+        GROUP BY m.id, oa.display_name, pm.slug
+        ORDER BY m.name
+        LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
+    """
+    
+    params.append(limit)
+    params.append(offset)
+    
+    rows = await pool.fetch(query, *params)
+    return [dict(row) for row in rows]
+
+
+async def get_microdao_detail(slug: str) -> Optional[dict]:
+    """
+    Get detailed microDAO info including agents, channels, children.
+    Alias for get_microdao_by_slug with clearer naming.
+    """
+    return await get_microdao_by_slug(slug)
 
 
 async def get_microdao_by_slug(slug: str) -> Optional[dict]:
@@ -1281,14 +1388,21 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
           m.name,
           m.description,
           m.district,
-          m.owner_agent_id as orchestrator_agent_id,
+          COALESCE(m.orchestrator_agent_id, m.owner_agent_id) as orchestrator_agent_id,
+          a.display_name as orchestrator_display_name,
           m.is_active,
-          m.is_public,
-          m.logo_url,
-          a.display_name as orchestrator_display_name
+          COALESCE(m.is_public, true) as is_public,
+          COALESCE(m.is_platform, false) as is_platform,
+          m.parent_microdao_id,
+          pm.slug as parent_microdao_slug,
+          m.logo_url
         FROM microdaos m
-        LEFT JOIN agents a ON m.owner_agent_id = a.id
-        WHERE m.slug = $1 AND COALESCE(m.is_archived, false) = false
+        LEFT JOIN agents a ON COALESCE(m.orchestrator_agent_id, m.owner_agent_id) = a.id
+        LEFT JOIN microdaos pm ON m.parent_microdao_id = pm.id
+        WHERE m.slug = $1 
+          AND COALESCE(m.is_archived, false) = false
+          AND COALESCE(m.is_test, false) = false
+          AND m.deleted_at IS NULL
     """
     
     dao_row = await pool.fetchrow(query_dao, slug)
@@ -1308,6 +1422,9 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
         FROM microdao_agents ma
         JOIN agents a ON ma.agent_id = a.id
         WHERE ma.microdao_id = $1
+          AND COALESCE(a.is_archived, false) = false
+          AND COALESCE(a.is_test, false) = false
+          AND a.deleted_at IS NULL
         ORDER BY ma.is_core DESC, ma.role
     """
     agents_rows = await pool.fetch(query_agents, dao_id)
@@ -1326,6 +1443,20 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
     """
     channels_rows = await pool.fetch(query_channels, dao_id)
     result["channels"] = [dict(row) for row in channels_rows]
+    
+    # 4. Get child microDAOs
+    query_children = """
+        SELECT id, slug, name, COALESCE(is_public, true) as is_public, 
+               COALESCE(is_platform, false) as is_platform
+        FROM microdaos
+        WHERE parent_microdao_id = $1
+          AND COALESCE(is_archived, false) = false
+          AND COALESCE(is_test, false) = false
+          AND deleted_at IS NULL
+        ORDER BY name
+    """
+    children_rows = await pool.fetch(query_children, dao_id)
+    result["child_microdaos"] = [dict(row) for row in children_rows]
     
     public_citizens = await get_microdao_public_citizens(dao_id)
     result["public_citizens"] = public_citizens
