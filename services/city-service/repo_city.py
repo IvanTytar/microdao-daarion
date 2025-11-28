@@ -604,7 +604,7 @@ async def get_public_citizens(
             a.kind,
             a.public_district,
             a.public_primary_room_slug,
-            COALESCE(a.public_skills, '{{}}'::text[]) AS public_skills,
+            COALESCE(a.public_skills, ARRAY[]::text[]) AS public_skills,
             COALESCE(a.status, 'unknown') AS status,
             COUNT(*) OVER() AS total_count
         FROM agents a
@@ -697,7 +697,7 @@ async def get_public_citizen_by_slug(slug: str) -> Optional[dict]:
             a.public_slug,
             a.public_title,
             a.public_tagline,
-            COALESCE(a.public_skills, '{{}}'::text[]) AS public_skills,
+            COALESCE(a.public_skills, ARRAY[]::text[]) AS public_skills,
             a.public_district,
             a.public_primary_room_slug,
             a.primary_room_slug
