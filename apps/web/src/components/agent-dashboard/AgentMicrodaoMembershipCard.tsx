@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import type {
   AgentMicrodaoMembership,
-  MicrodaoOption,
-} from "@/lib/microdao";
+  MicrodaoOption
+} from "@/lib/types/microdao";
 import {
   fetchMicrodaoOptions,
   assignAgentToMicrodao,
