@@ -1642,14 +1642,17 @@ async def create_microdao_for_agent(
             await conn.execute(insert_member_query, microdao_id, orchestrator_agent_id)
             
             # 3. Update agent: set primary_microdao_id if empty, set is_orchestrator = true
+            # Also set public_slug if is_public, so orchestrator becomes a public citizen
             update_agent_query = """
                 UPDATE agents
                 SET is_orchestrator = true,
+                    is_public = CASE WHEN $3 THEN true ELSE is_public END,
+                    public_slug = CASE WHEN $3 AND (public_slug IS NULL OR public_slug = '') THEN id ELSE public_slug END,
                     primary_microdao_id = COALESCE(primary_microdao_id, $2),
                     updated_at = NOW()
                 WHERE id = $1
             """
-            await conn.execute(update_agent_query, orchestrator_agent_id, microdao_id)
+            await conn.execute(update_agent_query, orchestrator_agent_id, microdao_id, is_public)
             
             return dict(dao_row)
 
