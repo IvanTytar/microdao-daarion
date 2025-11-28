@@ -21,20 +21,33 @@ class AgentsSource:
         - display_name
         - kind
         - status
-        - room_id (current_room_id)
+        - room_id
         - color
+        - node_id
+        - district
+        - model
+        - role
+        - avatar_url
         """
         query = text("""
             SELECT 
-                id as agent_id,
-                display_name,
-                kind,
-                status,
-                current_room_id as room_id,
-                color
-            FROM agents
-            WHERE status IN ('online', 'busy')
-            ORDER BY display_name
+                a.id as agent_id,
+                a.display_name,
+                a.kind,
+                a.status,
+                COALESCE(cr.id, a.current_room_id) as room_id,
+                COALESCE(a.color_hint, a.color, 'cyan') as color,
+                a.node_id,
+                a.district,
+                a.model,
+                a.role,
+                a.avatar_url,
+                a.primary_room_slug
+            FROM agents a
+            LEFT JOIN city_rooms cr ON cr.slug = a.primary_room_slug
+            WHERE a.status IN ('online', 'busy')
+              AND (a.is_active = true OR a.is_active IS NULL)
+            ORDER BY a.display_name
         """)
         
         try:
@@ -69,17 +82,25 @@ class AgentsSource:
             return []
     
     def get_all_agents(self) -> List[Dict]:
-        """Get all agents (including offline)"""
+        """Get all active agents (including offline)"""
         query = text("""
             SELECT 
-                id as agent_id,
-                display_name,
-                kind,
-                status,
-                current_room_id as room_id,
-                color
-            FROM agents
-            ORDER BY display_name
+                a.id as agent_id,
+                a.display_name,
+                a.kind,
+                a.status,
+                COALESCE(cr.id, a.current_room_id) as room_id,
+                COALESCE(a.color_hint, a.color, 'cyan') as color,
+                a.node_id,
+                a.district,
+                a.model,
+                a.role,
+                a.avatar_url,
+                a.primary_room_slug
+            FROM agents a
+            LEFT JOIN city_rooms cr ON cr.slug = a.primary_room_slug
+            WHERE a.is_active = true OR a.is_active IS NULL
+            ORDER BY a.display_name
         """)
         
         try:

@@ -86,7 +86,12 @@ class PresenceAggregator:
                         kind=agent.get("kind", "assistant"),
                         status=agent.get("status", "online"),
                         room_id=agent.get("room_id"),
-                        color=agent.get("color", "cyan")
+                        color=agent.get("color", "cyan"),
+                        node_id=agent.get("node_id"),
+                        district=agent.get("district"),
+                        model=agent.get("model"),
+                        role=agent.get("role"),
+                        avatar_url=agent.get("avatar_url"),
                     )
                     all_agents.append(ap)
                     

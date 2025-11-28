@@ -3,8 +3,8 @@ SQLAlchemy ORM Models for Node Registry
 """
 from datetime import datetime
 from typing import Optional
-from sqlalchemy import Column, String, DateTime, Boolean, ForeignKey, Text, Index
-from sqlalchemy.dialects.postgresql import UUID as PG_UUID, INET, JSONB as PG_JSONB
+from sqlalchemy import Column, String, DateTime, Boolean, ForeignKey, Text, Index, ARRAY
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID, INET, JSONB as PG_JSONB, ARRAY as PG_ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import TypeDecorator, String as SQLString, Text as SQLText
@@ -90,6 +90,12 @@ class Node(Base):
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
     node_metadata = Column(JSONB, default={})
     
+    # Node Profile Standard v1 fields
+    roles = Column(ARRAY(String), default=[])  # ['core', 'gateway', 'matrix', 'agents', 'gpu']
+    gpu = Column(JSONB, default=None)  # {"name": "NVIDIA RTX 4000", "vram_gb": 20}
+    modules = Column(JSONB, default=[])  # [{"id": "ai.router", "status": "up", "port": 9102}, ...]
+    version = Column(String(50), default='1.0.0')
+    
     # Relationships
     profiles = relationship("NodeProfile", back_populates="node", cascade="all, delete-orphan")
     heartbeats = relationship("HeartbeatLog", back_populates="node", cascade="all, delete-orphan")
@@ -113,6 +119,11 @@ class Node(Base):
             "registered_at": self.registered_at.isoformat() if self.registered_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "metadata": self.node_metadata or {},
+            # Node Profile Standard v1
+            "roles": self.roles or [],
+            "gpu": self.gpu,
+            "modules": self.modules or [],
+            "version": self.version or "1.0.0",
         }
 
 

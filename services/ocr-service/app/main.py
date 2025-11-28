@@ -92,11 +92,19 @@ async def root():
 @app.get("/health")
 async def health():
     """Health check endpoint"""
+    gpu_available = False
+    if EASYOCR_AVAILABLE:
+        try:
+            import torch
+            gpu_available = torch.cuda.is_available()
+        except:
+            pass
+    
     return {
         "status": "healthy" if (TESSERACT_AVAILABLE or EASYOCR_AVAILABLE) else "degraded",
         "tesseract": "available" if TESSERACT_AVAILABLE else "unavailable",
         "easyocr": "available" if EASYOCR_AVAILABLE else "unavailable",
-        "gpu": torch.cuda.is_available() if EASYOCR_AVAILABLE else False
+        "gpu": gpu_available
     }
 
 def preprocess_image(img: Image.Image) -> Image.Image:

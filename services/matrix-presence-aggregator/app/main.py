@@ -103,6 +103,7 @@ async def health():
 
 
 @app.get("/presence/summary")
+@app.get("/presence/snapshot")
 async def get_presence_summary():
     """
     Get current presence snapshot.

@@ -489,6 +489,187 @@ async def discover_nodes(query: NodeDiscoveryQuery, db: Session = Depends(get_db
 
 
 # ============================================================================
+# Node Profile Endpoints (Standard v1)
+# ============================================================================
+
+from app.dashboard import build_dashboard
+
+
+@app.get("/api/v1/nodes/self/dashboard")
+async def get_self_dashboard(db: Session = Depends(get_db)):
+    """
+    Get dashboard for current node (self).
+    
+    Uses the first node in registry as "self" for now.
+    In production, this would use JWT claims to identify the node.
+    """
+    try:
+        from sqlalchemy import text
+        
+        # Get first node as "self" (simplified for v1)
+        result = db.execute(text("""
+            SELECT node_id FROM nodes ORDER BY registered_at LIMIT 1
+        """))
+        
+        row = result.fetchone()
+        if not row:
+            raise HTTPException(status_code=404, detail="No nodes registered")
+        
+        # Delegate to node dashboard
+        return await get_node_dashboard(row[0], db)
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Failed to get self dashboard: {e}")
+        raise HTTPException(status_code=500, detail=f"Dashboard failed: {str(e)}")
+
+
+@app.get("/api/v1/nodes/{node_id}/dashboard")
+async def get_node_dashboard(node_id: str, db: Session = Depends(get_db)):
+    """
+    Get complete node dashboard with live status.
+    
+    Aggregates:
+    - Node profile (roles, modules, GPU)
+    - Infrastructure metrics (CPU, RAM, Disk, GPU)
+    - AI services status (Swapper, Router, STT, Vision, OCR)
+    - Agents summary
+    - Matrix integration status
+    - Monitoring status
+    """
+    try:
+        from sqlalchemy import text
+        
+        # Get node profile
+        result = db.execute(text("""
+            SELECT node_id, node_name, node_role, node_type, ip_address, hostname,
+                   status, roles, gpu, modules, version, vpn_ip
+            FROM nodes
+            WHERE node_id = :node_id
+        """), {"node_id": node_id})
+        
+        row = result.fetchone()
+        if not row:
+            raise HTTPException(status_code=404, detail=f"Node not found: {node_id}")
+        
+        profile = {
+            "node_id": row[0],
+            "name": row[1],
+            "role": row[2],
+            "type": row[3],
+            "ip_address": row[4],
+            "hostname": row[5],
+            "status": row[6],
+            "roles": list(row[7]) if row[7] else [],
+            "gpu": row[8],
+            "modules": row[9] if row[9] else [],
+            "version": row[10] or "1.0.0",
+        }
+        
+        # Build dashboard with probes
+        # For Docker network, use gateway IP to access host services
+        import os
+        
+        # Default to Docker gateway for dagi-network
+        node_ip = os.getenv("PROBE_HOST", "172.21.0.1")
+        
+        # For NODE2, use its actual IP (for remote probing)
+        if node_id == "node-2-macbook-m4max":
+            node_ip = row[4] or "192.168.1.33"
+        
+        dashboard = await build_dashboard(profile, node_ip)
+        
+        return dashboard
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Failed to get node dashboard: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Dashboard failed: {str(e)}")
+
+
+@app.get("/api/v1/nodes/{node_id}/profile")
+async def get_node_profile(node_id: str, db: Session = Depends(get_db)):
+    """
+    Get full node profile including modules, GPU, roles.
+    Node Profile Standard v1.
+    """
+    try:
+        from sqlalchemy import text
+        
+        result = db.execute(text("""
+            SELECT node_id, node_name, node_role, node_type, ip_address, hostname,
+                   status, roles, gpu, modules, version, vpn_ip
+            FROM nodes
+            WHERE node_id = :node_id
+        """), {"node_id": node_id})
+        
+        row = result.fetchone()
+        if not row:
+            raise HTTPException(status_code=404, detail=f"Node not found: {node_id}")
+        
+        return {
+            "node_id": row[0],
+            "name": row[1],
+            "role": row[2],
+            "type": row[3],
+            "ip_address": row[4],
+            "hostname": row[5],
+            "status": row[6],
+            "roles": list(row[7]) if row[7] else [],
+            "gpu": row[8],
+            "modules": row[9] if row[9] else [],
+            "version": row[10] or "1.0.0",
+            "vpn_ip": str(row[11]) if row[11] else None,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Failed to get node profile: {e}")
+        raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
+
+
+@app.get("/api/v1/nodes/profiles")
+async def get_all_node_profiles(db: Session = Depends(get_db)):
+    """
+    Get all node profiles with modules.
+    """
+    try:
+        from sqlalchemy import text
+        
+        result = db.execute(text("""
+            SELECT node_id, node_name, node_role, node_type, ip_address, hostname,
+                   status, roles, gpu, modules, version, vpn_ip
+            FROM nodes
+            ORDER BY node_id
+        """))
+        
+        nodes = []
+        for row in result.fetchall():
+            nodes.append({
+                "node_id": row[0],
+                "name": row[1],
+                "role": row[2],
+                "type": row[3],
+                "ip_address": row[4],
+                "hostname": row[5],
+                "status": row[6],
+                "roles": list(row[7]) if row[7] else [],
+                "gpu": row[8],
+                "modules": row[9] if row[9] else [],
+                "version": row[10] or "1.0.0",
+            })
+        
+        return {"nodes": nodes, "total": len(nodes)}
+    except Exception as e:
+        logger.error(f"❌ Failed to get node profiles: {e}")
+        raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
+
+
+# ============================================================================
 # Maintenance Endpoints
 # ============================================================================
 
@@ -518,7 +699,7 @@ if __name__ == "__main__":
     print(f"🚀 Starting {SERVICE_NAME} v{VERSION}")
     print(f"📊 Environment: {ENV}")
     print(f"🔌 Port: {HTTP_PORT}")
-    print(f"🗄️  Database: {DB_USER}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+    print(f"🗄️  Database: {os.getenv('DATABASE_URL', 'not configured')}")
     print(f"📝 Log level: {LOG_LEVEL}")
     print()
     

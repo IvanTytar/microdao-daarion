@@ -8,10 +8,15 @@ class AgentPresence(BaseModel):
     """Agent presence in a room"""
     agent_id: str
     display_name: str
-    kind: str = "assistant"  # assistant, civic, oracle, builder
+    kind: str = "assistant"  # assistant, civic, oracle, builder, vision, etc.
     status: str = "offline"  # online, offline, busy
     room_id: Optional[str] = None
     color: Optional[str] = None
+    node_id: Optional[str] = None  # Node where agent runs (node-1-hetzner, node-2-macbook)
+    district: Optional[str] = None  # City district (leadership, engineering, etc.)
+    model: Optional[str] = None  # LLM model used by agent
+    role: Optional[str] = None  # Agent's role description
+    avatar_url: Optional[str] = None  # Agent avatar URL
 
 
 class RoomPresence(BaseModel):

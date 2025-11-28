@@ -1,24 +1,24 @@
 """
-SQLite Database connection for local development
-Use this for testing without PostgreSQL
+PostgreSQL Database connection for Node Registry
 """
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
 import logging
 
 logger = logging.getLogger(__name__)
 
-# SQLite database file
-DB_FILE = os.getenv("NODE_REGISTRY_DB_FILE", "node_registry.db")
-DATABASE_URL = f"sqlite:///{DB_FILE}"
+# Database URL from environment
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/node_registry")
 
 # Create engine
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False},  # Required for SQLite
-    echo=os.getenv("NODE_REGISTRY_ENV") == "development",  # Log SQL in dev
+    pool_pre_ping=True,
+    pool_size=5,
+    max_overflow=10,
+    echo=os.getenv("NODE_REGISTRY_ENV") == "development",
 )
 
 # Create session factory
@@ -65,7 +65,7 @@ def check_db_connection() -> bool:
     """Check if database connection is working"""
     try:
         with engine.connect() as conn:
-            conn.execute("SELECT 1")
+            conn.execute(text("SELECT 1"))
         return True
     except Exception as e:
         logger.error(f"Database connection failed: {e}")
@@ -75,8 +75,7 @@ def check_db_connection() -> bool:
 def get_db_info() -> dict:
     """Get database connection information"""
     return {
-        "type": "sqlite",
-        "database": DB_FILE,
+        "type": "postgresql",
+        "url": DATABASE_URL.split("@")[-1] if "@" in DATABASE_URL else DATABASE_URL,
         "connected": check_db_connection(),
     }
-

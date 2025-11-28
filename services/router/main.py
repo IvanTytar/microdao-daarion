@@ -1,15 +1,27 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Literal, Optional, Dict, Any
+from typing import Literal, Optional, Dict, Any, List
 import asyncio
 import json
 import os
 import yaml
+import httpx
+import logging
 
-app = FastAPI(title="DAARION Router", version="1.0.0")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = FastAPI(title="DAARION Router", version="2.0.0")
 
 # Configuration
 NATS_URL = os.getenv("NATS_URL", "nats://nats:4222")
+SWAPPER_URL = os.getenv("SWAPPER_URL", "http://192.168.1.33:8890")
+STT_URL = os.getenv("STT_URL", "http://192.168.1.33:8895")
+VISION_URL = os.getenv("VISION_URL", "http://192.168.1.33:11434")
+OCR_URL = os.getenv("OCR_URL", "http://192.168.1.33:8896")
+
+# HTTP client for backend services
+http_client: Optional[httpx.AsyncClient] = None
 
 # NATS client
 nc = None
@@ -49,25 +61,35 @@ config = load_config()
 @app.on_event("startup")
 async def startup_event():
     """Initialize NATS connection and subscriptions"""
-    global nc, nats_available
-    print("🚀 DAGI Router starting up...")
+    global nc, nats_available, http_client
+    logger.info("🚀 DAGI Router v2.0.0 starting up...")
+    
+    # Initialize HTTP client
+    http_client = httpx.AsyncClient(timeout=60.0)
+    logger.info("✅ HTTP client initialized")
     
     # Try to connect to NATS
     try:
         import nats
         nc = await nats.connect(NATS_URL)
         nats_available = True
-        print(f"✅ Connected to NATS at {NATS_URL}")
+        logger.info(f"✅ Connected to NATS at {NATS_URL}")
         
         # Subscribe to filter decisions if enabled
         if config.get("messaging_inbound", {}).get("enabled", True):
             asyncio.create_task(subscribe_to_filter_decisions())
         else:
-            print("⚠️ Messaging inbound routing disabled in config")
+            logger.warning("⚠️ Messaging inbound routing disabled in config")
     except Exception as e:
-        print(f"⚠️ NATS not available: {e}")
-        print("⚠️ Running in test mode (HTTP only)")
+        logger.warning(f"⚠️ NATS not available: {e}")
+        logger.warning("⚠️ Running in test mode (HTTP only)")
         nats_available = False
+    
+    # Log backend URLs
+    logger.info(f"📡 Swapper URL: {SWAPPER_URL}")
+    logger.info(f"📡 STT URL: {STT_URL}")
+    logger.info(f"📡 Vision URL: {VISION_URL}")
+    logger.info(f"📡 OCR URL: {OCR_URL}")
 
 async def subscribe_to_filter_decisions():
     """Subscribe to agent.filter.decision events"""
@@ -201,10 +223,239 @@ async def test_messaging_route(decision: FilterDecision):
 @app.on_event("shutdown")
 async def shutdown_event():
     """Clean shutdown"""
-    global nc
+    global nc, http_client
     if nc:
         await nc.close()
-        print("✅ NATS connection closed")
+        logger.info("✅ NATS connection closed")
+    if http_client:
+        await http_client.aclose()
+        logger.info("✅ HTTP client closed")
+
+
+# ============================================================================
+# Backend Integration Endpoints
+# ============================================================================
+
+class InferRequest(BaseModel):
+    """Request for agent inference"""
+    prompt: str
+    model: Optional[str] = None
+    max_tokens: Optional[int] = 2048
+    temperature: Optional[float] = 0.7
+    system_prompt: Optional[str] = None
+
+
+class InferResponse(BaseModel):
+    """Response from agent inference"""
+    response: str
+    model: str
+    tokens_used: Optional[int] = None
+    backend: str
+
+
+class BackendStatus(BaseModel):
+    """Status of a backend service"""
+    name: str
+    url: str
+    status: str  # online, offline, error
+    active_model: Optional[str] = None
+    error: Optional[str] = None
+
+
+@app.get("/backends/status", response_model=List[BackendStatus])
+async def get_backends_status():
+    """Get status of all backend services"""
+    backends = []
+    
+    # Check Swapper
+    try:
+        resp = await http_client.get(f"{SWAPPER_URL}/health", timeout=5.0)
+        if resp.status_code == 200:
+            data = resp.json()
+            backends.append(BackendStatus(
+                name="swapper",
+                url=SWAPPER_URL,
+                status="online",
+                active_model=data.get("active_model")
+            ))
+        else:
+            backends.append(BackendStatus(
+                name="swapper",
+                url=SWAPPER_URL,
+                status="error",
+                error=f"HTTP {resp.status_code}"
+            ))
+    except Exception as e:
+        backends.append(BackendStatus(
+            name="swapper",
+            url=SWAPPER_URL,
+            status="offline",
+            error=str(e)
+        ))
+    
+    # Check STT
+    try:
+        resp = await http_client.get(f"{STT_URL}/health", timeout=5.0)
+        backends.append(BackendStatus(
+            name="stt",
+            url=STT_URL,
+            status="online" if resp.status_code == 200 else "error"
+        ))
+    except Exception as e:
+        backends.append(BackendStatus(
+            name="stt",
+            url=STT_URL,
+            status="offline",
+            error=str(e)
+        ))
+    
+    # Check Vision (Ollama)
+    try:
+        resp = await http_client.get(f"{VISION_URL}/api/tags", timeout=5.0)
+        if resp.status_code == 200:
+            data = resp.json()
+            models = [m.get("name") for m in data.get("models", [])]
+            backends.append(BackendStatus(
+                name="vision",
+                url=VISION_URL,
+                status="online",
+                active_model=", ".join(models[:3]) if models else None
+            ))
+        else:
+            backends.append(BackendStatus(
+                name="vision",
+                url=VISION_URL,
+                status="error"
+            ))
+    except Exception as e:
+        backends.append(BackendStatus(
+            name="vision",
+            url=VISION_URL,
+            status="offline",
+            error=str(e)
+        ))
+    
+    # Check OCR
+    try:
+        resp = await http_client.get(f"{OCR_URL}/health", timeout=5.0)
+        backends.append(BackendStatus(
+            name="ocr",
+            url=OCR_URL,
+            status="online" if resp.status_code == 200 else "error"
+        ))
+    except Exception as e:
+        backends.append(BackendStatus(
+            name="ocr",
+            url=OCR_URL,
+            status="offline",
+            error=str(e)
+        ))
+    
+    return backends
+
+
+@app.post("/v1/agents/{agent_id}/infer", response_model=InferResponse)
+async def agent_infer(agent_id: str, request: InferRequest):
+    """
+    Route inference request to appropriate backend.
+    
+    Router decides which backend to use based on:
+    - Agent configuration (model, capabilities)
+    - Request type (text, vision, audio)
+    - Backend availability
+    """
+    logger.info(f"🔀 Inference request for agent: {agent_id}")
+    logger.info(f"📝 Prompt: {request.prompt[:100]}...")
+    
+    # Determine which backend to use
+    model = request.model or "gpt-oss:latest"
+    
+    # Try Swapper first (for LLM models)
+    try:
+        # Check if Swapper is available
+        health_resp = await http_client.get(f"{SWAPPER_URL}/health", timeout=5.0)
+        if health_resp.status_code == 200:
+            # Load model if needed
+            load_resp = await http_client.post(
+                f"{SWAPPER_URL}/load",
+                json={"model": model},
+                timeout=30.0
+            )
+            
+            if load_resp.status_code == 200:
+                # Generate response via Ollama
+                generate_resp = await http_client.post(
+                    f"{VISION_URL}/api/generate",
+                    json={
+                        "model": model,
+                        "prompt": request.prompt,
+                        "system": request.system_prompt,
+                        "stream": False,
+                        "options": {
+                            "num_predict": request.max_tokens,
+                            "temperature": request.temperature
+                        }
+                    },
+                    timeout=120.0
+                )
+                
+                if generate_resp.status_code == 200:
+                    data = generate_resp.json()
+                    return InferResponse(
+                        response=data.get("response", ""),
+                        model=model,
+                        tokens_used=data.get("eval_count"),
+                        backend="swapper+ollama"
+                    )
+    except Exception as e:
+        logger.error(f"❌ Swapper/Ollama error: {e}")
+    
+    # Fallback: return error
+    raise HTTPException(
+        status_code=503,
+        detail=f"No backend available for model: {model}"
+    )
+
+
+@app.get("/v1/models")
+async def list_available_models():
+    """List all available models across backends"""
+    models = []
+    
+    # Get Swapper models
+    try:
+        resp = await http_client.get(f"{SWAPPER_URL}/models", timeout=5.0)
+        if resp.status_code == 200:
+            data = resp.json()
+            for m in data.get("models", []):
+                models.append({
+                    "id": m.get("name"),
+                    "backend": "swapper",
+                    "size_gb": m.get("size_gb"),
+                    "status": m.get("status", "available")
+                })
+    except Exception as e:
+        logger.warning(f"Cannot get Swapper models: {e}")
+    
+    # Get Ollama models
+    try:
+        resp = await http_client.get(f"{VISION_URL}/api/tags", timeout=5.0)
+        if resp.status_code == 200:
+            data = resp.json()
+            for m in data.get("models", []):
+                # Avoid duplicates
+                model_name = m.get("name")
+                if not any(x.get("id") == model_name for x in models):
+                    models.append({
+                        "id": model_name,
+                        "backend": "ollama",
+                        "size_gb": round(m.get("size", 0) / 1e9, 1),
+                        "status": "loaded"
+                    })
+    except Exception as e:
+        logger.warning(f"Cannot get Ollama models: {e}")
+    
+    return {"models": models, "total": len(models)}
 
 
 
