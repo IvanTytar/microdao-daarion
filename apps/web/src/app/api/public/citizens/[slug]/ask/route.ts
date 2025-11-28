@@ -4,7 +4,7 @@ const API_BASE = process.env.CITY_API_BASE_URL;
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   if (!API_BASE) {
     return NextResponse.json(
@@ -13,7 +13,7 @@ export async function POST(
     );
   }
 
-  const { slug } = params;
+  const { slug } = await params;
   const body = await req.json().catch(() => ({}));
 
   try {

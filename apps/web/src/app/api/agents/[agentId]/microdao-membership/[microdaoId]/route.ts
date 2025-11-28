@@ -4,7 +4,7 @@ const API_BASE = process.env.CITY_API_BASE_URL;
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { agentId: string; microdaoId: string } }
+  { params }: { params: Promise<{ agentId: string; microdaoId: string }> }
 ) {
   if (!API_BASE) {
     return NextResponse.json(
@@ -13,7 +13,7 @@ export async function DELETE(
     );
   }
 
-  const { agentId, microdaoId } = params;
+  const { agentId, microdaoId } = await params;
   const accessToken = req.cookies.get("daarion_access_token")?.value;
   const headers: Record<string, string> = {};
 

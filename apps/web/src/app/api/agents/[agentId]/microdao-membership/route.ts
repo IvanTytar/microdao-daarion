@@ -4,7 +4,7 @@ const API_BASE = process.env.CITY_API_BASE_URL;
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { agentId: string } }
+  { params }: { params: Promise<{ agentId: string }> }
 ) {
   if (!API_BASE) {
     return NextResponse.json(
@@ -13,7 +13,7 @@ export async function PUT(
     );
   }
 
-  const { agentId } = params;
+  const { agentId } = await params;
   const accessToken = req.cookies.get("daarion_access_token")?.value;
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
