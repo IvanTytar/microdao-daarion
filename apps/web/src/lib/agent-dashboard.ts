@@ -78,6 +78,11 @@ export interface AgentProfile {
   avatar_url?: string;
   status: 'online' | 'offline' | 'degraded' | 'training' | 'maintenance';
   node_id?: string;
+  is_public?: boolean;
+  is_orchestrator?: boolean;
+  primary_microdao_id?: string;
+  primary_microdao_name?: string;
+  primary_microdao_slug?: string;
   roles: string[];
   tags: string[];
   dais: DAIS;

@@ -1127,9 +1127,14 @@ async def get_agent_dashboard(agent_id: str):
             "agent_id": agent["id"],
             "display_name": agent["display_name"],
             "kind": agent.get("kind", "assistant"),
-            "avatar_url": agent.get("avatar_url"),  # Add top-level avatar_url
+            "avatar_url": agent.get("avatar_url"),
             "status": agent.get("status", "offline"),
             "node_id": agent.get("node_id"),
+            "is_public": agent.get("is_public", False),
+            "is_orchestrator": agent.get("is_orchestrator", False),
+            "primary_microdao_id": agent.get("primary_microdao_id"),
+            "primary_microdao_name": agent.get("primary_microdao_name"),
+            "primary_microdao_slug": agent.get("primary_microdao_slug"),
             "roles": [agent.get("role")] if agent.get("role") else [],
             "tags": [],
             "dais": {
