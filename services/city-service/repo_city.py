@@ -315,6 +315,8 @@ async def list_agent_summaries(
     # Always filter archived unless explicitly included
     if not include_archived:
         where_clauses.append("COALESCE(a.is_archived, false) = false")
+        where_clauses.append("COALESCE(a.is_test, false) = false")
+        where_clauses.append("a.deleted_at IS NULL")
     
     if node_id:
         params.append(node_id)
@@ -430,6 +432,8 @@ async def get_all_agents() -> List[dict]:
                current_room_id, capabilities, created_at, updated_at
         FROM agents
         WHERE COALESCE(is_archived, false) = false
+          AND COALESCE(is_test, false) = false
+          AND deleted_at IS NULL
         ORDER BY display_name
     """
     
@@ -542,7 +546,11 @@ async def get_agents_with_home_node(
     pool = await get_pool()
     
     params: List[Any] = []
-    where_clauses = ["COALESCE(a.is_archived, false) = false"]
+    where_clauses = [
+        "COALESCE(a.is_archived, false) = false",
+        "COALESCE(a.is_test, false) = false",
+        "a.deleted_at IS NULL"
+    ]
     
     if kind:
         params.append(kind)
@@ -881,7 +889,13 @@ async def get_public_citizens(
     pool = await get_pool()
     
     params: List[Any] = []
-    where_clauses = ["a.is_public = true", "a.public_slug IS NOT NULL", "COALESCE(a.is_archived, false) = false"]
+    where_clauses = [
+        "a.is_public = true", 
+        "a.public_slug IS NOT NULL", 
+        "COALESCE(a.is_archived, false) = false",
+        "COALESCE(a.is_test, false) = false",
+        "a.deleted_at IS NULL"
+    ]
     
     if district:
         params.append(district)
@@ -1207,7 +1221,13 @@ async def get_microdaos(district: Optional[str] = None, q: Optional[str] = None,
     
     params = []
     
-    where_clauses = ["m.is_public = true", "m.is_active = true", "COALESCE(m.is_archived, false) = false"]
+    where_clauses = [
+        "m.is_public = true",
+        "m.is_active = true",
+        "COALESCE(m.is_archived, false) = false",
+        "COALESCE(m.is_test, false) = false",
+        "m.deleted_at IS NULL"
+    ]
     
     if district:
         params.append(district)

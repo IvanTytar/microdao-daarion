@@ -1,0 +1,79 @@
+nodes:
+  - node-1-hetzner-gex44
+  - node-2-macbook-m4max
+
+microdao:
+  - slug: daarion
+  - slug: energy-union
+  - slug: greenfood
+  - slug: clan
+  - slug: soul
+  - slug: yaromir
+  - slug: druid
+  - slug: nutra
+  - slug: eonarch
+
+agents:
+  # Orchestrators on Node 1
+  - slug: daarwizz
+  - slug: helion
+  - slug: greenfood
+  - slug: druid
+  - slug: clan
+  - slug: eonarch
+  - slug: nutra
+  - slug: soul
+  - slug: yaromir
+  
+  # Node 2 Agents
+  - slug: faye
+  - slug: helix
+  - slug: exor
+  - slug: solarius
+  - slug: primesynth
+  - slug: nexor
+  - slug: monitor-node2
+  - slug: strategic-sentinels
+  - slug: vindex
+  - slug: aurora
+  - slug: arbitron
+  - slug: byteforge
+  - slug: vector
+  - slug: chainweaver
+  - slug: cypher
+  - slug: canvas
+  - slug: roxy
+  - slug: mira
+  - slug: tempo
+  - slug: harmony
+  - slug: storytelling
+  - slug: financial-analyst
+  - slug: accountant
+  - slug: tax-advisor
+  - slug: smart-contract-dev
+  - slug: defi-analyst
+  - slug: tokenomics-expert
+  - slug: nft-specialist
+  - slug: dao-governance
+  - slug: shadelock
+  - slug: penetration-tester
+  - slug: security-monitor
+  - slug: incident-responder
+  - slug: shadelock-forensics
+  - slug: exor-forensics
+  - slug: lumen
+  - slug: spectra
+  - slug: video-analyzer
+  - slug: protomind
+  - slug: labforge
+  - slug: testpilot
+  - slug: modelscout
+  - slug: breakpoint
+  - slug: growcell
+  - slug: somnia
+  - slug: memory-manager
+  - slug: knowledge-indexer
+  - slug: iris
+  - slug: sofia
+  - slug: budget-planner
+
