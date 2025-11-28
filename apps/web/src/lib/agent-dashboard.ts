@@ -153,6 +153,13 @@ export interface AgentPublicProfile {
   is_system?: boolean;
 }
 
+export interface CityRoomSummary {
+  id: string;
+  slug: string;
+  name: string;
+  matrix_room_id?: string | null;
+}
+
 export interface AgentDashboard {
   profile: AgentProfile;
   node?: AgentNode;
@@ -162,6 +169,7 @@ export interface AgentDashboard {
   system_prompts?: AgentSystemPrompts;
   public_profile?: AgentPublicProfile;
   microdao_memberships?: AgentMicrodaoMembership[];
+  primary_city_room?: CityRoomSummary | null;
 }
 
 // ============================================================================

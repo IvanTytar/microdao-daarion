@@ -14,6 +14,7 @@ import {
   ModulesCard,
   NodeStandardComplianceCard
 } from '@/components/node-dashboard';
+import { NodeAgentsPanel } from '@/components/nodes/NodeAgentsPanel';
 
 function getNodeLabel(nodeId: string): string {
   if (nodeId.includes('node-1')) return 'НОДА1';
@@ -122,6 +123,11 @@ export default function NodeCabinetPage() {
             </div>
             
             <div className="space-y-6">
+              {/* Node Guardian & Steward Agents */}
+              <NodeAgentsPanel
+                guardian={nodeProfile?.guardian_agent}
+                steward={nodeProfile?.steward_agent}
+              />
               <NodeStandardComplianceCard node={dashboard.node} />
               <MatrixCard matrix={dashboard.matrix} />
               <ModulesCard modules={dashboard.node.modules} />
@@ -243,6 +249,14 @@ export default function NodeCabinetPage() {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Node Guardian & Steward Agents */}
+        <div className="mb-6">
+          <NodeAgentsPanel
+            guardian={nodeProfile?.guardian_agent}
+            steward={nodeProfile?.steward_agent}
+          />
         </div>
 
         {/* Notice for non-NODE1 */}

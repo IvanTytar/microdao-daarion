@@ -1206,10 +1206,28 @@ async def get_agent_dashboard(agent_id: str):
             for item in memberships_raw
         ]
         
+        # Get primary city room for agent
+        primary_city_room = None
+        # Priority 1: agent's primary room from city_rooms
+        if rooms and len(rooms) > 0:
+            primary_room = rooms[0]  # First room as primary
+            primary_city_room = {
+                "id": primary_room.get("id"),
+                "slug": primary_room.get("slug"),
+                "name": primary_room.get("name"),
+                "matrix_room_id": primary_room.get("matrix_room_id")
+            }
+        # Priority 2: Get from primary MicroDAO's main room
+        elif agent.get("primary_microdao_id"):
+            microdao_room = await repo_city.get_microdao_primary_room(agent["primary_microdao_id"])
+            if microdao_room:
+                primary_city_room = microdao_room
+        
         # Build dashboard response
         dashboard = {
             "profile": profile,
             "node": node_info,
+            "primary_city_room": primary_city_room,
             "runtime": {
                 "health": "healthy" if agent.get("status") == "online" else "unknown",
                 "last_success_at": None,
@@ -1466,6 +1484,18 @@ async def get_microdao_by_slug(slug: str):
                 is_platform=child.get("is_platform", False)
             ))
         
+        # Get primary city room for MicroDAO
+        primary_city_room = await repo_city.get_microdao_primary_room(dao["id"])
+        primary_room_summary = None
+        if primary_city_room:
+            from models_city import CityRoomSummary
+            primary_room_summary = CityRoomSummary(
+                id=primary_city_room["id"],
+                slug=primary_city_room["slug"],
+                name=primary_city_room["name"],
+                matrix_room_id=primary_city_room.get("matrix_room_id")
+            )
+        
         return MicrodaoDetail(
             id=dao["id"],
             slug=dao["slug"],
@@ -1483,7 +1513,8 @@ async def get_microdao_by_slug(slug: str):
             logo_url=dao.get("logo_url"),
             agents=agents,
             channels=channels,
-            public_citizens=public_citizens
+            public_citizens=public_citizens,
+            primary_city_room=primary_room_summary
         )
     
     except HTTPException:

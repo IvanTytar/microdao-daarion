@@ -396,6 +396,14 @@ class MicrodaoAgentView(BaseModel):
     is_core: bool
 
 
+class CityRoomSummary(BaseModel):
+    """Summary of a city room for chat embedding"""
+    id: str
+    slug: str
+    name: str
+    matrix_room_id: Optional[str] = None
+
+
 class MicrodaoDetail(BaseModel):
     """Full MicroDAO detail view"""
     id: str
@@ -423,6 +431,9 @@ class MicrodaoDetail(BaseModel):
     agents: List[MicrodaoAgentView] = []
     channels: List[MicrodaoChannelView] = []
     public_citizens: List[MicrodaoCitizenView] = []
+    
+    # Primary city room for chat
+    primary_city_room: Optional[CityRoomSummary] = None
 
 
 class AgentMicrodaoMembership(BaseModel):

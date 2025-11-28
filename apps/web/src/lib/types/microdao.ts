@@ -73,6 +73,17 @@ export interface MicrodaoCitizenView {
 }
 
 // =============================================================================
+// City Room Summary (for chat embedding)
+// =============================================================================
+
+export interface CityRoomSummary {
+  id: string;
+  slug: string;
+  name: string;
+  matrix_room_id?: string | null;
+}
+
+// =============================================================================
 // MicroDAO Detail (for /microdao/[slug])
 // =============================================================================
 
@@ -102,6 +113,9 @@ export interface MicrodaoDetail {
   agents: MicrodaoAgentView[];
   channels: MicrodaoChannelView[];
   public_citizens: MicrodaoCitizenView[];
+  
+  // Primary city room for chat
+  primary_city_room?: CityRoomSummary | null;
 }
 
 // =============================================================================

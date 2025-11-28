@@ -18,7 +18,8 @@ import {
 import { api, Agent, AgentInvokeResponse } from '@/lib/api';
 import { VisibilityScope, getNodeBadgeLabel } from '@/lib/types/agents';
 import { updateAgentVisibility, AgentVisibilityUpdate } from '@/lib/api/agents';
-import { Bot, Settings, FileText, Building2, Cpu, MessageSquare, BarChart3, Users, Globe, Lock, Eye, EyeOff, ChevronLeft, Loader2 } from 'lucide-react';
+import { Bot, Settings, FileText, Building2, Cpu, MessageSquare, BarChart3, Users, Globe, Lock, Eye, EyeOff, ChevronLeft, Loader2, MessageCircle } from 'lucide-react';
+import { CityChatWidget } from '@/components/city/CityChatWidget';
 
 // Tab types
 type TabId = 'dashboard' | 'prompts' | 'microdao' | 'identity' | 'models' | 'chat';
@@ -461,70 +462,106 @@ export default function AgentConsolePage() {
         
         {/* Chat Tab */}
         {activeTab === 'chat' && (
-          <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
-            {/* Messages */}
-            <div className="h-[500px] overflow-y-auto p-4 space-y-4">
-              {messages.length === 0 && (
-                <div className="text-center text-white/50 py-8">
-                  <MessageSquare className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                  <p>Start a conversation with {profile?.display_name || agentId}</p>
-                </div>
-              )}
-              {messages.map(msg => (
-                <div
-                  key={msg.id}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-xl ${
-                      msg.role === 'user'
-                        ? 'bg-cyan-500/20 text-white'
-                        : 'bg-white/10 text-white'
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap">{msg.content}</p>
-                    {msg.meta && (
-                      <div className="mt-2 text-xs text-white/30 flex gap-2">
-                        {msg.meta.latency_ms && <span>{msg.meta.latency_ms}ms</span>}
-                        {msg.meta.tokens_out && <span>{msg.meta.tokens_out} tokens</span>}
-                      </div>
-                    )}
+          <div className="space-y-6">
+            {/* Direct Chat with Agent via DAGI Router */}
+            <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
+              <div className="p-4 border-b border-white/10">
+                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-cyan-400" />
+                  Прямий чат з агентом
+                </h3>
+                <p className="text-sm text-white/50">Спілкування через DAGI Router</p>
+              </div>
+              
+              {/* Messages */}
+              <div className="h-[400px] overflow-y-auto p-4 space-y-4">
+                {messages.length === 0 && (
+                  <div className="text-center text-white/50 py-8">
+                    <MessageSquare className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                    <p>Start a conversation with {profile?.display_name || agentId}</p>
                   </div>
-                </div>
-              ))}
-              {invoking && (
-                <div className="flex justify-start">
-                  <div className="bg-white/10 p-3 rounded-xl">
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 text-cyan-500 animate-spin" />
-                      <span className="text-white/50">Thinking...</span>
+                )}
+                {messages.map(msg => (
+                  <div
+                    key={msg.id}
+                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] p-3 rounded-xl ${
+                        msg.role === 'user'
+                          ? 'bg-cyan-500/20 text-white'
+                          : 'bg-white/10 text-white'
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap">{msg.content}</p>
+                      {msg.meta && (
+                        <div className="mt-2 text-xs text-white/30 flex gap-2">
+                          {msg.meta.latency_ms && <span>{msg.meta.latency_ms}ms</span>}
+                          {msg.meta.tokens_out && <span>{msg.meta.tokens_out} tokens</span>}
+                        </div>
+                      )}
                     </div>
                   </div>
+                ))}
+                {invoking && (
+                  <div className="flex justify-start">
+                    <div className="bg-white/10 p-3 rounded-xl">
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="w-4 h-4 text-cyan-500 animate-spin" />
+                        <span className="text-white/50">Thinking...</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+              
+              {/* Input */}
+              <div className="border-t border-white/10 p-4">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
+                    placeholder="Type a message..."
+                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan-500/50"
+                    disabled={invoking}
+                  />
+                  <button
+                    onClick={handleSendMessage}
+                    disabled={!input.trim() || invoking}
+                    className="px-4 py-3 bg-cyan-500 hover:bg-cyan-400 disabled:bg-white/10 disabled:text-white/30 text-white rounded-xl transition-colors"
+                  >
+                    Send
+                  </button>
                 </div>
-              )}
-              <div ref={messagesEndRef} />
+              </div>
             </div>
             
-            {/* Input */}
-            <div className="border-t border-white/10 p-4">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                  placeholder="Type a message..."
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-cyan-500/50"
-                  disabled={invoking}
-                />
-                <button
-                  onClick={handleSendMessage}
-                  disabled={!input.trim() || invoking}
-                  className="px-4 py-3 bg-cyan-500 hover:bg-cyan-400 disabled:bg-white/10 disabled:text-white/30 text-white rounded-xl transition-colors"
-                >
-                  Send
-                </button>
-              </div>
+            {/* Matrix City Room Chat */}
+            <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2 mb-4">
+                <MessageCircle className="w-5 h-5 text-purple-400" />
+                Публічна кімната агента
+              </h3>
+              
+              {dashboard?.primary_city_room ? (
+                <div className="space-y-3">
+                  <p className="text-sm text-white/60">
+                    Matrix-чат у кімнаті: <span className="text-purple-400">{dashboard.primary_city_room.name}</span>
+                  </p>
+                  <CityChatWidget roomSlug={dashboard.primary_city_room.slug} />
+                </div>
+              ) : (
+                <div className="text-center py-8 text-white/50">
+                  <MessageCircle className="w-12 h-12 mx-auto mb-2 opacity-30" />
+                  <p>Для цього агента ще не налаштована публічна кімната.</p>
+                  <p className="text-sm mt-2">
+                    Прив'яжіть агента до MicroDAO або створіть кімнату в City Service.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         )}

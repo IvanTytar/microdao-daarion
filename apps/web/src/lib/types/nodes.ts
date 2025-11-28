@@ -1,3 +1,10 @@
+export interface NodeAgentSummary {
+  id: string;
+  name: string;
+  kind?: string;
+  slug?: string;
+}
+
 export interface NodeProfile {
   node_id: string;
   name: string;
@@ -9,6 +16,10 @@ export interface NodeProfile {
   agents_total: number;
   agents_online: number;
   last_heartbeat?: string | null;
+  guardian_agent_id?: string | null;
+  steward_agent_id?: string | null;
+  guardian_agent?: NodeAgentSummary | null;
+  steward_agent?: NodeAgentSummary | null;
 }
 
 export interface NodeListResponse {

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useMicrodaoDetail } from "@/hooks/useMicrodao";
 import { DISTRICT_COLORS } from "@/lib/microdao";
 import { MicrodaoVisibilityCard } from "@/components/microdao/MicrodaoVisibilityCard";
-import { ChevronLeft, Users, MessageSquare, Crown, Building2, Globe, Lock, Layers, BarChart3, Bot } from "lucide-react";
+import { ChevronLeft, Users, MessageSquare, Crown, Building2, Globe, Lock, Layers, BarChart3, Bot, MessageCircle } from "lucide-react";
+import { CityChatWidget } from "@/components/city/CityChatWidget";
 
 export default function MicrodaoDetailPage() {
   const params = useParams();
@@ -370,6 +371,36 @@ export default function MicrodaoDetailPage() {
               <div className="text-xs text-slate-500">Дочірніх DAO</div>
             </div>
           </div>
+        </section>
+
+        {/* Public Chat Room */}
+        <section className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 space-y-4">
+          <h2 className="text-lg font-semibold text-slate-100 flex items-center gap-2">
+            <MessageCircle className="w-5 h-5 text-purple-400" />
+            Публічний чат MicroDAO
+          </h2>
+          
+          {microdao.primary_city_room ? (
+            <div className="space-y-3">
+              <p className="text-sm text-slate-400">
+                Matrix-чат у кімнаті: <span className="text-purple-400">{microdao.primary_city_room.name}</span>
+              </p>
+              {orchestrator && (
+                <p className="text-xs text-slate-500">
+                  Оркестратор: <Link href={`/agents/${orchestrator.agent_id}`} className="text-cyan-400 hover:underline">{orchestrator.display_name}</Link>
+                </p>
+              )}
+              <CityChatWidget roomSlug={microdao.primary_city_room.slug} />
+            </div>
+          ) : (
+            <div className="text-center py-8 text-slate-500">
+              <MessageCircle className="w-12 h-12 mx-auto mb-2 opacity-30" />
+              <p>Для цього MicroDAO ще не налаштована публічна кімната.</p>
+              <p className="text-sm mt-2 text-slate-600">
+                Налаштуйте primary room у City Service, щоб увімкнути чат.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Visibility Settings (only for orchestrator) */}

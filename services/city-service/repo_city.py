@@ -1505,7 +1505,7 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
 # =============================================================================
 
 async def get_all_nodes() -> List[dict]:
-    """Отримати список всіх нод з кількістю агентів"""
+    """Отримати список всіх нод з кількістю агентів та Guardian/Steward"""
     pool = await get_pool()
     
     query = """
@@ -1518,18 +1518,47 @@ async def get_all_nodes() -> List[dict]:
             nc.status,
             nc.gpu,
             nc.last_sync AS last_heartbeat,
+            nc.guardian_agent_id,
+            nc.steward_agent_id,
             (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id) AS agents_total,
-            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id AND a.status = 'online') AS agents_online
+            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id AND a.status = 'online') AS agents_online,
+            ga.display_name AS guardian_name,
+            sa.display_name AS steward_name
         FROM node_cache nc
+        LEFT JOIN agents ga ON nc.guardian_agent_id = ga.id
+        LEFT JOIN agents sa ON nc.steward_agent_id = sa.id
         ORDER BY nc.environment DESC, nc.node_name
     """
     
     rows = await pool.fetch(query)
-    return [dict(row) for row in rows]
+    result = []
+    for row in rows:
+        data = dict(row)
+        # Build guardian_agent object
+        if data.get("guardian_agent_id"):
+            data["guardian_agent"] = {
+                "id": data.get("guardian_agent_id"),
+                "name": data.get("guardian_name"),
+            }
+        else:
+            data["guardian_agent"] = None
+        # Build steward_agent object
+        if data.get("steward_agent_id"):
+            data["steward_agent"] = {
+                "id": data.get("steward_agent_id"),
+                "name": data.get("steward_name"),
+            }
+        else:
+            data["steward_agent"] = None
+        # Clean up
+        data.pop("guardian_name", None)
+        data.pop("steward_name", None)
+        result.append(data)
+    return result
 
 
 async def get_node_by_id(node_id: str) -> Optional[dict]:
-    """Отримати ноду по ID"""
+    """Отримати ноду по ID з Guardian та Steward агентами"""
     pool = await get_pool()
     
     query = """
@@ -1542,14 +1571,58 @@ async def get_node_by_id(node_id: str) -> Optional[dict]:
             nc.status,
             nc.gpu,
             nc.last_sync AS last_heartbeat,
+            nc.guardian_agent_id,
+            nc.steward_agent_id,
             (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id) AS agents_total,
-            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id AND a.status = 'online') AS agents_online
+            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id AND a.status = 'online') AS agents_online,
+            -- Guardian agent info
+            ga.display_name AS guardian_name,
+            ga.kind AS guardian_kind,
+            ga.public_slug AS guardian_slug,
+            -- Steward agent info
+            sa.display_name AS steward_name,
+            sa.kind AS steward_kind,
+            sa.public_slug AS steward_slug
         FROM node_cache nc
+        LEFT JOIN agents ga ON nc.guardian_agent_id = ga.id
+        LEFT JOIN agents sa ON nc.steward_agent_id = sa.id
         WHERE nc.node_id = $1
     """
     
     row = await pool.fetchrow(query, node_id)
-    return dict(row) if row else None
+    if not row:
+        return None
+    
+    data = dict(row)
+    
+    # Build guardian_agent object
+    if data.get("guardian_agent_id"):
+        data["guardian_agent"] = {
+            "id": data.get("guardian_agent_id"),
+            "name": data.get("guardian_name"),
+            "kind": data.get("guardian_kind"),
+            "slug": data.get("guardian_slug"),
+        }
+    else:
+        data["guardian_agent"] = None
+    
+    # Build steward_agent object
+    if data.get("steward_agent_id"):
+        data["steward_agent"] = {
+            "id": data.get("steward_agent_id"),
+            "name": data.get("steward_name"),
+            "kind": data.get("steward_kind"),
+            "slug": data.get("steward_slug"),
+        }
+    else:
+        data["steward_agent"] = None
+    
+    # Clean up intermediate fields
+    for key in ["guardian_name", "guardian_kind", "guardian_slug", 
+                "steward_name", "steward_kind", "steward_slug"]:
+        data.pop(key, None)
+    
+    return data
 
 
 # =============================================================================
@@ -1655,4 +1728,39 @@ async def create_microdao_for_agent(
             await conn.execute(update_agent_query, orchestrator_agent_id, microdao_id, is_public)
             
             return dict(dao_row)
+
+
+async def get_microdao_primary_room(microdao_id: str) -> Optional[dict]:
+    """
+    Отримати основну кімнату MicroDAO для чату.
+    Пріоритет: primary room → перша публічна кімната → будь-яка кімната.
+    """
+    pool = await get_pool()
+    
+    query = """
+        SELECT 
+            cr.id,
+            cr.slug,
+            cr.name,
+            cr.matrix_room_id
+        FROM city_rooms cr
+        WHERE cr.microdao_id = $1
+          AND cr.is_active = true
+        ORDER BY 
+            CASE WHEN cr.room_type = 'primary' THEN 0
+                 WHEN cr.room_type = 'public' THEN 1
+                 ELSE 2 END,
+            cr.created_at
+        LIMIT 1
+    """
+    
+    row = await pool.fetchrow(query, microdao_id)
+    if row:
+        return {
+            "id": str(row["id"]),
+            "slug": row["slug"],
+            "name": row["name"],
+            "matrix_room_id": row.get("matrix_room_id")
+        }
+    return None
 
