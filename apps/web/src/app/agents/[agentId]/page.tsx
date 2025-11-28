@@ -16,7 +16,26 @@ import {
 import { AgentVisibilityCard } from '@/components/agent-dashboard/AgentVisibilityCard';
 import { api, Agent, AgentInvokeResponse } from '@/lib/api';
 import { updateAgentVisibility } from '@/lib/api/agents';
-import { AgentVisibilityPayload, VisibilityScope } from '@/lib/types/agents';
+import { AgentVisibilityPayload, VisibilityScope, getNodeBadgeLabel } from '@/lib/types/agents';
+import { Bot, Settings, FileText, Building2, Cpu, MessageSquare, BarChart3, Users, Globe, Lock, Eye, EyeOff, ChevronLeft, Loader2 } from 'lucide-react';
+
+// Tab types
+type TabId = 'dashboard' | 'prompts' | 'microdao' | 'identity' | 'models' | 'chat';
+
+interface Tab {
+  id: TabId;
+  label: string;
+  icon: React.ReactNode;
+}
+
+const TABS: Tab[] = [
+  { id: 'dashboard', label: 'Dashboard', icon: <BarChart3 className="w-4 h-4" /> },
+  { id: 'prompts', label: 'System Prompts', icon: <FileText className="w-4 h-4" /> },
+  { id: 'microdao', label: 'MicroDAO', icon: <Building2 className="w-4 h-4" /> },
+  { id: 'identity', label: 'Identity', icon: <Bot className="w-4 h-4" /> },
+  { id: 'models', label: 'Models', icon: <Cpu className="w-4 h-4" /> },
+  { id: 'chat', label: 'Chat', icon: <MessageSquare className="w-4 h-4" /> },
+];
 
 // Chat Message type
 interface Message {
@@ -31,10 +50,10 @@ interface Message {
   };
 }
 
-export default function AgentPage() {
+export default function AgentConsolePage() {
   const params = useParams();
   const agentId = params.agentId as string;
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'chat'>('dashboard');
+  const [activeTab, setActiveTab] = useState<TabId>('dashboard');
   
   // Dashboard state
   const { dashboard, isLoading: dashboardLoading, error: dashboardError, refresh } = useAgentDashboard(agentId, {
@@ -43,7 +62,6 @@ export default function AgentPage() {
   
   // Chat state
   const [agent, setAgent] = useState<Agent | null>(null);
-  const [chatLoading, setChatLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [invoking, setInvoking] = useState(false);
@@ -53,13 +71,10 @@ export default function AgentPage() {
   useEffect(() => {
     async function loadAgent() {
       try {
-        setChatLoading(true);
         const data = await api.getAgent(agentId);
         setAgent(data);
       } catch (error) {
         console.error('Failed to load agent:', error);
-      } finally {
-        setChatLoading(false);
       }
     }
     if (activeTab === 'chat') {
@@ -115,14 +130,14 @@ export default function AgentPage() {
   };
   
   // Loading state
-  if (dashboardLoading && !dashboard && activeTab === 'dashboard') {
+  if (dashboardLoading && !dashboard) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
-              <div className="animate-spin w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full mx-auto mb-4" />
-              <p className="text-white/70">Loading agent dashboard...</p>
+              <Loader2 className="w-12 h-12 text-cyan-500 animate-spin mx-auto mb-4" />
+              <p className="text-white/70">Loading agent console...</p>
             </div>
           </div>
         </div>
@@ -131,12 +146,12 @@ export default function AgentPage() {
   }
   
   // Error state
-  if (dashboardError && activeTab === 'dashboard') {
+  if (dashboardError) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-center">
-            <p className="text-red-400 text-lg mb-2">Failed to load agent dashboard</p>
+            <p className="text-red-400 text-lg mb-2">Failed to load agent console</p>
             <p className="text-white/50 mb-4">{dashboardError.message}</p>
             <div className="flex gap-4 justify-center">
               <button
@@ -158,57 +173,146 @@ export default function AgentPage() {
     );
   }
   
+  const profile = dashboard?.profile;
+  const nodeLabel = profile?.node_id ? getNodeBadgeLabel(profile.node_id) : 'Unknown';
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-6">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/agents"
-              className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
-            >
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </Link>
-            <div>
-              <h1 className="text-2xl font-bold text-white">
-                {dashboard?.profile.display_name || agent?.name || agentId}
-              </h1>
-              <p className="text-white/50 text-sm">Agent Cabinet</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
+      {/* Header */}
+      <div className="border-b border-white/10 bg-black/20 backdrop-blur-md sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link
+                href="/agents"
+                className="p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5 text-white" />
+              </Link>
+              
+              {/* Agent Avatar & Name */}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center border border-white/10">
+                  {profile?.avatar_url ? (
+                    <img src={profile.avatar_url} alt="" className="w-full h-full rounded-xl object-cover" />
+                  ) : (
+                    <Bot className="w-6 h-6 text-cyan-400" />
+                  )}
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-white">
+                    {profile?.display_name || agentId}
+                  </h1>
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-white/50">{profile?.kind || 'agent'}</span>
+                    <span className="text-white/30">•</span>
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                      nodeLabel === 'НОДА1' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-violet-500/20 text-violet-400'
+                    }`}>
+                      {nodeLabel}
+                    </span>
+                    {profile?.is_orchestrator && (
+                      <>
+                        <span className="text-white/30">•</span>
+                        <span className="px-2 py-0.5 rounded text-xs font-medium bg-amber-500/20 text-amber-400">
+                          Orchestrator
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Status & Actions */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className={`w-2 h-2 rounded-full ${
+                  profile?.status === 'online' ? 'bg-emerald-500' : 'bg-white/30'
+                }`} />
+                <span className="text-sm text-white/50">
+                  {profile?.status || 'offline'}
+                </span>
+              </div>
+              
+              {/* Public/Private Badge */}
+              {profile?.is_public ? (
+                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 text-sm">
+                  <Globe className="w-4 h-4" />
+                  Public Citizen
+                </span>
+              ) : (
+                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-white/50 text-sm">
+                  <Lock className="w-4 h-4" />
+                  Private
+                </span>
+              )}
+              
+              {/* Link to Citizen Profile if public */}
+              {profile?.is_public && profile?.public_slug && (
+                <Link
+                  href={`/citizens/${profile.public_slug}`}
+                  className="px-3 py-1.5 bg-white/5 hover:bg-white/10 text-white/70 text-sm rounded-lg transition-colors flex items-center gap-1.5"
+                >
+                  <Eye className="w-4 h-4" />
+                  View Public Profile
+                </Link>
+              )}
             </div>
           </div>
           
           {/* Tabs */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => setActiveTab('dashboard')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                activeTab === 'dashboard' 
-                  ? 'bg-cyan-500/20 text-cyan-400' 
-                  : 'bg-white/5 text-white/50 hover:bg-white/10'
-              }`}
-            >
-              📊 Dashboard
-            </button>
-            <button
-              onClick={() => setActiveTab('chat')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                activeTab === 'chat' 
-                  ? 'bg-cyan-500/20 text-cyan-400' 
-                  : 'bg-white/5 text-white/50 hover:bg-white/10'
-              }`}
-            >
-              💬 Chat
-            </button>
+          <div className="flex gap-1 mt-4 overflow-x-auto pb-1">
+            {TABS.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === tab.id 
+                    ? 'bg-cyan-500/20 text-cyan-400' 
+                    : 'bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70'
+                }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
-        
+      </div>
+      
+      {/* Content */}
+      <div className="max-w-6xl mx-auto px-6 py-6">
         {/* Dashboard Tab */}
         {activeTab === 'dashboard' && dashboard && (
           <div className="space-y-6">
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <div className="text-white/50 text-sm mb-1">MicroDAOs</div>
+                <div className="text-2xl font-bold text-white">{dashboard.microdao_memberships?.length || 0}</div>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <div className="text-white/50 text-sm mb-1">Visibility</div>
+                <div className="text-lg font-medium text-white capitalize">
+                  {dashboard.public_profile?.visibility_scope || 'city'}
+                </div>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <div className="text-white/50 text-sm mb-1">Kind</div>
+                <div className="text-lg font-medium text-white capitalize">{profile?.kind}</div>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <div className="text-white/50 text-sm mb-1">Status</div>
+                <div className={`text-lg font-medium ${profile?.status === 'online' ? 'text-emerald-400' : 'text-white/50'}`}>
+                  {profile?.status || 'offline'}
+                </div>
+              </div>
+            </div>
+            
+            {/* Main Info Cards */}
             <AgentSummaryCard profile={dashboard.profile} runtime={dashboard.runtime} />
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <AgentDAISCard dais={dashboard.profile.dais} />
               <div className="space-y-6">
@@ -216,13 +320,97 @@ export default function AgentPage() {
                 <AgentMetricsCard metrics={dashboard.metrics} />
               </div>
             </div>
-            {/* System Prompts - Full Width */}
+          </div>
+        )}
+        
+        {/* System Prompts Tab */}
+        {activeTab === 'prompts' && dashboard && (
+          <div className="space-y-6">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-cyan-400" />
+                System Prompts
+              </h2>
+              <p className="text-white/50 mb-6">
+                Configure the agent&apos;s behavior through system prompts. These prompts define how the agent responds and operates.
+              </p>
+            </div>
+            
             <AgentSystemPromptsCard
               agentId={dashboard.profile.agent_id}
               systemPrompts={dashboard.system_prompts}
-              canEdit={true}  // TODO: Check user role
+              canEdit={true}
               onUpdated={refresh}
             />
+          </div>
+        )}
+        
+        {/* MicroDAO Tab */}
+        {activeTab === 'microdao' && dashboard && (
+          <div className="space-y-6">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-cyan-400" />
+                MicroDAO Membership
+              </h2>
+              <p className="text-white/50 mb-4">
+                Manage which MicroDAOs this agent belongs to. Every agent must belong to at least one MicroDAO.
+              </p>
+              
+              {/* Primary MicroDAO */}
+              {profile?.primary_microdao_id && (
+                <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-4 mb-4">
+                  <div className="text-sm text-cyan-400 mb-1">Primary MicroDAO</div>
+                  <Link 
+                    href={`/microdao/${profile.primary_microdao_slug}`}
+                    className="text-lg font-medium text-white hover:text-cyan-400 transition-colors"
+                  >
+                    {profile.primary_microdao_name || profile.primary_microdao_slug}
+                  </Link>
+                </div>
+              )}
+              
+              {/* Orchestrator Actions */}
+              {profile?.is_orchestrator && (
+                <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-4">
+                  <div className="flex items-center gap-2 text-amber-400 mb-2">
+                    <Users className="w-4 h-4" />
+                    <span className="font-medium">Orchestrator Privileges</span>
+                  </div>
+                  <p className="text-white/50 text-sm mb-3">
+                    As an orchestrator, this agent can create and manage MicroDAOs.
+                  </p>
+                  <button
+                    disabled
+                    className="px-4 py-2 bg-amber-500/20 text-amber-400 rounded-lg text-sm opacity-50 cursor-not-allowed"
+                  >
+                    Create MicroDAO (Coming Soon)
+                  </button>
+                </div>
+              )}
+            </div>
+            
+            <AgentMicrodaoMembershipCard
+              agentId={dashboard.profile.agent_id}
+              memberships={dashboard.microdao_memberships ?? []}
+              canEdit={true}
+              onUpdated={refresh}
+            />
+          </div>
+        )}
+        
+        {/* Identity Tab */}
+        {activeTab === 'identity' && dashboard && (
+          <div className="space-y-6">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <Bot className="w-5 h-5 text-cyan-400" />
+                Agent Identity & Visibility
+              </h2>
+              <p className="text-white/50 mb-4">
+                Configure how this agent appears to others and whether it&apos;s visible as a public citizen.
+              </p>
+            </div>
             
             {/* Visibility Settings */}
             <AgentVisibilityCard
@@ -239,16 +427,44 @@ export default function AgentPage() {
             <AgentPublicProfileCard
               agentId={dashboard.profile.agent_id}
               publicProfile={dashboard.public_profile}
-              canEdit={true}  // TODO: Check user role
-              onUpdated={refresh}
-            />
-
-            <AgentMicrodaoMembershipCard
-              agentId={dashboard.profile.agent_id}
-              memberships={dashboard.microdao_memberships ?? []}
               canEdit={true}
               onUpdated={refresh}
             />
+          </div>
+        )}
+        
+        {/* Models Tab */}
+        {activeTab === 'models' && dashboard && (
+          <div className="space-y-6">
+            <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <Cpu className="w-5 h-5 text-cyan-400" />
+                Model Configuration
+              </h2>
+              <p className="text-white/50 mb-6">
+                Configure which AI models this agent uses for different tasks.
+              </p>
+              
+              {/* Current Model */}
+              <div className="bg-white/5 rounded-lg p-4 border border-white/10 mb-4">
+                <div className="text-sm text-white/50 mb-1">Current Model</div>
+                <div className="text-lg font-medium text-white">
+                  {dashboard.profile.model || 'Default (via DAGI Router)'}
+                </div>
+              </div>
+              
+              {/* Model Bindings (placeholder) */}
+              <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                <div className="flex items-center gap-2 text-yellow-400 mb-2">
+                  <Settings className="w-4 h-4" />
+                  <span className="font-medium">Model Bindings</span>
+                </div>
+                <p className="text-white/50 text-sm">
+                  Advanced model configuration will be available in a future update. 
+                  Currently, models are managed through the DAGI Router.
+                </p>
+              </div>
+            </div>
           </div>
         )}
         
@@ -259,8 +475,8 @@ export default function AgentPage() {
             <div className="h-[500px] overflow-y-auto p-4 space-y-4">
               {messages.length === 0 && (
                 <div className="text-center text-white/50 py-8">
-                  <p className="text-4xl mb-2">💬</p>
-                  <p>Start a conversation with {dashboard?.profile.display_name || agent?.name || agentId}</p>
+                  <MessageSquare className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                  <p>Start a conversation with {profile?.display_name || agentId}</p>
                 </div>
               )}
               {messages.map(msg => (
@@ -289,7 +505,7 @@ export default function AgentPage() {
                 <div className="flex justify-start">
                   <div className="bg-white/10 p-3 rounded-xl">
                     <div className="flex items-center gap-2">
-                      <div className="animate-spin w-4 h-4 border-2 border-cyan-500 border-t-transparent rounded-full" />
+                      <Loader2 className="w-4 h-4 text-cyan-500 animate-spin" />
                       <span className="text-white/50">Thinking...</span>
                     </div>
                   </div>
@@ -325,4 +541,3 @@ export default function AgentPage() {
     </div>
   );
 }
-

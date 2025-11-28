@@ -7,8 +7,9 @@ import { getAgentKindIcon } from '@/lib/agent-dashboard';
 import { useCitizenProfile, useCitizenInteraction } from '@/hooks/useCitizens';
 import { askCitizen } from '@/lib/api/citizens';
 import { CityChatWidget } from '@/components/city/CityChatWidget';
+import { ChevronLeft, Building2, MapPin, MessageSquare, HelpCircle, Loader2, Users } from 'lucide-react';
 
-type LooseRecord = Record<string, any>;
+type LooseRecord = Record<string, unknown>;
 
 export default function CitizenProfilePage() {
   const params = useParams<{ slug: string }>();
@@ -30,7 +31,7 @@ export default function CitizenProfilePage() {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin w-12 h-12 border-4 border-cyan-500 border-t-transparent rounded-full" />
+            <Loader2 className="w-12 h-12 text-cyan-500 animate-spin" />
           </div>
         </div>
       </div>
@@ -43,8 +44,9 @@ export default function CitizenProfilePage() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 text-center">
             <p className="text-red-400 text-lg mb-4">{error?.message || 'Citizen not found'}</p>
-            <Link href="/citizens" className="text-cyan-400 hover:underline">
-              ← Back to Citizens
+            <Link href="/citizens" className="text-cyan-400 hover:underline flex items-center justify-center gap-2">
+              <ChevronLeft className="w-4 h-4" />
+              Back to Citizens
             </Link>
           </div>
         </div>
@@ -53,73 +55,89 @@ export default function CitizenProfilePage() {
   }
 
   const status = citizen.status || 'unknown';
-  const statusColor =
-    status === 'online' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white/10 text-white/60';
-
+  const isOnline = status === 'online';
   const daisCore = (citizen.dais_public?.core as LooseRecord) || {};
   const daisPhenotype = (citizen.dais_public?.phenotype as LooseRecord) || {};
-  const daisMemex = (citizen.dais_public?.memex as LooseRecord) || {};
-  const daisEconomics = (citizen.dais_public?.economics as LooseRecord) || {};
-  const metricsEntries = Object.entries(citizen.metrics_public || {});
-  const actions = (citizen.interaction?.actions as string[]) || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-6">
       <div className="max-w-5xl mx-auto space-y-6">
+        {/* Back Link */}
         <Link
           href="/citizens"
           className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors"
         >
-          ← Back to Citizens
+          <ChevronLeft className="w-4 h-4" />
+          Back to Citizens
         </Link>
 
+        {/* Hero Section */}
         <section className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
           <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-start">
-              <div className="w-24 h-24 flex-shrink-0 rounded-2xl bg-gradient-to-br from-cyan-500/40 to-purple-500/40 flex items-center justify-center text-5xl shadow-xl">
-                {getAgentKindIcon(citizen.kind || '')}
+              {/* Avatar */}
+              <div className="w-24 h-24 flex-shrink-0 rounded-2xl bg-gradient-to-br from-cyan-500/40 to-purple-500/40 flex items-center justify-center text-5xl shadow-xl overflow-hidden">
+                {citizen.avatar_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={citizen.avatar_url} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  getAgentKindIcon(citizen.kind || '')
+                )}
               </div>
+              
+              {/* Info */}
               <div className="flex-1 space-y-3">
-                <h1 className="text-3xl font-bold text-white">{citizen.display_name}</h1>
+                <div>
+                  <p className="text-cyan-400/80 text-sm mb-1">Громадянин DAARION City</p>
+                  <h1 className="text-3xl font-bold text-white">{citizen.display_name}</h1>
+                </div>
                 <p className="text-cyan-200 text-lg">
-                  {citizen.public_title || citizen.kind || 'Citizen of DAARION'}
+                  {citizen.public_title || citizen.kind || 'Citizen'}
                 </p>
+                
+                {/* Badges */}
                 <div className="flex flex-wrap gap-3 text-sm">
-                  <span className={`px-3 py-1 rounded-full ${statusColor}`}>
+                  {/* Status */}
+                  <span className={`px-3 py-1 rounded-full flex items-center gap-1.5 ${
+                    isOnline ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white/10 text-white/60'
+                  }`}>
+                    <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-emerald-500' : 'bg-white/30'}`} />
                     {status}
                   </span>
+                  
+                  {/* District */}
                   {citizen.district && (
-                    <span className="px-3 py-1 rounded-full bg-white/10 text-white/70">
-                      {citizen.district} District
+                    <span className="px-3 py-1 rounded-full bg-white/10 text-white/70 flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3" />
+                      {citizen.district}
                     </span>
                   )}
+                  
+                  {/* MicroDAO */}
                   {citizen.microdao && (
                     <Link
                       href={`/microdao/${citizen.microdao.slug}`}
-                      className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-200 hover:bg-cyan-500/30"
+                      className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-200 hover:bg-purple-500/30 flex items-center gap-1.5 transition-colors"
                     >
-                      MicroDAO: {citizen.microdao.name}
+                      <Building2 className="w-3 h-3" />
+                      {citizen.microdao.name}
                     </Link>
                   )}
                 </div>
               </div>
-              {citizen.admin_panel_url && (
-                <Link
-                  href={citizen.admin_panel_url}
-                  className="px-4 py-2 bg-purple-500/20 text-purple-200 rounded-lg hover:bg-purple-500/30 transition-colors text-sm flex items-center gap-2"
-                >
-                  ⚙️ Agent Dashboard
-                </Link>
-              )}
             </div>
           </div>
-          <div className="p-8 space-y-8">
+          
+          {/* Content */}
+          <div className="p-8 space-y-6">
+            {/* Tagline */}
             {citizen.public_tagline && (
               <blockquote className="text-xl text-white/80 italic border-l-4 border-cyan-500/60 pl-4">
-                "{citizen.public_tagline}"
+                &ldquo;{citizen.public_tagline}&rdquo;
               </blockquote>
             )}
 
+            {/* Skills */}
             {citizen.public_skills?.length > 0 && (
               <div>
                 <h3 className="text-xs uppercase text-white/40 mb-2">Skills</h3>
@@ -135,74 +153,31 @@ export default function CitizenProfilePage() {
                 </div>
               </div>
             )}
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {citizen.district && (
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-xs uppercase text-white/40">District</p>
-                  <p className="text-white mt-1 text-lg">{citizen.district}</p>
-                </div>
-              )}
-              {citizen.city_presence?.primary_room_slug && (
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-xs uppercase text-white/40">Primary Room</p>
-                  <p className="text-white mt-1 text-lg">
-                    #{citizen.city_presence.primary_room_slug}
-                  </p>
-                </div>
-              )}
-              {citizen.home_node && (
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-xs uppercase text-white/40">Home Node</p>
-                  <div className="mt-2 space-y-1">
-                    <p className="text-white text-lg">{citizen.home_node.name || citizen.node_id}</p>
-                    {citizen.home_node.roles && citizen.home_node.roles.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {citizen.home_node.roles.map((role) => (
-                          <span
-                            key={role}
-                            className={`px-2 py-0.5 rounded text-xs ${
-                              role === 'gpu' ? 'bg-amber-500/20 text-amber-300' :
-                              role === 'core' ? 'bg-emerald-500/20 text-emerald-300' :
-                              role === 'development' ? 'bg-purple-500/20 text-purple-300' :
-                              'bg-white/10 text-white/60'
-                            }`}
-                          >
-                            {role}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    {citizen.home_node.environment && (
-                      <span className={`inline-block px-2 py-0.5 rounded text-xs ${
-                        citizen.home_node.environment === 'production' 
-                          ? 'bg-emerald-500/20 text-emerald-300' 
-                          : 'bg-amber-500/20 text-amber-300'
-                      }`}>
-                        {citizen.home_node.environment}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
         </section>
 
-        <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-          <h2 className="text-white font-semibold">Взаємодія з громадянином</h2>
+        {/* Interaction Section */}
+        <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-6">
+          <h2 className="text-white font-semibold flex items-center gap-2">
+            <MessageSquare className="w-5 h-5 text-cyan-400" />
+            Взаємодія з громадянином
+          </h2>
 
-          <div className="space-y-2 text-sm">
-            <p className="text-white/60">Чат</p>
+          {/* Chat Link */}
+          <div className="space-y-2">
+            <p className="text-white/60 text-sm">Чат у кімнаті MicroDAO</p>
             {interactionLoading ? (
-              <div className="text-white/40 text-xs">Завантаження…</div>
+              <div className="text-white/40 text-xs flex items-center gap-2">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Завантаження…
+              </div>
             ) : interaction?.primary_room_slug ? (
               <Link
                 href={`/city/${interaction.primary_room_slug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-white/20 rounded-lg text-white hover:border-cyan-400/70 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-cyan-500/30 bg-cyan-500/10 rounded-lg text-cyan-300 hover:bg-cyan-500/20 transition-colors"
               >
-                Відкрити чат у кімнаті{' '}
-                {interaction.primary_room_name ?? interaction.primary_room_slug}
+                <MessageSquare className="w-4 h-4" />
+                Відкрити чат у кімнаті {interaction.primary_room_name ?? interaction.primary_room_slug}
               </Link>
             ) : (
               <div className="text-white/50 text-xs">
@@ -216,8 +191,12 @@ export default function CitizenProfilePage() {
             )}
           </div>
 
-          <div className="space-y-2 text-sm">
-            <p className="text-white/60">Поставити запитання</p>
+          {/* Ask Question */}
+          <div className="space-y-3">
+            <p className="text-white/60 text-sm flex items-center gap-2">
+              <HelpCircle className="w-4 h-4" />
+              Поставити запитання
+            </p>
             <textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
@@ -245,9 +224,16 @@ export default function CitizenProfilePage() {
                   }
                 }}
                 disabled={asking || !question.trim()}
-                className="px-4 py-2 rounded-lg border border-white/20 text-sm text-white hover:border-cyan-400/70 transition-colors disabled:opacity-40"
+                className="px-4 py-2 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 transition-colors disabled:opacity-40 flex items-center gap-2"
               >
-                {asking ? 'Надсилання…' : 'Запитати'}
+                {asking ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Надсилання…
+                  </>
+                ) : (
+                  'Запитати'
+                )}
               </button>
               <button
                 onClick={() => {
@@ -262,26 +248,25 @@ export default function CitizenProfilePage() {
             </div>
             {askError && <div className="text-xs text-red-400">{askError}</div>}
             {answer && (
-              <div className="mt-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/90 whitespace-pre-wrap">
+              <div className="mt-2 rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-4 py-3 text-sm text-white/90 whitespace-pre-wrap">
                 {answer}
               </div>
             )}
           </div>
         </section>
 
-        <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-          <h2 className="text-white font-semibold">Live-чат з громадянином</h2>
-          {interactionLoading ? (
-            <div className="text-sm text-white/70">Завантаження кімнати…</div>
-          ) : interaction?.primary_room_slug ? (
+        {/* Live Chat Widget */}
+        {interaction?.primary_room_slug && (
+          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+            <h2 className="text-white font-semibold flex items-center gap-2">
+              <Users className="w-5 h-5 text-cyan-400" />
+              Live-чат
+            </h2>
             <CityChatWidget roomSlug={interaction.primary_room_slug} />
-          ) : (
-            <div className="text-sm text-white/60">
-              Для цього громадянина ще не налаштована публічна кімната чату.
-            </div>
-          )}
-        </section>
+          </section>
+        )}
 
+        {/* DAIS Public Passport */}
         <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
           <h2 className="text-white font-semibold">DAIS Public Passport</h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -295,33 +280,18 @@ export default function CitizenProfilePage() {
               </p>
             </div>
             <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-              <p className="text-xs uppercase text-white/40">Visual</p>
+              <p className="text-xs uppercase text-white/40">Visual Style</p>
               <p className="text-white/70 text-sm">
-                {(daisPhenotype?.visual as Record<string, string>)?.style || '—'}
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-              <p className="text-xs uppercase text-white/40">Memory</p>
-              <p className="text-white/70 text-sm">
-                {daisMemex && Object.keys(daisMemex).length > 0
-                  ? JSON.stringify(daisMemex)
-                  : 'Shared city memory'}
-              </p>
-            </div>
-            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-              <p className="text-xs uppercase text-white/40">Economics</p>
-              <p className="text-white/70 text-sm">
-                {daisEconomics && Object.keys(daisEconomics).length > 0
-                  ? JSON.stringify(daisEconomics)
-                  : 'per_task'}
+                {(daisPhenotype?.visual as Record<string, string>)?.style || 'Default'}
               </p>
             </div>
           </div>
         </section>
 
-        <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-          <h2 className="text-white font-semibold">City Presence</h2>
-          {citizen.city_presence?.rooms?.length ? (
+        {/* City Presence */}
+        {citizen.city_presence?.rooms && citizen.city_presence.rooms.length > 0 && (
+          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+            <h2 className="text-white font-semibold">City Presence</h2>
             <div className="space-y-2">
               {citizen.city_presence.rooms.map((room) => (
                 <Link
@@ -331,57 +301,15 @@ export default function CitizenProfilePage() {
                 >
                   <div>
                     <p className="font-semibold">{room.name || room.slug}</p>
-                    <p className="text-white/50 text-xs">{room.slug}</p>
+                    <p className="text-white/50 text-xs">#{room.slug}</p>
                   </div>
-                  <span className="text-white/50">→</span>
+                  <span className="text-cyan-400">→</span>
                 </Link>
               ))}
             </div>
-          ) : (
-            <p className="text-white/50 text-sm">Публічні кімнати не вказані.</p>
-          )}
-        </section>
-
-        <section className="grid gap-4 md:grid-cols-2">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-            <h2 className="text-white font-semibold">Interaction</h2>
-            {actions.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {actions.map((action) => (
-                  <span
-                    key={action}
-                    className="px-3 py-1 bg-cyan-500/20 text-cyan-200 rounded-full text-xs"
-                  >
-                    {action}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-white/50 text-sm">Публічні сценарії взаємодії готуються.</p>
-            )}
-            <button className="w-full mt-4 px-4 py-2 bg-cyan-500/20 text-cyan-100 rounded-lg hover:bg-cyan-500/30 transition-colors">
-              💬 Запросити до діалогу
-            </button>
-          </div>
-
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-3">
-            <h2 className="text-white font-semibold">Public Metrics</h2>
-            {metricsEntries.length ? (
-              <div className="space-y-2">
-                {metricsEntries.map(([key, value]) => (
-                  <div key={key} className="flex items-center justify-between text-sm">
-                    <span className="text-white/50">{key}</span>
-                    <span className="text-white font-semibold">{String(value)}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-white/50 text-sm">Метрики поки не опубліковані.</p>
-            )}
-          </div>
-        </section>
+          </section>
+        )}
       </div>
     </div>
   );
 }
-

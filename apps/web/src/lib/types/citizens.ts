@@ -1,10 +1,16 @@
-export interface HomeNode {
-  id?: string | null;
-  name?: string | null;
-  hostname?: string | null;
-  roles: string[];
-  environment?: string | null;
-}
+/**
+ * Public Citizens Types for DAARION MVP
+ * Citizens are public-facing agents (is_public = true)
+ */
+
+import { HomeNode, AgentStatus } from './agents';
+
+// Re-export HomeNode for backward compatibility
+export { HomeNode };
+
+// =============================================================================
+// Public Citizen Summary (for /citizens list)
+// =============================================================================
 
 export interface PublicCitizenSummary {
   slug: string;
@@ -16,10 +22,21 @@ export interface PublicCitizenSummary {
   district?: string | null;
   primary_room_slug?: string | null;
   public_skills: string[];
-  online_status?: "online" | "offline" | "unknown" | string;
-  status?: string | null;
+  online_status?: AgentStatus;
+  status?: string | null; // backward compatibility
   home_node?: HomeNode | null;
+  
+  // MicroDAO info (primary only for public display)
+  microdao?: {
+    slug: string;
+    name: string;
+    district?: string | null;
+  } | null;
 }
+
+// =============================================================================
+// City Presence
+// =============================================================================
 
 export interface CityPresenceRoom {
   room_id?: string | null;
@@ -32,6 +49,10 @@ export interface CityPresence {
   rooms: CityPresenceRoom[];
 }
 
+// =============================================================================
+// Public Citizen Profile (for /citizens/[slug])
+// =============================================================================
+
 export interface PublicCitizenProfile {
   slug: string;
   display_name: string;
@@ -43,18 +64,32 @@ export interface PublicCitizenProfile {
   status?: string | null;
   node_id?: string | null;
   public_skills: string[];
+  
+  // City presence
   city_presence?: CityPresence;
+  
+  // Public data blocks
   dais_public: Record<string, unknown>;
   interaction: Record<string, unknown>;
   metrics_public: Record<string, unknown>;
+  
+  // Admin link (only for architects/admins)
   admin_panel_url?: string | null;
+  
+  // MicroDAO info
   microdao?: {
     slug: string;
     name: string;
     district?: string | null;
   } | null;
+  
+  // Home node (minimal for public display)
   home_node?: HomeNode | null;
 }
+
+// =============================================================================
+// Citizen Interaction
+// =============================================================================
 
 export interface CitizenInteractionInfo {
   slug: string;
@@ -73,5 +108,3 @@ export interface CitizenAskResponse {
   agent_display_name: string;
   agent_id: string;
 }
-
-

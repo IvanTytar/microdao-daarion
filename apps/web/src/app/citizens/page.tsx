@@ -6,8 +6,10 @@ import { getAgentKindIcon } from '@/lib/agent-dashboard';
 import { DISTRICTS } from '@/lib/microdao';
 import { useCitizensList } from '@/hooks/useCitizens';
 import type { PublicCitizenSummary } from '@/lib/types/citizens';
+import { Users, Search, MapPin, Building2 } from 'lucide-react';
 
 const CITIZEN_KINDS = [
+  'orchestrator',
   'vision',
   'curator',
   'security',
@@ -16,6 +18,7 @@ const CITIZEN_KINDS = [
   'oracle',
   'builder',
   'research',
+  'marketing',
 ];
 
 export default function CitizensPage() {
@@ -34,24 +37,32 @@ export default function CitizensPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-6">
       <div className="max-w-7xl mx-auto">
+        {/* Header */}
         <div className="mb-8 space-y-6">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
-              🏛️ Citizens of DAARION City
-            </h1>
-            <p className="text-white/60">
-              Публічні AI-агенти, відкриті для співпраці та взаємодії
-            </p>
-            <p className="text-sm text-cyan-300/80 mt-2">
-              {isLoading ? 'Оновлення списку…' : `Знайдено громадян: ${total}`}
-            </p>
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center">
+              <Users className="w-7 h-7 text-cyan-400" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-white">
+                Громадяни DAARION City
+              </h1>
+              <p className="text-white/60">
+                Публічні AI-агенти, відкриті для співпраці та взаємодії
+              </p>
+            </div>
           </div>
+          
+          <p className="text-sm text-cyan-300/80">
+            {isLoading ? 'Оновлення списку…' : `Знайдено громадян: ${total}`}
+          </p>
 
+          {/* Filters */}
           <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-4">
             <div className="grid gap-4 md:grid-cols-3">
               <div className="md:col-span-1">
-                <label className="text-xs uppercase text-white/40 block mb-2">
-                  Пошук
+                <label className="text-xs uppercase text-white/40 block mb-2 flex items-center gap-1">
+                  <Search className="w-3 h-3" /> Пошук
                 </label>
                 <input
                   type="text"
@@ -62,8 +73,8 @@ export default function CitizensPage() {
                 />
               </div>
               <div>
-                <label className="text-xs uppercase text-white/40 block mb-2">
-                  District
+                <label className="text-xs uppercase text-white/40 block mb-2 flex items-center gap-1">
+                  <MapPin className="w-3 h-3" /> District
                 </label>
                 <select
                   value={district}
@@ -79,8 +90,8 @@ export default function CitizensPage() {
                 </select>
               </div>
               <div>
-                <label className="text-xs uppercase text-white/40 block mb-2">
-                  Тип агента
+                <label className="text-xs uppercase text-white/40 block mb-2 flex items-center gap-1">
+                  <Building2 className="w-3 h-3" /> Тип агента
                 </label>
                 <select
                   value={kind}
@@ -105,6 +116,7 @@ export default function CitizensPage() {
           )}
         </div>
         
+        {/* Citizens Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
             Array.from({ length: 6 }).map((_, index) => (
@@ -122,6 +134,7 @@ export default function CitizensPage() {
         
         {!isLoading && citizens.length === 0 && (
           <div className="text-center py-12">
+            <Users className="w-16 h-16 text-white/20 mx-auto mb-4" />
             <p className="text-white/40">Наразі немає публічних громадян за цими фільтрами.</p>
           </div>
         )}
@@ -130,20 +143,33 @@ export default function CitizensPage() {
   );
 }
 
+/**
+ * Citizen Card - Public-facing view
+ * Shows only public information, no technical details
+ */
 function CitizenCard({ citizen }: { citizen: PublicCitizenSummary }) {
-  const status = citizen.online_status || 'unknown';
-  const statusColor =
-    status === 'online' ? 'text-emerald-400' : 'text-white/40';
+  const status = citizen.online_status || citizen.status || 'unknown';
+  const isOnline = status === 'online';
 
   return (
-    <Link key={citizen.slug} href={`/citizens/${citizen.slug}`} className="group">
-      <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 hover:border-cyan-500/50 transition-all hover:bg-white/10">
+    <Link href={`/citizens/${citizen.slug}`} className="group">
+      <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 hover:border-cyan-500/50 transition-all hover:bg-white/10 h-full flex flex-col">
+        {/* Header */}
         <div className="flex items-start gap-4 mb-4">
-          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center text-3xl">
-            {getAgentKindIcon(citizen.kind || '')}
+          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500/30 to-purple-500/30 flex items-center justify-center text-3xl flex-shrink-0 overflow-hidden">
+            {citizen.avatar_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img 
+                src={citizen.avatar_url} 
+                alt="" 
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              getAgentKindIcon(citizen.kind || '')
+            )}
           </div>
-          <div className="flex-1">
-            <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors truncate">
               {citizen.display_name}
             </h3>
             <p className="text-cyan-400 text-sm">
@@ -152,28 +178,33 @@ function CitizenCard({ citizen }: { citizen: PublicCitizenSummary }) {
           </div>
         </div>
 
+        {/* Tagline */}
         {citizen.public_tagline && (
-          <p className="text-white/60 text-sm mb-4 line-clamp-2">
-            "{citizen.public_tagline}"
+          <p className="text-white/60 text-sm mb-4 line-clamp-2 italic">
+            &ldquo;{citizen.public_tagline}&rdquo;
           </p>
         )}
 
+        {/* MicroDAO & District */}
         <div className="flex items-center gap-4 text-white/40 text-xs mb-4">
-          {citizen.district && (
-            <span className="flex items-center gap-1">
-              <span>📍</span> {citizen.district}
+          {citizen.microdao && (
+            <span className="flex items-center gap-1 text-purple-400">
+              <Building2 className="w-3 h-3" />
+              {citizen.microdao.name}
             </span>
           )}
-          {citizen.primary_room_slug && (
+          {citizen.district && (
             <span className="flex items-center gap-1">
-              <span>🚪</span> #{citizen.primary_room_slug}
+              <MapPin className="w-3 h-3" />
+              {citizen.district}
             </span>
           )}
         </div>
 
+        {/* Skills */}
         {citizen.public_skills?.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {citizen.public_skills.slice(0, 4).map((skill, index) => (
+          <div className="flex flex-wrap gap-1 mb-4 flex-grow">
+            {citizen.public_skills.slice(0, 3).map((skill, index) => (
               <span
                 key={index}
                 className="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-xs"
@@ -181,35 +212,20 @@ function CitizenCard({ citizen }: { citizen: PublicCitizenSummary }) {
                 {skill}
               </span>
             ))}
-            {citizen.public_skills.length > 4 && (
+            {citizen.public_skills.length > 3 && (
               <span className="px-2 py-0.5 text-white/30 text-xs">
-                +{citizen.public_skills.length - 4}
+                +{citizen.public_skills.length - 3}
               </span>
             )}
           </div>
         )}
 
-        <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className={`flex items-center gap-1.5 text-xs ${statusColor}`}>
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  status === 'online' ? 'bg-emerald-500' : 'bg-white/30'
-                }`}
-              />
-              {status}
-            </span>
-            {citizen.home_node?.id && (
-              <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
-                citizen.home_node.environment === 'production' 
-                  ? 'bg-emerald-500/20 text-emerald-400' 
-                  : 'bg-amber-500/20 text-amber-400'
-              }`}>
-                {citizen.home_node.id.includes('node-1') ? 'НОДА1' : 
-                 citizen.home_node.id.includes('node-2') ? 'НОДА2' : 'НОДА'}
-              </span>
-            )}
-          </div>
+        {/* Footer */}
+        <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
+          <span className={`flex items-center gap-1.5 text-xs ${isOnline ? 'text-emerald-400' : 'text-white/40'}`}>
+            <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-emerald-500' : 'bg-white/30'}`} />
+            {isOnline ? 'online' : 'offline'}
+          </span>
           <span className="text-cyan-400 text-sm group-hover:translate-x-1 transition-transform">
             View Profile →
           </span>
@@ -218,4 +234,3 @@ function CitizenCard({ citizen }: { citizen: PublicCitizenSummary }) {
     </Link>
   );
 }
-

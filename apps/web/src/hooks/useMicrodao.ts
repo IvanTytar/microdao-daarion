@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { MicrodaoSummary, MicrodaoDetail } from '@/lib/microdao';
+import type { MicrodaoSummary, MicrodaoDetail } from '@/lib/types/microdao';
 
 interface UseMicrodaoListOptions {
   district?: string;
