@@ -1,57 +1,140 @@
-import useSWR from "swr";
-import type { MicrodaoSummary, MicrodaoDetail } from "@/lib/microdao";
+'use client';
 
-const fetcher = (url: string) =>
-  fetch(url).then(async (res) => {
-    if (!res.ok) {
-      const body = await res.json().catch(() => null);
-      const error = new Error(body?.error || "Failed to fetch");
-      (error as any).status = res.status;
-      throw error;
+import { useState, useEffect, useCallback } from 'react';
+import type { MicrodaoSummary, MicrodaoDetail } from '@/lib/microdao';
+
+interface UseMicrodaoListOptions {
+  district?: string;
+  q?: string;
+  refreshInterval?: number;
+  enabled?: boolean;
+}
+
+interface UseMicrodaoListResult {
+  items: MicrodaoSummary[];
+  total: number;
+  isLoading: boolean;
+  error: Error | null;
+  mutate: () => Promise<void>;
+}
+
+export function useMicrodaoList(options: UseMicrodaoListOptions = {}): UseMicrodaoListResult {
+  const { district, q, refreshInterval = 60000, enabled = true } = options;
+  
+  const [items, setItems] = useState<MicrodaoSummary[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  
+  const fetchData = useCallback(async () => {
+    if (!enabled) return;
+    
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const search = new URLSearchParams();
+      if (district) search.set("district", district);
+      if (q) search.set("q", q);
+      
+      const url = `/api/microdao${search.toString() ? `?${search.toString()}` : ""}`;
+      const res = await fetch(url);
+      
+      if (!res.ok) {
+        throw new Error('Failed to fetch MicroDAO list');
+      }
+      
+      const data = await res.json();
+      setItems(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Failed to fetch'));
+    } finally {
+      setIsLoading(false);
     }
-    return res.json();
-  });
-
-export function useMicrodaoList(params?: { district?: string; q?: string }) {
-  const search = new URLSearchParams();
-  if (params?.district) search.set("district", params.district);
-  if (params?.q) search.set("q", params.q);
-
-  const key = `/api/microdao${search.toString() ? `?${search.toString()}` : ""}`;
-
-  const { data, error, isLoading, mutate } = useSWR<MicrodaoSummary[]>(
-    key,
-    fetcher,
-    {
-      refreshInterval: 60_000, // Refresh every minute
-      revalidateOnFocus: true,
-    }
-  );
-
+  }, [district, q, enabled]);
+  
+  // Initial fetch
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  
+  // Auto-refresh
+  useEffect(() => {
+    if (!enabled || refreshInterval <= 0) return;
+    
+    const interval = setInterval(fetchData, refreshInterval);
+    return () => clearInterval(interval);
+  }, [fetchData, refreshInterval, enabled]);
+  
   return {
-    items: data ?? [],
-    total: data?.length ?? 0,
+    items,
+    total: items.length,
     isLoading,
     error,
-    mutate,
+    mutate: fetchData,
   };
 }
 
-export function useMicrodaoDetail(slug: string | undefined) {
-  const { data, error, isLoading, mutate } = useSWR<MicrodaoDetail>(
-    slug ? `/api/microdao/${encodeURIComponent(slug)}` : null,
-    fetcher,
-    {
-      refreshInterval: 30_000,
-      revalidateOnFocus: true,
-    }
-  );
-
-  return {
-    microdao: data,
-    isLoading,
-    error,
-    mutate,
-  };
+interface UseMicrodaoDetailOptions {
+  refreshInterval?: number;
+  enabled?: boolean;
 }
 
+interface UseMicrodaoDetailResult {
+  microdao: MicrodaoDetail | null;
+  isLoading: boolean;
+  error: Error | null;
+  mutate: () => Promise<void>;
+}
+
+export function useMicrodaoDetail(
+  slug: string | undefined,
+  options: UseMicrodaoDetailOptions = {}
+): UseMicrodaoDetailResult {
+  const { refreshInterval = 30000, enabled = true } = options;
+  
+  const [microdao, setMicrodao] = useState<MicrodaoDetail | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  
+  const fetchData = useCallback(async () => {
+    if (!enabled || !slug) return;
+    
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const res = await fetch(`/api/microdao/${encodeURIComponent(slug)}`);
+      
+      if (!res.ok) {
+        throw new Error('Failed to fetch MicroDAO detail');
+      }
+      
+      const data = await res.json();
+      setMicrodao(data);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Failed to fetch'));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [slug, enabled]);
+  
+  // Initial fetch
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  
+  // Auto-refresh
+  useEffect(() => {
+    if (!enabled || refreshInterval <= 0) return;
+    
+    const interval = setInterval(fetchData, refreshInterval);
+    return () => clearInterval(interval);
+  }, [fetchData, refreshInterval, enabled]);
+  
+  return {
+    microdao,
+    isLoading,
+    error,
+    mutate: fetchData,
+  };
+}
