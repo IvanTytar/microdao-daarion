@@ -230,11 +230,33 @@ async def list_nodes():
 
 @public_router.get("/nodes/{node_id}")
 async def get_node_profile(node_id: str):
-    """Отримати профіль ноди"""
+    """Отримати профіль ноди з Guardian та Steward агентами"""
     try:
         node = await repo_city.get_node_by_id(node_id)
         if not node:
             raise HTTPException(status_code=404, detail="Node not found")
+        
+        # Build guardian agent summary
+        guardian_agent = None
+        if node.get("guardian_agent"):
+            from models_city import NodeAgentSummary
+            guardian_agent = NodeAgentSummary(
+                id=node["guardian_agent"]["id"],
+                name=node["guardian_agent"]["name"],
+                kind=node["guardian_agent"].get("kind"),
+                slug=node["guardian_agent"].get("slug")
+            )
+        
+        # Build steward agent summary
+        steward_agent = None
+        if node.get("steward_agent"):
+            from models_city import NodeAgentSummary
+            steward_agent = NodeAgentSummary(
+                id=node["steward_agent"]["id"],
+                name=node["steward_agent"]["name"],
+                kind=node["steward_agent"].get("kind"),
+                slug=node["steward_agent"].get("slug")
+            )
         
         return NodeProfile(
             node_id=node["node_id"],
@@ -246,7 +268,11 @@ async def get_node_profile(node_id: str):
             gpu_info=node.get("gpu"),
             agents_total=node.get("agents_total", 0),
             agents_online=node.get("agents_online", 0),
-            last_heartbeat=str(node["last_heartbeat"]) if node.get("last_heartbeat") else None
+            last_heartbeat=str(node["last_heartbeat"]) if node.get("last_heartbeat") else None,
+            guardian_agent_id=node.get("guardian_agent_id"),
+            steward_agent_id=node.get("steward_agent_id"),
+            guardian_agent=guardian_agent,
+            steward_agent=steward_agent
         )
     except HTTPException:
         raise

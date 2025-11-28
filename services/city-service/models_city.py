@@ -200,6 +200,14 @@ class HomeNodeView(BaseModel):
     environment: Optional[str] = None
 
 
+class NodeAgentSummary(BaseModel):
+    """Summary of a node agent (Guardian or Steward)"""
+    id: str
+    name: str
+    kind: Optional[str] = None
+    slug: Optional[str] = None
+
+
 class NodeProfile(BaseModel):
     """Node profile for Node Directory"""
     node_id: str
@@ -212,6 +220,10 @@ class NodeProfile(BaseModel):
     agents_total: int = 0
     agents_online: int = 0
     last_heartbeat: Optional[str] = None
+    guardian_agent_id: Optional[str] = None
+    steward_agent_id: Optional[str] = None
+    guardian_agent: Optional[NodeAgentSummary] = None
+    steward_agent: Optional[NodeAgentSummary] = None
 
 
 class ModelBindings(BaseModel):
