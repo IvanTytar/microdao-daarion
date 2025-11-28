@@ -57,8 +57,8 @@ function AgentCard({ agent }: { agent: AgentSummary }) {
           <h3 className="text-lg font-semibold text-white truncate group-hover:text-violet-400 transition-colors">
             {agent.display_name}
           </h3>
-          {agent.public_title && (
-            <p className="text-sm text-cyan-400">{agent.public_title}</p>
+          {agent.title && (
+            <p className="text-sm text-cyan-400">{agent.title}</p>
           )}
           <p className="text-xs text-white/50 mt-1">{agent.kind}</p>
         </div>
@@ -72,10 +72,10 @@ function AgentCard({ agent }: { agent: AgentSummary }) {
             <span>{agent.district}</span>
           </div>
         )}
-        {agent.microdao_memberships.length > 0 && (
+        {agent.primary_microdao_name && (
           <div className="flex items-center gap-2 text-sm text-white/60">
             <Users className="w-4 h-4" />
-            <span>{agent.microdao_memberships[0].microdao_name}</span>
+            <span>{agent.primary_microdao_name}</span>
           </div>
         )}
       </div>
