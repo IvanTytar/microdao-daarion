@@ -4,10 +4,10 @@ const CITY_API_URL = process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_U
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { nodeId: string } }
+  context: { params: Promise<{ nodeId: string }> }
 ) {
   try {
-    const { nodeId } = params;
+    const { nodeId } = await context.params;
 
     const response = await fetch(`${CITY_API_URL}/public/nodes/${nodeId}`, {
       headers: {
