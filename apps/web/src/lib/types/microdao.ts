@@ -124,7 +124,7 @@ export interface AgentMicrodaoMembership {
   microdao_id: string;
   microdao_slug: string;
   microdao_name: string;
-  role?: string;
+  role?: string | null;
   is_core: boolean;
 }
 
