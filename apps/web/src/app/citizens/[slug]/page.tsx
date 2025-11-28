@@ -151,10 +151,38 @@ export default function CitizenProfilePage() {
                   </p>
                 </div>
               )}
-              {citizen.node_id && (
+              {citizen.home_node && (
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-xs uppercase text-white/40">Node</p>
-                  <p className="text-white mt-1 text-lg">{citizen.node_id}</p>
+                  <p className="text-xs uppercase text-white/40">Home Node</p>
+                  <div className="mt-2 space-y-1">
+                    <p className="text-white text-lg">{citizen.home_node.name || citizen.node_id}</p>
+                    {citizen.home_node.roles && citizen.home_node.roles.length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {citizen.home_node.roles.map((role) => (
+                          <span
+                            key={role}
+                            className={`px-2 py-0.5 rounded text-xs ${
+                              role === 'gpu' ? 'bg-amber-500/20 text-amber-300' :
+                              role === 'core' ? 'bg-emerald-500/20 text-emerald-300' :
+                              role === 'development' ? 'bg-purple-500/20 text-purple-300' :
+                              'bg-white/10 text-white/60'
+                            }`}
+                          >
+                            {role}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {citizen.home_node.environment && (
+                      <span className={`inline-block px-2 py-0.5 rounded text-xs ${
+                        citizen.home_node.environment === 'production' 
+                          ? 'bg-emerald-500/20 text-emerald-300' 
+                          : 'bg-amber-500/20 text-amber-300'
+                      }`}>
+                        {citizen.home_node.environment}
+                      </span>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

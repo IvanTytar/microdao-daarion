@@ -191,6 +191,15 @@ class CityPresenceView(BaseModel):
     rooms: List[CityPresenceRoomView] = []
 
 
+class HomeNodeView(BaseModel):
+    """Home node information for agent/citizen"""
+    id: Optional[str] = None
+    name: Optional[str] = None
+    hostname: Optional[str] = None
+    roles: List[str] = []
+    environment: Optional[str] = None
+
+
 class PublicCitizenSummary(BaseModel):
     slug: str
     display_name: str
@@ -203,6 +212,8 @@ class PublicCitizenSummary(BaseModel):
     public_skills: List[str] = []
     online_status: Optional[str] = "unknown"
     status: Optional[str] = None  # backward compatibility
+    # Home node info
+    home_node: Optional[HomeNodeView] = None
 
 
 class PublicCitizenProfile(BaseModel):
@@ -222,6 +233,8 @@ class PublicCitizenProfile(BaseModel):
     metrics_public: Dict[str, Any]
     admin_panel_url: Optional[str] = None
     microdao: Optional[Dict[str, Any]] = None
+    # Home node info
+    home_node: Optional[HomeNodeView] = None
 
 
 class CitizenInteractionInfo(BaseModel):

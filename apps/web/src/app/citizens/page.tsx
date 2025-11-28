@@ -190,14 +190,25 @@ function CitizenCard({ citizen }: { citizen: PublicCitizenSummary }) {
         )}
 
         <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-          <span className={`flex items-center gap-1.5 text-xs ${statusColor}`}>
-            <span
-              className={`w-2 h-2 rounded-full ${
-                status === 'online' ? 'bg-emerald-500' : 'bg-white/30'
-              }`}
-            />
-            {status}
-          </span>
+          <div className="flex items-center gap-3">
+            <span className={`flex items-center gap-1.5 text-xs ${statusColor}`}>
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  status === 'online' ? 'bg-emerald-500' : 'bg-white/30'
+                }`}
+              />
+              {status}
+            </span>
+            {citizen.home_node?.name && (
+              <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${
+                citizen.home_node.environment === 'production' 
+                  ? 'bg-emerald-500/20 text-emerald-400' 
+                  : 'bg-amber-500/20 text-amber-400'
+              }`}>
+                {citizen.home_node.name.split(' ')[0]}
+              </span>
+            )}
+          </div>
           <span className="text-cyan-400 text-sm group-hover:translate-x-1 transition-transform">
             View Profile →
           </span>

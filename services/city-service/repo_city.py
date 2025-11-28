@@ -606,8 +606,14 @@ async def get_public_citizens(
             a.public_primary_room_slug,
             COALESCE(a.public_skills, ARRAY[]::text[]) AS public_skills,
             COALESCE(a.status, 'unknown') AS status,
+            a.node_id,
+            nc.node_name AS home_node_name,
+            nc.hostname AS home_node_hostname,
+            nc.roles AS home_node_roles,
+            nc.environment AS home_node_environment,
             COUNT(*) OVER() AS total_count
         FROM agents a
+        LEFT JOIN node_cache nc ON a.node_id = nc.node_id
         WHERE {where_sql}
         ORDER BY a.display_name
         LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
@@ -627,6 +633,20 @@ async def get_public_citizens(
         data.pop("total_count", None)
         data["public_skills"] = list(data.get("public_skills") or [])
         data["online_status"] = data.get("status") or "unknown"
+        # Build home_node object
+        if data.get("node_id"):
+            data["home_node"] = {
+                "id": data.get("node_id"),
+                "name": data.get("home_node_name"),
+                "hostname": data.get("home_node_hostname"),
+                "roles": list(data.get("home_node_roles") or []),
+                "environment": data.get("home_node_environment")
+            }
+        else:
+            data["home_node"] = None
+        # Clean up intermediate fields
+        for key in ["home_node_name", "home_node_hostname", "home_node_roles", "home_node_environment"]:
+            data.pop(key, None)
         items.append(data)
     
     return items, total
@@ -700,8 +720,13 @@ async def get_public_citizen_by_slug(slug: str) -> Optional[dict]:
             COALESCE(a.public_skills, ARRAY[]::text[]) AS public_skills,
             a.public_district,
             a.public_primary_room_slug,
-            a.primary_room_slug
+            a.primary_room_slug,
+            nc.node_name AS home_node_name,
+            nc.hostname AS home_node_hostname,
+            nc.roles AS home_node_roles,
+            nc.environment AS home_node_environment
         FROM agents a
+        LEFT JOIN node_cache nc ON a.node_id = nc.node_id
         WHERE a.public_slug = $1
           AND a.is_public = true
         LIMIT 1
@@ -713,6 +738,17 @@ async def get_public_citizen_by_slug(slug: str) -> Optional[dict]:
     
     agent = dict(agent_row)
     agent["public_skills"] = list(agent.get("public_skills") or [])
+    
+    # Build home_node object
+    home_node = None
+    if agent.get("node_id"):
+        home_node = {
+            "id": agent.get("node_id"),
+            "name": agent.get("home_node_name"),
+            "hostname": agent.get("home_node_hostname"),
+            "roles": list(agent.get("home_node_roles") or []),
+            "environment": agent.get("home_node_environment")
+        }
     
     rooms = await get_agent_rooms(agent["id"])
     primary_room = agent.get("public_primary_room_slug") or agent.get("primary_room_slug")
@@ -765,7 +801,8 @@ async def get_public_citizen_by_slug(slug: str) -> Optional[dict]:
         "interaction": interaction,
         "metrics_public": metrics_public,
         "microdao": microdao,
-        "admin_panel_url": f"/agents/{agent['id']}"
+        "admin_panel_url": f"/agents/{agent['id']}",
+        "home_node": home_node
     }
 
 

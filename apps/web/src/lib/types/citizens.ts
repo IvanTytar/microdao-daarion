@@ -1,3 +1,11 @@
+export interface HomeNode {
+  id?: string | null;
+  name?: string | null;
+  hostname?: string | null;
+  roles: string[];
+  environment?: string | null;
+}
+
 export interface PublicCitizenSummary {
   slug: string;
   display_name: string;
@@ -10,6 +18,7 @@ export interface PublicCitizenSummary {
   public_skills: string[];
   online_status?: "online" | "offline" | "unknown" | string;
   status?: string | null;
+  home_node?: HomeNode | null;
 }
 
 export interface CityPresenceRoom {
@@ -44,6 +53,7 @@ export interface PublicCitizenProfile {
     name: string;
     district?: string | null;
   } | null;
+  home_node?: HomeNode | null;
 }
 
 export interface CitizenInteractionInfo {
