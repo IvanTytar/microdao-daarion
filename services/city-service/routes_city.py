@@ -1127,6 +1127,7 @@ async def get_agent_dashboard(agent_id: str):
             "agent_id": agent["id"],
             "display_name": agent["display_name"],
             "kind": agent.get("kind", "assistant"),
+            "model": agent.get("model"),
             "avatar_url": agent.get("avatar_url"),
             "status": agent.get("status", "offline"),
             "node_id": agent.get("node_id"),

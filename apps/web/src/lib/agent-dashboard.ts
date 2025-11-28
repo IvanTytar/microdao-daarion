@@ -75,6 +75,7 @@ export interface AgentProfile {
   agent_id: string;
   display_name: string;
   kind: string;
+  model?: string;
   avatar_url?: string;
   status: 'online' | 'offline' | 'degraded' | 'training' | 'maintenance';
   node_id?: string;
