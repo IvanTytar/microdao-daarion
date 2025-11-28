@@ -1087,3 +1087,55 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
     
     return result
 
+
+# =============================================================================
+# Nodes Repository
+# =============================================================================
+
+async def get_all_nodes() -> List[dict]:
+    """Отримати список всіх нод з кількістю агентів"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT 
+            nc.node_id,
+            nc.node_name AS name,
+            nc.hostname,
+            nc.roles,
+            nc.environment,
+            nc.status,
+            nc.gpu,
+            nc.last_sync AS last_heartbeat,
+            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id) AS agents_total,
+            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id AND a.status = 'online') AS agents_online
+        FROM node_cache nc
+        ORDER BY nc.environment DESC, nc.node_name
+    """
+    
+    rows = await pool.fetch(query)
+    return [dict(row) for row in rows]
+
+
+async def get_node_by_id(node_id: str) -> Optional[dict]:
+    """Отримати ноду по ID"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT 
+            nc.node_id,
+            nc.node_name AS name,
+            nc.hostname,
+            nc.roles,
+            nc.environment,
+            nc.status,
+            nc.gpu,
+            nc.last_sync AS last_heartbeat,
+            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id) AS agents_total,
+            (SELECT COUNT(*) FROM agents a WHERE a.node_id = nc.node_id AND a.status = 'online') AS agents_online
+        FROM node_cache nc
+        WHERE nc.node_id = $1
+    """
+    
+    row = await pool.fetchrow(query, node_id)
+    return dict(row) if row else None
+

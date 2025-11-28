@@ -23,6 +23,7 @@ from models_city import (
     AgentPresence,
     AgentSummary,
     HomeNodeView,
+    NodeProfile,
     PublicCitizenSummary,
     PublicCitizenProfile,
     CitizenInteractionInfo,
@@ -113,6 +114,64 @@ async def list_agents(
     except Exception as e:
         logger.error(f"Failed to list agents: {e}")
         raise HTTPException(status_code=500, detail="Failed to list agents")
+
+
+# =============================================================================
+# Nodes API (for Node Directory)
+# =============================================================================
+
+@public_router.get("/nodes")
+async def list_nodes():
+    """Список всіх нод мережі"""
+    try:
+        nodes = await repo_city.get_all_nodes()
+        
+        items: List[NodeProfile] = []
+        for node in nodes:
+            items.append(NodeProfile(
+                node_id=node["node_id"],
+                name=node["name"],
+                hostname=node.get("hostname"),
+                roles=list(node.get("roles") or []),
+                environment=node.get("environment", "unknown"),
+                status=node.get("status", "offline"),
+                gpu_info=node.get("gpu"),
+                agents_total=node.get("agents_total", 0),
+                agents_online=node.get("agents_online", 0),
+                last_heartbeat=str(node["last_heartbeat"]) if node.get("last_heartbeat") else None
+            ))
+        
+        return {"items": items, "total": len(items)}
+    except Exception as e:
+        logger.error(f"Failed to list nodes: {e}")
+        raise HTTPException(status_code=500, detail="Failed to list nodes")
+
+
+@public_router.get("/nodes/{node_id}")
+async def get_node_profile(node_id: str):
+    """Отримати профіль ноди"""
+    try:
+        node = await repo_city.get_node_by_id(node_id)
+        if not node:
+            raise HTTPException(status_code=404, detail="Node not found")
+        
+        return NodeProfile(
+            node_id=node["node_id"],
+            name=node["name"],
+            hostname=node.get("hostname"),
+            roles=list(node.get("roles") or []),
+            environment=node.get("environment", "unknown"),
+            status=node.get("status", "offline"),
+            gpu_info=node.get("gpu"),
+            agents_total=node.get("agents_total", 0),
+            agents_online=node.get("agents_online", 0),
+            last_heartbeat=str(node["last_heartbeat"]) if node.get("last_heartbeat") else None
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get node {node_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get node")
 
 
 # =============================================================================

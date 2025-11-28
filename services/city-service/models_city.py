@@ -200,6 +200,20 @@ class HomeNodeView(BaseModel):
     environment: Optional[str] = None
 
 
+class NodeProfile(BaseModel):
+    """Node profile for Node Directory"""
+    node_id: str
+    name: str
+    hostname: Optional[str] = None
+    roles: List[str] = []
+    environment: str = "unknown"
+    status: str = "offline"
+    gpu_info: Optional[str] = None
+    agents_total: int = 0
+    agents_online: int = 0
+    last_heartbeat: Optional[str] = None
+
+
 class AgentSummary(BaseModel):
     """Agent summary for Agent Console"""
     id: str
