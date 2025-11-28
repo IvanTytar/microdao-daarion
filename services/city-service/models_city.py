@@ -161,21 +161,6 @@ class AgentRead(BaseModel):
     capabilities: List[str] = []
 
 
-class AgentSummary(BaseModel):
-    """Agent summary for Agent Console"""
-    id: str
-    display_name: str
-    kind: str = "assistant"
-    avatar_url: Optional[str] = None
-    status: str = "offline"
-    is_public: bool = False
-    public_slug: Optional[str] = None
-    public_title: Optional[str] = None
-    district: Optional[str] = None
-    home_node: Optional[HomeNodeView] = None
-    microdao_memberships: List[Dict[str, Any]] = []
-
-
 class AgentPresence(BaseModel):
     """Agent presence in a room"""
     agent_id: str
@@ -213,6 +198,21 @@ class HomeNodeView(BaseModel):
     hostname: Optional[str] = None
     roles: List[str] = []
     environment: Optional[str] = None
+
+
+class AgentSummary(BaseModel):
+    """Agent summary for Agent Console"""
+    id: str
+    display_name: str
+    kind: str = "assistant"
+    avatar_url: Optional[str] = None
+    status: str = "offline"
+    is_public: bool = False
+    public_slug: Optional[str] = None
+    public_title: Optional[str] = None
+    district: Optional[str] = None
+    home_node: Optional[HomeNodeView] = None
+    microdao_memberships: List[Dict[str, Any]] = []
 
 
 class PublicCitizenSummary(BaseModel):
