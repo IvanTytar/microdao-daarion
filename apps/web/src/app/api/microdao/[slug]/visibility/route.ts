@@ -3,15 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 const CITY_API_URL = process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_URL || 'http://daarion-city-service:7001';
 
 /**
- * PUT /api/microdao/[microdaoId]/visibility
+ * PUT /api/microdao/[slug]/visibility
  * Update MicroDAO visibility settings
+ * Note: [slug] here is actually microdaoId, but named slug to avoid Next.js route conflict
  */
 export async function PUT(
   request: NextRequest,
-  context: { params: Promise<{ microdaoId: string }> }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { microdaoId } = await context.params;
+    const { slug: microdaoId } = await context.params;
     const body = await request.json();
 
     const response = await fetch(`${CITY_API_URL}/city/microdao/${microdaoId}/visibility`, {
