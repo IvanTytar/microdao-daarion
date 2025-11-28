@@ -139,6 +139,10 @@ export interface AgentPublicProfile {
   public_skills?: string[];
   public_district?: string | null;
   public_primary_room_slug?: string | null;
+  // Visibility settings
+  visibility_scope?: 'city' | 'microdao' | 'owner_only';
+  is_listed_in_directory?: boolean;
+  is_system?: boolean;
 }
 
 export interface AgentDashboard {
