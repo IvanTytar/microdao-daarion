@@ -1,4 +1,4 @@
-import { HomeNodeInfo } from './citizens';
+import { HomeNode } from './citizens';
 
 export interface AgentMicrodaoMembership {
   microdao_id: string;
@@ -18,7 +18,7 @@ export interface AgentSummary {
   public_slug?: string | null;
   public_title?: string | null;
   district?: string | null;
-  home_node?: HomeNodeInfo | null;
+  home_node?: HomeNode | null;
   microdao_memberships: AgentMicrodaoMembership[];
 }
 
@@ -39,7 +39,7 @@ export interface AgentDashboard {
   public_tagline?: string | null;
   public_skills: string[];
   district?: string | null;
-  home_node?: HomeNodeInfo | null;
+  home_node?: HomeNode | null;
   microdao_memberships: AgentMicrodaoMembership[];
   system_prompts?: {
     core?: string;
