@@ -4,7 +4,7 @@ Repository для City Backend (PostgreSQL)
 
 import os
 import asyncpg
-from typing import Optional, List
+from typing import Optional, List, Dict, Any, Tuple
 from datetime import datetime
 import secrets
 
@@ -35,6 +35,21 @@ async def close_pool():
 def generate_id(prefix: str) -> str:
     """Генерувати простий ID"""
     return f"{prefix}_{secrets.token_urlsafe(12)}"
+
+
+def _normalize_capabilities(value: Any) -> List[str]:
+    """Ensure capabilities are returned as a list."""
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    if isinstance(value, str):
+        import json
+        try:
+            return json.loads(value)
+        except Exception:
+            return []
+    return list(value)
 
 
 # =============================================================================
@@ -348,6 +363,497 @@ async def update_agent_status(agent_id: str, status: str, room_id: Optional[str]
     return dict(row) if row else None
 
 
+async def get_agent_by_id(agent_id: str) -> Optional[dict]:
+    """Отримати агента по ID"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            a.id,
+            a.display_name,
+            a.kind,
+            a.status,
+            a.node_id,
+            a.role,
+            a.avatar_url,
+            COALESCE(a.color_hint, a.color, 'cyan') AS color,
+            a.capabilities,
+            a.primary_room_slug,
+            a.public_primary_room_slug,
+            a.public_district,
+            a.public_title,
+            a.public_tagline,
+            a.public_skills,
+            a.public_slug,
+            a.is_public,
+            a.district AS home_district
+        FROM agents a
+        WHERE a.id = $1
+    """
+    
+    row = await pool.fetchrow(query, agent_id)
+    if not row:
+        return None
+    
+    agent = dict(row)
+    agent["capabilities"] = _normalize_capabilities(agent.get("capabilities"))
+    if agent.get("public_skills") is None:
+        agent["public_skills"] = []
+    return agent
+
+
+async def get_agent_public_profile(agent_id: str) -> Optional[dict]:
+    """Отримати публічний профіль агента"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            is_public,
+            public_slug,
+            public_title,
+            public_tagline,
+            public_skills,
+            public_district,
+            public_primary_room_slug
+        FROM agents
+        WHERE id = $1
+    """
+    
+    row = await pool.fetchrow(query, agent_id)
+    if not row:
+        return None
+    
+    result = dict(row)
+    if result.get("public_skills") is None:
+        result["public_skills"] = []
+    return result
+
+
+async def update_agent_public_profile(
+    agent_id: str,
+    is_public: bool,
+    public_slug: Optional[str],
+    public_title: Optional[str],
+    public_tagline: Optional[str],
+    public_skills: Optional[List[str]],
+    public_district: Optional[str],
+    public_primary_room_slug: Optional[str]
+) -> Optional[dict]:
+    """Оновити публічний профіль агента"""
+    pool = await get_pool()
+    
+    query = """
+        UPDATE agents
+        SET
+            is_public = $2,
+            public_slug = $3,
+            public_title = $4,
+            public_tagline = $5,
+            public_skills = $6,
+            public_district = $7,
+            public_primary_room_slug = $8,
+            updated_at = NOW()
+        WHERE id = $1
+        RETURNING
+            is_public,
+            public_slug,
+            public_title,
+            public_tagline,
+            public_skills,
+            public_district,
+            public_primary_room_slug
+    """
+    
+    row = await pool.fetchrow(
+        query,
+        agent_id,
+        is_public,
+        public_slug,
+        public_title,
+        public_tagline,
+        public_skills,
+        public_district,
+        public_primary_room_slug
+    )
+    
+    if not row:
+        return None
+    
+    result = dict(row)
+    if result.get("public_skills") is None:
+        result["public_skills"] = []
+    return result
+
+
+async def get_agent_rooms(agent_id: str) -> List[dict]:
+    """Отримати список кімнат агента (primary/public)"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT primary_room_slug, public_primary_room_slug
+        FROM agents
+        WHERE id = $1
+    """
+    
+    row = await pool.fetchrow(query, agent_id)
+    if not row:
+        return []
+    
+    slugs = []
+    if row.get("primary_room_slug"):
+        slugs.append(row["primary_room_slug"])
+    if row.get("public_primary_room_slug") and row["public_primary_room_slug"] not in slugs:
+        slugs.append(row["public_primary_room_slug"])
+    
+    if not slugs:
+        return []
+    
+    rooms_query = """
+        SELECT id, slug, name
+        FROM city_rooms
+        WHERE slug = ANY($1::text[])
+    """
+    
+    rooms = await pool.fetch(rooms_query, slugs)
+    return [dict(room) for room in rooms]
+
+
+async def get_agent_matrix_config(agent_id: str) -> Optional[dict]:
+    """Отримати Matrix-конфіг агента"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT agent_id, matrix_user_id, primary_room_id
+        FROM agent_matrix_config
+        WHERE agent_id = $1
+    """
+    
+    row = await pool.fetchrow(query, agent_id)
+    return dict(row) if row else None
+
+
+async def get_public_agent_by_slug(slug: str) -> Optional[dict]:
+    """Отримати базову інформацію про публічного агента"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            id,
+            display_name,
+            public_primary_room_slug,
+            primary_room_slug,
+            public_district,
+            public_title,
+            public_tagline
+        FROM agents
+        WHERE public_slug = $1
+          AND is_public = true
+        LIMIT 1
+    """
+    
+    row = await pool.fetchrow(query, slug)
+    return dict(row) if row else None
+
+
+async def get_microdao_for_agent(agent_id: str) -> Optional[dict]:
+    """Отримати MicroDAO для агента (аліас get_agent_microdao)"""
+    return await get_agent_microdao(agent_id)
+
+
+# =============================================================================
+# Citizens Repository
+# =============================================================================
+
+async def get_public_citizens(
+    district: Optional[str] = None,
+    kind: Optional[str] = None,
+    q: Optional[str] = None,
+    limit: int = 50,
+    offset: int = 0
+) -> Tuple[List[dict], int]:
+    """Отримати публічних громадян"""
+    pool = await get_pool()
+    
+    params: List[Any] = []
+    where_clauses = ["a.is_public = true", "a.public_slug IS NOT NULL"]
+    
+    if district:
+        params.append(district)
+        where_clauses.append(f"a.public_district = ${len(params)}")
+    
+    if kind:
+        params.append(kind)
+        where_clauses.append(f"a.kind = ${len(params)}")
+    
+    if q:
+        params.append(f"%{q}%")
+        where_clauses.append(
+            f"(a.display_name ILIKE ${len(params)} OR a.public_title ILIKE ${len(params)} OR a.public_tagline ILIKE ${len(params)})"
+        )
+    
+    where_sql = " AND ".join(where_clauses)
+    
+    query = f"""
+        SELECT
+            a.id,
+            a.public_slug,
+            a.display_name,
+            a.public_title,
+            a.public_tagline,
+            a.avatar_url,
+            a.kind,
+            a.public_district,
+            a.public_primary_room_slug,
+            COALESCE(a.public_skills, '{{}}'::text[]) AS public_skills,
+            COALESCE(a.status, 'unknown') AS status,
+            COUNT(*) OVER() AS total_count
+        FROM agents a
+        WHERE {where_sql}
+        ORDER BY a.display_name
+        LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
+    """
+    
+    params.append(limit)
+    params.append(offset)
+    
+    rows = await pool.fetch(query, *params)
+    if not rows:
+        return [], 0
+    
+    total = rows[0]["total_count"]
+    items = []
+    for row in rows:
+        data = dict(row)
+        data.pop("total_count", None)
+        data["public_skills"] = list(data.get("public_skills") or [])
+        data["online_status"] = data.get("status") or "unknown"
+        items.append(data)
+    
+    return items, total
+
+
+async def get_agent_microdao(agent_id: str) -> Optional[dict]:
+    """Отримати MicroDAO, до якого належить агент (перший збіг)"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            m.id,
+            m.slug,
+            m.name,
+            m.district
+        FROM microdao_agents ma
+        JOIN microdaos m ON m.id = ma.microdao_id
+        WHERE ma.agent_id = $1
+        ORDER BY ma.is_core DESC, m.name
+        LIMIT 1
+    """
+    
+    row = await pool.fetchrow(query, agent_id)
+    return dict(row) if row else None
+
+
+async def get_microdao_public_citizens(microdao_id: str) -> List[dict]:
+    """Отримати публічних громадян конкретного MicroDAO"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            a.public_slug AS slug,
+            a.display_name,
+            a.public_title,
+            a.public_tagline,
+            a.avatar_url,
+            a.public_district,
+            a.public_primary_room_slug
+        FROM microdao_agents ma
+        JOIN agents a ON a.id = ma.agent_id
+        WHERE ma.microdao_id = $1
+          AND a.is_public = true
+          AND a.public_slug IS NOT NULL
+        ORDER BY a.display_name
+    """
+    
+    rows = await pool.fetch(query, microdao_id)
+    result = []
+    for row in rows:
+        data = dict(row)
+        result.append(data)
+    return result
+
+
+async def get_public_citizen_by_slug(slug: str) -> Optional[dict]:
+    """Отримати детальний профіль громадянина"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            a.id,
+            a.display_name,
+            a.kind,
+            a.status,
+            a.node_id,
+            a.avatar_url,
+            a.public_slug,
+            a.public_title,
+            a.public_tagline,
+            COALESCE(a.public_skills, '{{}}'::text[]) AS public_skills,
+            a.public_district,
+            a.public_primary_room_slug,
+            a.primary_room_slug
+        FROM agents a
+        WHERE a.public_slug = $1
+          AND a.is_public = true
+        LIMIT 1
+    """
+    
+    agent_row = await pool.fetchrow(query, slug)
+    if not agent_row:
+        return None
+    
+    agent = dict(agent_row)
+    agent["public_skills"] = list(agent.get("public_skills") or [])
+    
+    rooms = await get_agent_rooms(agent["id"])
+    primary_room = agent.get("public_primary_room_slug") or agent.get("primary_room_slug")
+    city_presence = {
+        "primary_room_slug": primary_room,
+        "rooms": rooms
+    } if rooms else {
+        "primary_room_slug": primary_room,
+        "rooms": []
+    }
+    
+    dais_public = {
+        "core": {
+            "archetype": agent.get("kind"),
+            "bio_short": agent.get("public_tagline")
+        },
+        "phenotype": {
+            "visual": {
+                "avatar_url": agent.get("avatar_url"),
+                "color": None
+            }
+        },
+        "memex": {},
+        "economics": {}
+    }
+    
+    interaction = {
+        "matrix_user": None,
+        "primary_room_slug": primary_room,
+        "actions": ["chat", "ask_for_help"]
+    }
+    
+    metrics_public: Dict[str, Any] = {}
+    
+    microdao = await get_agent_microdao(agent["id"])
+    
+    return {
+        "slug": agent["public_slug"],
+        "display_name": agent["display_name"],
+        "kind": agent.get("kind"),
+        "public_title": agent.get("public_title"),
+        "public_tagline": agent.get("public_tagline"),
+        "district": agent.get("public_district"),
+        "avatar_url": agent.get("avatar_url"),
+        "status": agent.get("status"),
+        "node_id": agent.get("node_id"),
+        "public_skills": agent.get("public_skills"),
+        "city_presence": city_presence,
+        "dais_public": dais_public,
+        "interaction": interaction,
+        "metrics_public": metrics_public,
+        "microdao": microdao,
+        "admin_panel_url": f"/agents/{agent['id']}"
+    }
+
+
+# =============================================================================
+# MicroDAO Membership Repository
+# =============================================================================
+
+async def get_microdao_options() -> List[dict]:
+    """Отримати список активних MicroDAO для селектора"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT id, slug, name, district, is_active
+        FROM microdaos
+        WHERE is_active = true
+        ORDER BY name
+    """
+    
+    rows = await pool.fetch(query)
+    return [dict(row) for row in rows]
+
+
+async def get_agent_microdao_memberships(agent_id: str) -> List[dict]:
+    """Отримати всі членства агента в MicroDAO"""
+    pool = await get_pool()
+    
+    query = """
+        SELECT
+            ma.microdao_id,
+            m.slug AS microdao_slug,
+            m.name AS microdao_name,
+            ma.role,
+            ma.is_core
+        FROM microdao_agents ma
+        JOIN microdaos m ON m.id = ma.microdao_id
+        WHERE ma.agent_id = $1
+        ORDER BY ma.is_core DESC, m.name
+    """
+    
+    rows = await pool.fetch(query, agent_id)
+    return [dict(row) for row in rows]
+
+
+async def upsert_agent_microdao_membership(
+    agent_id: str,
+    microdao_id: str,
+    role: Optional[str],
+    is_core: bool
+) -> Optional[dict]:
+    """Призначити або оновити членство агента в MicroDAO"""
+    pool = await get_pool()
+    
+    query = """
+        WITH upsert AS (
+            INSERT INTO microdao_agents (microdao_id, agent_id, role, is_core)
+            VALUES ($1, $2, $3, $4)
+            ON CONFLICT (microdao_id, agent_id)
+            DO UPDATE SET role = EXCLUDED.role, is_core = EXCLUDED.is_core
+            RETURNING microdao_id, agent_id, role, is_core
+        )
+        SELECT
+            u.microdao_id,
+            m.slug AS microdao_slug,
+            m.name AS microdao_name,
+            u.role,
+            u.is_core
+        FROM upsert u
+        JOIN microdaos m ON m.id = u.microdao_id
+    """
+    
+    row = await pool.fetchrow(query, microdao_id, agent_id, role, is_core)
+    return dict(row) if row else None
+
+
+async def remove_agent_microdao_membership(agent_id: str, microdao_id: str) -> bool:
+    """Видалити членство агента в MicroDAO"""
+    pool = await get_pool()
+    
+    result = await pool.execute(
+        "DELETE FROM microdao_agents WHERE agent_id = $1 AND microdao_id = $2",
+        agent_id,
+        microdao_id
+    )
+    
+    # asyncpg returns strings like "DELETE 1"
+    return result.split(" ")[-1] != "0"
+
+
 # =============================================================================
 # MicroDAO Repository
 # =============================================================================
@@ -457,6 +963,9 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
     """
     channels_rows = await pool.fetch(query_channels, dao_id)
     result["channels"] = [dict(row) for row in channels_rows]
+    
+    public_citizens = await get_microdao_public_citizens(dao_id)
+    result["public_citizens"] = public_citizens
     
     return result
 

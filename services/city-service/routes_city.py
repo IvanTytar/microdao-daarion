@@ -3,6 +3,7 @@ City Backend API Routes
 """
 
 from fastapi import APIRouter, HTTPException, Depends, Body, Header, Query, Request
+from pydantic import BaseModel
 from typing import List, Optional
 import logging
 import httpx
@@ -20,14 +21,23 @@ from models_city import (
     CityMapResponse,
     AgentRead,
     AgentPresence,
+    PublicCitizenSummary,
+    PublicCitizenProfile,
+    CitizenInteractionInfo,
+    CitizenAskRequest,
+    CitizenAskResponse,
+    AgentMicrodaoMembership,
     MicrodaoSummary,
     MicrodaoDetail,
     MicrodaoAgentView,
-    MicrodaoChannelView
+    MicrodaoChannelView,
+    MicrodaoCitizenView,
+    MicrodaoOption
 )
 import repo_city
 from common.redis_client import PresenceRedis, get_redis
 from matrix_client import create_matrix_room, find_matrix_room_by_alias
+from dagi_router_client import get_dagi_router_client, DagiRouterClient
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +46,242 @@ AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://daarion-auth:7020")
 MATRIX_GATEWAY_URL = os.getenv("MATRIX_GATEWAY_URL", "http://daarion-matrix-gateway:7025")
 
 router = APIRouter(prefix="/city", tags=["city"])
+public_router = APIRouter(prefix="/public", tags=["public"])
+api_router = APIRouter(prefix="/api/v1", tags=["api_v1"])
+
+
+class MicrodaoMembershipPayload(BaseModel):
+    microdao_id: str
+    role: Optional[str] = None
+    is_core: bool = False
+
+
+# =============================================================================
+# Public Citizens API
+# =============================================================================
+
+@public_router.get("/citizens")
+async def list_public_citizens(
+    district: Optional[str] = Query(None, description="Filter by district"),
+    kind: Optional[str] = Query(None, description="Filter by agent kind"),
+    q: Optional[str] = Query(None, description="Search by display name or title"),
+    limit: int = Query(50, le=100),
+    offset: int = Query(0, ge=0)
+):
+    """Публічний список громадян з фільтрами"""
+    try:
+        citizens, total = await repo_city.get_public_citizens(
+            district=district,
+            kind=kind,
+            q=q,
+            limit=limit,
+            offset=offset
+        )
+        
+        items: List[PublicCitizenSummary] = []
+        for citizen in citizens:
+            items.append(PublicCitizenSummary(
+                slug=citizen["public_slug"],
+                display_name=citizen["display_name"],
+                public_title=citizen.get("public_title"),
+                public_tagline=citizen.get("public_tagline"),
+                avatar_url=citizen.get("avatar_url"),
+                kind=citizen.get("kind"),
+                district=citizen.get("public_district"),
+                primary_room_slug=citizen.get("public_primary_room_slug"),
+                public_skills=citizen.get("public_skills", []),
+                online_status=citizen.get("online_status"),
+                status=citizen.get("status")
+            ))
+        
+        return {"items": items, "total": total}
+    except Exception as e:
+        logger.error(f"Failed to list public citizens: {e}")
+        raise HTTPException(status_code=500, detail="Failed to list public citizens")
+
+
+@public_router.get("/citizens/{slug}")
+async def get_public_citizen(slug: str, request: Request):
+    """Отримати публічний профіль громадянина"""
+    try:
+        include_admin_url = False
+        authorization = request.headers.get("Authorization")
+        if authorization:
+            user_info = await validate_jwt_token(authorization)
+            if user_info:
+                roles = user_info.get("roles", [])
+                if any(role in ["admin", "architect"] for role in roles):
+                    include_admin_url = True
+        
+        citizen = await repo_city.get_public_citizen_by_slug(slug)
+        if not citizen:
+            raise HTTPException(status_code=404, detail=f"Citizen not found: {slug}")
+        
+        if not include_admin_url:
+            citizen["admin_panel_url"] = None
+        
+        return PublicCitizenProfile(**citizen)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get public citizen {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get citizen")
+
+
+@public_router.get("/citizens/{slug}/interaction", response_model=CitizenInteractionInfo)
+async def get_citizen_interaction_info(slug: str):
+    """Отримати інформацію для взаємодії з громадянином"""
+    try:
+        agent = await repo_city.get_public_agent_by_slug(slug)
+        if not agent:
+            raise HTTPException(status_code=404, detail=f"Citizen not found: {slug}")
+        
+        matrix_config = await repo_city.get_agent_matrix_config(agent["id"])
+        matrix_user_id = matrix_config.get("matrix_user_id") if matrix_config else None
+        
+        primary_room_slug = agent.get("public_primary_room_slug") or agent.get("primary_room_slug")
+        primary_room_id = matrix_config.get("primary_room_id") if matrix_config else None
+        primary_room_name = None
+        room_record = None
+        
+        if primary_room_id:
+            room_record = await repo_city.get_room_by_id(primary_room_id)
+        elif primary_room_slug:
+            room_record = await repo_city.get_room_by_slug(primary_room_slug)
+        
+        if room_record:
+            primary_room_id = room_record.get("id")
+            primary_room_name = room_record.get("name")
+            primary_room_slug = room_record.get("slug") or primary_room_slug
+        
+        microdao = await repo_city.get_microdao_for_agent(agent["id"])
+        
+        return CitizenInteractionInfo(
+            slug=slug,
+            display_name=agent["display_name"],
+            primary_room_slug=primary_room_slug,
+            primary_room_id=primary_room_id,
+            primary_room_name=primary_room_name,
+            matrix_user_id=matrix_user_id,
+            district=agent.get("public_district"),
+            microdao_slug=microdao.get("slug") if microdao else None,
+            microdao_name=microdao.get("name") if microdao else None,
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get interaction info for citizen {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to load interaction info")
+
+
+@public_router.post("/citizens/{slug}/ask", response_model=CitizenAskResponse)
+async def ask_citizen(
+    slug: str,
+    payload: CitizenAskRequest,
+    router_client: DagiRouterClient = Depends(get_dagi_router_client),
+):
+    """Надіслати запитання громадянину через DAGI Router"""
+    question = (payload.question or "").strip()
+    if not question:
+        raise HTTPException(status_code=400, detail="Question is required")
+    
+    try:
+        agent = await repo_city.get_public_agent_by_slug(slug)
+        if not agent:
+            raise HTTPException(status_code=404, detail=f"Citizen not found: {slug}")
+        
+        router_response = await router_client.ask_agent(
+            agent_id=agent["id"],
+            prompt=question,
+            system_prompt=payload.context,
+        )
+        
+        answer = (
+            router_response.get("response")
+            or router_response.get("answer")
+            or router_response.get("result")
+        )
+        if answer:
+            answer = answer.strip()
+        if not answer:
+            answer = "Вибач, агент наразі не може відповісти."
+        
+        return CitizenAskResponse(
+            answer=answer,
+            agent_display_name=agent["display_name"],
+            agent_id=agent["id"],
+        )
+    except HTTPException:
+        raise
+    except httpx.HTTPError as e:
+        logger.error(f"DAGI Router request failed for citizen {slug}: {e}")
+        raise HTTPException(status_code=502, detail="Citizen is temporarily unavailable")
+    except Exception as e:
+        logger.error(f"Failed to ask citizen {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to ask citizen")
+
+
+# =============================================================================
+# API v1 — MicroDAO Membership
+# =============================================================================
+
+@api_router.get("/microdao/options")
+async def get_microdao_options():
+    """Отримати список MicroDAO для селектора"""
+    try:
+        options = await repo_city.get_microdao_options()
+        items = [MicrodaoOption(**option) for option in options]
+        return {"items": items}
+    except Exception as e:
+        logger.error(f"Failed to get microdao options: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get microdao options")
+
+
+@api_router.put("/agents/{agent_id}/microdao-membership")
+async def assign_agent_microdao_membership(
+    agent_id: str,
+    payload: MicrodaoMembershipPayload,
+    authorization: Optional[str] = Header(None)
+):
+    """Призначити/оновити членство агента в MicroDAO"""
+    await ensure_architect_or_admin(authorization)
+    
+    try:
+        membership = await repo_city.upsert_agent_microdao_membership(
+            agent_id=agent_id,
+            microdao_id=payload.microdao_id,
+            role=payload.role,
+            is_core=payload.is_core
+        )
+        if not membership:
+            raise HTTPException(status_code=404, detail="MicroDAO not found")
+        return membership
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to assign microdao membership: {e}")
+        raise HTTPException(status_code=500, detail="Failed to assign microdao membership")
+
+
+@api_router.delete("/agents/{agent_id}/microdao-membership/{microdao_id}")
+async def delete_agent_microdao_membership(
+    agent_id: str,
+    microdao_id: str,
+    authorization: Optional[str] = Header(None)
+):
+    """Видалити членство агента в MicroDAO"""
+    await ensure_architect_or_admin(authorization)
+    
+    try:
+        deleted = await repo_city.remove_agent_microdao_membership(agent_id, microdao_id)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Membership not found")
+        return {"status": "deleted"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to delete microdao membership: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete microdao membership")
 
 
 # =============================================================================
@@ -335,6 +581,22 @@ async def validate_jwt_token(authorization: str) -> Optional[dict]:
             return None
 
 
+async def ensure_architect_or_admin(authorization: Optional[str]) -> dict:
+    """Переконатися, що користувач має роль architect/admin"""
+    if not authorization:
+        raise HTTPException(status_code=403, detail="Missing authorization token")
+    
+    user_info = await validate_jwt_token(authorization)
+    if not user_info:
+        raise HTTPException(status_code=403, detail="Invalid authorization token")
+    
+    roles = user_info.get("roles", [])
+    if not any(role in ["admin", "architect"] for role in roles):
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    
+    return user_info
+
+
 @router.get("/chat/bootstrap")
 async def chat_bootstrap(
     room_slug: str = Query(..., description="City room slug"),
@@ -542,13 +804,13 @@ async def update_agent_public_profile(agent_id: str, request: Request):
 
 
 @router.get("/citizens")
-async def get_public_citizens(limit: int = 50, offset: int = 0):
+async def get_public_citizens_legacy(limit: int = 50, offset: int = 0):
     """
     Отримати список публічних громадян DAARION City.
     """
     try:
-        citizens = await repo_city.get_public_citizens(limit, offset)
-        return {"citizens": citizens, "total": len(citizens)}
+        citizens, total = await repo_city.get_public_citizens(limit=limit, offset=offset)
+        return {"citizens": citizens, "total": total}
     except Exception as e:
         logger.error(f"Failed to get public citizens: {e}")
         raise HTTPException(status_code=500, detail="Failed to get public citizens")
@@ -561,13 +823,15 @@ async def get_citizen_by_slug(slug: str, request: Request):
     Для адмінів/архітекторів додається admin_panel_url.
     """
     try:
-        # TODO: Check user role from JWT
-        # For now, always include admin URL (will be filtered by frontend auth)
-        include_admin_url = True  # Should be: user.role in ['admin', 'architect']
+        include_admin_url = True  # legacy endpoint доступний тільки з адмінської панелі
         
-        citizen = await repo_city.get_citizen_by_slug(slug, include_admin_url=include_admin_url)
+        citizen = await repo_city.get_public_citizen_by_slug(slug)
         if not citizen:
             raise HTTPException(status_code=404, detail=f"Citizen not found: {slug}")
+        
+        if not include_admin_url:
+            citizen["admin_panel_url"] = None
+        
         return citizen
     except HTTPException:
         raise
@@ -709,6 +973,19 @@ async def get_agent_dashboard(agent_id: str):
         # Get public profile
         public_profile = await repo_city.get_agent_public_profile(agent_id)
         
+        # MicroDAO memberships
+        memberships_raw = await repo_city.get_agent_microdao_memberships(agent_id)
+        memberships = [
+            AgentMicrodaoMembership(
+                microdao_id=item["microdao_id"],
+                microdao_slug=item.get("microdao_slug"),
+                microdao_name=item.get("microdao_name"),
+                role=item.get("role"),
+                is_core=item.get("is_core", False)
+            )
+            for item in memberships_raw
+        ]
+        
         # Build dashboard response
         dashboard = {
             "profile": profile,
@@ -727,7 +1004,8 @@ async def get_agent_dashboard(agent_id: str):
             },
             "recent_activity": [],
             "system_prompts": system_prompts,
-            "public_profile": public_profile
+            "public_profile": public_profile,
+            "microdao_memberships": memberships
         }
         
         return dashboard
@@ -922,6 +1200,18 @@ async def get_microdao_by_slug(slug: str):
                 is_primary=channel.get("is_primary", False)
             ))
         
+        public_citizens = []
+        for citizen in dao.get("public_citizens", []):
+            public_citizens.append(MicrodaoCitizenView(
+                slug=citizen["slug"],
+                display_name=citizen["display_name"],
+                public_title=citizen.get("public_title"),
+                public_tagline=citizen.get("public_tagline"),
+                avatar_url=citizen.get("avatar_url"),
+                district=citizen.get("public_district"),
+                primary_room_slug=citizen.get("public_primary_room_slug")
+            ))
+        
         return MicrodaoDetail(
             id=dao["id"],
             slug=dao["slug"],
@@ -934,7 +1224,8 @@ async def get_microdao_by_slug(slug: str):
             is_public=dao.get("is_public", True),
             logo_url=dao.get("logo_url"),
             agents=agents,
-            channels=channels
+            channels=channels,
+            public_citizens=public_citizens
         )
     
     except HTTPException:

@@ -70,3 +70,5 @@ Thumbs.db
 .directory
 apps/web/node_modules/
 apps/web/.next/
+venv_models/
+models/

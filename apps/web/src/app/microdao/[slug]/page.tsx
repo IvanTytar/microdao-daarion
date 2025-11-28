@@ -39,6 +39,7 @@ export default function MicrodaoDetailPage() {
   const matrixChannels = microdao.channels.filter((c) => c.kind === "matrix");
   const cityRooms = microdao.channels.filter((c) => c.kind === "city_room");
   const crewChannels = microdao.channels.filter((c) => c.kind === "crew");
+  const publicCitizens = microdao.public_citizens ?? [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
@@ -155,6 +156,41 @@ export default function MicrodaoDetailPage() {
             </div>
           )}
         </section>
+
+        {publicCitizens.length > 0 && (
+          <section className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-slate-100 flex items-center gap-2">
+              <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+              Громадяни цього MicroDAO
+            </h2>
+            <div className="grid gap-3 md:grid-cols-2">
+              {publicCitizens.map((citizen) => (
+                <Link
+                  key={citizen.slug}
+                  href={`/citizens/${citizen.slug}`}
+                  className="flex items-center justify-between border border-white/10 rounded-lg px-4 py-3 hover:border-cyan-500/40 transition-colors"
+                >
+                  <div>
+                    <p className="text-white font-medium">{citizen.display_name}</p>
+                    {citizen.public_title && (
+                      <p className="text-sm text-white/60">{citizen.public_title}</p>
+                    )}
+                  </div>
+                  {citizen.district && (
+                    <span className="text-xs text-white/50">{citizen.district}</span>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Channels */}
         <section className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 space-y-6">

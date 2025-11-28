@@ -43,6 +43,8 @@ app.add_middleware(
 
 # Include routers
 app.include_router(routes_city.router)
+app.include_router(routes_city.public_router)
+app.include_router(routes_city.api_router)
 
 # ============================================================================
 # Models

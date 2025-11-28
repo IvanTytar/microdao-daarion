@@ -10,7 +10,14 @@ export interface AgentPresence {
   kind: string;
   status: string;
   room_id?: string;
+  room_name?: string;
   color?: string;
+  node_id?: string;
+  district?: string;
+  model?: string;
+  role?: string;
+  avatar_url?: string;
+  primary_room_slug?: string;
 }
 
 export interface RoomPresence {

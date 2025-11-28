@@ -12,12 +12,37 @@ from enum import Enum
 # ============================================================================
 
 class AgentKind(str, Enum):
+    # Core types
     ASSISTANT = "assistant"
     NODE = "node"
     SYSTEM = "system"
     GUARDIAN = "guardian"
     ANALYST = "analyst"
     QUEST = "quest"
+    
+    # DAARION DAO types
+    ORCHESTRATOR = "orchestrator"
+    COORDINATOR = "coordinator"
+    SPECIALIST = "specialist"
+    DEVELOPER = "developer"
+    ARCHITECT = "architect"
+    MARKETING = "marketing"
+    FINANCE = "finance"
+    SECURITY = "security"
+    FORENSICS = "forensics"
+    VISION = "vision"
+    RESEARCH = "research"
+    MEMORY = "memory"
+    WEB3 = "web3"
+    STRATEGIC = "strategic"
+    MEDIATOR = "mediator"
+    INNOVATION = "innovation"
+    
+    # Legacy types
+    CIVIC = "civic"
+    ORACLE = "oracle"
+    BUILDER = "builder"
+    SOCIAL = "social"
 
 class AgentStatus(str, Enum):
     ACTIVE = "active"

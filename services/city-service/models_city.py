@@ -3,7 +3,7 @@ Pydantic Models для City Backend
 """
 
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 from datetime import datetime
 
 
@@ -177,8 +177,89 @@ class AgentPresence(BaseModel):
 
 
 # =============================================================================
+# Citizens
+# =============================================================================
+
+class CityPresenceRoomView(BaseModel):
+    room_id: Optional[str] = None
+    slug: Optional[str] = None
+    name: Optional[str] = None
+
+
+class CityPresenceView(BaseModel):
+    primary_room_slug: Optional[str] = None
+    rooms: List[CityPresenceRoomView] = []
+
+
+class PublicCitizenSummary(BaseModel):
+    slug: str
+    display_name: str
+    public_title: Optional[str] = None
+    public_tagline: Optional[str] = None
+    avatar_url: Optional[str] = None
+    kind: Optional[str] = None
+    district: Optional[str] = None
+    primary_room_slug: Optional[str] = None
+    public_skills: List[str] = []
+    online_status: Optional[str] = "unknown"
+    status: Optional[str] = None  # backward compatibility
+
+
+class PublicCitizenProfile(BaseModel):
+    slug: str
+    display_name: str
+    kind: Optional[str] = None
+    public_title: Optional[str] = None
+    public_tagline: Optional[str] = None
+    district: Optional[str] = None
+    avatar_url: Optional[str] = None
+    status: Optional[str] = None
+    node_id: Optional[str] = None
+    public_skills: List[str] = []
+    city_presence: Optional[CityPresenceView] = None
+    dais_public: Dict[str, Any]
+    interaction: Dict[str, Any]
+    metrics_public: Dict[str, Any]
+    admin_panel_url: Optional[str] = None
+    microdao: Optional[Dict[str, Any]] = None
+
+
+class CitizenInteractionInfo(BaseModel):
+    slug: str
+    display_name: str
+    primary_room_slug: Optional[str] = None
+    primary_room_id: Optional[str] = None
+    primary_room_name: Optional[str] = None
+    matrix_user_id: Optional[str] = None
+    district: Optional[str] = None
+    microdao_slug: Optional[str] = None
+    microdao_name: Optional[str] = None
+
+
+class CitizenAskRequest(BaseModel):
+    question: str
+    context: Optional[str] = None
+
+
+class CitizenAskResponse(BaseModel):
+    answer: str
+    agent_display_name: str
+    agent_id: str
+
+
+# =============================================================================
 # MicroDAO
 # =============================================================================
+
+class MicrodaoCitizenView(BaseModel):
+    slug: str
+    display_name: str
+    public_title: Optional[str] = None
+    public_tagline: Optional[str] = None
+    avatar_url: Optional[str] = None
+    district: Optional[str] = None
+    primary_room_slug: Optional[str] = None
+
 
 class MicrodaoSummary(BaseModel):
     """MicroDAO summary for list view"""
@@ -225,4 +306,21 @@ class MicrodaoDetail(BaseModel):
     logo_url: Optional[str] = None
     agents: List[MicrodaoAgentView]
     channels: List[MicrodaoChannelView]
+    public_citizens: List[MicrodaoCitizenView] = []
+
+
+class AgentMicrodaoMembership(BaseModel):
+    microdao_id: str
+    microdao_slug: str
+    microdao_name: str
+    role: Optional[str] = None
+    is_core: bool = False
+
+
+class MicrodaoOption(BaseModel):
+    id: str
+    slug: str
+    name: str
+    district: Optional[str] = None
+    is_active: bool = True
 
