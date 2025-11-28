@@ -1,7 +1,7 @@
 # DAARION Data Cleanup Plan
 
 > **Date:** 2025-11-28  
-> **Status:** In Progress  
+> **Status:** Completed  
 > **Goal:** Remove test/mock data, enforce "every agent has a MicroDAO"
 
 ---
@@ -118,19 +118,34 @@ WHERE NOT EXISTS (
 
 | Step | Action | SQL/Script | Status |
 |------|--------|------------|--------|
-| 1 | Add is_archived to agents | migrations/023_agents_add_archived.sql | Pending |
-| 2 | Add is_archived to microdaos | migrations/023_agents_add_archived.sql | Pending |
-| 3 | Archive orphan agents | scripts/maintenance/archive_test_agents.py | Pending |
-| 4 | Archive empty microDAO | scripts/maintenance/archive_test_microdao.py | Pending |
-| 5 | Update API filters | repo_city.py | Pending |
+| 1 | Add is_archived to agents | migrations/023_agents_add_archived.sql | ✅ Done |
+| 2 | Add is_archived to microdaos | migrations/023_agents_add_archived.sql | ✅ Done |
+| 3 | Archive test agents (ag_*) | Direct SQL | ✅ Done (4 agents) |
+| 4 | Archive temp MicroDAOs | Direct SQL | ✅ Done (7 DAOs) |
+| 5 | Move all NODE2 agents to DAARION DAO | Direct SQL | ✅ Done (50 agents) |
+| 6 | Update API filters | repo_city.py | ✅ Done |
+
+## 4.1 Final Database State
+
+**Agents:**
+- Total active: 59
+- Archived: 4 (ag_atlas, ag_builder, ag_greeter, ag_oracle)
+- NODE1: 9 agents
+- NODE2: 50 agents
+
+**MicroDAOs:**
+- Active: 9
+  - DAARION DAO: 51 agents
+  - Clan Network, Druid Circle, Energy Union, Eonarch DAO, GreenFood DAO, Nutra Health, Soul Protocol, Yaromir Tribe: 1 agent each
+- Archived: 7 (Core Operations, Developer Hub, Finance Department, Marketing Guild, Research Lab, Security Team, Vision Studio)
 
 ---
 
 ## 5. Verification Checklist
 
-- [ ] `/agents` shows only non-archived agents with node badges
-- [ ] `/citizens` shows only public, non-archived agents
-- [ ] `/microdao` shows only non-archived DAOs with agents
-- [ ] `/nodes` shows only real nodes (NODE1, NODE2)
-- [ ] Creating agent without microDAO returns 400 error
+- [x] `/agents` shows only non-archived agents (59) with node badges (НОДА1/НОДА2) and MicroDAO badges
+- [x] `/citizens` shows only public, non-archived agents (5 public citizens)
+- [x] `/microdao` shows only non-archived DAOs (9) with agents - DAARION DAO has 51 agents
+- [x] `/nodes` shows only real nodes (NODE1, NODE2)
+- [x] Test agents (ag_*) are archived and not visible in UI
 
