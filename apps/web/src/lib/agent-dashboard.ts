@@ -71,6 +71,12 @@ export interface CityPresence {
   }>;
 }
 
+export interface AgentCrewInfo {
+  has_crew_team: boolean;
+  crew_team_key?: string | null;
+  matrix_room_id?: string | null;
+}
+
 export interface AgentProfile {
   agent_id: string;
   display_name: string;
@@ -89,6 +95,7 @@ export interface AgentProfile {
   tags: string[];
   dais: DAIS;
   city_presence?: CityPresence;
+  crew_info?: AgentCrewInfo | null;
 }
 
 export interface AgentNode {
