@@ -36,7 +36,11 @@ from models_city import (
     MicrodaoAgentView,
     MicrodaoChannelView,
     MicrodaoCitizenView,
-    MicrodaoOption
+    MicrodaoOption,
+    CityRoomSummary,
+    MicrodaoRoomsList,
+    MicrodaoRoomUpdate,
+    AttachExistingRoomRequest
 )
 import repo_city
 from common.redis_client import PresenceRedis, get_redis
@@ -1567,9 +1571,6 @@ async def get_microdao_by_slug(slug: str):
 # =============================================================================
 # MicroDAO Multi-Room API (Task 034)
 # =============================================================================
-
-from models_city import MicrodaoRoomsList, MicrodaoRoomUpdate, AttachExistingRoomRequest
-
 
 @router.get("/microdao/{slug}/rooms", response_model=MicrodaoRoomsList)
 async def get_microdao_rooms_endpoint(slug: str):
