@@ -3,12 +3,12 @@
  * Grid view of agent cards
  */
 import { AgentCard } from './AgentCard';
-import type { AgentListItem } from '@/api/agents';
+import type { AgentSummary } from '@/types/agent-cabinet';
 
 interface AgentGalleryProps {
-  agents: AgentListItem[];
+  agents: AgentSummary[];
   loading: boolean;
-  error: Error | null;
+  error: string | null;
 }
 
 export function AgentGallery({ agents, loading, error }: AgentGalleryProps) {
@@ -40,8 +40,8 @@ export function AgentGallery({ agents, loading, error }: AgentGalleryProps) {
   if (error) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
-        <div className="text-red-600 mb-2">❌ Помилка завантаження агентів</div>
-        <div className="text-sm text-red-500">{error.message}</div>
+        <div className="text-red-600 mb-2">❌ Failed to load agents</div>
+        <div className="text-sm text-red-500">{error}</div>
       </div>
     );
   }
@@ -52,10 +52,10 @@ export function AgentGallery({ agents, loading, error }: AgentGalleryProps) {
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-12 text-center">
         <div className="text-6xl mb-4">🤖</div>
         <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Немає агентів
+          No Agents Found
         </h3>
         <p className="text-gray-600">
-          Агенти з'являться тут після їх створення
+          Try adjusting your filters or create a new agent.
         </p>
       </div>
     );

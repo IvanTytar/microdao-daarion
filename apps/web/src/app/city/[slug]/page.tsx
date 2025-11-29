@@ -3,7 +3,7 @@ import { ArrowLeft, Users, FileText, Clock, MessageCircle } from 'lucide-react'
 import { api, CityRoom } from '@/lib/api'
 import { formatDate } from '@/lib/utils'
 import { notFound } from 'next/navigation'
-import { MatrixChatRoom } from '@/components/chat/MatrixChatRoom'
+import { CityChatWidget } from '@/components/city/CityChatWidget'
 
 // Force dynamic rendering - don't prerender at build time
 export const dynamic = 'force-dynamic'
@@ -72,9 +72,11 @@ export default async function RoomPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chat Area */}
           <div className="lg:col-span-2">
-            <div className="glass-panel h-[500px] sm:h-[600px] flex flex-col overflow-hidden">
-              <MatrixChatRoom roomSlug={room.slug} />
-            </div>
+            <CityChatWidget 
+              roomSlug={room.slug} 
+              mode="embedded" 
+              className="h-[600px] min-h-[500px]"
+            />
             
             {/* Matrix Room Info */}
             {room.matrix_room_id && (

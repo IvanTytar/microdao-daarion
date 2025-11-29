@@ -8,9 +8,10 @@
 const getApiBase = () => {
   // Server-side: use internal Docker network URL
   if (typeof window === 'undefined') {
-    return process.env.INTERNAL_API_URL || 'http://127.0.0.1'
+    // CITY_API_BASE_URL should point to city-service (e.g., http://daarion-city-service:7001)
+    return process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_URL || 'http://daarion-city-service:7001'
   }
-  // Client-side: use relative URLs (same origin)
+  // Client-side: use relative URLs (same origin) or explicit public URL
   return process.env.NEXT_PUBLIC_API_BASE_URL || ''
 }
 

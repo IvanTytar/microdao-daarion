@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useMicrodaoDetail, useMicrodaoRooms } from "@/hooks/useMicrodao";
 import { DISTRICT_COLORS } from "@/lib/microdao";
@@ -9,9 +9,11 @@ import { MicrodaoRoomsSection } from "@/components/microdao/MicrodaoRoomsSection
 import { MicrodaoRoomsAdminPanel } from "@/components/microdao/MicrodaoRoomsAdminPanel";
 import { ChevronLeft, Users, MessageSquare, Crown, Building2, Globe, Lock, Layers, BarChart3, Bot, MessageCircle } from "lucide-react";
 import { CityChatWidget } from "@/components/city/CityChatWidget";
+import { ensureOrchestratorRoom } from "@/lib/api/microdao";
 
 export default function MicrodaoDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params?.slug as string;
   const { microdao, isLoading, error, mutate: refreshMicrodao } = useMicrodaoDetail(slug);
   const { rooms, mutate: refreshRooms } = useMicrodaoRooms(slug);
@@ -19,6 +21,16 @@ export default function MicrodaoDetailPage() {
   const handleRoomUpdated = () => {
     refreshRooms();
     refreshMicrodao();
+  };
+
+  const handleEnsureOrchestratorRoom = async () => {
+    try {
+      await ensureOrchestratorRoom(slug);
+      handleRoomUpdated();
+    } catch (e) {
+      console.error("Failed to ensure orchestrator room", e);
+      alert("Failed to create team room. Check console for details.");
+    }
   };
 
   if (isLoading) {
@@ -56,6 +68,10 @@ export default function MicrodaoDetailPage() {
 
   // Use fetched rooms if available, otherwise fallback to microdao.rooms
   const displayRooms = rooms.length > 0 ? rooms : (microdao.rooms || []);
+
+  // Check management rights (Mock for MVP: assuming true if orchestrator exists)
+  // TODO: Use actual user auth state
+  const canManage = !!orchestrator;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
@@ -190,19 +206,21 @@ export default function MicrodaoDetailPage() {
         )}
 
         {/* Orchestrator Room Management Panel */}
-        {orchestrator && (
+        {orchestrator && canManage && (
           <MicrodaoRoomsAdminPanel
             microdaoSlug={slug}
             rooms={displayRooms}
-            canManage={true} // TODO: check if current user is orchestrator
+            canManage={true}
             onRoomUpdated={handleRoomUpdated}
           />
         )}
 
-        {/* Multi-Room Section with Chats */}
+        {/* Multi-Room Section with Chats (includes Team Chat) */}
         <MicrodaoRoomsSection
           rooms={displayRooms}
           primaryRoomSlug={microdao.primary_city_room?.slug}
+          canManage={canManage}
+          onEnsureOrchestratorRoom={handleEnsureOrchestratorRoom}
         />
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -366,13 +384,13 @@ export default function MicrodaoDetailPage() {
         </div>
 
         {/* Visibility Settings (only for orchestrator) */}
-        {orchestrator && (
+        {orchestrator && canManage && (
           <div className="pt-8 border-t border-white/5">
             <MicrodaoVisibilityCard
               microdaoId={microdao.id}
               isPublic={microdao.is_public}
               isPlatform={microdao.is_platform}
-              isOrchestrator={true}  // TODO: check if current user is orchestrator
+              isOrchestrator={true}
               onUpdated={() => {
                 window.location.reload();
               }}

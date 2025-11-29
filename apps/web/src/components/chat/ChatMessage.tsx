@@ -9,20 +9,40 @@ interface ChatMessageProps {
   isOwn?: boolean
 }
 
+function formatName(id: string | null | undefined, isAgent: boolean, isOwn: boolean): string {
+  if (isOwn) return 'You';
+  if (!id) return 'Anonymous';
+  
+  if (isAgent) {
+    return id.replace('ag_', '');
+  }
+  
+  // Handle Matrix ID: @username:server -> username
+  if (id.startsWith('@')) {
+    return id.split(':')[0].substring(1);
+  }
+  
+  // Handle legacy user ID: u_username -> username
+  return id.replace('u_', '');
+}
+
 export function ChatMessage({ message, isOwn = false }: ChatMessageProps) {
-  const isAgent = !!message.author_agent_id
-  const authorName = isAgent 
-    ? message.author_agent_id?.replace('ag_', '') || 'Agent'
-    : message.author_user_id?.replace('u_', '') || 'User'
+  const isAgent = !!message.author_agent_id;
+  
+  // Determine raw ID
+  const rawId = isAgent ? message.author_agent_id : message.author_user_id;
+  
+  // Format display name
+  const authorName = formatName(rawId, isAgent, isOwn);
 
   const time = new Date(message.created_at).toLocaleTimeString('uk-UA', {
     hour: '2-digit',
     minute: '2-digit'
-  })
+  });
 
   return (
     <div className={cn(
-      'flex gap-3 px-4 py-2 hover:bg-white/5 transition-colors',
+      'flex gap-3 px-4 py-2 hover:bg-white/5 transition-colors group',
       isOwn && 'flex-row-reverse'
     )}>
       {/* Avatar */}
@@ -51,11 +71,11 @@ export function ChatMessage({ message, isOwn = false }: ChatMessageProps) {
           )}>
             {authorName}
           </span>
-          <span className="text-xs text-slate-500">{time}</span>
+          <span className="text-xs text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">{time}</span>
         </div>
         
         <div className={cn(
-          'inline-block max-w-[80%] px-3 py-2 rounded-2xl text-sm',
+          'inline-block max-w-[80%] px-3 py-2 rounded-2xl text-sm break-words',
           isOwn 
             ? 'bg-cyan-500/20 text-white rounded-tr-sm' 
             : 'bg-slate-800/50 text-slate-200 rounded-tl-sm'
@@ -66,4 +86,3 @@ export function ChatMessage({ message, isOwn = false }: ChatMessageProps) {
     </div>
   )
 }
-

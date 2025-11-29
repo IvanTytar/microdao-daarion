@@ -58,8 +58,13 @@ function App() {
           <Route path="/secondme" element={<SecondMePage />} />
           <Route path="/space" element={<SpaceDashboard />} />
           <Route path="/messenger" element={<MessengerPage />} />
+          {/* Task 039: Agent Console v2 */}
+          <Route path="/agents" element={<AgentHubPage />} />
+          <Route path="/agents/:agentId" element={<AgentCabinet />} />
+          {/* Legacy Aliases */}
           <Route path="/agent-hub" element={<AgentHubPage />} />
           <Route path="/agent/:agentId" element={<AgentCabinet />} />
+          
           <Route path="/microdao" element={<MicrodaoListPage />} />
           <Route path="/microdao/:slug" element={<MicrodaoConsolePage />} />
           <Route path="/dao" element={<DaoListPage />} />
@@ -81,7 +86,6 @@ function App() {
           <Route path="/microdao/energy-union" element={<EnergyUnionCabinetPage />} />
           <Route path="/microdao/yaromir" element={<YaromirCabinetPage />} />
           <Route path="/dagi-monitor" element={<DagiMonitorPage />} />
-          <Route path="/agent/:agentId" element={<AgentCabinetPage />} />
           <Route path="/chat-demo" element={<ChatDemoPage />} />
           <Route path="/network" element={<NetworkPageSimple />} />
           <Route path="/connect-node" element={<ConnectNodePage />} />

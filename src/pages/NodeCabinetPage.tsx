@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Server, Activity, Cpu, HardDrive, Network, Users, Settings, BarChart3, Plug, RefreshCw, CheckCircle2, XCircle, AlertCircle, Filter, Play, Loader2, Wrench, Download, Bot, Database, AlertTriangle, PlusCircle } from 'lucide-react';
+import { ArrowLeft, Server, Activity, Cpu, HardDrive, Network, Users, Settings, BarChart3, Plug, RefreshCw, CheckCircle2, XCircle, AlertCircle, Filter, Play, Loader2, Wrench, Download, Bot, Database, AlertTriangle, PlusCircle, Boxes, Shield } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { apiGet } from '../api/client';
 import { getNode2Agents, type Node2Agent } from '../api/node2Agents';
 import { getNode1Agents, type Node1Agent } from '../api/node1Agents';
 import { deployAgentToNode2, deployAllAgentsToNode2, checkNode2AgentsDeployment } from '../api/node2Deployment';
@@ -40,6 +41,24 @@ interface NodeDetails {
     disk_usage: number;
     network_in: number;
     network_out: number;
+  };
+  microdaos?: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    role?: string;
+  }>;
+  guardian_agent?: {
+    id: string;
+    name: string;
+    slug?: string;
+    status?: string;
+  };
+  steward_agent?: {
+    id: string;
+    name: string;
+    slug?: string;
+    status?: string;
   };
 }
 
@@ -102,6 +121,14 @@ export function NodeCabinetPage() {
     queryFn: async (): Promise<NodeDetails> => {
       const agents = agentsData?.items || [];
       const isNode1 = nodeId?.includes('node-1');
+      
+      // Отримуємо профіль з API (для MicroDAOs та агентів)
+      let apiNodeProfile: any = null;
+      try {
+          apiNodeProfile = await apiGet(`/public/nodes/${nodeId}`);
+      } catch (e) {
+          console.warn('Failed to fetch node profile from API', e);
+      }
       
       // Отримуємо реальні дані з інвентаризації
       const inv = inventory;
@@ -195,6 +222,9 @@ export function NodeCabinetPage() {
           network_in: 1250,
           network_out: 890,
         },
+        microdaos: apiNodeProfile?.microdaos || [],
+        guardian_agent: apiNodeProfile?.guardian_agent,
+        steward_agent: apiNodeProfile?.steward_agent,
       };
     },
     enabled: !!nodeId,
@@ -549,6 +579,113 @@ export function NodeCabinetPage() {
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
                   ↓ {nodeDetails.metrics?.network_in || 0} MB/s ↑ {nodeDetails.metrics?.network_out || 0} MB/s
+                </div>
+              </div>
+              </div>
+            </div>
+
+            {/* Core Runtime & Participation */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Core Runtime */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-blue-600" />
+                  Core Runtime
+                </h3>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Node Registry', icon: Database },
+                    { name: 'NATS JetStream', icon: Network },
+                    { name: 'Swapper Service', icon: RefreshCw },
+                    { name: 'Ollama', icon: Bot },
+                  ].map((service) => {
+                    const s = nodeDetails.services?.find(s => s.name.includes(service.name) || (service.name === 'Ollama' && s.name.includes('ollama')));
+                    const status = s?.status === 'running' ? 'online' : 'offline'; // Simple mapping
+                    const Icon = service.icon;
+                    
+                    return (
+                      <div key={service.name} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <Icon className="w-4 h-4 text-gray-500" />
+                          <span className="font-medium text-gray-700">{service.name}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`w-2 h-2 rounded-full ${status === 'online' ? 'bg-green-500' : 'bg-gray-400'}`} />
+                          <span className="text-sm text-gray-600">{status === 'online' ? 'Active' : 'Unknown'}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                   {/* Guardian & Steward */}
+                   <div className="mt-4 pt-4 border-t border-gray-200 space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg border border-purple-100">
+                        <div className="flex items-center gap-3">
+                          <Shield className="w-4 h-4 text-purple-600" />
+                          <span className="font-medium text-purple-900">Guardian Agent</span>
+                        </div>
+                        <span className="text-sm font-medium text-purple-700">
+                          {nodeDetails.guardian_agent?.name || 'Not active'}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
+                         <div className="flex items-center gap-3">
+                          <Users className="w-4 h-4 text-blue-600" />
+                          <span className="font-medium text-blue-900">Steward Agent</span>
+                        </div>
+                        <span className="text-sm font-medium text-blue-700">
+                          {nodeDetails.steward_agent?.name || 'Not active'}
+                        </span>
+                      </div>
+                   </div>
+                </div>
+              </div>
+
+              {/* Participation */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Boxes className="w-5 h-5 text-green-600" />
+                  Participation
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-2 uppercase">Hosted MicroDAOs</h4>
+                    {nodeDetails.microdaos && nodeDetails.microdaos.length > 0 ? (
+                      <div className="grid grid-cols-1 gap-2">
+                        {nodeDetails.microdaos.map(dao => (
+                          <div key={dao.id} className="flex items-center justify-between p-3 bg-green-50 border border-green-100 rounded-lg">
+                            <span className="font-medium text-green-900">{dao.name}</span>
+                            <span className="text-xs px-2 py-1 bg-white text-green-700 rounded border border-green-200">
+                              Hosting
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                       <div className="text-center py-6 bg-gray-50 rounded-lg border border-dashed border-gray-200">
+                          <p className="text-gray-500 text-sm">No MicroDAOs hosted yet</p>
+                          <button 
+                            onClick={() => navigate('/microdao')}
+                            className="mt-2 text-sm text-blue-600 hover:underline"
+                          >
+                            Join a MicroDAO
+                          </button>
+                       </div>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-2 uppercase">Agent Capabilities</h4>
+                    <div className="grid grid-cols-2 gap-2">
+                       <div className="p-3 bg-gray-50 rounded-lg text-center">
+                          <div className="text-xl font-bold text-gray-900">{departments.length}</div>
+                          <div className="text-xs text-gray-500">Teams</div>
+                       </div>
+                       <div className="p-3 bg-gray-50 rounded-lg text-center">
+                          <div className="text-xl font-bold text-gray-900">{nodeDetails.agents?.length || 0}</div>
+                          <div className="text-xs text-gray-500">Agents</div>
+                       </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

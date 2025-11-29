@@ -7,11 +7,15 @@ import asyncpg
 from typing import Optional, List, Dict, Any, Tuple
 from datetime import datetime
 import secrets
+import httpx
+import logging
 
+logger = logging.getLogger(__name__)
 
 # Database connection
 _pool: Optional[asyncpg.Pool] = None
 
+MATRIX_GATEWAY_URL = os.getenv("MATRIX_GATEWAY_URL", "http://matrix-gateway:8000")
 
 async def get_pool() -> asyncpg.Pool:
     """Отримати connection pool"""
@@ -62,7 +66,7 @@ async def get_all_rooms(limit: int = 100, offset: int = 0) -> List[dict]:
     
     query = """
         SELECT id, slug, name, description, is_default, created_at, created_by,
-               matrix_room_id, matrix_room_alias
+               matrix_room_id, matrix_room_alias, logo_url, banner_url
         FROM city_rooms
         ORDER BY is_default DESC, created_at DESC
         LIMIT $1 OFFSET $2
@@ -77,10 +81,13 @@ async def get_room_by_id(room_id: str) -> Optional[dict]:
     pool = await get_pool()
     
     query = """
-        SELECT id, slug, name, description, is_default, created_at, created_by,
-               matrix_room_id, matrix_room_alias
-        FROM city_rooms
-        WHERE id = $1
+        SELECT 
+            cr.id, cr.slug, cr.name, cr.description, cr.is_default, cr.created_at, cr.created_by,
+            cr.matrix_room_id, cr.matrix_room_alias, cr.logo_url, cr.banner_url,
+            cr.microdao_id, m.name AS microdao_name, m.slug AS microdao_slug, m.logo_url AS microdao_logo_url
+        FROM city_rooms cr
+        LEFT JOIN microdaos m ON cr.microdao_id = m.id
+        WHERE cr.id = $1
     """
     
     row = await pool.fetchrow(query, room_id)
@@ -92,10 +99,13 @@ async def get_room_by_slug(slug: str) -> Optional[dict]:
     pool = await get_pool()
     
     query = """
-        SELECT id, slug, name, description, is_default, created_at, created_by,
-               matrix_room_id, matrix_room_alias
-        FROM city_rooms
-        WHERE slug = $1
+        SELECT 
+            cr.id, cr.slug, cr.name, cr.description, cr.is_default, cr.created_at, cr.created_by,
+            cr.matrix_room_id, cr.matrix_room_alias, cr.logo_url, cr.banner_url,
+            cr.microdao_id, m.name AS microdao_name, m.slug AS microdao_slug, m.logo_url AS microdao_logo_url
+        FROM city_rooms cr
+        LEFT JOIN microdaos m ON cr.microdao_id = m.id
+        WHERE cr.slug = $1
     """
     
     row = await pool.fetchrow(query, slug)
@@ -137,7 +147,7 @@ async def update_room_matrix(room_id: str, matrix_room_id: str, matrix_room_alia
     """
     
     row = await pool.fetchrow(query, room_id, matrix_room_id, matrix_room_alias)
-    return dict(row) if row else None
+    return dict(row)
 
 
 async def get_rooms_without_matrix() -> List[dict]:
@@ -375,6 +385,7 @@ async def list_agent_summaries(
             pm.slug AS primary_microdao_slug,
             pm.district AS district,
             COALESCE(a.public_skills, ARRAY[]::text[]) AS public_skills,
+            a.crew_team_key,
             COUNT(*) OVER() AS total_count
         FROM agents a
         LEFT JOIN node_cache nc ON a.node_id = nc.node_id
@@ -428,6 +439,22 @@ async def list_agent_summaries(
         data["microdao_memberships"] = memberships  # backward compatibility
         
         data["public_skills"] = list(data.get("public_skills") or [])
+        
+        # Populate crew_info
+        if data.get("crew_team_key"):
+            # Try to find orchestrator team room for their primary microdao
+            # This is a bit expensive for list view, so maybe just return basic info
+            data["crew_info"] = {
+                "has_crew_team": True,
+                "crew_team_key": data["crew_team_key"],
+                "matrix_room_id": None # Loaded lazily if needed
+            }
+        else:
+            data["crew_info"] = {
+                "has_crew_team": False,
+                "crew_team_key": None,
+                "matrix_room_id": None
+            }
         
         items.append(data)
     
@@ -499,9 +526,9 @@ async def update_agent_visibility_legacy(
     query = """
         UPDATE agents
         SET visibility_scope = $2,
-            is_listed_in_directory = $3,
-            is_public = $3,
-            updated_at = NOW()
+        is_listed_in_directory = $3,
+        is_public = $3,
+        updated_at = NOW()
         WHERE id = $1
           AND COALESCE(is_archived, false) = false
         RETURNING id
@@ -747,7 +774,8 @@ async def get_agent_by_id(agent_id: str) -> Optional[dict]:
             a.public_skills,
             a.public_slug,
             a.is_public,
-            a.district AS home_district
+            a.district AS home_district,
+            a.crew_team_key
         FROM agents a
         WHERE a.id = $1
     """
@@ -760,6 +788,27 @@ async def get_agent_by_id(agent_id: str) -> Optional[dict]:
     agent["capabilities"] = _normalize_capabilities(agent.get("capabilities"))
     if agent.get("public_skills") is None:
         agent["public_skills"] = []
+    
+    # Populate crew_info
+    if agent.get("crew_team_key"):
+        agent["crew_info"] = {
+            "has_crew_team": True,
+            "crew_team_key": agent["crew_team_key"],
+            "matrix_room_id": None # Populated later if needed
+        }
+        
+        # If orchestrator, verify if room exists
+        # For detailed view, let's try to fetch it
+        if agent.get("primary_room_slug"): 
+             # Just a placeholder check, logic should be outside or specific method
+             pass
+    else:
+        agent["crew_info"] = {
+            "has_crew_team": False,
+            "crew_team_key": None,
+            "matrix_room_id": None
+        }
+        
     return agent
 
 
@@ -1236,6 +1285,7 @@ async def get_agent_microdao_memberships(agent_id: str) -> List[dict]:
             ma.microdao_id,
             m.slug AS microdao_slug,
             m.name AS microdao_name,
+            m.logo_url,
             ma.role,
             ma.is_core
         FROM microdao_agents ma
@@ -1336,6 +1386,7 @@ async def get_microdaos(district: Optional[str] = None, q: Optional[str] = None,
           m.parent_microdao_id,
           pm.slug as parent_microdao_slug,
           m.logo_url,
+          m.banner_url,
           COUNT(DISTINCT ma.agent_id) AS agents_count,
           COUNT(DISTINCT ma.agent_id) AS member_count,
           COUNT(DISTINCT mc.id) AS channels_count,
@@ -1416,6 +1467,7 @@ async def list_microdao_summaries(
           m.parent_microdao_id,
           pm.slug as parent_microdao_slug,
           m.logo_url,
+          m.banner_url,
           COUNT(DISTINCT ma.agent_id) AS agents_count,
           COUNT(DISTINCT ma.agent_id) AS member_count,
           COUNT(DISTINCT mc.id) AS channels_count,
@@ -1466,7 +1518,8 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
           COALESCE(m.is_platform, false) as is_platform,
           m.parent_microdao_id,
           pm.slug as parent_microdao_slug,
-          m.logo_url
+          m.logo_url,
+          m.banner_url
         FROM microdaos m
         LEFT JOIN agents a ON COALESCE(m.orchestrator_agent_id, m.owner_agent_id) = a.id
         LEFT JOIN microdaos pm ON m.parent_microdao_id = pm.id
@@ -1533,6 +1586,66 @@ async def get_microdao_by_slug(slug: str) -> Optional[dict]:
     result["public_citizens"] = public_citizens
     
     return result
+
+
+async def update_microdao_branding(
+    microdao_slug: str,
+    logo_url: Optional[str] = None,
+    banner_url: Optional[str] = None
+) -> Optional[dict]:
+    """Оновити брендинг MicroDAO"""
+    pool = await get_pool()
+    
+    set_parts = ["updated_at = NOW()"]
+    params = [microdao_slug]
+    
+    if logo_url is not None:
+        params.append(logo_url)
+        set_parts.append(f"logo_url = ${len(params)}")
+        
+    if banner_url is not None:
+        params.append(banner_url)
+        set_parts.append(f"banner_url = ${len(params)}")
+    
+    query = f"""
+        UPDATE microdaos
+        SET {', '.join(set_parts)}
+        WHERE slug = $1
+        RETURNING id, slug, name, logo_url, banner_url
+    """
+    
+    row = await pool.fetchrow(query, *params)
+    return dict(row) if row else None
+
+
+async def update_room_branding(
+    room_id: str,
+    logo_url: Optional[str] = None,
+    banner_url: Optional[str] = None
+) -> Optional[dict]:
+    """Оновити брендинг кімнати"""
+    pool = await get_pool()
+    
+    set_parts = ["updated_at = NOW()"]
+    params = [room_id]
+    
+    if logo_url is not None:
+        params.append(logo_url)
+        set_parts.append(f"logo_url = ${len(params)}")
+        
+    if banner_url is not None:
+        params.append(banner_url)
+        set_parts.append(f"banner_url = ${len(params)}")
+    
+    query = f"""
+        UPDATE city_rooms
+        SET {', '.join(set_parts)}
+        WHERE id = $1
+        RETURNING id, slug, name, logo_url, banner_url
+    """
+    
+    row = await pool.fetchrow(query, *params)
+    return dict(row) if row else None
 
 
 # =============================================================================
@@ -1869,6 +1982,8 @@ async def get_microdao_rooms(microdao_id: str) -> List[dict]:
             cr.room_role,
             cr.is_public,
             cr.sort_order,
+            cr.logo_url,
+            cr.banner_url,
             m.slug AS microdao_slug
         FROM city_rooms cr
         LEFT JOIN microdaos m ON cr.microdao_id = m.id
@@ -1890,7 +2005,9 @@ async def get_microdao_rooms(microdao_id: str) -> List[dict]:
             "microdao_slug": row.get("microdao_slug"),
             "room_role": row.get("room_role"),
             "is_public": row.get("is_public", True),
-            "sort_order": row.get("sort_order", 100)
+            "sort_order": row.get("sort_order", 100),
+            "logo_url": row.get("logo_url"),
+            "banner_url": row.get("banner_url")
         }
         for row in rows
     ]
@@ -1942,7 +2059,7 @@ async def attach_room_to_microdao(
             is_public = $3,
             sort_order = $4
         WHERE id = $5
-        RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order
+        RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order, logo_url, banner_url
     """
     
     row = await pool.fetchrow(query, microdao_id, room_role, is_public, sort_order, room_id)
@@ -1955,7 +2072,9 @@ async def attach_room_to_microdao(
             "microdao_id": str(row["microdao_id"]) if row.get("microdao_id") else None,
             "room_role": row.get("room_role"),
             "is_public": row.get("is_public", True),
-            "sort_order": row.get("sort_order", 100)
+            "sort_order": row.get("sort_order", 100),
+            "logo_url": row.get("logo_url"),
+            "banner_url": row.get("banner_url")
         }
     return None
 
@@ -2019,7 +2138,7 @@ async def update_microdao_room(
                     UPDATE city_rooms
                     SET {', '.join(set_parts)}
                     WHERE id = $1 AND microdao_id = $2
-                    RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order
+                    RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order, logo_url, banner_url
                 """
                 row = await conn.fetchrow(query, *params)
             
@@ -2032,7 +2151,146 @@ async def update_microdao_room(
                     "microdao_id": str(row["microdao_id"]) if row.get("microdao_id") else None,
                     "room_role": row.get("room_role"),
                     "is_public": row.get("is_public", True),
-                    "sort_order": row.get("sort_order", 100)
+                    "sort_order": row.get("sort_order", 100),
+                    "logo_url": row.get("logo_url"),
+                    "banner_url": row.get("banner_url")
                 }
             return None
 
+
+# =============================================================================
+# TASK 044: Orchestrator Crew Team Room
+# =============================================================================
+
+async def create_matrix_room_for_microdao_orchestrator(
+    microdao_id: str,
+    microdao_name: str,
+    orchestrator_agent_id: str
+) -> Optional[dict]:
+    """
+    Викликати Matrix Gateway для створення кімнати команди оркестратора.
+    """
+    # TODO: This should ideally be done with a proper Matrix user (e.g. app bot or the orchestrator agent itself if possible)
+    # For now, we'll use the system admin user logic in matrix-gateway or a specialized endpoint.
+    
+    # Since we are in repo, we don't have the user's token. We rely on matrix-gateway internal API.
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        try:
+            # Ensure matrix room alias is unique
+            room_alias = f"orchestrator_team_{microdao_id[:8]}"
+            room_name = f"{microdao_name} — Orchestrator Team"
+            
+            # Call Matrix Gateway to create room
+            # Using /internal/matrix/rooms/create (assuming it exists or we reuse a similar logic)
+            # If not, we might need to implement it in gateway-bot.
+            # Let's assume we use a new endpoint or existing one.
+            # Actually, we can reuse POST /internal/matrix/rooms if it exists or just use bot API.
+            
+            # NOTE: In real implementation, we need to authenticate this request or ensure network security.
+            resp = await client.post(
+                f"{MATRIX_GATEWAY_URL}/internal/matrix/rooms",
+                json={
+                    "alias": room_alias,
+                    "name": room_name,
+                    "topic": "Private team chat for MicroDAO Orchestrator",
+                    "preset": "private_chat", # or public_chat, but team chat usually private
+                    "initial_state": []
+                }
+            )
+            
+            if resp.status_code not in (200, 201):
+                logger.error(f"Matrix Gateway failed to create room: {resp.text}")
+                return None
+                
+            data = resp.json()
+            return {
+                "room_id": data["room_id"],
+                "room_alias": data.get("room_alias", room_alias)
+            }
+            
+        except Exception as e:
+            logger.error(f"Failed to create matrix room via gateway: {e}")
+            return None
+
+
+async def get_or_create_orchestrator_team_room(microdao_id: str) -> Optional[dict]:
+    """
+    Знайти або створити кімнату команди оркестратора для MicroDAO.
+    """
+    pool = await get_pool()
+    
+    # 1. Check if room exists in DB
+    existing_room_query = """
+        SELECT 
+            cr.id, cr.slug, cr.name, cr.matrix_room_id, cr.microdao_id, cr.room_role, cr.is_public, cr.sort_order
+        FROM city_rooms cr
+        WHERE cr.microdao_id = $1 AND cr.room_role = 'orchestrator_team'
+        LIMIT 1
+    """
+    room_row = await pool.fetchrow(existing_room_query, microdao_id)
+    
+    if room_row:
+        return dict(room_row)
+        
+    # 2. If not, fetch MicroDAO details to create one
+    microdao_query = """
+        SELECT id, name, slug, orchestrator_agent_id 
+        FROM microdaos 
+        WHERE id = $1
+    """
+    microdao = await pool.fetchrow(microdao_query, microdao_id)
+    
+    if not microdao or not microdao["orchestrator_agent_id"]:
+        logger.warning(f"MicroDAO {microdao_id} not found or has no orchestrator")
+        return None
+        
+    # 3. Create Matrix room
+    matrix_info = await create_matrix_room_for_microdao_orchestrator(
+        microdao_id=microdao_id,
+        microdao_name=microdao["name"],
+        orchestrator_agent_id=microdao["orchestrator_agent_id"]
+    )
+    
+    if not matrix_info:
+        logger.error("Failed to create Matrix room for orchestrator team")
+        # Fallback: Create DB record without Matrix ID if needed, or fail?
+        # Let's fail for now as Matrix ID is crucial for this feature.
+        return None
+        
+    # 4. Create DB record
+    slug = f"{microdao['slug']}-team"
+    # Ensure unique slug
+    while True:
+        check_slug = await pool.fetchrow("SELECT 1 FROM city_rooms WHERE slug = $1", slug)
+        if not check_slug:
+            break
+        slug = f"{slug}-{secrets.token_hex(2)}"
+        
+    create_query = """
+        INSERT INTO city_rooms (
+            id, slug, name, description, created_by, 
+            matrix_room_id, matrix_room_alias,
+            microdao_id, room_role, is_public, sort_order
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order
+    """
+    
+    room_id = f"room_city_{slug}"
+    
+    new_room = await pool.fetchrow(
+        create_query,
+        room_id,
+        slug,
+        f"{microdao['name']} Team",
+        "Orchestrator Team Chat",
+        "system",
+        matrix_info["room_id"],
+        matrix_info.get("room_alias"),
+        microdao_id,
+        "orchestrator_team",
+        False, # Private by default
+        50     # Sort order (high priority)
+    )
+    
+    return dict(new_room)

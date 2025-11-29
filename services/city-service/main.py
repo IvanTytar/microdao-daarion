@@ -15,6 +15,7 @@ import asyncio
 import routes_city
 import ws_city
 import repo_city
+import migrations  # Import migrations
 from common.redis_client import get_redis, close_redis
 from presence_gateway import (
     websocket_global_presence,
@@ -26,11 +27,22 @@ from presence_gateway import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+from fastapi.staticfiles import StaticFiles
+import os
+
+# ... imports ...
+
 app = FastAPI(
     title="DAARION City Service",
     version="2.0.0",
     description="City snapshot aggregator + Rooms + Presence for DAARION ecosystem"
 )
+
+# Create static directory if not exists
+os.makedirs("static/uploads", exist_ok=True)
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # CORS
 app.add_middleware(
@@ -340,6 +352,13 @@ async def startup_event():
     except Exception as e:
         logger.error(f"❌ Redis connection failed: {e}")
     
+    # Run DB Migrations
+    try:
+        await migrations.run_migrations()
+        logger.info("✅ DB Migrations completed")
+    except Exception as e:
+        logger.error(f"❌ DB Migrations failed: {e}")
+
     # Background tasks
     asyncio.create_task(city_updates_generator())
     asyncio.create_task(events_stream_generator())

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMicrodaos } from './hooks/useMicrodaos';
 import { createMicrodao, type MicrodaoCreate } from '@/api/microdao';
+import { MicrodaoBrandBadge } from './components/MicrodaoBrandBadge';
 
 export function MicrodaoListPage() {
   const navigate = useNavigate();
@@ -120,24 +121,42 @@ export function MicrodaoListPage() {
               <div
                 key={dao.id}
                 onClick={() => navigate(`/microdao/${dao.slug}`)}
-                className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer"
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer group relative"
               >
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {dao.name}
-                </h3>
-                
-                {dao.description && (
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                    {dao.description}
-                  </p>
+                {/* Banner Background */}
+                {dao.banner_url && (
+                  <div 
+                    className="absolute inset-0 h-32 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity"
+                    style={{ backgroundImage: `url(${dao.banner_url})` }}
+                  />
                 )}
-                
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <div>
-                    👥 {dao.member_count || 0} учасників
+
+                <div className="p-6 relative z-10">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <MicrodaoBrandBadge name={dao.name} logoUrl={dao.logo_url} size="md" />
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900">
+                          {dao.name}
+                        </h3>
+                        <p className="text-xs text-gray-500">@{dao.slug}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    🤖 {dao.agent_count || 0} агентів
+                  
+                  {dao.description && (
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                      {dao.description}
+                    </p>
+                  )}
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-500 mt-auto">
+                    <div className="flex items-center gap-1">
+                      <span>👥</span> {dao.member_count || 0}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span>🤖</span> {dao.agent_count || 0}
+                    </div>
                   </div>
                 </div>
               </div>

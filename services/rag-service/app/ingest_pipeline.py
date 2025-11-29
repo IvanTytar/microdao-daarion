@@ -6,10 +6,9 @@ Converts ParsedDocument to Haystack Documents and indexes them
 import logging
 from typing import List, Dict, Any, Optional
 
-from haystack import Pipeline
+from haystack import Pipeline, Document
 from haystack.components.preprocessors import DocumentSplitter
 from haystack.components.writers import DocumentWriter
-from haystack.schema import Document
 
 from app.document_store import get_document_store
 from app.embedding import get_text_embedder

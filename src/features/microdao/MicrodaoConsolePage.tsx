@@ -4,10 +4,12 @@
  */
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getMicrodao, getMembers, getTreasury, type MicrodaoRead, type MicrodaoMember, type TreasuryItem } from '@/api/microdao';
+import { getMicrodao, getMembers, getTreasury, uploadAsset, updateMicrodaoBranding, type MicrodaoRead, type MicrodaoMember, type TreasuryItem } from '@/api/microdao';
 import { getAgents, type AgentListItem } from '@/api/agents';
+import { MicrodaoHero } from './components/MicrodaoHero';
+import { MicrodaoBrandBadge } from './components/MicrodaoBrandBadge';
 
-type TabType = 'overview' | 'members' | 'agents' | 'treasury';
+type TabType = 'overview' | 'members' | 'agents' | 'treasury' | 'settings';
 
 export function MicrodaoConsolePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -62,6 +64,26 @@ export function MicrodaoConsolePage() {
     }
   };
 
+  const handleUpload = async (file: File | undefined, type: string) => {
+    if (!file || !microdao) return;
+    try {
+      // Optimistic UI update could be done here, but better wait for server
+      const { processed_url } = await uploadAsset(file, type);
+      
+      // Update branding
+      const updated = await updateMicrodaoBranding(
+        microdao.slug, 
+        type === 'microdao_logo' ? processed_url : undefined,
+        type === 'microdao_banner' ? processed_url : undefined
+      );
+      
+      setMicrodao(prev => prev ? { ...prev, ...updated } : null);
+    } catch (err) {
+      console.error('Upload failed:', err);
+      alert('Upload failed');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -95,80 +117,81 @@ export function MicrodaoConsolePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Hero Header */}
+      <MicrodaoHero
+        name={microdao.name}
+        tagline={microdao.description}
+        logoUrl={microdao.logo_url}
+        bannerUrl={microdao.banner_url}
+      >
+        <button
+          onClick={() => navigate('/microdao')}
+          className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-lg hover:bg-white/20 transition-colors text-sm"
+        >
+          ← Список
+        </button>
+        <Link
+          to={`/dao/${microdao.slug}-governance`}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-md text-sm font-medium"
+        >
+          <span>🗳️</span>
+          <span>Governance</span>
+        </Link>
+      </MicrodaoHero>
+
+      {/* Tabs */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <button
-            onClick={() => navigate('/microdao')}
-            className="text-blue-600 hover:text-blue-700 mb-4 flex items-center gap-2"
-          >
-            ← Назад до списку
-          </button>
-
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {microdao.name}
-              </h1>
-              {microdao.description && (
-                <p className="text-gray-600 mt-1">{microdao.description}</p>
-              )}
-              <div className="mt-2 text-sm text-gray-500">
-                <span className="font-mono">{microdao.slug}</span> · {microdao.external_id}
-              </div>
-            </div>
-            <div>
-              <Link
-                to={`/dao/${microdao.slug}-governance`}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition flex items-center gap-2 shadow-md"
-              >
-                <span className="text-xl">🗳️</span>
-                <span className="font-semibold">DAO Governance</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex gap-1 border-b border-gray-200 mt-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex gap-1 -mb-px pt-2">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-6 py-3 font-medium transition-colors ${
+              className={`px-6 py-3 font-medium transition-colors border-b-2 ${
                 activeTab === 'overview'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900 border-transparent'
               }`}
             >
               📊 Огляд
             </button>
             <button
               onClick={() => setActiveTab('members')}
-              className={`px-6 py-3 font-medium transition-colors ${
+              className={`px-6 py-3 font-medium transition-colors border-b-2 ${
                 activeTab === 'members'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900 border-transparent'
               }`}
             >
               👥 Учасники ({members.length})
             </button>
             <button
               onClick={() => setActiveTab('agents')}
-              className={`px-6 py-3 font-medium transition-colors ${
+              className={`px-6 py-3 font-medium transition-colors border-b-2 ${
                 activeTab === 'agents'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900 border-transparent'
               }`}
             >
               🤖 Агенти ({agents.length})
             </button>
             <button
               onClick={() => setActiveTab('treasury')}
-              className={`px-6 py-3 font-medium transition-colors ${
+              className={`px-6 py-3 font-medium transition-colors border-b-2 ${
                 activeTab === 'treasury'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900 border-transparent'
               }`}
             >
               💰 Казна
+            </button>
+            <button
+              onClick={() => setActiveTab('settings')}
+              className={`px-6 py-3 font-medium transition-colors border-b-2 ${
+                activeTab === 'settings'
+                  ? 'text-blue-600 border-blue-600'
+                  : 'text-gray-600 hover:text-gray-900 border-transparent'
+              }`}
+            >
+              ⚙️ Налаштування
             </button>
           </div>
         </div>
@@ -295,6 +318,52 @@ export function MicrodaoConsolePage() {
                   Казна пуста
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Settings Tab */}
+        {activeTab === 'settings' && microdao && (
+          <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-6">Брендинг</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Logo Upload */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Логотип (256x256)</label>
+                  <div className="flex items-center gap-6">
+                    <MicrodaoBrandBadge name={microdao.name} logoUrl={microdao.logo_url} size="xl" />
+                    <div className="flex-1">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={(e) => handleUpload(e.target.files?.[0], 'microdao_logo')}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                      />
+                      <p className="text-xs text-gray-500 mt-2">PNG, JPG, SVG. Макс 5MB.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Banner Upload */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Банер</label>
+                  <div className="relative w-full h-32 bg-gray-100 rounded-lg overflow-hidden mb-3 border border-gray-200 group">
+                    {microdao.banner_url ? (
+                      <img src={microdao.banner_url} className="w-full h-full object-cover" alt="Banner" />
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-gray-400">Немає банера</div>
+                    )}
+                  </div>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => handleUpload(e.target.files?.[0], 'microdao_banner')}
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         )}

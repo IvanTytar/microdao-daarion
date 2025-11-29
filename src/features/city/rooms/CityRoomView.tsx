@@ -13,6 +13,7 @@ import {
   type CityRoomMessage
 } from '../../../api/cityRooms';
 import { WebSocketClient } from '../../../lib/ws';
+import { RoomBrandHeader } from '../../microdao/components/RoomBrandHeader';
 
 export function CityRoomView() {
   const { roomId } = useParams<{ roomId: string }>();
@@ -124,30 +125,22 @@ export function CityRoomView() {
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
-      <div className="bg-white border-b px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/city/rooms')}
-              className="text-gray-600 hover:text-gray-900"
-            >
-              ← Назад
-            </button>
-            <div>
-              <h1 className="text-2xl font-bold">{room.name}</h1>
-              {room.description && (
-                <p className="text-sm text-gray-600">{room.description}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              {room.members_online} онлайн
-            </span>
-          </div>
-        </div>
-      </div>
+      <RoomBrandHeader
+        name={room.name}
+        description={room.description}
+        bannerUrl={room.banner_url}
+        logoUrl={room.logo_url}
+        microdaoLogoUrl={room.microdao_logo_url}
+        microdaoName={room.microdao_name}
+        membersCount={room.members_online}
+      >
+        <button
+          onClick={() => navigate('/city/rooms')}
+          className="text-white/80 hover:text-white flex items-center gap-2 bg-black/20 px-3 py-1.5 rounded-lg backdrop-blur-sm hover:bg-black/30 transition-all"
+        >
+          ← Назад
+        </button>
+      </RoomBrandHeader>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-6 bg-gray-50">

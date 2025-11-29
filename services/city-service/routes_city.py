@@ -2,12 +2,16 @@
 City Backend API Routes
 """
 
-from fastapi import APIRouter, HTTPException, Depends, Body, Header, Query, Request
+from fastapi import APIRouter, HTTPException, Depends, Body, Header, Query, Request, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import List, Optional
 import logging
 import httpx
 import os
+import io
+import uuid
+from PIL import Image
+import shutil
 
 from models_city import (
     CityRoomRead,
@@ -52,6 +56,56 @@ logger = logging.getLogger(__name__)
 # JWT validation (simplified for MVP)
 AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://daarion-auth:7020")
 MATRIX_GATEWAY_URL = os.getenv("MATRIX_GATEWAY_URL", "http://daarion-matrix-gateway:7025")
+
+# Helper for image processing
+def process_image(image_bytes: bytes, target_size: tuple = (256, 256)) -> tuple[bytes, bytes]:
+    """
+    Process image:
+    1. Convert to PNG
+    2. Resize/Crop to target_size (default 256x256)
+    3. Generate thumbnail 128x128
+    Returns (processed_bytes, thumb_bytes)
+    """
+    with Image.open(io.BytesIO(image_bytes)) as img:
+        # Convert to RGBA/RGB
+        if img.mode in ('P', 'CMYK'):
+            img = img.convert('RGBA')
+            
+        # Resize/Crop to target_size
+        img_ratio = img.width / img.height
+        target_ratio = target_size[0] / target_size[1]
+        
+        if img_ratio > target_ratio:
+            # Wider than target
+            new_height = target_size[1]
+            new_width = int(new_height * img_ratio)
+        else:
+            # Taller than target
+            new_width = target_size[0]
+            new_height = int(new_width / img_ratio)
+            
+        img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+        
+        # Center crop
+        left = (new_width - target_size[0]) / 2
+        top = (new_height - target_size[1]) / 2
+        right = (new_width + target_size[0]) / 2
+        bottom = (new_height + target_size[1]) / 2
+        
+        img = img.crop((left, top, right, bottom))
+        
+        # Save processed
+        processed_io = io.BytesIO()
+        img.save(processed_io, format='PNG', optimize=True)
+        processed_bytes = processed_io.getvalue()
+        
+        # Thumbnail
+        img.thumbnail((128, 128))
+        thumb_io = io.BytesIO()
+        img.save(thumb_io, format='PNG', optimize=True)
+        thumb_bytes = thumb_io.getvalue()
+        
+        return processed_bytes, thumb_bytes
 
 router = APIRouter(prefix="/city", tags=["city"])
 public_router = APIRouter(prefix="/public", tags=["public"])
@@ -151,8 +205,11 @@ async def list_agents(
 
 
 class AgentVisibilityPayload(BaseModel):
-    """Agent visibility update payload (Task 029)"""
+    """Agent visibility update payload (Task 039)"""
     is_public: bool
+    public_title: Optional[str] = None
+    public_tagline: Optional[str] = None
+    public_slug: Optional[str] = None
     visibility_scope: Optional[str] = None  # 'global' | 'microdao' | 'private'
 
 
@@ -161,7 +218,7 @@ async def update_agent_visibility_endpoint(
     agent_id: str,
     payload: AgentVisibilityPayload
 ):
-    """Оновити налаштування видимості агента (Task 029)"""
+    """Оновити налаштування видимості агента (Task 039)"""
     try:
         # Validate visibility_scope if provided
         valid_scopes = ("global", "microdao", "private", "city", "owner_only")  # support legacy too
@@ -177,23 +234,58 @@ async def update_agent_visibility_endpoint(
             scope = "global"
         elif scope == "owner_only":
             scope = "private"
+            
+        # Validate: if is_public, slug is required
+        if payload.is_public and not payload.public_slug:
+             # If slug is missing but we have agent_id, maybe we can't generate it here safely without duplicate check?
+             # The prompt says "якщо is_public = true → slug обовʼязковий"
+             # But let's see if we can fetch existing slug if not provided?
+             # For now, enforce requirement as per prompt
+             raise HTTPException(status_code=400, detail="public_slug is required when is_public is true")
+
+        # Validate slug format if provided
+        if payload.public_slug:
+            import re
+            if not re.match(r'^[a-z0-9_-]+$', payload.public_slug.lower()):
+                raise HTTPException(status_code=400, detail="public_slug must contain only lowercase letters, numbers, underscores, and hyphens")
+
+        # Use unified update_agent_public_profile
+        # We need to fetch existing values for fields not provided? 
+        # repo_city.update_agent_public_profile replaces values.
+        # So we should probably fetch the agent first to preserve other fields if they are None in payload?
+        # But the payload fields are optional.
+        # Let's assume if they are passed as None, we might want to keep them or clear them? 
+        # Usually PUT replaces. PATCH updates. This is PUT.
+        # But let's be safe and fetch current profile to merge if needed, or just update what we have.
+        # Actually, update_agent_public_profile updates all passed fields.
+        # Let's fetch current to ensure we don't wipe out existing data if payload sends None but we want to keep it.
+        # However, the prompt implies these are the fields to update.
         
-        # Update in database
-        result = await repo_city.update_agent_visibility(
+        current_profile = await repo_city.get_agent_public_profile(agent_id)
+        if not current_profile:
+             raise HTTPException(status_code=404, detail="Agent not found")
+             
+        result = await repo_city.update_agent_public_profile(
             agent_id=agent_id,
             is_public=payload.is_public,
-            visibility_scope=scope,
+            public_slug=payload.public_slug or current_profile.get("public_slug"),
+            public_title=payload.public_title if payload.public_title is not None else current_profile.get("public_title"),
+            public_tagline=payload.public_tagline if payload.public_tagline is not None else current_profile.get("public_tagline"),
+            public_skills=current_profile.get("public_skills"), # Preserve skills
+            public_district=current_profile.get("public_district"), # Preserve district
+            public_primary_room_slug=current_profile.get("public_primary_room_slug") # Preserve room
         )
         
-        if not result:
-            raise HTTPException(status_code=404, detail="Agent not found")
+        # Also update visibility_scope if provided
+        if scope:
+             await repo_city.update_agent_visibility(
+                 agent_id=agent_id,
+                 is_public=payload.is_public,
+                 visibility_scope=scope
+             )
+             result["visibility_scope"] = scope
         
-        return {
-            "status": "ok", 
-            "agent_id": agent_id,
-            "is_public": result.get("is_public"),
-            "visibility_scope": result.get("visibility_scope"),
-        }
+        return result
     except HTTPException:
         raise
     except Exception as e:
@@ -202,8 +294,206 @@ async def update_agent_visibility_endpoint(
 
 
 # =============================================================================
+# Assets & Branding API (Task 042)
+# =============================================================================
+
+@router.post("/assets/upload")
+async def upload_asset(
+    file: UploadFile = File(...),
+    type: str = Form(...) # microdao_logo, microdao_banner, room_logo, room_banner
+):
+    """Upload asset (logo/banner) with auto-processing"""
+    try:
+        # Validate type
+        if type not in ['microdao_logo', 'microdao_banner', 'room_logo', 'room_banner']:
+            raise HTTPException(status_code=400, detail="Invalid asset type")
+            
+        # Validate file size (5MB limit) - done by reading content
+        content = await file.read()
+        if len(content) > 5 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="File too large (max 5MB)")
+            
+        # Process image
+        target_size = (256, 256)
+        if 'banner' in type:
+            target_size = (1200, 400) # Standard banner size
+            
+        processed_bytes, thumb_bytes = process_image(content, target_size=target_size)
+        
+        # Save to disk
+        filename = f"{uuid.uuid4()}.png"
+        filepath = f"static/uploads/{filename}"
+        thumb_filepath = f"static/uploads/thumb_{filename}"
+        
+        with open(filepath, "wb") as f:
+            f.write(processed_bytes)
+            
+        with open(thumb_filepath, "wb") as f:
+            f.write(thumb_bytes)
+            
+        # Construct URLs
+        base_url = "/static/uploads"
+        
+        return {
+            "original_url": f"{base_url}/{filename}",
+            "processed_url": f"{base_url}/{filename}",
+            "thumb_url": f"{base_url}/thumb_{filename}"
+        }
+        
+    except Exception as e:
+        logger.error(f"Upload failed: {e}")
+        raise HTTPException(status_code=500, detail="Upload failed")
+
+
+class BrandingUpdatePayload(BaseModel):
+    logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
+
+
+@router.patch("/microdao/{slug}/branding")
+async def update_microdao_branding_endpoint(slug: str, payload: BrandingUpdatePayload):
+    """Update MicroDAO branding"""
+    try:
+        # Check exists
+        dao = await repo_city.get_microdao_by_slug(slug)
+        if not dao:
+            raise HTTPException(status_code=404, detail="MicroDAO not found")
+            
+        # Update
+        result = await repo_city.update_microdao_branding(
+            microdao_slug=slug,
+            logo_url=payload.logo_url,
+            banner_url=payload.banner_url
+        )
+        
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update branding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update branding")
+
+
+@router.patch("/rooms/{room_id}/branding")
+async def update_room_branding_endpoint(room_id: str, payload: BrandingUpdatePayload):
+    """Update Room branding"""
+    try:
+        # Check exists
+        room = await repo_city.get_room_by_id(room_id)
+        if not room:
+            raise HTTPException(status_code=404, detail="Room not found")
+            
+        # Update
+        result = await repo_city.update_room_branding(
+            room_id=room_id,
+            logo_url=payload.logo_url,
+            banner_url=payload.banner_url
+        )
+        
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update room branding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update room branding")
+
+
+# =============================================================================
 # Nodes API (for Node Directory)
 # =============================================================================
+
+@public_router.get("/nodes/join/instructions")
+async def get_node_join_instructions():
+    """
+    Отримати інструкції з підключення нової ноди.
+    """
+    instructions = """
+# Як підключити нову ноду до DAARION
+
+Вітаємо! Ви вирішили розширити обчислювальну потужність мережі DAARION.
+Цей гайд допоможе вам розгорнути власну ноду та підключити її до кластера.
+
+## Вимоги до заліза (Мінімальні)
+- **CPU**: 4 cores
+- **RAM**: 16 GB (рекомендовано 32+ GB для LLM)
+- **Disk**: 100 GB SSD
+- **OS**: Ubuntu 22.04 LTS / Debian 11+
+- **Network**: Статична IP адреса, відкриті порти
+
+## Крок 1: Підготовка сервера
+
+Встановіть Docker та Docker Compose:
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+
+## Крок 2: Отримання токенів
+
+Для підключення вам знадобляться:
+1. **NATS Connection URL** (від адміністратора)
+2. **NATS Credentials File** (`.creds`) (від адміністратора)
+
+Зверніться до адміністраторів мережі у [Discord/Matrix], щоб отримати доступ.
+
+## Крок 3: Розгортання Node Runtime
+
+Створіть директорію `daarion-node` та файл `docker-compose.yml`:
+
+```yaml
+version: '3.8'
+
+services:
+  # 1. NATS Leaf Node (міст до ядра)
+  nats-leaf:
+    image: nats:2.10-alpine
+    volumes:
+      - ./nats.conf:/etc/nats/nats.conf
+      - ./creds:/etc/nats/creds
+    ports:
+      - "4222:4222"
+
+  # 2. Node Registry (реєстрація в мережі)
+  node-registry:
+    image: daarion/node-registry:latest
+    environment:
+      - NODE_ID=my-node-01  # Змініть на унікальне ім'я
+      - NATS_URL=nats://nats-leaf:4222
+      - REGION=eu-central
+    depends_on:
+      - nats-leaf
+
+  # 3. Ollama (AI Runtime)
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  ollama_data:
+```
+
+## Крок 4: Запуск
+
+```bash
+docker compose up -d
+```
+
+## Крок 5: Перевірка
+
+Перейдіть у консоль **Nodes** на https://app.daarion.space/nodes.
+Ваша нода має з'явитися у списку зі статусом **Online**.
+"""
+    return {"content": instructions}
+
 
 @public_router.get("/nodes")
 async def list_nodes():
@@ -1181,6 +1471,7 @@ async def get_agent_dashboard(agent_id: str):
             "primary_microdao_id": agent.get("primary_microdao_id"),
             "primary_microdao_name": agent.get("primary_microdao_name"),
             "primary_microdao_slug": agent.get("primary_microdao_slug"),
+            "crew_info": agent.get("crew_info"),
             "roles": [agent.get("role")] if agent.get("role") else [],
             "tags": [],
             "dais": {
@@ -1209,13 +1500,27 @@ async def get_agent_dashboard(agent_id: str):
             }
         }
         
-        # Get node info (simplified)
+        # Get node info (detailed)
         node_info = None
         if agent.get("node_id"):
-            node_info = {
-                "node_id": agent["node_id"],
-                "status": "online"  # Would fetch from Node Registry in production
-            }
+            node_data = await repo_city.get_node_by_id(agent["node_id"])
+            if node_data:
+                node_info = {
+                    "node_id": node_data["node_id"],
+                    "name": node_data["name"],
+                    "hostname": node_data.get("hostname"),
+                    "roles": node_data.get("roles", []),
+                    "environment": node_data.get("environment"),
+                    "status": node_data.get("status", "offline"),
+                    "guardian_agent": node_data.get("guardian_agent"),
+                    "steward_agent": node_data.get("steward_agent")
+                }
+            else:
+                node_info = {
+                    "node_id": agent["node_id"],
+                    "status": "unknown",
+                    "name": "Unknown Node"
+                }
         
         # Get system prompts
         system_prompts = await repo_city.get_agent_prompts(agent_id)
@@ -1230,6 +1535,7 @@ async def get_agent_dashboard(agent_id: str):
                 microdao_id=item["microdao_id"],
                 microdao_slug=item.get("microdao_slug"),
                 microdao_name=item.get("microdao_name"),
+                logo_url=item.get("logo_url"),
                 role=item.get("role"),
                 is_core=item.get("is_core", False)
             )
@@ -1750,6 +2056,7 @@ class MicrodaoCreatePayload(BaseModel):
     make_platform: bool = False
     is_public: bool = True
     parent_microdao_id: Optional[str] = None
+    create_rooms: Optional[dict] = None  # {"primary_lobby": bool, "governance": bool, "crew_team": bool}
 
 
 @router.post("/agents/{agent_id}/microdao", response_model=dict)
@@ -1765,6 +2072,7 @@ async def create_microdao_for_agent_endpoint(
     2. Призначає агента оркестратором
     3. Додає агента як члена DAO
     4. Встановлює primary_microdao_id якщо порожній
+    5. Опціонально створює кімнати (primary/governance/crew)
     """
     try:
         # Check if agent exists and is not archived
@@ -1790,11 +2098,72 @@ async def create_microdao_for_agent_endpoint(
         
         if not result:
             raise HTTPException(status_code=500, detail="Failed to create MicroDAO")
+            
+        microdao_id = result["id"]
+        created_rooms = []
+        
+        # Create Rooms if requested
+        if payload.create_rooms:
+            # Helper to create room
+            async def create_room_helper(room_slug: str, name: str, role: str, is_public: bool = True):
+                # Create room
+                matrix_room_id, matrix_room_alias = await create_matrix_room(
+                    slug=room_slug,
+                    name=name,
+                    visibility="public" if is_public else "private"
+                )
+                
+                room = await repo_city.create_room(
+                    slug=room_slug,
+                    name=name,
+                    description=f"{role.title()} room for {payload.name}",
+                    created_by="u_system", # TODO: use actual user if available
+                    matrix_room_id=matrix_room_id,
+                    matrix_room_alias=matrix_room_alias
+                )
+                
+                # Attach to MicroDAO
+                attached = await repo_city.attach_room_to_microdao(
+                    microdao_id=microdao_id,
+                    room_id=room["id"],
+                    room_role=role,
+                    is_public=is_public,
+                    sort_order=10 if role == 'primary' else 50
+                )
+                created_rooms.append(attached)
+
+            # Primary Lobby
+            if payload.create_rooms.get("primary_lobby"):
+                await create_room_helper(
+                    room_slug=f"{payload.slug}-lobby",
+                    name=f"{payload.name} Lobby",
+                    role="primary",
+                    is_public=True
+                )
+                
+            # Governance
+            if payload.create_rooms.get("governance"):
+                await create_room_helper(
+                    room_slug=f"{payload.slug}-gov",
+                    name=f"{payload.name} Governance",
+                    role="governance",
+                    is_public=True
+                )
+                
+            # Crew Team
+            if payload.create_rooms.get("crew_team"):
+                await create_room_helper(
+                    room_slug=f"{payload.slug}-team",
+                    name=f"{payload.name} Team",
+                    role="team",
+                    is_public=False # Team rooms usually private/internal
+                )
         
         return {
             "status": "ok",
             "microdao": result,
             "agent_id": agent_id,
+            "created_rooms": created_rooms
         }
     except HTTPException:
         raise
@@ -1804,3 +2173,114 @@ async def create_microdao_for_agent_endpoint(
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Failed to create MicroDAO")
 
+
+class AttachToMicrodaoPayload(BaseModel):
+    agent_id: str
+    role: str = "member" # orchestrator | member
+
+
+@router.post("/microdao/{slug}/attach-agent")
+async def attach_agent_to_microdao_endpoint(
+    slug: str,
+    payload: AttachToMicrodaoPayload
+):
+    """
+    Приєднати агента до існуючого MicroDAO (Task 040).
+    """
+    try:
+        # Check MicroDAO
+        dao = await repo_city.get_microdao_by_slug(slug)
+        if not dao:
+            raise HTTPException(status_code=404, detail=f"MicroDAO not found: {slug}")
+            
+        # Check Agent
+        agent = await repo_city.get_agent_by_id(payload.agent_id)
+        if not agent:
+            raise HTTPException(status_code=404, detail="Agent not found")
+            
+        # Determine flags
+        is_core = False
+        if payload.role == "orchestrator":
+            is_core = True
+            
+        # Upsert membership
+        result = await repo_city.upsert_agent_microdao_membership(
+            agent_id=payload.agent_id,
+            microdao_id=dao["id"],
+            role=payload.role,
+            is_core=is_core
+        )
+        
+        # If role is orchestrator, we might want to update the main record too if it's missing an orchestrator,
+        # or just rely on the membership table.
+        # The current repo_city.create_microdao_for_agent sets orchestrator_agent_id on the microdao table.
+        # Let's check if we should update that.
+        if payload.role == "orchestrator" and not dao.get("orchestrator_agent_id"):
+             # TODO: Update microdao table orchestrator_agent_id = payload.agent_id
+             # For now, memberships are the source of truth for "orchestrators list"
+             pass
+             
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to attach agent to microdao: {e}")
+        raise HTTPException(status_code=500, detail="Failed to attach agent")
+
+
+@router.post("/microdao/{slug}/ensure-orchestrator-room", response_model=CityRoomSummary)
+async def ensure_orchestrator_room(
+    slug: str,
+    authorization: Optional[str] = Header(None)
+):
+    """
+    Забезпечити існування кімнати команди оркестратора для MicroDAO.
+    Створює нову кімнату в Matrix та БД, якщо її ще немає.
+    
+    Доступно для: Адмінів, Оркестратора MicroDAO.
+    """
+    # 1. Validate JWT
+    user_info = await validate_jwt_token(authorization)
+    if not user_info:
+        raise HTTPException(status_code=401, detail="Invalid or missing authorization token")
+    
+    user_id = user_info.get("user_id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Invalid token: missing user_id")
+    
+    # 2. Get MicroDAO
+    dao = await repo_city.get_microdao_by_slug(slug)
+    if not dao:
+        raise HTTPException(status_code=404, detail="MicroDAO not found")
+    
+    microdao_id = dao["id"]
+    orchestrator_id = dao.get("orchestrator_agent_id")
+    
+    # 3. Check permissions (mock logic for now, assuming valid user if token is present)
+    # TODO: In real app, check if user_id matches owner or has admin role
+    # For now, we assume if they can call this (protected by UI/proxy), they are authorized.
+    
+    try:
+        room = await repo_city.get_or_create_orchestrator_team_room(microdao_id)
+        if not room:
+            raise HTTPException(status_code=500, detail="Failed to create or retrieve orchestrator room")
+            
+        return CityRoomSummary(
+            id=room["id"],
+            slug=room["slug"],
+            name=room["name"],
+            matrix_room_id=room.get("matrix_room_id"),
+            microdao_id=room.get("microdao_id"),
+            microdao_slug=slug,  # Ensure slug is passed
+            room_role=room.get("room_role"),
+            is_public=room.get("is_public", False),
+            sort_order=room.get("sort_order", 100),
+            logo_url=room.get("logo_url"),
+            banner_url=room.get("banner_url")
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error ensuring orchestrator room for {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")

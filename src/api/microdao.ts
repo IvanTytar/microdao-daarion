@@ -24,6 +24,8 @@ export interface MicrodaoRead extends MicrodaoBase {
   updated_at: string;
   member_count?: number;
   agent_count?: number;
+  logo_url?: string | null;
+  banner_url?: string | null;
 }
 
 export interface MicrodaoCreate extends MicrodaoBase {}
@@ -238,5 +240,50 @@ export async function checkMicrodaoServiceHealth(): Promise<{
   status: string;
 }> {
   return microdaoRequest('/health');
+}
+
+// ============================================================================
+// Assets & Branding
+// ============================================================================
+
+export interface AssetUploadResponse {
+  original_url: string;
+  processed_url: string;
+  thumb_url: string;
+}
+
+export async function uploadAsset(file: File, type: string): Promise<AssetUploadResponse> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('type', type);
+
+  const sessionToken = localStorage.getItem('daarion_session_token');
+  const headers: HeadersInit = {};
+  if (sessionToken) {
+    headers['Authorization'] = `Bearer ${sessionToken}`;
+  }
+
+  const response = await fetch(`${MICRODAO_API_URL}/assets/upload`, {
+    method: 'POST',
+    body: formData,
+    headers,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to upload asset');
+  }
+
+  return response.json();
+}
+
+export async function updateMicrodaoBranding(
+  slug: string, 
+  logoUrl?: string | null, 
+  bannerUrl?: string | null
+): Promise<MicrodaoRead> {
+  return microdaoRequest<MicrodaoRead>(`/microdao/${encodeURIComponent(slug)}/branding`, {
+    method: 'PATCH',
+    body: JSON.stringify({ logo_url: logoUrl, banner_url: bannerUrl })
+  });
 }
 

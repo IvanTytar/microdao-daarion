@@ -28,6 +28,14 @@ class CityRoomRead(CityRoomBase):
     created_by: Optional[str] = None
     members_online: int = 0
     last_event: Optional[str] = None
+    # Branding
+    logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
+    # Context
+    microdao_id: Optional[str] = None
+    microdao_name: Optional[str] = None
+    microdao_slug: Optional[str] = None
+    microdao_logo_url: Optional[str] = None
     # Matrix integration
     matrix_room_id: Optional[str] = None
     matrix_room_alias: Optional[str] = None
@@ -146,6 +154,21 @@ class CityMapResponse(BaseModel):
 
 
 # =============================================================================
+# Branding & Assets
+# =============================================================================
+
+class BrandingUpdatePayload(BaseModel):
+    logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
+
+
+class AssetUploadResponse(BaseModel):
+    original_url: str
+    processed_url: str
+    thumb_url: Optional[str] = None
+
+
+# =============================================================================
 # Agents (for Agent Presence)
 # =============================================================================
 
@@ -256,6 +279,15 @@ class MicrodaoBadge(BaseModel):
     role: Optional[str] = None  # orchestrator, member, etc.
     is_public: bool = True
     is_platform: bool = False
+    logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
+
+
+class AgentCrewInfo(BaseModel):
+    """Information about agent's CrewAI team"""
+    has_crew_team: bool
+    crew_team_key: Optional[str] = None
+    matrix_room_id: Optional[str] = None
 
 
 class AgentSummary(BaseModel):
@@ -291,6 +323,9 @@ class AgentSummary(BaseModel):
     
     # Skills
     public_skills: List[str] = []
+    
+    # CrewAI
+    crew_info: Optional[AgentCrewInfo] = None
     
     # Future: model bindings and usage stats
     model_bindings: Optional[ModelBindings] = None
@@ -400,6 +435,7 @@ class MicrodaoSummary(BaseModel):
     
     # Stats
     logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
     member_count: int = 0  # alias for agents_count
     agents_count: int = 0  # backward compatibility
     room_count: int = 0  # alias for rooms_count
@@ -431,9 +467,11 @@ class CityRoomSummary(BaseModel):
     matrix_room_id: Optional[str] = None
     microdao_id: Optional[str] = None
     microdao_slug: Optional[str] = None
-    room_role: Optional[str] = None  # 'primary', 'lobby', 'team', 'research', 'security', 'governance'
+    room_role: Optional[str] = None  # 'primary', 'lobby', 'team', 'research', 'security', 'governance', 'orchestrator_team'
     is_public: bool = True
     sort_order: int = 100
+    logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
 
 
 class MicrodaoRoomsList(BaseModel):
@@ -483,6 +521,7 @@ class MicrodaoDetail(BaseModel):
     
     # Content
     logo_url: Optional[str] = None
+    banner_url: Optional[str] = None
     agents: List[MicrodaoAgentView] = []
     channels: List[MicrodaoChannelView] = []
     
@@ -498,6 +537,7 @@ class AgentMicrodaoMembership(BaseModel):
     microdao_id: str
     microdao_slug: str
     microdao_name: str
+    logo_url: Optional[str] = None
     role: Optional[str] = None
     is_core: bool = False
 
@@ -534,4 +574,3 @@ class MicrodaoCreateRequest(BaseModel):
     make_platform: bool = False  # If true -> is_platform = true
     is_public: bool = True
     parent_microdao_id: Optional[str] = None
-

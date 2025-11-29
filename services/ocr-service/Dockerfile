@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     libtesseract-dev \
     libgl1 \
     libglib2.0-0 \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -25,7 +26,7 @@ COPY app/ ./app/
 EXPOSE 8896
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8896/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD wget -qO- http://localhost:8896/health || exit 1
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8896"]

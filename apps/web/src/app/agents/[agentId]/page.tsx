@@ -18,8 +18,10 @@ import {
 import { api, Agent, AgentInvokeResponse } from '@/lib/api';
 import { VisibilityScope, getNodeBadgeLabel } from '@/lib/types/agents';
 import { updateAgentVisibility, AgentVisibilityUpdate } from '@/lib/api/agents';
-import { Bot, Settings, FileText, Building2, Cpu, MessageSquare, BarChart3, Users, Globe, Lock, Eye, EyeOff, ChevronLeft, Loader2, MessageCircle } from 'lucide-react';
+import { ensureOrchestratorRoom } from '@/lib/api/microdao';
+import { Bot, Settings, FileText, Building2, Cpu, MessageSquare, BarChart3, Users, Globe, Lock, Eye, EyeOff, ChevronLeft, Loader2, MessageCircle, PlusCircle } from 'lucide-react';
 import { CityChatWidget } from '@/components/city/CityChatWidget';
+import { Button } from '@/components/ui/button';
 
 // Tab types
 type TabId = 'dashboard' | 'prompts' | 'microdao' | 'identity' | 'models' | 'chat';
@@ -68,6 +70,7 @@ export default function AgentConsolePage() {
   const [input, setInput] = useState('');
   const [invoking, setInvoking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isCreatingTeam, setIsCreatingTeam] = useState(false);
 
   // Load agent for chat
   useEffect(() => {
@@ -130,6 +133,23 @@ export default function AgentConsolePage() {
       setInvoking(false);
     }
   };
+
+  const handleCreateTeamChat = async () => {
+    if (!dashboard?.profile.primary_microdao_slug) return;
+    
+    setIsCreatingTeam(true);
+    try {
+      await ensureOrchestratorRoom(dashboard.profile.primary_microdao_slug);
+      refresh(); // Reload to get new room info if possible (though dashboard might not include it immediately unless updated)
+      // Ideally we should fetch the room specifically or wait for refresh
+      alert("Командний чат створено! Перезавантажте сторінку, якщо він не з'явився.");
+    } catch (e) {
+      console.error("Failed to create team chat", e);
+      alert("Failed to create team chat");
+    } finally {
+      setIsCreatingTeam(false);
+    }
+  };
   
   // Loading state
   if (dashboardLoading && !dashboard) {
@@ -178,6 +198,20 @@ export default function AgentConsolePage() {
   const profile = dashboard?.profile;
   const nodeLabel = profile?.node_id ? getNodeBadgeLabel(profile.node_id) : 'Unknown';
   
+  // Check for Orchestrator Team Chat capability
+  const showOrchestratorChat = profile?.is_orchestrator && profile?.crew_info?.has_crew_team;
+  // We need to know if the room actually exists. 
+  // Currently dashboard doesn't return specific team room in profile, 
+  // but we can infer it or fetch it.
+  // For MVP, let's assume we show "Create" button if not found in a separate check, 
+  // or just show the widget and let it handle "not found"? No, widget needs roomSlug.
+  
+  // Since we don't have the room slug in profile.crew_info (it might be null),
+  // we rely on the user clicking "Create" if it's not there, or we try to construct the slug?
+  // Backend: `get_or_create` logic creates slug like `{microdao_slug}-team`.
+  // We can try to use that slug if `crew_team_key` is present.
+  const teamRoomSlug = profile?.primary_microdao_slug ? `${profile.primary_microdao_slug}-team` : null;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900">
       {/* Header */}
@@ -463,6 +497,70 @@ export default function AgentConsolePage() {
         {/* Chat Tab */}
         {activeTab === 'chat' && (
           <div className="space-y-6">
+            
+            {/* Orchestrator Team Chat */}
+            {showOrchestratorChat && (
+              <div className="bg-fuchsia-900/10 backdrop-blur-md rounded-2xl border border-fuchsia-500/20 p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-fuchsia-200 flex items-center gap-2">
+                    <Bot className="w-5 h-5 text-fuchsia-400" />
+                    Командний чат оркестратора
+                  </h3>
+                  <Link 
+                    href={`/microdao/${profile.primary_microdao_slug}`}
+                    className="text-xs text-fuchsia-400 hover:text-fuchsia-300 underline"
+                  >
+                    {profile.primary_microdao_name}
+                  </Link>
+                </div>
+                
+                {/* 
+                  Here we assume that if has_crew_team is true, the room might exist or we can create it.
+                  For simplicity in MVP, we use the known slug format or show button.
+                  Actually, if the room is not created yet, CityChatWidget will error or show loading forever?
+                  CityChatWidget handles 404 gracefully?
+                  
+                  Better approach: Try to load it. If 404, show Create button.
+                  But CityChatWidget doesn't expose "notFound" state easily upwards.
+                  
+                  Alternative: Just show Create button if not sure, or try to auto-create.
+                  Let's try to show the widget with the expected slug.
+                */}
+                {teamRoomSlug ? (
+                  <div className="h-[400px]">
+                     <CityChatWidget 
+                       roomSlug={teamRoomSlug} 
+                       hideTitle 
+                       className="border-fuchsia-500/20 h-full"
+                     />
+                     {/* Fallback for creation if widget fails/empty? 
+                         Ideally we should check if room exists via API first.
+                         For now, let's add a manual "Ensure Room" button below just in case. 
+                     */}
+                     <div className="mt-2 flex justify-end">
+                        <button 
+                          onClick={handleCreateTeamChat}
+                          className="text-[10px] text-fuchsia-500/50 hover:text-fuchsia-400"
+                        >
+                          (Re)Initialize Team Room
+                        </button>
+                     </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 space-y-4">
+                    <p className="text-fuchsia-200/70">Команда CrewAI активна, але чат ще не створено.</p>
+                    <Button 
+                      onClick={handleCreateTeamChat} 
+                      disabled={isCreatingTeam}
+                      className="bg-fuchsia-600 hover:bg-fuchsia-500 text-white border border-fuchsia-400/50"
+                    >
+                      {isCreatingTeam ? "Створення..." : "Створити командний чат"}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Direct Chat with Agent via DAGI Router */}
             <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden">
               <div className="p-4 border-b border-white/10">

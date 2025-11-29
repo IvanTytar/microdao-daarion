@@ -1,6 +1,6 @@
 services:
   # DAGI Router Node-2 - Core routing service for Node-2
-  router-node2:
+  router:
     build:
       context: .
       dockerfile: Dockerfile
@@ -334,6 +334,34 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8898/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # City Service - MicroDAO Core Logic
+  city-service:
+    build:
+      context: ./services/city-service
+      dockerfile: Dockerfile
+    container_name: daarion-city-service
+    ports:
+      - "7001:7001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/daarion_memory
+      - MATRIX_GATEWAY_URL=http://gateway:9300
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./logs:/app/logs
+      - ./services/city-service/static:/app/static
+    depends_on:
+      - postgres
+      - gateway
+    networks:
+      - dagi-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7001/health"]
       interval: 30s
       timeout: 10s
       retries: 3

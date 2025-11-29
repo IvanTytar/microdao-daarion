@@ -1,300 +1,257 @@
-/**
- * AgentCabinet Component
- * Full agent view with tabs: Metrics, Context, Settings
- */
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAgent } from './hooks/useAgent';
-import { useAgentContext } from './hooks/useAgentContext';
-import { AgentMetricsPanel } from './AgentMetricsPanel';
-import { AgentSettingsPanel } from './AgentSettingsPanel';
-import { AgentEventsPanel } from './AgentEventsPanel';
-
-type TabType = 'metrics' | 'context' | 'settings' | 'events';
-
-const STATUS_COLORS = {
-  active: 'bg-green-500',
-  idle: 'bg-yellow-500',
-  offline: 'bg-gray-400',
-  error: 'bg-red-500',
-};
-
-const STATUS_LABELS = {
-  active: 'Активний',
-  idle: 'Очікує',
-  offline: 'Офлайн',
-  error: 'Помилка',
-};
+import { useAgentDashboard } from './hooks/useAgentDashboard';
+import { VisibilityCard } from './components/VisibilityCard';
+import { AgentChatWidget } from './components/AgentChatWidget';
+import { MicroDaoWizard } from './components/MicroDaoWizard';
 
 export function AgentCabinet() {
   const { agentId } = useParams<{ agentId: string }>();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<TabType>('metrics');
-
-  const { agent, loading, error, refetch } = useAgent(agentId!);
-  const { context, loading: contextLoading } = useAgentContext(agentId!);
+  const { dashboard, loading, error, refetch } = useAgentDashboard(agentId!);
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-          <div className="text-gray-600">Завантаження агента...</div>
+          <div className="text-gray-600">Loading Agent Cabinet...</div>
         </div>
       </div>
     );
   }
 
-  if (error || !agent) {
+  if (error || !dashboard) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center max-w-md">
           <div className="text-6xl mb-4">❌</div>
-          <h2 className="text-xl font-semibold text-red-900 mb-2">
-            Агент не знайдено
-          </h2>
-          <p className="text-red-600 mb-4">
-            {error?.message || 'Агент не існує або недоступний'}
-          </p>
+          <h2 className="text-xl font-semibold text-red-900 mb-2">Agent Not Found</h2>
           <button
             onClick={() => navigate('/agent-hub')}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
-            ← Повернутись до Agent Hub
+            ← Back to Agent Hub
           </button>
         </div>
       </div>
     );
   }
 
+  const { profile, node, primary_city_room, system_prompts, public_profile, microdao_memberships } = dashboard;
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-12">
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* Back button */}
           <button
             onClick={() => navigate('/agent-hub')}
             className="text-blue-600 hover:text-blue-700 mb-4 flex items-center gap-2"
           >
-            ← Назад до Agent Hub
+            ← Back to Agent Hub
           </button>
 
-          {/* Agent header */}
-          <div className="flex items-center gap-6">
-            {/* Avatar */}
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-4xl font-bold">
-              {agent.name.charAt(0).toUpperCase()}
-            </div>
-
-            {/* Info */}
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-2">
-                <h1 className="text-3xl font-bold text-gray-900">
-                  {agent.name}
-                </h1>
-                
-                {/* Status */}
-                <div className="flex items-center gap-2">
-                  <div className={`w-3 h-3 rounded-full ${STATUS_COLORS[agent.status]}`} />
-                  <span className="text-sm text-gray-600">
-                    {STATUS_LABELS[agent.status]}
-                  </span>
-                </div>
-              </div>
-
-              {/* Description */}
-              {agent.description && (
-                <p className="text-gray-600 mb-3">{agent.description}</p>
+          <div className="flex items-start gap-6">
+            <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+              {profile.avatar_url ? (
+                <img src={profile.avatar_url} alt={profile.display_name} className="w-full h-full object-cover rounded-lg" />
+              ) : (
+                profile.display_name.charAt(0).toUpperCase()
               )}
+            </div>
 
-              {/* Meta */}
-              <div className="flex items-center gap-4 text-sm text-gray-500">
-                <div className="flex items-center gap-2">
-                  <span>🤖</span>
-                  <span className="font-mono bg-gray-100 px-2 py-1 rounded">
-                    {agent.model}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900">{profile.display_name}</h1>
+                <span className={`px-2 py-1 rounded text-xs font-medium uppercase tracking-wide ${
+                  profile.status === 'online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                }`}>
+                  {profile.status}
+                </span>
+                {profile.is_public && (
+                  <span className="px-2 py-1 rounded text-xs font-medium uppercase tracking-wide bg-purple-100 text-purple-800">
+                    Public Citizen
                   </span>
+                )}
+              </div>
+
+              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                <div className="flex items-center gap-1">
+                  <span>🤖</span>
+                  <span className="font-medium">{profile.kind}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span>🏢</span>
-                  <span className="font-mono">{agent.microdao_id}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span>🔧</span>
-                  <span>{agent.tools.length} інструментів</span>
-                </div>
+                {node && (
+                  <div className="flex items-center gap-1">
+                    <span>🖥️</span>
+                    <span className="font-medium">{node.name}</span>
+                    <span className="text-xs text-gray-400">({node.status})</span>
+                  </div>
+                )}
+                {profile.primary_microdao_name && (
+                  <div className="flex items-center gap-1">
+                    <span>🏢</span>
+                    <span className="font-medium">{profile.primary_microdao_name}</span>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex flex-col gap-2">
-              <button
+            <div className="flex gap-2">
+               <button
                 onClick={refetch}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
               >
-                🔄 Оновити
-              </button>
-              <button
-                onClick={() => navigate(`/messenger?agent=${agent.id}`)}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-              >
-                💬 Чат
+                Refresh
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-1 border-b border-gray-200">
-            <button
-              onClick={() => setActiveTab('metrics')}
-              className={`
-                px-6 py-3 font-medium transition-colors
-                ${activeTab === 'metrics'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
-                }
-              `}
-            >
-              📊 Метрики
-            </button>
-            <button
-              onClick={() => setActiveTab('context')}
-              className={`
-                px-6 py-3 font-medium transition-colors
-                ${activeTab === 'context'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
-                }
-              `}
-            >
-              🧠 Контекст
-            </button>
-            <button
-              onClick={() => setActiveTab('settings')}
-              className={`
-                px-6 py-3 font-medium transition-colors
-                ${activeTab === 'settings'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
-                }
-              `}
-            >
-              ⚙️ Налаштування
-            </button>
-            <button
-              onClick={() => setActiveTab('events')}
-              className={`
-                px-6 py-3 font-medium transition-colors
-                ${activeTab === 'events'
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-600 hover:text-gray-900'
-                }
-              `}
-            >
-              📜 Події
-            </button>
           </div>
         </div>
       </div>
 
-      {/* Content */}
+      {/* Main Content Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'metrics' && <AgentMetricsPanel agentId={agent.id} />}
-        
-        {activeTab === 'context' && (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900">🧠 Контекст агента</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Left Column: Identity & System */}
+          <div className="lg:col-span-2 space-y-8">
             
-            {contextLoading ? (
-              <div className="bg-white border border-gray-200 rounded-lg p-8 text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4" />
-                <div className="text-gray-600">Завантаження контексту...</div>
-              </div>
-            ) : context ? (
+            {/* DAIS / System Prompts Block */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">🧠 System Prompts (DAIS)</h3>
               <div className="space-y-4">
-                {/* Short-term memory */}
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    Короткострокова пам'ять ({context.short_term.length})
-                  </h4>
-                  {context.short_term.length > 0 ? (
-                    <div className="space-y-2">
-                      {context.short_term.map((item) => (
-                        <div key={item.id} className="p-3 bg-blue-50 rounded text-sm">
-                          <div className="text-gray-900">{item.content}</div>
-                          <div className="text-xs text-gray-500 mt-1">
-                            {new Date(item.timestamp).toLocaleString('uk-UA')}
-                          </div>
-                        </div>
-                      ))}
+                {['core', 'safety', 'governance', 'tools'].map((kind) => {
+                  const prompt = system_prompts[kind as keyof typeof system_prompts];
+                  return (
+                    <div key={kind} className="border border-gray-100 rounded-lg p-4 bg-gray-50">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-medium text-gray-700 uppercase text-xs tracking-wider">{kind} Prompt</span>
+                        {prompt && (
+                          <span className="text-xs text-gray-500">v{prompt.version} • {new Date(prompt.created_at).toLocaleDateString()}</span>
+                        )}
+                      </div>
+                      <div className="text-sm text-gray-800 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">
+                        {prompt?.content || <span className="text-gray-400 italic">No prompt defined</span>}
+                      </div>
                     </div>
-                  ) : (
-                    <div className="text-gray-500 text-sm">Немає записів</div>
-                  )}
-                </div>
-
-                {/* Mid-term memory */}
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    Середньострокова пам'ять ({context.mid_term.length})
-                  </h4>
-                  {context.mid_term.length > 0 ? (
-                    <div className="space-y-2">
-                      {context.mid_term.map((item) => (
-                        <div key={item.id} className="p-3 bg-purple-50 rounded text-sm">
-                          <div className="text-gray-900">{item.content}</div>
-                          <div className="text-xs text-gray-500 mt-1">
-                            {new Date(item.timestamp).toLocaleString('uk-UA')}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-gray-500 text-sm">Немає записів</div>
-                  )}
-                </div>
-
-                {/* Knowledge items */}
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    База знань ({context.knowledge_items.length})
-                  </h4>
-                  {context.knowledge_items.length > 0 ? (
-                    <div className="space-y-2">
-                      {context.knowledge_items.map((item) => (
-                        <div key={item.id} className="p-3 bg-green-50 rounded text-sm">
-                          <div className="text-gray-900">{item.content}</div>
-                          <div className="text-xs text-gray-500 mt-1">
-                            {new Date(item.timestamp).toLocaleString('uk-UA')}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-gray-500 text-sm">Немає записів</div>
-                  )}
-                </div>
+                  );
+                })}
               </div>
-            ) : (
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-                <div className="text-gray-500">Контекст недоступний</div>
+            </div>
+
+            {/* Agent Chat Block */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">💬 Agent Chat</h3>
+              {primary_city_room ? (
+                <AgentChatWidget roomId={primary_city_room.id} roomName={primary_city_room.name} />
+              ) : (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
+                  <div className="text-yellow-800 font-medium mb-2">No Primary Chat Room</div>
+                  <p className="text-sm text-yellow-600 mb-4">
+                    This agent is not assigned to a primary city room.
+                  </p>
+                  <button className="text-blue-600 hover:underline text-sm">
+                    Configure Rooms in MicroDAO
+                  </button>
+                </div>
+              )}
+            </div>
+
+          </div>
+
+          {/* Right Column: Visibility & Roles */}
+          <div className="space-y-8">
+            
+            {/* Visibility Card */}
+            <VisibilityCard 
+              agentId={profile.agent_id} 
+              publicProfile={public_profile} 
+              onUpdate={refetch} 
+            />
+
+            {/* MicroDAO Memberships */}
+            <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">🏢 MicroDAO Memberships</h3>
+              {microdao_memberships.length > 0 ? (
+                <div className="space-y-3">
+                  {microdao_memberships.map((m) => (
+                    <div key={m.microdao_id} className="flex items-center justify-between p-3 border border-gray-100 rounded bg-gray-50 hover:bg-white transition-colors">
+                      <div className="flex items-center gap-3">
+                        {m.logo_url ? (
+                          <img src={m.logo_url} alt={m.microdao_name} className="w-8 h-8 rounded-full object-cover bg-gray-200" />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xs font-bold">
+                            {m.microdao_name?.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <div>
+                          <div className="font-medium text-gray-900">{m.microdao_name || 'Unknown DAO'}</div>
+                          <div className="text-xs text-gray-500">/{m.microdao_slug}</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className={`text-xs font-medium px-2 py-1 rounded ${m.role === 'orchestrator' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'}`}>
+                          {m.role || 'member'}
+                        </div>
+                        {m.is_core && <div className="text-[10px] text-gray-500 mt-1">Core Member</div>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-gray-500 text-sm italic">Not a member of any MicroDAO</div>
+              )}
+              
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <button
+                  onClick={() => setIsWizardOpen(true)}
+                  className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors text-sm font-medium"
+                >
+                  + Create MicroDAO (Orchestrator)
+                </button>
+              </div>
+            </div>
+
+            {/* Node Info */}
+            {node && (
+              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">🖥️ Runtime Node</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Node Name</span>
+                    <span className="font-medium">{node.name}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">ID</span>
+                    <span className="font-mono text-xs">{node.node_id}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Environment</span>
+                    <span>{node.environment || 'N/A'}</span>
+                  </div>
+                  {node.guardian_agent && (
+                    <div className="pt-2 mt-2 border-t border-gray-100">
+                      <span className="text-xs text-gray-500 block mb-1">Guardian Agent</span>
+                      <span className="text-blue-600">{node.guardian_agent.name}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
+
           </div>
-        )}
-        
-        {activeTab === 'settings' && (
-          <AgentSettingsPanel agent={agent} onUpdate={refetch} />
-        )}
-        
-        {activeTab === 'events' && (
-          <AgentEventsPanel agentId={agent.id} />
-        )}
+        </div>
       </div>
+
+      <MicroDaoWizard 
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+        agentId={profile.agent_id}
+        onSuccess={refetch}
+      />
     </div>
   );
 }
+
 

@@ -50,12 +50,11 @@ class RouterHandler:
                 # Обробити подію асинхронно
                 asyncio.create_task(self._handle_telegram_event(event))
                 
-                # Acknowledge message
-                await msg.ack()
+                # NOTE: No ack() for core NATS (non-JetStream) subscriptions
+                # JetStream ack is only needed when using JetStream consumers
                 
             except Exception as e:
                 logger.error(f"❌ Error processing NATS message: {e}", exc_info=True)
-                # Don't ack - will retry
         
         # Підписатися на subject
         self._sub = await self._nc.subscribe("agent.telegram.update", cb=message_handler)

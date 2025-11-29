@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 
-const INTERNAL_API_URL = process.env.INTERNAL_API_URL || 'http://127.0.0.1:8080'
+const INTERNAL_API_URL = process.env.INTERNAL_API_URL || process.env.AUTH_API_URL || 'http://daarion-auth:8080'
 
 export async function POST(req: NextRequest) {
   const body = await req.text()

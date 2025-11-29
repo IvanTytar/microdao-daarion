@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Server, Activity, Cpu, HardDrive, Network, ArrowRight, RefreshCw, Zap } from 'lucide-react';
+import { Server, Activity, Cpu, HardDrive, Network, ArrowRight, RefreshCw, Zap, Plus } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -216,6 +216,13 @@ export function NodesPage() {
               <p className="text-gray-600 mt-2">Управління нодами та моніторинг системи</p>
             </div>
             <div className="flex items-center gap-4">
+              <button
+                onClick={() => navigate('/connect-node')}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 shadow-sm"
+              >
+                <Plus className="w-4 h-4" />
+                Підключити ноду
+              </button>
               <button
                 onClick={fetchAllNodesStatus}
                 disabled={loading}

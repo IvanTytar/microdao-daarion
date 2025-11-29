@@ -2,7 +2,7 @@
  * MicroDAO API Client (Task 029)
  */
 
-import { MicrodaoOption } from "@/lib/types/microdao";
+import { MicrodaoOption, CityRoomSummary } from "@/lib/types/microdao";
 
 // =============================================================================
 // Types
@@ -99,4 +99,20 @@ export async function removeAgentFromMicrodao(
     const error = await res.json().catch(() => ({}));
     throw new Error(error.detail || error.error || "Failed to remove MicroDAO membership");
   }
+}
+
+/**
+ * Ensure Orchestrator Team Room exists
+ */
+export async function ensureOrchestratorRoom(slug: string): Promise<CityRoomSummary> {
+  const res = await fetch(`/api/microdao/${encodeURIComponent(slug)}/rooms/orchestrator-team`, {
+    method: "POST",
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.detail || error.error || "Failed to ensure orchestrator room");
+  }
+
+  return res.json();
 }

@@ -12,6 +12,12 @@ export interface CityRoom {
   last_event?: string;
   created_at: string;
   updated_at: string;
+  logo_url?: string | null;
+  banner_url?: string | null;
+  microdao_id?: string;
+  microdao_name?: string;
+  microdao_slug?: string;
+  microdao_logo_url?: string;
 }
 
 export interface CityRoomMessage {

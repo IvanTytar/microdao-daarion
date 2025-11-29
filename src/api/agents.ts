@@ -5,6 +5,9 @@
  * API: http://localhost:7014
  */
 
+import { apiGet, apiPut, apiPost, apiPatch, apiDelete } from './client';
+import type { AgentSummary, AgentDetailDashboard, AgentVisibilityPayload } from '../types/agent-cabinet';
+
 // ============================================================================
 // Types (matching backend models.py)
 // ============================================================================
@@ -197,7 +200,38 @@ async function agentsRequest<T>(
 }
 
 // ============================================================================
-// Agent CRUD
+// Task 039: Unified Agent API (City Service)
+// ============================================================================
+
+/**
+ * Get list of agents with filtering (Unified API)
+ */
+export async function getAgentList(params: Record<string, any> = {}): Promise<{ items: AgentSummary[], total: number }> {
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      searchParams.append(key, String(value));
+    }
+  });
+  return apiGet<{ items: AgentSummary[], total: number }>(`/city/public/agents?${searchParams.toString()}`);
+}
+
+/**
+ * Get Agent Cabinet Dashboard (Unified API)
+ */
+export async function getAgentDashboard(agentId: string): Promise<AgentDetailDashboard> {
+  return apiGet<AgentDetailDashboard>(`/city/city/agents/${encodeURIComponent(agentId)}/dashboard`);
+}
+
+/**
+ * Update Agent Visibility (Unified API)
+ */
+export async function updateAgentVisibility(agentId: string, payload: AgentVisibilityPayload): Promise<any> {
+  return apiPut(`/city/city/agents/${encodeURIComponent(agentId)}/visibility`, payload);
+}
+
+// ============================================================================
+// Legacy Agent CRUD (Agents Service)
 // ============================================================================
 
 /**

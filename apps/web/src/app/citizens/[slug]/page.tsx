@@ -256,15 +256,19 @@ export default function CitizenProfilePage() {
         </section>
 
         {/* Live Chat Widget */}
-        {interaction?.primary_room_slug && (
-          <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-            <h2 className="text-white font-semibold flex items-center gap-2">
-              <Users className="w-5 h-5 text-cyan-400" />
-              Live-чат
-            </h2>
-            <CityChatWidget roomSlug={interaction.primary_room_slug} />
-          </section>
-        )}
+        <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+          <h2 className="text-white font-semibold flex items-center gap-2">
+            <Users className="w-5 h-5 text-cyan-400" />
+            Live-чат
+          </h2>
+          {interaction?.primary_room_slug ? (
+            <CityChatWidget roomSlug={interaction.primary_room_slug} mode="embedded" />
+          ) : (
+            <div className="text-sm text-slate-400 p-4 border border-white/10 rounded-xl bg-slate-900/50">
+              Цей громадянин ще не має публічного чату.
+            </div>
+          )}
+        </section>
 
         {/* DAIS Public Passport */}
         <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">

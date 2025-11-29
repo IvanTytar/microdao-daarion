@@ -93,6 +93,14 @@ export async function apiPost<T>(endpoint: string, data?: unknown): Promise<T> {
   return response.json();
 }
 
+export async function apiPut<T>(endpoint: string, data: unknown): Promise<T> {
+  const response = await fetchApi(endpoint, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
 export async function apiPatch<T>(endpoint: string, data: unknown): Promise<T> {
   const response = await fetchApi(endpoint, {
     method: 'PATCH',

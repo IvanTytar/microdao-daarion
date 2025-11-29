@@ -43,6 +43,16 @@ import { AgentMicrodaoMembership } from './microdao';
 export type { AgentMicrodaoMembership };
 
 // =============================================================================
+// CrewAI Info (TASK 044)
+// =============================================================================
+
+export interface AgentCrewInfo {
+  has_crew_team: boolean;
+  crew_team_key?: string | null;
+  matrix_room_id?: string | null;
+}
+
+// =============================================================================
 // Agent Summary (unified for Agent Console & internal use)
 // =============================================================================
 
@@ -78,6 +88,9 @@ export interface AgentSummary {
   
   // Skills
   public_skills: string[];
+
+  // CrewAI
+  crew_info?: AgentCrewInfo | null;
 }
 
 // =============================================================================
