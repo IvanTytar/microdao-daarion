@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAccessToken } from "@auth0/nextjs-auth0"; // Or your auth mechanism
 
 const CITY_API_URL = process.env.INTERNAL_API_URL || process.env.CITY_API_BASE_URL || "http://daarion-city-service:7001";
 
