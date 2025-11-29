@@ -1733,7 +1733,7 @@ async def create_microdao_for_agent(
 async def get_microdao_primary_room(microdao_id: str) -> Optional[dict]:
     """
     Отримати основну кімнату MicroDAO для чату.
-    Пріоритет: primary room → перша публічна кімната → будь-яка кімната.
+    Пріоритет: room_role='primary' → найнижчий sort_order → перша кімната.
     """
     pool = await get_pool()
     
@@ -1742,15 +1742,17 @@ async def get_microdao_primary_room(microdao_id: str) -> Optional[dict]:
             cr.id,
             cr.slug,
             cr.name,
-            cr.matrix_room_id
+            cr.matrix_room_id,
+            cr.microdao_id,
+            cr.room_role,
+            cr.is_public,
+            cr.sort_order
         FROM city_rooms cr
         WHERE cr.microdao_id = $1
-          AND cr.is_active = true
         ORDER BY 
-            CASE WHEN cr.room_type = 'primary' THEN 0
-                 WHEN cr.room_type = 'public' THEN 1
-                 ELSE 2 END,
-            cr.created_at
+            CASE WHEN cr.room_role = 'primary' THEN 0 ELSE 1 END,
+            cr.sort_order ASC,
+            cr.name ASC
         LIMIT 1
     """
     
@@ -1760,7 +1762,195 @@ async def get_microdao_primary_room(microdao_id: str) -> Optional[dict]:
             "id": str(row["id"]),
             "slug": row["slug"],
             "name": row["name"],
-            "matrix_room_id": row.get("matrix_room_id")
+            "matrix_room_id": row.get("matrix_room_id"),
+            "microdao_id": str(row["microdao_id"]) if row.get("microdao_id") else None,
+            "room_role": row.get("room_role"),
+            "is_public": row.get("is_public", True),
+            "sort_order": row.get("sort_order", 100)
         }
     return None
+
+
+async def get_microdao_rooms(microdao_id: str) -> List[dict]:
+    """
+    Отримати всі кімнати MicroDAO, впорядковані за sort_order.
+    """
+    pool = await get_pool()
+    
+    query = """
+        SELECT 
+            cr.id,
+            cr.slug,
+            cr.name,
+            cr.matrix_room_id,
+            cr.microdao_id,
+            cr.room_role,
+            cr.is_public,
+            cr.sort_order,
+            m.slug AS microdao_slug
+        FROM city_rooms cr
+        LEFT JOIN microdaos m ON cr.microdao_id = m.id
+        WHERE cr.microdao_id = $1
+        ORDER BY 
+            CASE WHEN cr.room_role = 'primary' THEN 0 ELSE 1 END,
+            cr.sort_order ASC,
+            cr.name ASC
+    """
+    
+    rows = await pool.fetch(query, microdao_id)
+    return [
+        {
+            "id": str(row["id"]),
+            "slug": row["slug"],
+            "name": row["name"],
+            "matrix_room_id": row.get("matrix_room_id"),
+            "microdao_id": str(row["microdao_id"]) if row.get("microdao_id") else None,
+            "microdao_slug": row.get("microdao_slug"),
+            "room_role": row.get("room_role"),
+            "is_public": row.get("is_public", True),
+            "sort_order": row.get("sort_order", 100)
+        }
+        for row in rows
+    ]
+
+
+async def get_microdao_rooms_by_slug(slug: str) -> Optional[dict]:
+    """
+    Отримати MicroDAO та всі його кімнати за slug.
+    """
+    pool = await get_pool()
+    
+    # Get microdao first
+    microdao_query = """
+        SELECT id, slug FROM microdaos
+        WHERE slug = $1
+          AND COALESCE(is_archived, false) = false
+          AND COALESCE(is_test, false) = false
+    """
+    microdao = await pool.fetchrow(microdao_query, slug)
+    if not microdao:
+        return None
+    
+    microdao_id = str(microdao["id"])
+    rooms = await get_microdao_rooms(microdao_id)
+    
+    return {
+        "microdao_id": microdao_id,
+        "microdao_slug": microdao["slug"],
+        "rooms": rooms
+    }
+
+
+async def attach_room_to_microdao(
+    microdao_id: str,
+    room_id: str,
+    room_role: Optional[str] = None,
+    is_public: bool = True,
+    sort_order: int = 100
+) -> Optional[dict]:
+    """
+    Прив'язати існуючу кімнату до MicroDAO.
+    """
+    pool = await get_pool()
+    
+    query = """
+        UPDATE city_rooms
+        SET microdao_id = $1,
+            room_role = $2,
+            is_public = $3,
+            sort_order = $4
+        WHERE id = $5
+        RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order
+    """
+    
+    row = await pool.fetchrow(query, microdao_id, room_role, is_public, sort_order, room_id)
+    if row:
+        return {
+            "id": str(row["id"]),
+            "slug": row["slug"],
+            "name": row["name"],
+            "matrix_room_id": row.get("matrix_room_id"),
+            "microdao_id": str(row["microdao_id"]) if row.get("microdao_id") else None,
+            "room_role": row.get("room_role"),
+            "is_public": row.get("is_public", True),
+            "sort_order": row.get("sort_order", 100)
+        }
+    return None
+
+
+async def update_microdao_room(
+    microdao_id: str,
+    room_id: str,
+    room_role: Optional[str] = None,
+    is_public: Optional[bool] = None,
+    sort_order: Optional[int] = None,
+    set_primary: bool = False
+) -> Optional[dict]:
+    """
+    Оновити налаштування кімнати MicroDAO.
+    Якщо set_primary=True, скидає роль 'primary' з інших кімнат.
+    """
+    pool = await get_pool()
+    
+    async with pool.acquire() as conn:
+        async with conn.transaction():
+            # If setting as primary, clear previous primary
+            if set_primary:
+                await conn.execute(
+                    """
+                    UPDATE city_rooms
+                    SET room_role = NULL
+                    WHERE microdao_id = $1 AND room_role = 'primary'
+                    """,
+                    microdao_id
+                )
+                room_role = 'primary'
+            
+            # Build update query
+            set_parts = []
+            params = [room_id, microdao_id]
+            param_idx = 3
+            
+            if room_role is not None:
+                set_parts.append(f"room_role = ${param_idx}")
+                params.append(room_role)
+                param_idx += 1
+            
+            if is_public is not None:
+                set_parts.append(f"is_public = ${param_idx}")
+                params.append(is_public)
+                param_idx += 1
+            
+            if sort_order is not None:
+                set_parts.append(f"sort_order = ${param_idx}")
+                params.append(sort_order)
+                param_idx += 1
+            
+            if not set_parts:
+                # Nothing to update, just return current state
+                row = await conn.fetchrow(
+                    "SELECT * FROM city_rooms WHERE id = $1 AND microdao_id = $2",
+                    room_id, microdao_id
+                )
+            else:
+                query = f"""
+                    UPDATE city_rooms
+                    SET {', '.join(set_parts)}
+                    WHERE id = $1 AND microdao_id = $2
+                    RETURNING id, slug, name, matrix_room_id, microdao_id, room_role, is_public, sort_order
+                """
+                row = await conn.fetchrow(query, *params)
+            
+            if row:
+                return {
+                    "id": str(row["id"]),
+                    "slug": row["slug"],
+                    "name": row["name"],
+                    "matrix_room_id": row.get("matrix_room_id"),
+                    "microdao_id": str(row["microdao_id"]) if row.get("microdao_id") else None,
+                    "room_role": row.get("room_role"),
+                    "is_public": row.get("is_public", True),
+                    "sort_order": row.get("sort_order", 100)
+                }
+            return None
 

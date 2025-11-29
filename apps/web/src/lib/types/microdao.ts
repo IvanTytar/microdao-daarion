@@ -73,7 +73,7 @@ export interface MicrodaoCitizenView {
 }
 
 // =============================================================================
-// City Room Summary (for chat embedding)
+// City Room Summary (for chat embedding and multi-room support)
 // =============================================================================
 
 export interface CityRoomSummary {
@@ -81,6 +81,39 @@ export interface CityRoomSummary {
   slug: string;
   name: string;
   matrix_room_id?: string | null;
+  microdao_id?: string | null;
+  microdao_slug?: string | null;
+  room_role?: string | null; // 'primary', 'lobby', 'team', 'research', 'security', 'governance'
+  is_public?: boolean;
+  sort_order?: number;
+}
+
+// =============================================================================
+// MicroDAO Rooms List (for /microdao/[slug]/rooms)
+// =============================================================================
+
+export interface MicrodaoRoomsList {
+  microdao_id: string;
+  microdao_slug: string;
+  rooms: CityRoomSummary[];
+}
+
+// =============================================================================
+// MicroDAO Room Update (for management)
+// =============================================================================
+
+export interface MicrodaoRoomUpdate {
+  room_role?: string | null;
+  is_public?: boolean | null;
+  sort_order?: number | null;
+  set_primary?: boolean | null;
+}
+
+export interface AttachExistingRoomRequest {
+  room_id: string;
+  room_role?: string | null;
+  is_public?: boolean;
+  sort_order?: number;
 }
 
 // =============================================================================
@@ -114,8 +147,9 @@ export interface MicrodaoDetail {
   channels: MicrodaoChannelView[];
   public_citizens: MicrodaoCitizenView[];
   
-  // Primary city room for chat
+  // Multi-room support
   primary_city_room?: CityRoomSummary | null;
+  rooms?: CityRoomSummary[];
 }
 
 // =============================================================================

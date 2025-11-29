@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { MicrodaoSummary, MicrodaoDetail } from '@/lib/types/microdao';
+import type { MicrodaoSummary, MicrodaoDetail, MicrodaoRoomsList, CityRoomSummary } from '@/lib/types/microdao';
 
 interface UseMicrodaoListOptions {
   district?: string;
@@ -133,6 +133,83 @@ export function useMicrodaoDetail(
   
   return {
     microdao,
+    isLoading,
+    error,
+    mutate: fetchData,
+  };
+}
+
+// =============================================================================
+// useMicrodaoRooms - fetch all rooms for a MicroDAO
+// =============================================================================
+
+interface UseMicrodaoRoomsOptions {
+  refreshInterval?: number;
+  enabled?: boolean;
+}
+
+interface UseMicrodaoRoomsResult {
+  rooms: CityRoomSummary[];
+  microdaoId: string | null;
+  microdaoSlug: string | null;
+  isLoading: boolean;
+  error: Error | null;
+  mutate: () => Promise<void>;
+}
+
+export function useMicrodaoRooms(
+  slug: string | undefined,
+  options: UseMicrodaoRoomsOptions = {}
+): UseMicrodaoRoomsResult {
+  const { refreshInterval = 60000, enabled = true } = options;
+  
+  const [rooms, setRooms] = useState<CityRoomSummary[]>([]);
+  const [microdaoId, setMicrodaoId] = useState<string | null>(null);
+  const [microdaoSlug, setMicrodaoSlug] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  
+  const fetchData = useCallback(async () => {
+    if (!enabled || !slug) return;
+    
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const res = await fetch(`/api/microdao/${encodeURIComponent(slug)}/rooms`);
+      
+      if (!res.ok) {
+        throw new Error('Failed to fetch MicroDAO rooms');
+      }
+      
+      const data: MicrodaoRoomsList = await res.json();
+      setRooms(data.rooms || []);
+      setMicrodaoId(data.microdao_id);
+      setMicrodaoSlug(data.microdao_slug);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Failed to fetch'));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [slug, enabled]);
+  
+  // Initial fetch
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  
+  // Auto-refresh
+  useEffect(() => {
+    if (!enabled || refreshInterval <= 0) return;
+    
+    const interval = setInterval(fetchData, refreshInterval);
+    return () => clearInterval(interval);
+  }, [fetchData, refreshInterval, enabled]);
+  
+  return {
+    rooms,
+    microdaoId,
+    microdaoSlug,
     isLoading,
     error,
     mutate: fetchData,

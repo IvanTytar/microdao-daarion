@@ -409,11 +409,39 @@ class MicrodaoAgentView(BaseModel):
 
 
 class CityRoomSummary(BaseModel):
-    """Summary of a city room for chat embedding"""
+    """Summary of a city room for chat embedding and multi-room support"""
     id: str
     slug: str
     name: str
     matrix_room_id: Optional[str] = None
+    microdao_id: Optional[str] = None
+    microdao_slug: Optional[str] = None
+    room_role: Optional[str] = None  # 'primary', 'lobby', 'team', 'research', 'security', 'governance'
+    is_public: bool = True
+    sort_order: int = 100
+
+
+class MicrodaoRoomsList(BaseModel):
+    """List of rooms belonging to a MicroDAO"""
+    microdao_id: str
+    microdao_slug: str
+    rooms: List[CityRoomSummary] = []
+
+
+class MicrodaoRoomUpdate(BaseModel):
+    """Update request for MicroDAO room settings"""
+    room_role: Optional[str] = None
+    is_public: Optional[bool] = None
+    sort_order: Optional[int] = None
+    set_primary: Optional[bool] = None  # if true, mark as primary
+
+
+class AttachExistingRoomRequest(BaseModel):
+    """Request to attach an existing city room to a MicroDAO"""
+    room_id: str
+    room_role: Optional[str] = None
+    is_public: bool = True
+    sort_order: int = 100
 
 
 class MicrodaoDetail(BaseModel):
@@ -442,6 +470,9 @@ class MicrodaoDetail(BaseModel):
     logo_url: Optional[str] = None
     agents: List[MicrodaoAgentView] = []
     channels: List[MicrodaoChannelView] = []
+    
+    # Multi-room support
+    rooms: List[CityRoomSummary] = []
     public_citizens: List[MicrodaoCitizenView] = []
     
     # Primary city room for chat

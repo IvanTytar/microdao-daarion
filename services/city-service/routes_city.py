@@ -1510,17 +1510,28 @@ async def get_microdao_by_slug(slug: str):
                 is_platform=child.get("is_platform", False)
             ))
         
-        # Get primary city room for MicroDAO
-        primary_city_room = await repo_city.get_microdao_primary_room(dao["id"])
-        primary_room_summary = None
-        if primary_city_room:
-            from models_city import CityRoomSummary
-            primary_room_summary = CityRoomSummary(
-                id=primary_city_room["id"],
-                slug=primary_city_room["slug"],
-                name=primary_city_room["name"],
-                matrix_room_id=primary_city_room.get("matrix_room_id")
+        # Get all rooms for MicroDAO (multi-room support)
+        all_rooms = await repo_city.get_microdao_rooms(dao["id"])
+        rooms_list = [
+            CityRoomSummary(
+                id=room["id"],
+                slug=room["slug"],
+                name=room["name"],
+                matrix_room_id=room.get("matrix_room_id"),
+                microdao_id=room.get("microdao_id"),
+                microdao_slug=room.get("microdao_slug"),
+                room_role=room.get("room_role"),
+                is_public=room.get("is_public", True),
+                sort_order=room.get("sort_order", 100)
             )
+            for room in all_rooms
+        ]
+        
+        # Get primary city room (first room with role='primary' or first by sort_order)
+        primary_room_summary = None
+        if rooms_list:
+            primary = next((r for r in rooms_list if r.room_role == 'primary'), rooms_list[0])
+            primary_room_summary = primary
         
         return MicrodaoDetail(
             id=dao["id"],
@@ -1540,7 +1551,8 @@ async def get_microdao_by_slug(slug: str):
             agents=agents,
             channels=channels,
             public_citizens=public_citizens,
-            primary_city_room=primary_room_summary
+            primary_city_room=primary_room_summary,
+            rooms=rooms_list
         )
     
     except HTTPException:
@@ -1550,6 +1562,143 @@ async def get_microdao_by_slug(slug: str):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Failed to get microdao")
+
+
+# =============================================================================
+# MicroDAO Multi-Room API (Task 034)
+# =============================================================================
+
+from models_city import MicrodaoRoomsList, MicrodaoRoomUpdate, AttachExistingRoomRequest
+
+
+@router.get("/microdao/{slug}/rooms", response_model=MicrodaoRoomsList)
+async def get_microdao_rooms_endpoint(slug: str):
+    """
+    Отримати всі кімнати MicroDAO (Task 034).
+    Повертає список кімнат, впорядкованих за sort_order.
+    """
+    try:
+        result = await repo_city.get_microdao_rooms_by_slug(slug)
+        if not result:
+            raise HTTPException(status_code=404, detail=f"MicroDAO not found: {slug}")
+        
+        rooms = [
+            CityRoomSummary(
+                id=room["id"],
+                slug=room["slug"],
+                name=room["name"],
+                matrix_room_id=room.get("matrix_room_id"),
+                microdao_id=room.get("microdao_id"),
+                microdao_slug=room.get("microdao_slug"),
+                room_role=room.get("room_role"),
+                is_public=room.get("is_public", True),
+                sort_order=room.get("sort_order", 100)
+            )
+            for room in result["rooms"]
+        ]
+        
+        return MicrodaoRoomsList(
+            microdao_id=result["microdao_id"],
+            microdao_slug=result["microdao_slug"],
+            rooms=rooms
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get microdao rooms for {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get microdao rooms")
+
+
+@router.post("/microdao/{slug}/rooms/attach-existing", response_model=CityRoomSummary)
+async def attach_existing_room_endpoint(
+    slug: str,
+    payload: AttachExistingRoomRequest
+):
+    """
+    Прив'язати існуючу кімнату до MicroDAO (Task 036).
+    Потребує прав адміністратора або оркестратора MicroDAO.
+    """
+    try:
+        # Get microdao by slug
+        dao = await repo_city.get_microdao_by_slug(slug)
+        if not dao:
+            raise HTTPException(status_code=404, detail=f"MicroDAO not found: {slug}")
+        
+        # TODO: Add authorization check (assert_can_manage_microdao)
+        
+        result = await repo_city.attach_room_to_microdao(
+            microdao_id=dao["id"],
+            room_id=payload.room_id,
+            room_role=payload.room_role,
+            is_public=payload.is_public,
+            sort_order=payload.sort_order
+        )
+        
+        if not result:
+            raise HTTPException(status_code=404, detail="Room not found")
+        
+        return CityRoomSummary(
+            id=result["id"],
+            slug=result["slug"],
+            name=result["name"],
+            matrix_room_id=result.get("matrix_room_id"),
+            microdao_id=result.get("microdao_id"),
+            room_role=result.get("room_role"),
+            is_public=result.get("is_public", True),
+            sort_order=result.get("sort_order", 100)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to attach room to microdao {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to attach room")
+
+
+@router.patch("/microdao/{slug}/rooms/{room_id}", response_model=CityRoomSummary)
+async def update_microdao_room_endpoint(
+    slug: str,
+    room_id: str,
+    payload: MicrodaoRoomUpdate
+):
+    """
+    Оновити налаштування кімнати MicroDAO (Task 036).
+    Потребує прав адміністратора або оркестратора MicroDAO.
+    """
+    try:
+        # Get microdao by slug
+        dao = await repo_city.get_microdao_by_slug(slug)
+        if not dao:
+            raise HTTPException(status_code=404, detail=f"MicroDAO not found: {slug}")
+        
+        # TODO: Add authorization check (assert_can_manage_microdao)
+        
+        result = await repo_city.update_microdao_room(
+            microdao_id=dao["id"],
+            room_id=room_id,
+            room_role=payload.room_role,
+            is_public=payload.is_public,
+            sort_order=payload.sort_order,
+            set_primary=payload.set_primary or False
+        )
+        
+        if not result:
+            raise HTTPException(status_code=404, detail="Room not found or not attached to this MicroDAO")
+        
+        return CityRoomSummary(
+            id=result["id"],
+            slug=result["slug"],
+            name=result["name"],
+            matrix_room_id=result.get("matrix_room_id"),
+            microdao_id=result.get("microdao_id"),
+            room_role=result.get("room_role"),
+            is_public=result.get("is_public", True),
+            sort_order=result.get("sort_order", 100)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update room {room_id} for microdao {slug}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update room")
 
 
 # =============================================================================
