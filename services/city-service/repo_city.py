@@ -1665,6 +1665,40 @@ async def get_node_by_id(node_id: str) -> Optional[dict]:
     else:
         data["steward_agent"] = None
         
+    # TASK 038: Dynamic discovery of Node Guardian / Steward if cache is empty
+    if not data["guardian_agent"] or not data["steward_agent"]:
+        dynamic_agents = await pool.fetch("""
+            SELECT id, display_name, kind, public_slug
+            FROM agents
+            WHERE node_id = $1 
+              AND (kind IN ('node_guardian', 'node_steward') OR kind IN ('infra_monitor', 'infra_ops'))
+              AND COALESCE(is_archived, false) = false
+        """, node_id)
+        
+        if not data["guardian_agent"]:
+            # Prefer 'node_guardian', fallback to 'infra_monitor'
+            guardian = next((a for a in dynamic_agents if a['kind'] == 'node_guardian'), 
+                       next((a for a in dynamic_agents if a['kind'] == 'infra_monitor'), None))
+            if guardian:
+                data["guardian_agent"] = {
+                    "id": guardian["id"],
+                    "name": guardian["display_name"],
+                    "kind": guardian["kind"],
+                    "slug": guardian["public_slug"]
+                }
+                
+        if not data["steward_agent"]:
+            # Prefer 'node_steward', fallback to 'infra_ops'
+            steward = next((a for a in dynamic_agents if a['kind'] == 'node_steward'), 
+                      next((a for a in dynamic_agents if a['kind'] == 'infra_ops'), None))
+            if steward:
+                data["steward_agent"] = {
+                    "id": steward["id"],
+                    "name": steward["display_name"],
+                    "kind": steward["kind"],
+                    "slug": steward["public_slug"]
+                }
+        
     # Clean up intermediate fields
     for key in ["guardian_name", "guardian_kind", "guardian_slug", 
                 "steward_name", "steward_kind", "steward_slug"]:
