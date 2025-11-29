@@ -1,41 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, Home, Users, FlaskConical, Shield, Vote, Hash } from "lucide-react";
+import { MessageCircle, Home, Users, FlaskConical, Shield, Gavel, Hash, Users2 } from "lucide-react";
 import { CityRoomSummary } from "@/lib/types/microdao";
 import { CityChatWidget } from "@/components/city/CityChatWidget";
 
 interface MicrodaoRoomsSectionProps {
   rooms: CityRoomSummary[];
   primaryRoomSlug?: string | null;
-  showAllChats?: boolean; // If true, show chat widgets for all rooms
+  showAllChats?: boolean;
 }
 
-const ROLE_LABELS: Record<string, string> = {
-  primary: "Основна кімната",
-  lobby: "Лобі",
-  team: "Командна кімната",
-  research: "Дослідницька лабораторія",
-  security: "Безпека",
-  governance: "Управління",
-};
-
-const ROLE_ICONS: Record<string, React.ReactNode> = {
-  primary: <Home className="w-4 h-4" />,
-  lobby: <MessageCircle className="w-4 h-4" />,
-  team: <Users className="w-4 h-4" />,
-  research: <FlaskConical className="w-4 h-4" />,
-  security: <Shield className="w-4 h-4" />,
-  governance: <Vote className="w-4 h-4" />,
-};
-
-const ROLE_COLORS: Record<string, string> = {
-  primary: "text-cyan-400 bg-cyan-500/10 border-cyan-500/30",
-  lobby: "text-green-400 bg-green-500/10 border-green-500/30",
-  team: "text-blue-400 bg-blue-500/10 border-blue-500/30",
-  research: "text-purple-400 bg-purple-500/10 border-purple-500/30",
-  security: "text-red-400 bg-red-500/10 border-red-500/30",
-  governance: "text-amber-400 bg-amber-500/10 border-amber-500/30",
+const ROLE_META: Record<string, { label: string; chipClass: string; icon: React.ReactNode }> = {
+  primary: {
+    label: "Primary / Lobby",
+    chipClass: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+    icon: <Home className="w-3.5 h-3.5" />,
+  },
+  lobby: {
+    label: "Lobby",
+    chipClass: "bg-sky-500/10 text-sky-300 border-sky-500/30",
+    icon: <MessageCircle className="w-3.5 h-3.5" />,
+  },
+  team: {
+    label: "Team",
+    chipClass: "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+    icon: <Users2 className="w-3.5 h-3.5" />,
+  },
+  research: {
+    label: "Research",
+    chipClass: "bg-violet-500/10 text-violet-300 border-violet-500/30",
+    icon: <FlaskConical className="w-3.5 h-3.5" />,
+  },
+  security: {
+    label: "Security",
+    chipClass: "bg-rose-500/10 text-rose-300 border-rose-500/30",
+    icon: <Shield className="w-3.5 h-3.5" />,
+  },
+  governance: {
+    label: "Governance",
+    chipClass: "bg-amber-500/10 text-amber-300 border-amber-500/30",
+    icon: <Gavel className="w-3.5 h-3.5" />,
+  },
 };
 
 export function MicrodaoRoomsSection({ 
@@ -64,31 +70,68 @@ export function MicrodaoRoomsSection({
   
   const others = rooms.filter(r => r.id !== primary.id);
 
+  // Group by role for mini-map
+  const byRole = rooms.reduce((acc, r) => {
+    const role = r.room_role || 'other';
+    if (!acc[role]) acc[role] = [];
+    acc[role].push(r);
+    return acc;
+  }, {} as Record<string, CityRoomSummary[]>);
+
+  // Get meta for primary room
+  const primaryMeta = primary.room_role ? ROLE_META[primary.room_role] : undefined;
+
   return (
     <section className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 space-y-6">
-      <h2 className="text-lg font-semibold text-slate-100 flex items-center gap-2">
-        <MessageCircle className="w-5 h-5 text-cyan-400" />
-        Кімнати MicroDAO
-        <span className="text-sm font-normal text-slate-500">({rooms.length})</span>
-      </h2>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <h2 className="text-lg font-semibold text-slate-100 flex items-center gap-2">
+          <MessageCircle className="w-5 h-5 text-cyan-400" />
+          Кімнати MicroDAO
+          <span className="text-sm font-normal text-slate-500">({rooms.length})</span>
+        </h2>
+
+        {/* Mini-map */}
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(byRole).map(([role, list]) => {
+            const meta = ROLE_META[role];
+            return (
+              <div
+                key={role}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] ${
+                  meta ? meta.chipClass : "bg-slate-700/30 text-slate-400 border-slate-700/50"
+                }`}
+              >
+                {meta?.icon || <Hash className="w-3 h-3" />}
+                <span>{meta?.label ?? (role === 'other' ? 'Other' : role)}</span>
+                <span className="opacity-60">({list.length})</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Primary room with inline chat */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg border ${ROLE_COLORS[primary.room_role || 'primary'] || ROLE_COLORS.primary}`}>
-              {ROLE_ICONS[primary.room_role || 'primary'] || <Hash className="w-4 h-4" />}
+            <div className={`p-2 rounded-lg border ${primaryMeta ? primaryMeta.chipClass : "text-cyan-400 bg-cyan-500/10 border-cyan-500/30"}`}>
+              {primaryMeta?.icon || <Home className="w-4 h-4" />}
             </div>
             <div>
-              <div className="text-base font-medium text-slate-100">{primary.name}</div>
+              <div className="text-base font-medium text-slate-100 flex items-center gap-2">
+                {primary.name}
+                <span className="text-[10px] uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                  Primary
+                </span>
+              </div>
               <div className="text-xs text-slate-500">
-                {ROLE_LABELS[primary.room_role || 'primary'] || primary.room_role || 'Кімната'}
+                {primaryMeta?.label || primary.room_role || 'Main Room'}
               </div>
             </div>
           </div>
           <Link
             href={`/city/${primary.slug}`}
-            className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+            className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors px-3 py-1.5 rounded-lg hover:bg-cyan-950/30 border border-transparent hover:border-cyan-500/20"
           >
             Відкрити окремо →
           </Link>
@@ -99,45 +142,49 @@ export function MicrodaoRoomsSection({
 
       {/* Other rooms */}
       {others.length > 0 && (
-        <div className="space-y-3">
-          <div className="text-sm text-slate-400 font-medium">Інші кімнати</div>
+        <div className="space-y-3 pt-2">
+          <div className="text-sm text-slate-400 font-medium px-1">Інші кімнати</div>
           <div className="grid gap-3 md:grid-cols-2">
-            {others.map(room => (
-              <div
-                key={room.id}
-                className="bg-slate-900/50 border border-slate-700/30 rounded-xl p-4 space-y-3"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <div className={`p-1.5 rounded-lg border ${ROLE_COLORS[room.room_role || ''] || 'text-slate-400 bg-slate-500/10 border-slate-500/30'}`}>
-                      {ROLE_ICONS[room.room_role || ''] || <Hash className="w-3.5 h-3.5" />}
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-slate-200">{room.name}</div>
-                      <div className="text-xs text-slate-500">
-                        {ROLE_LABELS[room.room_role || ''] || room.room_role || 'Кімната'}
+            {others.map(room => {
+              const meta = room.room_role ? ROLE_META[room.room_role] : undefined;
+              return (
+                <div
+                  key={room.id}
+                  className="bg-slate-900/50 border border-slate-700/30 rounded-xl p-4 space-y-3 hover:border-slate-600/50 transition-colors"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-1.5 rounded-lg border ${meta ? meta.chipClass : "text-slate-400 bg-slate-700/30 border-slate-700/50"}`}>
+                        {meta?.icon || <Hash className="w-3.5 h-3.5" />}
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-slate-200">{room.name}</div>
+                        {meta && (
+                          <div className="text-[11px] text-slate-500">
+                            {meta.label}
+                          </div>
+                        )}
                       </div>
                     </div>
+                    <Link
+                      href={`/city/${room.slug}`}
+                      className="text-xs text-slate-400 hover:text-cyan-400 transition-colors px-2 py-1"
+                    >
+                      Увійти →
+                    </Link>
                   </div>
-                  <Link
-                    href={`/city/${room.slug}`}
-                    className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
-                  >
-                    Відкрити →
-                  </Link>
+                  
+                  {showAllChats && (
+                    <div className="mt-2">
+                      <CityChatWidget roomSlug={room.slug} compact />
+                    </div>
+                  )}
                 </div>
-                
-                {showAllChats && (
-                  <div className="mt-2">
-                    <CityChatWidget roomSlug={room.slug} />
-                  </div>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
     </section>
   );
 }
-

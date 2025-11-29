@@ -128,6 +128,32 @@ export default function NodeCabinetPage() {
                 guardian={nodeProfile?.guardian_agent}
                 steward={nodeProfile?.steward_agent}
               />
+
+              {/* MicroDAO Presence */}
+              {nodeProfile?.microdaos && nodeProfile.microdaos.length > 0 && (
+                <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6">
+                  <h2 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+                    <Activity className="w-5 h-5 text-cyan-400" />
+                    MicroDAO Presence
+                  </h2>
+                  <ul className="space-y-2">
+                    {nodeProfile.microdaos.map((dao) => (
+                      <li key={dao.id} className="flex items-center justify-between bg-slate-900/30 rounded-lg p-3">
+                        <Link 
+                          href={`/microdao/${dao.slug}`} 
+                          className="text-sm font-medium text-slate-200 hover:text-cyan-400 transition-colors"
+                        >
+                          {dao.name}
+                        </Link>
+                        <span className="text-xs text-slate-500 bg-slate-800/50 px-2 py-1 rounded">
+                          {dao.rooms_count} rooms
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <NodeStandardComplianceCard node={dashboard.node} />
               <MatrixCard matrix={dashboard.matrix} />
               <ModulesCard modules={dashboard.node.modules} />
@@ -259,6 +285,31 @@ export default function NodeCabinetPage() {
           />
         </div>
 
+        {/* MicroDAO Presence */}
+        {nodeProfile?.microdaos && nodeProfile.microdaos.length > 0 && (
+          <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 mb-6">
+            <h2 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-cyan-400" />
+              MicroDAO Presence
+            </h2>
+            <ul className="space-y-2">
+              {nodeProfile.microdaos.map((dao) => (
+                <li key={dao.id} className="flex items-center justify-between bg-slate-900/30 rounded-lg p-3">
+                  <Link 
+                    href={`/microdao/${dao.slug}`} 
+                    className="text-sm font-medium text-slate-200 hover:text-cyan-400 transition-colors"
+                  >
+                    {dao.name}
+                  </Link>
+                  <span className="text-xs text-slate-500 bg-slate-800/50 px-2 py-1 rounded">
+                    {dao.rooms_count} rooms
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* Notice for non-NODE1 */}
         <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 mb-6">
           <p className="text-amber-400 text-sm">
@@ -280,4 +331,3 @@ export default function NodeCabinetPage() {
     </div>
   );
 }
-

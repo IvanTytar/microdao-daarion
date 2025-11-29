@@ -208,6 +208,14 @@ class NodeAgentSummary(BaseModel):
     slug: Optional[str] = None
 
 
+class NodeMicrodaoSummary(BaseModel):
+    """Summary of a MicroDAO hosted on a node (via orchestrator)"""
+    id: str
+    slug: str
+    name: str
+    rooms_count: int = 0
+
+
 class NodeProfile(BaseModel):
     """Node profile for Node Directory"""
     node_id: str
@@ -224,6 +232,7 @@ class NodeProfile(BaseModel):
     steward_agent_id: Optional[str] = None
     guardian_agent: Optional[NodeAgentSummary] = None
     steward_agent: Optional[NodeAgentSummary] = None
+    microdaos: List[NodeMicrodaoSummary] = []
 
 
 class ModelBindings(BaseModel):
@@ -302,6 +311,12 @@ class PublicCitizenSummary(BaseModel):
     status: Optional[str] = None  # backward compatibility
     # Home node info
     home_node: Optional[HomeNodeView] = None
+    node_id: Optional[str] = None
+
+    # TASK 037A: Alignment
+    home_microdao_slug: Optional[str] = None
+    home_microdao_name: Optional[str] = None
+    primary_city_room: Optional["CityRoomSummary"] = None
 
 
 class PublicCitizenProfile(BaseModel):

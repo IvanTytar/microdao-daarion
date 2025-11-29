@@ -268,7 +268,18 @@ export default function CitizenProfilePage() {
 
         {/* DAIS Public Passport */}
         <section className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-          <h2 className="text-white font-semibold">DAIS Public Passport</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-white font-semibold">DAIS Public Passport</h2>
+            {citizen.microdao && (
+              <Link
+                href={`/microdao/${citizen.microdao.slug}`}
+                className="inline-flex items-center gap-1.5 text-xs text-cyan-300 hover:text-cyan-200 transition-colors"
+              >
+                <Building2 className="w-3.5 h-3.5" />
+                {citizen.microdao.name}
+              </Link>
+            )}
+          </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="bg-white/5 rounded-xl p-4 border border-white/10">
               <p className="text-xs uppercase text-white/40">Identity</p>

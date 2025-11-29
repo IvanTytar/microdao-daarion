@@ -5,6 +5,13 @@ export interface NodeAgentSummary {
   slug?: string;
 }
 
+export interface NodeMicrodaoSummary {
+  id: string;
+  slug: string;
+  name: string;
+  rooms_count: number;
+}
+
 export interface NodeProfile {
   node_id: string;
   name: string;
@@ -20,6 +27,7 @@ export interface NodeProfile {
   steward_agent_id?: string | null;
   guardian_agent?: NodeAgentSummary | null;
   steward_agent?: NodeAgentSummary | null;
+  microdaos?: NodeMicrodaoSummary[];
 }
 
 export interface NodeListResponse {

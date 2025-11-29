@@ -941,7 +941,10 @@ async def get_public_citizens(
         "a.public_slug IS NOT NULL", 
         "COALESCE(a.is_archived, false) = false",
         "COALESCE(a.is_test, false) = false",
-        "a.deleted_at IS NULL"
+        "a.deleted_at IS NULL",
+        # TASK 037A: Stricter filtering for Citizens Layer
+        "a.node_id IS NOT NULL",
+        "EXISTS (SELECT 1 FROM microdao_agents ma WHERE ma.agent_id = a.id)"
     ]
     
     if district:
@@ -978,9 +981,28 @@ async def get_public_citizens(
             nc.hostname AS home_node_hostname,
             nc.roles AS home_node_roles,
             nc.environment AS home_node_environment,
+            -- MicroDAO info
+            m.slug AS home_microdao_slug,
+            m.name AS home_microdao_name,
+            -- Room info
+            cr.id AS room_id,
+            cr.slug AS room_slug,
+            cr.name AS room_name,
+            cr.matrix_room_id AS room_matrix_id,
             COUNT(*) OVER() AS total_count
         FROM agents a
         LEFT JOIN node_cache nc ON a.node_id = nc.node_id
+        -- Join primary MicroDAO
+        LEFT JOIN LATERAL (
+            SELECT ma.agent_id, md.slug, md.name
+            FROM microdao_agents ma
+            JOIN microdaos md ON ma.microdao_id = md.id
+            WHERE ma.agent_id = a.id
+            ORDER BY ma.is_core DESC, md.name
+            LIMIT 1
+        ) m ON true
+        -- Join primary room (by public_primary_room_slug)
+        LEFT JOIN city_rooms cr ON cr.slug = a.public_primary_room_slug
         WHERE {where_sql}
         ORDER BY a.display_name
         LIMIT ${len(params) + 1} OFFSET ${len(params) + 2}
@@ -1011,8 +1033,21 @@ async def get_public_citizens(
             }
         else:
             data["home_node"] = None
+            
+        # Build primary_city_room object
+        if data.get("room_id"):
+            data["primary_city_room"] = {
+                "id": str(data["room_id"]),
+                "slug": data["room_slug"],
+                "name": data["room_name"],
+                "matrix_room_id": data.get("room_matrix_id")
+            }
+        else:
+            data["primary_city_room"] = None
+
         # Clean up intermediate fields
-        for key in ["home_node_name", "home_node_hostname", "home_node_roles", "home_node_environment"]:
+        for key in ["home_node_name", "home_node_hostname", "home_node_roles", "home_node_environment", 
+                    "room_id", "room_slug", "room_name", "room_matrix_id"]:
             data.pop(key, None)
         items.append(data)
     
@@ -1595,6 +1630,19 @@ async def get_node_by_id(node_id: str) -> Optional[dict]:
     
     data = dict(row)
     
+    # Fetch MicroDAOs where orchestrator is on this node
+    microdaos = await pool.fetch("""
+        SELECT m.id, m.slug, m.name, COUNT(cr.id) as rooms_count
+        FROM microdaos m
+        JOIN agents a ON m.orchestrator_agent_id = a.id
+        LEFT JOIN city_rooms cr ON cr.microdao_id = m.id
+        WHERE a.node_id = $1
+        GROUP BY m.id, m.slug, m.name
+        ORDER BY m.name
+    """, node_id)
+    
+    data["microdaos"] = [dict(m) for m in microdaos]
+    
     # Build guardian_agent object
     if data.get("guardian_agent_id"):
         data["guardian_agent"] = {
@@ -1616,7 +1664,7 @@ async def get_node_by_id(node_id: str) -> Optional[dict]:
         }
     else:
         data["steward_agent"] = None
-    
+        
     # Clean up intermediate fields
     for key in ["guardian_name", "guardian_kind", "guardian_slug", 
                 "steward_name", "steward_kind", "steward_slug"]:
